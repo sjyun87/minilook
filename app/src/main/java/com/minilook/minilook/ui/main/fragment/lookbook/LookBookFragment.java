@@ -1,17 +1,11 @@
 package com.minilook.minilook.ui.main.fragment.lookbook;
 
-import android.view.MotionEvent;
-import android.view.View;
-
 import androidx.viewpager2.widget.ViewPager2;
-
+import butterknife.BindView;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseFragment;
 import com.minilook.minilook.ui.main.fragment.lookbook.adapter.LookBookPagerAdapter;
 import com.minilook.minilook.ui.main.fragment.lookbook.di.LookBookArguments;
-
-import butterknife.BindView;
-import timber.log.Timber;
 
 public class LookBookFragment extends BaseFragment implements LookBookPresenter.View {
 
