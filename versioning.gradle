@@ -1,0 +1,71 @@
+ext {
+
+  // Versioning
+  versionMajor = 1
+  versionMinor = 0
+  versionPatch = 0
+
+  // Android
+  compile_sdk_version = 29
+  application_id = 'com.minilook.minilook'
+  min_sdk_version = 23
+  target_sdk_version = 29
+
+  // test
+  junit_version = '4.12'
+  runner_version = '1.1.1'
+  espresso_version = '3.1.1'
+
+  // AndroidX
+  appcompat_version = '1.1.0'
+  constraint_version = '1.1.3'
+
+  // RxJava & RxAndroid
+  rxjava_version = '3.0.4'
+  rxandroid_version = '3.0.0'
+
+  // Butter Knife
+  butterknife_version = '10.2.1'
+
+  // Lombok
+  lombok_version = '1.18.12'
+
+  // ViewPager2
+  viewpager2_version = '1.0.0'
+
+  // Glide
+  glide_version = '4.11.0'
+  glide_trans_version = '4.1.0'
+
+  // CardView
+  cardview_version = '28.0.0'
+
+  // YoYo Animation
+  daimajia_easing_version = '2.1@aar'
+  daimajia_androidanimations_version = '2.3@aar'
+
+  // FlowLayout
+  flowlayout_version = '1.3.0'
+
+  // Indicator
+  indicator_version = '2.1.4'
+
+  // Divider
+  divider_version = '3.3.0'
+
+  // Timber
+  timber_version = '4.7.1'
+
+  // Gson
+  gson_version = '2.8.6'
+
+  // Room
+  room_version = '2.2.5'
+  room_debug_version = '1.0.6'
+
+  // Retrofit
+  retrofit_version = '2.9.0'
+
+  // StatusBar Util
+  statusbar_version = '1.5.1'
+}

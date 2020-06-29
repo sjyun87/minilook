@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.promotion.PromotionActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/dp_30">
+
+            <ImageView
+                android:id="@+id/img_bg"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintDimensionRatio="H,180:250"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/bg_gradient"
+                app:layout_constraintBottom_toBottomOf="@+id/img_bg"
+                app:layout_constraintLeft_toLeftOf="@+id/img_bg"
+                app:layout_constraintRight_toRightOf="@+id/img_bg"
+                app:layout_constraintTop_toTopOf="@+id/img_bg" />
+
+            <ImageView
+                android:id="@+id/img_scrap"
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_4"
+                android:src="@drawable/img_brand_scrap_on"
+                app:layout_constraintBottom_toTopOf="@+id/txt_desc"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_product_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_4"
+                android:ellipsize="end"
+                android:fontFamily="@font/nanum_square_round"
+                android:maxLines="1"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textSize="@dimen/sp_12"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/img_scrap"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/img_scrap"
+                app:layout_constraintTop_toTopOf="@+id/img_scrap"
+                tools:text="미니룩" />
+
+            <TextView
+                android:id="@+id/txt_desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:fontFamily="@font/nanum_square_round"
+                android:lineSpacingExtra="@dimen/sp_4"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textSize="@dimen/sp_7"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toTopOf="@+id/txt_more"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                tools:text="클래식하고 빈티지한 감성에 유니크하고 아티스틱한 요소를 더해 어린 아이들의 발랄함을 밝고 경쾌하게 표현하는 새로운 스타일의 아동복 브랜드입니다." />
+
+            <TextView
+                android:id="@+id/txt_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:fontFamily="@font/nanum_square_round"
+                android:padding="@dimen/dp_10"
+                android:text="@string/brand_more"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textSize="@dimen/sp_7"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/img_bg"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/layout_store_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/img_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:fontFamily="@font/nanum_square_round"
+                    android:text="@string/brand_cs_date"
+                    android:textColor="@color/color_FF000000"
+                    android:textSize="@dimen/sp_7"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_cs_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:fontFamily="@font/nanum_square_round"
+                    android:textColor="@color/color_FF000000"
+                    android:textSize="@dimen/sp_7"
+                    android:textStyle="normal"
+                    tools:text="각종: 10:00 AM ~ 6:00 PM, 주말/공휴일 휴무" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:fontFamily="@font/nanum_square_round"
+                    android:text="@string/brand_cs_tel"
+                    android:textColor="@color/color_FF000000"
+                    android:textSize="@dimen/sp_7"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_cs_tel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:fontFamily="@font/nanum_square_round"
+                    android:textColor="@color/color_FF000000"
+                    android:textSize="@dimen/sp_7"
+                    android:textStyle="normal"
+                    tools:text="1577-0000" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:fontFamily="@font/nanum_square_round"
+                    android:text="@string/brand_cs_email"
+                    android:textColor="@color/color_FF000000"
+                    android:textSize="@dimen/sp_7"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_cs_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:fontFamily="@font/nanum_square_round"
+                    android:textColor="@color/color_FF000000"
+                    android:textSize="@dimen/sp_7"
+                    android:textStyle="normal"
+                    tools:text="카톡아이디) @minilook" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:fontFamily="@font/nanum_square_round"
+                    android:text="@string/brand_cs_address"
+                    android:textColor="@color/color_FF000000"
+                    android:textSize="@dimen/sp_7"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_cs_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:fontFamily="@font/nanum_square_round"
+                    android:textColor="@color/color_FF000000"
+                    android:textSize="@dimen/sp_7"
+                    android:textStyle="normal"
+                    tools:text="(012345) 서울시 관악구 신림동" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.minilook.minilook.ui.base.widget.TitleBar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:showBack="true" />
+</androidx.constraintlayout.widget.ConstraintLayout>

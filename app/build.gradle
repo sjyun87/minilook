@@ -1,0 +1,116 @@
+apply plugin: 'com.android.application'
+
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
+android {
+  compileSdkVersion compile_sdk_version
+  defaultConfig {
+    applicationId application_id
+    minSdkVersion min_sdk_version
+    targetSdkVersion target_sdk_version
+    versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
+    versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+  signingConfigs {
+    release {
+      storePassword keystoreProperties['storePassword']
+      keyPassword keystoreProperties['keyPassword']
+      keyAlias keystoreProperties['keyAlias']
+      storeFile file(keystoreProperties['storeFile'])
+    }
+  }
+  buildTypes {
+    release {
+      signingConfig signingConfigs.release
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      android.applicationVariants.all { variant ->
+        variant.outputs.all {
+          def formattedDate = new Date().format('yyyyMMddHHmmss')
+          def appName = "minilook"
+          outputFileName =
+              "${appName}-${variant.name}-${variant.versionCode}-${variant.versionName}-${formattedDate}.apk"
+        }
+      }
+    }
+    debug {
+      versionNameSuffix ".debug"
+    }
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+}
+
+dependencies {
+  implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+  // Test
+  implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+  testImplementation "junit:junit:$junit_version"
+  androidTestImplementation "com.android.support.test:runner:$runner_version"
+  androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_version"
+
+  // AndroidX
+  implementation "androidx.appcompat:appcompat:$appcompat_version"
+  implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
+
+  // RxJava & RxAndroid
+  implementation "io.reactivex.rxjava3:rxjava:$rxjava_version"
+  implementation "io.reactivex.rxjava3:rxandroid:$rxandroid_version"
+
+  // Butter Knife
+  implementation "com.jakewharton:butterknife:$butterknife_version"
+  annotationProcessor "com.jakewharton:butterknife-compiler:$butterknife_version"
+
+  // Lombok
+  compileOnly "org.projectlombok:lombok:$lombok_version"
+  annotationProcessor "org.projectlombok:lombok:$lombok_version"
+
+  // ViewPager2
+  implementation "androidx.viewpager2:viewpager2:$viewpager2_version"
+
+  // CardView
+  implementation "com.android.support:cardview-v7:$cardview_version"
+
+  // Glide
+  implementation "com.github.bumptech.glide:glide:$glide_version"
+  annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+  implementation "jp.wasabeef:glide-transformations:$glide_trans_version"
+
+  // YoYo Animation
+  implementation "com.daimajia.easing:library:$daimajia_easing_version"
+  implementation "com.daimajia.androidanimations:library:$daimajia_androidanimations_version"
+
+  // FlowLayout
+  implementation "com.nex3z:flow-layout:$flowlayout_version"
+
+  // Indicator
+  implementation "me.relex:circleindicator:$indicator_version"
+
+  // Divider
+  implementation "com.github.fondesa:recycler-view-divider:$divider_version"
+
+  // Timber
+  implementation "com.jakewharton.timber:timber:$timber_version"
+
+  // Gson
+  implementation "com.google.code.gson:gson:$gson_version"
+
+  // Room
+  implementation "androidx.room:room-runtime:$room_version"
+  annotationProcessor "androidx.room:room-compiler:$room_version"
+  debugImplementation "com.amitshekhar.android:debug-db:$room_debug_version"
+
+  // Retrofit
+  implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+  implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+  implementation "com.squareup.retrofit2:adapter-rxjava3:$retrofit_version"
+
+  // StatusBar Util
+  implementation "com.jaeger.statusbarutil:library:$statusbar_version"
+}
