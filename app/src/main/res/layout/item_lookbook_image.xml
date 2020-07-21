@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/img_lookbook"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scaleType="centerCrop" />
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/img_lookbook"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:id="@+id/layout_content_panel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_24"
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_marginBottom="@dimen/dp_46"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txt_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_regular"
+            android:text="2020 SUMMER"
+            android:textColor="@color/color_FF232323"
+            android:textSize="@dimen/sp_6" />
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_3"
+            android:fontFamily="@font/notosans_medium"
+            android:letterSpacing="-0.06"
+            android:lineSpacingExtra="4sp"
+            android:text="여름철 무더위도 견딜\n시원한 스포티룩 세뚜세뚜!"
+            android:textColor="@color/color_FF232323"
+            android:textSize="@dimen/sp_12" />
+    </LinearLayout>
+</FrameLayout>

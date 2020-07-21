@@ -39,12 +39,17 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
     }
 
     private void reqLookBookModules() {
-        page = new AtomicInteger(0);
-        addDisposable(
-            lookBookRequest.getLookbookModules(page.get())
-                .compose(Transformer.applySchedulers())
-                .subscribe(this::resLookBookModules, Timber::e)
-        );
+        LookBookModuleDataModel model =  new LookBookModuleDataModel();
+        model.setModule_type(0);
+        adapter.add(model);
+        view.refresh();
+
+        //page = new AtomicInteger(0);
+        //addDisposable(
+        //    lookBookRequest.getLookbookModules(page.get())
+        //        .compose(Transformer.applySchedulers())
+        //        .subscribe(this::resLookBookModules, Timber::e)
+        //);
     }
 
     private void resLookBookModules(LookBookDataModel data) {

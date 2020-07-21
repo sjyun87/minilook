@@ -5,5 +5,5 @@ import java.util.List;
 import lombok.Data;
 
 @Data public class LookBookDataModel {
-    private List<LookBookModuleDataModel> modules;
+    private List<LookBookModuleDataModel> datas;
 }
