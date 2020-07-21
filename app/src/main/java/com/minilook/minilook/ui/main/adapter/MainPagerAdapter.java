@@ -4,11 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-
-import com.minilook.minilook.ui.main.fragment.category.CategoryFragment;
+import com.minilook.minilook.ui.main.fragment.category.PreorderFragment;
+import com.minilook.minilook.ui.main.fragment.ipage.IpageFragment;
 import com.minilook.minilook.ui.main.fragment.lookbook.LookBookFragment;
 import com.minilook.minilook.ui.main.fragment.market.MarketFragment;
-import com.minilook.minilook.ui.main.fragment.scrapbook.ScrapBookFragment;
 
 public class MainPagerAdapter extends FragmentStateAdapter {
 
@@ -22,11 +21,12 @@ public class MainPagerAdapter extends FragmentStateAdapter {
             case 0:
                 return LookBookFragment.newInstance();
             case 1:
-                return MarketFragment.newInstance();
+                return PreorderFragment.newInstance();
             case 2:
-                return CategoryFragment.newInstance();
+
+                return MarketFragment.newInstance();
             case 3:
-                return ScrapBookFragment.newInstance();
+                return IpageFragment.newInstance();
         }
     }
 
