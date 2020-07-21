@@ -9,9 +9,9 @@
 
     <!--Bottom Bar-->
     <string name="bottombar_lookbook">룩북</string>
+    <string name="bottombar_preorder">프리오더</string>
     <string name="bottombar_market">마켓</string>
-    <string name="bottombar_category">카테고리</string>
-    <string name="bottombar_scrapbook">스크랩북</string>
+    <string name="bottombar_ipage">아이페이지</string>
 
     <!--LookBook-->
     <string name="lookbook">lookbook</string>

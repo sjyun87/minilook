@@ -8,50 +8,49 @@ import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-
-import com.minilook.minilook.R;
-
 import butterknife.BindColor;
 import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.minilook.minilook.R;
 import lombok.Setter;
 
 public class BottomBar extends LinearLayout {
     private static final int POSITION_LOOKBOOK = 0;
-    private static final int POSITION_MARKET = 1;
-    private static final int POSITION_CATEGORY = 2;
-    private static final int POSITION_SCRAPBOOK = 3;
+    private static final int POSITION_PREORDER = 1;
+    private static final int POSITION_MARKET = 2;
+    private static final int POSITION_IPAGE = 3;
 
     @BindView(R.id.img_bottombar_lookbook) ImageView lookbookImageView;
     @BindView(R.id.txt_bottombar_lookbook) TextView lookbookTextView;
+    @BindView(R.id.img_bottombar_preorder) ImageView preorderImageView;
+    @BindView(R.id.txt_bottombar_preorder) TextView preorderTextView;
     @BindView(R.id.img_bottombar_market) ImageView marketImageView;
     @BindView(R.id.txt_bottombar_market) TextView marketTextView;
-    @BindView(R.id.img_bottombar_category) ImageView categoryImageView;
-    @BindView(R.id.txt_bottombar_category) TextView categoryTextView;
-    @BindView(R.id.img_bottombar_scrapbook) ImageView scrapbookImageView;
-    @BindView(R.id.txt_bottombar_scrapbook) TextView scrapbookTextView;
+    @BindView(R.id.img_bottombar_ipage) ImageView ipageImageView;
+    @BindView(R.id.txt_bottombar_ipage) TextView ipageTextView;
 
     @BindColor(R.color.color_FFFFFFFF) int FFFFFFFF;
     @BindColor(R.color.color_FFA9A9A9) int FFA9A9A9;
-    @BindColor(R.color.color_FF835AFF) int FF835AFF;
+    @BindColor(R.color.color_FF8140E5) int FF8140E5;
 
     @BindDrawable(R.drawable.bg_bottombar_white) Drawable whiteTheme;
     @BindDrawable(R.drawable.bg_bottombar_dark) Drawable darkTheme;
 
-    @BindDrawable(R.drawable.ic_lookbook_on) Drawable lookbookOn;
-    @BindDrawable(R.drawable.ic_lookbook_off) Drawable lookbookOff;
-    @BindDrawable(R.drawable.ic_market_on) Drawable marketOn;
-    @BindDrawable(R.drawable.ic_market_off) Drawable marketOff;
-    @BindDrawable(R.drawable.ic_category_on) Drawable categoryOn;
-    @BindDrawable(R.drawable.ic_category_off) Drawable categoryOff;
-    @BindDrawable(R.drawable.ic_scrapbook_on) Drawable scrapbookOn;
-    @BindDrawable(R.drawable.ic_scrapbook_off) Drawable scrapbookOff;
+    @BindDrawable(R.drawable.ic_lookbook_white) Drawable lookbookWhite;
+    @BindDrawable(R.drawable.ic_lookbook_gray) Drawable lookbookGray;
+    @BindDrawable(R.drawable.ic_preorder_purple) Drawable preorderPurple;
+    @BindDrawable(R.drawable.ic_preorder_white) Drawable preorderWhite;
+    @BindDrawable(R.drawable.ic_preorder_gray) Drawable preorderGray;
+    @BindDrawable(R.drawable.ic_market_purple) Drawable marketPurple;
+    @BindDrawable(R.drawable.ic_market_white) Drawable marketWhite;
+    @BindDrawable(R.drawable.ic_market_gray) Drawable marketGray;
+    @BindDrawable(R.drawable.ic_ipage_purple) Drawable ipagePurple;
+    @BindDrawable(R.drawable.ic_ipage_white) Drawable ipageWhite;
+    @BindDrawable(R.drawable.ic_ipage_gray) Drawable ipageGray;
 
     private int position = POSITION_LOOKBOOK;
     private boolean isWhiteTheme;
@@ -101,47 +100,47 @@ public class BottomBar extends LinearLayout {
 
         switch (position) {
             case POSITION_LOOKBOOK:
-                lookbookImageView.setImageDrawable(lookbookOn);
-                marketImageView.setImageDrawable(marketOff);
-                categoryImageView.setImageDrawable(categoryOff);
-                scrapbookImageView.setImageDrawable(scrapbookOff);
+                lookbookImageView.setImageDrawable(lookbookWhite);
+                preorderImageView.setImageDrawable(preorderWhite);
+                marketImageView.setImageDrawable(marketWhite);
+                ipageImageView.setImageDrawable(ipageWhite);
                 lookbookTextView.setTextColor(FFFFFFFF);
+                preorderTextView.setTextColor(FFFFFFFF);
+                marketTextView.setTextColor(FFFFFFFF);
+                ipageTextView.setTextColor(FFFFFFFF);
+                break;
+
+            case POSITION_PREORDER:
+                lookbookImageView.setImageDrawable(lookbookGray);
+                preorderImageView.setImageDrawable(preorderPurple);
+                marketImageView.setImageDrawable(marketGray);
+                ipageImageView.setImageDrawable(ipageGray);
+                lookbookTextView.setTextColor(FFA9A9A9);
+                preorderTextView.setTextColor(FF8140E5);
                 marketTextView.setTextColor(FFA9A9A9);
-                categoryTextView.setTextColor(FFA9A9A9);
-                scrapbookTextView.setTextColor(FFA9A9A9);
+                ipageTextView.setTextColor(FFA9A9A9);
                 break;
 
             case POSITION_MARKET:
-                lookbookImageView.setImageDrawable(lookbookOff);
-                marketImageView.setImageDrawable(marketOn);
-                categoryImageView.setImageDrawable(categoryOff);
-                scrapbookImageView.setImageDrawable(scrapbookOff);
+                lookbookImageView.setImageDrawable(lookbookGray);
+                preorderImageView.setImageDrawable(preorderGray);
+                marketImageView.setImageDrawable(marketPurple);
+                ipageImageView.setImageDrawable(ipageGray);
                 lookbookTextView.setTextColor(FFA9A9A9);
-                marketTextView.setTextColor(FF835AFF);
-                categoryTextView.setTextColor(FFA9A9A9);
-                scrapbookTextView.setTextColor(FFA9A9A9);
+                preorderTextView.setTextColor(FFA9A9A9);
+                marketTextView.setTextColor(FF8140E5);
+                ipageTextView.setTextColor(FFA9A9A9);
                 break;
 
-            case POSITION_CATEGORY:
-                lookbookImageView.setImageDrawable(lookbookOff);
-                marketImageView.setImageDrawable(marketOff);
-                categoryImageView.setImageDrawable(categoryOn);
-                scrapbookImageView.setImageDrawable(scrapbookOff);
+            case POSITION_IPAGE:
+                lookbookImageView.setImageDrawable(lookbookGray);
+                preorderImageView.setImageDrawable(preorderGray);
+                marketImageView.setImageDrawable(marketGray);
+                ipageImageView.setImageDrawable(ipagePurple);
                 lookbookTextView.setTextColor(FFA9A9A9);
+                preorderTextView.setTextColor(FFA9A9A9);
                 marketTextView.setTextColor(FFA9A9A9);
-                categoryTextView.setTextColor(FF835AFF);
-                scrapbookTextView.setTextColor(FFA9A9A9);
-                break;
-
-            case POSITION_SCRAPBOOK:
-                lookbookImageView.setImageDrawable(lookbookOff);
-                marketImageView.setImageDrawable(marketOff);
-                categoryImageView.setImageDrawable(categoryOff);
-                scrapbookImageView.setImageDrawable(scrapbookOn);
-                lookbookTextView.setTextColor(FFA9A9A9);
-                marketTextView.setTextColor(FFA9A9A9);
-                categoryTextView.setTextColor(FFA9A9A9);
-                scrapbookTextView.setTextColor(FF835AFF);
+                ipageTextView.setTextColor(FF8140E5);
                 break;
         }
     }
@@ -154,6 +153,14 @@ public class BottomBar extends LinearLayout {
         if (onTabChangeListener != null) onTabChangeListener.onTabChanged(position);
     }
 
+    @OnClick(R.id.btn_bottombar_preorder)
+    void onPreorderClick() {
+        position = POSITION_PREORDER;
+        isWhiteTheme = true;
+        updateUI();
+        if (onTabChangeListener != null) onTabChangeListener.onTabChanged(position);
+    }
+
     @OnClick(R.id.btn_bottombar_market)
     void onMarketClick() {
         position = POSITION_MARKET;
@@ -162,17 +169,9 @@ public class BottomBar extends LinearLayout {
         if (onTabChangeListener != null) onTabChangeListener.onTabChanged(position);
     }
 
-    @OnClick(R.id.btn_bottombar_category)
-    void onCategoryClick() {
-        position = POSITION_CATEGORY;
-        isWhiteTheme = true;
-        updateUI();
-        if (onTabChangeListener != null) onTabChangeListener.onTabChanged(position);
-    }
-
-    @OnClick(R.id.btn_bottombar_scrapbook)
-    void onScrapBookClick() {
-        position = POSITION_SCRAPBOOK;
+    @OnClick(R.id.btn_bottombar_ipage)
+    void onIpageClick() {
+        position = POSITION_IPAGE;
         isWhiteTheme = true;
         updateUI();
         if (onTabChangeListener != null) onTabChangeListener.onTabChanged(position);

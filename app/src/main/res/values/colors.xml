@@ -6,8 +6,15 @@
 
     <color name="color_FFFFFFFF">#FFFFFFFF</color>
     <color name="color_FF000000">#FF000000</color>
+    <color name="color_4D000000">#4D000000</color>
+    <color name="color_00000000">#00000000</color>
     <color name="color_FFA9A9A9">#FFA9A9A9</color>
-    <color name="color_FF835AFF">#FF835AFF</color>
+    <color name="color_FF8140E5">#FF8140E5</color>
+    <color name="color_FFF5F6F9">#FFF5F6F9</color>
+
+
+
+
     <color name="color_80000000">#80000000</color>
     <color name="color_332A2A2A">#332A2A2A</color>
     <color name="color_4D545454">#4D545454</color>

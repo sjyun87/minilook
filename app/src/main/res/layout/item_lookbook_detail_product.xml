@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/lookbook_detail_store"
-                android:textColor="@color/color_FF835AFF"
+                android:textColor="@color/color_FF8140E5"
                 android:textSize="@dimen/sp_6"
                 android:textStyle="italic" />
 
@@ -101,7 +101,6 @@
                 android:id="@+id/img_scrap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_scrap_off"
                 app:layout_constraintRight_toRightOf="@+id/txt_product_name"
                 app:layout_constraintTop_toTopOf="@+id/img_tag_category"
                 tools:ignore="ContentDescription" />

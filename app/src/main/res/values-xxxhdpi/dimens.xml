@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--sp-->
+    <dimen name="sp_3">6sp</dimen>
     <dimen name="sp_4">8sp</dimen>
     <dimen name="sp_6">12sp</dimen>
     <dimen name="sp_7">14sp</dimen>

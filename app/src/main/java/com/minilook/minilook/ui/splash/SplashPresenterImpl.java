@@ -14,11 +14,10 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
     }
 
     @Override public void onCreate() {
-
-        //Handler handler = new Handler();
-        //handler.postDelayed(() -> {
-        //    view.navigateToMain();
-        //    view.finish();
-        //}, 3000);
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            view.navigateToMain();
+            view.finish();
+        }, 3000);
     }
 }

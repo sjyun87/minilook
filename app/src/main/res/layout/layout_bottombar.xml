@@ -19,19 +19,45 @@
             android:id="@+id/img_bottombar_lookbook"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_lookbook_off"
+            android:src="@drawable/ic_lookbook_gray"
             tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/txt_bottombar_lookbook"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_3"
-
+            android:layout_marginTop="@dimen/dp_2"
+            android:fontFamily="@font/notosans_medium"
             android:text="@string/bottombar_lookbook"
             android:textColor="@color/color_FFA9A9A9"
-            android:textSize="@dimen/sp_6"
-            android:textStyle="italic" />
+            android:textSize="@dimen/sp_6" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btn_bottombar_preorder"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/img_bottombar_preorder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_preorder_gray"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/txt_bottombar_preorder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_2"
+            android:fontFamily="@font/notosans_medium"
+            android:text="@string/bottombar_preorder"
+            android:textColor="@color/color_FFA9A9A9"
+            android:textSize="@dimen/sp_6" />
     </LinearLayout>
 
     <LinearLayout
@@ -47,23 +73,22 @@
             android:id="@+id/img_bottombar_market"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_market_off"
+            android:src="@drawable/ic_market_gray"
             tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/txt_bottombar_market"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_3"
-
+            android:layout_marginTop="@dimen/dp_2"
+            android:fontFamily="@font/notosans_medium"
             android:text="@string/bottombar_market"
             android:textColor="@color/color_FFA9A9A9"
-            android:textSize="@dimen/sp_6"
-            android:textStyle="italic" />
+            android:textSize="@dimen/sp_6" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/btn_bottombar_category"
+        android:id="@+id/btn_bottombar_ipage"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -72,49 +97,20 @@
         tools:ignore="UseCompoundDrawables">
 
         <ImageView
-            android:id="@+id/img_bottombar_category"
+            android:id="@+id/img_bottombar_ipage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_category_off"
+            android:src="@drawable/ic_ipage_gray"
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/txt_bottombar_category"
+            android:id="@+id/txt_bottombar_ipage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_3"
-
-            android:text="@string/bottombar_category"
+            android:layout_marginTop="@dimen/dp_2"
+            android:fontFamily="@font/notosans_medium"
+            android:text="@string/bottombar_ipage"
             android:textColor="@color/color_FFA9A9A9"
-            android:textSize="@dimen/sp_6"
-            android:textStyle="italic" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/btn_bottombar_scrapbook"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical"
-        tools:ignore="UseCompoundDrawables">
-
-        <ImageView
-            android:id="@+id/img_bottombar_scrapbook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_scrapbook_off"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/txt_bottombar_scrapbook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_3"
-
-            android:text="@string/bottombar_scrapbook"
-            android:textColor="@color/color_FFA9A9A9"
-            android:textSize="@dimen/sp_6"
-            android:textStyle="italic" />
+            android:textSize="@dimen/sp_6" />
     </LinearLayout>
 </merge>

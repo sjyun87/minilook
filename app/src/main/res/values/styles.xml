@@ -3,7 +3,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/color_FFFFFFFF</item>
         <item name="colorPrimaryDark">@color/color_FFFFFFFF</item>
-        <item name="colorAccent">@color/color_FF835AFF</item>
+        <item name="colorAccent">@color/color_FF8140E5</item>
 
         <item name="android:overScrollMode">never</item>
         <item name="windowActionBar">false</item>
@@ -15,6 +15,6 @@
     </style>
 
     <style name="DialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog">
-        <item name="colorAccent">@color/color_FF835AFF</item>
+        <item name="colorAccent">@color/color_FF8140E5</item>
     </style>
 </resources>
