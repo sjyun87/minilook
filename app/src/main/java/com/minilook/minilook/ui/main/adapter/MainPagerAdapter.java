@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-import com.minilook.minilook.ui.main.fragment.category.PreorderFragment;
+import com.minilook.minilook.ui.main.fragment.preorder.PreorderFragment;
 import com.minilook.minilook.ui.main.fragment.ipage.IpageFragment;
 import com.minilook.minilook.ui.main.fragment.lookbook.LookBookFragment;
 import com.minilook.minilook.ui.main.fragment.market.MarketFragment;

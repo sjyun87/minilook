@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.main.fragment.category;
+package com.minilook.minilook.ui.main.fragment.preorder;
 
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
