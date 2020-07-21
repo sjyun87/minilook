@@ -21,6 +21,7 @@
     <dimen name="dp_9">18dp</dimen>
     <dimen name="dp_10">20dp</dimen>
     <dimen name="dp_12">24dp</dimen>
+    <dimen name="dp_14">28dp</dimen>
     <dimen name="dp_15">30dp</dimen>
     <dimen name="dp_18">36dp</dimen>
     <dimen name="dp_20">40dp</dimen>
@@ -29,4 +30,6 @@
     <dimen name="dp_30">60dp</dimen>
     <dimen name="dp_40">80dp</dimen>
     <dimen name="dp_60">120dp</dimen>
+    <dimen name="dp_74">148dp</dimen>
+    <dimen name="dp_80">160dp</dimen>
 </resources>

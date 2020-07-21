@@ -37,6 +37,9 @@ ext {
   glide_version = '4.11.0'
   glide_trans_version = '4.1.0'
 
+  // Lottie Animation
+  lottie_version = '3.4.1'
+
   // CardView
   cardview_version = '28.0.0'
 

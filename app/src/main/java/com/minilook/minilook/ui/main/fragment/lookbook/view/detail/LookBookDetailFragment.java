@@ -1,18 +1,12 @@
 package com.minilook.minilook.ui.main.fragment.lookbook.view.detail;
 
 import android.annotation.SuppressLint;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.TextView;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.widget.NestedScrollView;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
-
+import butterknife.BindView;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
@@ -21,9 +15,6 @@ import com.minilook.minilook.ui.base.BaseFragment;
 import com.minilook.minilook.ui.main.fragment.lookbook.view.detail.adapter.LookBookImageAdapter;
 import com.minilook.minilook.ui.main.fragment.lookbook.view.detail.adapter.LookBookProductAdapter;
 import com.minilook.minilook.ui.main.fragment.lookbook.view.detail.di.LookBookDetailArguments;
-import com.minilook.minilook.ui.main.fragment.market.viewholder.promotion.adapter.MarketPromotionAdapter;
-
-import butterknife.BindView;
 import me.relex.circleindicator.CircleIndicator3;
 import timber.log.Timber;
 
@@ -68,13 +59,21 @@ public class LookBookDetailFragment extends BaseFragment implements LookBookDeta
         thumbViewPager.setPageTransformer(
             new MarginPageTransformer(getResources().getDimensionPixelOffset(R.dimen.dp_3)));
         ((RecyclerView) thumbViewPager.getChildAt(0)).setClipToPadding(false);
-        thumbViewPager.getChildAt(0)
-            .setPadding(0, 0, getResources().getDimensionPixelSize(R.dimen.dp_8), 0);
+        thumbViewPager.getChildAt(0).setPadding(0, 0, getResources().getDimensionPixelSize(R.dimen.dp_8), 0);
         indicator.setViewPager(thumbViewPager);
         imageAdapter.registerAdapterDataObserver(indicator.getAdapterDataObserver());
         thumbViewPager.getChildAt(0).setOnTouchListener((v, event) -> {
             v.getParent().requestDisallowInterceptTouchEvent(true);
             return false;
+        });
+
+        thumbViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if (position == imageAdapter.getItemCount() - 1) {
+                    //thumbViewPager.scrollTo(-getResources().getDimensionPixelSize(R.dimen.dp_8), 0);
+                }
+                Timber.e(position + " / " + positionOffset + " / " + positionOffsetPixels);
+            }
         });
     }
 

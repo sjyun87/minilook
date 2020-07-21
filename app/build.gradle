@@ -82,6 +82,9 @@ dependencies {
   annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
   implementation "jp.wasabeef:glide-transformations:$glide_trans_version"
 
+  // Lottie Animation
+  implementation "com.airbnb.android:lottie:$lottie_version"
+
   // YoYo Animation
   implementation "com.daimajia.easing:library:$daimajia_easing_version"
   implementation "com.daimajia.androidanimations:library:$daimajia_androidanimations_version"
