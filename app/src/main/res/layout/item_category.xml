@@ -33,7 +33,6 @@
                 android:layout_marginLeft="@dimen/dp_5"
                 android:layout_marginTop="@dimen/dp_2"
                 android:layout_marginRight="@dimen/dp_5"
-                android:fontFamily="@font/nanum_square_round"
                 android:textColor="@color/color_FF000000"
                 android:textSize="@dimen/sp_8"
                 android:textStyle="normal"

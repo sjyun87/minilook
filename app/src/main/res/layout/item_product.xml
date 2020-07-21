@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/dp_3"
-        android:fontFamily="@font/nanum_square_round"
+
         android:textColor="@color/color_FFFF3C50"
         android:textSize="@dimen/sp_8"
         android:textStyle="italic"
@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_8"
-        android:fontFamily="@font/nanum_square_round"
+
         android:textColor="@color/color_FF000000"
         android:textSize="@dimen/sp_8"
         android:textStyle="italic"

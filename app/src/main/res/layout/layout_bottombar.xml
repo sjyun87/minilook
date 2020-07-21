@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_3"
-            android:fontFamily="@font/nanum_square_round"
+
             android:text="@string/bottombar_lookbook"
             android:textColor="@color/color_FFA9A9A9"
             android:textSize="@dimen/sp_6"
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_3"
-            android:fontFamily="@font/nanum_square_round"
+
             android:text="@string/bottombar_market"
             android:textColor="@color/color_FFA9A9A9"
             android:textSize="@dimen/sp_6"
@@ -83,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_3"
-            android:fontFamily="@font/nanum_square_round"
+
             android:text="@string/bottombar_category"
             android:textColor="@color/color_FFA9A9A9"
             android:textSize="@dimen/sp_6"
@@ -111,7 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_3"
-            android:fontFamily="@font/nanum_square_round"
+
             android:text="@string/bottombar_scrapbook"
             android:textColor="@color/color_FFA9A9A9"
             android:textSize="@dimen/sp_6"
