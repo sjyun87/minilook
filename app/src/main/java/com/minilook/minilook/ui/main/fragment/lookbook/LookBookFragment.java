@@ -38,8 +38,12 @@ public class LookBookFragment extends BaseFragment implements LookBookPresenter.
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(1);
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override public void onPageSelected(int position) {
-                presenter.onPageSelected(position);
+            @Override public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if (positionOffset > 0.75) {
+                    presenter.onPageSelected(position + 1);
+                } else {
+                    presenter.onPageSelected(position);
+                }
             }
         });
     }
