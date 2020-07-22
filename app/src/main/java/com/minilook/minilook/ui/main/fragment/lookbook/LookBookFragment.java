@@ -6,6 +6,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseFragment;
 import com.minilook.minilook.ui.main.fragment.lookbook.adapter.LookBookPagerAdapter;
 import com.minilook.minilook.ui.main.fragment.lookbook.di.LookBookArguments;
+import timber.log.Timber;
 
 public class LookBookFragment extends BaseFragment implements LookBookPresenter.View {
 
@@ -38,6 +39,15 @@ public class LookBookFragment extends BaseFragment implements LookBookPresenter.
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(1);
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                //Timber.e("positionOffset :: "  + positionOffset);
+                //if (positionOffset < 0.5) {
+                //    presenter.onPageSelected(position);
+                //} else {
+                //    presenter.onPageSelected(position + 1);
+                //}
+            }
+
             @Override public void onPageSelected(int position) {
                 presenter.onPageSelected(position);
             }
