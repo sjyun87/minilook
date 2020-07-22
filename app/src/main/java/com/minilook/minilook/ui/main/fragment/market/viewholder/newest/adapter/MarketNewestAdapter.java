@@ -1,25 +1,25 @@
-package com.minilook.minilook.ui.main.fragment.market.viewholder.promotion.adapter;
+package com.minilook.minilook.ui.main.fragment.market.viewholder.newest.adapter;
 
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.minilook.minilook.data.model.market.MarketPromotionDataModel;
+import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.main.fragment.market.viewholder.promotion.MarketPromotionItemVH;
+import com.minilook.minilook.ui.main.fragment.market.viewholder.newest.MarketNewestItemVH;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MarketPromotionAdapter extends RecyclerView.Adapter<MarketPromotionItemVH> implements
-    BaseAdapterDataModel<MarketPromotionDataModel>, BaseAdapterDataView<MarketPromotionDataModel> {
+public class MarketNewestAdapter extends RecyclerView.Adapter<MarketNewestItemVH> implements
+    BaseAdapterDataModel<ProductDataModel>, BaseAdapterDataView<ProductDataModel> {
 
-    private List<MarketPromotionDataModel> items = new ArrayList<>();
+    private List<ProductDataModel> items = new ArrayList<>();
 
-    @NonNull @Override public MarketPromotionItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MarketPromotionItemVH(parent);
+    @NonNull @Override public MarketNewestItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new MarketNewestItemVH(parent);
     }
 
-    @Override public void onBindViewHolder(@NonNull MarketPromotionItemVH holder, int position) {
+    @Override public void onBindViewHolder(@NonNull MarketNewestItemVH holder, int position) {
         holder.bind(items.get(position));
     }
 
@@ -27,32 +27,32 @@ public class MarketPromotionAdapter extends RecyclerView.Adapter<MarketPromotion
         return getSize();
     }
 
-    @Override public void add(MarketPromotionDataModel $item) {
+    @Override public void add(ProductDataModel $item) {
         this.items.add($item);
     }
 
-    @Override public void add(int $index, MarketPromotionDataModel $item) {
+    @Override public void add(int $index, ProductDataModel $item) {
         this.items.add($index, $item);
     }
 
-    @Override public void addAll(List<MarketPromotionDataModel> $items) {
+    @Override public void addAll(List<ProductDataModel> $items) {
         this.items.addAll($items);
     }
 
-    @Override public void set(int $index, MarketPromotionDataModel $item) {
+    @Override public void set(int $index, ProductDataModel $item) {
         this.items.set($index, $item);
     }
 
-    @Override public void set(List<MarketPromotionDataModel> $items) {
+    @Override public void set(List<ProductDataModel> $items) {
         this.items.clear();
         this.items.addAll($items);
     }
 
-    @Override public MarketPromotionDataModel get(int $index) {
+    @Override public ProductDataModel get(int $index) {
         return this.items.get($index);
     }
 
-    @Override public List<MarketPromotionDataModel> get() {
+    @Override public List<ProductDataModel> get() {
         return this.items;
     }
 
@@ -60,7 +60,7 @@ public class MarketPromotionAdapter extends RecyclerView.Adapter<MarketPromotion
         this.items.remove($index);
     }
 
-    @Override public void remove(MarketPromotionDataModel $item) {
+    @Override public void remove(ProductDataModel $item) {
         this.items.remove($item);
     }
 

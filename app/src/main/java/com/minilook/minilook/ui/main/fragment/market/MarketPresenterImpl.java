@@ -38,7 +38,7 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
             model.setType(model.getModule_type());
         }
 
-        adapter.set(data.subList(0, 2));
+        adapter.set(data);
         view.refresh();
     }
 }
