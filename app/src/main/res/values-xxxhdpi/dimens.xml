@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--sp-->
-    <dimen name="sp_3">6sp</dimen>
     <dimen name="sp_4">8sp</dimen>
     <dimen name="sp_6">12sp</dimen>
     <dimen name="sp_7">14sp</dimen>
@@ -29,9 +28,11 @@
     <dimen name="dp_24">48dp</dimen>
     <dimen name="dp_28">56dp</dimen>
     <dimen name="dp_30">60dp</dimen>
+    <dimen name="dp_36">72dp</dimen>
     <dimen name="dp_40">80dp</dimen>
     <dimen name="dp_46">92dp</dimen>
     <dimen name="dp_60">120dp</dimen>
     <dimen name="dp_74">148dp</dimen>
     <dimen name="dp_80">160dp</dimen>
+    <dimen name="dp_90">180dp</dimen>
 </resources>

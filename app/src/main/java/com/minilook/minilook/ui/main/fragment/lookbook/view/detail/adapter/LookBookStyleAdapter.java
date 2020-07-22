@@ -1,28 +1,25 @@
 package com.minilook.minilook.ui.main.fragment.lookbook.view.detail.adapter;
 
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.main.fragment.lookbook.view.detail.viewholder.LookBookImageVH;
-
+import com.minilook.minilook.ui.main.fragment.lookbook.view.detail.viewholder.LookBookStyleVH;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LookBookImageAdapter extends RecyclerView.Adapter<LookBookImageVH>
+public class LookBookStyleAdapter extends RecyclerView.Adapter<LookBookStyleVH>
     implements BaseAdapterDataModel<String>, BaseAdapterDataView<String> {
 
     private List<String> items = new ArrayList<>();
 
-    @NonNull @Override public LookBookImageVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new LookBookImageVH(parent);
+    @NonNull @Override public LookBookStyleVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new LookBookStyleVH(parent);
     }
 
-    @Override public void onBindViewHolder(@NonNull LookBookImageVH holder, int position) {
-        holder.bind(items.get(position), position);
+    @Override public void onBindViewHolder(@NonNull LookBookStyleVH holder, int position) {
+        holder.bind(items.get(position));
     }
 
     @Override public int getItemCount() {

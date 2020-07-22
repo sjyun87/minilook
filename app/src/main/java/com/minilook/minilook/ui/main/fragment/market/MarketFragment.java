@@ -23,8 +23,6 @@ public class MarketFragment extends BaseFragment implements MarketPresenter.View
 
     @BindView(R.id.rcv_market) RecyclerView marketRecyclerView;
 
-    @BindDrawable(R.drawable.divider_market) Drawable divider;
-
     private MarketPresenter presenter;
     private MarketModuleAdapter adapter = new MarketModuleAdapter();
     private BaseAdapterDataView adapterView = adapter;
@@ -48,10 +46,10 @@ public class MarketFragment extends BaseFragment implements MarketPresenter.View
     @Override public void setupRecyclerView() {
         marketRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         marketRecyclerView.setAdapter(adapter);
-        DividerDecoration.builder(requireContext())
-            .drawable(divider)
-            .build()
-            .addTo(marketRecyclerView);
+        //DividerDecoration.builder(requireContext())
+        //    .drawable(divider)
+        //    .build()
+        //    .addTo(marketRecyclerView);
     }
 
     @Override public void refresh() {

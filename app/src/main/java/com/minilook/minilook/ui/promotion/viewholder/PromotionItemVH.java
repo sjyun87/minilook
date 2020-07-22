@@ -30,7 +30,6 @@ public class PromotionItemVH extends BaseViewHolder<ProductDataModel> {
 
     @BindString(R.string.base_price_percent) String formatPercent;
     @BindString(R.string.base_product_name) String formatProductName;
-    @BindDrawable(R.drawable.img_product_default) Drawable defaultImage;
 
     public PromotionItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
@@ -40,20 +39,20 @@ public class PromotionItemVH extends BaseViewHolder<ProductDataModel> {
     @Override public void bind(ProductDataModel $data) {
         super.bind($data);
 
-        Glide.with(itemView)
-            .load(data.getImage_thumb_url())
-            .error(defaultImage)
-            .into(thumbImageView);
-
-        if (data.is_sale()) {
-            pricePercentTextView.setVisibility(View.VISIBLE);
-            pricePercentTextView.setText(String.format(formatPercent, data.getPrice_sale_percent()));
-        } else {
-            pricePercentTextView.setVisibility(View.GONE);
-        }
-        priceTextView.setText(StringUtil.toDigit(data.getPrice_sale()));
-        nameTextView.setText(String.format(formatProductName, data.getBrand().getName(), data.getName()));
-
-        itemView.setOnClickListener(v -> RxBus.send(new MainPresenterImpl.RxEventNavigateToDetail(data.getWeb_url())));
+        //Glide.with(itemView)
+        //    .load(data.getImage_thumb_url())
+        //    .error(defaultImage)
+        //    .into(thumbImageView);
+        //
+        //if (data.is_sale()) {
+        //    pricePercentTextView.setVisibility(View.VISIBLE);
+        //    pricePercentTextView.setText(String.format(formatPercent, data.getPrice_sale_percent()));
+        //} else {
+        //    pricePercentTextView.setVisibility(View.GONE);
+        //}
+        //priceTextView.setText(StringUtil.toDigit(data.getPrice_sale()));
+        //nameTextView.setText(String.format(formatProductName, data.getBrand().getName(), data.getName()));
+        //
+        //itemView.setOnClickListener(v -> RxBus.send(new MainPresenterImpl.RxEventNavigateToDetail(data.getWeb_url())));
     }
 }

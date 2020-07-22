@@ -21,9 +21,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginStart="@dimen/dp_5"
+        android:layout_marginStart="@dimen/dp_3"
         android:padding="@dimen/dp_5"
-        android:src="@drawable/ic_back"
         tools:ignore="ContentDescription" />
 
     <TextView
@@ -44,6 +43,5 @@
         android:layout_gravity="center_vertical|right"
         android:layout_marginRight="@dimen/dp_5"
         android:padding="@dimen/dp_5"
-        android:src="@drawable/ic_search"
         tools:ignore="ContentDescription,RtlHardcoded" />
 </merge>

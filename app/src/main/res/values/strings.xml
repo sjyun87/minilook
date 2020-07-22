@@ -14,11 +14,9 @@
     <string name="bottombar_ipage">아이페이지</string>
 
     <!--LookBook-->
-    <string name="lookbook">lookbook</string>
-    <string name="lookbook_detail_store">스토어</string>
+
 
     <!--Category-->
-    <string name="category_title">카테고리</string>
 
     <!--Brand-->
     <string name="brand_more">브랜드 상품보러가기 ></string>
@@ -34,9 +32,5 @@
     <string name="search_recent_dialog_msg">최근검색어를 전체삭제 하시겠어요?</string>
 
     <!--ScrapBook-->
-    <string name="scrapbook_title">스크랩북</string>
-    <string name="scrapbook_product">상품</string>
-    <string name="scrapbook_brand">즐겨찾기</string>
-    <string name="scrapbook_recent">최근 본 상품</string>
 
 </resources>

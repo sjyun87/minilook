@@ -44,7 +44,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/lookbook_detail_store"
                 android:textColor="@color/color_FF8140E5"
                 android:textSize="@dimen/sp_6"
                 android:textStyle="italic" />
@@ -54,7 +53,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_1"
                 android:layout_marginEnd="@dimen/dp_10"
-                android:src="@drawable/ic_arrow_purple"
                 tools:ignore="ContentDescription" />
         </LinearLayout>
 
@@ -92,7 +90,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_3"
-                android:src="@drawable/bg_tag_category"
                 app:layout_constraintLeft_toLeftOf="@+id/txt_product_name"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription" />

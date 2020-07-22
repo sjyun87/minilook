@@ -11,15 +11,21 @@ public interface LookBookDetailPresenter extends LifecycleObserver {
 
     interface View {
 
-        void setupViewPager();
+        void setupStyleRecyclerView();
 
-        void setupRecyclerView();
+        void setupProductRecyclerView();
 
-        void setTitle(String text);
+        void setupLabel(String text);
 
-        void setDescription(String text);
+        void setupTitle(String text);
 
-        void imageRefresh();
+        void setupTag(String text);
+
+        void setupDescription(String text);
+
+        void setupProductInfo(String text);
+
+        void styleRefresh();
 
         void productRefresh();
     }

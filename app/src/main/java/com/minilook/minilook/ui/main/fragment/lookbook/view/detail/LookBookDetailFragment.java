@@ -1,22 +1,17 @@
 package com.minilook.minilook.ui.main.fragment.lookbook.view.detail;
 
-import android.annotation.SuppressLint;
 import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.MarginPageTransformer;
-import androidx.viewpager2.widget.ViewPager2;
 import butterknife.BindView;
-import com.fondesa.recyclerviewdivider.DividerDecoration;
+import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseFragment;
-import com.minilook.minilook.ui.main.fragment.lookbook.view.detail.adapter.LookBookImageAdapter;
+import com.minilook.minilook.ui.main.fragment.lookbook.view.detail.adapter.LookBookStyleAdapter;
 import com.minilook.minilook.ui.main.fragment.lookbook.view.detail.adapter.LookBookProductAdapter;
 import com.minilook.minilook.ui.main.fragment.lookbook.view.detail.di.LookBookDetailArguments;
-import me.relex.circleindicator.CircleIndicator3;
-import timber.log.Timber;
 
 public class LookBookDetailFragment extends BaseFragment implements LookBookDetailPresenter.View {
 
@@ -24,15 +19,18 @@ public class LookBookDetailFragment extends BaseFragment implements LookBookDeta
         return new LookBookDetailFragment();
     }
 
-    @BindView(R.id.vp_thumb) ViewPager2 thumbViewPager;
-    @BindView(R.id.indicator) CircleIndicator3 indicator;
+    //@BindView(R.id.rcv_product) RecyclerView productRecyclerView;
+
+    @BindView(R.id.txt_label) TextView labelTextView;
     @BindView(R.id.txt_title) TextView titleTextView;
+    @BindView(R.id.txt_tag) TextView tagTextView;
     @BindView(R.id.txt_desc) TextView descTextView;
-    @BindView(R.id.rcv_product) RecyclerView productRecyclerView;
+    @BindView(R.id.rcv_style) RecyclerView styleRecyclerView;
+    @BindView(R.id.txt_product_info) TextView productInfoTextView;
 
     private LookBookDetailPresenter presenter;
-    private LookBookImageAdapter imageAdapter = new LookBookImageAdapter();
-    private BaseAdapterDataView<String> imageAdapterDataView = imageAdapter;
+    private LookBookStyleAdapter styleAdapter = new LookBookStyleAdapter();
+    private BaseAdapterDataView<String> styleAdapterDataView = styleAdapter;
     private LookBookProductAdapter productAdapter = new LookBookProductAdapter();
     private BaseAdapterDataView<ProductDataModel> productAdapterDataView = productAdapter;
 
@@ -48,58 +46,55 @@ public class LookBookDetailFragment extends BaseFragment implements LookBookDeta
     private LookBookDetailArguments provideArguments() {
         return LookBookDetailArguments.builder()
             .view(this)
-            .imageAdapter(imageAdapter)
+            .styleAdapter(styleAdapter)
             .productAdapter(productAdapter)
             .build();
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    @Override public void setupViewPager() {
-        thumbViewPager.setAdapter(imageAdapter);
-        thumbViewPager.setPageTransformer(
-            new MarginPageTransformer(getResources().getDimensionPixelOffset(R.dimen.dp_3)));
-        ((RecyclerView) thumbViewPager.getChildAt(0)).setClipToPadding(false);
-        thumbViewPager.getChildAt(0).setPadding(0, 0, getResources().getDimensionPixelSize(R.dimen.dp_8), 0);
-        indicator.setViewPager(thumbViewPager);
-        imageAdapter.registerAdapterDataObserver(indicator.getAdapterDataObserver());
-        thumbViewPager.getChildAt(0).setOnTouchListener((v, event) -> {
-            v.getParent().requestDisallowInterceptTouchEvent(true);
-            return false;
-        });
-
-        thumbViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if (position == imageAdapter.getItemCount() - 1) {
-                    //thumbViewPager.scrollTo(-getResources().getDimensionPixelSize(R.dimen.dp_8), 0);
-                }
-                Timber.e(position + " / " + positionOffset + " / " + positionOffsetPixels);
-            }
-        });
+    @Override public void setupStyleRecyclerView() {
+        styleRecyclerView.setAdapter(styleAdapter);
     }
 
-    @Override public void setupRecyclerView() {
-        productRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        productRecyclerView.setAdapter(productAdapter);
-        DividerDecoration.builder(requireContext())
-            .size(getResources().getDimensionPixelSize(R.dimen.dp_4))
-            .asSpace()
-            .build()
-            .addTo(productRecyclerView);
+    @Override public void setupProductRecyclerView() {
+        //productRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        //productRecyclerView.setAdapter(productAdapter);
+        //DividerDecoration.builder(requireContext())
+        //    .size(getResources().getDimensionPixelSize(R.dimen.dp_4))
+        //    .asSpace()
+        //    .build()
+        //    .addTo(productRecyclerView);
     }
 
-    @Override public void setTitle(String text) {
+    @Override public void setupLabel(String text) {
+        labelTextView.setText(text);
+    }
+
+    @Override public void setupTitle(String text) {
         titleTextView.setText(text);
     }
 
-    @Override public void setDescription(String text) {
+    @Override public void setupTag(String text) {
+        tagTextView.setText(text);
+    }
+
+    @Override public void setupDescription(String text) {
         descTextView.setText(text);
     }
 
-    @Override public void imageRefresh() {
-        imageAdapterDataView.refresh();
+    @Override public void setupProductInfo(String text) {
+        productInfoTextView.setText(text);
+    }
+
+    @Override public void styleRefresh() {
+        styleAdapterDataView.refresh();
     }
 
     @Override public void productRefresh() {
         productAdapterDataView.refresh();
+    }
+
+    @OnClick(R.id.img_titlebar_back)
+    void onBackClick() {
+
     }
 }

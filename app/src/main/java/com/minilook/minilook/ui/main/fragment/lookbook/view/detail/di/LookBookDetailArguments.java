@@ -10,6 +10,6 @@ import lombok.Getter;
 @Getter @Builder
 public class LookBookDetailArguments {
     private final LookBookDetailPresenter.View view;
-    private final BaseAdapterDataModel<String> imageAdapter;
+    private final BaseAdapterDataModel<String> styleAdapter;
     private final BaseAdapterDataModel<ProductDataModel> productAdapter;
 }
