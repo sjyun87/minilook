@@ -38,7 +38,7 @@ public class LookBookModuleAdapter extends RecyclerView.Adapter<BaseViewHolder> 
     }
 
     @Override public int getItemViewType(int position) {
-        return Integer.parseInt(items.get(position).getType());
+        return items.get(position).getType();
     }
 
     @Override public void add(LookBookDataModel $item) {

@@ -6,7 +6,7 @@ import lombok.Data;
     private String title;
     private String label;
     private String color;
-    private String position;
+    private int position;
     private String url;
 
 }

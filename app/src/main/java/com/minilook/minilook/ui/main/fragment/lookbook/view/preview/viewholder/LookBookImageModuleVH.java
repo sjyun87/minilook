@@ -1,5 +1,6 @@
 package com.minilook.minilook.ui.main.fragment.lookbook.view.preview.viewholder;
 
+import android.graphics.Color;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,9 +37,37 @@ public class LookBookImageModuleVH extends BaseViewHolder<LookBookPreviewDataMod
             .load(data.getUrl())
             .into(bgImageView);
 
-        contentPanel.setGravity(Gravity.BOTTOM);
-        labelTextView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
-        titleTextView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
+        switch (data.getPosition()) {
+            case 0 :
+                contentPanel.setGravity(Gravity.TOP);
+                labelTextView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                titleTextView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                break;
+
+            case 1:
+                contentPanel.setGravity(Gravity.TOP);
+                labelTextView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
+                titleTextView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
+                break;
+
+            case 2:
+                contentPanel.setGravity(Gravity.BOTTOM);
+                labelTextView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                titleTextView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                break;
+
+            case 3:
+                contentPanel.setGravity(Gravity.BOTTOM);
+                labelTextView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
+                titleTextView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
+                break;
+        }
+
+        titleTextView.setTextColor(Color.parseColor(data.getColor()));
+        labelTextView.setTextColor(Color.parseColor(data.getColor()));
+
+        titleTextView.setText(data.getTitle());
+        labelTextView.setText(data.getLabel());
 
         itemView.setOnClickListener(v -> RxBus.send(new RxEventPreviewClick()));
     }
