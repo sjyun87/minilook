@@ -92,7 +92,7 @@ public class BottomBar extends LinearLayout {
         updateUI();
     }
 
-    public void setWhiteTheme(boolean flag) {
+    public void setupWhiteTheme(boolean flag) {
         this.isWhiteTheme = flag;
         updateUI();
     }

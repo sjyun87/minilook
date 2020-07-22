@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -25,9 +26,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/notosans_regular"
-            android:text="2020 SUMMER"
             android:textColor="@color/color_FF232323"
-            android:textSize="@dimen/sp_6" />
+            android:textSize="@dimen/sp_6"
+            tools:text="2020 SUMMER" />
 
         <TextView
             android:id="@+id/txt_title"
@@ -36,9 +37,9 @@
             android:layout_marginTop="@dimen/dp_3"
             android:fontFamily="@font/notosans_medium"
             android:letterSpacing="-0.06"
-            android:lineSpacingExtra="4sp"
-            android:text="여름철 무더위도 견딜\n시원한 스포티룩 세뚜세뚜!"
+            android:lineSpacingMultiplier="0.9"
             android:textColor="@color/color_FF232323"
-            android:textSize="@dimen/sp_12" />
+            android:textSize="@dimen/sp_12"
+            tools:text="여름철 무더위도 견딜\n시원한 스포티룩 세뚜세뚜!" />
     </LinearLayout>
 </FrameLayout>

@@ -2,9 +2,8 @@ package com.minilook.minilook.ui.main;
 
 import android.content.Context;
 import android.content.Intent;
-
 import androidx.viewpager2.widget.ViewPager2;
-
+import butterknife.BindView;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.widget.BottomBar;
@@ -12,8 +11,6 @@ import com.minilook.minilook.ui.brand.BrandActivity;
 import com.minilook.minilook.ui.detail.DetailActivity;
 import com.minilook.minilook.ui.main.adapter.MainPagerAdapter;
 import com.minilook.minilook.ui.main.di.MainArguments;
-
-import butterknife.BindView;
 
 public class MainActivity extends BaseActivity implements MainPresenter.View {
 
@@ -56,7 +53,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
     }
 
     @Override public void setupBottombarTheme(boolean flag) {
-        bottomBar.setWhiteTheme(flag);
+        bottomBar.setupWhiteTheme(flag);
     }
 
     @Override public void navigateToDetail(String url) {
