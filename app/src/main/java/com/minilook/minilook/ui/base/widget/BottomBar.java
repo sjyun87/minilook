@@ -33,25 +33,25 @@ public class BottomBar extends LinearLayout {
     @BindView(R.id.img_bottombar_ipage) ImageView ipageImageView;
     @BindView(R.id.txt_bottombar_ipage) TextView ipageTextView;
 
-    @BindColor(R.color.color_FFFFFFFF) int FFFFFFFF;
-    @BindColor(R.color.color_FFA9A9A9) int FFA9A9A9;
-    @BindColor(R.color.color_FF8140E5) int FF8140E5;
+    @BindColor(R.color.color_FFFFFFFF) int color_FFFFFFFF;
+    @BindColor(R.color.color_FFA9A9A9) int color_FFA9A9A9;
+    @BindColor(R.color.color_FF8140E5) int color_FF8140E5;
 
-    @BindDrawable(R.drawable.bg_bottombar_white) Drawable whiteTheme;
-    @BindDrawable(R.drawable.bg_bottombar_dark) Drawable darkTheme;
+    @BindDrawable(R.drawable.bg_bottombar_white) Drawable bg_white;
+    @BindDrawable(R.drawable.bg_bottombar_dark) Drawable bg_dark;
 
-    @BindDrawable(R.drawable.ic_lookbook_purple) Drawable lookbookPurple;
-    @BindDrawable(R.drawable.ic_lookbook_white) Drawable lookbookWhite;
-    @BindDrawable(R.drawable.ic_lookbook_gray) Drawable lookbookGray;
-    @BindDrawable(R.drawable.ic_preorder_purple) Drawable preorderPurple;
-    @BindDrawable(R.drawable.ic_preorder_white) Drawable preorderWhite;
-    @BindDrawable(R.drawable.ic_preorder_gray) Drawable preorderGray;
-    @BindDrawable(R.drawable.ic_market_purple) Drawable marketPurple;
-    @BindDrawable(R.drawable.ic_market_white) Drawable marketWhite;
-    @BindDrawable(R.drawable.ic_market_gray) Drawable marketGray;
-    @BindDrawable(R.drawable.ic_ipage_purple) Drawable ipagePurple;
-    @BindDrawable(R.drawable.ic_ipage_white) Drawable ipageWhite;
-    @BindDrawable(R.drawable.ic_ipage_gray) Drawable ipageGray;
+    @BindDrawable(R.drawable.ic_lookbook_purple) Drawable icon_lookbook_purple;
+    @BindDrawable(R.drawable.ic_lookbook_white) Drawable icon_lookbook_white;
+    @BindDrawable(R.drawable.ic_lookbook_gray) Drawable icon_lookbook_gray;
+    @BindDrawable(R.drawable.ic_preorder_purple) Drawable icon_preorder_purple;
+    @BindDrawable(R.drawable.ic_preorder_white) Drawable icon_preorder_white;
+    @BindDrawable(R.drawable.ic_preorder_gray) Drawable icon_preorder_gray;
+    @BindDrawable(R.drawable.ic_market_purple) Drawable icon_market_purple;
+    @BindDrawable(R.drawable.ic_market_white) Drawable icon_market_white;
+    @BindDrawable(R.drawable.ic_market_gray) Drawable icon_market_gray;
+    @BindDrawable(R.drawable.ic_ipage_purple) Drawable icon_ipage_purple;
+    @BindDrawable(R.drawable.ic_ipage_white) Drawable icon_ipage_white;
+    @BindDrawable(R.drawable.ic_ipage_gray) Drawable icon_ipage_gray;
 
     private int position = POSITION_LOOKBOOK;
     private boolean isWhiteTheme;
@@ -99,65 +99,65 @@ public class BottomBar extends LinearLayout {
 
     private void updateUI() {
         if (isWhiteTheme) {
-            setBackground(whiteTheme);
+            setBackground(bg_white);
         } else {
-            setBackground(darkTheme);
+            setBackground(bg_dark);
         }
 
         switch (position) {
             case POSITION_LOOKBOOK:
                 if (isWhiteTheme) {
-                    lookbookImageView.setImageDrawable(lookbookPurple);
-                    preorderImageView.setImageDrawable(preorderGray);
-                    marketImageView.setImageDrawable(marketGray);
-                    ipageImageView.setImageDrawable(ipageGray);
-                    lookbookTextView.setTextColor(FF8140E5);
-                    preorderTextView.setTextColor(FFA9A9A9);
-                    marketTextView.setTextColor(FFA9A9A9);
-                    ipageTextView.setTextColor(FFA9A9A9);
+                    lookbookImageView.setImageDrawable(icon_lookbook_purple);
+                    preorderImageView.setImageDrawable(icon_preorder_gray);
+                    marketImageView.setImageDrawable(icon_market_gray);
+                    ipageImageView.setImageDrawable(icon_ipage_gray);
+                    lookbookTextView.setTextColor(color_FF8140E5);
+                    preorderTextView.setTextColor(color_FFA9A9A9);
+                    marketTextView.setTextColor(color_FFA9A9A9);
+                    ipageTextView.setTextColor(color_FFA9A9A9);
                 } else {
-                    lookbookImageView.setImageDrawable(lookbookWhite);
-                    preorderImageView.setImageDrawable(preorderWhite);
-                    marketImageView.setImageDrawable(marketWhite);
-                    ipageImageView.setImageDrawable(ipageWhite);
-                    lookbookTextView.setTextColor(FFFFFFFF);
-                    preorderTextView.setTextColor(FFFFFFFF);
-                    marketTextView.setTextColor(FFFFFFFF);
-                    ipageTextView.setTextColor(FFFFFFFF);
+                    lookbookImageView.setImageDrawable(icon_lookbook_white);
+                    preorderImageView.setImageDrawable(icon_preorder_white);
+                    marketImageView.setImageDrawable(icon_market_white);
+                    ipageImageView.setImageDrawable(icon_ipage_white);
+                    lookbookTextView.setTextColor(color_FFFFFFFF);
+                    preorderTextView.setTextColor(color_FFFFFFFF);
+                    marketTextView.setTextColor(color_FFFFFFFF);
+                    ipageTextView.setTextColor(color_FFFFFFFF);
                 }
                 break;
 
             case POSITION_PREORDER:
-                lookbookImageView.setImageDrawable(lookbookGray);
-                preorderImageView.setImageDrawable(preorderPurple);
-                marketImageView.setImageDrawable(marketGray);
-                ipageImageView.setImageDrawable(ipageGray);
-                lookbookTextView.setTextColor(FFA9A9A9);
-                preorderTextView.setTextColor(FF8140E5);
-                marketTextView.setTextColor(FFA9A9A9);
-                ipageTextView.setTextColor(FFA9A9A9);
+                lookbookImageView.setImageDrawable(icon_lookbook_gray);
+                preorderImageView.setImageDrawable(icon_preorder_purple);
+                marketImageView.setImageDrawable(icon_market_gray);
+                ipageImageView.setImageDrawable(icon_ipage_gray);
+                lookbookTextView.setTextColor(color_FFA9A9A9);
+                preorderTextView.setTextColor(color_FF8140E5);
+                marketTextView.setTextColor(color_FFA9A9A9);
+                ipageTextView.setTextColor(color_FFA9A9A9);
                 break;
 
             case POSITION_MARKET:
-                lookbookImageView.setImageDrawable(lookbookGray);
-                preorderImageView.setImageDrawable(preorderGray);
-                marketImageView.setImageDrawable(marketPurple);
-                ipageImageView.setImageDrawable(ipageGray);
-                lookbookTextView.setTextColor(FFA9A9A9);
-                preorderTextView.setTextColor(FFA9A9A9);
-                marketTextView.setTextColor(FF8140E5);
-                ipageTextView.setTextColor(FFA9A9A9);
+                lookbookImageView.setImageDrawable(icon_lookbook_gray);
+                preorderImageView.setImageDrawable(icon_preorder_gray);
+                marketImageView.setImageDrawable(icon_market_purple);
+                ipageImageView.setImageDrawable(icon_ipage_gray);
+                lookbookTextView.setTextColor(color_FFA9A9A9);
+                preorderTextView.setTextColor(color_FFA9A9A9);
+                marketTextView.setTextColor(color_FF8140E5);
+                ipageTextView.setTextColor(color_FFA9A9A9);
                 break;
 
             case POSITION_IPAGE:
-                lookbookImageView.setImageDrawable(lookbookGray);
-                preorderImageView.setImageDrawable(preorderGray);
-                marketImageView.setImageDrawable(marketGray);
-                ipageImageView.setImageDrawable(ipagePurple);
-                lookbookTextView.setTextColor(FFA9A9A9);
-                preorderTextView.setTextColor(FFA9A9A9);
-                marketTextView.setTextColor(FFA9A9A9);
-                ipageTextView.setTextColor(FF8140E5);
+                lookbookImageView.setImageDrawable(icon_lookbook_gray);
+                preorderImageView.setImageDrawable(icon_preorder_gray);
+                marketImageView.setImageDrawable(icon_market_gray);
+                ipageImageView.setImageDrawable(icon_ipage_purple);
+                lookbookTextView.setTextColor(color_FFA9A9A9);
+                preorderTextView.setTextColor(color_FFA9A9A9);
+                marketTextView.setTextColor(color_FFA9A9A9);
+                ipageTextView.setTextColor(color_FF8140E5);
                 break;
         }
     }

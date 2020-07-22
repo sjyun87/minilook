@@ -23,6 +23,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/dp_3"
         android:padding="@dimen/dp_5"
+        android:src="@drawable/ic_back"
         tools:ignore="ContentDescription" />
 
     <TextView
@@ -30,7 +31,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-
         android:textColor="@color/color_FF000000"
         android:textSize="@dimen/sp_8"
         android:textStyle="bold"

@@ -1,7 +1,6 @@
 package com.minilook.minilook.ui.main.fragment.lookbook.view.detail;
 
 import android.widget.TextView;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -9,8 +8,8 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseFragment;
-import com.minilook.minilook.ui.main.fragment.lookbook.view.detail.adapter.LookBookStyleAdapter;
 import com.minilook.minilook.ui.main.fragment.lookbook.view.detail.adapter.LookBookProductAdapter;
+import com.minilook.minilook.ui.main.fragment.lookbook.view.detail.adapter.LookBookStyleAdapter;
 import com.minilook.minilook.ui.main.fragment.lookbook.view.detail.di.LookBookDetailArguments;
 
 public class LookBookDetailFragment extends BaseFragment implements LookBookDetailPresenter.View {
@@ -19,14 +18,13 @@ public class LookBookDetailFragment extends BaseFragment implements LookBookDeta
         return new LookBookDetailFragment();
     }
 
-    //@BindView(R.id.rcv_product) RecyclerView productRecyclerView;
-
     @BindView(R.id.txt_label) TextView labelTextView;
     @BindView(R.id.txt_title) TextView titleTextView;
     @BindView(R.id.txt_tag) TextView tagTextView;
     @BindView(R.id.txt_desc) TextView descTextView;
     @BindView(R.id.rcv_style) RecyclerView styleRecyclerView;
     @BindView(R.id.txt_product_info) TextView productInfoTextView;
+    @BindView(R.id.rcv_product) RecyclerView productRecyclerView;
 
     private LookBookDetailPresenter presenter;
     private LookBookStyleAdapter styleAdapter = new LookBookStyleAdapter();
@@ -56,13 +54,7 @@ public class LookBookDetailFragment extends BaseFragment implements LookBookDeta
     }
 
     @Override public void setupProductRecyclerView() {
-        //productRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        //productRecyclerView.setAdapter(productAdapter);
-        //DividerDecoration.builder(requireContext())
-        //    .size(getResources().getDimensionPixelSize(R.dimen.dp_4))
-        //    .asSpace()
-        //    .build()
-        //    .addTo(productRecyclerView);
+        productRecyclerView.setAdapter(productAdapter);
     }
 
     @Override public void setupLabel(String text) {
