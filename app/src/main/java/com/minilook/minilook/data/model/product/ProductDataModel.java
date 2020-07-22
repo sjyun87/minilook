@@ -1,7 +1,6 @@
 package com.minilook.minilook.data.model.product;
 
 import com.minilook.minilook.data.model.brand.BrandInfoDataModel;
-
 import lombok.Data;
 
 @Data public class ProductDataModel {
@@ -27,4 +26,7 @@ import lombok.Data;
     private String web_url;
     private BrandInfoDataModel brand;
 
+
+
+    private String thumb;
 }

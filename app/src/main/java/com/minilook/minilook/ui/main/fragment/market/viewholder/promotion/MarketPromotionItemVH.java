@@ -9,10 +9,10 @@ import androidx.annotation.NonNull;
 import butterknife.BindView;
 import com.bumptech.glide.Glide;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.promotion.PromotionDataModel;
+import com.minilook.minilook.data.model.market.MarketPromotionDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 
-public class MarketPromotionItemVH extends BaseViewHolder<PromotionDataModel> {
+public class MarketPromotionItemVH extends BaseViewHolder<MarketPromotionDataModel> {
 
     @BindView(R.id.img_product_thumb) ImageView thumbImageView;
     @BindView(R.id.txt_title) TextView titleTextView;
@@ -23,7 +23,7 @@ public class MarketPromotionItemVH extends BaseViewHolder<PromotionDataModel> {
             .inflate(R.layout.item_market_promotion_item, (ViewGroup) itemView, false));
     }
 
-    @Override public void bind(PromotionDataModel $data) {
+    @Override public void bind(MarketPromotionDataModel $data) {
         super.bind($data);
 
         Glide.with(itemView)

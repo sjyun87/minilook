@@ -1,7 +1,7 @@
 package com.minilook.minilook.ui.promotion;
 
 import com.minilook.minilook.data.model.product.ProductDataModel;
-import com.minilook.minilook.data.model.promotion.PromotionDataModel;
+import com.minilook.minilook.data.model.market.MarketPromotionDataModel;
 import com.minilook.minilook.data.network.promotion.PromotionRequest;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
@@ -37,12 +37,12 @@ public class PromotionPresenterImpl extends BasePresenterImpl implements Promoti
         );
     }
 
-    private void resPromotion(PromotionDataModel data) {
+    private void resPromotion(MarketPromotionDataModel data) {
         view.setupBgImage(data.getImage_url());
         view.setupDesc(data.getDesc());
         view.setupTitle(data.getTitle());
 
-        adapter.set(data.getProducts());
-        view.refresh();
+        //adapter.set(data.getProducts());
+        //view.refresh();
     }
 }

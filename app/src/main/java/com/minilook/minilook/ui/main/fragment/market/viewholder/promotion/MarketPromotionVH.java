@@ -9,7 +9,7 @@ import butterknife.BindView;
 import com.google.gson.Gson;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.market.MarketDataModel;
-import com.minilook.minilook.data.model.promotion.PromotionDataModel;
+import com.minilook.minilook.data.model.market.MarketPromotionDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.main.fragment.market.viewholder.promotion.adapter.MarketPromotionAdapter;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
@@ -44,9 +44,9 @@ public class MarketPromotionVH extends BaseViewHolder<MarketDataModel> {
         adapter.refresh();
     }
 
-    private List<PromotionDataModel> parseJsonToModel() {
+    private List<MarketPromotionDataModel> parseJsonToModel() {
         return Observable.fromIterable(data.getData())
-            .map(json -> gson.fromJson(json, PromotionDataModel.class))
+            .map(json -> gson.fromJson(json, MarketPromotionDataModel.class))
             .toList()
             .blockingGet();
     }

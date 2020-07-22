@@ -31,7 +31,7 @@ public class MarketModuleAdapter extends RecyclerView.Adapter<BaseViewHolder> im
         } else if (viewType == MarketModuleType.TYPE_MD_PICK.getValue()) {
             return new MarketMDPickVH(parent);
         } else if (viewType == MarketModuleType.TYPE_NEW.getValue()) {
-            return new MarketMDPickVH(parent);
+            return new MarketBrandVH(parent);
         } else if (viewType == MarketModuleType.TYPE_BRAND.getValue()) {
             return new MarketBrandVH(parent);
         } else {

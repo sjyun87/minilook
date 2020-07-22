@@ -1,6 +1,6 @@
 package com.minilook.minilook.data.network.promotion;
 
-import com.minilook.minilook.data.model.promotion.PromotionDataModel;
+import com.minilook.minilook.data.model.market.MarketPromotionDataModel;
 import com.minilook.minilook.data.network.base.BaseRequest;
 
 import io.reactivex.rxjava3.core.Single;
@@ -11,7 +11,7 @@ public class PromotionRequest extends BaseRequest<PromotionService> {
         return PromotionService.class;
     }
 
-    public Single<PromotionDataModel> getPromotion(int prm_id) {
+    public Single<MarketPromotionDataModel> getPromotion(int prm_id) {
         return getApi().getPromotion("Promotion", prm_id);
     }
 }

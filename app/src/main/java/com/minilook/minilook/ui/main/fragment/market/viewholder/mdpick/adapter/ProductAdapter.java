@@ -8,21 +8,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.main.fragment.market.viewholder.mdpick.MarketMDPickItemVH;
+import com.minilook.minilook.ui.main.fragment.market.viewholder.mdpick.viewholder.ProductItemVH;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MarketRecommendAdapter extends RecyclerView.Adapter<MarketMDPickItemVH> implements
+public class ProductAdapter extends RecyclerView.Adapter<ProductItemVH> implements
     BaseAdapterDataModel<ProductDataModel>, BaseAdapterDataView<ProductDataModel> {
 
     private List<ProductDataModel> items = new ArrayList<>();
 
-    @NonNull @Override public MarketMDPickItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MarketMDPickItemVH(parent);
+    @NonNull @Override public ProductItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ProductItemVH(parent);
     }
 
-    @Override public void onBindViewHolder(@NonNull MarketMDPickItemVH holder, int position) {
+    @Override public void onBindViewHolder(@NonNull ProductItemVH holder, int position) {
         holder.bind(items.get(position));
     }
 

@@ -10,4 +10,7 @@ import lombok.Data;
     private String subtitle;
     private boolean is_more;
     private List<JsonObject> data;
+
+
+    private int module_type;
 }

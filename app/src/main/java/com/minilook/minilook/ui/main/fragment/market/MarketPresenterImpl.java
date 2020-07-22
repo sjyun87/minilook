@@ -33,7 +33,12 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
     }
 
     private void resMarketModules(List<MarketDataModel> data) {
-        adapter.set(data.subList(0, 1));
+        // 임시
+        for (MarketDataModel model : data) {
+            model.setType(model.getModule_type());
+        }
+
+        adapter.set(data.subList(0, 2));
         view.refresh();
     }
 }
