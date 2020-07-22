@@ -3,7 +3,7 @@ package com.minilook.minilook.ui.main;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.main.di.MainArguments;
-
+import com.minilook.minilook.ui.main.fragment.lookbook.LookBookPresenterImpl;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import timber.log.Timber;
@@ -30,6 +30,9 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
             } else if (o instanceof RxEventNavigateToBrand) {
                 int brandId = ((RxEventNavigateToBrand) o).getBrandId();
                 view.navigateToBrand(brandId);
+            } else if (o instanceof LookBookPresenterImpl.RxEventLookBookPageChanged) {
+                int position = ((LookBookPresenterImpl.RxEventLookBookPageChanged) o).getPosition();
+                view.setupBottombarTheme(position != 0);
             }
         }, Timber::e));
     }

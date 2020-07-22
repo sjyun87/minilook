@@ -30,8 +30,8 @@ public class LookBookDetailPresenterImpl extends BasePresenterImpl implements Lo
 
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
-            if (o instanceof LookBookPreviewPresenterImpl.RxEventLookBookPageChange) {
-                LookBookDetailDataModel data = ((LookBookPreviewPresenterImpl.RxEventLookBookPageChange) o).getData();
+            if (o instanceof LookBookPreviewPresenterImpl.RxEventLookBookModuleChanged) {
+                LookBookDetailDataModel data = ((LookBookPreviewPresenterImpl.RxEventLookBookModuleChanged) o).getData();
                 setupData(data);
             }
         }, Timber::e));

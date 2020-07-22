@@ -16,7 +16,6 @@ import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import timber.log.Timber;
 
 public class LookBookImageModuleVH extends BaseViewHolder<LookBookPreviewDataModel> {
 
@@ -32,7 +31,6 @@ public class LookBookImageModuleVH extends BaseViewHolder<LookBookPreviewDataMod
 
     @Override public void bind(LookBookPreviewDataModel $data) {
         super.bind($data);
-        Timber.e(data.toString());
 
         Glide.with(itemView)
             .load(data.getUrl())

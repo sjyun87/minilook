@@ -40,6 +40,7 @@ public class BottomBar extends LinearLayout {
     @BindDrawable(R.drawable.bg_bottombar_white) Drawable whiteTheme;
     @BindDrawable(R.drawable.bg_bottombar_dark) Drawable darkTheme;
 
+    @BindDrawable(R.drawable.ic_lookbook_purple) Drawable lookbookPurple;
     @BindDrawable(R.drawable.ic_lookbook_white) Drawable lookbookWhite;
     @BindDrawable(R.drawable.ic_lookbook_gray) Drawable lookbookGray;
     @BindDrawable(R.drawable.ic_preorder_purple) Drawable preorderPurple;
@@ -91,6 +92,11 @@ public class BottomBar extends LinearLayout {
         updateUI();
     }
 
+    public void setWhiteTheme(boolean flag) {
+        this.isWhiteTheme = flag;
+        updateUI();
+    }
+
     private void updateUI() {
         if (isWhiteTheme) {
             setBackground(whiteTheme);
@@ -100,14 +106,25 @@ public class BottomBar extends LinearLayout {
 
         switch (position) {
             case POSITION_LOOKBOOK:
-                lookbookImageView.setImageDrawable(lookbookWhite);
-                preorderImageView.setImageDrawable(preorderWhite);
-                marketImageView.setImageDrawable(marketWhite);
-                ipageImageView.setImageDrawable(ipageWhite);
-                lookbookTextView.setTextColor(FFFFFFFF);
-                preorderTextView.setTextColor(FFFFFFFF);
-                marketTextView.setTextColor(FFFFFFFF);
-                ipageTextView.setTextColor(FFFFFFFF);
+                if (isWhiteTheme) {
+                    lookbookImageView.setImageDrawable(lookbookPurple);
+                    preorderImageView.setImageDrawable(preorderGray);
+                    marketImageView.setImageDrawable(marketGray);
+                    ipageImageView.setImageDrawable(ipageGray);
+                    lookbookTextView.setTextColor(FF8140E5);
+                    preorderTextView.setTextColor(FFA9A9A9);
+                    marketTextView.setTextColor(FFA9A9A9);
+                    ipageTextView.setTextColor(FFA9A9A9);
+                } else {
+                    lookbookImageView.setImageDrawable(lookbookWhite);
+                    preorderImageView.setImageDrawable(preorderWhite);
+                    marketImageView.setImageDrawable(marketWhite);
+                    ipageImageView.setImageDrawable(ipageWhite);
+                    lookbookTextView.setTextColor(FFFFFFFF);
+                    preorderTextView.setTextColor(FFFFFFFF);
+                    marketTextView.setTextColor(FFFFFFFF);
+                    ipageTextView.setTextColor(FFFFFFFF);
+                }
                 break;
 
             case POSITION_PREORDER:
