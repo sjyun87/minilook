@@ -1,6 +1,6 @@
 package com.minilook.minilook.data.network.lookbook;
 
-import com.minilook.minilook.data.model.lookbook.LookBookDataModel;
+import com.minilook.minilook.data.model.lookbook.LookBookTestDataModel;
 import com.minilook.minilook.data.network.base.BaseRequest;
 
 import io.reactivex.rxjava3.core.Single;
@@ -13,7 +13,7 @@ public class LookBookRequest extends BaseRequest<LookBookService> {
         return LookBookService.class;
     }
 
-    public Single<LookBookDataModel> getLookbookModules(int page) {
+    public Single<LookBookTestDataModel> getLookbookModules(int page) {
         return getApi().getLookBookModule("Lookbook", page * ROWS, ROWS);
     }
 }

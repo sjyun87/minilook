@@ -11,14 +11,14 @@ import androidx.annotation.NonNull;
 import butterknife.BindView;
 import com.bumptech.glide.Glide;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.lookbook.LookBookModuleDataModel;
+import com.minilook.minilook.data.model.lookbook.LookBookPreviewDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import timber.log.Timber;
 
-public class LookBookImageModuleVH extends BaseViewHolder<LookBookModuleDataModel> {
+public class LookBookImageModuleVH extends BaseViewHolder<LookBookPreviewDataModel> {
 
     @BindView(R.id.img_lookbook) ImageView bgImageView;
     @BindView(R.id.layout_content_panel) LinearLayout contentPanel;
@@ -30,12 +30,12 @@ public class LookBookImageModuleVH extends BaseViewHolder<LookBookModuleDataMode
             .inflate(R.layout.item_lookbook_image, (ViewGroup) itemView, false));
     }
 
-    @Override public void bind(LookBookModuleDataModel $data) {
+    @Override public void bind(LookBookPreviewDataModel $data) {
         super.bind($data);
         Timber.e(data.toString());
 
         Glide.with(itemView)
-            .load(data.getBg_url())
+            .load(data.getUrl())
             .into(bgImageView);
 
         contentPanel.setGravity(Gravity.BOTTOM);

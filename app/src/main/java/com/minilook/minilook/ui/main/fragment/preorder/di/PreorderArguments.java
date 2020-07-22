@@ -1,6 +1,6 @@
-package com.minilook.minilook.ui.main.fragment.category.di;
+package com.minilook.minilook.ui.main.fragment.preorder.di;
 
-import com.minilook.minilook.ui.main.fragment.category.PreorderPresenter;
+import com.minilook.minilook.ui.main.fragment.preorder.PreorderPresenter;
 import lombok.Builder;
 import lombok.Getter;
 

@@ -30,7 +30,7 @@ public abstract class BaseRequest<T> {
 
     @AllArgsConstructor @Getter protected enum EndPoint {
         BASE_URL(BuildConfig.DEBUG ?
-            "http://lookbook.minilook.co.kr/" :
+            "http://lookbook.minilook.co.kr:8080/" :
             "http://lookbook.minilook.co.kr/");
 
         private String value;
