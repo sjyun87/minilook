@@ -5,14 +5,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.minilook.minilook.data.model.market.MarketModuleDataModel;
+import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.type.MarketModuleType;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.main.fragment.market.viewholder.brand.MarketBrandVH;
 import com.minilook.minilook.ui.main.fragment.market.viewholder.promotion.MarketPromotionVH;
-import com.minilook.minilook.ui.main.fragment.market.viewholder.recommend.MarketRecommendVH;
+import com.minilook.minilook.ui.main.fragment.market.viewholder.mdpick.MarketMDPickVH;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,16 +20,18 @@ import java.util.List;
 import timber.log.Timber;
 
 public class MarketModuleAdapter extends RecyclerView.Adapter<BaseViewHolder> implements
-    BaseAdapterDataModel<MarketModuleDataModel>, BaseAdapterDataView<MarketModuleDataModel> {
+    BaseAdapterDataModel<MarketDataModel>, BaseAdapterDataView<MarketDataModel> {
 
-    private List<MarketModuleDataModel> items = new ArrayList<>();
+    private List<MarketDataModel> items = new ArrayList<>();
 
     @NonNull @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == MarketModuleType.TYPE_PROMOTION.getValue()) {
             return new MarketPromotionVH(parent);
-        } else if (viewType == MarketModuleType.TYPE_RECOMMEND.getValue()) {
-            return new MarketRecommendVH(parent);
+        } else if (viewType == MarketModuleType.TYPE_MD_PICK.getValue()) {
+            return new MarketMDPickVH(parent);
+        } else if (viewType == MarketModuleType.TYPE_NEW.getValue()) {
+            return new MarketMDPickVH(parent);
         } else if (viewType == MarketModuleType.TYPE_BRAND.getValue()) {
             return new MarketBrandVH(parent);
         } else {
@@ -48,35 +50,35 @@ public class MarketModuleAdapter extends RecyclerView.Adapter<BaseViewHolder> im
     }
 
     @Override public int getItemViewType(int position) {
-        return items.get(position).getModule_type();
+        return items.get(position).getType();
     }
 
-    @Override public void add(MarketModuleDataModel $item) {
+    @Override public void add(MarketDataModel $item) {
         this.items.add($item);
     }
 
-    @Override public void add(int $index, MarketModuleDataModel $item) {
+    @Override public void add(int $index, MarketDataModel $item) {
         this.items.add($index, $item);
     }
 
-    @Override public void addAll(List<MarketModuleDataModel> $items) {
+    @Override public void addAll(List<MarketDataModel> $items) {
         this.items.addAll($items);
     }
 
-    @Override public void set(int $index, MarketModuleDataModel $item) {
+    @Override public void set(int $index, MarketDataModel $item) {
         this.items.set($index, $item);
     }
 
-    @Override public void set(List<MarketModuleDataModel> $items) {
+    @Override public void set(List<MarketDataModel> $items) {
         this.items.clear();
         this.items.addAll($items);
     }
 
-    @Override public MarketModuleDataModel get(int $index) {
+    @Override public MarketDataModel get(int $index) {
         return this.items.get($index);
     }
 
-    @Override public List<MarketModuleDataModel> get() {
+    @Override public List<MarketDataModel> get() {
         return this.items;
     }
 
@@ -84,7 +86,7 @@ public class MarketModuleAdapter extends RecyclerView.Adapter<BaseViewHolder> im
         this.items.remove($index);
     }
 
-    @Override public void remove(MarketModuleDataModel $item) {
+    @Override public void remove(MarketDataModel $item) {
         this.items.remove($item);
     }
 

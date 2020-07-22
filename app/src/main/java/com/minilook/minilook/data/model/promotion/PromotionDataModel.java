@@ -11,6 +11,8 @@ import lombok.Data;
     private String title;
     private String desc;
     private String image_url;
+
+
     private String image_thumb_url;
     private List<ProductDataModel> products;
 }

@@ -1,22 +1,18 @@
 package com.minilook.minilook.ui.main.fragment.market;
 
 import com.minilook.minilook.data.model.market.MarketDataModel;
-import com.minilook.minilook.data.model.market.MarketModuleDataModel;
 import com.minilook.minilook.data.network.market.MarketRequest;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.main.fragment.market.di.MarketArguments;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import timber.log.Timber;
 
 public class MarketPresenterImpl extends BasePresenterImpl implements MarketPresenter {
 
     private final View view;
-    private final BaseAdapterDataModel<MarketModuleDataModel> adapter;
+    private final BaseAdapterDataModel<MarketDataModel> adapter;
     private final MarketRequest marketRequest;
 
     public MarketPresenterImpl(MarketArguments args) {
@@ -36,8 +32,8 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
             .subscribe(this::resMarketModules, Timber::e));
     }
 
-    private void resMarketModules(MarketDataModel data) {
-        adapter.set(data.getModules());
+    private void resMarketModules(List<MarketDataModel> data) {
+        adapter.set(data.subList(0, 1));
         view.refresh();
     }
 }

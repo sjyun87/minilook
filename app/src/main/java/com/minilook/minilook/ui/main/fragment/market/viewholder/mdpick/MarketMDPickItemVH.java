@@ -1,6 +1,5 @@
-package com.minilook.minilook.ui.main.fragment.market.viewholder.recommend;
+package com.minilook.minilook.ui.main.fragment.market.viewholder.mdpick;
 
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,19 +8,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.bumptech.glide.Glide;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
-import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
-import com.minilook.minilook.ui.main.MainPresenterImpl;
-import com.minilook.minilook.util.StringUtil;
 
-import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
 
-public class MarketRecommendItemVH extends BaseViewHolder<ProductDataModel> {
+public class MarketMDPickItemVH extends BaseViewHolder<ProductDataModel> {
 
     @BindView(R.id.img_product_thumb) ImageView thumbImageView;
     @BindView(R.id.txt_price_percent) TextView pricePercentTextView;
@@ -31,7 +25,7 @@ public class MarketRecommendItemVH extends BaseViewHolder<ProductDataModel> {
     @BindString(R.string.base_price_percent) String formatPercent;
     @BindString(R.string.base_product_name) String formatProductName;
 
-    public MarketRecommendItemVH(@NonNull View itemView) {
+    public MarketMDPickItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
             .inflate(R.layout.item_product, (ViewGroup) itemView, false));
     }

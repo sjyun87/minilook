@@ -93,7 +93,7 @@ dependencies {
   implementation "com.nex3z:flow-layout:$flowlayout_version"
 
   // Indicator
-  implementation "me.relex:circleindicator:$indicator_version"
+  implementation "com.tbuonomo.andrui:viewpagerdotsindicator:$indicator_version"
 
   // Divider
   implementation "com.github.fondesa:recycler-view-divider:$divider_version"

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.brand.BrandInfoDataModel;
-import com.minilook.minilook.data.model.market.MarketModuleDataModel;
+import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.main.fragment.market.viewholder.brand.adapter.MarketBrandAdapter;
 
@@ -21,7 +21,7 @@ import java.util.List;
 import butterknife.BindView;
 import io.reactivex.rxjava3.core.Observable;
 
-public class MarketBrandVH extends BaseViewHolder<MarketModuleDataModel> {
+public class MarketBrandVH extends BaseViewHolder<MarketDataModel> {
 
     @BindView(R.id.txt_title) TextView titleTextView;
     @BindView(R.id.txt_subtitle) TextView subtitleTextView;
@@ -42,7 +42,7 @@ public class MarketBrandVH extends BaseViewHolder<MarketModuleDataModel> {
         recyclerView.setAdapter(adapter);
     }
 
-    @Override public void bind(MarketModuleDataModel $data) {
+    @Override public void bind(MarketDataModel $data) {
         super.bind($data);
 
         titleTextView.setText(data.getTitle());
@@ -54,7 +54,7 @@ public class MarketBrandVH extends BaseViewHolder<MarketModuleDataModel> {
     }
 
     private List<BrandInfoDataModel> parseJsonToModel() {
-        return Observable.fromIterable(data.getDatas())
+        return Observable.fromIterable(data.getData())
             .map(json -> gson.fromJson(json, BrandInfoDataModel.class))
             .toList()
             .blockingGet();
