@@ -16,5 +16,7 @@ public interface LookBookPresenter extends LifecycleObserver {
         void setupViewPager();
 
         void navigateToDetailPage();
+
+        void navigateToPreviewPage();
     }
 }

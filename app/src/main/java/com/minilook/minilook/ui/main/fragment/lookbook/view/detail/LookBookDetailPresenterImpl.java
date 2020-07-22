@@ -8,6 +8,8 @@ import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.main.fragment.lookbook.view.detail.di.LookBookDetailArguments;
 import com.minilook.minilook.ui.main.fragment.lookbook.view.preview.LookBookPreviewPresenterImpl;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import timber.log.Timber;
 
 public class LookBookDetailPresenterImpl extends BasePresenterImpl implements LookBookDetailPresenter {
@@ -27,6 +29,10 @@ public class LookBookDetailPresenterImpl extends BasePresenterImpl implements Lo
 
         view.setupStyleRecyclerView();
         view.setupProductRecyclerView();
+    }
+
+    @Override public void onBackClick() {
+        RxBus.send(new RxEventDetailBackClick());
     }
 
     private void toRxObservable() {
@@ -61,5 +67,8 @@ public class LookBookDetailPresenterImpl extends BasePresenterImpl implements Lo
             sb.append(String.format("[%s]%s %d만원대 by%s", category, name, price, brand));
         }
         return sb.toString();
+    }
+
+    @AllArgsConstructor @Getter public final static class RxEventDetailBackClick {
     }
 }

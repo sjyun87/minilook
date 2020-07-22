@@ -9,6 +9,8 @@ public interface LookBookDetailPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
+    void onBackClick();
+
     interface View {
 
         void setupStyleRecyclerView();

@@ -87,6 +87,6 @@ public class LookBookDetailFragment extends BaseFragment implements LookBookDeta
 
     @OnClick(R.id.img_titlebar_back)
     void onBackClick() {
-
+        presenter.onBackClick();
     }
 }

@@ -51,4 +51,8 @@ public class LookBookFragment extends BaseFragment implements LookBookPresenter.
     @Override public void navigateToDetailPage() {
         viewPager.setCurrentItem(1);
     }
+
+    @Override public void navigateToPreviewPage() {
+        viewPager.setCurrentItem(0);
+    }
 }

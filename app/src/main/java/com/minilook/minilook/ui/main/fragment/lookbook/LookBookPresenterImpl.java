@@ -3,6 +3,7 @@ package com.minilook.minilook.ui.main.fragment.lookbook;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.main.fragment.lookbook.di.LookBookArguments;
+import com.minilook.minilook.ui.main.fragment.lookbook.view.detail.LookBookDetailPresenterImpl;
 import com.minilook.minilook.ui.main.fragment.lookbook.view.preview.viewholder.LookBookImageModuleVH;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,6 +31,8 @@ public class LookBookPresenterImpl extends BasePresenterImpl implements LookBook
         addDisposable(RxBus.toObservable().subscribe(o -> {
             if (o instanceof LookBookImageModuleVH.RxEventPreviewClick) {
                 view.navigateToDetailPage();
+            } else if (o instanceof LookBookDetailPresenterImpl.RxEventDetailBackClick) {
+                view.navigateToPreviewPage();
             }
         }, Timber::e));
     }
