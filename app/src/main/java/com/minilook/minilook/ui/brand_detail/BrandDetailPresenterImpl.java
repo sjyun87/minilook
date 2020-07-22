@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.brand;
+package com.minilook.minilook.ui.brand_detail;
 
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.brand.BrandInfoDataModel;
@@ -6,16 +6,16 @@ import com.minilook.minilook.data.model.brand.StoreInfoDataModel;
 import com.minilook.minilook.data.network.brand.BrandRequest;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
-import com.minilook.minilook.ui.brand.di.BrandArguments;
+import com.minilook.minilook.ui.brand_detail.di.BrandDetailArguments;
 import timber.log.Timber;
 
-public class BrandPresenterImpl extends BasePresenterImpl implements BrandPresenter {
+public class BrandDetailPresenterImpl extends BasePresenterImpl implements BrandDetailPresenter {
 
     private final View view;
     private final int brandId;
     private final BrandRequest brandRequest;
 
-    public BrandPresenterImpl(BrandArguments args) {
+    public BrandDetailPresenterImpl(BrandDetailArguments args) {
         view = args.getView();
         brandId = args.getBrandId();
         brandRequest = new BrandRequest();

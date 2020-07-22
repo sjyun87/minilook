@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.detail;
+package com.minilook.minilook.ui.product_detail;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,14 +10,14 @@ import android.webkit.WebViewClient;
 
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
-import com.minilook.minilook.ui.detail.di.DetailArguments;
+import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
 
 import butterknife.BindView;
 
-public class DetailActivity extends BaseActivity implements DetailPresenter.View {
+public class ProductDetailActivity extends BaseActivity implements ProductDetailPresenter.View {
 
     public static void start(Context context, String url) {
-        Intent intent = new Intent(context, DetailActivity.class);
+        Intent intent = new Intent(context, ProductDetailActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("web_url", url);
@@ -26,19 +26,19 @@ public class DetailActivity extends BaseActivity implements DetailPresenter.View
 
     @BindView(R.id.webview) WebView webView;
 
-    private DetailPresenter presenter;
+    private ProductDetailPresenter presenter;
 
     @Override protected int getLayoutID() {
         return R.layout.activity_detail;
     }
 
     @Override protected void createPresenter() {
-        presenter = new DetailPresenterImpl(provideArguments());
+        presenter = new ProductDetailPresenterImpl(provideArguments());
         getLifecycle().addObserver(presenter);
     }
 
-    private DetailArguments provideArguments() {
-        return DetailArguments.builder()
+    private ProductDetailArguments provideArguments() {
+        return ProductDetailArguments.builder()
             .view(this)
             .webUrl(getIntent().getStringExtra("web_url"))
             .build();

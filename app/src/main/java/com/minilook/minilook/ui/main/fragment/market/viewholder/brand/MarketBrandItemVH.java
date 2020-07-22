@@ -39,7 +39,7 @@ public class MarketBrandItemVH extends BaseViewHolder<BrandInfoDataModel> {
         nameTextView.setText(data.getName());
         tagTextView.setText(data.getTag());
 
-        itemView.setOnClickListener(v -> RxBus.send(new MainPresenterImpl.RxEventNavigateToBrand(data.getId())));
+        itemView.setOnClickListener(v -> RxBus.send(new MainPresenterImpl.RxEventNavigateToBrandDetail(data.getId())));
     }
 
     @OnClick(R.id.img_scrap)

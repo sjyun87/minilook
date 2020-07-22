@@ -7,8 +7,8 @@ import butterknife.BindView;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.widget.BottomBar;
-import com.minilook.minilook.ui.brand.BrandActivity;
-import com.minilook.minilook.ui.detail.DetailActivity;
+import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
+import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.ui.main.adapter.MainPagerAdapter;
 import com.minilook.minilook.ui.main.di.MainArguments;
 
@@ -59,11 +59,11 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
         bottomBar.setupWhiteTheme(flag);
     }
 
-    @Override public void navigateToDetail(String url) {
-        DetailActivity.start(this, url);
+    @Override public void navigateToProductDetail(String url) {
+        ProductDetailActivity.start(this, url);
     }
 
-    @Override public void navigateToBrand(int brandId) {
-        BrandActivity.start(this, brandId);
+    @Override public void navigateToBrandDetail(int brandId) {
+        BrandDetailActivity.start(this, brandId);
     }
 }

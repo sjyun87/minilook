@@ -1,10 +1,10 @@
-package com.minilook.minilook.ui.brand;
+package com.minilook.minilook.ui.brand_detail;
 
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
-public interface BrandPresenter extends LifecycleObserver {
+public interface BrandDetailPresenter extends LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();

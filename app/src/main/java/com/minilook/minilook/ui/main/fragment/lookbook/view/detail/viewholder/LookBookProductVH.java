@@ -65,7 +65,7 @@ public class LookBookProductVH extends BaseViewHolder<ProductDataModel> {
 
     @OnClick(R.id.layout_brand_panel)
     void onBrandClick() {
-        RxBus.send(new MainPresenterImpl.RxEventNavigateToBrand(data.getBrand().getId()));
+        RxBus.send(new MainPresenterImpl.RxEventNavigateToBrandDetail(data.getBrand().getId()));
     }
 
     @OnClick(R.id.layout_review_panel)

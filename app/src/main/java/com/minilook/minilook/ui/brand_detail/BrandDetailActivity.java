@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.brand;
+package com.minilook.minilook.ui.brand_detail;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,16 +8,16 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
-import com.minilook.minilook.ui.brand.di.BrandArguments;
+import com.minilook.minilook.ui.brand_detail.di.BrandDetailArguments;
 import com.minilook.minilook.ui.bridge.BridgeActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class BrandActivity extends BaseActivity implements BrandPresenter.View {
+public class BrandDetailActivity extends BaseActivity implements BrandDetailPresenter.View {
 
     public static void start(Context context, int id) {
-        Intent intent = new Intent(context, BrandActivity.class);
+        Intent intent = new Intent(context, BrandDetailActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("brand_id", id);
@@ -32,19 +32,19 @@ public class BrandActivity extends BaseActivity implements BrandPresenter.View {
     @BindView(R.id.txt_cs_email) TextView csEmailTextView;
     @BindView(R.id.txt_cs_address) TextView csAddressTextView;
 
-    private BrandPresenter presenter;
+    private BrandDetailPresenter presenter;
 
     @Override protected int getLayoutID() {
         return R.layout.activity_brand;
     }
 
     @Override protected void createPresenter() {
-        presenter = new BrandPresenterImpl(provideArguments());
+        presenter = new BrandDetailPresenterImpl(provideArguments());
         getLifecycle().addObserver(presenter);
     }
 
-    private BrandArguments provideArguments() {
-        return BrandArguments.builder()
+    private BrandDetailArguments provideArguments() {
+        return BrandDetailArguments.builder()
             .view(this)
             .brandId(getIntent().getIntExtra("brand_id", -1))
             .build();

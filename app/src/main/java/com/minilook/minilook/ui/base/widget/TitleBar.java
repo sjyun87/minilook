@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.minilook.minilook.R;
-import com.minilook.minilook.ui.brand.BrandActivity;
+import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.search.SearchActivity;
 
 import butterknife.BindView;
@@ -118,7 +118,7 @@ public class TitleBar extends FrameLayout {
 
     @OnClick(R.id.img_titlebar_logo)
     void onLogoClick() {
-        if (activity != null) BrandActivity.start(activity, 1);
+        if (activity != null) BrandDetailActivity.start(activity, 1);
     }
 
     private Activity getActivity() {

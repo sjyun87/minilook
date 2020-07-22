@@ -31,12 +31,12 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
 
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
-            if (o instanceof RxEventNavigateToDetail) {
-                String url = ((RxEventNavigateToDetail) o).getUrl();
-                view.navigateToDetail(url);
-            } else if (o instanceof RxEventNavigateToBrand) {
-                int brandId = ((RxEventNavigateToBrand) o).getBrandId();
-                view.navigateToBrand(brandId);
+            if (o instanceof RxEventNavigateToProductDetail) {
+                String url = ((RxEventNavigateToProductDetail) o).getUrl();
+                view.navigateToProductDetail(url);
+            } else if (o instanceof RxEventNavigateToBrandDetail) {
+                int brandId = ((RxEventNavigateToBrandDetail) o).getBrandId();
+                view.navigateToBrandDetail(brandId);
             } else if (o instanceof LookBookPresenterImpl.RxEventLookBookPageChanged) {
                 int position = ((LookBookPresenterImpl.RxEventLookBookPageChanged) o).getPosition();
                 view.setupBottombarTheme(position != 0);
@@ -44,11 +44,11 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
         }, Timber::e));
     }
 
-    @AllArgsConstructor @Getter public final static class RxEventNavigateToBrand {
+    @AllArgsConstructor @Getter public final static class RxEventNavigateToBrandDetail {
         private int brandId;
     }
 
-    @AllArgsConstructor @Getter public final static class RxEventNavigateToDetail {
+    @AllArgsConstructor @Getter public final static class RxEventNavigateToProductDetail {
         private String url;
     }
 
