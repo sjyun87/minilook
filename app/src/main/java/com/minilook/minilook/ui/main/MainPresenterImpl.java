@@ -22,6 +22,13 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
         view.setupBottomBar();
     }
 
+    @Override public void onTabChanged(int position) {
+        if (position != 0) {
+            RxBus.send(new LookBookPresenterImpl.RxEventNavigateToPreview(false));
+            RxBus.send(new RxEventTabChanged());
+        }
+    }
+
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
             if (o instanceof RxEventNavigateToDetail) {
@@ -43,5 +50,8 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
 
     @AllArgsConstructor @Getter public final static class RxEventNavigateToDetail {
         private String url;
+    }
+
+    @AllArgsConstructor @Getter public final static class RxEventTabChanged {
     }
 }

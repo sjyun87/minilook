@@ -164,6 +164,7 @@ public class BottomBar extends LinearLayout {
 
     @OnClick(R.id.btn_bottombar_lookbook)
     void onLookBookClick() {
+        if (position == POSITION_LOOKBOOK) return;
         position = POSITION_LOOKBOOK;
         isWhiteTheme = false;
         updateUI();
@@ -172,6 +173,7 @@ public class BottomBar extends LinearLayout {
 
     @OnClick(R.id.btn_bottombar_preorder)
     void onPreorderClick() {
+        if (position == POSITION_PREORDER) return;
         position = POSITION_PREORDER;
         isWhiteTheme = true;
         updateUI();
@@ -180,6 +182,7 @@ public class BottomBar extends LinearLayout {
 
     @OnClick(R.id.btn_bottombar_market)
     void onMarketClick() {
+        if (position == POSITION_MARKET) return;
         position = POSITION_MARKET;
         isWhiteTheme = true;
         updateUI();
@@ -188,6 +191,7 @@ public class BottomBar extends LinearLayout {
 
     @OnClick(R.id.btn_bottombar_ipage)
     void onIpageClick() {
+        if (position == POSITION_IPAGE) return;
         position = POSITION_IPAGE;
         isWhiteTheme = true;
         updateUI();

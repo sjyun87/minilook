@@ -15,8 +15,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.lookbook.LookBookPreviewDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import com.minilook.minilook.ui.main.fragment.lookbook.LookBookPresenterImpl;
 
 public class LookBookImageModuleVH extends BaseViewHolder<LookBookPreviewDataModel> {
 
@@ -38,7 +37,7 @@ public class LookBookImageModuleVH extends BaseViewHolder<LookBookPreviewDataMod
             .into(bgImageView);
 
         switch (data.getPosition()) {
-            case 0 :
+            case 0:
                 contentPanel.setGravity(Gravity.TOP);
                 labelTextView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
                 titleTextView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
@@ -69,9 +68,6 @@ public class LookBookImageModuleVH extends BaseViewHolder<LookBookPreviewDataMod
         titleTextView.setText(data.getTitle());
         labelTextView.setText(data.getLabel());
 
-        itemView.setOnClickListener(v -> RxBus.send(new RxEventPreviewClick()));
-    }
-
-    @AllArgsConstructor @Getter public final static class RxEventPreviewClick {
+        itemView.setOnClickListener(v -> RxBus.send(new LookBookPresenterImpl.RxEventNavigateToDetail(true)));
     }
 }

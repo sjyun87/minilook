@@ -9,6 +9,8 @@ public interface MainPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
+    void onTabChanged(int position);
+
     interface View {
 
         void setupViewPager();

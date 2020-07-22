@@ -3,8 +3,6 @@ package com.minilook.minilook.ui.main.fragment.lookbook;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.main.fragment.lookbook.di.LookBookArguments;
-import com.minilook.minilook.ui.main.fragment.lookbook.view.detail.LookBookDetailPresenterImpl;
-import com.minilook.minilook.ui.main.fragment.lookbook.view.preview.viewholder.LookBookImageModuleVH;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import timber.log.Timber;
@@ -29,15 +27,25 @@ public class LookBookPresenterImpl extends BasePresenterImpl implements LookBook
 
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
-            if (o instanceof LookBookImageModuleVH.RxEventPreviewClick) {
-                view.navigateToDetailPage();
-            } else if (o instanceof LookBookDetailPresenterImpl.RxEventDetailBackClick) {
-                view.navigateToPreviewPage();
+            if (o instanceof RxEventNavigateToDetail) {
+                boolean smoothScroll = ((RxEventNavigateToDetail) o).isSmoothScroll();
+                view.navigateToDetailPage(smoothScroll);
+            } else if (o instanceof RxEventNavigateToPreview) {
+                boolean smoothScroll = ((RxEventNavigateToPreview) o).isSmoothScroll();
+                view.navigateToPreviewPage(smoothScroll);
             }
         }, Timber::e));
     }
 
     @AllArgsConstructor @Getter public final static class RxEventLookBookPageChanged {
         private int position;
+    }
+
+    @AllArgsConstructor @Getter public final static class RxEventNavigateToPreview {
+        boolean smoothScroll;
+    }
+
+    @AllArgsConstructor @Getter public final static class RxEventNavigateToDetail {
+        boolean smoothScroll;
     }
 }

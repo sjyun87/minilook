@@ -1,6 +1,8 @@
 package com.minilook.minilook.ui.main.fragment.lookbook.view.detail;
 
+import android.view.View;
 import android.widget.TextView;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -18,6 +20,7 @@ public class LookBookDetailFragment extends BaseFragment implements LookBookDeta
         return new LookBookDetailFragment();
     }
 
+    @BindView(R.id.nsv_root) NestedScrollView scrollView;
     @BindView(R.id.txt_label) TextView labelTextView;
     @BindView(R.id.txt_title) TextView titleTextView;
     @BindView(R.id.txt_tag) TextView tagTextView;
@@ -83,6 +86,10 @@ public class LookBookDetailFragment extends BaseFragment implements LookBookDeta
 
     @Override public void productRefresh() {
         productAdapterDataView.refresh();
+    }
+
+    @Override public void scrollToTop() {
+        scrollView.fullScroll(View.FOCUS_UP);
     }
 
     @OnClick(R.id.img_titlebar_back)

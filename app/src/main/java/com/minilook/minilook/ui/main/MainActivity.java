@@ -49,7 +49,10 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
     }
 
     @Override public void setupBottomBar() {
-        bottomBar.setOnTabChangeListener(position -> viewPager.setCurrentItem(position, false));
+        bottomBar.setOnTabChangeListener(position -> {
+            viewPager.setCurrentItem(position, false);
+            presenter.onTabChanged(position);
+        });
     }
 
     @Override public void setupBottombarTheme(boolean flag) {

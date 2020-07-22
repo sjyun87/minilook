@@ -30,5 +30,7 @@ public interface LookBookDetailPresenter extends LifecycleObserver {
         void styleRefresh();
 
         void productRefresh();
+
+        void scrollToTop();
     }
 }
