@@ -1,5 +1,6 @@
 package com.minilook.minilook.ui.main.fragment.lookbook.view.preview;
 
+import com.google.gson.Gson;
 import com.minilook.minilook.data.model.lookbook.LookBookDataModel;
 import com.minilook.minilook.data.model.lookbook.LookBookDetailDataModel;
 import com.minilook.minilook.data.model.lookbook.LookBookTestDataModel;
@@ -21,6 +22,7 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
     private final LookBookRequest lookBookRequest;
 
     private AtomicInteger page;
+    private Gson gson = new Gson();
 
     public LookBookPreviewPresenterImpl(LookBookPreviewArguments args) {
         view = args.getView();
@@ -48,7 +50,6 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
 
     private void resLookBookModules(LookBookTestDataModel data) {
         adapter.set(data.getDatas());
-        view.refresh();
     }
 
     @AllArgsConstructor @Getter public final static class RxEventLookBookPageChange {

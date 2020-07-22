@@ -1,16 +1,12 @@
 package com.minilook.minilook.ui.main.fragment.lookbook.view.detail;
 
-import com.minilook.minilook.data.model.lookbook.LookBookDataModel;
 import com.minilook.minilook.data.model.lookbook.LookBookDetailDataModel;
-import com.minilook.minilook.data.model.lookbook.LookBookPreviewDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.main.fragment.lookbook.view.detail.di.LookBookDetailArguments;
 import com.minilook.minilook.ui.main.fragment.lookbook.view.preview.LookBookPreviewPresenterImpl;
-import io.reactivex.rxjava3.core.Observable;
-import java.util.List;
 import timber.log.Timber;
 
 public class LookBookDetailPresenterImpl extends BasePresenterImpl implements LookBookDetailPresenter {

@@ -1,20 +1,16 @@
 package com.minilook.minilook.ui.main.fragment.lookbook.view.preview.adapter;
 
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.minilook.minilook.data.model.lookbook.LookBookDataModel;
 import com.minilook.minilook.data.type.LookBookModuleType;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.main.fragment.lookbook.view.preview.viewholder.LookBookImageModuleVH;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import timber.log.Timber;
 
 public class LookBookModuleAdapter extends RecyclerView.Adapter<BaseViewHolder> implements
