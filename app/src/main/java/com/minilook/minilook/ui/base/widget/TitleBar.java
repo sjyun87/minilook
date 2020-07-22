@@ -5,33 +5,33 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import com.minilook.minilook.R;
-import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
-import com.minilook.minilook.ui.search.SearchActivity;
-
+import androidx.constraintlayout.widget.ConstraintLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.minilook.minilook.R;
+import com.minilook.minilook.ui.search.SearchActivity;
 
-public class TitleBar extends FrameLayout {
+public class TitleBar extends ConstraintLayout {
 
     @BindView(R.id.img_titlebar_logo) ImageView logoImageView;
     @BindView(R.id.img_titlebar_back) ImageView backImageView;
     @BindView(R.id.txt_titlebar_title) TextView titleTextView;
-    @BindView(R.id.img_titlebar_search) ImageView searchImageView;
+    @BindView(R.id.img_titlebar_search_keyword) ImageView keywordSearchImageView;
+    @BindView(R.id.img_titlebar_search_filter) ImageView filterSearchImageView;
+    @BindView(R.id.img_titlebar_shoppingbag) ImageView shoppingbagImageView;
 
     private Activity activity;
 
     private boolean isShowLogo;
     private boolean isShowBack;
-    private boolean isShowSearch;
+    private boolean isShowKeywordSearch;
+    private boolean isShowFilterSearch;
+    private boolean isShowShoppingBag;
     private boolean isShowTitle;
     private String title;
 
@@ -44,17 +44,16 @@ public class TitleBar extends FrameLayout {
     }
 
     public TitleBar(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
+        super(context, attrs, defStyleAttr);
 
-    public TitleBar(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
         this.activity = getActivity();
 
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.TitleBar);
         isShowLogo = typedArray.getBoolean(R.styleable.TitleBar_showLogo, false);
         isShowBack = typedArray.getBoolean(R.styleable.TitleBar_showBack, false);
-        isShowSearch = typedArray.getBoolean(R.styleable.TitleBar_showSearch, false);
+        isShowKeywordSearch = typedArray.getBoolean(R.styleable.TitleBar_showKeywordSearch, false);
+        isShowFilterSearch = typedArray.getBoolean(R.styleable.TitleBar_showFilterSearch, false);
+        isShowShoppingBag = typedArray.getBoolean(R.styleable.TitleBar_showShoppingBag, false);
         isShowTitle = typedArray.getBoolean(R.styleable.TitleBar_showTitle, false);
         title = typedArray.getString(R.styleable.TitleBar_setTitle);
         typedArray.recycle();
@@ -75,7 +74,9 @@ public class TitleBar extends FrameLayout {
     private void updateUI() {
         logoImageView.setVisibility(isShowLogo ? VISIBLE : GONE);
         backImageView.setVisibility(isShowBack ? VISIBLE : GONE);
-        searchImageView.setVisibility(isShowSearch ? VISIBLE : GONE);
+        keywordSearchImageView.setVisibility(isShowKeywordSearch ? VISIBLE : GONE);
+        filterSearchImageView.setVisibility(isShowFilterSearch ? VISIBLE : GONE);
+        shoppingbagImageView.setVisibility(isShowShoppingBag ? VISIBLE : GONE);
         titleTextView.setVisibility(isShowTitle ? VISIBLE : GONE);
         titleTextView.setText(title);
     }
@@ -90,10 +91,21 @@ public class TitleBar extends FrameLayout {
         updateUI();
     }
 
-    public void setShowSearch(boolean visible) {
-        isShowSearch = visible;
+    public void setShowKeywordSearch(boolean visible) {
+        isShowKeywordSearch = visible;
         updateUI();
     }
+
+    public void setShowFilterSearch(boolean visible) {
+        isShowFilterSearch = visible;
+        updateUI();
+    }
+
+    public void setShowShoppingBag(boolean visible) {
+        isShowShoppingBag = visible;
+        updateUI();
+    }
+
 
     public void setShowTitle(boolean visible) {
         isShowTitle = visible;
@@ -105,20 +117,24 @@ public class TitleBar extends FrameLayout {
         updateUI();
     }
 
-    @OnClick(R.id.img_titlebar_search)
-    void onSearchClick() {
+    @OnClick(R.id.img_titlebar_search_keyword)
+    void onKeywordSearchClick() {
         if (activity != null) SearchActivity.start(activity);
+    }
+
+    @OnClick(R.id.img_titlebar_search_filter)
+    void onFilterSearchClick() {
+        if (activity != null) SearchActivity.start(activity);
+    }
+
+    @OnClick(R.id.img_titlebar_shoppingbag)
+    void onShoppingBagClick() {
+
     }
 
     @OnClick(R.id.img_titlebar_back)
     void onBackClick() {
         if (activity != null) activity.finish();
-    }
-
-
-    @OnClick(R.id.img_titlebar_logo)
-    void onLogoClick() {
-        if (activity != null) BrandDetailActivity.start(activity, 1);
     }
 
     private Activity getActivity() {

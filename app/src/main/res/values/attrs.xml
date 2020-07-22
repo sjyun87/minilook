@@ -3,7 +3,9 @@
     <declare-styleable name="TitleBar">
         <attr name="showLogo" format="reference|boolean" />
         <attr name="showBack" format="reference|boolean" />
-        <attr name="showSearch" format="reference|boolean" />
+        <attr name="showKeywordSearch" format="reference|boolean" />
+        <attr name="showFilterSearch" format="reference|boolean" />
+        <attr name="showShoppingBag" format="reference|boolean" />
         <attr name="showTitle" format="reference|boolean" />
         <attr name="setTitle" format="reference|string" />
     </declare-styleable>
