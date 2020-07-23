@@ -27,7 +27,7 @@ public class ProductItemVH extends BaseViewHolder<ProductDataModel> {
         super.bind($data);
 
         Glide.with(itemView)
-            .load(data.getThumb())
+            .load(data.getUrl_thumb())
             .into(thumbImageView);
 
         brandNameTextView.setText(data.getBrand().getName());

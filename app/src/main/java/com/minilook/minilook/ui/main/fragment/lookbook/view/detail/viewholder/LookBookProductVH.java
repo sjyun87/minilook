@@ -5,20 +5,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
-import butterknife.BindColor;
-import butterknife.BindView;
-import butterknife.OnClick;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.brand.BrandInfoDataModel;
+import com.minilook.minilook.data.model.category.CategoryDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.main.MainPresenterImpl;
 import com.minilook.minilook.util.DimenUtil;
 import com.minilook.minilook.util.StringUtil;
+
+import butterknife.BindColor;
+import butterknife.BindView;
+import butterknife.OnClick;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
 
 public class LookBookProductVH extends BaseViewHolder<ProductDataModel> {
@@ -42,23 +46,24 @@ public class LookBookProductVH extends BaseViewHolder<ProductDataModel> {
     @Override public void bind(ProductDataModel $data) {
         super.bind($data);
 
-        BrandInfoDataModel brandData = data.getBrand();
+        BrandInfoDataModel brandModel = data.getBrand();
+        CategoryDataModel categoryDataModel = data.getCategory();
 
         Glide.with(itemView)
-            .load(brandData.getLogo_url())
+            .load(brandModel.getUrl_logo())
             .apply(RequestOptions.bitmapTransform(
                 new CropCircleWithBorderTransformation(DimenUtil.dpToPx(context, 1), color_FFDBDBDB)))
             .into(brandLogoImageView);
 
-        brandNameTextView.setText(brandData.getName());
+        brandNameTextView.setText(brandModel.getName());
 
         Glide.with(itemView)
-            .load(data.getThumb_url())
+            .load(data.getUrl_image())
             .into(thumbImageView);
 
         reviewTextView.setText(StringUtil.toDigit(data.getReview_cnt()));
         scrapTextView.setText(StringUtil.toDigit(data.getScrap_cnt()));
-        categoryTextView.setText(data.getCategory_name());
+        categoryTextView.setText(categoryDataModel.getName());
         nameTextView.setText(data.getName());
         descTextView.setText(data.getDesc());
     }
@@ -77,9 +82,4 @@ public class LookBookProductVH extends BaseViewHolder<ProductDataModel> {
     void onScrapClick() {
 
     }
-    //
-    //@OnClick(R.id.layout_product_panel)
-    //void onProductClick() {
-    //    RxBus.send(new MainPresenterImpl.RxEventNavigateToDetail(data.getWeb_url()));
-    //}
 }

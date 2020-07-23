@@ -31,14 +31,14 @@ public class MarketNewestItemVH extends BaseViewHolder<ProductDataModel> {
         super.bind($data);
 
         Glide.with(itemView)
-            .load(data.getThumb())
+            .load(data.getUrl_thumb())
             .into(thumbImageView);
 
         brandNameTextView.setText(data.getBrand().getName());
         productNameTextView.setText(data.getName());
 
-        priceOriginTextView.setText(StringUtil.toDigit(data.getOrigin_price()));
-        pricePercentTextView.setText(data.getDiscount_percent() + "%");
+        priceOriginTextView.setText(StringUtil.toDigit(data.getPrice_origin()));
+        pricePercentTextView.setText(data.getPrice_discount_percent() + "%");
         priceTextView.setText(StringUtil.toDigit(data.getPrice()));
 
         //itemView.setOnClickListener(new View.OnClickListener() {

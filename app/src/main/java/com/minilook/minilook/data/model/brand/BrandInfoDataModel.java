@@ -7,9 +7,11 @@ import lombok.Data;
     private String name;
     private String desc;
     private String tag;
-    private String image_url;
-    private String logo_url;
-    private String homepage_url;
+    private String url_image;
+    private String url_logo;
+
+
+    private String url_homepage;
     private int scrap_count;
     private boolean is_scrap;
 }

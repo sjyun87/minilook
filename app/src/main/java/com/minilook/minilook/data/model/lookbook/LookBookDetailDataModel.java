@@ -5,10 +5,10 @@ import java.util.List;
 import lombok.Data;
 
 @Data public class LookBookDetailDataModel {
+    private String label;
     private String title;
     private String desc;
     private String tag;
-    private String label;
-    private List<String> image_urls;
+    private List<String> images;
     private List<ProductDataModel> products;
 }

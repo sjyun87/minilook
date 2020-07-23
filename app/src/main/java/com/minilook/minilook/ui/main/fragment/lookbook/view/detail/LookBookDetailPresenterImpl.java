@@ -57,7 +57,7 @@ public class LookBookDetailPresenterImpl extends BasePresenterImpl implements Lo
         view.setupTag(data.getTag());
         view.setupDesc(data.getDesc());
 
-        styleAdapter.set(data.getImage_urls());
+        styleAdapter.set(data.getImages());
         view.styleRefresh();
 
         view.setupProductInfo(parseToProductInfo(data.getProducts()));
@@ -70,7 +70,7 @@ public class LookBookDetailPresenterImpl extends BasePresenterImpl implements Lo
         StringBuilder sb = new StringBuilder();
         for (ProductDataModel model : products) {
             if (sb.length() != 0) sb.append(" ");
-            String category = model.getCategory_name();
+            String category = model.getBrand().getName();
             String name = model.getName();
             int price = model.getPrice() / 1000;
             String brand = model.getBrand().getName();

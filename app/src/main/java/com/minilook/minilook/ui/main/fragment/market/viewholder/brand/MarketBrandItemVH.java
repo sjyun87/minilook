@@ -33,7 +33,7 @@ public class MarketBrandItemVH extends BaseViewHolder<BrandInfoDataModel> {
         super.bind($data);
 
         Glide.with(itemView)
-            .load(data.getLogo_url())
+            .load(data.getUrl_logo())
             .circleCrop()
             .into(logoImageView);
         nameTextView.setText(data.getName());

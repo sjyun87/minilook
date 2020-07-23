@@ -38,7 +38,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         BrandInfoDataModel brandInfo = data.getBrand_info();
         StoreInfoDataModel storeInfo = data.getStore_info();
 
-        view.setupBgImage(brandInfo.getImage_url());
+        view.setupBgImage(brandInfo.getUrl_image());
         view.setupDesc(brandInfo.getDesc());
         view.setupName(brandInfo.getName());
         view.setupCsDate(storeInfo.getCs_date());
