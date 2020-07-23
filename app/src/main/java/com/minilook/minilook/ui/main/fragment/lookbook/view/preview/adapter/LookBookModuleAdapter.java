@@ -1,30 +1,35 @@
 package com.minilook.minilook.ui.main.fragment.lookbook.view.preview.adapter;
 
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.minilook.minilook.data.model.lookbook.LookBookDataModel;
+import com.minilook.minilook.data.model.lookbook.LookBookPreviewDataModel;
 import com.minilook.minilook.data.type.LookBookModuleType;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.main.fragment.lookbook.view.preview.viewholder.LookBookImageModuleVH;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import timber.log.Timber;
 
-public class LookBookModuleAdapter extends RecyclerView.Adapter<BaseViewHolder> implements
+public class LookBookModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<LookBookPreviewDataModel>> implements
     BaseAdapterDataModel<LookBookDataModel>, BaseAdapterDataView<LookBookDataModel> {
 
     private List<LookBookDataModel> items = new ArrayList<>();
 
     @NonNull @Override
-    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BaseViewHolder<LookBookPreviewDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == LookBookModuleType.TYPE_IMAGE.getValue()) {
             return new LookBookImageModuleVH(parent);
         } else {
-            Timber.e("Type is null -");
-            return new BaseViewHolder(parent);
+            Timber.e("Lookbook Module type is null..");
+            return new BaseViewHolder<>(parent);
         }
     }
 

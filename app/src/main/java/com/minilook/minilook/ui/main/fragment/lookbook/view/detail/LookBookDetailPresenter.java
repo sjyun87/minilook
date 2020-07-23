@@ -23,7 +23,7 @@ public interface LookBookDetailPresenter extends LifecycleObserver {
 
         void setupTag(String text);
 
-        void setupDescription(String text);
+        void setupDesc(String text);
 
         void setupProductInfo(String text);
 

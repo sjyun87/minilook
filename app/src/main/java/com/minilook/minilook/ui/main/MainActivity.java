@@ -55,7 +55,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
         });
     }
 
-    @Override public void setupBottombarTheme(boolean flag) {
+    @Override public void setupBottomBarTheme(boolean flag) {
         bottomBar.setupWhiteTheme(flag);
     }
 
@@ -63,7 +63,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
         ProductDetailActivity.start(this, url);
     }
 
-    @Override public void navigateToBrandDetail(int brandId) {
-        BrandDetailActivity.start(this, brandId);
+    @Override public void navigateToBrandDetail(int id) {
+        BrandDetailActivity.start(this, id);
     }
 }

@@ -9,9 +9,11 @@ import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.main.fragment.lookbook.view.preview.di.LookBookPreviewArguments;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import timber.log.Timber;

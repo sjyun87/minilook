@@ -4,6 +4,8 @@ import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.main.di.MainArguments;
 import com.minilook.minilook.ui.main.fragment.lookbook.LookBookPresenterImpl;
+import com.minilook.minilook.ui.main.fragment.lookbook.view.detail.LookBookDetailPresenterImpl;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import timber.log.Timber;
@@ -25,7 +27,7 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
     @Override public void onTabChanged(int position) {
         if (position != 0) {
             RxBus.send(new LookBookPresenterImpl.RxEventNavigateToPreview(false));
-            RxBus.send(new RxEventTabChanged());
+            RxBus.send(new LookBookDetailPresenterImpl.RxEventScrollToTop());
         }
     }
 
@@ -35,11 +37,11 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
                 String url = ((RxEventNavigateToProductDetail) o).getUrl();
                 view.navigateToProductDetail(url);
             } else if (o instanceof RxEventNavigateToBrandDetail) {
-                int brandId = ((RxEventNavigateToBrandDetail) o).getBrandId();
-                view.navigateToBrandDetail(brandId);
+                int id = ((RxEventNavigateToBrandDetail) o).getBrandId();
+                view.navigateToBrandDetail(id);
             } else if (o instanceof LookBookPresenterImpl.RxEventLookBookPageChanged) {
                 int position = ((LookBookPresenterImpl.RxEventLookBookPageChanged) o).getPosition();
-                view.setupBottombarTheme(position != 0);
+                view.setupBottomBarTheme(position != 0);
             }
         }, Timber::e));
     }
@@ -50,8 +52,5 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
 
     @AllArgsConstructor @Getter public final static class RxEventNavigateToProductDetail {
         private String url;
-    }
-
-    @AllArgsConstructor @Getter public final static class RxEventTabChanged {
     }
 }

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_FFFFFFFF"
     tools:context=".ui.splash.SplashActivity">
 
     <com.airbnb.lottie.LottieAnimationView
@@ -18,12 +17,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
         app:lottie_autoPlay="true"
-        app:lottie_rawRes="@raw/ani_logo" />
+        app:lottie_rawRes="@raw/ani_logo"
+        tools:src="@drawable/img_logo_symbol" />
 
     <ImageView
         android:id="@+id/img_logo_text"
-        android:layout_width="@dimen/dp_80"
-        android:layout_height="@dimen/dp_14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_20"
         android:src="@drawable/img_logo_text"
         app:layout_constraintBottom_toBottomOf="parent"

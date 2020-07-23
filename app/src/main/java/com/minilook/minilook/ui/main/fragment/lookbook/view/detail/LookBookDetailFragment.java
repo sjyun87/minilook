@@ -72,7 +72,7 @@ public class LookBookDetailFragment extends BaseFragment implements LookBookDeta
         tagTextView.setText(text);
     }
 
-    @Override public void setupDescription(String text) {
+    @Override public void setupDesc(String text) {
         descTextView.setText(text);
     }
 

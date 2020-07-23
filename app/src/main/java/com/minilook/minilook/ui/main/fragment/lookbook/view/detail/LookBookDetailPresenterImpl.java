@@ -5,11 +5,14 @@ import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
-import com.minilook.minilook.ui.main.MainPresenterImpl;
 import com.minilook.minilook.ui.main.fragment.lookbook.LookBookPresenterImpl;
 import com.minilook.minilook.ui.main.fragment.lookbook.view.detail.di.LookBookDetailArguments;
 import com.minilook.minilook.ui.main.fragment.lookbook.view.preview.LookBookPreviewPresenterImpl;
+
 import java.util.List;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import timber.log.Timber;
 
 public class LookBookDetailPresenterImpl extends BasePresenterImpl implements LookBookDetailPresenter {
@@ -41,7 +44,7 @@ public class LookBookDetailPresenterImpl extends BasePresenterImpl implements Lo
                 LookBookDetailDataModel data =
                     ((LookBookPreviewPresenterImpl.RxEventLookBookModuleChanged) o).getData();
                 setupData(data);
-            } else if (o instanceof MainPresenterImpl.RxEventTabChanged) {
+            } else if (o instanceof RxEventScrollToTop) {
                 view.scrollToTop();
             }
         }, Timber::e));
@@ -52,10 +55,13 @@ public class LookBookDetailPresenterImpl extends BasePresenterImpl implements Lo
         view.setupLabel(data.getLabel());
         view.setupTitle(data.getTitle());
         view.setupTag(data.getTag());
-        view.setupDescription(data.getDesc());
+        view.setupDesc(data.getDesc());
+
         styleAdapter.set(data.getImage_urls());
         view.styleRefresh();
+
         view.setupProductInfo(parseToProductInfo(data.getProducts()));
+
         productAdapter.set(data.getProducts());
         view.productRefresh();
     }
@@ -71,5 +77,8 @@ public class LookBookDetailPresenterImpl extends BasePresenterImpl implements Lo
             sb.append(String.format("[%s]%s %d만원대 by%s", category, name, price, brand));
         }
         return sb.toString();
+    }
+
+    @AllArgsConstructor @Getter public final static class RxEventScrollToTop {
     }
 }
