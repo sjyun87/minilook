@@ -29,7 +29,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     private ProductDetailPresenter presenter;
 
     @Override protected int getLayoutID() {
-        return R.layout.activity_detail;
+        return R.layout.activity_product_detail;
     }
 
     @Override protected void createPresenter() {

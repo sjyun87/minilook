@@ -1,10 +1,10 @@
-package com.minilook.minilook.ui.search;
+package com.minilook.minilook.ui.search_keyword;
 
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
-public interface SearchPresenter extends LifecycleObserver {
+public interface SearchKeywordPresenter extends LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();

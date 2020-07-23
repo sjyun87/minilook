@@ -34,7 +34,12 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name=".ui.search.SearchActivity"
+            android:name=".ui.search_keyword.SearchKeywordActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name=".ui.search_filter.SearchFilterActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
@@ -49,7 +54,7 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name=".ui.bridge.BridgeActivity"
+            android:name=".ui.product_bridge.ProductBridgeActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 

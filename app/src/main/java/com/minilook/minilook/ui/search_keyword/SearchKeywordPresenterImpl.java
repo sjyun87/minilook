@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.search;
+package com.minilook.minilook.ui.search_keyword;
 
 import com.minilook.minilook.data.model.search.SearchDataModel;
 import com.minilook.minilook.data.model.search.SearchModuleDataModel;
@@ -7,19 +7,19 @@ import com.minilook.minilook.data.room.recent_keyword.RecentKeywordDB;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.data.type.SearchModuleType;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
-import com.minilook.minilook.ui.search.di.SearchArguments;
+import com.minilook.minilook.ui.search_keyword.di.SearchKeywordArguments;
 
 import java.util.List;
 
 import timber.log.Timber;
 
-public class SearchPresenterImpl extends BasePresenterImpl implements SearchPresenter {
+public class SearchKeywordPresenterImpl extends BasePresenterImpl implements SearchKeywordPresenter {
 
     private final View view;
     private final RecentKeywordDB recentKeywordDB;
     private final SearchRequest searchRequest;
 
-    public SearchPresenterImpl(SearchArguments args) {
+    public SearchKeywordPresenterImpl(SearchKeywordArguments args) {
         view = args.getView();
         recentKeywordDB = args.getRecentKeywordDB();
         searchRequest = new SearchRequest();

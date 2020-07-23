@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.brand_detail.di.BrandDetailArguments;
-import com.minilook.minilook.ui.bridge.BridgeActivity;
+import com.minilook.minilook.ui.product_bridge.ProductBridgeActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -35,7 +35,7 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
     private BrandDetailPresenter presenter;
 
     @Override protected int getLayoutID() {
-        return R.layout.activity_brand;
+        return R.layout.activity_brand_detail;
     }
 
     @Override protected void createPresenter() {
@@ -82,6 +82,6 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
 
     @OnClick(R.id.txt_more)
     void onMoreClick() {
-        BridgeActivity.start(this);
+        ProductBridgeActivity.start(this);
     }
 }

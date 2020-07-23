@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.search;
+package com.minilook.minilook.ui.search_keyword;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,18 +16,18 @@ import com.minilook.minilook.data.room.recent_keyword.RecentKeywordDB;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.manager.DialogManager;
 import com.minilook.minilook.ui.base.widget.KeywordView;
-import com.minilook.minilook.ui.bridge.BridgeActivity;
-import com.minilook.minilook.ui.search.di.SearchArguments;
+import com.minilook.minilook.ui.product_bridge.ProductBridgeActivity;
+import com.minilook.minilook.ui.search_keyword.di.SearchKeywordArguments;
 import com.nex3z.flowlayout.FlowLayout;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class SearchActivity extends BaseActivity implements SearchPresenter.View,
+public class SearchKeywordActivity extends BaseActivity implements SearchKeywordPresenter.View,
     KeywordView.OnClickListener, DialogManager.OnButtonClickListener {
 
     public static void start(Context context) {
-        Intent intent = new Intent(context, SearchActivity.class);
+        Intent intent = new Intent(context, SearchKeywordActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         context.startActivity(intent);
@@ -41,21 +41,21 @@ public class SearchActivity extends BaseActivity implements SearchPresenter.View
     @BindView(R.id.txt_brand_title) TextView brandTitleTextView;
     @BindView(R.id.rcv_brand) RecyclerView brandRecyclerView;
 
-    private SearchPresenter presenter;
+    private SearchKeywordPresenter presenter;
     private RecentKeywordDB recentKeywordDB;
 
     @Override protected int getLayoutID() {
-        return R.layout.activity_search;
+        return R.layout.activity_search_keyword;
     }
 
     @Override protected void createPresenter() {
         setupRecentKeywordDB();
-        presenter = new SearchPresenterImpl(provideArguments());
+        presenter = new SearchKeywordPresenterImpl(provideArguments());
         getLifecycle().addObserver(presenter);
     }
 
-    private SearchArguments provideArguments() {
-        return SearchArguments.builder()
+    private SearchKeywordArguments provideArguments() {
+        return SearchKeywordArguments.builder()
             .view(this)
             .recentKeywordDB(recentKeywordDB)
             .build();
@@ -95,7 +95,7 @@ public class SearchActivity extends BaseActivity implements SearchPresenter.View
     }
 
     @Override public void navigateToBridge(String keyword) {
-        BridgeActivity.start(this);
+        ProductBridgeActivity.start(this);
     }
 
     @Override public void addKeywordView(String keyword) {
