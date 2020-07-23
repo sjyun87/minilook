@@ -16,7 +16,7 @@ public class MarketFragment extends BaseFragment implements MarketPresenter.View
         return new MarketFragment();
     }
 
-    @BindView(R.id.rcv_market) RecyclerView marketRecyclerView;
+    @BindView(R.id.rcv_market) RecyclerView recyclerView;
 
     private MarketPresenter presenter;
     private MarketModuleAdapter adapter = new MarketModuleAdapter();
@@ -39,8 +39,8 @@ public class MarketFragment extends BaseFragment implements MarketPresenter.View
     }
 
     @Override public void setupRecyclerView() {
-        marketRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        marketRecyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
     }
 
     @Override public void refresh() {

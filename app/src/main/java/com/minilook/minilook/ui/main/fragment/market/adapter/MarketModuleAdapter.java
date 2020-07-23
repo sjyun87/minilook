@@ -1,8 +1,10 @@
 package com.minilook.minilook.ui.main.fragment.market.adapter;
 
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.type.MarketModuleType;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
@@ -12,17 +14,19 @@ import com.minilook.minilook.ui.main.fragment.market.viewholder.brand.MarketBran
 import com.minilook.minilook.ui.main.fragment.market.viewholder.mdpick.MarketMDPickVH;
 import com.minilook.minilook.ui.main.fragment.market.viewholder.newest.MarketNewestVH;
 import com.minilook.minilook.ui.main.fragment.market.viewholder.promotion.MarketPromotionVH;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import timber.log.Timber;
 
-public class MarketModuleAdapter extends RecyclerView.Adapter<BaseViewHolder> implements
+public class MarketModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<MarketDataModel>> implements
     BaseAdapterDataModel<MarketDataModel>, BaseAdapterDataView<MarketDataModel> {
 
     private List<MarketDataModel> items = new ArrayList<>();
 
     @NonNull @Override
-    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BaseViewHolder<MarketDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == MarketModuleType.TYPE_PROMOTION.getValue()) {
             return new MarketPromotionVH(parent);
         } else if (viewType == MarketModuleType.TYPE_MD_PICK.getValue()) {
@@ -32,8 +36,8 @@ public class MarketModuleAdapter extends RecyclerView.Adapter<BaseViewHolder> im
         } else if (viewType == MarketModuleType.TYPE_BRAND.getValue()) {
             return new MarketBrandVH(parent);
         } else {
-            Timber.e("Type is null -");
-            return new BaseViewHolder(parent);
+            Timber.e("Market Module type is null..");
+            return new BaseViewHolder<>(parent);
         }
     }
 

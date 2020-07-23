@@ -6,7 +6,9 @@ import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.main.fragment.market.di.MarketArguments;
+
 import java.util.List;
+
 import timber.log.Timber;
 
 public class MarketPresenterImpl extends BasePresenterImpl implements MarketPresenter {
@@ -33,11 +35,6 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
     }
 
     private void resMarketModules(List<MarketDataModel> data) {
-        // 임시
-        for (MarketDataModel model : data) {
-            model.setType(model.getModule_type());
-        }
-
         adapter.set(data);
         view.refresh();
     }

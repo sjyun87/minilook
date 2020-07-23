@@ -20,7 +20,6 @@ import com.minilook.minilook.ui.main.fragment.market.viewholder.mdpick.adapter.P
 import io.reactivex.rxjava3.core.Observable;
 import java.util.ArrayList;
 import java.util.List;
-import timber.log.Timber;
 
 public class MarketMDPickVH extends BaseViewHolder<MarketDataModel> {
 
@@ -61,7 +60,7 @@ public class MarketMDPickVH extends BaseViewHolder<MarketDataModel> {
 
         titleTextView.setText(data.getTitle());
 
-        items = parseJsonToProductModel();
+        items = parseJsonToModel();
         categoryList = parseToCategoryList(items);
         setupCategoryList();
         setupProductList();
@@ -77,7 +76,7 @@ public class MarketMDPickVH extends BaseViewHolder<MarketDataModel> {
         productAdapter.refresh();
     }
 
-    private List<MarketMDPickDataModel> parseJsonToProductModel() {
+    private List<MarketMDPickDataModel> parseJsonToModel() {
         return Observable.fromIterable(data.getData())
             .map(json -> gson.fromJson(json, MarketMDPickDataModel.class))
             .toList()
@@ -100,7 +99,7 @@ public class MarketMDPickVH extends BaseViewHolder<MarketDataModel> {
         categoryAdapter.get(selectedPosition).setSelect(false);
         selectedPosition = position;
         categoryAdapter.get(selectedPosition).setSelect(true);
-        setupCategoryList();
+        categoryAdapter.refresh();
         setupProductList();
     }
 }
