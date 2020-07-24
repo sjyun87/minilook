@@ -17,6 +17,7 @@ import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.main.MainPresenterImpl;
+import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.DimenUtil;
 import com.minilook.minilook.util.StringUtil;
 
@@ -49,7 +50,7 @@ public class LookBookProductVH extends BaseViewHolder<ProductDataModel> {
         BrandInfoDataModel brandModel = data.getBrand();
         CategoryDataModel categoryDataModel = data.getCategory();
 
-        Glide.with(itemView)
+        Glide.with(context)
             .load(brandModel.getUrl_logo())
             .apply(RequestOptions.bitmapTransform(
                 new CropCircleWithBorderTransformation(DimenUtil.dpToPx(context, 1), color_FFDBDBDB)))
@@ -57,7 +58,7 @@ public class LookBookProductVH extends BaseViewHolder<ProductDataModel> {
 
         brandNameTextView.setText(brandModel.getName());
 
-        Glide.with(itemView)
+        Glide.with(context)
             .load(data.getUrl_image())
             .into(thumbImageView);
 
@@ -66,6 +67,8 @@ public class LookBookProductVH extends BaseViewHolder<ProductDataModel> {
         categoryTextView.setText(categoryDataModel.getName());
         nameTextView.setText(data.getName());
         descTextView.setText(data.getDesc());
+
+        itemView.setOnClickListener(v -> ProductDetailActivity.start(context, data.getId()));
     }
 
     @OnClick(R.id.layout_brand_panel)

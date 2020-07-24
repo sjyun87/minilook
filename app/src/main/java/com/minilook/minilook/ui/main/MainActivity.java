@@ -59,10 +59,6 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
         bottomBar.setupWhiteTheme(flag);
     }
 
-    @Override public void navigateToProductDetail(String url) {
-        ProductDetailActivity.start(this, url);
-    }
-
     @Override public void navigateToBrandDetail(int id) {
         BrandDetailActivity.start(this, id);
     }

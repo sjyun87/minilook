@@ -32,7 +32,7 @@ public class LookBookImageModuleVH extends BaseViewHolder<LookBookPreviewDataMod
     @Override public void bind(LookBookPreviewDataModel $data) {
         super.bind($data);
 
-        Glide.with(itemView)
+        Glide.with(context)
             .load(data.getUrl_image())
             .into(bgImageView);
 

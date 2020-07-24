@@ -8,5 +8,5 @@ import lombok.Getter;
 @Getter @Builder
 public class ProductDetailArguments {
     private final ProductDetailPresenter.View view;
-    private final String webUrl;
+    private final int id;
 }

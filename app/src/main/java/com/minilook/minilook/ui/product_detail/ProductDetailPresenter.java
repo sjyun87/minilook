@@ -11,8 +11,5 @@ public interface ProductDetailPresenter extends LifecycleObserver {
 
     interface View {
 
-        void setupWebView();
-
-        void loadUrl(String url);
     }
 }

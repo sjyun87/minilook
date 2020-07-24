@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.StringUtil;
 
 public class ProductVH extends BaseViewHolder<ProductDataModel> {
@@ -32,7 +33,7 @@ public class ProductVH extends BaseViewHolder<ProductDataModel> {
     @Override public void bind(ProductDataModel $data) {
         super.bind($data);
 
-        Glide.with(itemView)
+        Glide.with(context)
             .load(data.getUrl_thumb())
             .into(thumbImageView);
 
@@ -45,7 +46,8 @@ public class ProductVH extends BaseViewHolder<ProductDataModel> {
         } else {
             pricePercentTextView.setVisibility(View.GONE);
         }
-
         priceTextView.setText(StringUtil.toDigit(data.getPrice()));
+
+        itemView.setOnClickListener(v -> ProductDetailActivity.start(context, data.getId()));
     }
 }

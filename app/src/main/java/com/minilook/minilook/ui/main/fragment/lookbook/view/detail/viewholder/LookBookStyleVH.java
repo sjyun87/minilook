@@ -22,7 +22,7 @@ public class LookBookStyleVH extends BaseViewHolder<String> {
     @Override public void bind(String $data) {
         super.bind($data);
 
-        Glide.with(itemView)
+        Glide.with(context)
             .load(data)
             .into(imageView);
     }

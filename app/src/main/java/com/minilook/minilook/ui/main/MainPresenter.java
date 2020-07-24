@@ -17,8 +17,6 @@ public interface MainPresenter extends LifecycleObserver {
 
         void setupBottomBar();
 
-        void navigateToProductDetail(String url);
-
         void navigateToBrandDetail(int id);
 
         void setupBottomBarTheme(boolean flag);

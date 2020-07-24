@@ -49,11 +49,11 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> {
 
         BrandInfoDataModel brandModel = parseJsonToModel();
 
-        Glide.with(itemView)
+        Glide.with(context)
             .load(brandModel.getUrl_thumb())
             .into(thumbImageView);
 
-        Glide.with(itemView)
+        Glide.with(context)
             .load(brandModel.getUrl_logo())
             .apply(RequestOptions.bitmapTransform(
                 new CropCircleWithBorderTransformation(DimenUtil.dpToPx(context, 1), color_FFDBDBDB)))
@@ -64,15 +64,15 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> {
         tagTextView.setText(brandModel.getTag());
         descTextView.setText(brandModel.getDesc());
 
-        Glide.with(itemView)
+        Glide.with(context)
             .load("http://lookbook.minilook.co.kr/data/goods/M6QhdvJzsqBjF5475lAeUQaYgvJjGV.jpg")
             .into(style1ImageView);
 
-        Glide.with(itemView)
+        Glide.with(context)
             .load("http://lookbook.minilook.co.kr/data/goods/LjbuUaA6cFudJhbe8VZxHkvwvaAV7g.jpg")
             .into(style2ImageView);
 
-        Glide.with(itemView)
+        Glide.with(context)
             .load("http://lookbook.minilook.co.kr/data/goods/uaZCB3zCud59MEsQsxBBcunSpHEYqj.jpg")
             .into(style3ImageView);
     }

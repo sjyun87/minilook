@@ -5,7 +5,6 @@ import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.main.di.MainArguments;
 import com.minilook.minilook.ui.main.fragment.lookbook.LookBookPresenterImpl;
 import com.minilook.minilook.ui.main.fragment.lookbook.view.detail.LookBookDetailPresenterImpl;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import timber.log.Timber;
@@ -33,10 +32,7 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
 
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
-            if (o instanceof RxEventNavigateToProductDetail) {
-                String url = ((RxEventNavigateToProductDetail) o).getUrl();
-                view.navigateToProductDetail(url);
-            } else if (o instanceof RxEventNavigateToBrandDetail) {
+            if (o instanceof RxEventNavigateToBrandDetail) {
                 int id = ((RxEventNavigateToBrandDetail) o).getBrandId();
                 view.navigateToBrandDetail(id);
             } else if (o instanceof LookBookPresenterImpl.RxEventLookBookPageChanged) {
@@ -48,9 +44,5 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
 
     @AllArgsConstructor @Getter public final static class RxEventNavigateToBrandDetail {
         private int brandId;
-    }
-
-    @AllArgsConstructor @Getter public final static class RxEventNavigateToProductDetail {
-        private String url;
     }
 }

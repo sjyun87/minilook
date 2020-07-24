@@ -30,7 +30,7 @@ public class MarketPromotionItemVH extends BaseViewHolder<PromotionDataModel> {
     @Override public void bind(PromotionDataModel $data) {
         super.bind($data);
 
-        Glide.with(itemView)
+        Glide.with(context)
             .load(data.getUrl_thumb())
             .into(thumbImageView);
 
