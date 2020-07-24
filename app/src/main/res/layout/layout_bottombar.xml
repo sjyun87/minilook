@@ -26,8 +26,8 @@
             android:id="@+id/txt_bottombar_lookbook"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_2"
-            android:fontFamily="@font/notosans_medium"
+            android:layout_marginTop="@dimen/dp_4"
+            android:fontFamily="@font/nanum_square_b"
             android:text="@string/bottombar_lookbook"
             android:textColor="@color/color_FFA9A9A9"
             android:textSize="@dimen/sp_6" />
@@ -53,8 +53,8 @@
             android:id="@+id/txt_bottombar_preorder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_2"
-            android:fontFamily="@font/notosans_medium"
+            android:layout_marginTop="@dimen/dp_4"
+            android:fontFamily="@font/nanum_square_b"
             android:text="@string/bottombar_preorder"
             android:textColor="@color/color_FFA9A9A9"
             android:textSize="@dimen/sp_6" />
@@ -80,8 +80,8 @@
             android:id="@+id/txt_bottombar_market"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_2"
-            android:fontFamily="@font/notosans_medium"
+            android:layout_marginTop="@dimen/dp_4"
+            android:fontFamily="@font/nanum_square_b"
             android:text="@string/bottombar_market"
             android:textColor="@color/color_FFA9A9A9"
             android:textSize="@dimen/sp_6" />
@@ -107,8 +107,8 @@
             android:id="@+id/txt_bottombar_ipage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_2"
-            android:fontFamily="@font/notosans_medium"
+            android:layout_marginTop="@dimen/dp_4"
+            android:fontFamily="@font/nanum_square_b"
             android:text="@string/bottombar_ipage"
             android:textColor="@color/color_FFA9A9A9"
             android:textSize="@dimen/sp_6" />

@@ -17,16 +17,16 @@
     <color name="color_FFEEEFF5">#FFEEEFF5</color>
     <color name="color_FFFF3C50">#FFFF3C50</color>
     <color name="color_FFF5F5F5">#FFF5F5F5</color>
-
-
-
-
-    <color name="color_80000000">#80000000</color>
-    <color name="color_332A2A2A">#332A2A2A</color>
-    <color name="color_4D545454">#4D545454</color>
+    <color name="color_FF424242">#FF424242</color>
     <color name="color_FFDBDBDB">#FFDBDBDB</color>
-    <color name="color_FFF2F2F2">#FFF2F2F2</color>
 
+
+
+
+
+
+
+    <color name="color_FFF2F2F2">#FFF2F2F2</color>
 
 
 </resources>

@@ -20,9 +20,11 @@
         android:id="@+id/txt_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/notosans_bold"
+        android:layout_marginTop="@dimen/dp_2"
+        android:fontFamily="@font/nanum_square_eb"
+        android:letterSpacing="-0.02"
         android:textColor="@color/color_FF232323"
-        android:textSize="@dimen/sp_12"
+        android:textSize="@dimen/sp_14"
         app:layout_constraintLeft_toLeftOf="@id/line"
         app:layout_constraintTop_toBottomOf="@+id/line"
         tools:text="MD PICK" />
@@ -39,9 +41,11 @@
         android:id="@+id/rcv_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line_top" />
+        app:layout_constraintTop_toBottomOf="@+id/line_top"
+        tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_category"
+        tools:orientation="horizontal" />
 
     <View
         android:id="@+id/line_bottom"
@@ -55,5 +59,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_8"
-        app:layout_constraintTop_toBottomOf="@+id/line_bottom" />
+        app:layout_constraintTop_toBottomOf="@+id/line_bottom"
+        tools:itemCount="4"
+        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:listitem="@layout/item_product"
+        tools:spanCount="2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

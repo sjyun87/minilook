@@ -21,8 +21,8 @@ public class CategoryItemVH extends BaseViewHolder<CategoryDataModel> {
     @BindColor(R.color.color_FF8140E5) int color_FF8140E5;
     @BindColor(R.color.color_FF232323) int color_FF232323;
 
-    @BindFont(R.font.notosans_medium) Typeface font_medium;
-    @BindFont(R.font.notosans_regular) Typeface font_regular;
+    @BindFont(R.font.nanum_square_b) Typeface font_bold;
+    @BindFont(R.font.nanum_square_r) Typeface font_regular;
 
     @Setter private OnItemClickListener onItemClickListener;
 
@@ -36,7 +36,7 @@ public class CategoryItemVH extends BaseViewHolder<CategoryDataModel> {
 
         if (data.isSelect()) {
             categoryTextView.setTextColor(color_FF8140E5);
-            categoryTextView.setTypeface(font_medium);
+            categoryTextView.setTypeface(font_bold);
         } else {
             categoryTextView.setTextColor(color_FF232323);
             categoryTextView.setTypeface(font_regular);
