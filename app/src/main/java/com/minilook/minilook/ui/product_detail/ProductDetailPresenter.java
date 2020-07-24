@@ -11,5 +11,30 @@ public interface ProductDetailPresenter extends LifecycleObserver {
 
     interface View {
 
+        void setupProductImageViewPager();
+
+        void productImageRefresh();
+
+        void setupBrandName(String text);
+
+        void setupProductName(String text);
+
+        void setupPriceOrigin(String text);
+
+        void showPriceOrigin();
+
+        void hidePriceOrigin();
+
+        void setupDiscountPercent(int percent);
+
+        void showDiscountPercent();
+
+        void hideDiscountPercent();
+
+        void setupPrice(String text);
+
+        void setupPoint(int point);
+
+        void setupDeliveryInfoTextView();
     }
 }

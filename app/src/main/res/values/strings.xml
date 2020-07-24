@@ -2,9 +2,10 @@
     <string name="app_name">minilook</string>
 
     <!--Base-->
-    <string name="base_price_percent">%d%%</string>
     <string name="base_yes">네</string>
     <string name="base_no">아니오</string>
+    <string name="base_price_percent">%d%%</string>
+    <string name="base_brand_shop">브랜드샵</string>
 
     <!--Bottom Bar-->
     <string name="bottombar_lookbook">룩북</string>
@@ -12,7 +13,13 @@
     <string name="bottombar_market">마켓</string>
     <string name="bottombar_ipage">아이페이지</string>
 
-
+    <!--Product Detail-->
+    <string name="product_detail_point_title">포인트</string>
+    <string name="product_detail_point">%dP</string>
+    <string name="product_detail_point_save">%s 적립</string>
+    <string name="product_detail_delivery">배송정보</string>
+    <string name="product_detail_delivery_info">미니룩은 전상품 무료배송!</string>
+    <string name="product_detail_delivery_info_b">무료배송!</string>
 
 
 

@@ -58,7 +58,7 @@
         tools:text="데일리 로우게이지 니트 풀오버 세트" />
 
     <TextView
-        android:id="@+id/txt_price_percent"
+        android:id="@+id/txt_discount_percent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/dp_5"
@@ -82,7 +82,7 @@
         android:textColor="@color/color_FF232323"
         android:textSize="@dimen/sp_8"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/txt_price_percent"
+        app:layout_constraintLeft_toRightOf="@+id/txt_discount_percent"
         app:layout_constraintRight_toRightOf="@+id/txt_product_name"
         app:layout_constraintTop_toBottomOf="@+id/txt_product_name"
         tools:text="52,000" />

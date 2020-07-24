@@ -18,21 +18,23 @@ import com.minilook.minilook.ui.search_keyword.SearchKeywordActivity;
 
 public class TitleBar extends ConstraintLayout {
 
+    @BindView(R.id.txt_titlebar_title) TextView titleTextView;
     @BindView(R.id.img_titlebar_logo) ImageView logoImageView;
     @BindView(R.id.img_titlebar_back) ImageView backImageView;
-    @BindView(R.id.txt_titlebar_title) TextView titleTextView;
+    @BindView(R.id.img_titlebar_home) ImageView homeImageView;
     @BindView(R.id.img_titlebar_search_keyword) ImageView keywordSearchImageView;
     @BindView(R.id.img_titlebar_search_filter) ImageView filterSearchImageView;
     @BindView(R.id.img_titlebar_shoppingbag) ImageView shoppingbagImageView;
 
     private Activity activity;
 
+    private boolean isShowTitle;
     private boolean isShowLogo;
     private boolean isShowBack;
+    private boolean isShowHome;
     private boolean isShowKeywordSearch;
     private boolean isShowFilterSearch;
     private boolean isShowShoppingBag;
-    private boolean isShowTitle;
     private String title;
 
     public TitleBar(@NonNull Context context) {
@@ -49,12 +51,13 @@ public class TitleBar extends ConstraintLayout {
         this.activity = getActivity();
 
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.TitleBar);
+        isShowTitle = typedArray.getBoolean(R.styleable.TitleBar_showTitle, false);
         isShowLogo = typedArray.getBoolean(R.styleable.TitleBar_showLogo, false);
         isShowBack = typedArray.getBoolean(R.styleable.TitleBar_showBack, false);
+        isShowHome = typedArray.getBoolean(R.styleable.TitleBar_showHome, false);
         isShowKeywordSearch = typedArray.getBoolean(R.styleable.TitleBar_showKeywordSearch, false);
         isShowFilterSearch = typedArray.getBoolean(R.styleable.TitleBar_showFilterSearch, false);
         isShowShoppingBag = typedArray.getBoolean(R.styleable.TitleBar_showShoppingBag, false);
-        isShowTitle = typedArray.getBoolean(R.styleable.TitleBar_showTitle, false);
         title = typedArray.getString(R.styleable.TitleBar_setTitle);
         typedArray.recycle();
 
@@ -72,13 +75,20 @@ public class TitleBar extends ConstraintLayout {
     }
 
     private void updateUI() {
+        titleTextView.setVisibility(isShowTitle ? VISIBLE : GONE);
         logoImageView.setVisibility(isShowLogo ? VISIBLE : GONE);
         backImageView.setVisibility(isShowBack ? VISIBLE : GONE);
+        homeImageView.setVisibility(isShowHome ? VISIBLE : GONE);
         keywordSearchImageView.setVisibility(isShowKeywordSearch ? VISIBLE : GONE);
         filterSearchImageView.setVisibility(isShowFilterSearch ? VISIBLE : GONE);
         shoppingbagImageView.setVisibility(isShowShoppingBag ? VISIBLE : GONE);
-        titleTextView.setVisibility(isShowTitle ? VISIBLE : GONE);
+
         titleTextView.setText(title);
+    }
+
+    public void setShowTitle(boolean visible) {
+        isShowTitle = visible;
+        updateUI();
     }
 
     public void setShowLogo(boolean visible) {
@@ -88,6 +98,11 @@ public class TitleBar extends ConstraintLayout {
 
     public void setShowBack(boolean visible) {
         isShowBack = visible;
+        updateUI();
+    }
+
+    public void setShowHome(boolean visible) {
+        isShowHome = visible;
         updateUI();
     }
 
@@ -106,15 +121,19 @@ public class TitleBar extends ConstraintLayout {
         updateUI();
     }
 
-
-    public void setShowTitle(boolean visible) {
-        isShowTitle = visible;
-        updateUI();
-    }
-
     public void setTitle(String text) {
         title = text;
         updateUI();
+    }
+
+    @OnClick(R.id.img_titlebar_back)
+    void onBackClick() {
+        if (activity != null) activity.finish();
+    }
+
+    @OnClick(R.id.img_titlebar_home)
+    void onHomeClick() {
+
     }
 
     @OnClick(R.id.img_titlebar_search_keyword)
@@ -130,11 +149,6 @@ public class TitleBar extends ConstraintLayout {
     @OnClick(R.id.img_titlebar_shoppingbag)
     void onShoppingBagClick() {
 
-    }
-
-    @OnClick(R.id.img_titlebar_back)
-    void onBackClick() {
-        if (activity != null) activity.finish();
     }
 
     private Activity getActivity() {

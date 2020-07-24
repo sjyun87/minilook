@@ -22,7 +22,7 @@ public class ProductBigVH extends BaseViewHolder<ProductDataModel> {
     @BindView(R.id.txt_brand_name) TextView brandNameTextView;
     @BindView(R.id.txt_product_name) TextView productNameTextView;
     @BindView(R.id.txt_price_origin) TextView priceOriginTextView;
-    @BindView(R.id.txt_price_percent) TextView pricePercentTextView;
+    @BindView(R.id.txt_discount_percent) TextView discountPercentTextView;
     @BindView(R.id.txt_price) TextView priceTextView;
 
     @BindString(R.string.base_price_percent) String format_percent;
@@ -47,11 +47,11 @@ public class ProductBigVH extends BaseViewHolder<ProductDataModel> {
             priceOriginTextView.setText(StringUtil.toDigit(data.getPrice_origin()));
             priceOriginTextView.setVisibility(View.VISIBLE);
 
-            pricePercentTextView.setText(String.format(format_percent, data.getPrice_discount_percent()));
-            pricePercentTextView.setVisibility(View.VISIBLE);
+            discountPercentTextView.setText(String.format(format_percent, data.getPrice_discount_percent()));
+            discountPercentTextView.setVisibility(View.VISIBLE);
         } else {
             priceOriginTextView.setVisibility(View.GONE);
-            pricePercentTextView.setVisibility(View.GONE);
+            discountPercentTextView.setVisibility(View.GONE);
         }
         priceTextView.setText(StringUtil.toDigit(data.getPrice()));
 
