@@ -116,4 +116,7 @@ dependencies {
 
   // StatusBar Util
   implementation "com.jaeger.statusbarutil:library:$statusbar_version"
+
+  // Sticky ScrollView
+  implementation "se.emilsjolander:StickyScrollViewItems:$sticky_scrollview_version"
 }

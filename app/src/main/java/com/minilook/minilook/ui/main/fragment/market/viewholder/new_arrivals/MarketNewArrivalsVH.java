@@ -15,7 +15,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
-import com.minilook.minilook.ui.product.adapter.ProductBigAdapter;
+import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import io.reactivex.rxjava3.core.Observable;
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class MarketNewArrivalsVH extends BaseViewHolder<MarketDataModel> {
 
     @BindDimen(R.dimen.dp_2) int dp_2;
 
-    private ProductBigAdapter adapter;
+    private ProductAdapter adapter;
     private Gson gson = new Gson();
 
     public MarketNewArrivalsVH(@NonNull View itemView) {
@@ -37,7 +37,8 @@ public class MarketNewArrivalsVH extends BaseViewHolder<MarketDataModel> {
 
     private void setupViewPager() {
         recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
-        adapter = new ProductBigAdapter();
+        adapter = new ProductAdapter();
+        adapter.setViewType(ProductAdapter.VIEW_TYPE_BIG);
         recyclerView.setAdapter(adapter);
         DividerDecoration.builder(context)
             .size(dp_2)

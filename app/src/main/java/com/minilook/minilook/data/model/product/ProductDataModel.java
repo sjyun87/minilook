@@ -24,6 +24,7 @@ import lombok.Data;
     private int review_cnt;
     private int question_cnt;
     private String detail_info;
+    private String detail_url;
     private CategoryDataModel category;
     private BrandInfoDataModel brand;
     private List<ProductDataModel> related_products;

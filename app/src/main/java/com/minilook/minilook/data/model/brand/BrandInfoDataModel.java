@@ -1,5 +1,6 @@
 package com.minilook.minilook.data.model.brand;
 
+import java.util.List;
 import lombok.Data;
 
 @Data public class BrandInfoDataModel {
@@ -10,6 +11,7 @@ import lombok.Data;
     private String url_logo;
     private String url_thumb;
     private String url_image;
+    private List<String> images;
     private boolean is_scrap;
     private int scrap_cnt;
 }

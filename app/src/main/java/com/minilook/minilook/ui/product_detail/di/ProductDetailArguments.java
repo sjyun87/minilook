@@ -1,5 +1,6 @@
 package com.minilook.minilook.ui.product_detail.di;
 
+import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.product_detail.ProductDetailPresenter;
 
 import com.minilook.minilook.ui.product_detail.adapter.ProductDetailImageAdapter;
@@ -11,4 +12,5 @@ public class ProductDetailArguments {
     private final ProductDetailPresenter.View view;
     private final int id;
     private final ProductDetailImageAdapter productImageAdapter;
+    private final ProductAdapter relatedProductAdapter;
 }

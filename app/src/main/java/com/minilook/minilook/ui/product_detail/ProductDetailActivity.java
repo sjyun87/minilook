@@ -1,19 +1,35 @@
 package com.minilook.minilook.ui.product_detail;
 
+import android.animation.Animator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.text.SpannableString;
 import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.BindView;
+import butterknife.OnClick;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+import com.emilsjolander.components.StickyScrollViewItems.StickyScrollView;
+import com.google.android.material.tabs.TabLayout;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.product_detail.adapter.ProductDetailImageAdapter;
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
 import com.minilook.minilook.util.SpannableUtil;
@@ -28,6 +44,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         context.startActivity(intent);
     }
 
+    @BindView(R.id.nsv_root) StickyScrollView scrollView;
     @BindView(R.id.vp_product_image) ViewPager2 productImageViewPager;
     @BindView(R.id.txt_brand_name) TextView brandNameTextView;
     @BindView(R.id.txt_product_name) TextView productNameTextView;
@@ -36,6 +53,18 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     @BindView(R.id.txt_price) TextView priceTextView;
     @BindView(R.id.txt_point_save) TextView pointTextView;
     @BindView(R.id.txt_delivery_info) TextView deliveryInfoTextView;
+    @BindView(R.id.layout_tab_panel) TabLayout tabLayout;
+    @BindView(R.id.web_product_detail) WebView productDetailWebView;
+    @BindView(R.id.layout_review_panel) LinearLayout reviewPanel;
+    @BindView(R.id.txt_review_count) TextView reviewCountTextView;
+
+    @BindView(R.id.layout_question_panel) LinearLayout questionPanel;
+    @BindView(R.id.txt_question_count) TextView questionCountTextView;
+    @BindView(R.id.layout_shipping_n_refund_panel) LinearLayout shippingNRefundPanel;
+    @BindView(R.id.rcv_related_product) RecyclerView relatedProductRecyclerView;
+
+    @BindView(R.id.curtain) View curtainView;
+    @BindView(R.id.layout_buy_panel) LinearLayout buyPanel;
 
     @BindString(R.string.base_price_percent) String format_percent;
     @BindString(R.string.product_detail_point) String format_point;
@@ -48,6 +77,8 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     private ProductDetailPresenter presenter;
     private ProductDetailImageAdapter productImageAdapter = new ProductDetailImageAdapter();
     private BaseAdapterDataView<String> productImageAdapterView = productImageAdapter;
+    private ProductAdapter relatedProductAdapter = new ProductAdapter();
+    private BaseAdapterDataView<ProductDataModel> relatedProductAdapterView = relatedProductAdapter;
 
     @Override protected int getLayoutID() {
         return R.layout.activity_product_detail;
@@ -63,6 +94,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
             .view(this)
             .id(getIntent().getIntExtra("id", -1))
             .productImageAdapter(productImageAdapter)
+            .relatedProductAdapter(relatedProductAdapter)
             .build();
     }
 
@@ -72,6 +104,45 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 
     @Override public void productImageRefresh() {
         productImageAdapterView.refresh();
+    }
+
+    @Override public void setupTabLayout() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override public void onTabSelected(TabLayout.Tab tab) {
+                presenter.onTabClick(tab.getPosition());
+            }
+
+            @Override public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override public void onTabReselected(TabLayout.Tab tab) {
+                presenter.onTabClick(tab.getPosition());
+            }
+        });
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    @Override public void setupWebView() {
+        productDetailWebView.getSettings().setJavaScriptEnabled(false);
+        productDetailWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(false);
+        productDetailWebView.getSettings().setAppCacheEnabled(false);
+        productDetailWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        productDetailWebView.getSettings().setDomStorageEnabled(true);
+        productDetailWebView.getSettings().setSupportMultipleWindows(false);
+        productDetailWebView.getSettings().setUseWideViewPort(true);
+        productDetailWebView.setWebViewClient(new WebViewClient());
+        productDetailWebView.setWebChromeClient(new WebChromeClient());
+    }
+
+    @Override public void setupRelatedProductRecyclerView() {
+        relatedProductRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        relatedProductAdapter.setViewType(ProductAdapter.VIEW_TYPE_MEDIUM);
+        relatedProductRecyclerView.setAdapter(relatedProductAdapter);
+    }
+
+    @Override public void relatedProductRefresh() {
+        relatedProductAdapterView.refresh();
     }
 
     @Override public void setupBrandName(String text) {
@@ -124,5 +195,64 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         SpannableUtil.styleSpan(span, str_delivery_info_b, Typeface.BOLD);
         SpannableUtil.foregroundColorSpan(span, str_delivery_info_b, color_FF8140E5);
         deliveryInfoTextView.setText(span);
+    }
+
+    @Override public void scrollToProductInfo() {
+        scrollView.smoothScrollTo(0, (int) productDetailWebView.getY() - tabLayout.getHeight());
+    }
+
+    @Override public void scrollToReview() {
+        scrollView.smoothScrollTo(0, (int) reviewPanel.getY() - tabLayout.getHeight());
+    }
+
+    @Override public void scrollToQuestion() {
+        scrollView.smoothScrollTo(0, (int) questionPanel.getY() - tabLayout.getHeight());
+    }
+
+    @Override public void scrollToShippingNRefund() {
+        scrollView.smoothScrollTo(0, (int) shippingNRefundPanel.getY() - tabLayout.getHeight());
+    }
+
+    @Override public void setupProductDetail(String url) {
+        productDetailWebView.loadUrl(url);
+    }
+
+    @Override public void setupQuestionCount(String text) {
+        questionCountTextView.setText(text);
+    }
+
+    @Override public void showCurtain() {
+        curtainView.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void hideCurtain() {
+        curtainView.setVisibility(View.GONE);
+    }
+
+    @Override public void showBuyPanel() {
+        YoYo.with(Techniques.SlideInUp)
+            .duration(150)
+            .onStart(animator -> buyPanel.setVisibility(View.VISIBLE))
+            .playOn(buyPanel);
+    }
+
+    @Override public void hideBuyPanel() {
+        YoYo.with(Techniques.SlideOutDown)
+            .duration(150)
+            .onEnd(animator -> {
+                buyPanel.setVisibility(View.GONE);
+                hideCurtain();
+            })
+            .playOn(buyPanel);
+    }
+
+    @OnClick(R.id.txt_buy)
+    void onBuyClick() {
+        presenter.onBuyClick();
+    }
+
+    @OnClick(R.id.curtain)
+    void onCurtainClick() {
+        presenter.onCurtainClick();
     }
 }

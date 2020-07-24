@@ -1,29 +1,54 @@
 package com.minilook.minilook.ui.product.adapter;
 
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.product.ProductVH;
-
+import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.product.ProductBigVH;
+import com.minilook.minilook.ui.product.ProductMediumVH;
+import com.minilook.minilook.ui.product.ProductGridVH;
 import java.util.ArrayList;
 import java.util.List;
+import timber.log.Timber;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductVH> implements
+public class ProductAdapter extends RecyclerView.Adapter<BaseViewHolder<ProductDataModel>> implements
     BaseAdapterDataModel<ProductDataModel>, BaseAdapterDataView<ProductDataModel> {
 
+    public static final int VIEW_TYPE_GRID = 0;
+    public static final int VIEW_TYPE_BIG = 1;
+    public static final int VIEW_TYPE_MEDIUM = 2;
+
+    private int viewType = 0;
     private List<ProductDataModel> items = new ArrayList<>();
 
-    @NonNull @Override public ProductVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ProductVH(parent);
+    @NonNull @Override
+    public BaseViewHolder<ProductDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        switch (viewType) {
+            case VIEW_TYPE_GRID:
+                return new ProductGridVH(parent);
+            case VIEW_TYPE_BIG:
+                return new ProductBigVH(parent);
+            case VIEW_TYPE_MEDIUM:
+                return new ProductMediumVH(parent);
+            default:
+                Timber.e("Product view type is null..");
+                return new BaseViewHolder<>(parent);
+        }
     }
 
-    @Override public void onBindViewHolder(@NonNull ProductVH holder, int position) {
+    @Override public void onBindViewHolder(@NonNull BaseViewHolder<ProductDataModel> holder, int position) {
         holder.bind(items.get(position));
+    }
+
+    @Override public int getItemViewType(int position) {
+        return viewType;
+    }
+
+    public void setViewType(int type) {
+        this.viewType = type;
     }
 
     @Override public int getItemCount() {

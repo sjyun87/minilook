@@ -30,7 +30,7 @@
         tools:text="MD PICK" />
 
     <View
-        android:id="@+id/line_top"
+        android:id="@+id/line_1"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="@dimen/dp_10"
@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line_top"
+        app:layout_constraintTop_toBottomOf="@+id/line_1"
         tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_market_category"
         tools:orientation="horizontal" />
@@ -62,6 +62,6 @@
         app:layout_constraintTop_toBottomOf="@+id/line_bottom"
         tools:itemCount="4"
         tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        tools:listitem="@layout/item_product"
+        tools:listitem="@layout/item_product_type_grid"
         tools:spanCount="2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

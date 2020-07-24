@@ -14,19 +14,50 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     private final View view;
     private final int id;
     private final BaseAdapterDataModel<String> productImageAdapter;
+    private final BaseAdapterDataModel<ProductDataModel> relatedProductsAdapter;
     private final ProductRequest productRequest;
 
     public ProductDetailPresenterImpl(ProductDetailArguments args) {
         view = args.getView();
         id = args.getId();
         productImageAdapter = args.getProductImageAdapter();
+        relatedProductsAdapter = args.getRelatedProductAdapter();
         productRequest = new ProductRequest();
     }
 
     @Override public void onCreate() {
         view.setupProductImageViewPager();
+        view.setupTabLayout();
+        view.setupWebView();
+        view.setupRelatedProductRecyclerView();
 
         reqProductDetail();
+    }
+
+    @Override public void onTabClick(int position) {
+        switch (position) {
+            case 0:
+                view.scrollToProductInfo();
+                break;
+            case 1:
+                view.scrollToReview();
+                break;
+            case 2:
+                view.scrollToQuestion();
+                break;
+            case 3:
+                view.scrollToShippingNRefund();
+                break;
+        }
+    }
+
+    @Override public void onBuyClick() {
+        view.showCurtain();
+        view.showBuyPanel();
+    }
+
+    @Override public void onCurtainClick() {
+        view.hideBuyPanel();
     }
 
     private void reqProductDetail() {
@@ -53,8 +84,18 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         }
         view.setupPrice(StringUtil.toDigit(data.getPrice()));
 
-        int point = (int)(data.getPrice() * (data.getPoint_percent() / 100f));
+        int point = (int) (data.getPrice() * (data.getPoint_percent() / 100f));
         view.setupPoint(point);
         view.setupDeliveryInfoTextView();
+
+        view.setupProductDetail(data.getDetail_url());
+
+
+
+
+        view.setupQuestionCount(StringUtil.toDigit(data.getQuestion_cnt()));
+
+        relatedProductsAdapter.set(data.getRelated_products());
+        view.relatedProductRefresh();
     }
 }

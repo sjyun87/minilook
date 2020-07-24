@@ -52,6 +52,7 @@ public class MarketMDPickVH extends BaseViewHolder<MarketDataModel> {
     private void setupProductRecyclerView() {
         productRecyclerView.setLayoutManager(new GridLayoutManager(context, 2));
         productAdapter = new ProductAdapter();
+        productAdapter.setViewType(ProductAdapter.VIEW_TYPE_GRID);
         productRecyclerView.setAdapter(productAdapter);
     }
 

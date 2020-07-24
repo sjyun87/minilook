@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.product_detail.ProductDetailActivity">
 
     <com.minilook.minilook.ui.base.widget.TitleBar
@@ -15,169 +16,422 @@
         app:showHome="true"
         app:showShoppingBag="true" />
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/vp_product_image"
+    <com.emilsjolander.components.StickyScrollViewItems.StickyScrollView
+        android:id="@+id/nsv_root"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="H,1:1"
-        app:layout_constraintTop_toBottomOf="@+id/titlebar"
-        tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_product_detail_image"
-        tools:orientation="horizontal" />
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titlebar">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/dp_50">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vp_product_image"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="H,1:1"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_product_detail_image"
+                tools:orientation="horizontal" />
+
+            <LinearLayout
+                android:id="@+id/layout_brand_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_2"
+                android:layout_marginTop="@dimen/dp_4"
+                android:layout_marginEnd="@dimen/dp_2"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/dp_8"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/vp_product_image">
+
+                <TextView
+                    android:id="@+id/txt_brand_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/color_FF232323"
+                    android:textSize="@dimen/sp_8"
+                    tools:text="아델리" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:includeFontPadding="false"
+                    android:text="@string/base_brand_shop"
+                    android:textColor="@color/color_FF232323"
+                    android:textSize="@dimen/sp_7" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:src="@drawable/ic_arrow_black"
+                    tools:ignore="ContentDescription" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_product_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:fontFamily="@font/nanum_square_r"
+                android:letterSpacing="-0.02"
+                android:lineSpacingMultiplier="1.3"
+                android:text="@string/base_brand_shop"
+                android:textColor="@color/color_FF232323"
+                android:textSize="@dimen/sp_9"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_brand_panel"
+                tools:text="[추가 20%+무배] 경량 비치 후드집업 점퍼 IKJ-M2041G1_화이트/라임그린/민트그린" />
+
+            <TextView
+                android:id="@+id/txt_price_origin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:fontFamily="@font/nanum_square_r"
+                android:textColor="@color/color_FFA9A9A9"
+                android:textSize="@dimen/sp_7"
+                app:layout_constraintLeft_toLeftOf="@+id/txt_product_name"
+                app:layout_constraintTop_toBottomOf="@+id/txt_product_name"
+                tools:text="63,000" />
+
+            <TextView
+                android:id="@+id/txt_discount_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_6"
+                android:fontFamily="@font/nanum_square_b"
+                android:letterSpacing="-0.02"
+                android:textColor="@color/color_FFFF3C50"
+                android:textSize="@dimen/sp_12"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_price"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintLeft_toLeftOf="@+id/txt_product_name"
+                app:layout_constraintRight_toLeftOf="@+id/txt_price"
+                app:layout_constraintTop_toTopOf="@+id/txt_price"
+                tools:text="20%" />
+
+            <TextView
+                android:id="@+id/txt_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+                android:fontFamily="@font/nanum_square_eb"
+                android:letterSpacing="-0.02"
+                android:textColor="@color/color_FF232323"
+                android:textSize="@dimen/sp_12"
+                app:layout_constraintLeft_toRightOf="@+id/txt_discount_percent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_price_origin"
+                app:layout_goneMarginTop="@dimen/dp_10"
+                tools:text="52,000" />
+
+            <TextView
+                android:id="@+id/txt_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_11"
+                android:fontFamily="@font/nanum_square_r"
+                android:text="@string/product_detail_point_title"
+                android:textColor="@color/color_FF616161"
+                android:textSize="@dimen/sp_6"
+                app:layout_constraintLeft_toLeftOf="@+id/txt_product_name"
+                app:layout_constraintTop_toBottomOf="@+id/txt_price" />
+
+            <TextView
+                android:id="@+id/txt_point_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_20"
+                android:bufferType="spannable"
+                android:fontFamily="@font/nanum_square_r"
+                android:textColor="@color/color_FF616161"
+                android:textSize="@dimen/sp_6"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_point"
+                app:layout_constraintLeft_toRightOf="@+id/txt_point"
+                app:layout_constraintTop_toTopOf="@+id/txt_point"
+                tools:text="52P 적립" />
+
+            <TextView
+                android:id="@+id/txt_delivery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+                android:fontFamily="@font/nanum_square_r"
+                android:text="@string/product_detail_delivery"
+                android:textColor="@color/color_FF616161"
+                android:textSize="@dimen/sp_6"
+                app:layout_constraintLeft_toLeftOf="@+id/txt_product_name"
+                app:layout_constraintTop_toBottomOf="@+id/txt_point" />
+
+            <TextView
+                android:id="@+id/txt_delivery_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:bufferType="spannable"
+                android:fontFamily="@font/nanum_square_r"
+                android:textColor="@color/color_FF616161"
+                android:textSize="@dimen/sp_6"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_delivery"
+                app:layout_constraintLeft_toLeftOf="@+id/txt_point_save"
+                app:layout_constraintTop_toTopOf="@+id/txt_delivery"
+                tools:text="미니룩은 전상품 무료배송!" />
+
+            <View
+                android:id="@+id/line_1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/dp_20"
+                android:background="@color/color_FFDBDBDB"
+                app:layout_constraintTop_toBottomOf="@+id/txt_delivery" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/layout_tab_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_FFFFFFFF"
+                android:tag="sticky"
+                app:layout_constraintTop_toBottomOf="@+id/line_1"
+                app:tabIndicatorColor="@color/color_FF8140E5"
+                app:tabIndicatorHeight="@dimen/dp_1"
+                app:tabMode="fixed"
+                app:tabRippleColor="@android:color/transparent"
+                app:tabSelectedTextColor="@color/color_FF232323"
+                app:tabTextAppearance="@style/TabTheme"
+                app:tabTextColor="@color/color_FF616161">
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/txt_tab_product_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/product_detail_tab_product_info" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/txt_tab_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/product_detail_tab_review" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/txt_tab_question"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/product_detail_tab_question" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/txt_tab_shipping_n_refund"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/product_detail_tab_shipping_n_refund" />
+            </com.google.android.material.tabs.TabLayout>
+
+            <WebView
+                android:id="@+id/web_product_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/layout_tab_panel" />
+
+            <LinearLayout
+                android:id="@+id/layout_review_panel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_32"
+                android:layout_marginTop="@dimen/dp_12"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_8"
+                app:layout_constraintTop_toBottomOf="@+id/web_product_detail">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanum_square_eb"
+                    android:includeFontPadding="false"
+                    android:text="@string/product_detail_review_title"
+                    android:textColor="@color/color_FF232323"
+                    android:textSize="@dimen/sp_10" />
+
+                <TextView
+                    android:id="@+id/txt_review_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/color_FF6200EA"
+                    android:textSize="@dimen/sp_10"
+                    tools:text="10" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line_2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_FFDBDBDB"
+                app:layout_constraintTop_toBottomOf="@+id/layout_review_panel" />
+
+            <LinearLayout
+                android:id="@+id/layout_question_panel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_32"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_8"
+                app:layout_constraintTop_toBottomOf="@+id/line_2">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanum_square_eb"
+                    android:includeFontPadding="false"
+                    android:text="@string/product_detail_question_title"
+                    android:textColor="@color/color_FF232323"
+                    android:textSize="@dimen/sp_10" />
+
+                <TextView
+                    android:id="@+id/txt_question_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/color_FF6200EA"
+                    android:textSize="@dimen/sp_10"
+                    tools:text="10" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line_3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_FFDBDBDB"
+                app:layout_constraintTop_toBottomOf="@+id/layout_question_panel" />
+
+            <LinearLayout
+                android:id="@+id/layout_shipping_n_refund_panel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_32"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_8"
+                app:layout_constraintTop_toBottomOf="@+id/line_3">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:includeFontPadding="false"
+                    android:text="@string/product_detail_shipping_n_refund_title"
+                    android:textColor="@color/color_FF232323"
+                    android:textSize="@dimen/sp_9" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line_4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_FFDBDBDB"
+                app:layout_constraintTop_toBottomOf="@+id/layout_shipping_n_refund_panel" />
+
+            <TextView
+                android:id="@+id/txt_related_products_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:fontFamily="@font/nanum_square_b"
+                android:letterSpacing="-0.02"
+                android:text="@string/product_detail_related_products_title"
+                android:textColor="@color/color_FF232323"
+                android:textSize="@dimen/sp_10"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line_4" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_related_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@+id/txt_related_products_title"
+                tools:listitem="@layout/item_product_type_grid" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.emilsjolander.components.StickyScrollViewItems.StickyScrollView>
 
     <LinearLayout
-        android:id="@+id/layout_brand_panel"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_2"
-        android:layout_marginTop="@dimen/dp_4"
-        android:layout_marginEnd="@dimen/dp_2"
-        android:gravity="center_vertical"
+        android:layout_height="@dimen/dp_32"
         android:orientation="horizontal"
-        android:padding="@dimen/dp_8"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vp_product_image">
-
-        <TextView
-            android:id="@+id/txt_brand_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nanum_square_b"
-            android:includeFontPadding="false"
-            android:textColor="@color/color_FF232323"
-            android:textSize="@dimen/sp_8"
-            tools:text="아델리" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:fontFamily="@font/nanum_square_r"
-            android:includeFontPadding="false"
-            android:text="@string/base_brand_shop"
-            android:textColor="@color/color_FF232323"
-            android:textSize="@dimen/sp_7" />
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageView
+            android:id="@+id/img_share"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_1"
-            android:src="@drawable/ic_arrow_black"
+            android:layout_height="match_parent"
+            android:background="@color/color_FFF5F6F9"
+            android:paddingStart="@dimen/dp_8"
+            android:paddingEnd="@dimen/dp_8"
+            android:src="@drawable/ic_share"
             tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/img_scrap"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/color_FFFFFFFF"
+            android:paddingStart="@dimen/dp_10"
+            android:paddingEnd="@dimen/dp_10"
+            android:src="@drawable/ic_scrap_off"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/txt_buy"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/color_FF8140E5"
+            android:fontFamily="@font/nanum_square_eb"
+            android:gravity="center"
+            android:text="@string/product_detail_buy"
+            android:textColor="@color/color_FFFFFFFF"
+            android:textSize="@dimen/sp_10" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/txt_product_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_10"
-        android:layout_marginEnd="@dimen/dp_10"
-        android:fontFamily="@font/nanum_square_r"
-        android:letterSpacing="-0.02"
-        android:lineSpacingMultiplier="1.3"
-        android:text="@string/base_brand_shop"
-        android:textColor="@color/color_FF232323"
-        android:textSize="@dimen/sp_9"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_brand_panel"
-        tools:text="[추가 20%+무배] 경량 비치 후드집업 점퍼 IKJ-M2041G1_화이트/라임그린/민트그린" />
+    <View
+        android:id="@+id/curtain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_80000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/txt_price_origin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
-        android:fontFamily="@font/nanum_square_r"
-        android:textColor="@color/color_FFA9A9A9"
-        android:textSize="@dimen/sp_7"
-        app:layout_constraintLeft_toLeftOf="@+id/txt_product_name"
-        app:layout_constraintTop_toBottomOf="@+id/txt_product_name"
-        tools:text="63,000" />
-
-    <TextView
-        android:id="@+id/txt_discount_percent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/dp_6"
-        android:fontFamily="@font/nanum_square_b"
-        android:letterSpacing="-0.02"
-        android:textColor="@color/color_FFFF3C50"
-        android:textSize="@dimen/sp_12"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_price"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintLeft_toLeftOf="@+id/txt_product_name"
-        app:layout_constraintRight_toLeftOf="@+id/txt_price"
-        app:layout_constraintTop_toTopOf="@+id/txt_price"
-        tools:text="20%" />
-
-    <TextView
-        android:id="@+id/txt_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_4"
-        android:fontFamily="@font/nanum_square_eb"
-        android:letterSpacing="-0.02"
-        android:textColor="@color/color_FF232323"
-        android:textSize="@dimen/sp_12"
-        app:layout_constraintLeft_toRightOf="@+id/txt_discount_percent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_price_origin"
-        app:layout_goneMarginTop="@dimen/dp_10"
-        tools:text="52,000" />
-
-    <TextView
-        android:id="@+id/txt_point"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_11"
-        android:fontFamily="@font/nanum_square_r"
-        android:text="@string/product_detail_point_title"
-        android:textColor="@color/color_FF616161"
-        android:textSize="@dimen/sp_6"
-        app:layout_constraintLeft_toLeftOf="@+id/txt_product_name"
-        app:layout_constraintTop_toBottomOf="@+id/txt_price" />
-
-    <TextView
-        android:id="@+id/txt_point_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_20"
-        android:bufferType="spannable"
-        android:fontFamily="@font/nanum_square_r"
-        android:textColor="@color/color_FF616161"
-        android:textSize="@dimen/sp_6"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_point"
-        app:layout_constraintLeft_toRightOf="@+id/txt_point"
-        app:layout_constraintTop_toTopOf="@+id/txt_point"
-        tools:text="52P 적립" />
-
-    <TextView
-        android:id="@+id/txt_delivery"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_4"
-        android:fontFamily="@font/nanum_square_r"
-        android:text="@string/product_detail_delivery"
-        android:textColor="@color/color_FF616161"
-        android:textSize="@dimen/sp_6"
-        app:layout_constraintLeft_toLeftOf="@+id/txt_product_name"
-        app:layout_constraintTop_toBottomOf="@+id/txt_point" />
-
-    <TextView
-        android:id="@+id/txt_delivery_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:bufferType="spannable"
-        android:fontFamily="@font/nanum_square_r"
-        android:textColor="@color/color_FF616161"
-        android:textSize="@dimen/sp_6"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_delivery"
-        app:layout_constraintLeft_toLeftOf="@+id/txt_point_save"
-        app:layout_constraintTop_toTopOf="@+id/txt_delivery"
-        tools:text="미니룩은 전상품 무료배송!" />
-
-
+    <LinearLayout
+        android:id="@+id/layout_buy_panel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp_80"
+        android:background="@color/color_FFFFFFFF"
+        android:orientation="vertical"
+        android:visibility="gone" />
 </androidx.constraintlayout.widget.ConstraintLayout>

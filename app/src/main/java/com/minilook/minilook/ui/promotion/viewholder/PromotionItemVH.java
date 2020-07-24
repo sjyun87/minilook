@@ -10,8 +10,6 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 
-import butterknife.BindString;
-
 public class PromotionItemVH extends BaseViewHolder<ProductDataModel> {
 
     //@BindView(R.id.img_product_thumb) ImageView thumbImageView;
@@ -24,7 +22,7 @@ public class PromotionItemVH extends BaseViewHolder<ProductDataModel> {
 
     public PromotionItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_product, (ViewGroup) itemView, false));
+            .inflate(R.layout.item_product_type_grid, (ViewGroup) itemView, false));
     }
 
     @Override public void bind(ProductDataModel $data) {

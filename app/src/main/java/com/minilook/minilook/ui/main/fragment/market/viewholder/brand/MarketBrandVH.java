@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import butterknife.BindColor;
 import butterknife.BindView;
+import butterknife.BindViews;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
@@ -18,6 +19,7 @@ import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.util.DimenUtil;
 import com.minilook.minilook.util.StringUtil;
 import io.reactivex.rxjava3.core.Observable;
+import java.util.List;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
 
 public class MarketBrandVH extends BaseViewHolder<MarketDataModel> {
@@ -29,9 +31,7 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> {
     @BindView(R.id.txt_name) TextView nameTextView;
     @BindView(R.id.txt_tag) TextView tagTextView;
     @BindView(R.id.txt_desc) TextView descTextView;
-    @BindView(R.id.img_style1) ImageView style1ImageView;
-    @BindView(R.id.img_style2) ImageView style2ImageView;
-    @BindView(R.id.img_style3) ImageView style3ImageView;
+    @BindViews({ R.id.img_style1, R.id.img_style2, R.id.img_style3 }) List<ImageView> imageViews;
 
     @BindColor(R.color.color_FFDBDBDB) int color_FFDBDBDB;
 
@@ -64,17 +64,12 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> {
         tagTextView.setText(brandModel.getTag());
         descTextView.setText(brandModel.getDesc());
 
-        Glide.with(context)
-            .load("http://lookbook.minilook.co.kr/data/goods/M6QhdvJzsqBjF5475lAeUQaYgvJjGV.jpg")
-            .into(style1ImageView);
-
-        Glide.with(context)
-            .load("http://lookbook.minilook.co.kr/data/goods/LjbuUaA6cFudJhbe8VZxHkvwvaAV7g.jpg")
-            .into(style2ImageView);
-
-        Glide.with(context)
-            .load("http://lookbook.minilook.co.kr/data/goods/uaZCB3zCud59MEsQsxBBcunSpHEYqj.jpg")
-            .into(style3ImageView);
+        List<String> images = brandModel.getImages();
+        for (int i = 0; i < images.size(); i++) {
+            Glide.with(context)
+                .load(images.get(i))
+                .into(imageViews.get(i));
+        }
     }
 
     private BrandInfoDataModel parseJsonToModel() {

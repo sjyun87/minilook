@@ -1,6 +1,5 @@
 package com.minilook.minilook.ui.product;
 
-import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,20 +15,19 @@ import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.StringUtil;
 
-public class ProductBigVH extends BaseViewHolder<ProductDataModel> {
+public class ProductGridVH extends BaseViewHolder<ProductDataModel> {
 
     @BindView(R.id.img_product_thumb) ImageView thumbImageView;
     @BindView(R.id.txt_brand_name) TextView brandNameTextView;
     @BindView(R.id.txt_product_name) TextView productNameTextView;
-    @BindView(R.id.txt_price_origin) TextView priceOriginTextView;
     @BindView(R.id.txt_discount_percent) TextView discountPercentTextView;
     @BindView(R.id.txt_price) TextView priceTextView;
 
     @BindString(R.string.base_price_percent) String format_percent;
 
-    public ProductBigVH(@NonNull View itemView) {
+    public ProductGridVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_product_type_big, (ViewGroup) itemView, false));
+            .inflate(R.layout.item_product_type_grid, (ViewGroup) itemView, false));
     }
 
     @Override public void bind(ProductDataModel $data) {
@@ -43,14 +41,9 @@ public class ProductBigVH extends BaseViewHolder<ProductDataModel> {
         productNameTextView.setText(data.getName());
 
         if (data.is_discount()) {
-            priceOriginTextView.setPaintFlags(priceOriginTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            priceOriginTextView.setText(StringUtil.toDigit(data.getPrice_origin()));
-            priceOriginTextView.setVisibility(View.VISIBLE);
-
             discountPercentTextView.setText(String.format(format_percent, data.getPrice_discount_percent()));
             discountPercentTextView.setVisibility(View.VISIBLE);
         } else {
-            priceOriginTextView.setVisibility(View.GONE);
             discountPercentTextView.setVisibility(View.GONE);
         }
         priceTextView.setText(StringUtil.toDigit(data.getPrice()));
