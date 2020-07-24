@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.main.fragment.market.viewholder.mdpick.viewholder;
+package com.minilook.minilook.ui.main.fragment.market.viewholder.md_pick.viewholder;
 
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -14,7 +14,7 @@ import com.minilook.minilook.data.model.category.CategoryDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import lombok.Setter;
 
-public class CategoryItemVH extends BaseViewHolder<CategoryDataModel> {
+public class MarketCategoryItemVH extends BaseViewHolder<CategoryDataModel> {
 
     @BindView(R.id.txt_category) TextView categoryTextView;
 
@@ -26,9 +26,9 @@ public class CategoryItemVH extends BaseViewHolder<CategoryDataModel> {
 
     @Setter private OnItemClickListener onItemClickListener;
 
-    public CategoryItemVH(@NonNull View itemView) {
+    public MarketCategoryItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_category, (ViewGroup) itemView, false));
+            .inflate(R.layout.item_market_category, (ViewGroup) itemView, false));
     }
 
     @Override public void bind(CategoryDataModel $data) {

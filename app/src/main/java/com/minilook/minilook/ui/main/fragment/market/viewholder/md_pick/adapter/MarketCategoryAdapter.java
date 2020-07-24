@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.main.fragment.market.viewholder.mdpick.adapter;
+package com.minilook.minilook.ui.main.fragment.market.viewholder.md_pick.adapter;
 
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
@@ -6,22 +6,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.minilook.minilook.data.model.category.CategoryDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.main.fragment.market.viewholder.mdpick.viewholder.CategoryItemVH;
+import com.minilook.minilook.ui.main.fragment.market.viewholder.md_pick.viewholder.MarketCategoryItemVH;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Setter;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryItemVH> implements
+public class MarketCategoryAdapter extends RecyclerView.Adapter<MarketCategoryItemVH> implements
     BaseAdapterDataModel<CategoryDataModel>, BaseAdapterDataView<String> {
 
     private List<CategoryDataModel> items = new ArrayList<>();
-    @Setter private CategoryItemVH.OnItemClickListener onItemClickListener;
+    @Setter private MarketCategoryItemVH.OnItemClickListener onItemClickListener;
 
-    @NonNull @Override public CategoryItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new CategoryItemVH(parent);
+    @NonNull @Override public MarketCategoryItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new MarketCategoryItemVH(parent);
     }
 
-    @Override public void onBindViewHolder(@NonNull CategoryItemVH holder, int position) {
+    @Override public void onBindViewHolder(@NonNull MarketCategoryItemVH holder, int position) {
         holder.bind(items.get(position));
         holder.setOnItemClickListener(onItemClickListener);
     }

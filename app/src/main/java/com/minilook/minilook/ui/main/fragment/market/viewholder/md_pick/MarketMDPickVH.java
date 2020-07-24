@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.main.fragment.market.viewholder.mdpick;
+package com.minilook.minilook.ui.main.fragment.market.viewholder.md_pick;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +15,8 @@ import com.minilook.minilook.data.model.category.CategoryDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.model.market.MarketMDPickDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
-import com.minilook.minilook.ui.main.fragment.market.viewholder.mdpick.adapter.CategoryAdapter;
-import com.minilook.minilook.ui.main.fragment.market.viewholder.mdpick.adapter.ProductAdapter;
+import com.minilook.minilook.ui.main.fragment.market.viewholder.md_pick.adapter.MarketCategoryAdapter;
+import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import io.reactivex.rxjava3.core.Observable;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class MarketMDPickVH extends BaseViewHolder<MarketDataModel> {
     @BindView(R.id.rcv_category) RecyclerView categoryRecyclerView;
     @BindView(R.id.rcv_product) RecyclerView productRecyclerView;
 
-    private CategoryAdapter categoryAdapter;
+    private MarketCategoryAdapter marketCategoryAdapter;
     private ProductAdapter productAdapter;
     private Gson gson = new Gson();
 
@@ -44,9 +44,9 @@ public class MarketMDPickVH extends BaseViewHolder<MarketDataModel> {
 
     private void setupCategoryRecyclerView() {
         categoryRecyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
-        categoryAdapter = new CategoryAdapter();
-        categoryAdapter.setOnItemClickListener(this::onItemClick);
-        categoryRecyclerView.setAdapter(categoryAdapter);
+        marketCategoryAdapter = new MarketCategoryAdapter();
+        marketCategoryAdapter.setOnItemClickListener(this::onItemClick);
+        categoryRecyclerView.setAdapter(marketCategoryAdapter);
     }
 
     private void setupProductRecyclerView() {
@@ -67,8 +67,8 @@ public class MarketMDPickVH extends BaseViewHolder<MarketDataModel> {
     }
 
     private void setupCategoryList() {
-        categoryAdapter.set(categoryList);
-        categoryAdapter.refresh();
+        marketCategoryAdapter.set(categoryList);
+        marketCategoryAdapter.refresh();
     }
 
     private void setupProductList() {
@@ -96,10 +96,10 @@ public class MarketMDPickVH extends BaseViewHolder<MarketDataModel> {
     }
 
     public void onItemClick(int position) {
-        categoryAdapter.get(selectedPosition).setSelect(false);
+        marketCategoryAdapter.get(selectedPosition).setSelect(false);
         selectedPosition = position;
-        categoryAdapter.get(selectedPosition).setSelect(true);
-        categoryAdapter.refresh();
+        marketCategoryAdapter.get(selectedPosition).setSelect(true);
+        marketCategoryAdapter.refresh();
         setupProductList();
     }
 }

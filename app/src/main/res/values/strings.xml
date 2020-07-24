@@ -2,8 +2,7 @@
     <string name="app_name">minilook</string>
 
     <!--Base-->
-    <string name="base_price_percent">%d%</string>
-    <string name="base_product_name">[%s] %s</string>
+    <string name="base_price_percent">%d%%</string>
     <string name="base_yes">네</string>
     <string name="base_no">아니오</string>
 
@@ -13,10 +12,11 @@
     <string name="bottombar_market">마켓</string>
     <string name="bottombar_ipage">아이페이지</string>
 
-    <!--LookBook-->
 
 
-    <!--Category-->
+
+
+
 
     <!--Brand-->
     <string name="brand_more">브랜드 상품보러가기 ></string>

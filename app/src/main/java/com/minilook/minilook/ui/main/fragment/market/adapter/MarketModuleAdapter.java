@@ -11,8 +11,8 @@ import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.main.fragment.market.viewholder.brand.MarketBrandVH;
-import com.minilook.minilook.ui.main.fragment.market.viewholder.mdpick.MarketMDPickVH;
-import com.minilook.minilook.ui.main.fragment.market.viewholder.newest.MarketNewestVH;
+import com.minilook.minilook.ui.main.fragment.market.viewholder.md_pick.MarketMDPickVH;
+import com.minilook.minilook.ui.main.fragment.market.viewholder.new_arrivals.MarketNewArrivalsVH;
 import com.minilook.minilook.ui.main.fragment.market.viewholder.promotion.MarketPromotionVH;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class MarketModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<Mar
         } else if (viewType == MarketModuleType.TYPE_MD_PICK.getValue()) {
             return new MarketMDPickVH(parent);
         } else if (viewType == MarketModuleType.TYPE_NEW.getValue()) {
-            return new MarketNewestVH(parent);
+            return new MarketNewArrivalsVH(parent);
         } else if (viewType == MarketModuleType.TYPE_BRAND.getValue()) {
             return new MarketBrandVH(parent);
         } else {

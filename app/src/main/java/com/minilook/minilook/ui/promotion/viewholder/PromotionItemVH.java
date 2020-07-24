@@ -19,8 +19,8 @@ public class PromotionItemVH extends BaseViewHolder<ProductDataModel> {
     //@BindView(R.id.txt_price) TextView priceTextView;
     //@BindView(R.id.txt_product_name) TextView nameTextView;
 
-    @BindString(R.string.base_price_percent) String formatPercent;
-    @BindString(R.string.base_product_name) String formatProductName;
+    //@BindString(R.string.base_price_percent) String formatPercent;
+    //@BindString(R.string.base_product_name) String formatProductName;
 
     public PromotionItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())

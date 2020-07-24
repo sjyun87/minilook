@@ -1,28 +1,25 @@
-package com.minilook.minilook.ui.main.fragment.market.viewholder.mdpick.adapter;
+package com.minilook.minilook.ui.product.adapter;
 
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.main.fragment.market.viewholder.mdpick.viewholder.ProductItemVH;
-
+import com.minilook.minilook.ui.product.ProductBigVH;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductItemVH> implements
+public class ProductBigAdapter extends RecyclerView.Adapter<ProductBigVH> implements
     BaseAdapterDataModel<ProductDataModel>, BaseAdapterDataView<ProductDataModel> {
 
     private List<ProductDataModel> items = new ArrayList<>();
 
-    @NonNull @Override public ProductItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ProductItemVH(parent);
+    @NonNull @Override public ProductBigVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ProductBigVH(parent);
     }
 
-    @Override public void onBindViewHolder(@NonNull ProductItemVH holder, int position) {
+    @Override public void onBindViewHolder(@NonNull ProductBigVH holder, int position) {
         holder.bind(items.get(position));
     }
 

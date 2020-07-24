@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.main.fragment.market.viewholder.newest;
+package com.minilook.minilook.ui.main.fragment.market.viewholder.new_arrivals;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,29 +15,29 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
-import com.minilook.minilook.ui.main.fragment.market.viewholder.newest.adapter.MarketNewestAdapter;
+import com.minilook.minilook.ui.product.adapter.ProductBigAdapter;
 import io.reactivex.rxjava3.core.Observable;
 import java.util.List;
 
-public class MarketNewestVH extends BaseViewHolder<MarketDataModel> {
+public class MarketNewArrivalsVH extends BaseViewHolder<MarketDataModel> {
 
     @BindView(R.id.txt_title) TextView titleTextView;
     @BindView(R.id.rcv_product) RecyclerView recyclerView;
 
     @BindDimen(R.dimen.dp_2) int dp_2;
 
-    private MarketNewestAdapter adapter;
+    private ProductBigAdapter adapter;
     private Gson gson = new Gson();
 
-    public MarketNewestVH(@NonNull View itemView) {
+    public MarketNewArrivalsVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_market_newest, (ViewGroup) itemView, false));
+            .inflate(R.layout.item_market_new_arrivals, (ViewGroup) itemView, false));
         setupViewPager();
     }
 
     private void setupViewPager() {
         recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
-        adapter = new MarketNewestAdapter();
+        adapter = new ProductBigAdapter();
         recyclerView.setAdapter(adapter);
         DividerDecoration.builder(context)
             .size(dp_2)

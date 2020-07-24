@@ -48,7 +48,7 @@
         android:ellipsize="end"
         android:fontFamily="@font/nanum_square_r"
         android:letterSpacing="-0.02"
-        android:lineSpacingMultiplier="0.8"
+        android:lineSpacingMultiplier="1.3"
         android:maxLines="2"
         android:textColor="@color/color_FF232323"
         android:textSize="@dimen/sp_9"
