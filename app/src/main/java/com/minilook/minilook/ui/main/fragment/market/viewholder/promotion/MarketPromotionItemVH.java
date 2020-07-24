@@ -29,7 +29,6 @@ public class MarketPromotionItemVH extends BaseViewHolder<PromotionDataModel> {
 
     @Override public void bind(PromotionDataModel $data) {
         super.bind($data);
-        Timber.e(data.getUrl_thumb());
 
         Glide.with(itemView)
             .load(data.getUrl_thumb())
