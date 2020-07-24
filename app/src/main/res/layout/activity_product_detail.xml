@@ -97,6 +97,34 @@
                 app:layout_constraintTop_toBottomOf="@+id/layout_brand_panel"
                 tools:text="[추가 20%+무배] 경량 비치 후드집업 점퍼 IKJ-M2041G1_화이트/라임그린/민트그린" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_option_color"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:clipToPadding="false"
+                android:paddingStart="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_10"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_product_name"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:orientation="horizontal" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_option_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_6"
+                android:clipToPadding="false"
+                android:paddingStart="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_10"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rcv_option_color"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:orientation="horizontal" />
+
             <TextView
                 android:id="@+id/txt_price_origin"
                 android:layout_width="wrap_content"
@@ -106,7 +134,7 @@
                 android:textColor="@color/color_FFA9A9A9"
                 android:textSize="@dimen/sp_7"
                 app:layout_constraintLeft_toLeftOf="@+id/txt_product_name"
-                app:layout_constraintTop_toBottomOf="@+id/txt_product_name"
+                app:layout_constraintTop_toBottomOf="@+id/rcv_option_size"
                 tools:text="63,000" />
 
             <TextView

@@ -1,5 +1,7 @@
 package com.minilook.minilook.data.model.product;
 
+import com.minilook.minilook.data.model.base.ColorDataModel;
+import com.minilook.minilook.data.model.base.SizeDataModel;
 import com.minilook.minilook.data.model.brand.BrandInfoDataModel;
 import com.minilook.minilook.data.model.category.CategoryDataModel;
 
@@ -28,4 +30,6 @@ import lombok.Data;
     private CategoryDataModel category;
     private BrandInfoDataModel brand;
     private List<ProductDataModel> related_products;
+    private List<ColorDataModel> colors;
+    private List<SizeDataModel> sizes;
 }

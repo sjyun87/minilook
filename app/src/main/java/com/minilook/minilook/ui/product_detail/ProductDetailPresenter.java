@@ -21,6 +21,10 @@ public interface ProductDetailPresenter extends LifecycleObserver {
 
         void productImageRefresh();
 
+        void setupColorRecyclerView();
+
+        void setupSizeRecyclerView();
+
         void setupTabLayout();
 
         void setupWebView();

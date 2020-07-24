@@ -30,6 +30,7 @@ import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
+import com.minilook.minilook.ui.product_detail.adapter.ProductColorAdapter;
 import com.minilook.minilook.ui.product_detail.adapter.ProductDetailImageAdapter;
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
 import com.minilook.minilook.util.SpannableUtil;
@@ -48,6 +49,8 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     @BindView(R.id.vp_product_image) ViewPager2 productImageViewPager;
     @BindView(R.id.txt_brand_name) TextView brandNameTextView;
     @BindView(R.id.txt_product_name) TextView productNameTextView;
+    @BindView(R.id.rcv_option_color) RecyclerView colorRecyclerView;
+    @BindView(R.id.rcv_option_size) RecyclerView sizeRecyclerView;
     @BindView(R.id.txt_price_origin) TextView priceOriginTextView;
     @BindView(R.id.txt_discount_percent) TextView discountPercentTextView;
     @BindView(R.id.txt_price) TextView priceTextView;
@@ -80,6 +83,9 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     private ProductAdapter relatedProductAdapter = new ProductAdapter();
     private BaseAdapterDataView<ProductDataModel> relatedProductAdapterView = relatedProductAdapter;
 
+    private ProductColorAdapter colorAdapter = new ProductColorAdapter();
+
+
     @Override protected int getLayoutID() {
         return R.layout.activity_product_detail;
     }
@@ -104,6 +110,15 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 
     @Override public void productImageRefresh() {
         productImageAdapterView.refresh();
+    }
+
+    @Override public void setupColorRecyclerView() {
+        colorRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        colorRecyclerView.setAdapter(colorAdapter);
+    }
+
+    @Override public void setupSizeRecyclerView() {
+        sizeRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
     }
 
     @Override public void setupTabLayout() {
