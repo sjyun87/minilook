@@ -1,11 +1,12 @@
 package com.minilook.minilook.ui.product_detail;
 
+import com.minilook.minilook.data.model.base.ColorDataModel;
+import com.minilook.minilook.data.model.base.SizeDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.network.product.ProductRequest;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
-import com.minilook.minilook.ui.product_detail.adapter.ProductColorAdapter;
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
 import com.minilook.minilook.util.StringUtil;
 import timber.log.Timber;
@@ -18,22 +19,16 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     private final BaseAdapterDataModel<ProductDataModel> relatedProductsAdapter;
     private final ProductRequest productRequest;
 
-    private final ProductColorAdapter colorAdapter;
-
     public ProductDetailPresenterImpl(ProductDetailArguments args) {
         view = args.getView();
         id = args.getId();
         productImageAdapter = args.getProductImageAdapter();
         relatedProductsAdapter = args.getRelatedProductAdapter();
         productRequest = new ProductRequest();
-
-        colorAdapter = args.getColorAdapter();
     }
 
     @Override public void onCreate() {
         view.setupProductImageViewPager();
-        view.setupColorRecyclerView();
-        view.setupSizeRecyclerView();
         view.setupTabLayout();
         view.setupWebView();
         view.setupRelatedProductRecyclerView();
@@ -77,12 +72,16 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         productImageAdapter.set(data.getImages());
         view.productImageRefresh();
 
-        colorAdapter.set(data.getColors());
-        colorAdapter.refresh();
-
-
         view.setupBrandName(data.getBrand().getName());
         view.setupProductName(data.getName());
+
+        for (ColorDataModel colorDataModel : data.getColors()) {
+            view.addColorView(colorDataModel);
+        }
+
+        for (SizeDataModel sizeDataModel : data.getSizes()) {
+            view.addSizeView(sizeDataModel);
+        }
 
         if (data.is_discount()) {
             view.setupPriceOrigin(StringUtil.toDigit(data.getPrice_origin()));
@@ -101,9 +100,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
 
         view.setupProductDetail(data.getDetail_url());
 
-
-
-
+        view.setupReviewCount(StringUtil.toDigit(data.getReview_cnt()));
         view.setupQuestionCount(StringUtil.toDigit(data.getQuestion_cnt()));
 
         relatedProductsAdapter.set(data.getRelated_products());

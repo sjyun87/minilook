@@ -20,15 +20,16 @@
     <string name="product_detail_delivery">배송정보</string>
     <string name="product_detail_delivery_info">미니룩은 전상품 무료배송!</string>
     <string name="product_detail_delivery_info_b">무료배송!</string>
-    <string name="product_detail_tab_product_info">상품정보</string>
-    <string name="product_detail_tab_review">리뷰</string>
-    <string name="product_detail_tab_question">문의</string>
-    <string name="product_detail_tab_shipping_n_refund">배송 · 환불</string>
     <string name="product_detail_review_title">상품리뷰</string>
     <string name="product_detail_question_title">상품문의</string>
     <string name="product_detail_shipping_n_refund_title">배송/환불/교환 안내</string>
     <string name="product_detail_related_products_title">함께 구매하면 좋은 상품</string>
     <string name="product_detail_buy">구매하기</string>
+
+
+
+
+
 
 
 

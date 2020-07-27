@@ -1,6 +1,5 @@
 package com.minilook.minilook.ui.product_detail;
 
-import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +16,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
+import butterknife.BindArray;
 import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.BindView;
@@ -26,14 +26,20 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.emilsjolander.components.StickyScrollViewItems.StickyScrollView;
 import com.google.android.material.tabs.TabLayout;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.base.ColorDataModel;
+import com.minilook.minilook.data.model.base.SizeDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.ui.base.widget.ColorView;
+import com.minilook.minilook.ui.base.widget.ProductTabView;
+import com.minilook.minilook.ui.base.widget.SizeView;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
-import com.minilook.minilook.ui.product_detail.adapter.ProductColorAdapter;
 import com.minilook.minilook.ui.product_detail.adapter.ProductDetailImageAdapter;
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
 import com.minilook.minilook.util.SpannableUtil;
+import com.nex3z.flowlayout.FlowLayout;
+import java.util.Objects;
 
 public class ProductDetailActivity extends BaseActivity implements ProductDetailPresenter.View {
 
@@ -49,8 +55,8 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     @BindView(R.id.vp_product_image) ViewPager2 productImageViewPager;
     @BindView(R.id.txt_brand_name) TextView brandNameTextView;
     @BindView(R.id.txt_product_name) TextView productNameTextView;
-    @BindView(R.id.rcv_option_color) RecyclerView colorRecyclerView;
-    @BindView(R.id.rcv_option_size) RecyclerView sizeRecyclerView;
+    @BindView(R.id.layout_option_color_panel) FlowLayout colorPanel;
+    @BindView(R.id.layout_option_size_panel) FlowLayout sizePanel;
     @BindView(R.id.txt_price_origin) TextView priceOriginTextView;
     @BindView(R.id.txt_discount_percent) TextView discountPercentTextView;
     @BindView(R.id.txt_price) TextView priceTextView;
@@ -72,6 +78,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     @BindString(R.string.base_price_percent) String format_percent;
     @BindString(R.string.product_detail_point) String format_point;
     @BindString(R.string.product_detail_point_save) String format_point_save;
+    @BindArray(R.array.tab_product_detail) String[] tabNames;
 
     @BindString(R.string.product_detail_delivery_info) String str_delivery_info;
     @BindString(R.string.product_detail_delivery_info_b) String str_delivery_info_b;
@@ -82,9 +89,6 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     private BaseAdapterDataView<String> productImageAdapterView = productImageAdapter;
     private ProductAdapter relatedProductAdapter = new ProductAdapter();
     private BaseAdapterDataView<ProductDataModel> relatedProductAdapterView = relatedProductAdapter;
-
-    private ProductColorAdapter colorAdapter = new ProductColorAdapter();
-
 
     @Override protected int getLayoutID() {
         return R.layout.activity_product_detail;
@@ -112,29 +116,42 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         productImageAdapterView.refresh();
     }
 
-    @Override public void setupColorRecyclerView() {
-        colorRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        colorRecyclerView.setAdapter(colorAdapter);
-    }
-
-    @Override public void setupSizeRecyclerView() {
-        sizeRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-    }
-
     @Override public void setupTabLayout() {
+        for (String tabName : tabNames) {
+            ProductTabView tabView = ProductTabView.builder()
+                .context(this)
+                .name(tabName)
+                .build();
+
+            TabLayout.Tab tab = tabLayout.newTab();
+            tab.setCustomView(tabView);
+            tabLayout.addTab(tab);
+        }
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override public void onTabSelected(TabLayout.Tab tab) {
                 presenter.onTabClick(tab.getPosition());
+                getTabView(tab).setupSelected();
             }
 
             @Override public void onTabUnselected(TabLayout.Tab tab) {
-
+                getTabView(tab).setupUnselected();
             }
 
             @Override public void onTabReselected(TabLayout.Tab tab) {
                 presenter.onTabClick(tab.getPosition());
             }
         });
+
+        getTabView(0).setupSelected();
+    }
+
+    public ProductTabView getTabView(TabLayout.Tab tab) {
+        return (ProductTabView) tab.getCustomView();
+    }
+
+    public ProductTabView getTabView(int position) {
+        return (ProductTabView) Objects.requireNonNull(tabLayout.getTabAt(position)).getCustomView();
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -166,6 +183,22 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 
     @Override public void setupProductName(String text) {
         productNameTextView.setText(text);
+    }
+
+    @Override public void addColorView(ColorDataModel model) {
+        ColorView colorView = ColorView.builder()
+            .context(this)
+            .model(model)
+            .build();
+        colorPanel.addView(colorView);
+    }
+
+    @Override public void addSizeView(SizeDataModel model) {
+        SizeView sizeView = SizeView.builder()
+            .context(this)
+            .model(model)
+            .build();
+        sizePanel.addView(sizeView);
     }
 
     @Override public void setupPriceOrigin(String text) {
@@ -232,8 +265,13 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         productDetailWebView.loadUrl(url);
     }
 
+    @Override public void setupReviewCount(String text) {
+        getTabView(1).setupCount(text);
+    }
+
     @Override public void setupQuestionCount(String text) {
         questionCountTextView.setText(text);
+        getTabView(2).setupCount(text);
     }
 
     @Override public void showCurtain() {

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="tab_product_detail">
+        <item>상품정보</item>
+        <item>리뷰</item>
+        <item>문의</item>
+        <item>배송 · 환불</item>
+    </string-array>
+</resources>

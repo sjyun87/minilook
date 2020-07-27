@@ -99,10 +99,10 @@ public class SearchKeywordActivity extends BaseActivity implements SearchKeyword
     }
 
     @Override public void addKeywordView(String keyword) {
-        KeywordView keywordView = new KeywordView(this, KeywordView.TYPE_SEARCH_RECENT);
-        keywordView.setKeyword(keyword);
-        keywordView.setOnClickListener(this);
-        recentItemPanel.addView(keywordView);
+        //KeywordView keywordView = new KeywordView(this, KeywordView.TYPE_SEARCH_RECENT);
+        //keywordView.setKeyword(keyword);
+        //keywordView.setOnClickListener(this);
+        //recentItemPanel.addView(keywordView);
     }
 
     @Override public void removeAllKeywordView() {

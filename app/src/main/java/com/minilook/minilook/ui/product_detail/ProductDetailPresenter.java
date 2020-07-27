@@ -3,6 +3,8 @@ package com.minilook.minilook.ui.product_detail;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
+import com.minilook.minilook.data.model.base.ColorDataModel;
+import com.minilook.minilook.data.model.base.SizeDataModel;
 
 public interface ProductDetailPresenter extends LifecycleObserver {
 
@@ -21,10 +23,6 @@ public interface ProductDetailPresenter extends LifecycleObserver {
 
         void productImageRefresh();
 
-        void setupColorRecyclerView();
-
-        void setupSizeRecyclerView();
-
         void setupTabLayout();
 
         void setupWebView();
@@ -36,6 +34,10 @@ public interface ProductDetailPresenter extends LifecycleObserver {
         void setupBrandName(String text);
 
         void setupProductName(String text);
+
+        void addColorView(ColorDataModel model);
+
+        void addSizeView(SizeDataModel model);
 
         void setupPriceOrigin(String text);
 
@@ -64,6 +66,8 @@ public interface ProductDetailPresenter extends LifecycleObserver {
         void scrollToShippingNRefund();
 
         void setupProductDetail(String htmlText);
+
+        void setupReviewCount(String text);
 
         void setupQuestionCount(String text);
 
