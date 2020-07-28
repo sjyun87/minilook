@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nanum_square_r"
+        android:includeFontPadding="false"
         android:textColor="@color/color_FF616161"
         android:textSize="@dimen/sp_7"
         tools:text="리뷰" />
@@ -22,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_2"
         android:fontFamily="@font/nanum_square_b"
+        android:includeFontPadding="false"
         android:textColor="@color/color_FF8140E5"
         android:textSize="@dimen/sp_6"
         android:visibility="gone"

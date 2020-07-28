@@ -3,13 +3,15 @@ package com.minilook.minilook.ui.base.widget;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.util.AttributeSet;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.base.ColorDataModel;
+import com.minilook.minilook.data.model.product.ProductColorDataModel;
 import lombok.Builder;
 
 public class ColorView extends FrameLayout {
@@ -17,12 +19,12 @@ public class ColorView extends FrameLayout {
     @BindView(R.id.img_color) ImageView colorImageView;
     @BindView(R.id.img_slash) ImageView slashImageView;
 
-    private ColorDataModel colorDataModel;
+    private ProductColorDataModel productColorDataModel;
 
     @Builder
-    public ColorView(@NonNull Context context, @NonNull ColorDataModel model) {
-        this(context);
-        this.colorDataModel = model;
+    public ColorView(@NonNull Context context, @NonNull ProductColorDataModel model) {
+        super(context);
+        this.productColorDataModel = model;
 
         initView();
         setupColor(model.getColor());
@@ -31,6 +33,22 @@ public class ColorView extends FrameLayout {
 
     public ColorView(@NonNull Context context) {
         super(context);
+        initView();
+    }
+
+    public ColorView(@NonNull Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        initView();
+    }
+
+    public ColorView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        initView();
+    }
+
+    public ColorView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        initView();
     }
 
     private void initView() {

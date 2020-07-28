@@ -3,8 +3,9 @@ package com.minilook.minilook.ui.product_detail;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
-import com.minilook.minilook.data.model.base.ColorDataModel;
-import com.minilook.minilook.data.model.base.SizeDataModel;
+import com.minilook.minilook.data.model.product.ProductColorDataModel;
+import com.minilook.minilook.data.model.product.ProductSizeDataModel;
+import java.util.List;
 
 public interface ProductDetailPresenter extends LifecycleObserver {
 
@@ -14,8 +15,6 @@ public interface ProductDetailPresenter extends LifecycleObserver {
     void onTabClick(int position);
 
     void onBuyClick();
-
-    void onCurtainClick();
 
     interface View {
 
@@ -35,9 +34,9 @@ public interface ProductDetailPresenter extends LifecycleObserver {
 
         void setupProductName(String text);
 
-        void addColorView(ColorDataModel model);
+        void addColorView(ProductColorDataModel model);
 
-        void addSizeView(SizeDataModel model);
+        void addSizeView(ProductSizeDataModel model);
 
         void setupPriceOrigin(String text);
 
@@ -71,12 +70,10 @@ public interface ProductDetailPresenter extends LifecycleObserver {
 
         void setupQuestionCount(String text);
 
-        void showCurtain();
+        void setupOptionSelector(List<ProductColorDataModel> data);
 
-        void hideCurtain();
+        void showOptionSelector();
 
-        void showBuyPanel();
-
-        void hideBuyPanel();
+        void hideOptionSelector();
     }
 }

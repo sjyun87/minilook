@@ -26,6 +26,18 @@
     <string name="product_detail_related_products_title">함께 구매하면 좋은 상품</string>
     <string name="product_detail_buy">구매하기</string>
 
+    <!--Option Selector-->
+    <string name="option_selector_select_box_hint">옵션을 선택해주세요</string>
+    <string name="option_selector_total_count">총 %d개 상품</string>
+    <string name="option_selector_total_price">총 금액</string>
+    <string name="option_selector_buy_now">바로 구매</string>
+    <string name="option_selector_shopping_bag">장바구니</string>
+
+    <string name="option_selector_title">옵션 선택</string>
+    <string name="option_selector_color_box_hint">색상을 선택해주세요</string>
+    <string name="option_selector_size_box_hint">사이즈를 선택해주세요</string>
+    <string name="option_selector_sold_out">품절</string>
+    <string name="option_selector_selected_color">색상 - %s</string>
 
 
 

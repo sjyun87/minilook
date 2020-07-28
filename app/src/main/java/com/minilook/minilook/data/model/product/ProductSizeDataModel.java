@@ -1,8 +1,8 @@
-package com.minilook.minilook.data.model.base;
+package com.minilook.minilook.data.model.product;
 
 import lombok.Data;
 
-@Data public class SizeDataModel {
+@Data public class ProductSizeDataModel {
     private String name;
     private int stock;
     private int price_add;

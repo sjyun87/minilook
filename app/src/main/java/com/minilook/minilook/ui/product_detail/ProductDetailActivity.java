@@ -21,17 +21,16 @@ import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.emilsjolander.components.StickyScrollViewItems.StickyScrollView;
 import com.google.android.material.tabs.TabLayout;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.base.ColorDataModel;
-import com.minilook.minilook.data.model.base.SizeDataModel;
+import com.minilook.minilook.data.model.product.ProductColorDataModel;
+import com.minilook.minilook.data.model.product.ProductSizeDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.widget.ColorView;
+import com.minilook.minilook.ui.option_selector.OptionSelector;
 import com.minilook.minilook.ui.base.widget.ProductTabView;
 import com.minilook.minilook.ui.base.widget.SizeView;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
@@ -39,6 +38,7 @@ import com.minilook.minilook.ui.product_detail.adapter.ProductDetailImageAdapter
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
 import com.minilook.minilook.util.SpannableUtil;
 import com.nex3z.flowlayout.FlowLayout;
+import java.util.List;
 import java.util.Objects;
 
 public class ProductDetailActivity extends BaseActivity implements ProductDetailPresenter.View {
@@ -72,8 +72,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     @BindView(R.id.layout_shipping_n_refund_panel) LinearLayout shippingNRefundPanel;
     @BindView(R.id.rcv_related_product) RecyclerView relatedProductRecyclerView;
 
-    @BindView(R.id.curtain) View curtainView;
-    @BindView(R.id.layout_buy_panel) LinearLayout buyPanel;
+    @BindView(R.id.option_selector) OptionSelector optionSelector;
 
     @BindString(R.string.base_price_percent) String format_percent;
     @BindString(R.string.product_detail_point) String format_point;
@@ -185,7 +184,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         productNameTextView.setText(text);
     }
 
-    @Override public void addColorView(ColorDataModel model) {
+    @Override public void addColorView(ProductColorDataModel model) {
         ColorView colorView = ColorView.builder()
             .context(this)
             .model(model)
@@ -193,7 +192,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         colorPanel.addView(colorView);
     }
 
-    @Override public void addSizeView(SizeDataModel model) {
+    @Override public void addSizeView(ProductSizeDataModel model) {
         SizeView sizeView = SizeView.builder()
             .context(this)
             .model(model)
@@ -274,38 +273,20 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         getTabView(2).setupCount(text);
     }
 
-    @Override public void showCurtain() {
-        curtainView.setVisibility(View.VISIBLE);
+    @Override public void setupOptionSelector(List<ProductColorDataModel> data) {
+        optionSelector.setupData(data);
     }
 
-    @Override public void hideCurtain() {
-        curtainView.setVisibility(View.GONE);
+    @Override public void showOptionSelector() {
+        optionSelector.show();
     }
 
-    @Override public void showBuyPanel() {
-        YoYo.with(Techniques.SlideInUp)
-            .duration(150)
-            .onStart(animator -> buyPanel.setVisibility(View.VISIBLE))
-            .playOn(buyPanel);
-    }
-
-    @Override public void hideBuyPanel() {
-        YoYo.with(Techniques.SlideOutDown)
-            .duration(150)
-            .onEnd(animator -> {
-                buyPanel.setVisibility(View.GONE);
-                hideCurtain();
-            })
-            .playOn(buyPanel);
+    @Override public void hideOptionSelector() {
+        optionSelector.hide();
     }
 
     @OnClick(R.id.txt_buy)
     void onBuyClick() {
         presenter.onBuyClick();
-    }
-
-    @OnClick(R.id.curtain)
-    void onCurtainClick() {
-        presenter.onCurtainClick();
     }
 }

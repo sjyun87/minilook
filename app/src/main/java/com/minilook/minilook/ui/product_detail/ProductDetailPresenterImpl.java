@@ -1,7 +1,7 @@
 package com.minilook.minilook.ui.product_detail;
 
-import com.minilook.minilook.data.model.base.ColorDataModel;
-import com.minilook.minilook.data.model.base.SizeDataModel;
+import com.minilook.minilook.data.model.product.ProductColorDataModel;
+import com.minilook.minilook.data.model.product.ProductSizeDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.network.product.ProductRequest;
 import com.minilook.minilook.data.rx.Transformer;
@@ -9,6 +9,7 @@ import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
 import com.minilook.minilook.util.StringUtil;
+import java.util.List;
 import timber.log.Timber;
 
 public class ProductDetailPresenterImpl extends BasePresenterImpl implements ProductDetailPresenter {
@@ -34,6 +35,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         view.setupRelatedProductRecyclerView();
 
         reqProductDetail();
+        reqProductOptions();
     }
 
     @Override public void onTabClick(int position) {
@@ -54,12 +56,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     }
 
     @Override public void onBuyClick() {
-        view.showCurtain();
-        view.showBuyPanel();
-    }
-
-    @Override public void onCurtainClick() {
-        view.hideBuyPanel();
+        view.showOptionSelector();
     }
 
     private void reqProductDetail() {
@@ -69,20 +66,23 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     }
 
     private void resProductDetail(ProductDataModel data) {
+        // Product Image List
         productImageAdapter.set(data.getImages());
         view.productImageRefresh();
 
         view.setupBrandName(data.getBrand().getName());
         view.setupProductName(data.getName());
 
-        for (ColorDataModel colorDataModel : data.getColors()) {
-            view.addColorView(colorDataModel);
+        // Option
+        for (ProductColorDataModel productColorDataModel : data.getColors()) {
+            view.addColorView(productColorDataModel);
         }
 
-        for (SizeDataModel sizeDataModel : data.getSizes()) {
-            view.addSizeView(sizeDataModel);
+        for (ProductSizeDataModel productSizeDataModel : data.getSizes()) {
+            view.addSizeView(productSizeDataModel);
         }
 
+        // Price
         if (data.is_discount()) {
             view.setupPriceOrigin(StringUtil.toDigit(data.getPrice_origin()));
             view.showPriceOrigin();
@@ -98,12 +98,26 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         view.setupPoint(point);
         view.setupDeliveryInfoTextView();
 
+        // Product Detail
         view.setupProductDetail(data.getDetail_url());
 
         view.setupReviewCount(StringUtil.toDigit(data.getReview_cnt()));
+        // 리뷰 화면 들어가야함
+
         view.setupQuestionCount(StringUtil.toDigit(data.getQuestion_cnt()));
 
+        // Related Product List
         relatedProductsAdapter.set(data.getRelated_products());
         view.relatedProductRefresh();
+    }
+
+    private void reqProductOptions() {
+        addDisposable(productRequest.getProductOptions(76)
+            .compose(Transformer.applySchedulers())
+            .subscribe(this::resProductOptions, Timber::e));
+    }
+
+    private void resProductOptions(List<ProductColorDataModel> data) {
+        view.setupOptionSelector(data);
     }
 }

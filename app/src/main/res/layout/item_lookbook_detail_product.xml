@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_8"
-            android:src="@drawable/ic_arrow_black"
+            android:src="@drawable/ic_arrow_right_black"
             tools:ignore="ContentDescription" />
     </LinearLayout>
 
