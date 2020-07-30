@@ -12,12 +12,12 @@ import timber.log.Timber;
 public class BrandDetailPresenterImpl extends BasePresenterImpl implements BrandDetailPresenter {
 
     private final View view;
-    private final int brandId;
+    private final int id;
     private final BrandRequest brandRequest;
 
     public BrandDetailPresenterImpl(BrandDetailArguments args) {
         view = args.getView();
-        brandId = args.getBrandId();
+        id = args.getBrandId();
         brandRequest = new BrandRequest();
     }
 
@@ -27,7 +27,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
 
     private void reqPromotion() {
         addDisposable(
-            brandRequest.getBrand(brandId)
+            brandRequest.getBrand(id)
                 .compose(Transformer.applySchedulers())
                 .subscribe(this::resBrand, Timber::e)
         );
@@ -35,15 +35,15 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
 
     private void resBrand(BrandDataModel data) {
 
-        BrandInfoDataModel brandInfo = data.getBrand_info();
-        StoreInfoDataModel storeInfo = data.getStore_info();
-
-        view.setupBgImage(brandInfo.getUrl_image());
-        view.setupDesc(brandInfo.getDesc());
-        view.setupName(brandInfo.getName());
-        view.setupCsDate(storeInfo.getCs_date());
-        view.setupCsTel(storeInfo.getCs_tel());
-        view.setupCsEmail(storeInfo.getCs_email());
-        view.setupCsAddress(storeInfo.getAddress());
+        //BrandInfoDataModel brandInfo = data.getBrand_info();
+        //StoreInfoDataModel storeInfo = data.getStore_info();
+        //
+        //view.setupBgImage(brandInfo.getUrl_image());
+        //view.setupDesc(brandInfo.getDesc());
+        //view.setupName(brandInfo.getName());
+        //view.setupCsDate(storeInfo.getCs_date());
+        //view.setupCsTel(storeInfo.getCs_tel());
+        //view.setupCsEmail(storeInfo.getCs_email());
+        //view.setupCsAddress(storeInfo.getAddress());fkdgo
     }
 }

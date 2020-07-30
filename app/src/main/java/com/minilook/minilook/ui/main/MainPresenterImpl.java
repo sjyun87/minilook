@@ -28,6 +28,7 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
             RxBus.send(new LookBookPresenterImpl.RxEventNavigateToPreview(false));
             RxBus.send(new LookBookDetailPresenterImpl.RxEventScrollToTop());
         }
+        view.setupCurrentPage(position);
     }
 
     private void toRxObservable() {

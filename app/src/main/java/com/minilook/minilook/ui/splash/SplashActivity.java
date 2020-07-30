@@ -27,4 +27,7 @@ public class SplashActivity extends BaseActivity implements SplashPresenter.View
     @Override public void navigateToMain() {
         MainActivity.start(this);
     }
+
+    @Override public void onBackPressed() {
+    }
 }

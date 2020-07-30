@@ -22,6 +22,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.order.OrderProductDataModel;
 import com.minilook.minilook.data.model.product.ProductColorDataModel;
 import com.minilook.minilook.data.model.product.ProductSizeDataModel;
 import com.minilook.minilook.ui.option_selector.adpater.OptionSelectorColorAdapter;
@@ -41,6 +42,7 @@ public class OptionSelector extends FrameLayout {
     @BindView(R.id.txt_total_price) TextView totalPriceTextView;
 
     @BindView(R.id.layout_option_select_panel) ConstraintLayout selectPanel;
+    @BindView(R.id.img_back) ImageView backImageView;
     @BindView(R.id.txt_selected_color) TextView selectedColorTextView;
     @BindView(R.id.img_color_arrow) ImageView colorArrowImageView;
     @BindView(R.id.rcv_select_color) RecyclerView colorRecyclerView;
@@ -50,10 +52,13 @@ public class OptionSelector extends FrameLayout {
 
     @BindString(R.string.option_selector_total_count) String format_total_count;
     @BindString(R.string.option_selector_selected_color) String format_selected_color;
+    @BindString(R.string.option_selector_color_box_hint) String hint_color;
 
     @BindColor(R.color.color_FFA9A9A9) int color_FFA9A9A9;
     @BindColor(R.color.color_FF424242) int color_FF424242;
+    @BindColor(R.color.color_FF616161) int color_FF616161;
 
+    @BindDimen(R.dimen.sp_6) int sp_6;
     @BindDimen(R.dimen.sp_7) int sp_7;
 
     private OptionSelectorColorAdapter colorAdapter;
@@ -63,6 +68,11 @@ public class OptionSelector extends FrameLayout {
 
     private boolean isColorSelectBoxOpened = false;
     private boolean isSizeSelectBoxOpened = false;
+
+    private ProductColorDataModel selectedColorData;
+    private ProductSizeDataModel selectedSizeData;
+
+    private List<OrderProductDataModel> selectedData;
 
     public OptionSelector(@NonNull Context context) {
         this(context, null);
@@ -213,11 +223,13 @@ public class OptionSelector extends FrameLayout {
     }
 
     private void onColorSelected(ProductColorDataModel data) {
+        this.selectedColorData = data;
         setupSelectedColor(data.getName());
         hideColorSelectBox();
 
         sizeAdapter.set(data.getSize());
         sizeAdapter.refresh();
+        postDelayed(this::showSizeSelectBox, 150);
     }
 
     private void handleSizeSelectedBox() {
@@ -252,7 +264,33 @@ public class OptionSelector extends FrameLayout {
         selectedColorTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, sp_7);
     }
 
+    private void resetSelectedColor() {
+        selectedColorTextView.setText(hint_color);
+        selectedColorTextView.setTextColor(color_FF616161);
+        selectedColorTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, sp_6);
+    }
+
     private void onSizeSelected(ProductSizeDataModel data) {
+        this.selectedSizeData = data;
+        addSelectedData();
+
+        hideSelectPanel();
+        resetSelectedColor();
+        hideSizeSelectBox();
+        showColorSelectBox();
+        sizeAdapter.clear();
+        sizeAdapter.refresh();
+    }
+
+    private void addSelectedData() {
+        //OrderProductDataModel model = new OrderProductDataModel();
+        //model.setColor(selectedColorData.getName());
+        //model.setSize(selectedSizeData.getName());
+        //model.setPrice_add(selectedSizeData.getPrice_add());
+        //model.setPrice_total();
+        //model.setPrice(0);
+        //model.setCount(1);
+
 
 
     }
@@ -265,7 +303,7 @@ public class OptionSelector extends FrameLayout {
     // Buy Panel -------------------------------------------------------------------------------------------------------
     @OnClick(R.id.layout_select_box_panel)
     void onSelectBoxClick() {
-
+        showSelectPanel();
     }
 
     @OnClick(R.id.txt_shopping_bag)
