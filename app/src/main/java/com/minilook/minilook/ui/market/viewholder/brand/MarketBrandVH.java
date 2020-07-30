@@ -15,7 +15,9 @@ import com.google.gson.Gson;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.main.MainPresenterImpl;
 import com.minilook.minilook.util.DimenUtil;
 import com.minilook.minilook.util.StringUtil;
 import io.reactivex.rxjava3.core.Observable;
@@ -70,6 +72,9 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> {
                 .load(images.get(i))
                 .into(imageViews.get(i));
         }
+
+        itemsView.setOnClickListener(v ->
+            RxBus.send(new MainPresenterImpl.RxEventNavigateToBrandDetail(brandModel.getId())));
     }
 
     private BrandDataModel parseJsonToModel() {
