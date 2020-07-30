@@ -32,6 +32,7 @@
             android:layout_width="@dimen/dp_20"
             android:layout_height="@dimen/dp_20"
             android:layout_marginStart="@dimen/dp_16"
+            android:scaleType="fitXY"
             tools:ignore="ContentDescription" />
 
         <TextView

@@ -16,7 +16,7 @@ import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.StringUtil;
 
-public class ProductBigVH extends BaseViewHolder<ProductDataModel> {
+public class ProductFullVH extends BaseViewHolder<ProductDataModel> {
 
     @BindView(R.id.img_product_thumb) ImageView thumbImageView;
     @BindView(R.id.txt_brand_name) TextView brandNameTextView;
@@ -27,9 +27,9 @@ public class ProductBigVH extends BaseViewHolder<ProductDataModel> {
 
     @BindString(R.string.base_price_percent) String format_percent;
 
-    public ProductBigVH(@NonNull View itemView) {
+    public ProductFullVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_product_type_big, (ViewGroup) itemView, false));
+            .inflate(R.layout.item_product_type_full, (ViewGroup) itemView, false));
     }
 
     @Override public void bind(ProductDataModel $data) {

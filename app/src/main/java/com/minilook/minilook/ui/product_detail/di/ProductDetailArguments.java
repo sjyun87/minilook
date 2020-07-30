@@ -1,5 +1,7 @@
 package com.minilook.minilook.ui.product_detail.di;
 
+import com.minilook.minilook.data.model.product.ProductDataModel;
+import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.product_detail.ProductDetailPresenter;
 
@@ -11,6 +13,6 @@ import lombok.Getter;
 public class ProductDetailArguments {
     private final ProductDetailPresenter.View view;
     private final int id;
-    private final ProductDetailImageAdapter productImageAdapter;
-    private final ProductAdapter relatedProductAdapter;
+    private final BaseAdapterDataModel<String> productImageAdapter;
+    private final BaseAdapterDataModel<ProductDataModel> relatedProductAdapter;
 }

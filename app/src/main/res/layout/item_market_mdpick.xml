@@ -25,12 +25,12 @@
         android:letterSpacing="-0.02"
         android:textColor="@color/color_FF232323"
         android:textSize="@dimen/sp_14"
-        app:layout_constraintLeft_toLeftOf="@id/line"
+        app:layout_constraintLeft_toLeftOf="@+id/line"
         app:layout_constraintTop_toBottomOf="@+id/line"
         tools:text="MD PICK" />
 
     <View
-        android:id="@+id/line_top"
+        android:id="@+id/line_category_top"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="@dimen/dp_10"
@@ -42,13 +42,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line_top"
+        app:layout_constraintTop_toBottomOf="@+id/line_category_top"
         tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_market_category"
         tools:orientation="horizontal" />
 
     <View
-        android:id="@+id/line_bottom"
+        android:id="@+id/line_category_bottom"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/color_FFF5F5F5"
@@ -59,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_8"
-        app:layout_constraintTop_toBottomOf="@+id/line_bottom"
+        app:layout_constraintTop_toBottomOf="@+id/line_category_bottom"
         tools:itemCount="4"
         tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:listitem="@layout/item_product_type_grid"

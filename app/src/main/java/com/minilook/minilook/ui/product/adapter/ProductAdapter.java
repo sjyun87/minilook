@@ -7,21 +7,24 @@ import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseViewHolder;
-import com.minilook.minilook.ui.product.ProductBigVH;
+import com.minilook.minilook.ui.product.ProductFullVH;
 import com.minilook.minilook.ui.product.ProductMediumVH;
 import com.minilook.minilook.ui.product.ProductGridVH;
+import com.minilook.minilook.ui.product.ProductNoBrandVH;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Setter;
 import timber.log.Timber;
 
 public class ProductAdapter extends RecyclerView.Adapter<BaseViewHolder<ProductDataModel>> implements
     BaseAdapterDataModel<ProductDataModel>, BaseAdapterDataView<ProductDataModel> {
 
     public static final int VIEW_TYPE_GRID = 0;
-    public static final int VIEW_TYPE_BIG = 1;
+    public static final int VIEW_TYPE_FULL = 1;
     public static final int VIEW_TYPE_MEDIUM = 2;
+    public static final int VIEW_TYPE_NO_BRAND = 3;
 
-    private int viewType = 0;
+    @Setter private int viewType = 0;
     private List<ProductDataModel> items = new ArrayList<>();
 
     @NonNull @Override
@@ -29,10 +32,12 @@ public class ProductAdapter extends RecyclerView.Adapter<BaseViewHolder<ProductD
         switch (viewType) {
             case VIEW_TYPE_GRID:
                 return new ProductGridVH(parent);
-            case VIEW_TYPE_BIG:
-                return new ProductBigVH(parent);
+            case VIEW_TYPE_FULL:
+                return new ProductFullVH(parent);
             case VIEW_TYPE_MEDIUM:
                 return new ProductMediumVH(parent);
+            case VIEW_TYPE_NO_BRAND:
+                return new ProductNoBrandVH(parent);
             default:
                 Timber.e("Product view type is null..");
                 return new BaseViewHolder<>(parent);
@@ -45,10 +50,6 @@ public class ProductAdapter extends RecyclerView.Adapter<BaseViewHolder<ProductD
 
     @Override public int getItemViewType(int position) {
         return viewType;
-    }
-
-    public void setViewType(int type) {
-        this.viewType = type;
     }
 
     @Override public int getItemCount() {

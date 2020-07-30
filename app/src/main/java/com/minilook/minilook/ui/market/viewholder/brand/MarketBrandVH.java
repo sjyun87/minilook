@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.brand.BrandInfoDataModel;
+import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.util.DimenUtil;
@@ -47,7 +47,7 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> {
 
         titleTextView.setText(data.getTitle());
 
-        BrandInfoDataModel brandModel = parseJsonToModel();
+        BrandDataModel brandModel = parseJsonToModel();
 
         Glide.with(context)
             .load(brandModel.getUrl_thumb())
@@ -72,9 +72,9 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> {
         }
     }
 
-    private BrandInfoDataModel parseJsonToModel() {
+    private BrandDataModel parseJsonToModel() {
         return Observable.fromIterable(data.getData())
-            .map(json -> gson.fromJson(json, BrandInfoDataModel.class))
+            .map(json -> gson.fromJson(json, BrandDataModel.class))
             .blockingFirst();
     }
 }

@@ -9,6 +9,7 @@ import lombok.Data;
     private String title;
     private String desc;
     private String tag;
+    private String brief_info;
     private List<String> images;
     private List<ProductDataModel> products;
 }

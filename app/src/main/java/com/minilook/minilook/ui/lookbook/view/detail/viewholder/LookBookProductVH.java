@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.brand.BrandInfoDataModel;
+import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.category.CategoryDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
@@ -47,7 +47,7 @@ public class LookBookProductVH extends BaseViewHolder<ProductDataModel> {
     @Override public void bind(ProductDataModel $data) {
         super.bind($data);
 
-        BrandInfoDataModel brandModel = data.getBrand();
+        BrandDataModel brandModel = data.getBrand();
         CategoryDataModel categoryDataModel = data.getCategory();
 
         Glide.with(context)

@@ -55,22 +55,14 @@
     <string name="preorder_notification_off">프리오더 알림 받기</string>
     <string name="preorder_notification_on">프리오더 알림 ON</string>
 
+    <!--Brand Detail-->
+    <string name="brand_detail_info_title">브랜드 정보</string>
+    <string name="brand_detail_info_desc">고객센터/배송·교환·환불</string>
+    <string name="brand_detail_pick_title">PICK</string>
+    <string name="brand_detail_product_title">PRODUCT</string>
 
 
 
-
-
-
-
-
-
-
-    <!--Brand-->
-    <string name="brand_more">브랜드 상품보러가기 ></string>
-    <string name="brand_cs_date">영업일시</string>
-    <string name="brand_cs_tel">연락처</string>
-    <string name="brand_cs_email">실시간상담</string>
-    <string name="brand_cs_address">주소</string>
 
     <!--Search-->
     <string name="search_keyword_hint">원하시는 상품을 검색하세요</string>

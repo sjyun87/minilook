@@ -25,7 +25,7 @@
         android:letterSpacing="-0.02"
         android:textColor="@color/color_FF232323"
         android:textSize="@dimen/sp_14"
-        app:layout_constraintLeft_toLeftOf="@id/line"
+        app:layout_constraintLeft_toLeftOf="@+id/line"
         app:layout_constraintTop_toBottomOf="@+id/line"
         tools:text="NEW" />
 
@@ -37,7 +37,7 @@
         android:clipToPadding="false"
         android:orientation="horizontal"
         android:paddingEnd="@dimen/dp_20"
-        tools:listitem="@layout/item_product_type_big"
+        tools:listitem="@layout/item_product_type_full"
         app:layout_constraintTop_toBottomOf="@+id/txt_title"
         tools:ignore="RtlSymmetry" />
 </androidx.constraintlayout.widget.ConstraintLayout>

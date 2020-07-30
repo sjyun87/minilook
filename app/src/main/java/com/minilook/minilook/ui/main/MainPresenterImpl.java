@@ -26,7 +26,7 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
     @Override public void onTabChanged(int position) {
         if (position != 0) {
             RxBus.send(new LookBookPresenterImpl.RxEventNavigateToPreview(false));
-            RxBus.send(new LookBookDetailPresenterImpl.RxEventScrollToTop());
+            RxBus.send(new LookBookDetailPresenterImpl.RxEventLookBookDetailScrollToTop());
         }
         view.setupCurrentPage(position);
     }

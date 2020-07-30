@@ -1,6 +1,6 @@
 package com.minilook.minilook.data.model.product;
 
-import com.minilook.minilook.data.model.brand.BrandInfoDataModel;
+import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.category.CategoryDataModel;
 
 import java.util.List;
@@ -26,7 +26,7 @@ import lombok.Data;
     private String detail_info;
     private String detail_url;
     private CategoryDataModel category;
-    private BrandInfoDataModel brand;
+    private BrandDataModel brand;
     private List<ProductDataModel> related_products;
     private List<ProductColorDataModel> colors;
     private List<ProductSizeDataModel> sizes;

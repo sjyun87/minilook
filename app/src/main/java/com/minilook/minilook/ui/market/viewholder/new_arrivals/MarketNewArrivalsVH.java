@@ -38,7 +38,7 @@ public class MarketNewArrivalsVH extends BaseViewHolder<MarketDataModel> {
     private void setupViewPager() {
         recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
         adapter = new ProductAdapter();
-        adapter.setViewType(ProductAdapter.VIEW_TYPE_BIG);
+        adapter.setViewType(ProductAdapter.VIEW_TYPE_FULL);
         recyclerView.setAdapter(adapter);
         DividerDecoration.builder(context)
             .size(dp_2)

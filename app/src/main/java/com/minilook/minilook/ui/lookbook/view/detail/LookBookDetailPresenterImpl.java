@@ -9,8 +9,6 @@ import com.minilook.minilook.ui.lookbook.LookBookPresenterImpl;
 import com.minilook.minilook.ui.lookbook.view.detail.di.LookBookDetailArguments;
 import com.minilook.minilook.ui.lookbook.view.preview.LookBookPreviewPresenterImpl;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import timber.log.Timber;
@@ -44,7 +42,7 @@ public class LookBookDetailPresenterImpl extends BasePresenterImpl implements Lo
                 LookBookDetailDataModel data =
                     ((LookBookPreviewPresenterImpl.RxEventLookBookModuleChanged) o).getData();
                 setupData(data);
-            } else if (o instanceof RxEventScrollToTop) {
+            } else if (o instanceof RxEventLookBookDetailScrollToTop) {
                 view.scrollToTop();
             }
         }, Timber::e));
@@ -60,25 +58,12 @@ public class LookBookDetailPresenterImpl extends BasePresenterImpl implements Lo
         styleAdapter.set(data.getImages());
         view.styleRefresh();
 
-        view.setupProductInfo(parseToProductInfo(data.getProducts()));
+        view.setupProductInfo(data.getBrief_info());
 
         productAdapter.set(data.getProducts());
         view.productRefresh();
     }
 
-    private String parseToProductInfo(List<ProductDataModel> products) {
-        StringBuilder sb = new StringBuilder();
-        for (ProductDataModel model : products) {
-            if (sb.length() != 0) sb.append(" ");
-            String category = model.getBrand().getName();
-            String name = model.getName();
-            int price = model.getPrice() / 1000;
-            String brand = model.getBrand().getName();
-            sb.append(String.format("[%s]%s %d만원대 by%s", category, name, price, brand));
-        }
-        return sb.toString();
-    }
-
-    @AllArgsConstructor @Getter public final static class RxEventScrollToTop {
+    @AllArgsConstructor @Getter public final static class RxEventLookBookDetailScrollToTop {
     }
 }
