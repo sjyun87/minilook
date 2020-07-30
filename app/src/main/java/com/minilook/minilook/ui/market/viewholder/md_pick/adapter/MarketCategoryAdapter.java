@@ -12,7 +12,7 @@ import java.util.List;
 import lombok.Setter;
 
 public class MarketCategoryAdapter extends RecyclerView.Adapter<MarketCategoryItemVH> implements
-    BaseAdapterDataModel<CategoryDataModel>, BaseAdapterDataView<String> {
+    BaseAdapterDataModel<CategoryDataModel>, BaseAdapterDataView<CategoryDataModel> {
 
     private List<CategoryDataModel> items = new ArrayList<>();
     @Setter private MarketCategoryItemVH.OnItemClickListener onItemClickListener;

@@ -9,7 +9,16 @@ public interface PreorderPresenter extends LifecycleObserver {
   @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
   void onCreate();
 
-  interface View {
+  void onTabClick(int position);
 
-  }
+    interface View {
+
+      void setupTabLayout();
+
+      void setupViewPager();
+
+      void setupCurrentPage(int position);
+
+      void scrollToTop();
+    }
 }

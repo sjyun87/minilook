@@ -21,7 +21,6 @@ import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
-import com.emilsjolander.components.StickyScrollViewItems.StickyScrollView;
 import com.google.android.material.tabs.TabLayout;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductColorDataModel;
@@ -31,7 +30,7 @@ import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.widget.ColorView;
 import com.minilook.minilook.ui.option_selector.OptionSelector;
-import com.minilook.minilook.ui.base.widget.ProductTabView;
+import com.minilook.minilook.ui.product_detail.widget.ProductTabView;
 import com.minilook.minilook.ui.base.widget.SizeView;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.product_detail.adapter.ProductDetailImageAdapter;
@@ -40,6 +39,8 @@ import com.minilook.minilook.util.SpannableUtil;
 import com.nex3z.flowlayout.FlowLayout;
 import java.util.List;
 import java.util.Objects;
+import me.didik.component.StickyNestedScrollView;
+import timber.log.Timber;
 
 public class ProductDetailActivity extends BaseActivity implements ProductDetailPresenter.View {
 
@@ -51,7 +52,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         context.startActivity(intent);
     }
 
-    @BindView(R.id.nsv_root) StickyScrollView scrollView;
+    @BindView(R.id.nsv_root) StickyNestedScrollView scrollView;
     @BindView(R.id.vp_product_image) ViewPager2 productImageViewPager;
     @BindView(R.id.txt_brand_name) TextView brandNameTextView;
     @BindView(R.id.txt_product_name) TextView productNameTextView;
@@ -185,6 +186,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     }
 
     @Override public void addColorView(ProductColorDataModel model) {
+        Timber.e(model.toString());
         ColorView colorView = ColorView.builder()
             .context(this)
             .model(model)

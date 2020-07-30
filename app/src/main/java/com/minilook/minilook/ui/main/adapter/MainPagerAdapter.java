@@ -23,7 +23,6 @@ public class MainPagerAdapter extends FragmentStateAdapter {
             case 1:
                 return PreorderFragment.newInstance();
             case 2:
-
                 return MarketFragment.newInstance();
             case 3:
                 return IpageFragment.newInstance();

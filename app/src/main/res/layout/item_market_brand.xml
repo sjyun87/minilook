@@ -35,7 +35,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/dp_10"
         android:scaleType="centerCrop"
-        app:layout_constraintDimensionRatio="H,180:60"
+        app:layout_constraintDimensionRatio="H,180:90"
         app:layout_constraintTop_toBottomOf="@+id/txt_title"
         tools:ignore="ContentDescription" />
 
@@ -47,7 +47,8 @@
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="@+id/img_thumb"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_thumb" />
+        app:layout_constraintTop_toBottomOf="@+id/img_thumb"
+        tools:ignore="ContentDescription" />
 
     <LinearLayout
         android:id="@+id/layout_scrap_panel"

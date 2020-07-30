@@ -118,7 +118,7 @@ dependencies {
   implementation "com.jaeger.statusbarutil:library:$statusbar_version"
 
   // Sticky ScrollView
-  implementation "se.emilsjolander:StickyScrollViewItems:$sticky_scrollview_version"
+  implementation "com.github.didikk:sticky-nestedscrollview:$sticky_scrollview_version"
 
   // FlowLayout
   implementation "com.nex3z:flow-layout:$flowlayout_version"

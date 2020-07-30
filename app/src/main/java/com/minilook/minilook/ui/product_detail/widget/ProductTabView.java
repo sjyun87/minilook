@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.base.widget;
+package com.minilook.minilook.ui.product_detail.widget;
 
 import android.content.Context;
 import android.graphics.Typeface;

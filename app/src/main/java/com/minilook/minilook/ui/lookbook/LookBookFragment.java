@@ -33,19 +33,16 @@ public class LookBookFragment extends BaseFragment implements LookBookPresenter.
             .build();
     }
 
+    @Override public void onDestroyView() {
+        viewPager.unregisterOnPageChangeCallback(OnPageChangeCallback);
+        super.onDestroyView();
+    }
+
     @Override public void setupViewPager() {
         adapter = new LookBookPagerAdapter(getChildFragmentManager(), getLifecycle());
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(1);
-        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if (positionOffset > 0.75) {
-                    presenter.onPageSelected(position + 1);
-                } else {
-                    presenter.onPageSelected(position);
-                }
-            }
-        });
+        viewPager.registerOnPageChangeCallback(OnPageChangeCallback);
     }
 
     @Override public void navigateToDetailPage(boolean smoothScroll) {
@@ -55,4 +52,14 @@ public class LookBookFragment extends BaseFragment implements LookBookPresenter.
     @Override public void navigateToPreviewPage(boolean smoothScroll) {
         viewPager.setCurrentItem(0, smoothScroll);
     }
+
+    private ViewPager2.OnPageChangeCallback OnPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
+        @Override public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            if (positionOffset > 0.75) {
+                presenter.onPageSelected(position + 1);
+            } else {
+                presenter.onPageSelected(position);
+            }
+        }
+    };
 }

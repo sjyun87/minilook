@@ -46,6 +46,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
         adapter = new MainPagerAdapter(this);
         viewPager.setAdapter(adapter);
         viewPager.setUserInputEnabled(false);
+        viewPager.setOffscreenPageLimit(4);
     }
 
     @Override public void setupBottomBar() {

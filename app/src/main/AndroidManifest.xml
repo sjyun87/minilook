@@ -37,6 +37,8 @@
             android:name=".ui.product_detail.ProductDetailActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
+        
+
 
 
 

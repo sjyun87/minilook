@@ -60,7 +60,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     }
 
     private void reqProductDetail() {
-        addDisposable(productRequest.getProductDetail(76)
+        addDisposable(productRequest.getProductDetail(id)
             .compose(Transformer.applySchedulers())
             .subscribe(this::resProductDetail, Timber::e));
     }
