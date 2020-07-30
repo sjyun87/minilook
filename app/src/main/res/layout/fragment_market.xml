@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.fragment.market.MarketFragment">
+    tools:context=".ui.market.MarketFragment">
 
     <com.minilook.minilook.ui.base.widget.TitleBar
         android:id="@+id/titlebar"

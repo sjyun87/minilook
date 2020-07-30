@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.minilook.minilook.data.model.product.ProductColorDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.main.fragment.lookbook.view.detail.viewholder.LookBookStyleVH;
 import com.minilook.minilook.ui.option_selector.viewholder.OptionSelectorColorVH;
 import java.util.ArrayList;
 import java.util.List;
