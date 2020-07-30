@@ -73,7 +73,7 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> {
                 .into(imageViews.get(i));
         }
 
-        itemsView.setOnClickListener(v ->
+        itemView.setOnClickListener(v ->
             RxBus.send(new MainPresenterImpl.RxEventNavigateToBrandDetail(brandModel.getId())));
     }
 
