@@ -25,6 +25,7 @@ public class TitleBar extends ConstraintLayout {
     @BindView(R.id.img_titlebar_search_keyword) ImageView keywordSearchImageView;
     @BindView(R.id.img_titlebar_search_filter) ImageView filterSearchImageView;
     @BindView(R.id.img_titlebar_shoppingbag) ImageView shoppingbagImageView;
+    @BindView(R.id.img_titlebar_setting) ImageView settingImageView;
 
     private Activity activity;
 
@@ -35,6 +36,7 @@ public class TitleBar extends ConstraintLayout {
     private boolean isShowKeywordSearch;
     private boolean isShowFilterSearch;
     private boolean isShowShoppingBag;
+    private boolean isShowSetting;
     private String title;
 
     public TitleBar(@NonNull Context context) {
@@ -58,6 +60,7 @@ public class TitleBar extends ConstraintLayout {
         isShowKeywordSearch = typedArray.getBoolean(R.styleable.TitleBar_showKeywordSearch, false);
         isShowFilterSearch = typedArray.getBoolean(R.styleable.TitleBar_showFilterSearch, false);
         isShowShoppingBag = typedArray.getBoolean(R.styleable.TitleBar_showShoppingBag, false);
+        isShowSetting = typedArray.getBoolean(R.styleable.TitleBar_showSetting, false);
         title = typedArray.getString(R.styleable.TitleBar_setTitle);
         typedArray.recycle();
 
@@ -82,6 +85,7 @@ public class TitleBar extends ConstraintLayout {
         keywordSearchImageView.setVisibility(isShowKeywordSearch ? VISIBLE : GONE);
         filterSearchImageView.setVisibility(isShowFilterSearch ? VISIBLE : GONE);
         shoppingbagImageView.setVisibility(isShowShoppingBag ? VISIBLE : GONE);
+        settingImageView.setVisibility(isShowSetting ? VISIBLE : GONE);
 
         titleTextView.setText(title);
     }
@@ -121,6 +125,11 @@ public class TitleBar extends ConstraintLayout {
         updateUI();
     }
 
+    public void setShowSetting(boolean visible) {
+        isShowSetting = visible;
+        updateUI();
+    }
+
     public void setTitle(String text) {
         title = text;
         updateUI();
@@ -148,6 +157,11 @@ public class TitleBar extends ConstraintLayout {
 
     @OnClick(R.id.img_titlebar_shoppingbag)
     void onShoppingBagClick() {
+
+    }
+
+    @OnClick(R.id.img_titlebar_setting)
+    void onSettingClick() {
 
     }
 
