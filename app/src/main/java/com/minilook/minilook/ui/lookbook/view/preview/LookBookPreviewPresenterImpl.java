@@ -27,6 +27,7 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
     private AtomicInteger page;
 
     private static final int DATA_POOL_SIZE = 30;
+    private static final int DATA_ROW = 10;
     private List<LookBookDataModel> dataPool;
     private boolean isDataEnd = false;
 
@@ -47,9 +48,10 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
     }
 
     private void setupLoadMoreData() {
-        adapter.addAll(dataPool.subList(0, 10));
+        int dataSize = Math.min(dataPool.size(), DATA_ROW);
+        adapter.addAll(dataPool.subList(0, dataSize));
         view.refresh();
-        dataPool.subList(0, 10).clear();
+        dataPool.subList(0, dataSize).clear();
         if (!isDataEnd) reqLoadMoreLookBookModules();
     }
 
@@ -80,7 +82,7 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
     }
 
     private void resLoadMoreLookBookModules(List<LookBookDataModel> data) {
-        if (data.size() < 10) isDataEnd = true;
+        if (data.size() < DATA_ROW) isDataEnd = true;
         if (data.size() > 0) {
             dataPool.addAll(data);
             if (dataPool.size() < DATA_POOL_SIZE) reqLoadMoreLookBookModules();
