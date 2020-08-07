@@ -19,7 +19,7 @@
             android:id="@+id/img_bottombar_lookbook"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_lookbook_gray"
+            android:src="@drawable/ic_bottombar_lookbook_gray"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -29,33 +29,6 @@
             android:layout_marginTop="@dimen/dp_4"
             android:fontFamily="@font/nanum_square_b"
             android:text="@string/bottombar_lookbook"
-            android:textColor="@color/color_FFA9A9A9"
-            android:textSize="@dimen/sp_6" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/btn_bottombar_preorder"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical"
-        tools:ignore="UseCompoundDrawables">
-
-        <ImageView
-            android:id="@+id/img_bottombar_preorder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_preorder_gray"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/txt_bottombar_preorder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_4"
-            android:fontFamily="@font/nanum_square_b"
-            android:text="@string/bottombar_preorder"
             android:textColor="@color/color_FFA9A9A9"
             android:textSize="@dimen/sp_6" />
     </LinearLayout>
@@ -73,7 +46,7 @@
             android:id="@+id/img_bottombar_market"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_market_gray"
+            android:src="@drawable/ic_bottombar_market_gray"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -83,6 +56,60 @@
             android:layout_marginTop="@dimen/dp_4"
             android:fontFamily="@font/nanum_square_b"
             android:text="@string/bottombar_market"
+            android:textColor="@color/color_FFA9A9A9"
+            android:textSize="@dimen/sp_6" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btn_bottombar_category"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/img_bottombar_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_bottombar_category_gray"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/txt_bottombar_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_4"
+            android:fontFamily="@font/nanum_square_b"
+            android:text="@string/bottombar_category"
+            android:textColor="@color/color_FFA9A9A9"
+            android:textSize="@dimen/sp_6" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btn_bottombar_preorder"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/img_bottombar_preorder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_bottombar_preorder_gray"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/txt_bottombar_preorder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_4"
+            android:fontFamily="@font/nanum_square_b"
+            android:text="@string/bottombar_preorder"
             android:textColor="@color/color_FFA9A9A9"
             android:textSize="@dimen/sp_6" />
     </LinearLayout>
@@ -100,7 +127,7 @@
             android:id="@+id/img_bottombar_ipage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_ipage_gray"
+            android:src="@drawable/ic_bottombar_ipage_gray"
             tools:ignore="ContentDescription" />
 
         <TextView

@@ -20,16 +20,19 @@ import lombok.Setter;
 
 public class BottomBar extends LinearLayout {
     private static final int POSITION_LOOKBOOK = 0;
-    private static final int POSITION_PREORDER = 1;
-    private static final int POSITION_MARKET = 2;
-    private static final int POSITION_IPAGE = 3;
+    private static final int POSITION_MARKET = 1;
+    private static final int POSITION_CATEGORY = 2;
+    private static final int POSITION_PREORDER = 3;
+    private static final int POSITION_IPAGE = 4;
 
     @BindView(R.id.img_bottombar_lookbook) ImageView lookbookImageView;
     @BindView(R.id.txt_bottombar_lookbook) TextView lookbookTextView;
-    @BindView(R.id.img_bottombar_preorder) ImageView preorderImageView;
-    @BindView(R.id.txt_bottombar_preorder) TextView preorderTextView;
     @BindView(R.id.img_bottombar_market) ImageView marketImageView;
     @BindView(R.id.txt_bottombar_market) TextView marketTextView;
+    @BindView(R.id.img_bottombar_category) ImageView categoryImageView;
+    @BindView(R.id.txt_bottombar_category) TextView categoryTextView;
+    @BindView(R.id.img_bottombar_preorder) ImageView preorderImageView;
+    @BindView(R.id.txt_bottombar_preorder) TextView preorderTextView;
     @BindView(R.id.img_bottombar_ipage) ImageView ipageImageView;
     @BindView(R.id.txt_bottombar_ipage) TextView ipageTextView;
 
@@ -40,18 +43,21 @@ public class BottomBar extends LinearLayout {
     @BindDrawable(R.drawable.bg_bottombar_white) Drawable bg_white;
     @BindDrawable(R.drawable.bg_bottombar_dark) Drawable bg_dark;
 
-    @BindDrawable(R.drawable.ic_lookbook_purple) Drawable icon_lookbook_purple;
-    @BindDrawable(R.drawable.ic_lookbook_white) Drawable icon_lookbook_white;
-    @BindDrawable(R.drawable.ic_lookbook_gray) Drawable icon_lookbook_gray;
-    @BindDrawable(R.drawable.ic_preorder_purple) Drawable icon_preorder_purple;
-    @BindDrawable(R.drawable.ic_preorder_white) Drawable icon_preorder_white;
-    @BindDrawable(R.drawable.ic_preorder_gray) Drawable icon_preorder_gray;
-    @BindDrawable(R.drawable.ic_market_purple) Drawable icon_market_purple;
-    @BindDrawable(R.drawable.ic_market_white) Drawable icon_market_white;
-    @BindDrawable(R.drawable.ic_market_gray) Drawable icon_market_gray;
-    @BindDrawable(R.drawable.ic_ipage_purple) Drawable icon_ipage_purple;
-    @BindDrawable(R.drawable.ic_ipage_white) Drawable icon_ipage_white;
-    @BindDrawable(R.drawable.ic_ipage_gray) Drawable icon_ipage_gray;
+    @BindDrawable(R.drawable.ic_bottombar_lookbook_purple) Drawable icon_lookbook_purple;
+    @BindDrawable(R.drawable.ic_bottombar_lookbook_white) Drawable icon_lookbook_white;
+    @BindDrawable(R.drawable.ic_bottombar_lookbook_gray) Drawable icon_lookbook_gray;
+    @BindDrawable(R.drawable.ic_bottombar_market_purple) Drawable icon_market_purple;
+    @BindDrawable(R.drawable.ic_bottombar_market_white) Drawable icon_market_white;
+    @BindDrawable(R.drawable.ic_bottombar_market_gray) Drawable icon_market_gray;
+    @BindDrawable(R.drawable.ic_bottombar_category_purple) Drawable icon_category_purple;
+    @BindDrawable(R.drawable.ic_bottombar_category_white) Drawable icon_category_white;
+    @BindDrawable(R.drawable.ic_bottombar_category_gray) Drawable icon_category_gray;
+    @BindDrawable(R.drawable.ic_bottombar_preorder_purple) Drawable icon_preorder_purple;
+    @BindDrawable(R.drawable.ic_bottombar_preorder_white) Drawable icon_preorder_white;
+    @BindDrawable(R.drawable.ic_bottombar_preorder_gray) Drawable icon_preorder_gray;
+    @BindDrawable(R.drawable.ic_bottombar_ipage_purple) Drawable icon_ipage_purple;
+    @BindDrawable(R.drawable.ic_bottombar_ipage_white) Drawable icon_ipage_white;
+    @BindDrawable(R.drawable.ic_bottombar_ipage_gray) Drawable icon_ipage_gray;
 
     private int position = POSITION_LOOKBOOK;
     private boolean isWhiteTheme;
@@ -108,55 +114,84 @@ public class BottomBar extends LinearLayout {
             case POSITION_LOOKBOOK:
                 if (isWhiteTheme) {
                     lookbookImageView.setImageDrawable(icon_lookbook_purple);
-                    preorderImageView.setImageDrawable(icon_preorder_gray);
                     marketImageView.setImageDrawable(icon_market_gray);
+                    categoryImageView.setImageDrawable(icon_category_gray);
+                    preorderImageView.setImageDrawable(icon_preorder_gray);
                     ipageImageView.setImageDrawable(icon_ipage_gray);
+
                     lookbookTextView.setTextColor(color_FF8140E5);
-                    preorderTextView.setTextColor(color_FFA9A9A9);
                     marketTextView.setTextColor(color_FFA9A9A9);
+                    categoryTextView.setTextColor(color_FFA9A9A9);
+                    preorderTextView.setTextColor(color_FFA9A9A9);
                     ipageTextView.setTextColor(color_FFA9A9A9);
                 } else {
                     lookbookImageView.setImageDrawable(icon_lookbook_white);
-                    preorderImageView.setImageDrawable(icon_preorder_white);
                     marketImageView.setImageDrawable(icon_market_white);
+                    categoryImageView.setImageDrawable(icon_category_white);
+                    preorderImageView.setImageDrawable(icon_preorder_white);
                     ipageImageView.setImageDrawable(icon_ipage_white);
+
                     lookbookTextView.setTextColor(color_FFFFFFFF);
-                    preorderTextView.setTextColor(color_FFFFFFFF);
                     marketTextView.setTextColor(color_FFFFFFFF);
+                    categoryTextView.setTextColor(color_FFFFFFFF);
+                    preorderTextView.setTextColor(color_FFFFFFFF);
                     ipageTextView.setTextColor(color_FFFFFFFF);
                 }
                 break;
 
-            case POSITION_PREORDER:
+            case POSITION_MARKET:
                 lookbookImageView.setImageDrawable(icon_lookbook_gray);
-                preorderImageView.setImageDrawable(icon_preorder_purple);
-                marketImageView.setImageDrawable(icon_market_gray);
+                marketImageView.setImageDrawable(icon_market_purple);
+                categoryImageView.setImageDrawable(icon_category_gray);
+                preorderImageView.setImageDrawable(icon_preorder_gray);
                 ipageImageView.setImageDrawable(icon_ipage_gray);
+
                 lookbookTextView.setTextColor(color_FFA9A9A9);
-                preorderTextView.setTextColor(color_FF8140E5);
-                marketTextView.setTextColor(color_FFA9A9A9);
+                marketTextView.setTextColor(color_FF8140E5);
+                categoryTextView.setTextColor(color_FFA9A9A9);
+                preorderTextView.setTextColor(color_FFA9A9A9);
                 ipageTextView.setTextColor(color_FFA9A9A9);
                 break;
 
-            case POSITION_MARKET:
+            case POSITION_CATEGORY:
                 lookbookImageView.setImageDrawable(icon_lookbook_gray);
+                marketImageView.setImageDrawable(icon_market_gray);
+                categoryImageView.setImageDrawable(icon_category_purple);
                 preorderImageView.setImageDrawable(icon_preorder_gray);
-                marketImageView.setImageDrawable(icon_market_purple);
                 ipageImageView.setImageDrawable(icon_ipage_gray);
+
                 lookbookTextView.setTextColor(color_FFA9A9A9);
+                marketTextView.setTextColor(color_FFA9A9A9);
+                categoryTextView.setTextColor(color_FF8140E5);
                 preorderTextView.setTextColor(color_FFA9A9A9);
-                marketTextView.setTextColor(color_FF8140E5);
+                ipageTextView.setTextColor(color_FFA9A9A9);
+                break;
+
+            case POSITION_PREORDER:
+                lookbookImageView.setImageDrawable(icon_lookbook_gray);
+                marketImageView.setImageDrawable(icon_market_gray);
+                categoryImageView.setImageDrawable(icon_category_gray);
+                preorderImageView.setImageDrawable(icon_preorder_purple);
+                ipageImageView.setImageDrawable(icon_ipage_gray);
+
+                lookbookTextView.setTextColor(color_FFA9A9A9);
+                marketTextView.setTextColor(color_FFA9A9A9);
+                categoryTextView.setTextColor(color_FFA9A9A9);
+                preorderTextView.setTextColor(color_FF8140E5);
                 ipageTextView.setTextColor(color_FFA9A9A9);
                 break;
 
             case POSITION_IPAGE:
                 lookbookImageView.setImageDrawable(icon_lookbook_gray);
-                preorderImageView.setImageDrawable(icon_preorder_gray);
                 marketImageView.setImageDrawable(icon_market_gray);
+                categoryImageView.setImageDrawable(icon_category_gray);
+                preorderImageView.setImageDrawable(icon_preorder_gray);
                 ipageImageView.setImageDrawable(icon_ipage_purple);
+
                 lookbookTextView.setTextColor(color_FFA9A9A9);
-                preorderTextView.setTextColor(color_FFA9A9A9);
                 marketTextView.setTextColor(color_FFA9A9A9);
+                categoryTextView.setTextColor(color_FFA9A9A9);
+                preorderTextView.setTextColor(color_FFA9A9A9);
                 ipageTextView.setTextColor(color_FF8140E5);
                 break;
         }
@@ -171,19 +206,28 @@ public class BottomBar extends LinearLayout {
         if (onTabChangeListener != null) onTabChangeListener.onTabChanged(position);
     }
 
-    @OnClick(R.id.btn_bottombar_preorder)
-    void onPreorderClick() {
-        if (position == POSITION_PREORDER) return;
-        position = POSITION_PREORDER;
+    @OnClick(R.id.btn_bottombar_market)
+    void onMarketClick() {
+        if (position == POSITION_MARKET) return;
+        position = POSITION_MARKET;
         isWhiteTheme = true;
         updateUI();
         if (onTabChangeListener != null) onTabChangeListener.onTabChanged(position);
     }
 
-    @OnClick(R.id.btn_bottombar_market)
-    void onMarketClick() {
-        if (position == POSITION_MARKET) return;
-        position = POSITION_MARKET;
+    @OnClick(R.id.btn_bottombar_category)
+    void onCategoryClick() {
+        if (position == POSITION_CATEGORY) return;
+        position = POSITION_CATEGORY;
+        isWhiteTheme = true;
+        updateUI();
+        if (onTabChangeListener != null) onTabChangeListener.onTabChanged(position);
+    }
+
+    @OnClick(R.id.btn_bottombar_preorder)
+    void onPreorderClick() {
+        if (position == POSITION_PREORDER) return;
+        position = POSITION_PREORDER;
         isWhiteTheme = true;
         updateUI();
         if (onTabChangeListener != null) onTabChangeListener.onTabChanged(position);
