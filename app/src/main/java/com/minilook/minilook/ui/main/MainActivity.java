@@ -50,9 +50,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
     }
 
     @Override public void setupBottomBar() {
-        bottomBar.setOnTabChangeListener(position -> {
-            presenter.onTabChanged(position);
-        });
+        bottomBar.setOnTabChangeListener(position -> presenter.onTabChanged(position));
     }
 
     @Override public void setupBottomBarTheme(boolean flag) {
@@ -61,9 +59,5 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
 
     @Override public void setupCurrentPage(int position) {
         viewPager.setCurrentItem(position, false);
-    }
-
-    @Override public void navigateToBrandDetail(int id) {
-        BrandDetailActivity.start(this, id);
     }
 }

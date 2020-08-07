@@ -7,6 +7,7 @@ import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.product.ProductFeedVH;
 import com.minilook.minilook.ui.product.ProductFullVH;
 import com.minilook.minilook.ui.product.ProductMediumVH;
 import com.minilook.minilook.ui.product.ProductGridVH;
@@ -19,10 +20,12 @@ import timber.log.Timber;
 public class ProductAdapter extends RecyclerView.Adapter<BaseViewHolder<ProductDataModel>> implements
     BaseAdapterDataModel<ProductDataModel>, BaseAdapterDataView<ProductDataModel> {
 
-    public static final int VIEW_TYPE_GRID = 0;
-    public static final int VIEW_TYPE_FULL = 1;
-    public static final int VIEW_TYPE_MEDIUM = 2;
-    public static final int VIEW_TYPE_NO_BRAND = 3;
+    public static final int VIEW_TYPE_FEED = 0;
+
+    public static final int VIEW_TYPE_GRID = 1;
+    public static final int VIEW_TYPE_FULL = 2;
+    public static final int VIEW_TYPE_MEDIUM = 3;
+    public static final int VIEW_TYPE_NO_BRAND = 4;
 
     @Setter private int viewType = 0;
     private List<ProductDataModel> items = new ArrayList<>();
@@ -30,6 +33,8 @@ public class ProductAdapter extends RecyclerView.Adapter<BaseViewHolder<ProductD
     @NonNull @Override
     public BaseViewHolder<ProductDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (viewType) {
+            case VIEW_TYPE_FEED:
+                return new ProductFeedVH(parent);
             case VIEW_TYPE_GRID:
                 return new ProductGridVH(parent);
             case VIEW_TYPE_FULL:

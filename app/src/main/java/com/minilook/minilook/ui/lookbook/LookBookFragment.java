@@ -45,12 +45,12 @@ public class LookBookFragment extends BaseFragment implements LookBookPresenter.
         viewPager.registerOnPageChangeCallback(OnPageChangeCallback);
     }
 
-    @Override public void navigateToDetailPage(boolean smoothScroll) {
-        viewPager.setCurrentItem(1, smoothScroll);
-    }
-
     @Override public void navigateToPreviewPage(boolean smoothScroll) {
         viewPager.setCurrentItem(0, smoothScroll);
+    }
+
+    @Override public void navigateToDetailPage(boolean smoothScroll) {
+        viewPager.setCurrentItem(1, smoothScroll);
     }
 
     private ViewPager2.OnPageChangeCallback OnPageChangeCallback = new ViewPager2.OnPageChangeCallback() {

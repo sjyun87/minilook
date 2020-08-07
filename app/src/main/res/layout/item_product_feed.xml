@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="@dimen/dp_20">
@@ -39,12 +40,10 @@
             android:id="@+id/txt_brand_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_4"
-            android:layout_marginEnd="@dimen/dp_2"
+            android:layout_marginStart="@dimen/dp_6"
+            android:layout_marginEnd="@dimen/dp_6"
             android:layout_weight="1"
             android:fontFamily="@font/nanum_square_b"
-            android:includeFontPadding="false"
-            android:textAlignment="textEnd"
             android:textColor="@color/color_FF424242"
             android:textSize="@dimen/sp_7"
             tools:text="아델리" />
@@ -79,7 +78,8 @@
         android:paddingBottom="@dimen/dp_6"
         app:layout_constraintLeft_toRightOf="@+id/img_product_thumb"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_brand_panel">
+        app:layout_constraintTop_toBottomOf="@+id/layout_brand_panel"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/img_review"
@@ -109,7 +109,8 @@
         android:paddingBottom="@dimen/dp_6"
         app:layout_constraintLeft_toRightOf="@+id/img_product_thumb"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_review_panel">
+        app:layout_constraintTop_toBottomOf="@+id/layout_review_panel"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/img_scrap"

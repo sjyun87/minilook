@@ -156,13 +156,13 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override public void setupWebView() {
+        productDetailWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
         productDetailWebView.getSettings().setJavaScriptEnabled(false);
         productDetailWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(false);
-        productDetailWebView.getSettings().setAppCacheEnabled(false);
+        productDetailWebView.getSettings().setAppCacheEnabled(true);
         productDetailWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         productDetailWebView.getSettings().setDomStorageEnabled(true);
         productDetailWebView.getSettings().setSupportMultipleWindows(false);
-        productDetailWebView.getSettings().setUseWideViewPort(true);
         productDetailWebView.setWebViewClient(new WebViewClient());
         productDetailWebView.setWebChromeClient(new WebChromeClient());
     }

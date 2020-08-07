@@ -17,6 +17,7 @@ import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.main.MainPresenterImpl;
 import com.minilook.minilook.util.DimenUtil;
 import com.minilook.minilook.util.StringUtil;
@@ -73,8 +74,7 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> {
                 .into(imageViews.get(i));
         }
 
-        itemView.setOnClickListener(v ->
-            RxBus.send(new MainPresenterImpl.RxEventNavigateToBrandDetail(brandModel.getId())));
+        itemView.setOnClickListener(v -> BrandDetailActivity.start(context, brandModel.getId()));
     }
 
     private BrandDataModel parseJsonToModel() {
