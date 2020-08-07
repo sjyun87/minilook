@@ -29,6 +29,10 @@ public class LookBookImageModuleVH extends BaseViewHolder<LookBookPreviewDataMod
             .load(data.getUrl_image())
             .into(bgImageView);
 
-        itemView.setOnClickListener(v -> RxBus.send(new LookBookPresenterImpl.RxEventNavigateToDetail(true)));
+        itemView.setOnClickListener(this::onItemClick);
+    }
+
+    void onItemClick(View view) {
+        RxBus.send(new LookBookPresenterImpl.RxEventNavigateToDetail(true));
     }
 }

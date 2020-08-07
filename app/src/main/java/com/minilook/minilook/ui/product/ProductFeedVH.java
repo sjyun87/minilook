@@ -63,10 +63,11 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
         categoryTextView.setText(categoryDataModel.getName());
         nameTextView.setText(data.getName());
         descTextView.setText(data.getDesc());
+
+        itemView.setOnClickListener(this::onItemClick);
     }
 
-    @OnClick(R.id.root)
-    void onItemClick() {
+    void onItemClick(View view) {
         ProductDetailActivity.start(context, data.getId());
     }
 

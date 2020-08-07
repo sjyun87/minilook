@@ -6,6 +6,7 @@ import lombok.Data;
     private int id;
     private String name;
     private int count;
+    private String url_image;
 
     // 운영 데이터
     private int position;
