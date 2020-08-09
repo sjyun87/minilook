@@ -17,6 +17,21 @@
     <!--Category-->
     <string name="category_title">카테고리</string>
 
+    <!--Login-->
+    <string name="login_title">로그인</string>
+    <string name="login_desc">맞춤 추천 서비스, 포인트 적립 등\n미니룩의 전체 서비스를 이용해 보세요.</string>
+    <string name="login_naver">네이버로 시작하기</string>
+    <string name="login_kakao">카카오로 시작하기</string>
+
+    <string name="login_dialog_title">이메일 정보가 없습니다.</string>
+    <string name="login_dialog_desc">SNS계정에 이메일을 등록하거나\n이메일 제공을 허용해주세요.</string>
+
+
+
+
+
+
+
 
 
 

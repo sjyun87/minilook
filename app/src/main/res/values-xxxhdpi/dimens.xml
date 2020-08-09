@@ -46,4 +46,5 @@
     <dimen name="dp_84">168dp</dimen>
     <dimen name="dp_90">180dp</dimen>
     <dimen name="dp_100">200dp</dimen>
+    <dimen name="dp_160">320dp</dimen>
 </resources>

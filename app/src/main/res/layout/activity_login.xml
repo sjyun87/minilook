@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.splash.SplashActivity">
+
+    <com.minilook.minilook.ui.base.widget.TitleBar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:showClose="true" />
+
+    <ImageView
+        android:id="@+id/img_logo_symbol"
+        android:layout_width="@dimen/dp_24"
+        android:layout_height="@dimen/dp_24"
+        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_28"
+        android:src="@drawable/img_logo_symbol"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titlebar"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/txt_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_16"
+        android:fontFamily="@font/nanum_square_eb"
+        android:letterSpacing="-0.02"
+        android:text="@string/login_title"
+        android:textColor="@color/color_FF232323"
+        android:textSize="@dimen/sp_12"
+        app:layout_constraintLeft_toLeftOf="@+id/img_logo_symbol"
+        app:layout_constraintTop_toBottomOf="@+id/img_logo_symbol" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_7"
+        android:layout_marginEnd="@dimen/dp_20"
+        android:fontFamily="@font/nanum_square_r"
+        android:lineSpacingMultiplier="1.5"
+        android:text="@string/login_desc"
+        android:textColor="@color/color_FF232323"
+        android:textSize="@dimen/sp_7"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_title" />
+
+    <LinearLayout
+        android:id="@+id/layout_naver_panel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_22"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_8"
+        android:background="@color/color_FF1EC800"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/layout_kakao_panel">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_naver"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:layout_weight="1"
+            android:fontFamily="@font/nanum_square_b"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@string/login_naver"
+            android:textColor="@color/color_FFFFFFFF"
+            android:textSize="@dimen/sp_7" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_kakao_panel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_22"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_74"
+        android:background="@color/color_FFFEE500"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_kakao"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:layout_weight="1"
+            android:fontFamily="@font/nanum_square_b"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@string/login_kakao"
+            android:textColor="@color/color_FF232323"
+            android:textSize="@dimen/sp_7" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

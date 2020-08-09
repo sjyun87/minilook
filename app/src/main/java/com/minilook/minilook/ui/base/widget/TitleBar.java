@@ -14,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
+import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.search_keyword.SearchKeywordActivity;
 
 public class TitleBar extends ConstraintLayout {
@@ -26,6 +27,7 @@ public class TitleBar extends ConstraintLayout {
     @BindView(R.id.img_titlebar_search_filter) ImageView filterSearchImageView;
     @BindView(R.id.img_titlebar_shoppingbag) ImageView shoppingbagImageView;
     @BindView(R.id.img_titlebar_setting) ImageView settingImageView;
+    @BindView(R.id.img_titlebar_close) ImageView closeImageView;
 
     private Activity activity;
 
@@ -37,6 +39,7 @@ public class TitleBar extends ConstraintLayout {
     private boolean isShowFilterSearch;
     private boolean isShowShoppingBag;
     private boolean isShowSetting;
+    private boolean isShowClose;
     private String title;
 
     public TitleBar(@NonNull Context context) {
@@ -61,6 +64,7 @@ public class TitleBar extends ConstraintLayout {
         isShowFilterSearch = typedArray.getBoolean(R.styleable.TitleBar_showFilterSearch, false);
         isShowShoppingBag = typedArray.getBoolean(R.styleable.TitleBar_showShoppingBag, false);
         isShowSetting = typedArray.getBoolean(R.styleable.TitleBar_showSetting, false);
+        isShowClose = typedArray.getBoolean(R.styleable.TitleBar_showClose, false);
         title = typedArray.getString(R.styleable.TitleBar_setTitle);
         typedArray.recycle();
 
@@ -86,6 +90,7 @@ public class TitleBar extends ConstraintLayout {
         filterSearchImageView.setVisibility(isShowFilterSearch ? VISIBLE : GONE);
         shoppingbagImageView.setVisibility(isShowShoppingBag ? VISIBLE : GONE);
         settingImageView.setVisibility(isShowSetting ? VISIBLE : GONE);
+        closeImageView.setVisibility(isShowClose ? VISIBLE : GONE);
 
         titleTextView.setText(title);
     }
@@ -130,6 +135,11 @@ public class TitleBar extends ConstraintLayout {
         updateUI();
     }
 
+    public void setShowClose(boolean visible) {
+        isShowClose = visible;
+        updateUI();
+    }
+
     public void setTitle(String text) {
         title = text;
         updateUI();
@@ -143,6 +153,11 @@ public class TitleBar extends ConstraintLayout {
     @OnClick(R.id.img_titlebar_home)
     void onHomeClick() {
 
+    }
+
+    @OnClick(R.id.img_titlebar_logo)
+    void onLogoClick() {
+        if (activity != null) LoginActivity.start(activity);
     }
 
     @OnClick(R.id.img_titlebar_search_keyword)
@@ -163,6 +178,11 @@ public class TitleBar extends ConstraintLayout {
     @OnClick(R.id.img_titlebar_setting)
     void onSettingClick() {
 
+    }
+
+    @OnClick(R.id.img_titlebar_close)
+    void onCloseClick() {
+        if (activity != null) activity.finish();
     }
 
     private Activity getActivity() {

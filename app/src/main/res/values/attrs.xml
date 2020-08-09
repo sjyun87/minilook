@@ -9,6 +9,7 @@
         <attr name="showFilterSearch" format="reference|boolean" />
         <attr name="showShoppingBag" format="reference|boolean" />
         <attr name="showSetting" format="reference|boolean" />
+        <attr name="showClose" format="reference|boolean" />
         <attr name="setTitle" format="reference|string" />
     </declare-styleable>
 
