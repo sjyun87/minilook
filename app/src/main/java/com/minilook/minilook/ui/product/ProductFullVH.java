@@ -1,6 +1,5 @@
 package com.minilook.minilook.ui.product;
 
-import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,6 @@ public class ProductFullVH extends BaseViewHolder<ProductDataModel> {
     @BindView(R.id.img_product_thumb) ImageView thumbImageView;
     @BindView(R.id.txt_brand_name) TextView brandNameTextView;
     @BindView(R.id.txt_product_name) TextView productNameTextView;
-    @BindView(R.id.txt_price_origin) TextView priceOriginTextView;
     @BindView(R.id.txt_discount_percent) TextView discountPercentTextView;
     @BindView(R.id.txt_price) TextView priceTextView;
 
@@ -43,18 +41,17 @@ public class ProductFullVH extends BaseViewHolder<ProductDataModel> {
         productNameTextView.setText(data.getName());
 
         if (data.is_discount()) {
-            priceOriginTextView.setPaintFlags(priceOriginTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            priceOriginTextView.setText(StringUtil.toDigit(data.getPrice_origin()));
-            priceOriginTextView.setVisibility(View.VISIBLE);
-
             discountPercentTextView.setText(String.format(format_percent, data.getPrice_discount_percent()));
             discountPercentTextView.setVisibility(View.VISIBLE);
         } else {
-            priceOriginTextView.setVisibility(View.GONE);
             discountPercentTextView.setVisibility(View.GONE);
         }
         priceTextView.setText(StringUtil.toDigit(data.getPrice()));
 
-        itemView.setOnClickListener(v -> ProductDetailActivity.start(context, data.getId()));
+        itemView.setOnClickListener(this::onItemClick);
+    }
+
+    void onItemClick(View view) {
+        ProductDetailActivity.start(context, data.getId());
     }
 }

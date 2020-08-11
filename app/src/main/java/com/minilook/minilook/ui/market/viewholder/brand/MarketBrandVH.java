@@ -3,46 +3,57 @@ package com.minilook.minilook.ui.market.viewholder.brand;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import butterknife.BindColor;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 import butterknife.BindView;
-import butterknife.BindViews;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
+import com.minilook.minilook.data.model.brand.BrandMenuDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
-import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
-import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
-import com.minilook.minilook.ui.main.MainPresenterImpl;
-import com.minilook.minilook.util.DimenUtil;
-import com.minilook.minilook.util.StringUtil;
-import io.reactivex.rxjava3.core.Observable;
+import com.minilook.minilook.ui.market.viewholder.brand.adapter.MarketBrandAdapter;
+import com.minilook.minilook.ui.market.viewholder.brand.adapter.MarketBrandMenuAdapter;
+import com.minilook.minilook.ui.market.viewholder.brand.viewholder.MarketBrandMenuVH;
+import java.util.ArrayList;
 import java.util.List;
-import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
 
-public class MarketBrandVH extends BaseViewHolder<MarketDataModel> {
+public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements MarketBrandMenuVH.OnMenuClickListener {
 
     @BindView(R.id.txt_title) TextView titleTextView;
-    @BindView(R.id.img_thumb) ImageView thumbImageView;
-    @BindView(R.id.img_logo) ImageView logoImageView;
-    @BindView(R.id.txt_scrap) TextView scrapTextView;
-    @BindView(R.id.txt_name) TextView nameTextView;
-    @BindView(R.id.txt_tag) TextView tagTextView;
-    @BindView(R.id.txt_desc) TextView descTextView;
-    @BindViews({ R.id.img_style1, R.id.img_style2, R.id.img_style3 }) List<ImageView> imageViews;
-
-    @BindColor(R.color.color_FFDBDBDB) int color_FFDBDBDB;
+    @BindView(R.id.rcv_brand) RecyclerView recyclerView;
+    @BindView(R.id.vp_brand) ViewPager2 viewPager;
 
     private Gson gson = new Gson();
+    private List<BrandMenuDataModel> items;
+    private int selectedPosition = 0;
+
+    private MarketBrandMenuAdapter menuAdapter;
+    private MarketBrandAdapter brandAdapter;
 
     public MarketBrandVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
             .inflate(R.layout.item_market_brand, (ViewGroup) itemView, false));
+
+        setupRecyclerView();
+        setupViewPager();
+    }
+
+    private void setupRecyclerView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
+        menuAdapter = new MarketBrandMenuAdapter();
+        recyclerView.setAdapter(menuAdapter);
+        menuAdapter.setOnMenuClickListener(this);
+    }
+
+    private void setupViewPager() {
+        viewPager.setUserInputEnabled(false);
+        viewPager.setOffscreenPageLimit(2);
+        brandAdapter = new MarketBrandAdapter();
+        viewPager.setAdapter(brandAdapter);
     }
 
     @Override public void bind(MarketDataModel $data) {
@@ -50,36 +61,30 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> {
 
         titleTextView.setText(data.getTitle());
 
-        BrandDataModel brandModel = parseJsonToModel();
+        items = parseJsonToModel();
 
-        Glide.with(context)
-            .load(brandModel.getUrl_thumb())
-            .into(thumbImageView);
+        menuAdapter.set(items);
+        menuAdapter.refresh();
+        brandAdapter.set(items);
+        brandAdapter.refresh();
 
-        Glide.with(context)
-            .load(brandModel.getUrl_logo())
-            .apply(RequestOptions.bitmapTransform(
-                new CropCircleWithBorderTransformation(DimenUtil.dpToPx(context, 1), color_FFDBDBDB)))
-            .into(logoImageView);
-
-        scrapTextView.setText(StringUtil.toDigit(brandModel.getScrap_cnt()));
-        nameTextView.setText(brandModel.getName());
-        tagTextView.setText(brandModel.getTag());
-        descTextView.setText(brandModel.getDesc());
-
-        List<String> images = brandModel.getImages();
-        for (int i = 0; i < images.size(); i++) {
-            Glide.with(context)
-                .load(images.get(i))
-                .into(imageViews.get(i));
-        }
-
-        itemView.setOnClickListener(v -> BrandDetailActivity.start(context, brandModel.getId()));
+        viewPager.setCurrentItem(selectedPosition);
     }
 
-    private BrandDataModel parseJsonToModel() {
-        return Observable.fromIterable(data.getData())
-            .map(json -> gson.fromJson(json, BrandDataModel.class))
-            .blockingFirst();
+    private List<BrandMenuDataModel> parseJsonToModel() {
+        List<BrandMenuDataModel> items = new ArrayList<>();
+        for (int i = 0; i < data.getData().size(); i++) {
+            BrandMenuDataModel model = new BrandMenuDataModel();
+            model.setModel(gson.fromJson(data.getData().get(i), BrandDataModel.class));
+            model.setPosition(i);
+            model.setSelect(i == 0);
+            items.add(model);
+        }
+        return items;
+    }
+
+    @Override public void onMenuClick(int position) {
+        selectedPosition = position;
+        viewPager.setCurrentItem(selectedPosition, true);
     }
 }

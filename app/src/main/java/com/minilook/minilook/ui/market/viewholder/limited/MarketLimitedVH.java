@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.market.viewholder.new_arrivals;
+package com.minilook.minilook.ui.market.viewholder.limited;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,29 +19,31 @@ import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import io.reactivex.rxjava3.core.Observable;
 import java.util.List;
 
-public class MarketNewArrivalsVH extends BaseViewHolder<MarketDataModel> {
+import static com.minilook.minilook.ui.product.adapter.ProductAdapter.VIEW_TYPE_FULL;
+
+public class MarketLimitedVH extends BaseViewHolder<MarketDataModel> {
 
     @BindView(R.id.txt_title) TextView titleTextView;
     @BindView(R.id.rcv_product) RecyclerView recyclerView;
 
-    @BindDimen(R.dimen.dp_1) int dp_1;
+    @BindDimen(R.dimen.dp_2) int dp_2;
 
     private ProductAdapter adapter;
     private Gson gson = new Gson();
 
-    public MarketNewArrivalsVH(@NonNull View itemView) {
+    public MarketLimitedVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_market_new_arrivals, (ViewGroup) itemView, false));
-        setupViewPager();
+            .inflate(R.layout.item_market_limited, (ViewGroup) itemView, false));
+        setupRecyclerView();
     }
 
-    private void setupViewPager() {
+    private void setupRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
         adapter = new ProductAdapter();
-        adapter.setViewType(ProductAdapter.VIEW_TYPE_SIZE_84);
+        adapter.setViewType(VIEW_TYPE_FULL);
         recyclerView.setAdapter(adapter);
         DividerDecoration.builder(context)
-            .size(dp_1)
+            .size(dp_2)
             .asSpace()
             .build()
             .addTo(recyclerView);

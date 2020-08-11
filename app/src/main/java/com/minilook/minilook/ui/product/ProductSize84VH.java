@@ -15,9 +15,10 @@ import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.StringUtil;
 
-public class ProductMediumVH extends BaseViewHolder<ProductDataModel> {
+public class ProductSize84VH extends BaseViewHolder<ProductDataModel> {
 
     @BindView(R.id.img_product_thumb) ImageView thumbImageView;
+    @BindView(R.id.img_scrap) ImageView scrapImageView;
     @BindView(R.id.txt_brand_name) TextView brandNameTextView;
     @BindView(R.id.txt_product_name) TextView productNameTextView;
     @BindView(R.id.txt_discount_percent) TextView discountPercentTextView;
@@ -25,13 +26,22 @@ public class ProductMediumVH extends BaseViewHolder<ProductDataModel> {
 
     @BindString(R.string.base_price_percent) String format_percent;
 
-    public ProductMediumVH(@NonNull View itemView) {
+    private final boolean isShowScrap;
+
+    public ProductSize84VH(@NonNull View itemView, @NonNull boolean isShowScrap) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_product_type_medium, (ViewGroup) itemView, false));
+            .inflate(R.layout.item_product_type_size_84, (ViewGroup) itemView, false));
+        this.isShowScrap = isShowScrap;
     }
 
     @Override public void bind(ProductDataModel $data) {
         super.bind($data);
+
+        if (isShowScrap) {
+            showScrap();
+        } else {
+            hideScrap();
+        }
 
         Glide.with(context)
             .load(data.getUrl_thumb())
@@ -48,6 +58,18 @@ public class ProductMediumVH extends BaseViewHolder<ProductDataModel> {
         }
         priceTextView.setText(StringUtil.toDigit(data.getPrice()));
 
-        itemView.setOnClickListener(v -> ProductDetailActivity.start(context, data.getId()));
+        itemView.setOnClickListener(this::onItemClick);
+    }
+
+    public void showScrap() {
+        scrapImageView.setVisibility(View.VISIBLE);
+    }
+
+    public void hideScrap() {
+        scrapImageView.setVisibility(View.GONE);
+    }
+
+    void onItemClick(View view) {
+        ProductDetailActivity.start(context, data.getId());
     }
 }

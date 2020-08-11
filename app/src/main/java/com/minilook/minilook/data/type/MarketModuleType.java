@@ -12,7 +12,7 @@ import lombok.Getter;
     TYPE_RECOMMEND_9(5),
     TYPE_NEW(6),
     TYPE_BRAND(7),
-    TYPE_CATEGORY(8);
+    TYPE_FILTER(8);
 
     private int value;
 

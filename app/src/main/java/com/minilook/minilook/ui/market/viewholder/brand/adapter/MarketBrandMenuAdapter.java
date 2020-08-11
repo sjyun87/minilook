@@ -1,61 +1,62 @@
-package com.minilook.minilook.ui.market.viewholder.md_pick.adapter;
+package com.minilook.minilook.ui.market.viewholder.brand.adapter;
 
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.minilook.minilook.data.model.category.CategoryDataModel;
+import com.minilook.minilook.data.model.brand.BrandMenuDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.market.viewholder.md_pick.viewholder.MarketCategoryItemVH;
+import com.minilook.minilook.ui.market.viewholder.brand.viewholder.MarketBrandMenuVH;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Setter;
 
-public class MarketCategoryAdapter extends RecyclerView.Adapter<MarketCategoryItemVH> implements
-    BaseAdapterDataModel<CategoryDataModel>, BaseAdapterDataView<CategoryDataModel> {
+public class MarketBrandMenuAdapter extends RecyclerView.Adapter<MarketBrandMenuVH> implements
+    BaseAdapterDataModel<BrandMenuDataModel>, BaseAdapterDataView<BrandMenuDataModel> {
 
-    private List<CategoryDataModel> items = new ArrayList<>();
-    @Setter private MarketCategoryItemVH.OnItemClickListener onItemClickListener;
+    private List<BrandMenuDataModel> items = new ArrayList<>();
+    @Setter private MarketBrandMenuVH.OnMenuClickListener onMenuClickListener;
 
-    @NonNull @Override public MarketCategoryItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MarketCategoryItemVH(parent);
+    @NonNull @Override
+    public MarketBrandMenuVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new MarketBrandMenuVH(parent);
     }
 
-    @Override public void onBindViewHolder(@NonNull MarketCategoryItemVH holder, int position) {
+    @Override public void onBindViewHolder(@NonNull MarketBrandMenuVH holder, int position) {
         holder.bind(items.get(position));
-        holder.setOnItemClickListener(onItemClickListener);
+        holder.setOnMenuClickListener(onMenuClickListener);
     }
 
     @Override public int getItemCount() {
         return getSize();
     }
 
-    @Override public void add(CategoryDataModel $item) {
+    @Override public void add(BrandMenuDataModel $item) {
         this.items.add($item);
     }
 
-    @Override public void add(int $index, CategoryDataModel $item) {
+    @Override public void add(int $index, BrandMenuDataModel $item) {
         this.items.add($index, $item);
     }
 
-    @Override public void addAll(List<CategoryDataModel> $items) {
+    @Override public void addAll(List<BrandMenuDataModel> $items) {
         this.items.addAll($items);
     }
 
-    @Override public void set(int $index, CategoryDataModel $item) {
+    @Override public void set(int $index, BrandMenuDataModel $item) {
         this.items.set($index, $item);
     }
 
-    @Override public void set(List<CategoryDataModel> $items) {
+    @Override public void set(List<BrandMenuDataModel> $items) {
         this.items.clear();
         this.items.addAll($items);
     }
 
-    @Override public CategoryDataModel get(int $index) {
+    @Override public BrandMenuDataModel get(int $index) {
         return this.items.get($index);
     }
 
-    @Override public List<CategoryDataModel> get() {
+    @Override public List<BrandMenuDataModel> get() {
         return this.items;
     }
 
@@ -63,7 +64,7 @@ public class MarketCategoryAdapter extends RecyclerView.Adapter<MarketCategoryIt
         this.items.remove($index);
     }
 
-    @Override public void remove(CategoryDataModel $item) {
+    @Override public void remove(BrandMenuDataModel $item) {
         this.items.remove($item);
     }
 

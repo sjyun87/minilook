@@ -169,7 +169,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 
     @Override public void setupRelatedProductRecyclerView() {
         relatedProductRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        relatedProductAdapter.setViewType(ProductAdapter.VIEW_TYPE_MEDIUM);
+        relatedProductAdapter.setViewType(ProductAdapter.VIEW_TYPE_SIZE_84);
         relatedProductRecyclerView.setAdapter(relatedProductAdapter);
     }
 

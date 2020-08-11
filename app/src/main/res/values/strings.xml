@@ -26,7 +26,9 @@
     <string name="login_dialog_title">이메일 정보가 없습니다.</string>
     <string name="login_dialog_desc">SNS계정에 이메일을 등록하거나\n이메일 제공을 허용해주세요.</string>
 
-
+    <!--Market-->
+    <string name="market_limited_desc">매일 오전 9시 오픈되는 한정 할인 상품</string>
+    <string name="market_brand_go_detail">브랜드샵으로 이동하기</string>
 
 
 

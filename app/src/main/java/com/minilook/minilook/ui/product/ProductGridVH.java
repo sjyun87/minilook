@@ -48,6 +48,10 @@ public class ProductGridVH extends BaseViewHolder<ProductDataModel> {
         }
         priceTextView.setText(StringUtil.toDigit(data.getPrice()));
 
-        itemView.setOnClickListener(v -> ProductDetailActivity.start(context, data.getId()));
+        itemView.setOnClickListener(this::onItemClick);
+    }
+
+    void onItemClick(View view) {
+        ProductDetailActivity.start(context, data.getId());
     }
 }

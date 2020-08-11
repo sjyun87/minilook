@@ -1,42 +1,37 @@
-package com.minilook.minilook.ui.market.viewholder.promotion;
+package com.minilook.minilook.ui.product;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import butterknife.BindView;
 import com.bumptech.glide.Glide;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.promotion.PromotionDataModel;
+import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 
-public class MarketPromotionItemVH extends BaseViewHolder<PromotionDataModel> {
+public class ProductImageVH extends BaseViewHolder<ProductDataModel> {
 
     @BindView(R.id.img_product_thumb) ImageView thumbImageView;
-    @BindView(R.id.txt_title) TextView titleTextView;
-    @BindView(R.id.txt_desc) TextView descTextView;
 
-    public MarketPromotionItemVH(@NonNull View itemView) {
+    public ProductImageVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_market_promotion_item, (ViewGroup) itemView, false));
+            .inflate(R.layout.item_product_type_image, (ViewGroup) itemView, false));
     }
 
-    @Override public void bind(PromotionDataModel $data) {
+    @Override public void bind(ProductDataModel $data) {
         super.bind($data);
 
         Glide.with(context)
             .load(data.getUrl_thumb())
             .into(thumbImageView);
 
-        titleTextView.setText(data.getTitle());
-        descTextView.setText(data.getDesc());
-
         itemView.setOnClickListener(this::onItemClick);
     }
 
     void onItemClick(View view) {
-
+        ProductDetailActivity.start(context, data.getId());
     }
 }
