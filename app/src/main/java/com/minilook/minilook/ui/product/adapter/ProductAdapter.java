@@ -12,7 +12,6 @@ import com.minilook.minilook.ui.product.ProductFullVH;
 import com.minilook.minilook.ui.product.ProductGridVH;
 import com.minilook.minilook.ui.product.ProductImageVH;
 import com.minilook.minilook.ui.product.ProductSize84VH;
-import com.minilook.minilook.ui.product.ProductNoBrandVH;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Setter;

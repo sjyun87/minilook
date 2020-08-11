@@ -1,4 +1,4 @@
-package com.minilook.minilook.data.model.image;
+package com.minilook.minilook.data.model.common;
 
 import lombok.Data;
 

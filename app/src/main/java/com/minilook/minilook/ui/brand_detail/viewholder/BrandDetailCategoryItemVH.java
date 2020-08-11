@@ -38,24 +38,24 @@ public class BrandDetailCategoryItemVH extends BaseViewHolder<CategoryDataModel>
     @Override public void bind(CategoryDataModel $data) {
         super.bind($data);
 
-        if (data.isSelect()) {
-            categoryTextView.setTextColor(color_FF8140E5);
-            categoryTextView.setTypeface(font_bold);
-            countTextView.setTextColor(color_FF424242);
-            countTextView.setTypeface(font_bold);
-        } else {
-            categoryTextView.setTextColor(color_FF232323);
-            categoryTextView.setTypeface(font_regular);
-            countTextView.setTextColor(color_FFA9A9A9);
-            countTextView.setTypeface(font_regular);
-        }
-
-        categoryTextView.setText(data.getName());
-        countTextView.setText(StringUtil.toDigit(data.getCount()));
-
-        itemView.setOnClickListener(v -> {
-            if (onItemClickListener != null) onItemClickListener.onItemClick(data.getPosition());
-        });
+        //if (data.isSelect()) {
+        //    categoryTextView.setTextColor(color_FF8140E5);
+        //    categoryTextView.setTypeface(font_bold);
+        //    countTextView.setTextColor(color_FF424242);
+        //    countTextView.setTypeface(font_bold);
+        //} else {
+        //    categoryTextView.setTextColor(color_FF232323);
+        //    categoryTextView.setTypeface(font_regular);
+        //    countTextView.setTextColor(color_FFA9A9A9);
+        //    countTextView.setTypeface(font_regular);
+        //}
+        //
+        //categoryTextView.setText(data.getName());
+        //countTextView.setText(StringUtil.toDigit(data.getCount()));
+        //
+        //itemView.setOnClickListener(v -> {
+        //    if (onItemClickListener != null) onItemClickListener.onItemClick(data.getPosition());
+        //});
     }
 
     public interface OnItemClickListener {

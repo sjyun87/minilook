@@ -18,7 +18,7 @@ public class LookBookImageModuleVH extends BaseViewHolder<String> {
 
     public LookBookImageModuleVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_lookbook_image, (ViewGroup) itemView, false));
+            .inflate(R.layout.item_lookbook_module_image, (ViewGroup) itemView, false));
     }
 
     @Override public void bind(String $data) {

@@ -1,6 +1,6 @@
 package com.minilook.minilook.data.model.lookbook;
 
-import com.minilook.minilook.data.model.image.ImageDataModel;
+import com.minilook.minilook.data.model.common.ImageDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import java.util.List;
 import lombok.Data;

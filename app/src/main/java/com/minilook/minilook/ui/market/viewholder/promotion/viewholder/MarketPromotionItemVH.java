@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.market.viewholder.promotion;
+package com.minilook.minilook.ui.market.viewholder.promotion.viewholder;
 
 import android.view.LayoutInflater;
 import android.view.View;

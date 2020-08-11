@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import butterknife.BindView;
 import com.bumptech.glide.Glide;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.image.ImageDataModel;
+import com.minilook.minilook.data.model.common.ImageDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 
 public class LookBookStyleVH extends BaseViewHolder<ImageDataModel> {

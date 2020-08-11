@@ -4,7 +4,6 @@ import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.brand.BrandDetailDataModel;
 import com.minilook.minilook.data.model.category.CategoryDataModel;
 import com.minilook.minilook.data.model.common.SortDataModel;
-import com.minilook.minilook.data.model.market.MarketMDPickDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.network.brand.BrandRequest;
 import com.minilook.minilook.data.rx.Transformer;
@@ -12,7 +11,6 @@ import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.brand_detail.di.BrandDetailArguments;
 import com.minilook.minilook.util.StringUtil;
-import java.util.ArrayList;
 import java.util.List;
 import timber.log.Timber;
 
@@ -40,19 +38,19 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     }
 
     @Override public void onCreate() {
-        view.setupStyleRecyclerView();
-        view.setupPickRecyclerView();
-        view.setupCategoryRecyclerView();
-        view.setupSortRecyclerView();
-
-        reqBrand();
+        //view.setupStyleRecyclerView();
+        //view.setupPickRecyclerView();
+        //view.setupCategoryRecyclerView();
+        //view.setupSortRecyclerView();
+        //
+        //reqBrand();
     }
 
     @Override public void onCategoryItemClick(int position) {
-        categoryAdapter.get(selectedPosition).setSelect(false);
-        selectedPosition = position;
-        categoryAdapter.get(selectedPosition).setSelect(true);
-        view.categoryRefresh();
+        //categoryAdapter.get(selectedPosition).setSelect(false);
+        //selectedPosition = position;
+        //categoryAdapter.get(selectedPosition).setSelect(true);
+        //view.categoryRefresh();
         //setupProductList();
     }
 
@@ -98,13 +96,13 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     }
 
     private List<CategoryDataModel> parseToCategoryList(List<CategoryDataModel> items) {
-        for (int i = 0; i < items.size(); i++) {
-            items.get(i).setPosition(i);
-            items.get(i).setSelect(i == 0);
-
-            // test
-            items.get(i).setCount(i);
-        }
+        //for (int i = 0; i < items.size(); i++) {
+        //    items.get(i).setPosition(i);
+        //    items.get(i).setSelect(i == 0);
+        //
+        //    // test
+        //    items.get(i).setCount(i);
+        //}
         return items;
     }
 }

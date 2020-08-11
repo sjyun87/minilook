@@ -102,14 +102,14 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
     }
 
     @Override public void setupPickRecyclerView() {
-        pickRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        pickAdapter.setViewType(ProductAdapter.VIEW_TYPE_NO_BRAND);
-        pickRecyclerView.setAdapter(pickAdapter);
-        DividerDecoration.builder(this)
-            .size(dp_2)
-            .asSpace()
-            .build()
-            .addTo(pickRecyclerView);
+        //pickRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        //pickAdapter.setViewType(ProductAdapter.VIEW_TYPE_NO_BRAND);
+        //pickRecyclerView.setAdapter(pickAdapter);
+        //DividerDecoration.builder(this)
+        //    .size(dp_2)
+        //    .asSpace()
+        //    .build()
+        //    .addTo(pickRecyclerView);
     }
 
     @Override public void pickRefresh() {
