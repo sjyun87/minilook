@@ -41,7 +41,7 @@
             android:id="@+id/txt_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_4"
+            android:layout_marginTop="@dimen/dp_7"
             android:fontFamily="@font/nanum_square_r"
             android:textColor="@color/color_FF232323"
             android:textSize="@dimen/sp_8"

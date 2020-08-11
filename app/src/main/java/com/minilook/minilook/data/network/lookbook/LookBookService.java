@@ -9,7 +9,7 @@ import retrofit2.http.POST;
 
 public interface LookBookService {
 
-    @POST("api/lookbooks") Single<List<LookBookDataModel>> getLookBookModule(
+    @POST("/api/lookbooks") Single<List<LookBookDataModel>> getLookBookModule(
         @Body RequestBody body
     );
 }

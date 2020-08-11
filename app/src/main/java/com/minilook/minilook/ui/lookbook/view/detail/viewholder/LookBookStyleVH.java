@@ -24,7 +24,7 @@ public class LookBookStyleVH extends BaseViewHolder<ImageDataModel> {
         super.bind($data);
 
         Glide.with(context)
-            .load(data.getUrl_image())
+            .load(data.getUrl_thumb())
             .into(imageView);
 
         itemView.setOnClickListener(this::onItemClick);

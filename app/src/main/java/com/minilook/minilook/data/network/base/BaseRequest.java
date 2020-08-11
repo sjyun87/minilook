@@ -113,8 +113,8 @@ public abstract class BaseRequest<T> {
 
     @AllArgsConstructor @Getter protected enum EndPoint {
         BASE_URL(BuildConfig.DEBUG ?
-            "http://49.50.175.109:8080/" :
-            "http://lookbook.minilook.co.kr/");
+            "http://49.50.175.109:8080" :
+            "http://lookbook.minilook.co.kr");
 
         private String value;
     }

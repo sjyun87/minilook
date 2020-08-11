@@ -5,9 +5,14 @@ import lombok.Getter;
 
 @AllArgsConstructor @Getter public enum MarketModuleType {
     TYPE_PROMOTION(0),
-    TYPE_MD_PICK(1),
-    TYPE_NEW(2),
-    TYPE_BRAND(3);
+    TYPE_LIMITED(1),
+    TYPE_RECOMMEND_4(2),
+    TYPE_RECOMMEND_5(3),
+    TYPE_RECOMMEND_6(4),
+    TYPE_RECOMMEND_9(5),
+    TYPE_NEW(6),
+    TYPE_BRAND(7),
+    TYPE_CATEGORY(8);
 
     private int value;
 

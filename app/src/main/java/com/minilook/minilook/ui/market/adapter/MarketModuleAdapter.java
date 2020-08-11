@@ -29,12 +29,6 @@ public class MarketModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<Mar
     public BaseViewHolder<MarketDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == MarketModuleType.TYPE_PROMOTION.getValue()) {
             return new MarketPromotionVH(parent);
-        } else if (viewType == MarketModuleType.TYPE_MD_PICK.getValue()) {
-            return new MarketMDPickVH(parent);
-        } else if (viewType == MarketModuleType.TYPE_NEW.getValue()) {
-            return new MarketNewArrivalsVH(parent);
-        } else if (viewType == MarketModuleType.TYPE_BRAND.getValue()) {
-            return new MarketBrandVH(parent);
         } else {
             Timber.e("Market Module type is null..");
             return new BaseViewHolder<>(parent);

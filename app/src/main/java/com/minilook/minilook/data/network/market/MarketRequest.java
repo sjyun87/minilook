@@ -12,6 +12,6 @@ public class MarketRequest extends BaseRequest<MarketService> {
     }
 
     public Single<List<MarketDataModel>> getMarketModules() {
-        return getApi().getMarketModules("Market");
+        return getApi().getMarketModules();
     }
 }

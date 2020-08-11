@@ -8,5 +8,5 @@ import retrofit2.http.POST;
 
 public interface CategoryService {
 
-    @POST("api/category") Single<List<CategoryDataModel>> getCategoryList();
+    @POST("/api/category") Single<List<CategoryDataModel>> getCategoryList();
 }
