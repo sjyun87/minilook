@@ -1,7 +1,6 @@
 package com.minilook.minilook.ui.lookbook.view.preview;
 
 import com.minilook.minilook.data.model.lookbook.LookBookDataModel;
-import com.minilook.minilook.data.model.lookbook.LookBookDetailDataModel;
 import com.minilook.minilook.data.network.lookbook.LookBookRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.SchedulersFacade;
@@ -9,11 +8,9 @@ import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.lookbook.view.preview.di.LookBookPreviewArguments;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import timber.log.Timber;
@@ -44,7 +41,7 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
 
     @Override public void onPageSelected(int position) {
         if (dataPool.size() > 0 && position == adapter.getSize() - 3) setupLoadMoreData();
-        RxBus.send(new RxEventLookBookModuleChanged(adapter.get(position).getDetail()));
+        RxBus.send(new RxEventLookBookModuleChanged(adapter.get(position)));
     }
 
     private void setupLoadMoreData() {
@@ -90,6 +87,6 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
     }
 
     @AllArgsConstructor @Getter public final static class RxEventLookBookModuleChanged {
-        private LookBookDetailDataModel data;
+        private LookBookDataModel data;
     }
 }

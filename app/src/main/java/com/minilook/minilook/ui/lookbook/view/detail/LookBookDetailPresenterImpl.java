@@ -1,6 +1,7 @@
 package com.minilook.minilook.ui.lookbook.view.detail;
 
-import com.minilook.minilook.data.model.lookbook.LookBookDetailDataModel;
+import com.minilook.minilook.data.model.image.ImageDataModel;
+import com.minilook.minilook.data.model.lookbook.LookBookDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
@@ -8,7 +9,6 @@ import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.lookbook.LookBookPresenterImpl;
 import com.minilook.minilook.ui.lookbook.view.detail.di.LookBookDetailArguments;
 import com.minilook.minilook.ui.lookbook.view.preview.LookBookPreviewPresenterImpl;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import timber.log.Timber;
@@ -16,7 +16,7 @@ import timber.log.Timber;
 public class LookBookDetailPresenterImpl extends BasePresenterImpl implements LookBookDetailPresenter {
 
     private final View view;
-    private final BaseAdapterDataModel<String> styleAdapter;
+    private final BaseAdapterDataModel<ImageDataModel> styleAdapter;
     private final BaseAdapterDataModel<ProductDataModel> productAdapter;
 
     public LookBookDetailPresenterImpl(LookBookDetailArguments args) {
@@ -39,8 +39,7 @@ public class LookBookDetailPresenterImpl extends BasePresenterImpl implements Lo
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
             if (o instanceof LookBookPreviewPresenterImpl.RxEventLookBookModuleChanged) {
-                LookBookDetailDataModel data =
-                    ((LookBookPreviewPresenterImpl.RxEventLookBookModuleChanged) o).getData();
+                LookBookDataModel data = ((LookBookPreviewPresenterImpl.RxEventLookBookModuleChanged) o).getData();
                 setupData(data);
             } else if (o instanceof RxEventLookBookDetailScrollToTop) {
                 view.scrollToTop();
@@ -48,17 +47,17 @@ public class LookBookDetailPresenterImpl extends BasePresenterImpl implements Lo
         }, Timber::e));
     }
 
-    private void setupData(LookBookDetailDataModel data) {
+    private void setupData(LookBookDataModel data) {
         view.scrollToTop();
         view.setupLabel(data.getLabel());
         view.setupTitle(data.getTitle());
         view.setupTag(data.getTag());
         view.setupDesc(data.getDesc());
 
-        styleAdapter.set(data.getImages());
+        styleAdapter.set(data.getStyles());
         view.styleRefresh();
 
-        view.setupProductInfo(data.getBrief_info());
+        view.setupProductInfo(data.getProduct_info());
 
         productAdapter.set(data.getProducts());
         view.productRefresh();

@@ -55,7 +55,7 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
         brandNameTextView.setText(brandModel.getName());
 
         Glide.with(context)
-            .load(data.getUrl_image())
+            .load(data.getUrl_thumb())
             .into(thumbImageView);
 
         reviewTextView.setText(StringUtil.toDigit(data.getReview_cnt()));

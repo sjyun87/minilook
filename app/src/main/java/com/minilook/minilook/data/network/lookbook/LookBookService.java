@@ -3,14 +3,13 @@ package com.minilook.minilook.data.network.lookbook;
 import com.minilook.minilook.data.model.lookbook.LookBookDataModel;
 import io.reactivex.rxjava3.core.Single;
 import java.util.List;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
+import retrofit2.http.POST;
 
 public interface LookBookService {
 
-    @GET("minilookAction.do") Single<List<LookBookDataModel>> getLookBookModule(
-        @Query("process") String process,
-        @Query("start") int start,
-        @Query("row") int row
+    @POST("api/lookbooks") Single<List<LookBookDataModel>> getLookBookModule(
+        @Body RequestBody body
     );
 }

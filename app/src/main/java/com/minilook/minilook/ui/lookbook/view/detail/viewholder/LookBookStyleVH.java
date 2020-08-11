@@ -8,11 +8,10 @@ import androidx.annotation.NonNull;
 import butterknife.BindView;
 import com.bumptech.glide.Glide;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.rx.RxBus;
+import com.minilook.minilook.data.model.image.ImageDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
-import com.minilook.minilook.ui.lookbook.LookBookPresenterImpl;
 
-public class LookBookStyleVH extends BaseViewHolder<String> {
+public class LookBookStyleVH extends BaseViewHolder<ImageDataModel> {
 
     @BindView(R.id.img_style) ImageView imageView;
 
@@ -21,11 +20,11 @@ public class LookBookStyleVH extends BaseViewHolder<String> {
             .inflate(R.layout.item_lookbook_detail_style, (ViewGroup) itemView, false));
     }
 
-    @Override public void bind(String $data) {
+    @Override public void bind(ImageDataModel $data) {
         super.bind($data);
 
         Glide.with(context)
-            .load(data)
+            .load(data.getUrl_image())
             .into(imageView);
 
         itemView.setOnClickListener(this::onItemClick);

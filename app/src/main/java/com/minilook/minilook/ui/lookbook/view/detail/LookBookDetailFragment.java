@@ -1,15 +1,14 @@
 package com.minilook.minilook.ui.lookbook.view.detail;
 
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.image.ImageDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseFragment;
@@ -34,7 +33,7 @@ public class LookBookDetailFragment extends BaseFragment implements LookBookDeta
 
     private LookBookDetailPresenter presenter;
     private LookBookStyleAdapter styleAdapter = new LookBookStyleAdapter();
-    private BaseAdapterDataView<String> styleAdapterDataView = styleAdapter;
+    private BaseAdapterDataView<ImageDataModel> styleAdapterDataView = styleAdapter;
     private ProductAdapter productAdapter = new ProductAdapter();
     private BaseAdapterDataView<ProductDataModel> productAdapterDataView = productAdapter;
 

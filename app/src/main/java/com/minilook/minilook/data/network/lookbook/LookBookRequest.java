@@ -1,5 +1,6 @@
 package com.minilook.minilook.data.network.lookbook;
 
+import com.google.gson.JsonObject;
 import com.minilook.minilook.data.model.lookbook.LookBookDataModel;
 import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
@@ -14,6 +15,13 @@ public class LookBookRequest extends BaseRequest<LookBookService> {
     }
 
     public Single<List<LookBookDataModel>> getLookbookModules(int page) {
-        return getApi().getLookBookModule("Lookbook", page * ROWS, ROWS);
+        return getApi().getLookBookModule(createRequestBody(parseToJson(page)));
+    }
+
+    private JsonObject parseToJson(int page) {
+        JsonObject json = new JsonObject();
+        json.addProperty("start", page);
+        json.addProperty("rows", page * ROWS);
+        return json;
     }
 }
