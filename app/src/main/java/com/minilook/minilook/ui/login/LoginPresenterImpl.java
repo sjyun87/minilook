@@ -19,10 +19,12 @@ public class LoginPresenterImpl extends BasePresenterImpl implements LoginPresen
     }
 
     @Override public void onNaverClick() {
+        kakaoLoginManager.logout();
     }
 
     @Override public void onKakaoClick() {
-        //kakaoLoginManager.login();
+        kakaoLoginManager.login();
+        //kakaoLoginManager.logout();
         //view.showNoEmailDialog();
     }
 }

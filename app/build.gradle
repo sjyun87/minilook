@@ -72,8 +72,7 @@ dependencies {
   annotationProcessor "org.projectlombok:lombok:$lombok_version"
 
   // Kakao Login
-  implementation "com.kakao.sdk:v2-user-rx:$kakao_version"
-  implementation "com.kakao.sdk:v2-talk-rx:$kakao_version"
+  implementation "com.kakao.sdk:v2-user:$kakao_version"
 
   // ViewPager2
   implementation "androidx.viewpager2:viewpager2:$viewpager2_version"

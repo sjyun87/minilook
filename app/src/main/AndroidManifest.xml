@@ -39,15 +39,6 @@
             tools:ignore="LockedOrientationActivity" />
 
 
-
-
-
-
-
-
-
-
-
         <activity
             android:name=".ui.product_detail.ProductDetailActivity"
             android:screenOrientation="portrait"
@@ -81,17 +72,17 @@
             tools:ignore="LockedOrientationActivity" />
 
 
-
-        <activity android:name="com.kakao.sdk.auth.AuthCodeCustomTabsActivity">
+        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
+                <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth“ -->
                 <data
                     android:host="oauth"
-                    android:scheme="kakao{ded831ff5075300b550bf4fa1d5c4d37}" />
+                    android:scheme="@string/kakao_scheme" />
             </intent-filter>
         </activity>
 

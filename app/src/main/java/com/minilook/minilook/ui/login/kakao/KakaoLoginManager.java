@@ -1,11 +1,11 @@
 package com.minilook.minilook.ui.login.kakao;
 
 import android.content.Context;
-import android.os.UserManager;
-import com.kakao.sdk.auth.DefaultTokenManager;
 import com.kakao.sdk.auth.LoginClient;
 import com.kakao.sdk.auth.model.OAuthToken;
+import com.kakao.sdk.user.UserApiClient;
 import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 import kotlin.jvm.functions.Function2;
 import timber.log.Timber;
 
@@ -47,6 +47,11 @@ public class KakaoLoginManager {
     }
 
     public void logout() {
-        
+        UserApiClient.getInstance().logout(new Function1<Throwable, Unit>() {
+            @Override public Unit invoke(Throwable e) {
+                Timber.e(e);
+                return null;
+            }
+        });
     }
 }
