@@ -44,6 +44,8 @@
     <string name="ipage_shopping_order_packing">배송준비중</string>
     <string name="ipage_shopping_order_delivery">배송중</string>
     <string name="ipage_shopping_order_completed">배송완료</string>
+    <string name="ipage_service_question_title">문의내역</string>
+    <string name="ipage_service_question_desc">상품/주문/배송·교환·환불</string>
     <string name="ipage_service_notice">공지사항</string>
     <string name="ipage_service_faq">FAQ</string>
 
