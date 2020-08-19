@@ -39,6 +39,7 @@
     <string name="ipage_shopping_basket">장바구니</string>
     <string name="ipage_shopping_recent">최근 본 상품</string>
     <string name="ipage_shopping_order_title">주문/배송</string>
+    <string name="ipage_shopping_order_more">전체보기</string>
     <string name="ipage_shopping_order_paid">주문완료</string>
     <string name="ipage_shopping_order_packing">배송준비중</string>
     <string name="ipage_shopping_order_delivery">배송중</string>

@@ -148,7 +148,7 @@
         android:layout_height="@dimen/dp_20"
         android:layout_marginStart="@dimen/dp_20"
         android:layout_marginEnd="@dimen/dp_20"
-        android:background="@drawable/bg_button_border_gray"
+        android:background="@drawable/bg_button_border_drakgray"
         android:fontFamily="@font/nanum_square_r"
         android:gravity="center"
         android:text="@string/market_brand_go_detail"

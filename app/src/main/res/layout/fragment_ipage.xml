@@ -31,7 +31,7 @@
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_4"
                 android:scaleType="fitXY"
-                android:src="@drawable/img_default_profile"
+                android:src="@drawable/test_profile"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription" />
@@ -44,6 +44,7 @@
                 android:layout_marginEnd="@dimen/dp_10"
                 android:fontFamily="@font/nanum_square_eb"
                 android:letterSpacing="-0.02"
+                android:text="한라봉맛파인애플"
                 android:textColor="@color/color_FF232323"
                 android:textSize="@dimen/sp_9"
                 app:layout_constraintBottom_toBottomOf="@+id/img_profile"
@@ -99,6 +100,7 @@
                         android:layout_marginTop="@dimen/dp_5"
                         android:fontFamily="@font/nanum_square_b"
                         android:includeFontPadding="false"
+                        android:text="10,000P"
                         android:textColor="@color/color_FF6200EA"
                         android:textSize="@dimen/sp_8"
                         app:layout_constraintBottom_toBottomOf="@+id/img_point"
@@ -148,6 +150,7 @@
                         android:layout_marginTop="@dimen/dp_5"
                         android:fontFamily="@font/nanum_square_b"
                         android:includeFontPadding="false"
+                        android:text="12장"
                         android:textColor="@color/color_FF6200EA"
                         android:textSize="@dimen/sp_8"
                         app:layout_constraintBottom_toBottomOf="@+id/img_coupon"
@@ -254,7 +257,208 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_order_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_4"
+                android:layout_marginTop="@dimen/dp_6"
+                android:layout_marginEnd="@dimen/dp_4"
+                android:background="@drawable/bg_ipage_order"
+                app:layout_constraintTop_toBottomOf="@+id/layout_shopping_panel">
 
+                <TextView
+                    android:id="@+id/txt_order_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_24"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:fontFamily="@font/nanum_square_eb"
+                    android:gravity="center_vertical"
+                    android:text="@string/ipage_shopping_order_title"
+                    android:textColor="@color/color_FF232323"
+                    android:textSize="@dimen/sp_7"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txt_order_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_24"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp_8"
+                    android:text="@string/ipage_shopping_order_more"
+                    android:textColor="@color/color_FF6200EA"
+                    android:textSize="@dimen/sp_6"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_order_title"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/txt_order_title" />
+
+                <View
+                    android:id="@+id/order_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/color_FFDBDBDB"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_order_title" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_32"
+                    app:layout_constraintTop_toBottomOf="@+id/order_line">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/nanum_square_r"
+                            android:text="@string/ipage_shopping_order_paid"
+                            android:textColor="@color/color_FF232323"
+                            android:textSize="@dimen/sp_6" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_4"
+                            android:fontFamily="@font/nanum_square_b"
+                            android:text="0"
+                            android:textColor="@color/color_FF232323"
+                            android:textSize="@dimen/sp_8" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/img_ipage_arrowboxline"
+                        tools:ignore="ContentDescription" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/nanum_square_r"
+                            android:text="@string/ipage_shopping_order_packing"
+                            android:textColor="@color/color_FF232323"
+                            android:textSize="@dimen/sp_6" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_4"
+                            android:fontFamily="@font/nanum_square_b"
+                            android:text="1"
+                            android:textColor="@color/color_FF232323"
+                            android:textSize="@dimen/sp_8" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/img_ipage_arrowboxline"
+                        tools:ignore="ContentDescription" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/nanum_square_r"
+                            android:text="@string/ipage_shopping_order_delivery"
+                            android:textColor="@color/color_FF232323"
+                            android:textSize="@dimen/sp_6" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_4"
+                            android:fontFamily="@font/nanum_square_b"
+                            android:text="2"
+                            android:textColor="@color/color_FF232323"
+                            android:textSize="@dimen/sp_8" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/img_ipage_arrowboxline"
+                        tools:ignore="ContentDescription" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/nanum_square_r"
+                            android:text="@string/ipage_shopping_order_completed"
+                            android:textColor="@color/color_FF232323"
+                            android:textSize="@dimen/sp_6" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_4"
+                            android:fontFamily="@font/nanum_square_b"
+                            android:text="0"
+                            android:textColor="@color/color_FF232323"
+                            android:textSize="@dimen/sp_8" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/txt_service_notice"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_16"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_18"
+                android:layout_marginEnd="@dimen/dp_4"
+                android:background="@drawable/bg_button_border_gray"
+                android:fontFamily="@font/nanum_square_r"
+                android:gravity="center"
+                android:text="@string/ipage_service_notice"
+                android:textColor="@color/color_FF616161"
+                android:textSize="@dimen/sp_7"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/txt_service_faq"
+                app:layout_constraintTop_toBottomOf="@+id/layout_order_panel" />
+
+            <TextView
+                android:id="@+id/txt_service_faq"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_16"
+                android:layout_marginStart="@dimen/dp_4"
+                android:layout_marginTop="@dimen/dp_18"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:background="@drawable/bg_button_border_gray"
+                android:fontFamily="@font/nanum_square_r"
+                android:gravity="center"
+                android:text="@string/ipage_service_faq"
+                android:textColor="@color/color_FF616161"
+                android:textSize="@dimen/sp_7"
+                app:layout_constraintLeft_toRightOf="@+id/txt_service_notice"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_order_panel" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
