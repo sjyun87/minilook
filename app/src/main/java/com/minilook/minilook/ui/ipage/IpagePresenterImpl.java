@@ -12,5 +12,13 @@ public class IpagePresenterImpl extends BasePresenterImpl implements IpagePresen
     }
 
     @Override public void onCreate() {
+
+        setupData();
+    }
+
+    private void setupData() {
+        //view.
+
+
     }
 }

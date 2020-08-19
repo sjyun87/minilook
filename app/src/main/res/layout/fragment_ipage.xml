@@ -29,9 +29,9 @@
                 android:layout_width="@dimen/dp_28"
                 android:layout_height="@dimen/dp_28"
                 android:layout_marginStart="@dimen/dp_10"
-                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_4"
                 android:scaleType="fitXY"
-                android:src="@drawable/test_profile"
+                android:src="@drawable/img_default_profile"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription" />
@@ -41,488 +41,220 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/sp_6"
-                android:layout_marginEnd="@dimen/dp_6"
+                android:layout_marginEnd="@dimen/dp_10"
                 android:fontFamily="@font/nanum_square_eb"
-                android:text="미니룩"
+                android:letterSpacing="-0.02"
                 android:textColor="@color/color_FF232323"
-                android:textSize="@dimen/sp_10"
+                android:textSize="@dimen/sp_9"
                 app:layout_constraintBottom_toBottomOf="@+id/img_profile"
                 app:layout_constraintLeft_toRightOf="@+id/img_profile"
-                app:layout_constraintRight_toLeftOf="@+id/txt_my_info"
-                app:layout_constraintTop_toTopOf="@+id/img_profile" />
-
-            <TextView
-                android:id="@+id/txt_my_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dp_2"
-                android:fontFamily="@font/nanum_square_b"
-                android:text="내정보"
-                android:textColor="@color/color_FF424242"
-                android:textSize="@dimen/sp_7"
-                app:layout_constraintBottom_toBottomOf="@+id/img_profile"
-                app:layout_constraintRight_toLeftOf="@+id/img_arrow"
-                app:layout_constraintTop_toTopOf="@+id/img_profile" />
-
-            <ImageView
-                android:id="@+id/img_arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dp_8"
-                android:src="@drawable/ic_arrow_right_black"
-                app:layout_constraintBottom_toBottomOf="@+id/img_profile"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/img_profile"
-                tools:ignore="ContentDescription" />
-
-            <LinearLayout
-                android:id="@+id/layout_i_banner"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_20"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_10"
-                android:layout_marginEnd="@dimen/dp_8"
-                android:background="@drawable/bg_i_banner"
-                android:gravity="center_vertical"
-                android:paddingStart="@dimen/dp_8"
-                android:paddingEnd="@dimen/dp_8"
-                app:layout_constraintTop_toBottomOf="@+id/img_profile">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nanum_square_r"
-                    android:text="첫째"
-                    android:textColor="@color/color_FFA9A9A9"
-                    android:textSize="@dimen/sp_6" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_6"
-                    android:fontFamily="@font/nanum_square_b"
-                    android:text="이하은"
-                    android:textColor="@color/color_FF232323"
-                    android:textSize="@dimen/sp_7" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_8"
-                    android:fontFamily="@font/nanum_square_r"
-                    android:text="여"
-                    android:textColor="@color/color_FF232323"
-                    android:textSize="@dimen/sp_7" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_8"
-                    android:fontFamily="@font/nanum_square_r"
-                    android:text="2019년 01월 12일생"
-                    android:textColor="@color/color_FF232323"
-                    android:textSize="@dimen/sp_7" />
-            </LinearLayout>
+                tools:text="미니룩" />
 
             <LinearLayout
                 android:id="@+id/layout_info_panel"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_36"
-                android:layout_marginTop="@dimen/dp_12"
-                android:gravity="center_vertical"
+                android:layout_height="@dimen/dp_32"
+                android:layout_marginStart="@dimen/dp_6"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_6"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/layout_i_banner">
+                app:layout_constraintTop_toBottomOf="@+id/img_profile">
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_point_panel"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_weight="1">
 
-                    <TextView
+                    <ImageView
+                        android:id="@+id/img_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/nanum_square_r"
-                        android:text="회원등급"
-                        android:textColor="@color/color_FF616161"
-                        android:textSize="@dimen/sp_6" />
+                        android:layout_marginStart="@dimen/dp_6"
+                        android:src="@drawable/ic_point"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
+                        android:id="@+id/txt_point_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_4"
+                        android:fontFamily="@font/nanum_square_r"
+                        android:includeFontPadding="false"
+                        android:text="@string/ipage_profile_point"
+                        android:textColor="@color/color_FF616161"
+                        android:textSize="@dimen/sp_6"
+                        app:layout_constraintLeft_toRightOf="@+id/img_point"
+                        app:layout_constraintTop_toTopOf="@+id/img_point" />
+
+                    <TextView
+                        android:id="@+id/txt_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
                         android:fontFamily="@font/nanum_square_b"
-                        android:text="PURPLE"
-                        android:textColor="@color/color_FF8140E5"
-                        android:textSize="@dimen/sp_8" />
-                </LinearLayout>
+                        android:includeFontPadding="false"
+                        android:textColor="@color/color_FF6200EA"
+                        android:textSize="@dimen/sp_8"
+                        app:layout_constraintBottom_toBottomOf="@+id/img_point"
+                        app:layout_constraintLeft_toLeftOf="@+id/txt_point_title"
+                        tools:text="10,000P" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <View
                     android:layout_width="1dp"
-                    android:layout_height="@dimen/dp_28"
+                    android:layout_height="@dimen/dp_20"
                     android:background="@color/color_FFF5F5F5" />
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_coupon_panel"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_weight="1">
 
-                    <TextView
+                    <ImageView
+                        android:id="@+id/img_coupon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/nanum_square_r"
-                        android:text="포인트"
-                        android:textColor="@color/color_FF616161"
-                        android:textSize="@dimen/sp_6" />
+                        android:layout_marginStart="@dimen/dp_6"
+                        android:src="@drawable/ic_coupon"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
+                        android:id="@+id/txt_coupon_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_4"
+                        android:fontFamily="@font/nanum_square_r"
+                        android:includeFontPadding="false"
+                        android:text="@string/ipage_profile_coupon"
+                        android:textColor="@color/color_FF616161"
+                        android:textSize="@dimen/sp_6"
+                        app:layout_constraintLeft_toRightOf="@+id/img_coupon"
+                        app:layout_constraintTop_toTopOf="@+id/img_coupon" />
+
+                    <TextView
+                        android:id="@+id/txt_coupon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
                         android:fontFamily="@font/nanum_square_b"
-                        android:text="10,000P"
-                        android:textColor="@color/color_FF232323"
-                        android:textSize="@dimen/sp_8" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="@dimen/dp_28"
-                    android:background="@color/color_FFF5F5F5" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/nanum_square_r"
-                        android:text="쿠폰"
-                        android:textColor="@color/color_FF616161"
-                        android:textSize="@dimen/sp_6" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_5"
-                        android:fontFamily="@font/nanum_square_b"
-                        android:text="2개"
-                        android:textColor="@color/color_FF232323"
-                        android:textSize="@dimen/sp_8" />
-                </LinearLayout>
+                        android:includeFontPadding="false"
+                        android:textColor="@color/color_FF6200EA"
+                        android:textSize="@dimen/sp_8"
+                        app:layout_constraintBottom_toBottomOf="@+id/img_coupon"
+                        app:layout_constraintLeft_toLeftOf="@+id/txt_coupon_title"
+                        tools:text="10장" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/img_banner"
+            <View
+                android:id="@+id/line"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/dp_4"
-                android:layout_marginTop="@dimen/dp_12"
-                android:layout_marginEnd="@dimen/dp_4"
-                android:src="@drawable/test_banner"
-                app:layout_constraintDimensionRatio="H,172:40"
+                android:layout_height="@dimen/dp_4"
+                android:layout_marginTop="@dimen/dp_6"
+                android:background="@color/color_FFF5F5F5"
                 app:layout_constraintTop_toBottomOf="@+id/layout_info_panel" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dp_2"
-                android:fontFamily="@font/nanum_square_r"
-                android:includeFontPadding="false"
-                android:text="진행 중인 이벤트 보러가기"
-                android:textColor="@color/color_FF232323"
-                android:textSize="@dimen/sp_7"
-                app:layout_constraintBottom_toBottomOf="@+id/img_event_arrow"
-                app:layout_constraintRight_toLeftOf="@+id/img_event_arrow"
-                app:layout_constraintTop_toTopOf="@+id/img_event_arrow" />
-
-            <ImageView
-                android:id="@+id/img_event_arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_4"
-                android:layout_marginRight="@dimen/dp_4"
-                android:src="@drawable/ic_arrow_right_black"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img_banner" />
 
             <LinearLayout
                 android:id="@+id/layout_shopping_panel"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_6"
-                android:layout_marginTop="@dimen/dp_10"
-                android:layout_marginRight="@dimen/dp_6"
-                android:orientation="vertical"
+                android:layout_height="@dimen/dp_48"
+                android:layout_marginStart="@dimen/dp_6"
+                android:layout_marginTop="@dimen/dp_4"
+                android:layout_marginEnd="@dimen/dp_6"
+                android:orientation="horizontal"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img_event_arrow">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_4"
-                    android:layout_marginTop="@dimen/dp_6"
-                    android:layout_marginBottom="@dimen/dp_6"
-                    android:fontFamily="@font/nanum_square_eb"
-                    android:text="쇼핑"
-                    android:textColor="@color/color_FF232323"
-                    android:textSize="@dimen/sp_7" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/color_FF616161" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_4"
-                    android:layout_marginTop="@dimen/dp_9"
-                    android:layout_marginBottom="@dimen/dp_9"
-                    android:fontFamily="@font/nanum_square_r"
-                    android:text="주문/배송내역"
-                    android:textColor="@color/color_FF000000"
-                    android:textSize="@dimen/sp_7" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/color_FFDBDBDB" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layout_activity_panel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_6"
-                android:layout_marginTop="@dimen/dp_12"
-                android:layout_marginRight="@dimen/dp_6"
-                android:orientation="vertical"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layout_shopping_panel">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_4"
-                    android:layout_marginTop="@dimen/dp_6"
-                    android:layout_marginBottom="@dimen/dp_6"
-                    android:fontFamily="@font/nanum_square_eb"
-                    android:text="활동"
-                    android:textColor="@color/color_FF232323"
-                    android:textSize="@dimen/sp_7" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/color_FF616161" />
+                app:layout_constraintTop_toBottomOf="@+id/line">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_4"
-                    android:layout_marginTop="@dimen/dp_9"
-                    android:layout_marginBottom="@dimen/dp_9">
+                    android:id="@+id/layout_scrap_panel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_scrap_off"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_6"
                         android:fontFamily="@font/nanum_square_r"
-                        android:text="스크랩"
+                        android:text="@string/ipage_shopping_scrap"
                         android:textColor="@color/color_FF000000"
-                        android:textSize="@dimen/sp_7" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_4"
-                        android:fontFamily="@font/nanum_square_r"
-                        android:text="12"
-                        android:textColor="@color/color_FF8140E5"
                         android:textSize="@dimen/sp_7" />
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/color_FFDBDBDB" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_4"
-                    android:layout_marginTop="@dimen/dp_9"
-                    android:layout_marginBottom="@dimen/dp_9"
-                    android:fontFamily="@font/nanum_square_r"
-                    android:text="최근 본 상품"
-                    android:textColor="@color/color_FF000000"
-                    android:textSize="@dimen/sp_7" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/color_FFDBDBDB" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layout_review_panel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_6"
-                android:layout_marginTop="@dimen/dp_12"
-                android:layout_marginRight="@dimen/dp_6"
-                android:orientation="vertical"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layout_activity_panel">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_4"
-                    android:layout_marginTop="@dimen/dp_6"
-                    android:layout_marginBottom="@dimen/dp_6"
-                    android:fontFamily="@font/nanum_square_eb"
-                    android:text="리뷰 &amp; 문의"
-                    android:textColor="@color/color_FF232323"
-                    android:textSize="@dimen/sp_7" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/color_FF616161" />
-
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_4"
-                    android:layout_marginTop="@dimen/dp_9"
-                    android:layout_marginBottom="@dimen/dp_9">
+                    android:id="@+id/layout_shoppingbag_panel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:layout_marginEnd="@dimen/dp_12"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_shoppingbag"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_6"
                         android:fontFamily="@font/nanum_square_r"
-                        android:text="상품 리뷰"
+                        android:text="@string/ipage_shopping_basket"
                         android:textColor="@color/color_FF000000"
-                        android:textSize="@dimen/sp_7" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_4"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/nanum_square_r"
-                        android:text="5"
-                        android:textColor="@color/color_FF8140E5"
-                        android:textSize="@dimen/sp_7" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/dp_4"
-                        android:background="@drawable/bg_button_border_purple"
-                        android:fontFamily="@font/nanum_square_r"
-                        android:paddingStart="@dimen/dp_7"
-                        android:paddingTop="@dimen/dp_5"
-                        android:paddingEnd="@dimen/dp_7"
-                        android:paddingBottom="@dimen/dp_5"
-                        android:text="1개 리뷰 쓰기"
-                        android:textColor="@color/color_FF8140E5"
                         android:textSize="@dimen/sp_7" />
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/color_FFDBDBDB" />
-
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_4"
-                    android:layout_marginTop="@dimen/dp_9"
-                    android:layout_marginBottom="@dimen/dp_9">
+                    android:id="@+id/layout_recent_panel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_recent"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_6"
                         android:fontFamily="@font/nanum_square_r"
-                        android:text="상품 문의"
+                        android:text="@string/ipage_shopping_recent"
                         android:textColor="@color/color_FF000000"
                         android:textSize="@dimen/sp_7" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_4"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/nanum_square_r"
-                        android:text="0"
-                        android:textColor="@color/color_FF8140E5"
-                        android:textSize="@dimen/sp_7" />
                 </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/color_FFDBDBDB" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/layout_faq_panel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_6"
-                android:layout_marginTop="@dimen/dp_10"
-                android:layout_marginRight="@dimen/dp_6"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layout_review_panel">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_4"
-                    android:layout_marginTop="@dimen/dp_6"
-                    android:layout_marginBottom="@dimen/dp_6"
-                    android:fontFamily="@font/nanum_square_eb"
-                    android:text="정보"
-                    android:textColor="@color/color_FF232323"
-                    android:textSize="@dimen/sp_7" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/color_FF616161" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_4"
-                    android:layout_marginTop="@dimen/dp_9"
-                    android:layout_marginBottom="@dimen/dp_9"
-                    android:fontFamily="@font/nanum_square_r"
-                    android:text="고객센터"
-                    android:textColor="@color/color_FF000000"
-                    android:textSize="@dimen/sp_7" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/color_FFDBDBDB" />
-            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

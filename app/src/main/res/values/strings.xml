@@ -32,7 +32,19 @@
     <string name="market_filter_title">다양한 필터로 상품을 찾아보세요</string>
     <string name="market_filter_more">필터 전체보기</string>
 
-
+    <!--Ipage-->
+    <string name="ipage_profile_point">포인트</string>
+    <string name="ipage_profile_coupon">쿠폰</string>
+    <string name="ipage_shopping_scrap">스크랩</string>
+    <string name="ipage_shopping_basket">장바구니</string>
+    <string name="ipage_shopping_recent">최근 본 상품</string>
+    <string name="ipage_shopping_order_title">주문/배송</string>
+    <string name="ipage_shopping_order_paid">주문완료</string>
+    <string name="ipage_shopping_order_packing">배송준비중</string>
+    <string name="ipage_shopping_order_delivery">배송중</string>
+    <string name="ipage_shopping_order_completed">배송완료</string>
+    <string name="ipage_service_notice">공지사항</string>
+    <string name="ipage_service_faq">FAQ</string>
 
 
 
