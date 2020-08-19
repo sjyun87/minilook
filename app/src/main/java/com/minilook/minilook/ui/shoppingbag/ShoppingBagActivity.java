@@ -1,11 +1,10 @@
-package com.minilook.minilook.ui.shopping_bag;
+package com.minilook.minilook.ui.shoppingbag;
 
 import android.content.Context;
 import android.content.Intent;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.room.recent_keyword.RecentKeywordDB;
 import com.minilook.minilook.ui.base.BaseActivity;
-import com.minilook.minilook.ui.shopping_bag.adapter.ShoppingBagArguments;
+import com.minilook.minilook.ui.shoppingbag.adapter.ShoppingBagArguments;
 
 public class ShoppingBagActivity extends BaseActivity implements ShoppingBagPresenter.View {
 

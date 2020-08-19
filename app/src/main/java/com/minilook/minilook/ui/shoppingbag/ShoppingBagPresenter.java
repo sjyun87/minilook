@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.shopping_bag;
+package com.minilook.minilook.ui.shoppingbag;
 
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;

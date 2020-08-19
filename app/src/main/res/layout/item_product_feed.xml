@@ -46,13 +46,6 @@
             android:textColor="@color/color_FF424242"
             android:textSize="@dimen/sp_7"
             tools:text="아델리" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp_8"
-            android:src="@drawable/ic_arrow_right_black"
-            tools:ignore="ContentDescription" />
     </LinearLayout>
 
     <ImageView

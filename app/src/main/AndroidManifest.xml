@@ -38,9 +38,13 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
-
         <activity
             android:name=".ui.product_detail.ProductDetailActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name=".ui.brand.BrandActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
@@ -48,7 +52,6 @@
             android:name=".ui.brand_detail.BrandDetailActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-
 
         <activity
             android:name=".ui.search_keyword.SearchKeywordActivity"
@@ -61,13 +64,22 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name=".ui.promotion.PromotionActivity"
+            android:name=".ui.promotion_detail.PromotionDetailActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
-
         <activity
             android:name=".ui.product_bridge.ProductBridgeActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name=".ui.profile.ProfileActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name=".ui.shoppingbag.ShoppingBagActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 

@@ -1,7 +1,7 @@
-package com.minilook.minilook.ui.shopping_bag;
+package com.minilook.minilook.ui.shoppingbag;
 
 import com.minilook.minilook.ui.base.BasePresenterImpl;
-import com.minilook.minilook.ui.shopping_bag.adapter.ShoppingBagArguments;
+import com.minilook.minilook.ui.shoppingbag.adapter.ShoppingBagArguments;
 
 public class ShoppingBagPresenterImpl extends BasePresenterImpl implements ShoppingBagPresenter {
 

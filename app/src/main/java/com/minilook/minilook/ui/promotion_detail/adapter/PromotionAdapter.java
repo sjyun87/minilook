@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.promotion.adapter;
+package com.minilook.minilook.ui.promotion_detail.adapter;
 
 import android.view.ViewGroup;
 
@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.promotion.viewholder.PromotionItemVH;
+import com.minilook.minilook.ui.promotion_detail.viewholder.PromotionItemVH;
 
 import java.util.ArrayList;
 import java.util.List;

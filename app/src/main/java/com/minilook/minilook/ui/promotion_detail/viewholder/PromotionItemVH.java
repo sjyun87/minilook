@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.promotion.viewholder;
+package com.minilook.minilook.ui.promotion_detail.viewholder;
 
 import android.view.LayoutInflater;
 import android.view.View;

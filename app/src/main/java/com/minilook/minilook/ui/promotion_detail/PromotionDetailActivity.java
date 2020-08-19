@@ -1,29 +1,25 @@
-package com.minilook.minilook.ui.promotion;
+package com.minilook.minilook.ui.promotion_detail;
 
 import android.content.Context;
 import android.content.Intent;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import butterknife.BindView;
 import com.bumptech.glide.Glide;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.main.MainActivity;
-import com.minilook.minilook.ui.promotion.adapter.PromotionAdapter;
-import com.minilook.minilook.ui.promotion.di.PromotionArguments;
+import com.minilook.minilook.ui.promotion_detail.adapter.PromotionAdapter;
+import com.minilook.minilook.ui.promotion_detail.di.PromotionDetailArguments;
 
-import butterknife.BindView;
-
-public class PromotionActivity extends BaseActivity implements PromotionPresenter.View {
+public class PromotionDetailActivity extends BaseActivity implements PromotionDetailPresenter.View {
 
     public static void start(Context context, int id) {
-        Intent intent = new Intent(context, PromotionActivity.class);
+        Intent intent = new Intent(context, PromotionDetailActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("promotion_id", id);
@@ -33,9 +29,9 @@ public class PromotionActivity extends BaseActivity implements PromotionPresente
     @BindView(R.id.img_bg) ImageView bgImageView;
     @BindView(R.id.txt_desc) TextView descTextView;
     @BindView(R.id.txt_title) TextView titleTextView;
-    @BindView(R.id.rcv_product) RecyclerView productRecyclerView;;
+    @BindView(R.id.rcv_product) RecyclerView productRecyclerView;
 
-    private PromotionPresenter presenter;
+    private PromotionDetailPresenter presenter;
     private PromotionAdapter adapter = new PromotionAdapter();
     private BaseAdapterDataView<ProductDataModel> adapterView = adapter;
 
@@ -44,12 +40,12 @@ public class PromotionActivity extends BaseActivity implements PromotionPresente
     }
 
     @Override protected void createPresenter() {
-        presenter = new PromotionPresenterImpl(provideArguments());
+        presenter = new PromotionDetailPresenterImpl(provideArguments());
         getLifecycle().addObserver(presenter);
     }
 
-    private PromotionArguments provideArguments() {
-        return PromotionArguments.builder()
+    private PromotionDetailArguments provideArguments() {
+        return PromotionDetailArguments.builder()
             .view(this)
             .promotionId(getIntent().getIntExtra("promotion_id", -1))
             .adapter(adapter)

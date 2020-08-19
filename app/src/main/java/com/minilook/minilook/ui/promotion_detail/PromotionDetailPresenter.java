@@ -1,10 +1,10 @@
-package com.minilook.minilook.ui.promotion;
+package com.minilook.minilook.ui.promotion_detail;
 
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
-public interface PromotionPresenter extends LifecycleObserver {
+public interface PromotionDetailPresenter extends LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
