@@ -108,6 +108,11 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
+            android:name=".ui.coupon.CouponActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
             android:name=".ui.shoppingbag.ShoppingBagActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />

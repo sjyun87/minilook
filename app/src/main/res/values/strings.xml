@@ -96,6 +96,10 @@
     <string name="point_title">포인트</string>
     <string name="point_my_point">포인트</string>
 
+    <!--Coupon-->
+    <string name="coupon_title">쿠폰</string>
+    <string name="coupon_info">쿠폰 사용 시 유의사항</string>
+
 
     <!--Brand-->
     <string name="brand_title">브랜드</string>
