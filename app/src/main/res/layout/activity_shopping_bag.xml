@@ -55,7 +55,7 @@
         app:layout_constraintTop_toTopOf="@+id/img_checkbox" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_goods"
+        android:id="@+id/rcv_product"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/color_FFF5F5F5"
@@ -77,12 +77,12 @@
         app:layout_constraintBottom_toTopOf="@+id/txt_order">
 
         <TextView
-            android:id="@+id/txt_total_count_title"
+            android:id="@+id/txt_total_count_caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_10"
             android:fontFamily="@font/nanum_square_b"
-            android:text="@string/shoppingbag_order_total_count_title"
+            android:text="@string/shoppingbag_total_count_caption"
             android:textColor="@color/color_FF232323"
             android:textSize="@dimen/sp_6"
             app:layout_constraintBottom_toBottomOf="@+id/txt_total_count_unit"
@@ -107,58 +107,58 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_12"
             android:fontFamily="@font/nanum_square_r"
-            android:text="@string/shoppingbag_order_total_count_unit"
+            android:text="@string/shoppingbag_total_count_unit"
             android:textColor="@color/color_FF424242"
             android:textSize="@dimen/sp_7"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/txt_total_price_title"
+            android:id="@+id/txt_total_product_price_caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nanum_square_b"
-            android:text="@string/shoppingbag_order_total_price_title"
+            android:text="@string/shoppingbag_total_product_price_caption"
             android:textColor="@color/color_FF232323"
             android:textSize="@dimen/sp_6"
-            app:layout_constraintBottom_toBottomOf="@+id/txt_total_price_unit"
-            app:layout_constraintLeft_toLeftOf="@+id/txt_total_count_title"
-            app:layout_constraintTop_toTopOf="@+id/txt_total_price_unit" />
+            app:layout_constraintBottom_toBottomOf="@+id/txt_total_product_price_unit"
+            app:layout_constraintLeft_toLeftOf="@+id/txt_total_count_caption"
+            app:layout_constraintTop_toTopOf="@+id/txt_total_product_price_unit" />
 
         <TextView
-            android:id="@+id/txt_total_price"
+            android:id="@+id/txt_total_product_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nanum_square_eb"
             android:textColor="@color/color_FF424242"
             android:textSize="@dimen/sp_7"
-            app:layout_constraintBottom_toBottomOf="@+id/txt_total_price_unit"
-            app:layout_constraintRight_toLeftOf="@+id/txt_total_price_unit"
-            app:layout_constraintTop_toTopOf="@+id/txt_total_price_unit"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_total_product_price_unit"
+            app:layout_constraintRight_toLeftOf="@+id/txt_total_product_price_unit"
+            app:layout_constraintTop_toTopOf="@+id/txt_total_product_price_unit"
             tools:text="30,000" />
 
         <TextView
-            android:id="@+id/txt_total_price_unit"
+            android:id="@+id/txt_total_product_price_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_6"
             android:fontFamily="@font/nanum_square_r"
-            android:text="@string/shoppingbag_order_total_price_unit"
+            android:text="@string/shoppingbag_total_product_price_unit"
             android:textColor="@color/color_FF424242"
             android:textSize="@dimen/sp_7"
             app:layout_constraintRight_toRightOf="@+id/txt_total_count_unit"
             app:layout_constraintTop_toBottomOf="@+id/txt_total_count_unit" />
 
         <TextView
-            android:id="@+id/txt_total_shipping_price_title"
+            android:id="@+id/txt_total_shipping_price_caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nanum_square_r"
-            android:text="@string/shoppingbag_order_total_shipping_price_title"
+            android:text="@string/shoppingbag_total_shipping_price_caption"
             android:textColor="@color/color_FF616161"
             android:textSize="@dimen/sp_6"
             app:layout_constraintBottom_toBottomOf="@+id/txt_total_shipping_price"
-            app:layout_constraintLeft_toLeftOf="@+id/txt_total_count_title"
+            app:layout_constraintLeft_toLeftOf="@+id/txt_total_count_caption"
             app:layout_constraintTop_toTopOf="@+id/txt_total_shipping_price" />
 
         <TextView
@@ -179,11 +179,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_5"
             android:fontFamily="@font/nanum_square_r"
-            android:text="@string/shoppingbag_order_total_shipping_price_unit"
+            android:text="@string/shoppingbag_total_shipping_price_unit"
             android:textColor="@color/color_FF232323"
             android:textSize="@dimen/sp_6"
             app:layout_constraintRight_toRightOf="@+id/txt_total_count_unit"
-            app:layout_constraintTop_toBottomOf="@+id/txt_total_price_unit" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_total_product_price_unit" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView

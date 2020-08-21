@@ -26,12 +26,12 @@
         tools:ignore="ContentDescription" />
 
     <TextView
-        android:id="@+id/txt_point"
+        android:id="@+id/txt_point_caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_4"
         android:fontFamily="@font/nanum_square_r"
-        android:text="@string/point_my_point"
+        android:text="@string/point_caption"
         android:textColor="@color/color_FF232323"
         android:textSize="@dimen/sp_7"
         app:layout_constraintBottom_toBottomOf="@+id/img_point"
@@ -45,12 +45,12 @@
         android:layout_marginStart="@dimen/dp_3"
         android:src="@drawable/ic_info"
         app:layout_constraintBottom_toBottomOf="@+id/img_point"
-        app:layout_constraintLeft_toRightOf="@+id/txt_point"
+        app:layout_constraintLeft_toRightOf="@+id/txt_point_caption"
         app:layout_constraintTop_toTopOf="@+id/img_point"
         tools:ignore="ContentDescription" />
 
     <TextView
-        android:id="@+id/txt_my_point"
+        android:id="@+id/txt_point"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/dp_10"

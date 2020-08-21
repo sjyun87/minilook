@@ -16,7 +16,7 @@ public class MarketPromotionItemVH extends BaseViewHolder<PromotionDataModel> {
 
     @BindView(R.id.img_product_thumb) ImageView thumbImageView;
     @BindView(R.id.txt_title) TextView titleTextView;
-    @BindView(R.id.txt_desc) TextView descTextView;
+    @BindView(R.id.txt_label) TextView labelTextView;
 
     public MarketPromotionItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
@@ -31,7 +31,7 @@ public class MarketPromotionItemVH extends BaseViewHolder<PromotionDataModel> {
             .into(thumbImageView);
 
         titleTextView.setText(data.getTitle());
-        descTextView.setText(data.getDesc());
+        labelTextView.setText(data.getDesc());
 
         itemView.setOnClickListener(this::onItemClick);
     }

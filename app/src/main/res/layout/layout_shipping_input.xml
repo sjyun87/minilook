@@ -6,12 +6,12 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/txt_name_title"
+        android:id="@+id/txt_name_caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_10"
         android:fontFamily="@font/nanum_square_r"
-        android:text="@string/shipping_input_name"
+        android:text="@string/shipping_input_name_caption"
         android:textColor="@color/color_FF232323"
         android:textSize="@dimen/sp_7"
         app:layout_constraintBottom_toBottomOf="@+id/edit_name"
@@ -36,17 +36,17 @@
         android:textColor="@color/color_FF232323"
         android:textColorHint="@color/color_FFA9A9A9"
         android:textSize="@dimen/sp_7"
-        app:layout_constraintLeft_toRightOf="@+id/txt_name_title"
+        app:layout_constraintLeft_toRightOf="@+id/txt_name_caption"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txt_phone_title"
+        android:id="@+id/txt_phone_caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_10"
         android:fontFamily="@font/nanum_square_r"
-        android:text="@string/shipping_input_phone"
+        android:text="@string/shipping_input_phone_caption"
         android:textColor="@color/color_FF232323"
         android:textSize="@dimen/sp_7"
         app:layout_constraintBottom_toBottomOf="@+id/edit_phone"
@@ -70,18 +70,18 @@
         android:textColor="@color/color_FF232323"
         android:textColorHint="@color/color_FFA9A9A9"
         android:textSize="@dimen/sp_7"
-        app:layout_constraintLeft_toRightOf="@+id/txt_phone_title"
+        app:layout_constraintLeft_toRightOf="@+id/txt_phone_caption"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_name"
         tools:ignore="TextFields" />
 
     <TextView
-        android:id="@+id/txt_address_title"
+        android:id="@+id/txt_address_caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_10"
         android:fontFamily="@font/nanum_square_r"
-        android:text="@string/shipping_input_address"
+        android:text="@string/shipping_input_address_caption"
         android:textColor="@color/color_FF232323"
         android:textSize="@dimen/sp_7"
         app:layout_constraintBottom_toBottomOf="@+id/txt_zip_search"
@@ -103,7 +103,7 @@
         android:textColor="@color/color_FFA9A9A9"
         android:textSize="@dimen/sp_7"
         app:layout_constraintBottom_toBottomOf="@+id/txt_zip_search"
-        app:layout_constraintLeft_toRightOf="@+id/txt_address_title"
+        app:layout_constraintLeft_toRightOf="@+id/txt_address_caption"
         app:layout_constraintRight_toLeftOf="@+id/txt_zip_search"
         app:layout_constraintTop_toTopOf="@+id/txt_zip_search" />
 
@@ -203,6 +203,4 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_checkbox" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

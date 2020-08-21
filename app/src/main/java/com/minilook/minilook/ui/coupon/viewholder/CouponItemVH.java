@@ -12,7 +12,7 @@ public class CouponItemVH extends BaseViewHolder<SortDataModel> {
 
     public CouponItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_point_history, (ViewGroup) itemView, false));
+            .inflate(R.layout.item_coupon, (ViewGroup) itemView, false));
     }
 
     @Override public void bind(SortDataModel $data) {

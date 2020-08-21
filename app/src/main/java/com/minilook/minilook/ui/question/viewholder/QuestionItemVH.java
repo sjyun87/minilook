@@ -15,7 +15,7 @@ public class QuestionItemVH extends BaseViewHolder<SortDataModel> {
 
     public QuestionItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_brand_detail_sort, (ViewGroup) itemView, false));
+            .inflate(R.layout.item_question, (ViewGroup) itemView, false));
     }
 
     @Override public void bind(SortDataModel $data) {

@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_6"
             android:fontFamily="@font/nanum_square_r"
-            android:text="@string/order_detail_total_shipping_price"
+            android:text="@string/order_detail_total_shipping_price_caption"
             android:textColor="@color/color_FF616161"
             android:textSize="@dimen/sp_6" />
 

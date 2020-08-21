@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txt_point"
+        android:id="@+id/txt_point_caption"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_10"
@@ -38,9 +38,9 @@
         android:fontFamily="@font/nanum_square_b"
         android:textColor="@color/color_FF232323"
         android:textSize="@dimen/sp_7"
-        app:layout_constraintLeft_toLeftOf="@+id/txt_point"
-        app:layout_constraintRight_toRightOf="@+id/txt_point"
-        app:layout_constraintTop_toBottomOf="@+id/txt_point"
+        app:layout_constraintLeft_toLeftOf="@+id/txt_point_caption"
+        app:layout_constraintRight_toRightOf="@+id/txt_point_caption"
+        app:layout_constraintTop_toBottomOf="@+id/txt_point_caption"
         tools:text="미니룩 회원가입 5,000원 할인 쿠폰" />
 
     <TextView
@@ -51,8 +51,8 @@
         android:fontFamily="@font/nanum_square_r"
         android:textColor="@color/color_FF616161"
         android:textSize="@dimen/sp_6"
-        app:layout_constraintLeft_toLeftOf="@+id/txt_point"
-        app:layout_constraintRight_toRightOf="@+id/txt_point"
+        app:layout_constraintLeft_toLeftOf="@+id/txt_point_caption"
+        app:layout_constraintRight_toRightOf="@+id/txt_point_caption"
         app:layout_constraintTop_toBottomOf="@+id/txt_name"
         tools:text="50,000원 이상 구매시 사용가능" />
 
@@ -65,7 +65,7 @@
         android:paddingBottom="@dimen/dp_8"
         android:textColor="@color/color_FF232323"
         android:textSize="@dimen/sp_6"
-        app:layout_constraintRight_toRightOf="@+id/txt_point"
+        app:layout_constraintRight_toRightOf="@+id/txt_point_caption"
         app:layout_constraintTop_toBottomOf="@+id/txt_desc"
         tools:text="2020.08.14 ~ 2020.09.13" />
 </androidx.constraintlayout.widget.ConstraintLayout>

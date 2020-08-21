@@ -44,19 +44,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nanum_square_eb"
-                    android:text="@string/order_cancel_detail_info"
+                    android:text="@string/order_cancel_detail_info_title"
                     android:textColor="@color/color_FF232323"
                     android:textSize="@dimen/sp_8"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/txt_info_number_title"
+                    android:id="@+id/txt_info_number_caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_9"
                     android:fontFamily="@font/nanum_square_r"
-                    android:text="@string/order_detail_info_number"
+                    android:text="@string/order_cancel_detail_info_number_caption"
                     android:textColor="@color/color_FFA9A9A9"
                     android:textSize="@dimen/sp_6"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -70,23 +70,23 @@
                     android:fontFamily="@font/nanum_square_r"
                     android:textColor="@color/color_FF232323"
                     android:textSize="@dimen/sp_6"
-                    app:layout_constraintBottom_toBottomOf="@+id/txt_info_number_title"
-                    app:layout_constraintLeft_toRightOf="@+id/txt_info_number_title"
-                    app:layout_constraintTop_toTopOf="@+id/txt_info_number_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_info_number_caption"
+                    app:layout_constraintLeft_toRightOf="@+id/txt_info_number_caption"
+                    app:layout_constraintTop_toTopOf="@+id/txt_info_number_caption"
                     tools:text="15431125421" />
 
                 <TextView
-                    android:id="@+id/txt_info_date_title"
+                    android:id="@+id/txt_info_date_caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_8"
                     android:fontFamily="@font/nanum_square_r"
-                    android:text="@string/order_detail_info_date"
+                    android:text="@string/order_cancel_detail_info_date_caption"
                     android:textColor="@color/color_FFA9A9A9"
                     android:textSize="@dimen/sp_6"
-                    app:layout_constraintBottom_toBottomOf="@+id/txt_info_number_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_info_number_caption"
                     app:layout_constraintLeft_toRightOf="@+id/txt_info_number"
-                    app:layout_constraintTop_toTopOf="@+id/txt_info_number_title" />
+                    app:layout_constraintTop_toTopOf="@+id/txt_info_number_caption" />
 
                 <TextView
                     android:id="@+id/txt_info_date"
@@ -96,9 +96,9 @@
                     android:fontFamily="@font/nanum_square_r"
                     android:textColor="@color/color_FF232323"
                     android:textSize="@dimen/sp_6"
-                    app:layout_constraintBottom_toBottomOf="@+id/txt_info_number_title"
-                    app:layout_constraintLeft_toRightOf="@+id/txt_info_date_title"
-                    app:layout_constraintTop_toTopOf="@+id/txt_info_number_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_info_number_caption"
+                    app:layout_constraintLeft_toRightOf="@+id/txt_info_date_caption"
+                    app:layout_constraintTop_toTopOf="@+id/txt_info_number_caption"
                     tools:text="2020. 07. 12" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/color_FFFFFFFF"
                 app:layout_constraintTop_toBottomOf="@+id/layout_info_panel"
-                tools:itemCount="10"
+                tools:itemCount="1"
                 tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -135,25 +135,63 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/txt_reason"
+                    android:id="@+id/txt_reason_caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_9"
                     android:fontFamily="@font/nanum_square_r"
-                    android:text="@string/order_cancel_detail_reason"
+                    android:text="@string/order_cancel_detail_reason_caption"
                     android:textColor="@color/color_FFA9A9A9"
                     android:textSize="@dimen/sp_7"
                     app:layout_constraintLeft_toLeftOf="@+id/txt_reason_title"
                     app:layout_constraintTop_toBottomOf="@+id/txt_reason_title" />
 
+                <TextView
+                    android:id="@+id/txt_reason"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_6"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:text="@string/order_cancel_detail_reason_caption"
+                    android:textColor="@color/color_FF232323"
+                    android:textSize="@dimen/sp_7"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_reason_caption"
+                    app:layout_constraintLeft_toRightOf="@+id/txt_reason_caption"
+                    app:layout_constraintTop_toTopOf="@+id/txt_reason_caption"
+                    tools:text="단순변심" />
 
+                <TextView
+                    android:id="@+id/txt_reason_contents_caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_6"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:text="@string/order_cancel_detail_reason_contents_caption"
+                    android:textColor="@color/color_FFA9A9A9"
+                    android:textSize="@dimen/sp_7"
+                    app:layout_constraintLeft_toLeftOf="@+id/txt_reason_title"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_reason_caption" />
+
+                <TextView
+                    android:id="@+id/txt_reason_contnets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_6"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:text="@string/order_cancel_detail_reason_caption"
+                    android:textColor="@color/color_FF232323"
+                    android:textSize="@dimen/sp_7"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_reason_contents_caption"
+                    app:layout_constraintLeft_toRightOf="@+id/txt_reason_contents_caption"
+                    app:layout_constraintTop_toTopOf="@+id/txt_reason_contents_caption"
+                    tools:text="잘못 주문했음" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_payment_panel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_4"
                 android:background="@color/color_FFFFFFFF"
                 android:paddingStart="@dimen/dp_10"
                 android:paddingTop="@dimen/dp_9"
@@ -166,19 +204,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nanum_square_eb"
-                    android:text="@string/order_detail_payment"
+                    android:text="@string/order_cancel_detail_payment_title"
                     android:textColor="@color/color_FF232323"
                     android:textSize="@dimen/sp_8"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/txt_payment_how"
+                    android:id="@+id/txt_payment_how_caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_9"
                     android:fontFamily="@font/nanum_square_r"
-                    android:text="@string/order_detail_payment_how"
+                    android:text="@string/order_cancel_detail_payment_how_caption"
                     android:textColor="@color/color_FFA9A9A9"
                     android:textSize="@dimen/sp_6"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -192,9 +230,9 @@
                     android:fontFamily="@font/nanum_square_r"
                     android:textColor="@color/color_FF232323"
                     android:textSize="@dimen/sp_6"
-                    app:layout_constraintBottom_toBottomOf="@+id/txt_payment_how"
-                    app:layout_constraintLeft_toRightOf="@+id/txt_payment_how"
-                    app:layout_constraintTop_toTopOf="@+id/txt_payment_how"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_payment_how_caption"
+                    app:layout_constraintLeft_toRightOf="@+id/txt_payment_how_caption"
+                    app:layout_constraintTop_toTopOf="@+id/txt_payment_how_caption"
                     tools:text="신용카드" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -211,15 +249,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/layout_payment_panel">
 
                 <TextView
-                    android:id="@+id/txt_total_price_title"
+                    android:id="@+id/txt_total_price_caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_4"
                     android:fontFamily="@font/nanum_square_eb"
-                    android:text="@string/order_detail_total_price"
+                    android:text="@string/order_cancel_detail_total_price_caption"
                     android:textColor="@color/color_FF232323"
                     android:textSize="@dimen/sp_10"
                     app:layout_constraintBottom_toBottomOf="@+id/txt_total_price"
+                    app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/txt_total_price" />
 
                 <TextView
@@ -243,12 +281,12 @@
                     app:layout_constraintTop_toBottomOf="@+id/txt_total_price" />
 
                 <TextView
-                    android:id="@+id/txt_total_product_price_title"
+                    android:id="@+id/txt_total_product_price_caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_4"
                     android:fontFamily="@font/nanum_square_b"
-                    android:text="@string/order_detail_total_price"
+                    android:text="@string/order_cancel_detail_total_product_price_caption"
                     android:textColor="@color/color_FF232323"
                     android:textSize="@dimen/sp_6"
                     app:layout_constraintBottom_toBottomOf="@+id/txt_total_product_price"
@@ -269,15 +307,39 @@
                     tools:text="39,000" />
 
                 <TextView
-                    android:id="@+id/txt_total_shipping_price_title"
+                    android:id="@+id/txt_product_price_caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nanum_square_r"
-                    android:text="@string/order_detail_total_shipping_price"
+                    android:text="@string/order_cancel_detail_product_price_caption"
+                    android:textColor="@color/color_FF616161"
+                    android:textSize="@dimen/sp_6"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_product_price"
+                    app:layout_constraintLeft_toLeftOf="@+id/txt_total_product_price_caption"
+                    app:layout_constraintTop_toTopOf="@+id/txt_product_price" />
+
+                <TextView
+                    android:id="@+id/txt_product_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_6"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:textColor="@color/color_FF232323"
+                    android:textSize="@dimen/sp_6"
+                    app:layout_constraintRight_toRightOf="@+id/txt_total_product_price"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_total_product_price"
+                    tools:text="42,000" />
+
+                <TextView
+                    android:id="@+id/txt_total_shipping_price_caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:text="@string/order_cancel_detail_shipping_price_caption"
                     android:textColor="@color/color_FF616161"
                     android:textSize="@dimen/sp_6"
                     app:layout_constraintBottom_toBottomOf="@+id/txt_total_shipping_price"
-                    app:layout_constraintLeft_toLeftOf="@+id/txt_total_product_price_title"
+                    app:layout_constraintLeft_toLeftOf="@+id/txt_total_product_price_caption"
                     app:layout_constraintTop_toTopOf="@+id/txt_total_shipping_price" />
 
                 <TextView
@@ -289,19 +351,45 @@
                     android:textColor="@color/color_FF232323"
                     android:textSize="@dimen/sp_6"
                     app:layout_constraintRight_toRightOf="@+id/txt_total_product_price"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_total_product_price"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_product_price"
                     tools:text="+ 9,000" />
 
                 <TextView
-                    android:id="@+id/txt_total_coupon_title"
+                    android:id="@+id/txt_total_discount_price_caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_4"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:text="@string/order_cancel_detail_total_discount_price_caption"
+                    android:textColor="@color/color_FF232323"
+                    android:textSize="@dimen/sp_6"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_total_discount_price"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/txt_total_discount_price" />
+
+                <TextView
+                    android:id="@+id/txt_total_discount_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_4"
+                    android:fontFamily="@font/nanum_square_eb"
+                    android:textColor="@color/color_FF424242"
+                    android:textSize="@dimen/sp_7"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_total_shipping_price"
+                    tools:text="- 1,000" />
+
+                <TextView
+                    android:id="@+id/txt_total_coupon_caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nanum_square_r"
-                    android:text="@string/order_detail_total_coupon"
+                    android:text="@string/order_cancel_detail_coupon_caption"
                     android:textColor="@color/color_FF616161"
                     android:textSize="@dimen/sp_6"
                     app:layout_constraintBottom_toBottomOf="@+id/txt_total_coupon"
-                    app:layout_constraintLeft_toLeftOf="@+id/txt_total_product_price_title"
+                    app:layout_constraintLeft_toLeftOf="@+id/txt_total_product_price_caption"
                     app:layout_constraintTop_toTopOf="@+id/txt_total_coupon" />
 
                 <TextView
@@ -313,19 +401,68 @@
                     android:textColor="@color/color_FF232323"
                     android:textSize="@dimen/sp_6"
                     app:layout_constraintRight_toRightOf="@+id/txt_total_product_price"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_total_shipping_price"
-                    tools:text="+ 0" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_total_discount_price"
+                    tools:text="- 1,000" />
 
                 <TextView
-                    android:id="@+id/txt_total_point_title"
+                    android:id="@+id/txt_total_payment_price_caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:text="@string/order_cancel_detail_total_payment_caption"
+                    android:textColor="@color/color_FF232323"
+                    android:textSize="@dimen/sp_6"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_total_payment_price"
+                    app:layout_constraintLeft_toLeftOf="@+id/txt_total_product_price_caption"
+                    app:layout_constraintTop_toTopOf="@+id/txt_total_payment_price" />
+
+                <TextView
+                    android:id="@+id/txt_total_payment_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_4"
+                    android:fontFamily="@font/nanum_square_eb"
+                    android:textColor="@color/color_FF424242"
+                    android:textSize="@dimen/sp_7"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_total_coupon"
+                    tools:text="39,000" />
+
+                <TextView
+                    android:id="@+id/txt_payment_price_caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nanum_square_r"
-                    android:text="@string/order_detail_total_point"
+                    android:text="@string/order_cancel_detail_payment_caption"
+                    android:textColor="@color/color_FF616161"
+                    android:textSize="@dimen/sp_6"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_payment_price"
+                    app:layout_constraintLeft_toLeftOf="@+id/txt_total_product_price_caption"
+                    app:layout_constraintTop_toTopOf="@+id/txt_payment_price" />
+
+                <TextView
+                    android:id="@+id/txt_payment_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_6"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:textColor="@color/color_FF232323"
+                    android:textSize="@dimen/sp_6"
+                    app:layout_constraintRight_toRightOf="@+id/txt_total_product_price"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_total_payment_price"
+                    tools:text="42,000" />
+
+                <TextView
+                    android:id="@+id/txt_total_point_caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:text="@string/order_cancel_detail_point_caption"
                     android:textColor="@color/color_FF616161"
                     android:textSize="@dimen/sp_6"
                     app:layout_constraintBottom_toBottomOf="@+id/txt_total_point"
-                    app:layout_constraintLeft_toLeftOf="@+id/txt_total_product_price_title"
+                    app:layout_constraintLeft_toLeftOf="@+id/txt_total_product_price_caption"
                     app:layout_constraintTop_toTopOf="@+id/txt_total_point" />
 
                 <TextView
@@ -337,9 +474,14 @@
                     android:textColor="@color/color_FF232323"
                     android:textSize="@dimen/sp_6"
                     app:layout_constraintRight_toRightOf="@+id/txt_total_product_price"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_total_coupon"
-                    tools:text="+ 0" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_payment_price"
+                    tools:text="+ 9,000" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+            
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

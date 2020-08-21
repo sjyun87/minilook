@@ -164,7 +164,7 @@
                 tools:text="52,000" />
 
             <TextView
-                android:id="@+id/txt_point"
+                android:id="@+id/txt_point_caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_11"
@@ -184,9 +184,9 @@
                 android:fontFamily="@font/nanum_square_r"
                 android:textColor="@color/color_FF616161"
                 android:textSize="@dimen/sp_6"
-                app:layout_constraintBottom_toBottomOf="@+id/txt_point"
-                app:layout_constraintLeft_toRightOf="@+id/txt_point"
-                app:layout_constraintTop_toTopOf="@+id/txt_point"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_point_caption"
+                app:layout_constraintLeft_toRightOf="@+id/txt_point_caption"
+                app:layout_constraintTop_toTopOf="@+id/txt_point_caption"
                 tools:text="52P 적립" />
 
             <TextView
@@ -199,7 +199,7 @@
                 android:textColor="@color/color_FF616161"
                 android:textSize="@dimen/sp_6"
                 app:layout_constraintLeft_toLeftOf="@+id/txt_product_name"
-                app:layout_constraintTop_toBottomOf="@+id/txt_point" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_point_caption" />
 
             <TextView
                 android:id="@+id/txt_delivery_info"

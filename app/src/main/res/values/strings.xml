@@ -33,17 +33,17 @@
     <string name="category_title">카테고리</string>
 
     <!--Ipage-->
-    <string name="ipage_profile_point">포인트</string>
-    <string name="ipage_profile_coupon">쿠폰</string>
+    <string name="ipage_profile_point_caption">포인트</string>
+    <string name="ipage_profile_coupon_caption">쿠폰</string>
     <string name="ipage_shopping_scrap">스크랩</string>
     <string name="ipage_shopping_basket">장바구니</string>
     <string name="ipage_shopping_recent">최근 본 상품</string>
     <string name="ipage_shopping_order_title">주문/배송</string>
     <string name="ipage_shopping_order_more">전체보기</string>
-    <string name="ipage_shopping_order_paid">주문완료</string>
-    <string name="ipage_shopping_order_packing">배송준비중</string>
-    <string name="ipage_shopping_order_delivery">배송중</string>
-    <string name="ipage_shopping_order_completed">배송완료</string>
+    <string name="ipage_shopping_order_completed_caption">주문완료</string>
+    <string name="ipage_shopping_order_packing_caption">배송준비중</string>
+    <string name="ipage_shopping_order_delivery_caption">배송중</string>
+    <string name="ipage_shopping_order_delivery_completed_caption">배송완료</string>
     <string name="ipage_service_question_title">문의내역</string>
     <string name="ipage_service_question_desc">상품/주문/배송·교환·환불</string>
     <string name="ipage_service_notice">공지사항</string>
@@ -51,13 +51,13 @@
 
     <!--Profile-->
     <string name="profile_title">정보 관리</string>
-    <string name="profile_nick">닉네임</string>
+    <string name="profile_nick_caption">닉네임</string>
     <string name="profile_nick_save">저장</string>
     <string name="profile_nick_check_already">이미 사용 중인 닉네임입니다.</string>
     <string name="profile_nick_check_available">사용 가능한 닉네임입니다.</string>
-    <string name="profile_phone_title">연락처</string>
-    <string name="profile_email_title">이메일</string>
-    <string name="profile_shipping_title">배송지 정보</string>
+    <string name="profile_phone_caption">연락처</string>
+    <string name="profile_email_caption">이메일</string>
+    <string name="profile_shipping_caption">배송지 정보</string>
     <string name="profile_shipping_empty">등록된 배송지가 없습니다.</string>
     <string name="profile_edit">변경</string>
 
@@ -75,11 +75,11 @@
     <string name="shipping_edit_title">배송지 수정</string>
     
     <!--Shipping input-->
-    <string name="shipping_input_name">수령인</string>
+    <string name="shipping_input_name_caption">수령인</string>
     <string name="shipping_input_name_hint">받는 분 입력</string>
-    <string name="shipping_input_phone">연락처</string>
+    <string name="shipping_input_phone_caption">연락처</string>
     <string name="shipping_input_phone_hint">- 없이 입력</string>
-    <string name="shipping_input_address">배송지</string>
+    <string name="shipping_input_address_caption">배송지</string>
     <string name="shipping_input_address_zip_hint">우편번호</string>
     <string name="shipping_input_address_zip_search">우편번호 검색</string>
     <string name="shipping_input_address_basic_hint">기본주소</string>
@@ -89,12 +89,12 @@
 
     <!--Question-->
     <string name="question_title">문의내역</string>
-    <string name="question_q">Q</string>
-    <string name="question_a">A</string>
+    <string name="question_caption">Q</string>
+    <string name="question_answer_caption">A</string>
 
     <!--Point-->
     <string name="point_title">포인트</string>
-    <string name="point_my_point">포인트</string>
+    <string name="point_caption">포인트</string>
 
     <!--Coupon-->
     <string name="coupon_title">쿠폰</string>
@@ -105,19 +105,19 @@
     <string name="shoppingbag_selected_count">전체선택 (%d/%d)</string>
     <string name="shoppingbag_delete">선택삭제</string>
     <string name="shoppingbag_order">총 %s원 구매하기</string>
-    <string name="shoppingbag_order_total_count_title">주문 상품 수</string>
-    <string name="shoppingbag_order_total_count">%s</string>
-    <string name="shoppingbag_order_total_count_unit">개</string>
-    <string name="shoppingbag_order_total_price_title">총 상품금액</string>
-    <string name="shoppingbag_order_total_price">%s</string>
-    <string name="shoppingbag_order_total_price_unit">원</string>
-    <string name="shoppingbag_order_total_shipping_price_title">배송비</string>
-    <string name="shoppingbag_order_total_shipping_price">%s</string>
-    <string name="shoppingbag_order_total_shipping_price_unit">원</string>
+    <string name="shoppingbag_total_count_caption">주문 상품 수</string>
+    <string name="shoppingbag_total_count">%s</string>
+    <string name="shoppingbag_total_count_unit">개</string>
+    <string name="shoppingbag_total_product_price_caption">총 상품금액</string>
+    <string name="shoppingbag_total_product_price">%s</string>
+    <string name="shoppingbag_total_product_price_unit">원</string>
+    <string name="shoppingbag_total_shipping_price_caption">배송비</string>
+    <string name="shoppingbag_total_shipping_price">%s</string>
+    <string name="shoppingbag_total_shipping_price_unit">원</string>
 
-    <string name="shoppingbag_brand_shipping_price">배송비</string>
-    <string name="shoppingbag_product_total_price">총 금액</string>
-    <string name="shoppingbag_product_price">상품금액</string>
+    <string name="shoppingbag_shipping_price_caption">배송비</string>
+    <string name="shoppingbag_total_price_caption">총 금액</string>
+    <string name="shoppingbag_product_price_caption">상품금액</string>
 
     <!--Recent-->
     <string name="recent_title">최근 본 상품</string>
@@ -136,19 +136,19 @@
 
     <!--Order Detail-->
     <string name="order_detail_title">주문/배송상세</string>
-    <string name="order_detail_info">주문 정보</string>
-    <string name="order_detail_info_number">주문번호</string>
-    <string name="order_detail_info_date">주문일자</string>
+    <string name="order_detail_info_caption">주문 정보</string>
+    <string name="order_detail_info_number_caption">주문번호</string>
+    <string name="order_detail_info_date_caption">주문일자</string>
     <string name="order_detail_order_cancel">전체 주문취소</string>
     <string name="order_detail_order_cancel_desc">모든 상품이 발송 전일 경우 전체 주문취소만 가능합니다.</string>
-    <string name="order_detail_shipping">배송지 정보</string>
-    <string name="order_detail_payment">결제 정보</string>
-    <string name="order_detail_payment_how">결제방법</string>
-    <string name="order_detail_total_price">총 결제금액</string>
-    <string name="order_detail_total_product_price">총 상품금액</string>
-    <string name="order_detail_total_shipping_price">배송비</string>
-    <string name="order_detail_total_coupon">쿠폰적용</string>
-    <string name="order_detail_total_point">포인트사용</string>
+    <string name="order_detail_shipping_title">배송지 정보</string>
+    <string name="order_detail_payment_title">결제 정보</string>
+    <string name="order_detail_payment_how_caption">결제방법</string>
+    <string name="order_detail_total_price_caption">총 결제금액</string>
+    <string name="order_detail_total_product_price_caption">총 상품금액</string>
+    <string name="order_detail_total_shipping_price_caption">배송비</string>
+    <string name="order_detail_total_coupon_caption">쿠폰적용</string>
+    <string name="order_detail_total_point_caption">포인트사용</string>
     <string name="order_detail_cancel">주문취소</string>
     <string name="order_detail_question">문의</string>
     <string name="order_detail_tracking">배송조회</string>
@@ -165,21 +165,23 @@
 
     <!--Order Cancel Detail-->
     <string name="order_cancel_detail_title">취소상세</string>
-    <string name="order_cancel_detail_info">취소 상세정보</string>
+    <string name="order_cancel_detail_info_title">취소 상세정보</string>
+    <string name="order_cancel_detail_info_number_caption">주문번호</string>
+    <string name="order_cancel_detail_info_date_caption">취소일자</string>
     <string name="order_cancel_detail_reason_title">취소 사유</string>
-    <string name="order_cancel_detail_reason">사유</string>
-    <string name="order_cancel_detail_reason_contents">내용</string>
-    <string name="order_cancel_detail_refund_title">환불 정보</string>
-    <string name="order_cancel_detail_payment_how">결제방법</string>
-    <string name="order_cancel_detail_total_price">총 환불금액</string>
-    <string name="order_cancel_detail_total_product_price">총 상품금액</string>
-    <string name="order_cancel_detail_product_price">상품금액</string>
-    <string name="order_cancel_detail_shipping_price">배송비</string>
-    <string name="order_cancel_detail_total_discount_price">총 할인금액</string>
-    <string name="order_cancel_detail_coupon">쿠폰적용</string>
-    <string name="order_cancel_detail_total_payment">총 결제금액</string>
-    <string name="order_cancel_detail_payment">결제</string>
-    <string name="order_cancel_detail_point">포인트</string>
+    <string name="order_cancel_detail_reason_caption">사유</string>
+    <string name="order_cancel_detail_reason_contents_caption">내용</string>
+    <string name="order_cancel_detail_payment_title">환불 정보</string>
+    <string name="order_cancel_detail_payment_how_caption">결제방법</string>
+    <string name="order_cancel_detail_total_price_caption">총 환불금액</string>
+    <string name="order_cancel_detail_total_product_price_caption">총 상품금액</string>
+    <string name="order_cancel_detail_product_price_caption">상품금액</string>
+    <string name="order_cancel_detail_shipping_price_caption">배송비</string>
+    <string name="order_cancel_detail_total_discount_price_caption">총 할인금액</string>
+    <string name="order_cancel_detail_coupon_caption">쿠폰적용</string>
+    <string name="order_cancel_detail_total_payment_caption">총 결제금액</string>
+    <string name="order_cancel_detail_payment_caption">결제</string>
+    <string name="order_cancel_detail_point_caption">포인트</string>
 
 
 

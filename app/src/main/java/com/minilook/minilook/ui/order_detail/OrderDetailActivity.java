@@ -18,7 +18,7 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailPres
         context.startActivity(intent);
     }
 
-    @BindView(R.id.rcv_order) RecyclerView recyclerView;
+    @BindView(R.id.rcv_brand_order) RecyclerView recyclerView;
 
     private OrderDetailPresenter presenter;
 

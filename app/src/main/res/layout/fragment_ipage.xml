@@ -81,20 +81,20 @@
                         tools:ignore="ContentDescription" />
 
                     <TextView
-                        android:id="@+id/txt_point_title"
+                        android:id="@+id/txt_point_caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_4"
                         android:fontFamily="@font/nanum_square_r"
                         android:includeFontPadding="false"
-                        android:text="@string/ipage_profile_point"
+                        android:text="@string/ipage_profile_point_caption"
                         android:textColor="@color/color_FF616161"
                         android:textSize="@dimen/sp_6"
                         app:layout_constraintLeft_toRightOf="@+id/img_point"
                         app:layout_constraintTop_toTopOf="@+id/img_point" />
 
                     <TextView
-                        android:id="@+id/txt_point"
+                        android:id="@+id/txt_point_caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
@@ -104,7 +104,7 @@
                         android:textColor="@color/color_FF6200EA"
                         android:textSize="@dimen/sp_8"
                         app:layout_constraintBottom_toBottomOf="@+id/img_point"
-                        app:layout_constraintLeft_toLeftOf="@+id/txt_point_title"
+                        app:layout_constraintLeft_toLeftOf="@+id/txt_point_caption"
                         tools:text="10,000P" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -131,13 +131,13 @@
                         tools:ignore="ContentDescription" />
 
                     <TextView
-                        android:id="@+id/txt_coupon_title"
+                        android:id="@+id/txt_coupon_caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_4"
                         android:fontFamily="@font/nanum_square_r"
                         android:includeFontPadding="false"
-                        android:text="@string/ipage_profile_coupon"
+                        android:text="@string/ipage_profile_coupon_caption"
                         android:textColor="@color/color_FF616161"
                         android:textSize="@dimen/sp_6"
                         app:layout_constraintLeft_toRightOf="@+id/img_coupon"
@@ -154,7 +154,7 @@
                         android:textColor="@color/color_FF6200EA"
                         android:textSize="@dimen/sp_8"
                         app:layout_constraintBottom_toBottomOf="@+id/img_coupon"
-                        app:layout_constraintLeft_toLeftOf="@+id/txt_coupon_title"
+                        app:layout_constraintLeft_toLeftOf="@+id/txt_coupon_caption"
                         tools:text="10장" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
@@ -174,9 +174,8 @@
                 android:layout_marginStart="@dimen/dp_6"
                 android:layout_marginTop="@dimen/dp_4"
                 android:layout_marginEnd="@dimen/dp_6"
+                android:baselineAligned="false"
                 android:orientation="horizontal"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line">
 
                 <LinearLayout
@@ -317,7 +316,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/nanum_square_r"
-                            android:text="@string/ipage_shopping_order_paid"
+                            android:text="@string/ipage_shopping_order_completed_caption"
                             android:textColor="@color/color_FF232323"
                             android:textSize="@dimen/sp_6" />
 
@@ -348,7 +347,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/nanum_square_r"
-                            android:text="@string/ipage_shopping_order_packing"
+                            android:text="@string/ipage_shopping_order_packing_caption"
                             android:textColor="@color/color_FF232323"
                             android:textSize="@dimen/sp_6" />
 
@@ -379,7 +378,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/nanum_square_r"
-                            android:text="@string/ipage_shopping_order_delivery"
+                            android:text="@string/ipage_shopping_order_delivery_caption"
                             android:textColor="@color/color_FF232323"
                             android:textSize="@dimen/sp_6" />
 
@@ -410,7 +409,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/nanum_square_r"
-                            android:text="@string/ipage_shopping_order_completed"
+                            android:text="@string/ipage_shopping_order_delivery_completed_caption"
                             android:textColor="@color/color_FF232323"
                             android:textSize="@dimen/sp_6" />
 

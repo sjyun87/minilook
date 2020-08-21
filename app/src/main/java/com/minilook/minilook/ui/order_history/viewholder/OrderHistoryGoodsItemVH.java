@@ -16,7 +16,7 @@ public class OrderHistoryGoodsItemVH extends BaseViewHolder<SortDataModel> {
 
     public OrderHistoryGoodsItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_order_history, (ViewGroup) itemView, false));
+            .inflate(R.layout.item_order_history_goods_item, (ViewGroup) itemView, false));
 
     }
 

@@ -100,7 +100,7 @@
                 tools:text="[원피스]투톤 원피스 2만원대 by아델리 [악세사리]투톤 원피스 2만원대 by아델리 [신발]투톤 원피스 2만원대 by아델리" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcv_goods"
+                android:id="@+id/rcv_product"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_36"

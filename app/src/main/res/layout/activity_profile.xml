@@ -67,14 +67,14 @@
                     app:layout_constraintTop_toBottomOf="@+id/img_profile">
 
                     <TextView
-                        android:id="@+id/txt_nick_title"
+                        android:id="@+id/txt_nick_caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_6"
                         android:layout_marginEnd="@dimen/dp_6"
                         android:fontFamily="@font/nanum_square_r"
                         android:gravity="center_vertical"
-                        android:text="@string/profile_nick"
+                        android:text="@string/profile_nick_caption"
                         android:textColor="@color/color_FFA9A9A9"
                         android:textSize="@dimen/sp_6" />
 
@@ -90,10 +90,11 @@
                         android:maxLines="1"
                         android:textColor="@color/color_FF232323"
                         android:textSize="@dimen/sp_7"
-                        app:layout_constraintBottom_toBottomOf="@+id/txt_nick_title"
-                        app:layout_constraintLeft_toRightOf="@+id/txt_nick_title"
+                        app:layout_constraintBottom_toBottomOf="@+id/txt_nick_caption"
+                        app:layout_constraintLeft_toRightOf="@+id/txt_nick_caption"
                         app:layout_constraintRight_toLeftOf="@+id/txt_nick_save"
-                        app:layout_constraintTop_toTopOf="@+id/txt_nick_title" />
+                        app:layout_constraintTop_toTopOf="@+id/txt_nick_caption"
+                        tools:ignore="LabelFor" />
 
                     <ImageView
                         android:id="@+id/img_clear"
@@ -117,7 +118,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/txt_nick_msg"
+                    android:id="@+id/txt_nick_check_msg"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/dp_4"
@@ -131,13 +132,13 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/txt_phone_title"
+                android:id="@+id/txt_phone_caption"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_12"
                 android:fontFamily="@font/nanum_square_r"
-                android:text="@string/profile_phone_title"
+                android:text="@string/profile_phone_caption"
                 android:textColor="@color/color_FF616161"
                 android:textSize="@dimen/sp_6"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -151,8 +152,8 @@
                 android:fontFamily="@font/nanum_square_b"
                 android:textColor="@color/color_FF616161"
                 android:textSize="@dimen/sp_8"
-                app:layout_constraintLeft_toLeftOf="@+id/txt_phone_title"
-                app:layout_constraintTop_toBottomOf="@+id/txt_phone_title"
+                app:layout_constraintLeft_toLeftOf="@+id/txt_phone_caption"
+                app:layout_constraintTop_toBottomOf="@+id/txt_phone_caption"
                 tools:text="010-8775-1234" />
 
             <TextView
@@ -170,16 +171,16 @@
                 android:textColor="@color/color_FF232323"
                 android:textSize="@dimen/sp_7"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/txt_phone_title" />
+                app:layout_constraintTop_toTopOf="@+id/txt_phone_caption" />
 
             <TextView
-                android:id="@+id/txt_email_title"
+                android:id="@+id/txt_email_caption"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_18"
                 android:fontFamily="@font/nanum_square_r"
-                android:text="@string/profile_email_title"
+                android:text="@string/profile_email_caption"
                 android:textColor="@color/color_FF616161"
                 android:textSize="@dimen/sp_6"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -193,18 +194,18 @@
                 android:fontFamily="@font/nanum_square_b"
                 android:textColor="@color/color_FF616161"
                 android:textSize="@dimen/sp_8"
-                app:layout_constraintLeft_toLeftOf="@+id/txt_email_title"
-                app:layout_constraintTop_toBottomOf="@+id/txt_email_title"
+                app:layout_constraintLeft_toLeftOf="@+id/txt_email_caption"
+                app:layout_constraintTop_toBottomOf="@+id/txt_email_caption"
                 tools:text="dreamyuns@minilook.co.kr" />
 
             <TextView
-                android:id="@+id/txt_shipping_title"
+                android:id="@+id/txt_shipping_caption"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_18"
                 android:fontFamily="@font/nanum_square_r"
-                android:text="@string/profile_shipping_title"
+                android:text="@string/profile_shipping_caption"
                 android:textColor="@color/color_FF616161"
                 android:textSize="@dimen/sp_6"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -220,8 +221,8 @@
                 android:textColor="@color/color_FF232323"
                 android:textSize="@dimen/sp_8"
                 android:visibility="gone"
-                app:layout_constraintLeft_toLeftOf="@+id/txt_shipping_title"
-                app:layout_constraintTop_toBottomOf="@+id/txt_shipping_title" />
+                app:layout_constraintLeft_toLeftOf="@+id/txt_shipping_caption"
+                app:layout_constraintTop_toBottomOf="@+id/txt_shipping_caption" />
 
             <TextView
                 android:id="@+id/txt_shipping_name"
@@ -231,8 +232,8 @@
                 android:fontFamily="@font/nanum_square_b"
                 android:textColor="@color/color_FF232323"
                 android:textSize="@dimen/sp_8"
-                app:layout_constraintLeft_toLeftOf="@+id/txt_shipping_title"
-                app:layout_constraintTop_toBottomOf="@+id/txt_shipping_title"
+                app:layout_constraintLeft_toLeftOf="@+id/txt_shipping_caption"
+                app:layout_constraintTop_toBottomOf="@+id/txt_shipping_caption"
                 tools:text="이소연" />
 
             <TextView
@@ -274,7 +275,7 @@
                 android:textColor="@color/color_FF232323"
                 android:textSize="@dimen/sp_7"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/txt_shipping_title" />
+                app:layout_constraintTop_toTopOf="@+id/txt_shipping_caption" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

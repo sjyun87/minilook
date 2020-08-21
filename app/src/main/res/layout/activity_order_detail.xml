@@ -40,27 +40,27 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/txt_info_title"
+                    android:id="@+id/txt_info_caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nanum_square_eb"
-                    android:text="@string/order_detail_info"
+                    android:text="@string/order_detail_info_caption"
                     android:textColor="@color/color_FF232323"
                     android:textSize="@dimen/sp_8"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/txt_info_number_title"
+                    android:id="@+id/txt_info_number_caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_9"
                     android:fontFamily="@font/nanum_square_r"
-                    android:text="@string/order_detail_info_number"
+                    android:text="@string/order_detail_info_number_caption"
                     android:textColor="@color/color_FFA9A9A9"
                     android:textSize="@dimen/sp_6"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_info_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_info_caption" />
 
                 <TextView
                     android:id="@+id/txt_info_number"
@@ -70,23 +70,23 @@
                     android:fontFamily="@font/nanum_square_r"
                     android:textColor="@color/color_FF232323"
                     android:textSize="@dimen/sp_6"
-                    app:layout_constraintBottom_toBottomOf="@+id/txt_info_number_title"
-                    app:layout_constraintLeft_toRightOf="@+id/txt_info_number_title"
-                    app:layout_constraintTop_toTopOf="@+id/txt_info_number_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_info_number_caption"
+                    app:layout_constraintLeft_toRightOf="@+id/txt_info_number_caption"
+                    app:layout_constraintTop_toTopOf="@+id/txt_info_number_caption"
                     tools:text="15431125421" />
 
                 <TextView
-                    android:id="@+id/txt_info_date_title"
+                    android:id="@+id/txt_info_date_caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_8"
                     android:fontFamily="@font/nanum_square_r"
-                    android:text="@string/order_detail_info_date"
+                    android:text="@string/order_detail_info_date_caption"
                     android:textColor="@color/color_FFA9A9A9"
                     android:textSize="@dimen/sp_6"
-                    app:layout_constraintBottom_toBottomOf="@+id/txt_info_number_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_info_number_caption"
                     app:layout_constraintLeft_toRightOf="@+id/txt_info_number"
-                    app:layout_constraintTop_toTopOf="@+id/txt_info_number_title" />
+                    app:layout_constraintTop_toTopOf="@+id/txt_info_number_caption" />
 
                 <TextView
                     android:id="@+id/txt_info_date"
@@ -96,14 +96,14 @@
                     android:fontFamily="@font/nanum_square_r"
                     android:textColor="@color/color_FF232323"
                     android:textSize="@dimen/sp_6"
-                    app:layout_constraintBottom_toBottomOf="@+id/txt_info_number_title"
-                    app:layout_constraintLeft_toRightOf="@+id/txt_info_date_title"
-                    app:layout_constraintTop_toTopOf="@+id/txt_info_number_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_info_number_caption"
+                    app:layout_constraintLeft_toRightOf="@+id/txt_info_date_caption"
+                    app:layout_constraintTop_toTopOf="@+id/txt_info_number_caption"
                     tools:text="2020. 07. 12" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcv_order"
+                android:id="@+id/rcv_brand_order"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/color_FFFFFFFF"
@@ -122,7 +122,7 @@
                 android:paddingTop="@dimen/dp_9"
                 android:paddingEnd="@dimen/dp_10"
                 android:paddingBottom="@dimen/dp_9"
-                app:layout_constraintTop_toBottomOf="@+id/rcv_order">
+                app:layout_constraintTop_toBottomOf="@+id/rcv_brand_order">
 
                 <TextView
                     android:id="@+id/txt_order_cancel"
@@ -153,7 +153,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/txt_shipping_title"
+                android:id="@+id/txt_shipping_caption"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_26"
                 android:layout_marginTop="@dimen/dp_8"
@@ -161,7 +161,7 @@
                 android:fontFamily="@font/nanum_square_eb"
                 android:gravity="center_vertical"
                 android:paddingStart="@dimen/dp_10"
-                android:text="@string/order_detail_shipping"
+                android:text="@string/order_detail_shipping_title"
                 android:textColor="@color/color_FF616161"
                 android:textSize="@dimen/sp_8"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -175,7 +175,7 @@
                 android:layout_marginTop="@dimen/dp_1"
                 android:background="@color/color_FFFFFFFF"
                 android:padding="@dimen/dp_10"
-                app:layout_constraintTop_toBottomOf="@+id/txt_shipping_title">
+                app:layout_constraintTop_toBottomOf="@+id/txt_shipping_caption">
 
                 <TextView
                     android:id="@+id/txt_shipping_name"
@@ -232,7 +232,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nanum_square_eb"
-                    android:text="@string/order_detail_payment"
+                    android:text="@string/order_detail_payment_title"
                     android:textColor="@color/color_FF232323"
                     android:textSize="@dimen/sp_8"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -244,7 +244,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_9"
                     android:fontFamily="@font/nanum_square_r"
-                    android:text="@string/order_detail_payment_how"
+                    android:text="@string/order_detail_payment_how_caption"
                     android:textColor="@color/color_FFA9A9A9"
                     android:textSize="@dimen/sp_6"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -277,15 +277,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/layout_payment_panel">
 
                 <TextView
-                    android:id="@+id/txt_total_price_title"
+                    android:id="@+id/txt_total_price_caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_4"
                     android:fontFamily="@font/nanum_square_eb"
-                    android:text="@string/order_detail_total_price"
+                    android:text="@string/order_detail_total_price_caption"
                     android:textColor="@color/color_FF232323"
                     android:textSize="@dimen/sp_10"
                     app:layout_constraintBottom_toBottomOf="@+id/txt_total_price"
+                    app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/txt_total_price" />
 
                 <TextView
@@ -314,7 +314,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_4"
                     android:fontFamily="@font/nanum_square_b"
-                    android:text="@string/order_detail_total_price"
+                    android:text="@string/order_detail_total_product_price_caption"
                     android:textColor="@color/color_FF232323"
                     android:textSize="@dimen/sp_6"
                     app:layout_constraintBottom_toBottomOf="@+id/txt_total_product_price"
@@ -339,7 +339,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nanum_square_r"
-                    android:text="@string/order_detail_total_shipping_price"
+                    android:text="@string/order_detail_total_shipping_price_caption"
                     android:textColor="@color/color_FF616161"
                     android:textSize="@dimen/sp_6"
                     app:layout_constraintBottom_toBottomOf="@+id/txt_total_shipping_price"
@@ -363,7 +363,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nanum_square_r"
-                    android:text="@string/order_detail_total_coupon"
+                    android:text="@string/order_detail_total_coupon_caption"
                     android:textColor="@color/color_FF616161"
                     android:textSize="@dimen/sp_6"
                     app:layout_constraintBottom_toBottomOf="@+id/txt_total_coupon"
@@ -387,7 +387,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nanum_square_r"
-                    android:text="@string/order_detail_total_point"
+                    android:text="@string/order_detail_total_point_caption"
                     android:textColor="@color/color_FF616161"
                     android:textSize="@dimen/sp_6"
                     app:layout_constraintBottom_toBottomOf="@+id/txt_total_point"

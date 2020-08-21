@@ -38,7 +38,7 @@
             tools:text="스킨수티컬즈 X 미니룩 무더위따위 쿨썸머에디션" />
 
         <TextView
-            android:id="@+id/txt_desc"
+            android:id="@+id/txt_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_7"
