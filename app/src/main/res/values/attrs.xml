@@ -2,6 +2,7 @@
 <resources>
     <declare-styleable name="TitleBar">
         <attr name="showTitle" format="reference|boolean" />
+        <attr name="showCount" format="reference|boolean" />
         <attr name="showLogo" format="reference|boolean" />
         <attr name="showBack" format="reference|boolean" />
         <attr name="showHome" format="reference|boolean" />
@@ -11,6 +12,7 @@
         <attr name="showSetting" format="reference|boolean" />
         <attr name="showClose" format="reference|boolean" />
         <attr name="setTitle" format="reference|string" />
+        <attr name="setCount" format="reference|integer" />
     </declare-styleable>
 
     <declare-styleable name="BottomBar">

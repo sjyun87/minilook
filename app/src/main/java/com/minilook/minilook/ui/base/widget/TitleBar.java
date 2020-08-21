@@ -17,10 +17,12 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.search_filter.SearchFilterActivity;
 import com.minilook.minilook.ui.search_keyword.SearchKeywordActivity;
+import com.minilook.minilook.util.StringUtil;
 
 public class TitleBar extends ConstraintLayout {
 
     @BindView(R.id.txt_titlebar_title) TextView titleTextView;
+    @BindView(R.id.txt_titlebar_count) TextView countTextView;
     @BindView(R.id.img_titlebar_logo) ImageView logoImageView;
     @BindView(R.id.img_titlebar_back) ImageView backImageView;
     @BindView(R.id.img_titlebar_home) ImageView homeImageView;
@@ -33,6 +35,7 @@ public class TitleBar extends ConstraintLayout {
     private Activity activity;
 
     private boolean isShowTitle;
+    private boolean isShowCount;
     private boolean isShowLogo;
     private boolean isShowBack;
     private boolean isShowHome;
@@ -42,6 +45,7 @@ public class TitleBar extends ConstraintLayout {
     private boolean isShowSetting;
     private boolean isShowClose;
     private String title;
+    private int count;
 
     public TitleBar(@NonNull Context context) {
         this(context, null);
@@ -58,6 +62,7 @@ public class TitleBar extends ConstraintLayout {
 
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.TitleBar);
         isShowTitle = typedArray.getBoolean(R.styleable.TitleBar_showTitle, false);
+        isShowCount = typedArray.getBoolean(R.styleable.TitleBar_showCount, false);
         isShowLogo = typedArray.getBoolean(R.styleable.TitleBar_showLogo, false);
         isShowBack = typedArray.getBoolean(R.styleable.TitleBar_showBack, false);
         isShowHome = typedArray.getBoolean(R.styleable.TitleBar_showHome, false);
@@ -67,6 +72,7 @@ public class TitleBar extends ConstraintLayout {
         isShowSetting = typedArray.getBoolean(R.styleable.TitleBar_showSetting, false);
         isShowClose = typedArray.getBoolean(R.styleable.TitleBar_showClose, false);
         title = typedArray.getString(R.styleable.TitleBar_setTitle);
+        count = typedArray.getInteger(R.styleable.TitleBar_setCount, 0);
         typedArray.recycle();
 
         initView();
@@ -84,6 +90,7 @@ public class TitleBar extends ConstraintLayout {
 
     private void updateUI() {
         titleTextView.setVisibility(isShowTitle ? VISIBLE : GONE);
+        countTextView.setVisibility(isShowCount ? VISIBLE : GONE);
         logoImageView.setVisibility(isShowLogo ? VISIBLE : GONE);
         backImageView.setVisibility(isShowBack ? VISIBLE : GONE);
         homeImageView.setVisibility(isShowHome ? VISIBLE : GONE);
@@ -94,10 +101,16 @@ public class TitleBar extends ConstraintLayout {
         closeImageView.setVisibility(isShowClose ? VISIBLE : GONE);
 
         titleTextView.setText(title);
+        countTextView.setText(StringUtil.toDigit(count));
     }
 
     public void setShowTitle(boolean visible) {
         isShowTitle = visible;
+        updateUI();
+    }
+
+    public void setShowCount(boolean visible) {
+        isShowCount = visible;
         updateUI();
     }
 
@@ -143,6 +156,11 @@ public class TitleBar extends ConstraintLayout {
 
     public void setTitle(String text) {
         title = text;
+        updateUI();
+    }
+
+    public void setCount(int number) {
+        count = number;
         updateUI();
     }
 

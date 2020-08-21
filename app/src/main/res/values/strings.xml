@@ -87,6 +87,11 @@
     <string name="shipping_input_check_default">기본배송지로 등록</string>
     <string name="shipping_input_save">저장하기</string>
 
+    <!--Question-->
+    <string name="question_title">문의내역</string>
+    <string name="question_q">Q</string>
+    <string name="question_a">A</string>
+
 
     <!--Brand-->
     <string name="brand_title">브랜드</string>
