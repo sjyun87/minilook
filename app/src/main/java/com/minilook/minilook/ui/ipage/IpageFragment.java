@@ -4,6 +4,7 @@ import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseFragment;
 import com.minilook.minilook.ui.ipage.di.IpageArguments;
+import com.minilook.minilook.ui.point.PointActivity;
 import com.minilook.minilook.ui.profile.ProfileActivity;
 import com.minilook.minilook.ui.question.QuestionActivity;
 
@@ -38,5 +39,10 @@ public class IpageFragment extends BaseFragment implements IpagePresenter.View {
     @OnClick(R.id.layout_question_panel)
     void onQuestionClick() {
         QuestionActivity.start(getContext());
+    }
+
+    @OnClick(R.id.layout_point_panel)
+    void onPointClick() {
+        PointActivity.start(getContext());
     }
 }

@@ -103,6 +103,11 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
+            android:name=".ui.point.PointActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
             android:name=".ui.shoppingbag.ShoppingBagActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />

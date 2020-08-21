@@ -92,6 +92,10 @@
     <string name="question_q">Q</string>
     <string name="question_a">A</string>
 
+    <!--Point-->
+    <string name="point_title">포인트</string>
+    <string name="point_my_point">포인트</string>
+
 
     <!--Brand-->
     <string name="brand_title">브랜드</string>
