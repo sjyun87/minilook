@@ -8,6 +8,7 @@ import com.minilook.minilook.ui.ipage.di.IpageArguments;
 import com.minilook.minilook.ui.point.PointActivity;
 import com.minilook.minilook.ui.profile.ProfileActivity;
 import com.minilook.minilook.ui.question.QuestionActivity;
+import com.minilook.minilook.ui.scrap.ScrapActivity;
 
 public class IpageFragment extends BaseFragment implements IpagePresenter.View {
 
@@ -50,5 +51,10 @@ public class IpageFragment extends BaseFragment implements IpagePresenter.View {
     @OnClick(R.id.layout_coupon_panel)
     void onCouponClick() {
         CouponActivity.start(getContext());
+    }
+
+    @OnClick(R.id.layout_scrap_panel)
+    void onScrapClick() {
+        ScrapActivity.start(getContext());
     }
 }

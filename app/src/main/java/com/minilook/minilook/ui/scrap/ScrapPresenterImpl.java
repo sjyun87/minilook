@@ -1,13 +1,13 @@
-package com.minilook.minilook.ui.preorder;
+package com.minilook.minilook.ui.scrap;
 
 import com.minilook.minilook.ui.base.BasePresenterImpl;
-import com.minilook.minilook.ui.preorder.di.PreorderArguments;
+import com.minilook.minilook.ui.scrap.di.ScrapArguments;
 
-public class PreorderPresenterImpl extends BasePresenterImpl implements PreorderPresenter {
+public class ScrapPresenterImpl extends BasePresenterImpl implements ScrapPresenter {
 
     private final View view;
 
-    public PreorderPresenterImpl(PreorderArguments args) {
+    public ScrapPresenterImpl(ScrapArguments args) {
         view = args.getView();
     }
 

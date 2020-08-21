@@ -1,8 +1,7 @@
-package com.minilook.minilook.ui.preorder.widget;
+package com.minilook.minilook.ui.base.widget;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,7 +14,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 
-public class PreorderTabView extends LinearLayout {
+public class TabView extends LinearLayout {
 
     @BindView(R.id.txt_name) TextView nameTextView;
 
@@ -28,28 +27,35 @@ public class PreorderTabView extends LinearLayout {
     @BindFont(R.font.nanum_square_eb) Typeface font_extrabold;
 
     @Getter private String name;
+    private int width;
 
     @Builder
-    public PreorderTabView(@NonNull Context context, String name) {
+    public TabView(@NonNull Context context, String name, int width) {
         this(context);
         this.name = name;
+        this.width = width;
 
         initView();
-        setupName(name);
+        setupName();
+        setupWidth();
     }
 
-    public PreorderTabView(@NonNull Context context) {
+    public TabView(@NonNull Context context) {
         super(context);
     }
 
     private void initView() {
-        ButterKnife.bind(this, inflate(getContext(), R.layout.layout_tab_preorder, this));
+        ButterKnife.bind(this, inflate(getContext(), R.layout.layout_tab_view, this));
         setLayoutParams(
             new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
     }
 
-    public void setupName(String name) {
+    public void setupName() {
         nameTextView.setText(name);
+    }
+
+    private void setupWidth() {
+        if (width != 0) nameTextView.setWidth(width);
     }
 
     public void setupSelected() {

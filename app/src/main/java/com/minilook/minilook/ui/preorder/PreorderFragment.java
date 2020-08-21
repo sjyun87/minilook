@@ -11,10 +11,9 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseFragment;
 import com.minilook.minilook.ui.preorder.adapter.PreorderPagerAdapter;
 import com.minilook.minilook.ui.preorder.di.PreorderArguments;
-import com.minilook.minilook.ui.preorder.widget.PreorderTabView;
+import com.minilook.minilook.ui.base.widget.TabView;
 import java.util.Objects;
 import me.didik.component.StickyNestedScrollView;
-import timber.log.Timber;
 
 public class PreorderFragment extends BaseFragment implements PreorderPresenter.View {
 
@@ -48,7 +47,7 @@ public class PreorderFragment extends BaseFragment implements PreorderPresenter.
 
     @Override public void setupTabLayout() {
         for (String tabName : tabNames) {
-            PreorderTabView tabView = PreorderTabView.builder()
+            TabView tabView = TabView.builder()
                 .context(getContext())
                 .name(tabName)
                 .build();
@@ -74,12 +73,12 @@ public class PreorderFragment extends BaseFragment implements PreorderPresenter.
         getTabView(0).setupSelected();
     }
 
-    public PreorderTabView getTabView(TabLayout.Tab tab) {
-        return (PreorderTabView) tab.getCustomView();
+    public TabView getTabView(TabLayout.Tab tab) {
+        return (TabView) tab.getCustomView();
     }
 
-    public PreorderTabView getTabView(int position) {
-        return (PreorderTabView) Objects.requireNonNull(tabLayout.getTabAt(position)).getCustomView();
+    public TabView getTabView(int position) {
+        return (TabView) Objects.requireNonNull(tabLayout.getTabAt(position)).getCustomView();
     }
 
     @Override public void setupViewPager() {

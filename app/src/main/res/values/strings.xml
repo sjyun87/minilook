@@ -122,6 +122,8 @@
     <!--Recent-->
     <string name="recent_title">최근 본 상품</string>
 
+    <!--Scrap-->
+    <string name="scrap_title">스크랩</string>
 
     <!--Brand-->
     <string name="brand_title">브랜드</string>
