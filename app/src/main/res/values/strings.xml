@@ -100,6 +100,25 @@
     <string name="coupon_title">쿠폰</string>
     <string name="coupon_info">쿠폰 사용 시 유의사항</string>
 
+    <!--ShoppingBag-->
+    <string name="shoppingbag_title">장바구니</string>
+    <string name="shoppingbag_selected_count">전체선택 (%d/%d)</string>
+    <string name="shoppingbag_delete">선택삭제</string>
+    <string name="shoppingbag_order">총 %s원 구매하기</string>
+    <string name="shoppingbag_order_total_count_title">주문 상품 수</string>
+    <string name="shoppingbag_order_total_count">%s</string>
+    <string name="shoppingbag_order_total_count_unit">개</string>
+    <string name="shoppingbag_order_total_price_title">총 상품금액</string>
+    <string name="shoppingbag_order_total_price">%s</string>
+    <string name="shoppingbag_order_total_price_unit">원</string>
+    <string name="shoppingbag_order_total_shipping_price_title">배송비</string>
+    <string name="shoppingbag_order_total_shipping_price">%s</string>
+    <string name="shoppingbag_order_total_shipping_price_unit">원</string>
+
+    <string name="shoppingbag_brand_shipping_price">배송비</string>
+    <string name="shoppingbag_product_total_price">총 금액</string>
+    <string name="shoppingbag_product_price">상품금액</string>
+
 
     <!--Brand-->
     <string name="brand_title">브랜드</string>

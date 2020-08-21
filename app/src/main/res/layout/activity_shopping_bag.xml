@@ -5,14 +5,197 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <com.minilook.minilook.ui.base.widget.TitleBar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:setTitle="@string/shoppingbag_title"
+        app:showBack="true"
+        app:showTitle="true" />
+
+    <ImageView
+        android:id="@+id/img_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="장바구니"
-        android:textSize="40sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="@dimen/dp_3"
+        android:paddingStart="@dimen/dp_5"
+        android:paddingTop="@dimen/dp_5"
+        android:paddingEnd="@dimen/dp_4"
+        android:paddingBottom="@dimen/dp_5"
+        android:src="@drawable/ic_checkbox2_off"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/titlebar"
+        tools:ignore="ContentDescription" />
 
+    <TextView
+        android:id="@+id/txt_selected_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nanum_square_r"
+        android:textColor="@color/color_FF232323"
+        android:textSize="@dimen/sp_6"
+        app:layout_constraintBottom_toBottomOf="@+id/img_checkbox"
+        app:layout_constraintLeft_toRightOf="@+id/img_checkbox"
+        app:layout_constraintTop_toTopOf="@+id/img_checkbox"
+        tools:text="전체선택 (1/3)" />
+
+    <TextView
+        android:id="@+id/txt_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_5"
+        android:fontFamily="@font/nanum_square_b"
+        android:padding="@dimen/dp_5"
+        android:text="@string/shoppingbag_delete"
+        android:textColor="@color/color_FF424242"
+        android:textSize="@dimen/sp_7"
+        app:layout_constraintBottom_toBottomOf="@+id/img_checkbox"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/img_checkbox" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_product"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/color_FFF5F5F5"
+        android:clipToPadding="false"
+        android:paddingTop="@dimen/dp_4"
+        android:paddingBottom="@dimen/dp_100"
+        app:layout_constraintBottom_toTopOf="@+id/txt_order"
+        app:layout_constraintTop_toBottomOf="@+id/img_checkbox"
+        tools:listitem="@layout/item_shopping_bag" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_total_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_FFFFFFFF"
+        android:elevation="@dimen/dp_5"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_11"
+        app:layout_constraintBottom_toTopOf="@+id/txt_order">
+
+        <TextView
+            android:id="@+id/txt_total_count_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:fontFamily="@font/nanum_square_b"
+            android:text="@string/shoppingbag_order_total_count_title"
+            android:textColor="@color/color_FF232323"
+            android:textSize="@dimen/sp_6"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_total_count_unit"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txt_total_count_unit" />
+
+        <TextView
+            android:id="@+id/txt_total_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nanum_square_eb"
+            android:textColor="@color/color_FF424242"
+            android:textSize="@dimen/sp_7"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_total_count_unit"
+            app:layout_constraintRight_toLeftOf="@+id/txt_total_count_unit"
+            app:layout_constraintTop_toTopOf="@+id/txt_total_count_unit"
+            tools:text="3" />
+
+        <TextView
+            android:id="@+id/txt_total_count_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_12"
+            android:fontFamily="@font/nanum_square_r"
+            android:text="@string/shoppingbag_order_total_count_unit"
+            android:textColor="@color/color_FF424242"
+            android:textSize="@dimen/sp_7"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_total_price_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nanum_square_b"
+            android:text="@string/shoppingbag_order_total_price_title"
+            android:textColor="@color/color_FF232323"
+            android:textSize="@dimen/sp_6"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_total_price_unit"
+            app:layout_constraintLeft_toLeftOf="@+id/txt_total_count_title"
+            app:layout_constraintTop_toTopOf="@+id/txt_total_price_unit" />
+
+        <TextView
+            android:id="@+id/txt_total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nanum_square_eb"
+            android:textColor="@color/color_FF424242"
+            android:textSize="@dimen/sp_7"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_total_price_unit"
+            app:layout_constraintRight_toLeftOf="@+id/txt_total_price_unit"
+            app:layout_constraintTop_toTopOf="@+id/txt_total_price_unit"
+            tools:text="30,000" />
+
+        <TextView
+            android:id="@+id/txt_total_price_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_6"
+            android:fontFamily="@font/nanum_square_r"
+            android:text="@string/shoppingbag_order_total_price_unit"
+            android:textColor="@color/color_FF424242"
+            android:textSize="@dimen/sp_7"
+            app:layout_constraintRight_toRightOf="@+id/txt_total_count_unit"
+            app:layout_constraintTop_toBottomOf="@+id/txt_total_count_unit" />
+
+        <TextView
+            android:id="@+id/txt_total_shipping_price_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nanum_square_r"
+            android:text="@string/shoppingbag_order_total_shipping_price_title"
+            android:textColor="@color/color_FF616161"
+            android:textSize="@dimen/sp_6"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_total_shipping_price"
+            app:layout_constraintLeft_toLeftOf="@+id/txt_total_count_title"
+            app:layout_constraintTop_toTopOf="@+id/txt_total_shipping_price" />
+
+        <TextView
+            android:id="@+id/txt_total_shipping_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nanum_square_b"
+            android:textColor="@color/color_FF232323"
+            android:textSize="@dimen/sp_6"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_total_shipping_price_unit"
+            app:layout_constraintRight_toLeftOf="@+id/txt_total_shipping_price_unit"
+            app:layout_constraintTop_toTopOf="@+id/txt_total_shipping_price_unit"
+            tools:text="+ 6,000" />
+
+        <TextView
+            android:id="@+id/txt_total_shipping_price_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
+            android:fontFamily="@font/nanum_square_r"
+            android:text="@string/shoppingbag_order_total_shipping_price_unit"
+            android:textColor="@color/color_FF232323"
+            android:textSize="@dimen/sp_6"
+            app:layout_constraintRight_toRightOf="@+id/txt_total_count_unit"
+            app:layout_constraintTop_toBottomOf="@+id/txt_total_price_unit" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/txt_order"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_30"
+        android:background="@color/color_FF8140E5"
+        android:elevation="@dimen/dp_5"
+        android:fontFamily="@font/nanum_square_eb"
+        android:gravity="center"
+        android:textColor="@color/color_FFFFFFFF"
+        android:textSize="@dimen/sp_10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="총 39,000원 구매하기" />
 </androidx.constraintlayout.widget.ConstraintLayout>

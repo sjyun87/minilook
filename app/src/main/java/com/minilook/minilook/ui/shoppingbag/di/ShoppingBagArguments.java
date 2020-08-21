@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.shoppingbag.adapter;
+package com.minilook.minilook.ui.shoppingbag.di;
 
 import com.minilook.minilook.ui.shoppingbag.ShoppingBagPresenter;
 import lombok.Builder;

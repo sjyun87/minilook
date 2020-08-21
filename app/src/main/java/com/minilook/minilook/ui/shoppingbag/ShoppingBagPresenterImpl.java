@@ -1,7 +1,7 @@
 package com.minilook.minilook.ui.shoppingbag;
 
 import com.minilook.minilook.ui.base.BasePresenterImpl;
-import com.minilook.minilook.ui.shoppingbag.adapter.ShoppingBagArguments;
+import com.minilook.minilook.ui.shoppingbag.di.ShoppingBagArguments;
 
 public class ShoppingBagPresenterImpl extends BasePresenterImpl implements ShoppingBagPresenter {
 
@@ -12,5 +12,6 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
     }
 
     @Override public void onCreate() {
+        view.setupRecyclerView();
     }
 }

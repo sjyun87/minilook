@@ -168,7 +168,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_34"
         android:layout_marginTop="@dimen/dp_8"
-        android:src="@drawable/img_checkbox_off"
+        android:src="@drawable/ic_checkbox1_off"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_address_detail"
         tools:ignore="ContentDescription" />

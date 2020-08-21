@@ -11,5 +11,6 @@ public interface ShoppingBagPresenter extends LifecycleObserver {
 
     interface View {
 
+        void setupRecyclerView();
     }
 }
