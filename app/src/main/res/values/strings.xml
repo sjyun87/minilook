@@ -61,6 +61,13 @@
     <string name="profile_shipping_empty">등록된 배송지가 없습니다.</string>
     <string name="profile_edit">변경</string>
 
+    <!--Shipping-->
+    <string name="shipping_title">배송지</string>
+    <string name="shipping_add">추가하기</string>
+    <string name="shipping_default">기본배송지</string>
+    <string name="shipping_edit">수정</string>
+    <string name="shipping_select">선택</string>
+
     <!--Brand-->
     <string name="brand_title">브랜드</string>
     <string name="brand_selected_count">스타일선택 (%d/%d)</string>

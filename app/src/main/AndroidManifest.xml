@@ -83,6 +83,21 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
+            android:name=".ui.shipping.ShippingActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name=".ui.shipping_add.ShippingAddActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name=".ui.shipping_edit.ShippingEditActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
             android:name=".ui.shoppingbag.ShoppingBagActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
