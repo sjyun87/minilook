@@ -14,9 +14,6 @@
     <string name="bottombar_preorder">프리오더</string>
     <string name="bottombar_ipage">아이페이지</string>
 
-    <!--Category-->
-    <string name="category_title">카테고리</string>
-
     <!--Login-->
     <string name="login_title">로그인</string>
     <string name="login_desc">맞춤 추천 서비스, 포인트 적립 등\n미니룩의 전체 서비스를 이용해 보세요.</string>
@@ -31,6 +28,9 @@
     <string name="market_brand_go_detail">브랜드샵으로 이동하기</string>
     <string name="market_filter_title">다양한 필터로 상품을 찾아보세요</string>
     <string name="market_filter_more">필터 전체보기</string>
+
+    <!--Category-->
+    <string name="category_title">카테고리</string>
 
     <!--Ipage-->
     <string name="ipage_profile_point">포인트</string>
@@ -48,6 +48,14 @@
     <string name="ipage_service_question_desc">상품/주문/배송·교환·환불</string>
     <string name="ipage_service_notice">공지사항</string>
     <string name="ipage_service_faq">FAQ</string>
+
+    <!--Brand-->
+    <string name="brand_title">브랜드</string>
+    <string name="brand_selected_count">스타일선택 (%d/%d)</string>
+    <string name="brand_reset">선택 초기화</string>
+
+
+
 
 
 
@@ -79,7 +87,6 @@
     <string name="option_selector_size_box_hint">사이즈를 선택해주세요</string>
     <string name="option_selector_sold_out">품절</string>
     <string name="option_selector_selected_color">색상 - %s</string>
-
 
     <!--Pre-Order-->
     <string name="preorder_title">PRE-ORDER</string>

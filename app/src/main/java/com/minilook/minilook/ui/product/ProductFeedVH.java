@@ -1,5 +1,6 @@
 package com.minilook.minilook.ui.product;
 
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
     @BindView(R.id.txt_product_desc) TextView descTextView;
 
     @BindColor(R.color.color_FFDBDBDB) int color_FFDBDBDB;
+    @BindColor(R.color.color_FFEEEFF5) int color_FFEEFF5;
 
     public ProductFeedVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
@@ -48,6 +50,7 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
 
         Glide.with(context)
             .load(brandModel.getUrl_logo())
+            .placeholder(new ColorDrawable(color_FFEEFF5))
             .apply(RequestOptions.bitmapTransform(
                 new CropCircleWithBorderTransformation(DimenUtil.dpToPx(context, 1), color_FFDBDBDB)))
             .into(brandLogoImageView);
@@ -56,6 +59,7 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
 
         Glide.with(context)
             .load(data.getUrl_thumb())
+            .placeholder(new ColorDrawable(color_FFEEFF5))
             .into(thumbImageView);
 
         reviewTextView.setText(StringUtil.toDigit(data.getReview_cnt()));

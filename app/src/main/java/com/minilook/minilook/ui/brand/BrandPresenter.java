@@ -9,7 +9,12 @@ public interface BrandPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
+    void resetClick();
+
     interface View {
 
+        void setupStyleRecyclerView();
+
+        void setupBrandRecyclerView();
     }
 }

@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -14,6 +15,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.market.viewholder.recommend.adapter.MarketRecommendOptionAdapter;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import io.reactivex.rxjava3.core.Observable;
 import java.util.List;
@@ -21,11 +23,13 @@ import java.util.List;
 public class MarketRecommendVH extends BaseViewHolder<MarketDataModel> {
 
     @BindView(R.id.txt_title) TextView titleTextView;
-    @BindView(R.id.rcv_product) RecyclerView recyclerView;
+    @BindView(R.id.rcv_product) RecyclerView productRecyclerView;
+    @BindView(R.id.rcv_option) RecyclerView optionRecyclerView;
 
     private final int view_count;
 
-    private ProductAdapter adapter;
+    private ProductAdapter productAdapter;
+    private MarketRecommendOptionAdapter optionAdapter;
     private Gson gson = new Gson();
 
     public MarketRecommendVH(@NonNull View itemView, int view_count) {
@@ -33,16 +37,17 @@ public class MarketRecommendVH extends BaseViewHolder<MarketDataModel> {
             .inflate(R.layout.item_market_recommend, (ViewGroup) itemView, false));
         this.view_count = view_count;
 
-        setupRecyclerView();
+        setupProductRecyclerView();
+        setupOptionRecyclerView();
     }
 
-    private void setupRecyclerView() {
+    private void setupProductRecyclerView() {
         int spanCount = view_count % 2 == 0 ? 2 : 3;
         GridLayoutManager layoutManager = new GridLayoutManager(context, spanCount);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new ProductAdapter();
-        adapter.setViewType(ProductAdapter.VIEW_TYPE_IMAGE);
-        recyclerView.setAdapter(adapter);
+        productRecyclerView.setLayoutManager(layoutManager);
+        productAdapter = new ProductAdapter();
+        productAdapter.setViewType(ProductAdapter.VIEW_TYPE_IMAGE);
+        productRecyclerView.setAdapter(productAdapter);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override public int getSpanSize(int position) {
                 if (view_count == 5) {
@@ -54,13 +59,18 @@ public class MarketRecommendVH extends BaseViewHolder<MarketDataModel> {
         });
     }
 
+    private void setupOptionRecyclerView() {
+        optionRecyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
+        optionRecyclerView.setAdapter(optionAdapter);
+    }
+
     @Override public void bind(MarketDataModel $data) {
         super.bind($data);
 
         titleTextView.setText(data.getTitle());
 
-        adapter.set(parseJsonToModel());
-        adapter.refresh();
+        productAdapter.set(parseJsonToModel());
+        productAdapter.refresh();
     }
 
     private List<ProductDataModel> parseJsonToModel() {

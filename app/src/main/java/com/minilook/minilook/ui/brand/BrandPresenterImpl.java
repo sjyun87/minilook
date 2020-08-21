@@ -1,7 +1,7 @@
 package com.minilook.minilook.ui.brand;
 
 import com.minilook.minilook.ui.base.BasePresenterImpl;
-import com.minilook.minilook.ui.brand.adapter.BrandArguments;
+import com.minilook.minilook.ui.brand.di.BrandArguments;
 
 public class BrandPresenterImpl extends BasePresenterImpl implements BrandPresenter {
 
@@ -12,5 +12,11 @@ public class BrandPresenterImpl extends BasePresenterImpl implements BrandPresen
     }
 
     @Override public void onCreate() {
+        view.setupStyleRecyclerView();
+        view.setupBrandRecyclerView();
+    }
+
+    @Override public void resetClick() {
+
     }
 }

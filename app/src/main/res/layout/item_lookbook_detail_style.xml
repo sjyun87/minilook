@@ -5,4 +5,5 @@
     android:layout_width="@dimen/dp_90"
     android:layout_height="@dimen/dp_90"
     android:scaleType="centerCrop"
+    android:src="@color/color_FFEEEFF5"
     tools:ignore="ContentDescription" />

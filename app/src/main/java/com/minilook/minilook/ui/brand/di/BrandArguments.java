@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.brand.adapter;
+package com.minilook.minilook.ui.brand.di;
 
 import com.minilook.minilook.ui.brand.BrandPresenter;
 import lombok.Builder;
