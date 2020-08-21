@@ -54,9 +54,6 @@
             tools:ignore="LockedOrientationActivity" />
 
 
-
-
-
         <activity
             android:name=".ui.search_keyword.SearchKeywordActivity"
             android:screenOrientation="portrait"
@@ -117,15 +114,26 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
-        <activity android:name=".ui.recent.RecentActivity"
+        <activity
+            android:name=".ui.recent.RecentActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
-        <activity android:name=".ui.review.ReviewActivity"
+        <activity
+            android:name=".ui.review.ReviewActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
-        <activity android:name=".ui.scrap.ScrapActivity"
+        <activity
+            android:name=".ui.scrap.ScrapActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+
+
+
+        <activity
+            android:name=".ui.order_history.OrderHistoryActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 

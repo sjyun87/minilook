@@ -19,7 +19,7 @@ public class RecentActivity extends BaseActivity implements RecentPresenter.View
         context.startActivity(intent);
     }
 
-    @BindView(R.id.rcv_product) RecyclerView recyclerView;
+    @BindView(R.id.rcv_goods) RecyclerView recyclerView;
 
     private RecentPresenter presenter;
     private ProductAdapter adapter;

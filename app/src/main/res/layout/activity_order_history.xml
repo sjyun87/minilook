@@ -10,29 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:setTitle="@string/scrapbook_title"
+        app:setTitle="@string/order_history_title"
         app:showBack="true"
         app:showShoppingBag="true"
         app:showTitle="true" />
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/layout_tab_panel"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_26"
-        app:layout_constraintTop_toBottomOf="@+id/titlebar"
-        app:tabContentStart="@dimen/dp_20"
-        app:tabIndicatorColor="@color/color_FF8140E5"
-        app:tabIndicatorFullWidth="false"
-        app:tabIndicatorHeight="@dimen/dp_1"
-        app:tabMode="fixed"
-        app:tabPaddingEnd="0dp"
-        app:tabPaddingStart="0dp"
-        app:tabRippleColor="@android:color/transparent" />
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/vp_scrap"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_order"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_tab_panel" />
+        app:layout_constraintTop_toBottomOf="@+id/titlebar"
+        tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 </androidx.constraintlayout.widget.ConstraintLayout>

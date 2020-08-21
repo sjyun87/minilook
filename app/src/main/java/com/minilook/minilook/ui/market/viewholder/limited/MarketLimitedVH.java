@@ -24,7 +24,7 @@ import static com.minilook.minilook.ui.product.adapter.ProductAdapter.VIEW_TYPE_
 public class MarketLimitedVH extends BaseViewHolder<MarketDataModel> {
 
     @BindView(R.id.txt_title) TextView titleTextView;
-    @BindView(R.id.rcv_product) RecyclerView recyclerView;
+    @BindView(R.id.rcv_goods) RecyclerView recyclerView;
 
     @BindDimen(R.dimen.dp_2) int dp_2;
 

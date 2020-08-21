@@ -23,7 +23,7 @@ import java.util.List;
 public class MarketRecommendVH extends BaseViewHolder<MarketDataModel> {
 
     @BindView(R.id.txt_title) TextView titleTextView;
-    @BindView(R.id.rcv_product) RecyclerView productRecyclerView;
+    @BindView(R.id.rcv_goods) RecyclerView productRecyclerView;
     @BindView(R.id.rcv_option) RecyclerView optionRecyclerView;
 
     private final int view_count;

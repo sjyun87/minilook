@@ -29,7 +29,7 @@ public class PromotionDetailActivity extends BaseActivity implements PromotionDe
     @BindView(R.id.img_bg) ImageView bgImageView;
     @BindView(R.id.txt_desc) TextView descTextView;
     @BindView(R.id.txt_title) TextView titleTextView;
-    @BindView(R.id.rcv_product) RecyclerView productRecyclerView;
+    @BindView(R.id.rcv_goods) RecyclerView productRecyclerView;
 
     private PromotionDetailPresenter presenter;
     private PromotionAdapter adapter = new PromotionAdapter();

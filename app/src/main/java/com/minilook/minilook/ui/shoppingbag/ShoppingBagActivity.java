@@ -18,7 +18,7 @@ public class ShoppingBagActivity extends BaseActivity implements ShoppingBagPres
         context.startActivity(intent);
     }
 
-    @BindView(R.id.rcv_product) RecyclerView recyclerView;
+    @BindView(R.id.rcv_goods) RecyclerView recyclerView;
 
     private ShoppingBagPresenter presenter;
 

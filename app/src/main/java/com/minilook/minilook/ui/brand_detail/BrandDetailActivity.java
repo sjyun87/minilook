@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,7 +49,7 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
     @BindView(R.id.rcv_category) RecyclerView categoryRecyclerView;
     @BindView(R.id.txt_sort) TextView sortTextView;
     @BindView(R.id.rcv_sort) RecyclerView sortRecyclerView;
-    @BindView(R.id.rcv_product) RecyclerView productRecyclerView;
+    @BindView(R.id.rcv_goods) RecyclerView productRecyclerView;
 
     @BindColor(R.color.color_FFDBDBDB) int color_FFDBDBDB;
     @BindColor(R.color.color_FFF5F5F5) int color_FFF5F5F5;

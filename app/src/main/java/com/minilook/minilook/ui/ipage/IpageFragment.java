@@ -5,6 +5,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseFragment;
 import com.minilook.minilook.ui.coupon.CouponActivity;
 import com.minilook.minilook.ui.ipage.di.IpageArguments;
+import com.minilook.minilook.ui.order_history.OrderHistoryActivity;
 import com.minilook.minilook.ui.point.PointActivity;
 import com.minilook.minilook.ui.profile.ProfileActivity;
 import com.minilook.minilook.ui.question.QuestionActivity;
@@ -56,5 +57,10 @@ public class IpageFragment extends BaseFragment implements IpagePresenter.View {
     @OnClick(R.id.layout_scrap_panel)
     void onScrapClick() {
         ScrapActivity.start(getContext());
+    }
+
+    @OnClick(R.id.txt_order_more)
+    void onOrderMoreClick() {
+        OrderHistoryActivity.start(getContext());
     }
 }

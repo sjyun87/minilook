@@ -54,7 +54,7 @@
                 app:layout_constraintRight_toRightOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcv_product"
+                android:id="@+id/rcv_goods"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_10"

@@ -22,7 +22,7 @@ import java.util.List;
 public class MarketNewArrivalsVH extends BaseViewHolder<MarketDataModel> {
 
     @BindView(R.id.txt_title) TextView titleTextView;
-    @BindView(R.id.rcv_product) RecyclerView recyclerView;
+    @BindView(R.id.rcv_goods) RecyclerView recyclerView;
 
     @BindDimen(R.dimen.dp_1) int dp_1;
 

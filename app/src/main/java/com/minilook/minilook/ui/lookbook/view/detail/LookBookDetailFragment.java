@@ -29,7 +29,7 @@ public class LookBookDetailFragment extends BaseFragment implements LookBookDeta
     @BindView(R.id.txt_desc) TextView descTextView;
     @BindView(R.id.rcv_style) RecyclerView styleRecyclerView;
     @BindView(R.id.txt_product_info) TextView productInfoTextView;
-    @BindView(R.id.rcv_product) RecyclerView productRecyclerView;
+    @BindView(R.id.rcv_goods) RecyclerView productRecyclerView;
 
     private LookBookDetailPresenter presenter;
     private LookBookStyleAdapter styleAdapter = new LookBookStyleAdapter();
