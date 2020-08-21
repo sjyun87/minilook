@@ -134,6 +134,21 @@
     <string name="order_history_title">주문/배송</string>
     <string name="order_history_more_detail">주문상세보기</string>
 
+    <!--Order Detail-->
+    <string name="order_detail_title">주문/배송상세</string>
+    <string name="order_detail_info">주문 정보</string>
+    <string name="order_detail_info_number">주문번호</string>
+    <string name="order_detail_info_date">주문일자</string>
+    <string name="order_detail_order_cancel">전체 주문취소</string>
+    <string name="order_detail_order_cancel_desc">모든 상품이 발송 전일 경우 전체 주문취소만 가능합니다.</string>
+    <string name="order_detail_shipping">배송지 정보</string>
+    <string name="order_detail_payment">결제 정보</string>
+    <string name="order_detail_payment_how">결제방법</string>
+    <string name="order_detail_total_price">총 결제금액</string>
+    <string name="order_detail_total_product_price">총 상품금액</string>
+    <string name="order_detail_total_shipping_price">배송비</string>
+    <string name="order_detail_total_coupon">쿠폰적용</string>
+    <string name="order_detail_total_point">포인트사용</string>
 
 
 
