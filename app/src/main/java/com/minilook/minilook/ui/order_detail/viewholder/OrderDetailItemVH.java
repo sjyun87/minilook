@@ -11,13 +11,13 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.SortDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 
-public class OrderHistoryItemVH extends BaseViewHolder<SortDataModel> {
+public class OrderDetailItemVH extends BaseViewHolder<SortDataModel> {
 
     @BindView(R.id.rcv_goods) RecyclerView recyclerView;
 
-    public OrderHistoryItemVH(@NonNull View itemView) {
+    public OrderDetailItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_order_history, (ViewGroup) itemView, false));
+            .inflate(R.layout.item_order_detail, (ViewGroup) itemView, false));
 
         setupRecyclerView();
     }

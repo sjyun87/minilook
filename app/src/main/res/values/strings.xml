@@ -149,6 +149,16 @@
     <string name="order_detail_total_shipping_price">배송비</string>
     <string name="order_detail_total_coupon">쿠폰적용</string>
     <string name="order_detail_total_point">포인트사용</string>
+    <string name="order_detail_refund">주문취소</string>
+    <string name="order_detail_question">문의</string>
+    <string name="order_detail_tracking">배송조회</string>
+    <string name="order_detail_exchange_n_return">교환/반품접수</string>
+    <string name="order_detail_confirm">구매확정</string>
+    <string name="order_detail_resell">재구매</string>
+    <string name="order_detail_review">리뷰작성</string>
+    <string name="order_detail_exchange_cancel">교환철회</string>
+    <string name="order_detail_return_cancel">반품철회</string>
+    <string name="order_detail_refund_detail">취소상세</string>
 
 
 
