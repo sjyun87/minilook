@@ -149,7 +149,7 @@
     <string name="order_detail_total_shipping_price">배송비</string>
     <string name="order_detail_total_coupon">쿠폰적용</string>
     <string name="order_detail_total_point">포인트사용</string>
-    <string name="order_detail_refund">주문취소</string>
+    <string name="order_detail_cancel">주문취소</string>
     <string name="order_detail_question">문의</string>
     <string name="order_detail_tracking">배송조회</string>
     <string name="order_detail_exchange_n_return">교환/반품접수</string>
@@ -160,7 +160,26 @@
     <string name="order_detail_return_cancel">반품철회</string>
     <string name="order_detail_refund_detail">취소상세</string>
 
+    <!--Order Cancel-->
+    <string name="order_cancel_title">주문취소</string>
 
+    <!--Order Cancel Detail-->
+    <string name="order_cancel_detail_title">취소상세</string>
+    <string name="order_cancel_detail_info">취소 상세정보</string>
+    <string name="order_cancel_detail_reason_title">취소 사유</string>
+    <string name="order_cancel_detail_reason">사유</string>
+    <string name="order_cancel_detail_reason_contents">내용</string>
+    <string name="order_cancel_detail_refund_title">환불 정보</string>
+    <string name="order_cancel_detail_payment_how">결제방법</string>
+    <string name="order_cancel_detail_total_price">총 환불금액</string>
+    <string name="order_cancel_detail_total_product_price">총 상품금액</string>
+    <string name="order_cancel_detail_product_price">상품금액</string>
+    <string name="order_cancel_detail_shipping_price">배송비</string>
+    <string name="order_cancel_detail_total_discount_price">총 할인금액</string>
+    <string name="order_cancel_detail_coupon">쿠폰적용</string>
+    <string name="order_cancel_detail_total_payment">총 결제금액</string>
+    <string name="order_cancel_detail_payment">결제</string>
+    <string name="order_cancel_detail_point">포인트</string>
 
 
 

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:setTitle="@string/order_detail_title"
+        app:setTitle="@string/order_cancel_title"
         app:showBack="true"
         app:showShoppingBag="true"
         app:showTitle="true" />
@@ -109,8 +109,7 @@
                 android:background="@color/color_FFFFFFFF"
                 app:layout_constraintTop_toBottomOf="@+id/layout_info_panel"
                 tools:itemCount="2"
-                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_order_detail" />
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_order_cancel_panel"

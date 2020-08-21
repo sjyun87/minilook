@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:setTitle="@string/order_detail_title"
+        app:setTitle="@string/order_cancel_detail_title"
         app:showBack="true"
         app:showShoppingBag="true"
         app:showTitle="true" />
@@ -44,7 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nanum_square_eb"
-                    android:text="@string/order_detail_info"
+                    android:text="@string/order_cancel_detail_info"
                     android:textColor="@color/color_FF232323"
                     android:textSize="@dimen/sp_8"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -108,111 +108,45 @@
                 android:layout_height="wrap_content"
                 android:background="@color/color_FFFFFFFF"
                 app:layout_constraintTop_toBottomOf="@+id/layout_info_panel"
-                tools:itemCount="2"
-                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_order_detail" />
+                tools:itemCount="10"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_order_cancel_panel"
+                android:id="@+id/layout_reason_panel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_2"
+                android:layout_marginTop="@dimen/dp_4"
                 android:background="@color/color_FFFFFFFF"
                 android:paddingStart="@dimen/dp_10"
                 android:paddingTop="@dimen/dp_9"
                 android:paddingEnd="@dimen/dp_10"
-                android:paddingBottom="@dimen/dp_9"
+                android:paddingBottom="@dimen/dp_8"
                 app:layout_constraintTop_toBottomOf="@+id/rcv_order">
 
                 <TextView
-                    android:id="@+id/txt_order_cancel"
+                    android:id="@+id/txt_reason_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_button_border_gray"
-                    android:fontFamily="@font/nanum_square_r"
-                    android:paddingStart="@dimen/dp_9"
-                    android:paddingTop="@dimen/dp_4"
-                    android:paddingEnd="@dimen/dp_9"
-                    android:paddingBottom="@dimen/dp_4"
-                    android:text="@string/order_detail_order_cancel"
+                    android:fontFamily="@font/nanum_square_eb"
+                    android:text="@string/order_cancel_detail_reason_title"
                     android:textColor="@color/color_FF232323"
-                    android:textSize="@dimen/sp_6"
+                    android:textSize="@dimen/sp_8"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/txt_reason"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_6"
+                    android:layout_marginTop="@dimen/dp_9"
                     android:fontFamily="@font/nanum_square_r"
-                    android:text="@string/order_detail_order_cancel_desc"
-                    android:textColor="@color/color_FF616161"
-                    android:textSize="@dimen/sp_6"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_order_cancel" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/txt_shipping_title"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_26"
-                android:layout_marginTop="@dimen/dp_8"
-                android:background="@color/color_FFFFFFFF"
-                android:fontFamily="@font/nanum_square_eb"
-                android:gravity="center_vertical"
-                android:paddingStart="@dimen/dp_10"
-                android:text="@string/order_detail_shipping"
-                android:textColor="@color/color_FF616161"
-                android:textSize="@dimen/sp_8"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layout_order_cancel_panel"
-                tools:ignore="RtlSymmetry" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_shipping_panel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_1"
-                android:background="@color/color_FFFFFFFF"
-                android:padding="@dimen/dp_10"
-                app:layout_constraintTop_toBottomOf="@+id/txt_shipping_title">
-
-                <TextView
-                    android:id="@+id/txt_shipping_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nanum_square_b"
-                    android:textColor="@color/color_FF232323"
-                    android:textSize="@dimen/sp_8"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="이소연" />
-
-                <TextView
-                    android:id="@+id/txt_shipping_phone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_6"
-                    android:fontFamily="@font/nanum_square_r"
-                    android:textColor="@color/color_FF232323"
+                    android:text="@string/order_cancel_detail_reason"
+                    android:textColor="@color/color_FFA9A9A9"
                     android:textSize="@dimen/sp_7"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_shipping_name"
-                    tools:text="010-1233-4567" />
+                    app:layout_constraintLeft_toLeftOf="@+id/txt_reason_title"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_reason_title" />
 
-                <TextView
-                    android:id="@+id/txt_shipping_address"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_4"
-                    android:fontFamily="@font/nanum_square_r"
-                    android:lineSpacingMultiplier="1.5"
-                    android:textColor="@color/color_FF232323"
-                    android:textSize="@dimen/sp_7"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_shipping_phone"
-                    tools:text="서울 양천구 목동중앙남로 342, 302호" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -225,7 +159,7 @@
                 android:paddingTop="@dimen/dp_9"
                 android:paddingEnd="@dimen/dp_10"
                 android:paddingBottom="@dimen/dp_8"
-                app:layout_constraintTop_toBottomOf="@+id/layout_shipping_panel">
+                app:layout_constraintTop_toBottomOf="@+id/layout_reason_panel">
 
                 <TextView
                     android:id="@+id/txt_payment_title"
