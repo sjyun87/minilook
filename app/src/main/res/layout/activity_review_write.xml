@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.minilook.minilook.ui.base.widget.TitleBar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:setTitle="@string/review_write_title"
+        app:showClose="true"
+        app:showTitle="true" />
+
+    <ImageView
+        android:id="@+id/img_thumb"
+        android:layout_width="@dimen/dp_32"
+        android:layout_height="@dimen/dp_32"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_6"
+        android:scaleType="centerCrop"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titlebar"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/txt_brand_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_6"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:fontFamily="@font/nanum_square_r"
+        android:textColor="@color/color_FF232323"
+        android:textSize="@dimen/sp_6"
+        app:layout_constraintBottom_toTopOf="@+id/txt_product_name"
+        app:layout_constraintLeft_toRightOf="@+id/img_thumb"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/img_thumb"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="아델리" />
+
+    <TextView
+        android:id="@+id/txt_product_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_5"
+        android:fontFamily="@font/nanum_square_b"
+        android:textColor="@color/color_FF232323"
+        android:textSize="@dimen/sp_6"
+        app:layout_constraintBottom_toTopOf="@+id/txt_option"
+        app:layout_constraintLeft_toLeftOf="@+id/txt_brand_name"
+        app:layout_constraintRight_toRightOf="@+id/txt_brand_name"
+        app:layout_constraintTop_toBottomOf="@+id/txt_brand_name"
+        tools:text="경량 비치 후드집업 점퍼" />
+
+    <TextView
+        android:id="@+id/txt_option"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_6"
+        android:fontFamily="@font/nanum_square_r"
+        android:textColor="@color/color_FF616161"
+        android:textSize="@dimen/sp_6"
+        app:layout_constraintBottom_toBottomOf="@+id/img_thumb"
+        app:layout_constraintLeft_toLeftOf="@+id/txt_brand_name"
+        app:layout_constraintRight_toRightOf="@+id/txt_brand_name"
+        app:layout_constraintTop_toBottomOf="@+id/txt_product_name"
+        tools:text="그린 / XL" />
+
+    <TextView
+        android:id="@+id/txt_review_contents_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_14"
+        android:fontFamily="@font/nanum_square_b"
+        android:text="@string/review_write_contents"
+        android:textColor="@color/color_FF232323"
+        android:textSize="@dimen/sp_6"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_thumb" />
+
+    <EditText
+        android:id="@+id/edit_review"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_100"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:background="@drawable/bg_textbox"
+        android:fontFamily="@font/nanum_square_r"
+        android:gravity="top"
+        android:hint="@string/review_write_contents_hint"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:lineSpacingMultiplier="1.5"
+        android:maxLines="7"
+        android:padding="@dimen/dp_8"
+        android:textColor="@color/color_FF232323"
+        android:textColorHint="@color/color_FFA9A9A9"
+        android:textSize="@dimen/sp_7"
+        app:layout_constraintTop_toBottomOf="@+id/txt_review_contents_title" />
+
+    <TextView
+        android:id="@+id/txt_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_6"
+        android:layout_marginEnd="@dimen/dp_12"
+        android:fontFamily="@font/nanum_square_r"
+        android:lineSpacingMultiplier="1.5"
+        android:text="@string/review_write_info"
+        android:textColor="@color/color_FFA9A9A9"
+        android:textSize="@dimen/sp_6"
+        app:layout_constraintTop_toBottomOf="@+id/edit_review" />
+
+    <TextView
+        android:id="@+id/txt_save"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_24"
+        android:layout_marginStart="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_24"
+        android:layout_marginEnd="@dimen/dp_12"
+        android:background="@color/color_FF8140E5"
+        android:fontFamily="@font/nanum_square_eb"
+        android:gravity="center"
+        android:text="@string/review_write_save"
+        android:textColor="@color/color_FFFFFFFF"
+        android:textSize="@dimen/sp_8"
+        app:layout_constraintTop_toBottomOf="@+id/txt_info" />
+</androidx.constraintlayout.widget.ConstraintLayout>

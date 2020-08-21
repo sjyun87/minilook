@@ -125,6 +125,11 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
+            android:name=".ui.review_write.ReviewWriteActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
             android:name=".ui.scrap.ScrapActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />

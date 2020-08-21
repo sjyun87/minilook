@@ -94,7 +94,7 @@
                         app:layout_constraintTop_toTopOf="@+id/img_point" />
 
                     <TextView
-                        android:id="@+id/txt_point_caption"
+                        android:id="@+id/txt_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"

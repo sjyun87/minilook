@@ -183,10 +183,6 @@
     <string name="order_cancel_detail_payment_caption">결제</string>
     <string name="order_cancel_detail_point_caption">포인트</string>
 
-
-
-
-
     <!--Product Detail-->
     <string name="product_detail_point_title">포인트</string>
     <string name="product_detail_point">%dP</string>
@@ -212,6 +208,15 @@
     <string name="option_selector_size_box_hint">사이즈를 선택해주세요</string>
     <string name="option_selector_sold_out">품절</string>
     <string name="option_selector_selected_color">색상 - %s</string>
+
+    <!--Review-->
+
+    <!--Review Write-->
+    <string name="review_write_title">리뷰 작성</string>
+    <string name="review_write_contents">리뷰내용</string>
+    <string name="review_write_contents_hint">내용은 최소 5자 이상 입력해 주세요.</string>
+    <string name="review_write_info">※ 해당 상품과 무관한 내용이나 동일 문자의 반복 등 부적합한 내용은 삭제될 수 있습니다.</string>
+    <string name="review_write_save">등록하기</string>
 
     <!--Pre-Order-->
     <string name="preorder_title">PRE-ORDER</string>
