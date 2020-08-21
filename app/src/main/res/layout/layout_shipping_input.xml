@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txt_name_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_10"
+        android:fontFamily="@font/nanum_square_r"
+        android:text="@string/shipping_input_name"
+        android:textColor="@color/color_FF232323"
+        android:textSize="@dimen/sp_7"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_name"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/edit_name" />
+
+    <EditText
+        android:id="@+id/edit_name"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_20"
+        android:layout_marginStart="@dimen/dp_7"
+        android:layout_marginTop="@dimen/dp_12"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:background="@drawable/bg_button_border_darkgray"
+        android:fontFamily="@font/nanum_square_r"
+        android:hint="@string/shipping_input_name_hint"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:maxLength="10"
+        android:paddingStart="@dimen/dp_8"
+        android:paddingEnd="@dimen/dp_8"
+        android:textColor="@color/color_FF232323"
+        android:textColorHint="@color/color_FFA9A9A9"
+        android:textSize="@dimen/sp_7"
+        app:layout_constraintLeft_toRightOf="@+id/txt_name_title"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_phone_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_10"
+        android:fontFamily="@font/nanum_square_r"
+        android:text="@string/shipping_input_phone"
+        android:textColor="@color/color_FF232323"
+        android:textSize="@dimen/sp_7"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_phone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/edit_phone" />
+
+    <EditText
+        android:id="@+id/edit_phone"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_20"
+        android:layout_marginStart="@dimen/dp_7"
+        android:layout_marginTop="@dimen/dp_12"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:background="@drawable/bg_button_border_darkgray"
+        android:fontFamily="@font/nanum_square_r"
+        android:hint="@string/shipping_input_phone_hint"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:paddingStart="@dimen/dp_8"
+        android:paddingEnd="@dimen/dp_8"
+        android:textColor="@color/color_FF232323"
+        android:textColorHint="@color/color_FFA9A9A9"
+        android:textSize="@dimen/sp_7"
+        app:layout_constraintLeft_toRightOf="@+id/txt_phone_title"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_name"
+        tools:ignore="TextFields" />
+
+    <TextView
+        android:id="@+id/txt_address_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_10"
+        android:fontFamily="@font/nanum_square_r"
+        android:text="@string/shipping_input_address"
+        android:textColor="@color/color_FF232323"
+        android:textSize="@dimen/sp_7"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_zip_search"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txt_zip_search" />
+
+    <TextView
+        android:id="@+id/txt_zip"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_20"
+        android:layout_marginStart="@dimen/dp_7"
+        android:layout_marginEnd="@dimen/dp_4"
+        android:background="@drawable/bg_button_border_gray"
+        android:fontFamily="@font/nanum_square_r"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/dp_8"
+        android:paddingEnd="8dp"
+        android:text="@string/shipping_input_address_zip_hint"
+        android:textColor="@color/color_FFA9A9A9"
+        android:textSize="@dimen/sp_7"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_zip_search"
+        app:layout_constraintLeft_toRightOf="@+id/txt_address_title"
+        app:layout_constraintRight_toLeftOf="@+id/txt_zip_search"
+        app:layout_constraintTop_toTopOf="@+id/txt_zip_search" />
+
+    <TextView
+        android:id="@+id/txt_zip_search"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:background="@drawable/bg_button_border_darkgray"
+        android:fontFamily="@font/nanum_square_b"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/dp_8"
+        android:paddingEnd="@dimen/dp_8"
+        android:text="@string/shipping_input_address_zip_search"
+        android:textColor="@color/color_FF232323"
+        android:textSize="@dimen/sp_7"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_phone" />
+
+    <TextView
+        android:id="@+id/txt_address_basic"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_4"
+        android:background="@drawable/bg_button_border_gray"
+        android:fontFamily="@font/nanum_square_r"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/dp_8"
+        android:paddingEnd="8dp"
+        android:text="@string/shipping_input_address_basic_hint"
+        android:textColor="@color/color_FFA9A9A9"
+        android:textSize="@dimen/sp_7"
+        app:layout_constraintLeft_toLeftOf="@+id/txt_zip"
+        app:layout_constraintRight_toRightOf="@+id/txt_zip_search"
+        app:layout_constraintTop_toBottomOf="@+id/txt_zip_search" />
+
+    <EditText
+        android:id="@+id/edit_address_detail"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_4"
+        android:background="@drawable/bg_button_border_darkgray"
+        android:fontFamily="@font/nanum_square_r"
+        android:hint="@string/shipping_input_address_detail_hint"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:maxLength="30"
+        android:paddingStart="@dimen/dp_8"
+        android:paddingEnd="@dimen/dp_8"
+        android:textColor="@color/color_FF232323"
+        android:textColorHint="@color/color_FFA9A9A9"
+        android:textSize="@dimen/sp_7"
+        app:layout_constraintLeft_toLeftOf="@+id/txt_address_basic"
+        app:layout_constraintRight_toRightOf="@+id/txt_address_basic"
+        app:layout_constraintTop_toBottomOf="@+id/txt_address_basic"
+        tools:ignore="TextFields" />
+
+    <ImageView
+        android:id="@+id/img_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_34"
+        android:layout_marginTop="@dimen/dp_8"
+        android:src="@drawable/img_checkbox_off"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_address_detail"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/txt_default"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_2"
+        android:fontFamily="@font/nanum_square_r"
+        android:includeFontPadding="false"
+        android:text="@string/shipping_input_check_default"
+        android:textColor="@color/color_FFA9A9A9"
+        android:textSize="@dimen/sp_6"
+        app:layout_constraintBottom_toBottomOf="@+id/img_checkbox"
+        app:layout_constraintLeft_toRightOf="@+id/img_checkbox"
+        app:layout_constraintTop_toTopOf="@+id/img_checkbox" />
+
+    <TextView
+        android:id="@+id/txt_save"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_24"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_12"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:background="@color/color_FFF5F5F5"
+        android:fontFamily="@font/nanum_square_eb"
+        android:gravity="center"
+        android:text="@string/shipping_input_save"
+        android:textColor="@color/color_FFFFFFFF"
+        android:textSize="@dimen/sp_8"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_checkbox" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

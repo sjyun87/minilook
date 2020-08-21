@@ -9,7 +9,7 @@ public class ShippingEditActivity extends BaseActivity implements ShippingEditPr
     private ShippingEditPresenter presenter;
 
     @Override protected int getLayoutID() {
-        return R.layout.activity_shipping;
+        return R.layout.activity_shipping_edit;
     }
 
     @Override protected void createPresenter() {
