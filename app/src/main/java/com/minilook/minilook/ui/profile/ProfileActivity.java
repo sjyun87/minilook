@@ -18,7 +18,7 @@ public class ProfileActivity extends BaseActivity implements ProfilePresenter.Vi
     private ProfilePresenter presenter;
 
     @Override protected int getLayoutID() {
-        return R.layout.activity_brand;
+        return R.layout.activity_profile;
     }
 
     @Override protected void createPresenter() {

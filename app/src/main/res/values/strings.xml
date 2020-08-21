@@ -49,6 +49,18 @@
     <string name="ipage_service_notice">공지사항</string>
     <string name="ipage_service_faq">FAQ</string>
 
+    <!--Profile-->
+    <string name="profile_title">정보 관리</string>
+    <string name="profile_nick">닉네임</string>
+    <string name="profile_nick_save">저장</string>
+    <string name="profile_nick_check_already">이미 사용 중인 닉네임입니다.</string>
+    <string name="profile_nick_check_available">사용 가능한 닉네임입니다.</string>
+    <string name="profile_phone_title">연락처</string>
+    <string name="profile_email_title">이메일</string>
+    <string name="profile_shipping_title">배송지 정보</string>
+    <string name="profile_shipping_empty">등록된 배송지가 없습니다.</string>
+    <string name="profile_edit">변경</string>
+
     <!--Brand-->
     <string name="brand_title">브랜드</string>
     <string name="brand_selected_count">스타일선택 (%d/%d)</string>
