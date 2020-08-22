@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.market.viewholder.promotion;
+package com.minilook.minilook.ui.market.viewholder.commercial;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,31 +7,32 @@ import androidx.annotation.NonNull;
 import androidx.viewpager2.widget.ViewPager2;
 import butterknife.BindView;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.commercial.CommercialDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
-import com.minilook.minilook.data.model.promotion.PromotionDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
-import com.minilook.minilook.ui.market.viewholder.promotion.adapter.MarketPromotionAdapter;
+import com.minilook.minilook.ui.market.viewholder.commercial.adapter.MarketCommercialAdapter;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
-import io.reactivex.rxjava3.core.Observable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class MarketPromotionVH extends BaseViewHolder<MarketDataModel> {
+public class MarketCommercialVH extends BaseViewHolder<MarketDataModel> {
 
-    @BindView(R.id.vp_promotion) ViewPager2 viewPager;
+    @BindView(R.id.vp_commercial) ViewPager2 viewPager;
     @BindView(R.id.indicator) DotsIndicator indicator;
 
-    private MarketPromotionAdapter adapter;
+    private MarketCommercialAdapter adapter;
     private Gson gson = new Gson();
 
-    public MarketPromotionVH(@NonNull View itemView) {
+    public MarketCommercialVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_market_promotion, (ViewGroup) itemView, false));
+            .inflate(R.layout.item_market_commercial, (ViewGroup) itemView, false));
         setupViewPager();
     }
 
     private void setupViewPager() {
-        adapter = new MarketPromotionAdapter();
+        adapter = new MarketCommercialAdapter();
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(2);
         indicator.setViewPager2(viewPager);
@@ -44,10 +45,7 @@ public class MarketPromotionVH extends BaseViewHolder<MarketDataModel> {
         adapter.refresh();
     }
 
-    private List<PromotionDataModel> parseJsonToModel() {
-        return Observable.fromIterable(data.getData())
-            .map(json -> gson.fromJson(json, PromotionDataModel.class))
-            .toList()
-            .blockingGet();
+    private List<CommercialDataModel> parseJsonToModel() {
+        return gson.fromJson(data.getData(), new TypeToken<ArrayList<CommercialDataModel>>() {}.getType());
     }
 }

@@ -11,12 +11,15 @@ import butterknife.BindDimen;
 import butterknife.BindView;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.category.CategoryDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import io.reactivex.rxjava3.core.Observable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MarketNewArrivalsVH extends BaseViewHolder<MarketDataModel> {
@@ -57,9 +60,6 @@ public class MarketNewArrivalsVH extends BaseViewHolder<MarketDataModel> {
     }
 
     private List<ProductDataModel> parseJsonToModel() {
-        return Observable.fromIterable(data.getData())
-            .map(json -> gson.fromJson(json, ProductDataModel.class))
-            .toList()
-            .blockingGet();
+        return gson.fromJson(data.getData(), new TypeToken<ArrayList<ProductDataModel>>() {}.getType());
     }
 }

@@ -10,10 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 import butterknife.BindView;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.brand.BrandMenuDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
+import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.market.viewholder.brand.adapter.MarketBrandAdapter;
 import com.minilook.minilook.ui.market.viewholder.brand.adapter.MarketBrandMenuAdapter;
@@ -28,7 +30,6 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
     @BindView(R.id.vp_brand) ViewPager2 viewPager;
 
     private Gson gson = new Gson();
-    private List<BrandMenuDataModel> items;
     private int selectedPosition = 0;
 
     private MarketBrandMenuAdapter menuAdapter;
@@ -61,8 +62,7 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
 
         titleTextView.setText(data.getTitle());
 
-        items = parseJsonToModel();
-
+        List<BrandDataModel> items = parseJsonToModel();
         menuAdapter.set(items);
         menuAdapter.refresh();
         brandAdapter.set(items);
@@ -71,14 +71,11 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
         viewPager.setCurrentItem(selectedPosition);
     }
 
-    private List<BrandMenuDataModel> parseJsonToModel() {
-        List<BrandMenuDataModel> items = new ArrayList<>();
-        for (int i = 0; i < data.getData().size(); i++) {
-            BrandMenuDataModel model = new BrandMenuDataModel();
-            model.setModel(gson.fromJson(data.getData().get(i), BrandDataModel.class));
-            model.setPosition(i);
-            model.setSelect(i == 0);
-            items.add(model);
+    private List<BrandDataModel> parseJsonToModel() {
+        List<BrandDataModel> items = gson.fromJson(data.getData(), new TypeToken<ArrayList<BrandDataModel>>() {}.getType());
+        for (int i = 0; i < items.size(); i++) {
+            items.get(i).setPosition(i);
+            items.get(i).setSelect(i == 0);
         }
         return items;
     }

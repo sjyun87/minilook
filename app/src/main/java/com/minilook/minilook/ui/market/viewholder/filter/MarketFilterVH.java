@@ -9,12 +9,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.category.CategoryDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
+import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.market.viewholder.filter.adapter.MarketFilterAdapter;
 import io.reactivex.rxjava3.core.Observable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MarketFilterVH extends BaseViewHolder<MarketDataModel> {
@@ -44,10 +47,7 @@ public class MarketFilterVH extends BaseViewHolder<MarketDataModel> {
     }
 
     private List<CategoryDataModel> parseJsonToModel() {
-        return Observable.fromIterable(data.getData())
-            .map(json -> gson.fromJson(json, CategoryDataModel.class))
-            .toList()
-            .blockingGet();
+        return gson.fromJson(data.getData(), new TypeToken<ArrayList<CategoryDataModel>>() {}.getType());
     }
 
     @OnClick(R.id.txt_more)

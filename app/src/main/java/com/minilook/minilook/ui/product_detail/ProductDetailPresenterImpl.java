@@ -70,7 +70,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         productImageAdapter.set(data.getImages());
         view.productImageRefresh();
 
-        view.setupBrandName(data.getBrand().getName());
+        //view.setupBrandName(data.getBrand().getName());
         view.setupProductName(data.getName());
 
         // Option
@@ -83,7 +83,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         }
 
         // Price
-        if (data.is_discount()) {
+        if (data.isDiscount()) {
             view.setupPriceOrigin(StringUtil.toDigit(data.getPrice_origin()));
             view.showPriceOrigin();
             view.setupDiscountPercent(data.getPrice_discount_percent());

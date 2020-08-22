@@ -45,17 +45,17 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
     @Override public void bind(ProductDataModel $data) {
         super.bind($data);
 
-        BrandDataModel brandModel = data.getBrand();
+        //BrandDataModel brandModel = data.getBrand();
         CategoryDataModel categoryDataModel = data.getCategory();
 
-        Glide.with(context)
-            .load(brandModel.getUrl_logo())
-            .placeholder(new ColorDrawable(color_FFEEFF5))
-            .apply(RequestOptions.bitmapTransform(
-                new CropCircleWithBorderTransformation(DimenUtil.dpToPx(context, 1), color_FFDBDBDB)))
-            .into(brandLogoImageView);
-
-        brandNameTextView.setText(brandModel.getName());
+        //Glide.with(context)
+        //    .load(brandModel.getUrl_logo())
+        //    .placeholder(new ColorDrawable(color_FFEEFF5))
+        //    .apply(RequestOptions.bitmapTransform(
+        //        new CropCircleWithBorderTransformation(DimenUtil.dpToPx(context, 1), color_FFDBDBDB)))
+        //    .into(brandLogoImageView);
+        //
+        //brandNameTextView.setText(brandModel.getName());
 
         Glide.with(context)
             .load(data.getUrl_thumb())
@@ -77,7 +77,7 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
 
     @OnClick(R.id.layout_brand_panel)
     void onBrandClick() {
-        BrandDetailActivity.start(context, data.getBrand().getId());
+        //BrandDetailActivity.start(context, data.getBrand().getId());
     }
 
     @OnClick(R.id.layout_review_panel)

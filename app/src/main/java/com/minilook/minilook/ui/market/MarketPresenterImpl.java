@@ -1,14 +1,20 @@
 package com.minilook.minilook.ui.market;
 
+import androidx.annotation.NonNull;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.network.market.MarketRequest;
 import com.minilook.minilook.data.rx.Transformer;
+import com.minilook.minilook.data.type.MarketModuleCode;
+import com.minilook.minilook.data.type.MarketModuleType;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.market.di.MarketArguments;
-
+import io.reactivex.rxjava3.functions.Function;
+import java.util.ArrayList;
 import java.util.List;
-
 import timber.log.Timber;
 
 public class MarketPresenterImpl extends BasePresenterImpl implements MarketPresenter {
@@ -16,6 +22,8 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
     private final View view;
     private final BaseAdapterDataModel<MarketDataModel> adapter;
     private final MarketRequest marketRequest;
+
+    private Gson gson = new Gson();
 
     public MarketPresenterImpl(MarketArguments args) {
         view = args.getView();
@@ -30,12 +38,73 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
 
     private void reqMarketModule() {
         addDisposable(marketRequest.getMarketModules()
+            .map((Function<BaseDataModel, List<MarketDataModel>>)
+                data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<MarketDataModel>>() {
+                }.getType()))
             .compose(Transformer.applySchedulers())
             .subscribe(this::resMarketModules, Timber::e));
     }
 
-    private void resMarketModules(List<MarketDataModel> data) {
-        adapter.set(data);
+    private void resMarketModules(@NonNull List<MarketDataModel> data) {
+        adapter.set(checkData(data));
         view.refresh();
+    }
+
+    private List<MarketDataModel> checkData(List<MarketDataModel> data) {
+        List<MarketDataModel> items = new ArrayList<>();
+        for (MarketDataModel model : data) {
+            if (model.getModule().equals(MarketModuleCode.COMMERCIAL.name())) {
+                model.setType(MarketModuleType.TYPE_COMMERCIAL.getValue());
+                items.add(model);
+            } else if (model.getModule().equals(MarketModuleCode.TODAY.name())) {
+                //model.setType(MarketModuleType.TYPE_LIMITED.getValue());
+                //items.add(model);
+            } else if (model.getModule().equals(MarketModuleCode.NEW.name())) {
+                model.setType(MarketModuleType.TYPE_NEW_ARRIVALS.getValue());
+                items.add(model);
+            } else if (model.getModule().equals(MarketModuleCode.BRAND.name())) {
+                model.setType(MarketModuleType.TYPE_BRAND.getValue());
+                items.add(model);
+            } else if (model.getModule().equals(MarketModuleCode.CATEGORY.name())) {
+                model.setType(MarketModuleType.TYPE_FILTER.getValue());
+                items.add(model);
+            } else if (model.getModule().equals(MarketModuleCode.RECOMMEND.name())) {
+                int visibleCount = model.getVisible_cnt();
+                int productCount = model.getProduct_cnt();
+                if (productCount == 0) {
+
+                } else if (visibleCount >= productCount) {
+                    if (visibleCount == 4) {
+                        model.setType(MarketModuleType.TYPE_RECOMMEND_4.getValue());
+                        items.add(model);
+                    } else if (visibleCount == 5) {
+                        model.setType(MarketModuleType.TYPE_RECOMMEND_5.getValue());
+                        items.add(model);
+                    } else if (visibleCount == 6) {
+                        model.setType(MarketModuleType.TYPE_RECOMMEND_6.getValue());
+                        items.add(model);
+                    } else if (visibleCount == 9) {
+                        model.setType(MarketModuleType.TYPE_RECOMMEND_9.getValue());
+                        items.add(model);
+                    }
+                } else {
+                    // 다른 UI... 전에 일 단 테스트!
+                    if (visibleCount == 4) {
+                        model.setType(MarketModuleType.TYPE_RECOMMEND_4.getValue());
+                        items.add(model);
+                    } else if (visibleCount == 5) {
+                        model.setType(MarketModuleType.TYPE_RECOMMEND_5.getValue());
+                        items.add(model);
+                    } else if (visibleCount == 6) {
+                        model.setType(MarketModuleType.TYPE_RECOMMEND_6.getValue());
+                        items.add(model);
+                    } else if (visibleCount == 9) {
+                        model.setType(MarketModuleType.TYPE_RECOMMEND_9.getValue());
+                        items.add(model);
+                    }
+                }
+            }
+        }
+        return items;
     }
 }

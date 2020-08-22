@@ -36,7 +36,7 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
 
     @Override public void onCreate() {
         view.setupViewPager();
-        reqLookBookModules();
+        //reqLookBookModules();
     }
 
     @Override public void onPageSelected(int position) {

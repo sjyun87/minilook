@@ -6,6 +6,7 @@
     <string name="base_no">아니오</string>
     <string name="base_price_percent">%d%%</string>
     <string name="base_brand_shop">브랜드샵</string>
+    <string name="base_tag">#%s</string>
 
     <!--Bottom Bar-->
     <string name="bottombar_lookbook">룩북</string>

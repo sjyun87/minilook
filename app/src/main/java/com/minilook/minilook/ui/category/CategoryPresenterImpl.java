@@ -24,7 +24,7 @@ public class CategoryPresenterImpl extends BasePresenterImpl implements Category
     @Override public void onCreate() {
         view.setupRecyclerView();
 
-        reqCategory();
+        //reqCategory();
     }
 
     private void reqCategory() {

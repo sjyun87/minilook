@@ -37,10 +37,10 @@ public class ProductFullVH extends BaseViewHolder<ProductDataModel> {
             .load(data.getUrl_thumb())
             .into(thumbImageView);
 
-        brandNameTextView.setText(data.getBrand().getName());
+        //brandNameTextView.setText(data.getBrand().getName());
         productNameTextView.setText(data.getName());
 
-        if (data.is_discount()) {
+        if (data.isDiscount()) {
             discountPercentTextView.setText(String.format(format_percent, data.getPrice_discount_percent()));
             discountPercentTextView.setVisibility(View.VISIBLE);
         } else {

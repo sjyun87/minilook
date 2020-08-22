@@ -9,9 +9,10 @@ import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.market.viewholder.brand.MarketBrandVH;
+import com.minilook.minilook.ui.market.viewholder.commercial.MarketCommercialVH;
+import com.minilook.minilook.ui.market.viewholder.filter.MarketFilterVH;
 import com.minilook.minilook.ui.market.viewholder.limited.MarketLimitedVH;
 import com.minilook.minilook.ui.market.viewholder.new_arrivals.MarketNewArrivalsVH;
-import com.minilook.minilook.ui.market.viewholder.promotion.MarketPromotionVH;
 import com.minilook.minilook.ui.market.viewholder.recommend.MarketRecommendVH;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,24 +25,24 @@ public class MarketModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<Mar
 
     @NonNull @Override
     public BaseViewHolder<MarketDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == MarketModuleType.TYPE_PROMOTION.getValue()) {
-            return new MarketPromotionVH(parent);
+        if (viewType == MarketModuleType.TYPE_COMMERCIAL.getValue()) {
+            return new MarketCommercialVH(parent);
         } else if (viewType == MarketModuleType.TYPE_LIMITED.getValue()) {
-            return new MarketLimitedVH((parent));
+            return new MarketLimitedVH(parent);
         } else if (viewType == MarketModuleType.TYPE_RECOMMEND_4.getValue()) {
-            return new MarketRecommendVH((parent), 4);
+            return new MarketRecommendVH(parent, 4);
         } else if (viewType == MarketModuleType.TYPE_RECOMMEND_5.getValue()) {
-            return new MarketRecommendVH((parent), 5);
+            return new MarketRecommendVH(parent, 5);
         } else if (viewType == MarketModuleType.TYPE_RECOMMEND_6.getValue()) {
-            return new MarketRecommendVH((parent), 6);
+            return new MarketRecommendVH(parent, 6);
         } else if (viewType == MarketModuleType.TYPE_RECOMMEND_9.getValue()) {
-            return new MarketRecommendVH((parent), 9);
-        } else if (viewType == MarketModuleType.TYPE_NEW.getValue()) {
-            return new MarketNewArrivalsVH((parent));
+            return new MarketRecommendVH(parent, 9);
+        } else if (viewType == MarketModuleType.TYPE_NEW_ARRIVALS.getValue()) {
+            return new MarketNewArrivalsVH(parent);
         } else if (viewType == MarketModuleType.TYPE_BRAND.getValue()) {
-            return new MarketBrandVH((parent));
+            return new MarketBrandVH(parent);
         } else if (viewType == MarketModuleType.TYPE_FILTER.getValue()) {
-            return new MarketLimitedVH((parent));
+            return new MarketFilterVH(parent);
         } else {
             Timber.e("Market Module type is null..");
             return new BaseViewHolder<>(parent);
