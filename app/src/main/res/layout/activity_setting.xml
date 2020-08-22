@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.minilook.minilook.ui.base.widget.TitleBar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:setTitle="@string/setting_title"
+        app:showBack="true"
+        app:showTitle="true" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/color_FFF5F5F5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titlebar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_info_notify_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:background="@color/color_FFFFFFFF"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/txt_info_notify_caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:text="@string/setting_info_notify_caption"
+                    android:textColor="@color/color_FF232323"
+                    android:textSize="@dimen/sp_7"
+                    app:layout_constraintBottom_toTopOf="@+id/txt_info_notify_desc"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <TextView
+                    android:id="@+id/txt_info_notify_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:text="@string/setting_info_notify_desc"
+                    android:textColor="@color/color_FF616161"
+                    android:textSize="@dimen/sp_6"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_info_notify_caption" />
+
+                <com.suke.widget.SwitchButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:sb_background="@color/color_FFDBDBDB"
+                    app:sb_border_width="@dimen/dp_1"
+                    app:sb_checked_color="@color/color_FF8140E5"
+                    app:sb_shadow_effect="false"
+                    app:sb_show_indicator="false"
+                    app:sb_uncheckcircle_color="@color/color_FFDBDBDB" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_marketing_notify_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_1"
+                android:background="@color/color_FFFFFFFF"
+                app:layout_constraintTop_toBottomOf="@+id/layout_info_notify_panel"
+                app:layout_goneMarginTop="@dimen/dp_8">
+
+                <TextView
+                    android:id="@+id/txt_marketing_notify_caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:text="@string/setting_marketing_notify_caption"
+                    android:textColor="@color/color_FF232323"
+                    android:textSize="@dimen/sp_7"
+                    app:layout_constraintBottom_toTopOf="@+id/txt_marketing_notify_desc"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <TextView
+                    android:id="@+id/txt_marketing_notify_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:text="@string/setting_marketing_notify_desc"
+                    android:textColor="@color/color_FF616161"
+                    android:textSize="@dimen/sp_6"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_marketing_notify_caption" />
+
+                <com.suke.widget.SwitchButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:sb_background="@color/color_FFDBDBDB"
+                    app:sb_border_width="@dimen/dp_1"
+                    app:sb_checked_color="@color/color_FF8140E5"
+                    app:sb_shadow_effect="false"
+                    app:sb_show_indicator="false"
+                    app:sb_uncheckcircle_color="@color/color_FFDBDBDB" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/txt_terms_of_use"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_26"
+                android:layout_marginTop="@dimen/dp_8"
+                android:background="@color/color_FFFFFFFF"
+                android:fontFamily="@font/nanum_square_b"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/dp_10"
+                android:text="@string/setting_terms_of_use"
+                android:textColor="@color/color_FF232323"
+                android:textSize="@dimen/sp_7"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_marketing_notify_panel"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/txt_privacy_policy"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_26"
+                android:layout_marginTop="@dimen/dp_1"
+                android:background="@color/color_FFFFFFFF"
+                android:fontFamily="@font/nanum_square_b"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/dp_10"
+                android:text="@string/setting_privacy_policy"
+                android:textColor="@color/color_FF232323"
+                android:textSize="@dimen/sp_7"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_terms_of_use"
+                tools:ignore="RtlSymmetry" />
+
+            <LinearLayout
+                android:id="@+id/layout_version_panel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_26"
+                android:layout_marginTop="@dimen/dp_8"
+                android:background="@color/color_FFFFFFFF"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toBottomOf="@+id/txt_privacy_policy">
+
+                <TextView
+                    android:id="@+id/txt_version_caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:background="@color/color_FFFFFFFF"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:text="@string/setting_version_caption"
+                    android:textColor="@color/color_FF232323"
+                    android:textSize="@dimen/sp_7"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_terms_of_use"
+                    tools:ignore="RtlSymmetry" />
+
+                <TextView
+                    android:id="@+id/txt_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_4"
+                    android:background="@color/color_FFFFFFFF"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:textColor="@color/color_FF000000"
+                    android:textSize="@dimen/sp_7"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_terms_of_use"
+                    tools:ignore="RtlSymmetry"
+                    tools:text="v1.0" />
+
+                <TextView
+                    android:id="@+id/txt_version_newest"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_4"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:layout_weight="1"
+                    android:background="@color/color_FFFFFFFF"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:gravity="end"
+                    android:text="@string/setting_version_newest"
+                    android:textColor="@color/color_FFA9A9A9"
+                    android:textSize="@dimen/sp_6"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_terms_of_use"
+                    tools:ignore="RtlSymmetry" />
+
+                <TextView
+                    android:id="@+id/txt_version_update"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_4"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:layout_weight="1"
+                    android:background="@color/color_FFFFFFFF"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:gravity="end"
+                    android:text="@string/setting_version_update"
+                    android:textColor="@color/color_FF8140E5"
+                    android:textSize="@dimen/sp_6"
+                    android:visibility="gone"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_terms_of_use"
+                    tools:ignore="RtlSymmetry" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_app_question"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_26"
+                android:layout_marginTop="@dimen/dp_1"
+                android:background="@color/color_FFFFFFFF"
+                android:fontFamily="@font/nanum_square_b"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/dp_10"
+                android:text="@string/setting_app_question"
+                android:textColor="@color/color_FF232323"
+                android:textSize="@dimen/sp_7"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_version_panel"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/txt_logout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_26"
+                android:layout_marginTop="@dimen/dp_8"
+                android:background="@color/color_FFFFFFFF"
+                android:fontFamily="@font/nanum_square_b"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/dp_10"
+                android:text="@string/setting_logout"
+                android:textColor="@color/color_FF232323"
+                android:textSize="@dimen/sp_7"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_app_question"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/txt_login"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_26"
+                android:layout_marginTop="@dimen/dp_8"
+                android:background="@color/color_FFFFFFFF"
+                android:fontFamily="@font/nanum_square_b"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/dp_10"
+                android:text="@string/setting_login"
+                android:textColor="@color/color_FF232323"
+                android:textSize="@dimen/sp_7"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_app_question"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/txt_leave"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_26"
+                android:layout_marginTop="@dimen/dp_1"
+                android:fontFamily="@font/nanum_square_r"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/dp_10"
+                android:text="@string/setting_leave"
+                android:textColor="@color/color_FF232323"
+                android:textSize="@dimen/sp_7"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_logout"
+                tools:ignore="RtlSymmetry" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

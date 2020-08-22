@@ -122,4 +122,7 @@ dependencies {
 
   // FlowLayout
   implementation "com.nex3z:flow-layout:$flowlayout_version"
+
+  // Switch Button
+  implementation "com.github.zcweng:switch-button:0.0.3@aar"
 }

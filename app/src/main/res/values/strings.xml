@@ -239,14 +239,27 @@
     <string name="brand_detail_pick_title">PICK</string>
     <string name="brand_detail_product_title">PRODUCT</string>
 
-
-
-
     <!--Search-->
     <string name="search_keyword_hint">원하시는 상품을 검색하세요</string>
     <string name="search_recent_title"># 최근 검색어</string>
     <string name="search_recent_all_clear">전체삭제</string>
     <string name="search_recent_dialog_msg">최근검색어를 전체삭제 하시겠어요?</string>
+
+    <!--Setting-->
+    <string name="setting_title">설정</string>
+    <string name="setting_info_notify_caption">정보성 알림</string>
+    <string name="setting_info_notify_desc">주문/배송 현황 등의 소식을 받을 수 있습니다.</string>
+    <string name="setting_marketing_notify_caption">마케팅 알림</string>
+    <string name="setting_marketing_notify_desc">쿠폰, 이벤트 등의 소식을 받을 수 있습니다.</string>
+    <string name="setting_terms_of_use">이용약관</string>
+    <string name="setting_privacy_policy">개인정보처리방침</string>
+    <string name="setting_version_caption">현재 버전</string>
+    <string name="setting_version_newest">최신 버전 사용 중</string>
+    <string name="setting_version_update">업데이트</string>
+    <string name="setting_app_question">앱 문의/건의</string>
+    <string name="setting_logout">로그아웃</string>
+    <string name="setting_login">로그인/회원가입</string>
+    <string name="setting_leave">회원탈퇴</string>
 
 
 </resources>

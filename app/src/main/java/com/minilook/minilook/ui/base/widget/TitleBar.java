@@ -18,6 +18,7 @@ import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.review_write.ReviewWriteActivity;
 import com.minilook.minilook.ui.search_filter.SearchFilterActivity;
 import com.minilook.minilook.ui.search_keyword.SearchKeywordActivity;
+import com.minilook.minilook.ui.setting.SettingActivity;
 import com.minilook.minilook.ui.shoppingbag.ShoppingBagActivity;
 import com.minilook.minilook.util.StringUtil;
 
@@ -198,7 +199,7 @@ public class TitleBar extends ConstraintLayout {
 
     @OnClick(R.id.img_titlebar_setting)
     void onSettingClick() {
-
+        if (activity != null) SettingActivity.start(activity);
     }
 
     @OnClick(R.id.img_titlebar_close)

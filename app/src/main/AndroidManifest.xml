@@ -134,9 +134,6 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
-
-
-
         <activity
             android:name=".ui.order_history.OrderHistoryActivity"
             android:screenOrientation="portrait"
@@ -151,8 +148,14 @@
             android:name=".ui.order_cancel.OrderCancelActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
+
         <activity
             android:name=".ui.order_cancel_detail.OrderCancelDetailActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name=".ui.setting.SettingActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
