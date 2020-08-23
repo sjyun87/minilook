@@ -11,31 +11,29 @@ public interface BrandDetailPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
-    void onCategoryItemClick(int position);
-
     void onSortClick();
 
     void onSortSelected(SortDataModel data);
 
+    void onLoadMore();
+
     interface View {
+
+        void setupScrollView();
 
         void setupStyleRecyclerView();
 
         void styleRefresh();
-
-        void setupPickRecyclerView();
-
-        void pickRefresh();
-
-        void setupCategoryRecyclerView();
-
-        void categoryRefresh();
 
         void setupSortRecyclerView();
 
         void sortRefresh();
 
         void setupSortText(String text);
+
+        void setupProductRecyclerView();
+
+        void productRefresh();
 
         void showSortPanel();
 

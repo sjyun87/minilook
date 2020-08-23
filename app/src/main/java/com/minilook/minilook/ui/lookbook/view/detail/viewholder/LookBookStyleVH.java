@@ -17,7 +17,7 @@ public class LookBookStyleVH extends BaseViewHolder<ImageDataModel> {
 
     @BindView(R.id.img_style) ImageView imageView;
 
-    @BindColor(R.color.color_FFEEEFF5) int color_FFEEFF5;
+    @BindColor(R.color.color_FFEEEFF5) int color_FFEEEFF5;
 
     public LookBookStyleVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
@@ -29,7 +29,7 @@ public class LookBookStyleVH extends BaseViewHolder<ImageDataModel> {
 
         Glide.with(context)
             .load(data.getUrl_thumb())
-            .placeholder(new ColorDrawable(color_FFEEFF5))
+            .placeholder(new ColorDrawable(color_FFEEEFF5))
             .into(imageView);
 
         itemView.setOnClickListener(this::onItemClick);

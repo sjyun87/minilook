@@ -2,7 +2,6 @@ package com.minilook.minilook.data.network.lookbook;
 
 import com.google.gson.Gson;
 import com.minilook.minilook.data.model.base.BaseDataModel;
-import com.minilook.minilook.data.model.lookbook.LookBookDataModel;
 import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
 import java.util.List;

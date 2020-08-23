@@ -38,7 +38,7 @@ public class ProductGridVH extends BaseViewHolder<ProductDataModel> {
             .into(thumbImageView);
 
         //brandNameTextView.setText(data.getBrand().getName());
-        productNameTextView.setText(data.getName());
+        productNameTextView.setText(data.getProduct_name());
 
         if (data.isDiscount()) {
             discountPercentTextView.setText(String.format(format_percent, data.getPrice_discount_percent()));

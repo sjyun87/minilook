@@ -1,10 +1,12 @@
 package com.minilook.minilook.ui.brand_detail.viewholder;
 
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
+import butterknife.BindColor;
 import butterknife.BindView;
 import com.bumptech.glide.Glide;
 import com.minilook.minilook.R;
@@ -13,6 +15,8 @@ import com.minilook.minilook.ui.base.BaseViewHolder;
 public class BrandDetailStyleVH extends BaseViewHolder<String> {
 
     @BindView(R.id.img_style) ImageView imageView;
+
+    @BindColor(R.color.color_FFEEEFF5) int color_FFEEEFF5;
 
     public BrandDetailStyleVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
@@ -24,6 +28,7 @@ public class BrandDetailStyleVH extends BaseViewHolder<String> {
 
         Glide.with(context)
             .load(data)
+            .placeholder(new ColorDrawable(color_FFEEEFF5))
             .into(imageView);
     }
 }

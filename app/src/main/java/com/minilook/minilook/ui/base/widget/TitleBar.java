@@ -10,10 +10,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
+import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.review_write.ReviewWriteActivity;
 import com.minilook.minilook.ui.search_filter.SearchFilterActivity;
@@ -34,6 +36,8 @@ public class TitleBar extends ConstraintLayout {
     @BindView(R.id.img_titlebar_shoppingbag) ImageView shoppingbagImageView;
     @BindView(R.id.img_titlebar_setting) ImageView settingImageView;
     @BindView(R.id.img_titlebar_close) ImageView closeImageView;
+
+    @BindColor(R.color.color_FFFFFFFF) int color_FFFFFFFF;
 
     private Activity activity;
 
@@ -88,6 +92,7 @@ public class TitleBar extends ConstraintLayout {
 
     private void initView() {
         ButterKnife.bind(this, inflate(getContext(), R.layout.layout_titlebar, this));
+        setBackgroundColor(color_FFFFFFFF);
         updateUI();
     }
 
@@ -179,7 +184,7 @@ public class TitleBar extends ConstraintLayout {
 
     @OnClick(R.id.img_titlebar_logo)
     void onLogoClick() {
-        if (activity != null) ReviewWriteActivity.start(activity);
+        if (activity != null) BrandDetailActivity.start(activity, 10);
     }
 
     @OnClick(R.id.img_titlebar_search_keyword)
