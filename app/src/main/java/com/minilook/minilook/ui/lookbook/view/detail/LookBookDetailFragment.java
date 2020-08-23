@@ -93,7 +93,7 @@ public class LookBookDetailFragment extends BaseFragment implements LookBookDeta
     }
 
     @Override public void scrollToTop() {
-        scrollView.fullScroll(View.FOCUS_UP);
+        scrollView.smoothScrollTo(0, 0);
         styleRecyclerView.scrollToPosition(0);
     }
 

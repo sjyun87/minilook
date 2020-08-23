@@ -30,7 +30,7 @@ public class LookBookModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<S
 
     @SuppressWarnings("unchecked")
     @Override public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
-        holder.bind(items.get(position).getUrl_bg());
+        holder.bind(items.get(position).getBackground_url());
     }
 
     @Override public int getItemCount() {

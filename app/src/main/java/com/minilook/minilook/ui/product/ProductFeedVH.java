@@ -46,16 +46,16 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
         super.bind($data);
 
         //BrandDataModel brandModel = data.getBrand();
-        CategoryDataModel categoryDataModel = data.getCategory();
+        //CategoryDataModel categoryDataModel = data.getCategory();
 
-        //Glide.with(context)
-        //    .load(brandModel.getUrl_logo())
-        //    .placeholder(new ColorDrawable(color_FFEEFF5))
-        //    .apply(RequestOptions.bitmapTransform(
-        //        new CropCircleWithBorderTransformation(DimenUtil.dpToPx(context, 1), color_FFDBDBDB)))
-        //    .into(brandLogoImageView);
-        //
-        //brandNameTextView.setText(brandModel.getName());
+        Glide.with(context)
+            .load(data.getBrand_logo())
+            .placeholder(new ColorDrawable(color_FFEEFF5))
+            .apply(RequestOptions.bitmapTransform(
+                new CropCircleWithBorderTransformation(DimenUtil.dpToPx(context, 1), color_FFDBDBDB)))
+            .into(brandLogoImageView);
+
+        brandNameTextView.setText(data.getBrand_name());
 
         Glide.with(context)
             .load(data.getUrl_thumb())
@@ -64,9 +64,9 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
 
         reviewTextView.setText(StringUtil.toDigit(data.getReview_cnt()));
         scrapTextView.setText(StringUtil.toDigit(data.getScrap_cnt()));
-        categoryTextView.setText(categoryDataModel.getName());
-        nameTextView.setText(data.getName());
-        descTextView.setText(data.getDesc());
+        categoryTextView.setText(data.getCategory());
+        nameTextView.setText(data.getProduct_name());
+        descTextView.setText(data.getProduct_desc());
 
         itemView.setOnClickListener(this::onItemClick);
     }

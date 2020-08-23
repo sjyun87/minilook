@@ -18,8 +18,12 @@ import lombok.Data;
     private String image_url;
     @Expose @SerializedName("brandName")
     private String brand_name;
+    @Expose @SerializedName("brandLogo")
+    private String brand_logo;
     @Expose @SerializedName("productName")
     private String product_name;
+    @Expose @SerializedName("lookbookProductDescription")
+    private String product_desc;
     @Expose @SerializedName("isdiscount")
     @JsonAdapter(BooleanDeserializer.class)
     private boolean isDiscount;
@@ -27,10 +31,12 @@ import lombok.Data;
     private int discount_percent;
     @Expose @SerializedName("productPrice")
     private int price;
-
-
-
-
+    @Expose @SerializedName("categoryName")
+    private String category;
+    @Expose @SerializedName("reviewCount")
+    private int review_cnt;
+    @Expose @SerializedName("scrapCount")
+    private int scrap_cnt;
 
 
 
@@ -46,13 +52,13 @@ import lombok.Data;
     //private int price;
     //private boolean is_discount;
     private int point_percent;
-    private int scrap_cnt;
+
     private boolean is_scrap;
-    private int review_cnt;
+
     private int question_cnt;
     private String detail_info;
     private String detail_url;
-    private CategoryDataModel category;
+    //private CategoryDataModel category;
     //private BrandDataModel brand;
     private List<ProductDataModel> related_products;
     private List<ProductColorDataModel> colors;
