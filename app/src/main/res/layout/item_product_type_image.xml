@@ -9,7 +9,7 @@
         android:id="@+id/img_product_thumb"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="H,1:1"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />

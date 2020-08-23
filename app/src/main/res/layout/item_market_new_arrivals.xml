@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_2"
-        android:fontFamily="@font/nanum_square_eb"
+        android:fontFamily="@font/nanum_square_b"
         android:letterSpacing="-0.02"
         android:textColor="@color/color_FF232323"
         android:textSize="@dimen/sp_14"

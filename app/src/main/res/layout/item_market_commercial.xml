@@ -23,6 +23,7 @@
         app:dotsCornerRadius="0dp"
         app:dotsSize="@dimen/dp_4"
         app:dotsSpacing="@dimen/dp_2"
+        app:dotsWidthFactor="1"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vp_commercial"
         app:selectedDotColor="@color/color_FF8140E5" />

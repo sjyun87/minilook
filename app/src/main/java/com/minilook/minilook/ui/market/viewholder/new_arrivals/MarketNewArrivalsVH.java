@@ -1,5 +1,7 @@
 package com.minilook.minilook.ui.market.viewholder.new_arrivals;
 
+import android.graphics.Typeface;
+import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindDimen;
+import butterknife.BindFont;
 import butterknife.BindView;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.gson.Gson;
@@ -18,9 +21,11 @@ import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
+import com.minilook.minilook.util.SpannableUtil;
 import io.reactivex.rxjava3.core.Observable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 public class MarketNewArrivalsVH extends BaseViewHolder<MarketDataModel> {
 
@@ -28,6 +33,7 @@ public class MarketNewArrivalsVH extends BaseViewHolder<MarketDataModel> {
     @BindView(R.id.rcv_product) RecyclerView recyclerView;
 
     @BindDimen(R.dimen.dp_1) int dp_1;
+    @BindFont(R.font.nanum_square_eb) Typeface font_eb;
 
     private ProductAdapter adapter;
     private Gson gson = new Gson();
@@ -53,10 +59,19 @@ public class MarketNewArrivalsVH extends BaseViewHolder<MarketDataModel> {
     @Override public void bind(MarketDataModel $data) {
         super.bind($data);
 
-        titleTextView.setText(data.getTitle());
+        titleTextView.setText(getBoldText());
 
         adapter.set(parseJsonToModel());
         adapter.refresh();
+    }
+
+    private SpannableString getBoldText() {
+        SpannableString title = new SpannableString(data.getTitle());
+        StringTokenizer tokenizer = new StringTokenizer(data.getBold_text(), ",");
+        while (tokenizer.hasMoreTokens()) {
+            SpannableUtil.fontSpan(title, tokenizer.nextToken(), font_eb);
+        }
+        return title;
     }
 
     private List<ProductDataModel> parseJsonToModel() {

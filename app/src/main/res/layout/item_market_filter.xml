@@ -55,11 +55,13 @@
         android:layout_marginStart="@dimen/dp_7"
         android:layout_marginTop="@dimen/dp_12"
         android:layout_marginEnd="@dimen/dp_7"
+        android:layout_marginBottom="@dimen/dp_20"
         android:background="@color/color_FFF8F8F8"
         android:fontFamily="@font/nanum_square_b"
         android:gravity="center"
         android:text="@string/market_filter_more"
         android:textColor="@color/color_FF000000"
         android:textSize="@dimen/sp_6"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rcv_filter" />
 </androidx.constraintlayout.widget.ConstraintLayout>

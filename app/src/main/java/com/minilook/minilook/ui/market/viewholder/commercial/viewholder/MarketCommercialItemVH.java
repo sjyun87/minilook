@@ -23,9 +23,9 @@ public class MarketCommercialItemVH extends BaseViewHolder<CommercialDataModel> 
     @Override public void bind(CommercialDataModel $data) {
         super.bind($data);
 
-        //Glide.with(context)
-        //    .load(data.getImage_url())
-        //    .into(contentsImageView);
+        Glide.with(context)
+            .load(data.getImage_url())
+            .into(contentsImageView);
 
         itemView.setOnClickListener(this::onItemClick);
     }

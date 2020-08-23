@@ -10,7 +10,7 @@
         android:id="@+id/img_product_thumb"
         android:layout_width="@dimen/dp_84"
         android:layout_height="@dimen/dp_84"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"

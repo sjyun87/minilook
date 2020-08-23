@@ -26,7 +26,7 @@ public class MarketFilterItemVH extends BaseViewHolder<CategoryDataModel> {
         super.bind($data);
 
         Glide.with(context)
-            .load(data.getUrl_image())
+            .load(data.getImage_url())
             .into(iconImageView);
 
         nameTextView.setText(data.getName());

@@ -16,10 +16,8 @@ import lombok.NoArgsConstructor;
     private String title;
     @Expose @SerializedName("bold_description")
     private String bold_text;
-    @Expose @SerializedName("size")
+    @Expose @SerializedName("viewType")
     private int visible_cnt;
-    @Expose @SerializedName("productSize")
-    private int product_cnt;
     @Expose @SerializedName(value = "data", alternate = "products")
     private JsonElement data;
 

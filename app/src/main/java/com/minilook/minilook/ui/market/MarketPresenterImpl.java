@@ -57,8 +57,8 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
                 model.setType(MarketModuleType.TYPE_COMMERCIAL.getValue());
                 items.add(model);
             } else if (model.getModule().equals(MarketModuleCode.TODAY.name())) {
-                //model.setType(MarketModuleType.TYPE_LIMITED.getValue());
-                //items.add(model);
+                model.setType(MarketModuleType.TYPE_LIMITED.getValue());
+                items.add(model);
             } else if (model.getModule().equals(MarketModuleCode.NEW.name())) {
                 model.setType(MarketModuleType.TYPE_NEW_ARRIVALS.getValue());
                 items.add(model);
@@ -70,38 +70,18 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
                 items.add(model);
             } else if (model.getModule().equals(MarketModuleCode.RECOMMEND.name())) {
                 int visibleCount = model.getVisible_cnt();
-                int productCount = model.getProduct_cnt();
-                if (productCount == 0) {
-
-                } else if (visibleCount >= productCount) {
-                    if (visibleCount == 4) {
-                        model.setType(MarketModuleType.TYPE_RECOMMEND_4.getValue());
-                        items.add(model);
-                    } else if (visibleCount == 5) {
-                        model.setType(MarketModuleType.TYPE_RECOMMEND_5.getValue());
-                        items.add(model);
-                    } else if (visibleCount == 6) {
-                        model.setType(MarketModuleType.TYPE_RECOMMEND_6.getValue());
-                        items.add(model);
-                    } else if (visibleCount == 9) {
-                        model.setType(MarketModuleType.TYPE_RECOMMEND_9.getValue());
-                        items.add(model);
-                    }
-                } else {
-                    // 다른 UI... 전에 일 단 테스트!
-                    if (visibleCount == 4) {
-                        model.setType(MarketModuleType.TYPE_RECOMMEND_4.getValue());
-                        items.add(model);
-                    } else if (visibleCount == 5) {
-                        model.setType(MarketModuleType.TYPE_RECOMMEND_5.getValue());
-                        items.add(model);
-                    } else if (visibleCount == 6) {
-                        model.setType(MarketModuleType.TYPE_RECOMMEND_6.getValue());
-                        items.add(model);
-                    } else if (visibleCount == 9) {
-                        model.setType(MarketModuleType.TYPE_RECOMMEND_9.getValue());
-                        items.add(model);
-                    }
+                if (visibleCount == 4) {
+                    model.setType(MarketModuleType.TYPE_RECOMMEND_4.getValue());
+                    items.add(model);
+                } else if (visibleCount == 5) {
+                    model.setType(MarketModuleType.TYPE_RECOMMEND_5.getValue());
+                    items.add(model);
+                } else if (visibleCount == 6) {
+                    model.setType(MarketModuleType.TYPE_RECOMMEND_6.getValue());
+                    items.add(model);
+                } else if (visibleCount == 9) {
+                    model.setType(MarketModuleType.TYPE_RECOMMEND_9.getValue());
+                    items.add(model);
                 }
             }
         }

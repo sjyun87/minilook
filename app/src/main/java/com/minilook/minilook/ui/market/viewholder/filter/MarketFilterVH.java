@@ -6,8 +6,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.OnClick;
+import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.R;
@@ -24,6 +26,8 @@ public class MarketFilterVH extends BaseViewHolder<MarketDataModel> {
 
     @BindView(R.id.rcv_filter) RecyclerView recyclerView;
 
+    @BindDimen(R.dimen.dp_2) int dp_2;
+
     private MarketFilterAdapter adapter;
     private Gson gson = new Gson();
 
@@ -37,6 +41,11 @@ public class MarketFilterVH extends BaseViewHolder<MarketDataModel> {
         recyclerView.setLayoutManager(new GridLayoutManager(context, 4));
         adapter = new MarketFilterAdapter();
         recyclerView.setAdapter(adapter);
+        DividerDecoration.builder(context)
+            .size(dp_2)
+            .asSpace()
+            .build()
+            .addTo(recyclerView);
     }
 
     @Override public void bind(MarketDataModel $data) {

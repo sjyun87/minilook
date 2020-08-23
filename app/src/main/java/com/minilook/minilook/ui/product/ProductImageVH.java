@@ -25,7 +25,7 @@ public class ProductImageVH extends BaseViewHolder<ProductDataModel> {
         super.bind($data);
 
         Glide.with(context)
-            .load(data.getUrl_thumb())
+            .load(data.getImage_url())
             .into(thumbImageView);
 
         itemView.setOnClickListener(this::onItemClick);
