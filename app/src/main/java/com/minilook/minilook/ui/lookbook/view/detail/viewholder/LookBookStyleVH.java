@@ -10,10 +10,10 @@ import butterknife.BindColor;
 import butterknife.BindView;
 import com.bumptech.glide.Glide;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.common.ImageDataModel;
+import java.lang.String;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 
-public class LookBookStyleVH extends BaseViewHolder<ImageDataModel> {
+public class LookBookStyleVH extends BaseViewHolder<String> {
 
     @BindView(R.id.img_style) ImageView imageView;
 
@@ -24,11 +24,11 @@ public class LookBookStyleVH extends BaseViewHolder<ImageDataModel> {
             .inflate(R.layout.item_lookbook_detail_style, (ViewGroup) itemView, false));
     }
 
-    @Override public void bind(ImageDataModel $data) {
+    @Override public void bind(String $data) {
         super.bind($data);
 
         Glide.with(context)
-            .load(data.getUrl_thumb())
+            .load(data)
             .placeholder(new ColorDrawable(color_FFEEEFF5))
             .into(imageView);
 

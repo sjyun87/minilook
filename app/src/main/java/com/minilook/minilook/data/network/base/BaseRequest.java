@@ -3,6 +3,7 @@ package com.minilook.minilook.data.network.base;
 import android.content.res.Resources;
 import androidx.core.os.ConfigurationCompat;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.minilook.minilook.BuildConfig;
 import java.util.HashMap;
@@ -33,7 +34,7 @@ public abstract class BaseRequest<T> {
     private Retrofit createRetrofit() {
         return new Retrofit.Builder()
             .baseUrl(getBaseUrl())
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(getGson()))
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .client(createClient())
             .build();
@@ -41,6 +42,10 @@ public abstract class BaseRequest<T> {
 
     private String getBaseUrl() {
         return EndPoint.BASE_URL.getValue();
+    }
+
+    private Gson getGson() {
+        return new GsonBuilder().setPrettyPrinting().create();
     }
 
     private OkHttpClient createClient() {

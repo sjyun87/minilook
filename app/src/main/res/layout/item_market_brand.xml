@@ -43,6 +43,7 @@
         tools:orientation="horizontal" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_brand_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_4"

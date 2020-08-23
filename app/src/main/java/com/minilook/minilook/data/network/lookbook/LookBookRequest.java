@@ -1,10 +1,12 @@
 package com.minilook.minilook.data.network.lookbook;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
 import java.util.List;
+import timber.log.Timber;
 
 public class LookBookRequest extends BaseRequest<LookBookService> {
 
@@ -13,6 +15,14 @@ public class LookBookRequest extends BaseRequest<LookBookService> {
     }
 
     public Single<BaseDataModel> getLookbookModules(int row, List<Integer> usedItems) {
-        return getApi().getLookBookModule(row, createRequestBody(new Gson().toJson(usedItems)));
+        Timber.e(usedItems.toString());
+        return getApi().getLookBookModule(createRequestBody(parseToJson(row, usedItems)));
+    }
+
+    private JsonObject parseToJson(int row, List<Integer> usedItems) {
+        JsonObject json = new JsonObject();
+        json.addProperty("pageSize", row);
+        json.addProperty("usedLookbooks", new Gson().toJson(usedItems));
+        return json;
     }
 }

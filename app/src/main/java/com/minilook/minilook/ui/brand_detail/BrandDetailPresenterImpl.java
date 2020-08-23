@@ -1,7 +1,9 @@
 package com.minilook.minilook.ui.brand_detail;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
-import com.minilook.minilook.data.model.brand.BrandDetailDataModel;
 import com.minilook.minilook.data.model.common.SortDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.network.brand.BrandRequest;
@@ -10,6 +12,7 @@ import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.brand_detail.di.BrandDetailArguments;
 import com.minilook.minilook.util.StringUtil;
+import io.reactivex.rxjava3.functions.Function;
 import java.util.ArrayList;
 import java.util.List;
 import timber.log.Timber;
@@ -23,6 +26,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     private final BaseAdapterDataModel<ProductDataModel> productAdapter;
     private final BrandRequest brandRequest;
 
+    private Gson gson = new Gson();
     private boolean isSortVisible = false;
 
     public BrandDetailPresenterImpl(BrandDetailArguments args) {
@@ -39,27 +43,26 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         view.setupStyleRecyclerView();
         view.setupSortRecyclerView();
         view.setupProductRecyclerView();
-        //reqBrand();
+        reqBrand();
 
-        List<SortDataModel> sortList = new ArrayList<>();
-        SortDataModel model1 = new SortDataModel();
-        model1.setName("최신순");
-        sortList.add(model1);
-
-        SortDataModel model2 = new SortDataModel();
-        model2.setName("가격 낮은순");
-        sortList.add(model2);
-
-        SortDataModel model3 = new SortDataModel();
-        model3.setName("가격 높은순");
-        sortList.add(model3);
-
-        sortAdapter.set(sortList);
-        view.sortRefresh();
-
-
-        addProductData();
-
+        //List<SortDataModel> sortList = new ArrayList<>();
+        //SortDataModel model1 = new SortDataModel();
+        //model1.setName("최신순");
+        //sortList.add(model1);
+        //
+        //SortDataModel model2 = new SortDataModel();
+        //model2.setName("가격 낮은순");
+        //sortList.add(model2);
+        //
+        //SortDataModel model3 = new SortDataModel();
+        //model3.setName("가격 높은순");
+        //sortList.add(model3);
+        //
+        //sortAdapter.set(sortList);
+        //view.sortRefresh();
+        //
+        //
+        //addProductData();
 
     }
 
@@ -163,34 +166,30 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     }
 
     @Override public void onLoadMore() {
-        addProductData();
+        //addProductData();
     }
 
     private void reqBrand() {
         addDisposable(
             brandRequest.getBrand(id)
+                .map(data -> gson.fromJson(data.getData(), BrandDataModel.class))
                 .compose(Transformer.applySchedulers())
                 .subscribe(this::resBrand, Timber::e)
         );
     }
 
-    private void resBrand(BrandDetailDataModel data) {
-
-        BrandDataModel brandData = data.getBrand();
-
-        view.setupThumb(brandData.getUrl_thumb());
-        view.setupLogo(brandData.getUrl_logo());
-        view.setupScrapCount(StringUtil.toDigit(brandData.getScrap_cnt()));
-        //view.setupName(brandData.getName());
-        view.setupTag(brandData.getTag());
-        view.setupDesc(brandData.getDesc());
-        styleAdapter.set(brandData.getImages());
+    private void resBrand(BrandDataModel data) {
+        view.setupThumb(data.getImage_url());
+        view.setupLogo(data.getBrand_logo());
+        view.setupScrapCount(StringUtil.toDigit(data.getScrap_cnt()));
+        view.setupName(data.getBrand_name());
+        //view.setupTag(data.getTag());
+        view.setupDesc(data.getBrand_desc());
+        styleAdapter.set(data.getStyle_images());
         view.styleRefresh();
 
-
-
-        //sortAdapter.set(data.getSort_list());
-        //view.sortRefresh();
+        sortAdapter.set(data.getSorts());
+        view.sortRefresh();
         view.setupSortText(sortAdapter.get(0).getName());
     }
 }

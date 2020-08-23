@@ -16,6 +16,7 @@ import butterknife.BindFont;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.BindViews;
+import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
@@ -26,6 +27,7 @@ import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.common.StyleDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.market.viewholder.brand.adapter.MarketBrandMenuAdapter;
 import com.minilook.minilook.ui.market.viewholder.brand.viewholder.MarketBrandMenuVH;
 import com.minilook.minilook.util.DimenUtil;
@@ -40,7 +42,6 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
 
     @BindView(R.id.txt_title) TextView titleTextView;
     @BindView(R.id.rcv_brand) RecyclerView menuRecyclerView;
-
     @BindView(R.id.img_thumb) ImageView thumbImageView;
     @BindView(R.id.img_logo) ImageView logoImageView;
     @BindView(R.id.txt_scrap) TextView scrapCountTextView;
@@ -120,7 +121,7 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
         descTextView.setText(model.getBrand_desc());
 
         List<String> styleImages = model.getStyle_images();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < styleImageViews.size(); i++) {
             Glide.with(context)
                 .load(styleImages.get(i))
                 .into(styleImageViews.get(i));
@@ -153,6 +154,11 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
         menuAdapter.refresh();
 
         setupBrandData(brandItems.get(selectedPosition));
+    }
 
+    @OnClick(R.id.layout_brand_panel)
+    void onBrandMoreClick() {
+        int brand_id = brandItems.get(selectedPosition).getId();
+        BrandDetailActivity.start(context, brand_id);
     }
 }

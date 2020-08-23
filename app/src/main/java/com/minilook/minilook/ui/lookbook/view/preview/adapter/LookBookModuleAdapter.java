@@ -3,7 +3,7 @@ package com.minilook.minilook.ui.lookbook.view.preview.adapter;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.minilook.minilook.data.model.lookbook.LookBookDataModel;
+import com.minilook.minilook.data.model.lookbook.LookBookModuleDataModel;
 import com.minilook.minilook.data.type.LookBookModuleType;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
@@ -14,9 +14,9 @@ import java.util.List;
 import timber.log.Timber;
 
 public class LookBookModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<String>> implements
-    BaseAdapterDataModel<LookBookDataModel>, BaseAdapterDataView<LookBookDataModel> {
+    BaseAdapterDataModel<LookBookModuleDataModel>, BaseAdapterDataView<LookBookModuleDataModel> {
 
-    private List<LookBookDataModel> items = new ArrayList<>();
+    private List<LookBookModuleDataModel> items = new ArrayList<>();
 
     @NonNull @Override
     public BaseViewHolder<String> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -41,32 +41,32 @@ public class LookBookModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<S
         return items.get(position).getType();
     }
 
-    @Override public void add(LookBookDataModel $item) {
+    @Override public void add(LookBookModuleDataModel $item) {
         this.items.add($item);
     }
 
-    @Override public void add(int $index, LookBookDataModel $item) {
+    @Override public void add(int $index, LookBookModuleDataModel $item) {
         this.items.add($index, $item);
     }
 
-    @Override public void addAll(List<LookBookDataModel> $items) {
+    @Override public void addAll(List<LookBookModuleDataModel> $items) {
         this.items.addAll($items);
     }
 
-    @Override public void set(int $index, LookBookDataModel $item) {
+    @Override public void set(int $index, LookBookModuleDataModel $item) {
         this.items.set($index, $item);
     }
 
-    @Override public void set(List<LookBookDataModel> $items) {
+    @Override public void set(List<LookBookModuleDataModel> $items) {
         this.items.clear();
         this.items.addAll($items);
     }
 
-    @Override public LookBookDataModel get(int $index) {
+    @Override public LookBookModuleDataModel get(int $index) {
         return this.items.get($index);
     }
 
-    @Override public List<LookBookDataModel> get() {
+    @Override public List<LookBookModuleDataModel> get() {
         return this.items;
     }
 
@@ -74,7 +74,7 @@ public class LookBookModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<S
         this.items.remove($index);
     }
 
-    @Override public void remove(LookBookDataModel $item) {
+    @Override public void remove(LookBookModuleDataModel $item) {
         this.items.remove($item);
     }
 

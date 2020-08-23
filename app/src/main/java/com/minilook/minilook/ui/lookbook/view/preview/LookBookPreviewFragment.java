@@ -3,7 +3,7 @@ package com.minilook.minilook.ui.lookbook.view.preview;
 import androidx.viewpager2.widget.ViewPager2;
 import butterknife.BindView;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.lookbook.LookBookDataModel;
+import com.minilook.minilook.data.model.lookbook.LookBookModuleDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseFragment;
 import com.minilook.minilook.ui.lookbook.view.preview.adapter.LookBookModuleAdapter;
@@ -19,7 +19,7 @@ public class LookBookPreviewFragment extends BaseFragment implements LookBookPre
 
     private LookBookPreviewPresenter presenter;
     private LookBookModuleAdapter adapter = new LookBookModuleAdapter();
-    private BaseAdapterDataView<LookBookDataModel> adapterView = adapter;
+    private BaseAdapterDataView<LookBookModuleDataModel> adapterView = adapter;
 
     @Override protected int getLayoutID() {
         return R.layout.fragment_lookbook_preview;

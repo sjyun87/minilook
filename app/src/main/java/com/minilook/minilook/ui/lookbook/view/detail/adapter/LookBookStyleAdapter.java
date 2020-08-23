@@ -3,7 +3,7 @@ package com.minilook.minilook.ui.lookbook.view.detail.adapter;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.minilook.minilook.data.model.common.ImageDataModel;
+import java.lang.String;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.lookbook.view.detail.viewholder.LookBookStyleVH;
@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LookBookStyleAdapter extends RecyclerView.Adapter<LookBookStyleVH>
-    implements BaseAdapterDataModel<ImageDataModel>, BaseAdapterDataView<ImageDataModel> {
+    implements BaseAdapterDataModel<String>, BaseAdapterDataView<String> {
 
-    private List<ImageDataModel> items = new ArrayList<>();
+    private List<String> items = new ArrayList<>();
 
     @NonNull @Override public LookBookStyleVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new LookBookStyleVH(parent);
@@ -27,32 +27,32 @@ public class LookBookStyleAdapter extends RecyclerView.Adapter<LookBookStyleVH>
         return getSize();
     }
 
-    @Override public void add(ImageDataModel $item) {
+    @Override public void add(String $item) {
         this.items.add($item);
     }
 
-    @Override public void add(int $index, ImageDataModel $item) {
+    @Override public void add(int $index, String $item) {
         this.items.add($index, $item);
     }
 
-    @Override public void addAll(List<ImageDataModel> $items) {
+    @Override public void addAll(List<String> $items) {
         this.items.addAll($items);
     }
 
-    @Override public void set(int $index, ImageDataModel $item) {
+    @Override public void set(int $index, String $item) {
         this.items.set($index, $item);
     }
 
-    @Override public void set(List<ImageDataModel> $items) {
+    @Override public void set(List<String> $items) {
         this.items.clear();
         this.items.addAll($items);
     }
 
-    @Override public ImageDataModel get(int $index) {
+    @Override public String get(int $index) {
         return this.items.get($index);
     }
 
-    @Override public List<ImageDataModel> get() {
+    @Override public List<String> get() {
         return this.items;
     }
 
@@ -60,7 +60,7 @@ public class LookBookStyleAdapter extends RecyclerView.Adapter<LookBookStyleVH>
         this.items.remove($index);
     }
 
-    @Override public void remove(ImageDataModel $item) {
+    @Override public void remove(String $item) {
         this.remove($item);
     }
 

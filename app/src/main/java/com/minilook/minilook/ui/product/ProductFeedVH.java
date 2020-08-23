@@ -42,9 +42,6 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
     @Override public void bind(ProductDataModel $data) {
         super.bind($data);
 
-        //BrandDataModel brandModel = data.getBrand();
-        //CategoryDataModel categoryDataModel = data.getCategory();
-
         Glide.with(context)
             .load(data.getBrand_logo())
             .placeholder(new ColorDrawable(color_FFEEEFF5))

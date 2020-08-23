@@ -2,6 +2,7 @@ package com.minilook.minilook.data.model.brand;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.minilook.minilook.data.model.common.SortDataModel;
 import com.minilook.minilook.data.model.common.StyleDataModel;
 import java.util.List;
 import lombok.Data;
@@ -23,24 +24,10 @@ import lombok.Data;
     private List<StyleDataModel> styles;
     @Expose @SerializedName("styleImages")
     private List<String> style_images;
+    @Expose @SerializedName("productOrderbyCodes")
+    private List<SortDataModel> sorts;
 
     // -- Controller
     private int position;
     private boolean isSelect;
-
-
-
-
-
-
-
-    //private String name;
-    private String desc;
-    private String tag;
-    private String url_logo;
-    private String url_thumb;
-    private String url_image;
-    private List<String> images;
-    private boolean is_scrap;
-
 }
