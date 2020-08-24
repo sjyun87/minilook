@@ -34,14 +34,14 @@ public class ProductWideVH extends BaseViewHolder<ProductDataModel> {
         super.bind($data);
 
         Glide.with(context)
-            .load(data.getUrl_thumb())
+            .load(data.getImage_url())
             .into(thumbImageView);
 
-        //brandNameTextView.setText(data.getBrand().getName());
-        productNameTextView.setText(data.getName());
+        brandNameTextView.setText(data.getBrand_name());
+        productNameTextView.setText(data.getProduct_name());
 
         if (data.isDiscount()) {
-            discountPercentTextView.setText(String.format(format_percent, data.getPrice_discount_percent()));
+            discountPercentTextView.setText(String.format(format_percent, data.getDiscount_percent()));
             discountPercentTextView.setVisibility(View.VISIBLE);
         } else {
             discountPercentTextView.setVisibility(View.GONE);

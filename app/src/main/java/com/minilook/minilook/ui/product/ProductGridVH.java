@@ -50,7 +50,7 @@ public class ProductGridVH extends BaseViewHolder<ProductDataModel> {
         productNameTextView.setText(data.getProduct_name());
 
         if (data.isDiscount()) {
-            discountPercentTextView.setText(String.format(format_percent, data.getPrice_discount_percent()));
+            discountPercentTextView.setText(String.format(format_percent, data.getDiscount_percent()));
             discountPercentTextView.setVisibility(View.VISIBLE);
         } else {
             discountPercentTextView.setVisibility(View.GONE);

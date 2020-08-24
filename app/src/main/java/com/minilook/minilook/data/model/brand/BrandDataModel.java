@@ -16,6 +16,8 @@ import lombok.Data;
     private String brand_logo;
     @Expose @SerializedName("description")
     private String brand_desc;
+    @Expose @SerializedName("styleTags")
+    private String brand_tag;
     @Expose @SerializedName("image")
     private String image_url;
     @Expose @SerializedName("scrapCount")

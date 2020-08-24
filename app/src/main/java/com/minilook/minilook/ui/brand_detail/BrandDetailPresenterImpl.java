@@ -200,9 +200,9 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         view.setupLogo(data.getBrand_logo());
         view.setupScrapCount(StringUtil.toDigit(data.getScrap_cnt()));
         view.setupName(data.getBrand_name());
-        //view.setupTag(data.getTag());
+        view.setupTag(data.getBrand_tag().replace(",", " "));
         view.setupDesc(data.getBrand_desc());
-        styleAdapter.set(checkAvailabilty(data.getStyle_images()));
+        styleAdapter.set(checkValid(data.getStyle_images()));
         view.styleRefresh();
 
         sortAdapter.set(data.getSorts());
@@ -210,10 +210,10 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         view.setupSortText(sortAdapter.get(0).getName());
     }
 
-    private List<String> checkAvailabilty(List<String> images) {
+    private List<String> checkValid(List<String> images) {
         List<String> items = new ArrayList<>();
         for (String url : images) {
-            if (!url.equals("")) items.add(url);
+            if (url != null && !url.equals("")) items.add(url);
         }
         return items;
     }
