@@ -20,6 +20,7 @@ public class SpannableUtil {
     public static SpannableString styleSpan(SpannableString span, String target, int style) {
         int startIndex = span.toString().indexOf(target);
         int endIndex = startIndex + target.length();
+        if (startIndex == -1) return span;
         span.setSpan(new StyleSpan(style), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         return span;
     }
@@ -31,6 +32,7 @@ public class SpannableUtil {
     public static SpannableString foregroundColorSpan(SpannableString span, String target, int color) {
         int startIndex = span.toString().indexOf(target);
         int endIndex = startIndex + target.length();
+        if (startIndex == -1) return span;
         span.setSpan(new ForegroundColorSpan(color), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         return span;
     }
@@ -42,6 +44,7 @@ public class SpannableUtil {
     public static SpannableString fontSpan(SpannableString span, String target, Typeface font) {
         int startIndex = span.toString().indexOf(target);
         int endIndex = startIndex + target.length();
+        if (startIndex == -1) return span;
         span.setSpan(new FontSpan(font), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         return span;
     }
