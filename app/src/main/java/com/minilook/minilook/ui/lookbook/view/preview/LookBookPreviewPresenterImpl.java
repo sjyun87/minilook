@@ -1,6 +1,5 @@
 package com.minilook.minilook.ui.lookbook.view.preview;
 
-import android.widget.Toolbar;
 import com.google.gson.Gson;
 import com.minilook.minilook.data.model.lookbook.LookBookDataModel;
 import com.minilook.minilook.data.model.lookbook.LookBookModuleDataModel;
@@ -28,7 +27,6 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
     private static final int DATA_POOL_SIZE = 30;
     private static final int DATA_ROW = 10;
     private List<LookBookModuleDataModel> dataPool;
-    private boolean isDataEnd = false;
 
     private List<Integer> usedLookbooks = new ArrayList<>();
 
@@ -53,7 +51,7 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
         adapter.addAll(dataPool.subList(0, dataSize));
         view.refresh();
         dataPool.subList(0, dataSize).clear();
-        if (!isDataEnd) reqLoadMoreLookBookModules();
+        reqLoadMoreLookBookModules();
     }
 
     private void reqLookBookModules() {
@@ -85,11 +83,9 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
     }
 
     private void resLoadMoreLookBookModules(LookBookDataModel data) {
-        Timber.e("IS_RESET :: " + data.isReset());
         if (data.isReset()) usedLookbooks.clear();
         usedData(data.getLookbooks());
 
-        if (data.getLookbooks().size() < DATA_ROW) isDataEnd = true;
         if (data.getLookbooks().size() > 0) {
             dataPool.addAll(data.getLookbooks());
             if (dataPool.size() < DATA_POOL_SIZE) reqLoadMoreLookBookModules();
@@ -100,14 +96,6 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
         for (LookBookModuleDataModel model : lookbooks) {
             usedLookbooks.add(model.getId());
         }
-
-        List<Integer> test = new ArrayList<>();
-        for (LookBookModuleDataModel data : adapter.get()) {
-            test.add(data.getId());
-        }
-
-        Timber.e("VISIBLE :: " +test.toString());
-        Timber.e("USED :: " + usedLookbooks.toString());
     }
 
     @AllArgsConstructor @Getter public final static class RxEventLookBookModuleChanged {

@@ -1,13 +1,9 @@
 package com.minilook.minilook.data.model.market;
 
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import java.util.List;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Data public class MarketDataModel {
     @Expose @SerializedName("module_code")
