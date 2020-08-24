@@ -15,7 +15,7 @@ public class LookBookRequest extends BaseRequest<LookBookService> {
     }
 
     public Single<BaseDataModel> getLookbookModules(int row, List<Integer> usedItems) {
-        return getApi().getLookBookModule(createRequestBody(parseToJson(row, usedItems)));
+        return getApi().getLookBookModule(row, usedItems);
     }
 
     private JsonObject parseToJson(int row, List<Integer> usedItems) {

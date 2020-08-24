@@ -53,7 +53,7 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
         brandNameTextView.setText(data.getBrand_name());
 
         Glide.with(context)
-            .load(data.getUrl_thumb())
+            .load(data.getImage_url())
             .placeholder(new ColorDrawable(color_FFEEEFF5))
             .into(thumbImageView);
 

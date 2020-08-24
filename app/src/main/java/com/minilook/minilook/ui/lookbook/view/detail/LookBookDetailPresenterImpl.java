@@ -58,7 +58,7 @@ public class LookBookDetailPresenterImpl extends BasePresenterImpl implements Lo
 
         view.setupProductInfo(data.getProduct_info());
 
-        productAdapter.set(data.getProducts());
+        productAdapter.set(data.getProducts().subList(0, 1));
         view.productRefresh();
     }
 
