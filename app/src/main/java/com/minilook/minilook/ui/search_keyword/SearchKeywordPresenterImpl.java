@@ -1,17 +1,10 @@
 package com.minilook.minilook.ui.search_keyword;
 
-import com.minilook.minilook.data.model.search.SearchDataModel;
-import com.minilook.minilook.data.model.search.SearchModuleDataModel;
 import com.minilook.minilook.data.network.search.SearchRequest;
 import com.minilook.minilook.data.room.recent_keyword.RecentKeywordDB;
-import com.minilook.minilook.data.rx.Transformer;
-import com.minilook.minilook.data.type.SearchModuleType;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.search_keyword.di.SearchKeywordArguments;
-
 import java.util.List;
-
-import timber.log.Timber;
 
 public class SearchKeywordPresenterImpl extends BasePresenterImpl implements SearchKeywordPresenter {
 
@@ -28,7 +21,7 @@ public class SearchKeywordPresenterImpl extends BasePresenterImpl implements Sea
     @Override public void onCreate() {
         view.setupEditText();
         reqRecentKeyword();
-        reqSearchModules();
+        //reqSearchModules();
     }
 
     @Override
@@ -88,25 +81,25 @@ public class SearchKeywordPresenterImpl extends BasePresenterImpl implements Sea
         }
     }
 
-    private void reqSearchModules() {
-        addDisposable(
-            searchRequest.getSearchModule()
-                .compose(Transformer.applySchedulers())
-                .subscribe(this::resSearchModules, Timber::e)
-        );
-    }
+    //private void reqSearchModules() {
+    //    addDisposable(
+    //        searchRequest.getSearchModule()
+    //            .compose(Transformer.applySchedulers())
+    //            .subscribe(this::resSearchModules, Timber::e)
+    //    );
+    //}
 
-    private void resSearchModules(SearchDataModel data) {
-        for (SearchModuleDataModel item : data.getModules()) {
-            int moduleType = item.getModule_type();
-            switch (SearchModuleType.toType(moduleType)) {
-                case TYPE_POPULAR:
-                    view.setupPopularTitle(item.getTitle());
-                    break;
-                case TYPE_BRAND:
-                    view.setupBrandTitle(item.getTitle());
-                    break;
-            }
-        }
-    }
+    //private void resSearchModules(SearchDataModel data) {
+    //    for (SearchModuleDataModel item : data.getModules()) {
+    //        int moduleType = item.getModule_type();
+    //        switch (SearchModuleType.toType(moduleType)) {
+    //            case TYPE_POPULAR:
+    //                view.setupPopularTitle(item.getTitle());
+    //                break;
+    //            case TYPE_BRAND:
+    //                view.setupBrandTitle(item.getTitle());
+    //                break;
+    //        }
+    //    }
+    //}
 }

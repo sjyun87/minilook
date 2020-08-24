@@ -10,9 +10,8 @@ import butterknife.BindColor;
 import butterknife.BindFont;
 import butterknife.BindView;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.category.CategoryDataModel;
+import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
-import com.minilook.minilook.util.StringUtil;
 import lombok.Setter;
 
 public class BrandDetailCategoryItemVH extends BaseViewHolder<CategoryDataModel> {

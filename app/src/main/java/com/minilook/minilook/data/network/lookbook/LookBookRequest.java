@@ -6,7 +6,6 @@ import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
 import java.util.List;
-import timber.log.Timber;
 
 public class LookBookRequest extends BaseRequest<LookBookService> {
 
@@ -15,7 +14,7 @@ public class LookBookRequest extends BaseRequest<LookBookService> {
     }
 
     public Single<BaseDataModel> getLookbookModules(int row, List<Integer> usedItems) {
-        return getApi().getLookBookModule(row, usedItems);
+        return getApi().getLookBookModule(createRequestBody(parseToJson(row, usedItems)));
     }
 
     private JsonObject parseToJson(int row, List<Integer> usedItems) {

@@ -14,12 +14,10 @@ import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.category.CategoryDataModel;
+import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
-import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.market.viewholder.filter.adapter.MarketFilterAdapter;
-import io.reactivex.rxjava3.core.Observable;
 import java.util.ArrayList;
 import java.util.List;
 

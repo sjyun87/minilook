@@ -5,7 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.category.CategoryDataModel;
+import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 
 public class ScrapBrandItemVH extends BaseViewHolder<CategoryDataModel> {

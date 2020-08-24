@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 @Data public class CommercialDataModel {
-
     @Expose @SerializedName("itemNo")
     private int id;
     @Expose @SerializedName("itemType")
