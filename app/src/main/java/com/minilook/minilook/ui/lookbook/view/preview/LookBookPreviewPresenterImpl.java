@@ -1,5 +1,6 @@
 package com.minilook.minilook.ui.lookbook.view.preview;
 
+import android.widget.Toolbar;
 import com.google.gson.Gson;
 import com.minilook.minilook.data.model.lookbook.LookBookDataModel;
 import com.minilook.minilook.data.model.lookbook.LookBookModuleDataModel;
@@ -84,6 +85,7 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
     }
 
     private void resLoadMoreLookBookModules(LookBookDataModel data) {
+        Timber.e("IS_RESET :: " + data.isReset());
         if (data.isReset()) usedLookbooks.clear();
         usedData(data.getLookbooks());
 
@@ -98,6 +100,14 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
         for (LookBookModuleDataModel model : lookbooks) {
             usedLookbooks.add(model.getId());
         }
+
+        List<Integer> test = new ArrayList<>();
+        for (LookBookModuleDataModel data : adapter.get()) {
+            test.add(data.getId());
+        }
+
+        Timber.e("VISIBLE :: " +test.toString());
+        Timber.e("USED :: " + usedLookbooks.toString());
     }
 
     @AllArgsConstructor @Getter public final static class RxEventLookBookModuleChanged {

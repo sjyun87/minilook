@@ -27,9 +27,9 @@ public class CategoryVH extends BaseViewHolder<CategoryDataModel> {
 
         nameTextView.setText(data.getName());
 
-        //Glide.with(context)
-        //    .load(R.drawable.test_profile)
-        //    .into(iconImageView);
+        Glide.with(context)
+            .load(data.getImage_url())
+            .into(iconImageView);
 
         itemView.setOnClickListener(this::onItemClick);
     }

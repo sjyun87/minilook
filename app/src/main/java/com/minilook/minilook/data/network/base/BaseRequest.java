@@ -119,8 +119,7 @@ public abstract class BaseRequest<T> {
     @AllArgsConstructor @Getter protected enum EndPoint {
         BASE_URL(BuildConfig.DEBUG ?
             "http://dev.app.api.minilook.co.kr:8080" :
-            "http://app.api.minilook.co.kr:8080"),
-        INICIS_URL("https://mobile.inicis.com");
+            "http://app.api.minilook.co.kr:8080");
         private String value;
     }
 }

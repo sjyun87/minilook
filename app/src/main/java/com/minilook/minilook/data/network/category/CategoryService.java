@@ -1,12 +1,10 @@
 package com.minilook.minilook.data.network.category;
 
-import com.minilook.minilook.data.model.category.CategoryDataModel;
+import com.minilook.minilook.data.model.base.BaseDataModel;
 import io.reactivex.rxjava3.core.Single;
-import java.util.List;
-import retrofit2.http.Headers;
-import retrofit2.http.POST;
+import retrofit2.http.GET;
 
 public interface CategoryService {
 
-    @POST("/api/category") Single<List<CategoryDataModel>> getCategoryList();
+    @GET("/api/commons/categories") Single<BaseDataModel> getCategoryList();
 }

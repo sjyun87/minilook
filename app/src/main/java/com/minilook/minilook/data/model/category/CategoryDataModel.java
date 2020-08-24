@@ -9,5 +9,6 @@ import lombok.Data;
     private int id;
     @Expose @SerializedName("catename")
     private String name;
+    @Expose @SerializedName("icon")
     private String image_url;
 }
