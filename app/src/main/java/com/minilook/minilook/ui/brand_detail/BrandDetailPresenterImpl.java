@@ -175,6 +175,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
 
     @Override public void onSortSelected(SortDataModel data) {
         view.setupSortText(data.getName());
+        onSortClick();
     }
 
     @Override public void onLoadMore() {
@@ -201,11 +202,19 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         view.setupName(data.getBrand_name());
         //view.setupTag(data.getTag());
         view.setupDesc(data.getBrand_desc());
-        styleAdapter.set(data.getStyle_images());
+        styleAdapter.set(checkAvailabilty(data.getStyle_images()));
         view.styleRefresh();
 
         sortAdapter.set(data.getSorts());
         view.sortRefresh();
         view.setupSortText(sortAdapter.get(0).getName());
+    }
+
+    private List<String> checkAvailabilty(List<String> images) {
+        List<String> items = new ArrayList<>();
+        for (String url : images) {
+            if (!url.equals("")) items.add(url);
+        }
+        return items;
     }
 }

@@ -32,7 +32,6 @@ import com.minilook.minilook.ui.brand_info.BrandInfoActivity;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.util.DimenUtil;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
-import timber.log.Timber;
 
 public class BrandDetailActivity extends BaseActivity implements BrandDetailPresenter.View {
 
@@ -115,7 +114,7 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
                     }
                 }
 
-                if (scrollY > ((v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) - ((dp_150 * 10) + dp_50))) {
+                if (scrollY > ((v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) - (dp_150 * 3))) {
                     if (!isLoading) {
                         isLoading = true;
                         presenter.onLoadMore();
@@ -132,6 +131,7 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
             .asSpace()
             .build()
             .addTo(styleRecyclerView);
+        ViewCompat.setNestedScrollingEnabled(styleRecyclerView, false);
     }
 
     @Override public void styleRefresh() {
