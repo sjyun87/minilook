@@ -40,7 +40,7 @@ public abstract class BaseRequest<T> {
             .build();
     }
 
-    private String getBaseUrl() {
+    protected String getBaseUrl() {
         return EndPoint.BASE_URL.getValue();
     }
 
@@ -119,8 +119,8 @@ public abstract class BaseRequest<T> {
     @AllArgsConstructor @Getter protected enum EndPoint {
         BASE_URL(BuildConfig.DEBUG ?
             "http://dev.app.api.minilook.co.kr:8080" :
-            "http://app.api.minilook.co.kr:8080");
-
+            "http://app.api.minilook.co.kr:8080"),
+        INICIS_URL("https://mobile.inicis.com");
         private String value;
     }
 }

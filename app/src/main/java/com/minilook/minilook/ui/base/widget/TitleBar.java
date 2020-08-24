@@ -15,6 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.network.inicis.InicisRequest;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.review_write.ReviewWriteActivity;
@@ -184,7 +185,8 @@ public class TitleBar extends ConstraintLayout {
 
     @OnClick(R.id.img_titlebar_logo)
     void onLogoClick() {
-        if (activity != null) LoginActivity.start(activity);
+        InicisRequest inicisRequest = new InicisRequest();
+        inicisRequest.callPaymentPage();
     }
 
     @OnClick(R.id.img_titlebar_search_keyword)

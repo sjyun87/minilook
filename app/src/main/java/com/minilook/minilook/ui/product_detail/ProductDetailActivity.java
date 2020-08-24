@@ -186,7 +186,6 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     }
 
     @Override public void addColorView(ProductColorDataModel model) {
-        Timber.e(model.toString());
         ColorView colorView = ColorView.builder()
             .context(this)
             .model(model)

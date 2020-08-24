@@ -15,7 +15,6 @@ public class LookBookRequest extends BaseRequest<LookBookService> {
     }
 
     public Single<BaseDataModel> getLookbookModules(int row, List<Integer> usedItems) {
-        Timber.e(usedItems.toString());
         return getApi().getLookBookModule(createRequestBody(parseToJson(row, usedItems)));
     }
 
