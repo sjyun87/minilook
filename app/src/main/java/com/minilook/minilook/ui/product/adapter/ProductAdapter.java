@@ -1,6 +1,7 @@
 package com.minilook.minilook.ui.product.adapter;
 
 import android.view.ViewGroup;
+import android.widget.GridView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.minilook.minilook.data.model.product.ProductDataModel;
@@ -40,13 +41,19 @@ public class ProductAdapter extends RecyclerView.Adapter<BaseViewHolder<ProductD
             case VIEW_TYPE_FEED:
                 return new ProductFeedVH(parent);
             case VIEW_TYPE_GRID:
-                return new ProductGridVH(parent);
+                ProductGridVH productGridVH = new ProductGridVH(parent);
+                productGridVH.setShowScrap(isShowScrap);
+                productGridVH.setShowBrand(isShowBrand);
+                return productGridVH;
             case VIEW_TYPE_IMAGE:
                 return new ProductImageVH(parent);
             case VIEW_TYPE_FULL:
                 return new ProductFullVH(parent);
             case VIEW_TYPE_SIZE_84:
-                return new ProductSize84VH(parent, isShowScrap);
+                ProductSize84VH productSize84VH = new ProductSize84VH(parent);
+                productSize84VH.setShowScrap(isShowScrap);
+                productSize84VH.setShowBrand(isShowBrand);
+                return productSize84VH;
             case VIEW_TYPE_WIDE:
                 return new ProductWideVH(parent);
             default:

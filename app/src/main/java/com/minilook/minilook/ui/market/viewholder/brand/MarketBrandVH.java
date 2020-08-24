@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindColor;
@@ -74,12 +75,12 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
         menuAdapter = new MarketBrandMenuAdapter();
         menuRecyclerView.setAdapter(menuAdapter);
         menuAdapter.setOnMenuClickListener(this);
-
         DividerDecoration.builder(context)
             .size(dp_6)
             .asSpace()
             .build()
             .addTo(menuRecyclerView);
+        ViewCompat.setNestedScrollingEnabled(menuRecyclerView, false);
     }
 
     @Override public void bind(MarketDataModel $data) {

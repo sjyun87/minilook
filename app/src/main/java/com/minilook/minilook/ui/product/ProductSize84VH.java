@@ -12,8 +12,8 @@ import com.bumptech.glide.Glide;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
-import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.StringUtil;
+import lombok.Setter;
 
 public class ProductSize84VH extends BaseViewHolder<ProductDataModel> {
 
@@ -26,12 +26,12 @@ public class ProductSize84VH extends BaseViewHolder<ProductDataModel> {
 
     @BindString(R.string.base_price_percent) String format_percent;
 
-    private final boolean isShowScrap;
+    @Setter private boolean isShowScrap;
+    @Setter private boolean isShowBrand;
 
-    public ProductSize84VH(@NonNull View itemView, @NonNull boolean isShowScrap) {
+    public ProductSize84VH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
             .inflate(R.layout.item_product_type_size_84, (ViewGroup) itemView, false));
-        this.isShowScrap = isShowScrap;
     }
 
     @Override public void bind(ProductDataModel $data) {
@@ -70,6 +70,6 @@ public class ProductSize84VH extends BaseViewHolder<ProductDataModel> {
     }
 
     void onItemClick(View view) {
-        ProductDetailActivity.start(context, data.getId());
+        //ProductDetailActivity.start(context, data.getId());
     }
 }

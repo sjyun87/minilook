@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,6 +32,7 @@ import com.minilook.minilook.ui.brand_info.BrandInfoActivity;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.util.DimenUtil;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
+import timber.log.Timber;
 
 public class BrandDetailActivity extends BaseActivity implements BrandDetailPresenter.View {
 
@@ -55,6 +58,7 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
     @BindView(R.id.rcv_product) RecyclerView productRecyclerView;
 
     @BindView(R.id.layout_header_panel) LinearLayout headerPanel;
+    @BindView(R.id.txt_header_sort) TextView headerSortTextView;
     @BindView(R.id.rcv_header_sort) RecyclerView headerSortRecyclerView;
 
     @BindColor(R.color.color_FFDBDBDB) int color_FFDBDBDB;
@@ -62,6 +66,8 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
     @BindColor(R.color.color_FFEEEFF5) int color_FFEEEFF5;
 
     @BindDimen(R.dimen.dp_2) int dp_2;
+    @BindDimen(R.dimen.dp_50) int dp_50;
+    @BindDimen(R.dimen.dp_150) int dp_150;
 
     private BrandDetailPresenter presenter;
     private BrandDetailStyleAdapter styleAdapter = new BrandDetailStyleAdapter();
@@ -70,6 +76,8 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
     private BaseAdapterDataView<SortDataModel> sortAdapterView = sortAdapter;
     private ProductAdapter productAdapter = new ProductAdapter();
     private BaseAdapterDataView<ProductDataModel> productAdapterView = productAdapter;
+
+    private boolean isLoading = false;
 
     @Override protected int getLayoutID() {
         return R.layout.activity_brand_detail;
@@ -107,8 +115,11 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
                     }
                 }
 
-                if (scrollY == ((v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) - 300)) {
-                    presenter.onLoadMore();
+                if (scrollY > ((v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) - ((dp_150 * 10) + dp_50))) {
+                    if (!isLoading) {
+                        isLoading = true;
+                        presenter.onLoadMore();
+                    }
                 }
             });
     }
@@ -153,16 +164,20 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
 
     @Override public void setupSortText(String text) {
         sortTextView.setText(text);
+        headerSortTextView.setText(text);
     }
 
     @Override public void setupProductRecyclerView() {
         productRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         productAdapter.setViewType(ProductAdapter.VIEW_TYPE_GRID);
+        productAdapter.setShowBrand(false);
         productRecyclerView.setAdapter(productAdapter);
+        ViewCompat.setNestedScrollingEnabled(productRecyclerView, false);
     }
 
-    @Override public void productRefresh() {
-        productAdapterView.refresh();
+    @Override public void productRefresh(int start, int row) {
+        productAdapterView.refresh(start, row);
+        isLoading = false;
     }
 
     @Override public void showSortPanel() {

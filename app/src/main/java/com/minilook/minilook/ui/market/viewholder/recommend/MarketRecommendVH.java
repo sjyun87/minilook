@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindFont;
@@ -61,6 +62,7 @@ public class MarketRecommendVH extends BaseViewHolder<MarketDataModel> {
                 }
             }
         });
+        ViewCompat.setNestedScrollingEnabled(productRecyclerView, false);
     }
 
     @Override public void bind(MarketDataModel $data) {

@@ -188,12 +188,12 @@ public class TitleBar extends ConstraintLayout {
 
     @OnClick(R.id.img_titlebar_search_keyword)
     void onKeywordSearchClick() {
-        if (activity != null) SearchKeywordActivity.start(activity);
+        //if (activity != null) SearchKeywordActivity.start(activity);
     }
 
     @OnClick(R.id.img_titlebar_search_filter)
     void onFilterSearchClick() {
-        if (activity != null) SearchFilterActivity.start(activity);
+        //if (activity != null) SearchFilterActivity.start(activity);
     }
 
     @OnClick(R.id.img_titlebar_shoppingbag)

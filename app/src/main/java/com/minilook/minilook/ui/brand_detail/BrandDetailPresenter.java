@@ -35,7 +35,7 @@ public interface BrandDetailPresenter extends LifecycleObserver {
 
         void setupProductRecyclerView();
 
-        void productRefresh();
+        void productRefresh(int start, int row);
 
         void showSortPanel();
 

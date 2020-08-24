@@ -14,6 +14,7 @@ import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.StringUtil;
+import lombok.Setter;
 
 public class ProductGridVH extends BaseViewHolder<ProductDataModel> {
 
@@ -25,6 +26,9 @@ public class ProductGridVH extends BaseViewHolder<ProductDataModel> {
 
     @BindString(R.string.base_price_percent) String format_percent;
 
+    @Setter private boolean isShowScrap;
+    @Setter private boolean isShowBrand;
+
     public ProductGridVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
             .inflate(R.layout.item_product_type_grid, (ViewGroup) itemView, false));
@@ -34,10 +38,15 @@ public class ProductGridVH extends BaseViewHolder<ProductDataModel> {
         super.bind($data);
 
         Glide.with(context)
-            .load(data.getUrl_thumb())
+            .load(data.getImage_url())
             .into(thumbImageView);
 
-        //brandNameTextView.setText(data.getBrand().getName());
+        if (isShowBrand) {
+            showBrand();
+            brandNameTextView.setText(data.getBrand_name());
+        } else {
+            hideBrand();
+        }
         productNameTextView.setText(data.getProduct_name());
 
         if (data.isDiscount()) {
@@ -51,7 +60,15 @@ public class ProductGridVH extends BaseViewHolder<ProductDataModel> {
         itemView.setOnClickListener(this::onItemClick);
     }
 
+    private void showBrand() {
+        brandNameTextView.setVisibility(View.VISIBLE);
+    }
+
+    private void hideBrand() {
+        brandNameTextView.setVisibility(View.GONE);
+    }
+
     void onItemClick(View view) {
-        ProductDetailActivity.start(context, data.getId());
+        //ProductDetailActivity.start(context, data.getId());
     }
 }

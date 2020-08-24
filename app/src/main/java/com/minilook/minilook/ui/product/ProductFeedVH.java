@@ -15,6 +15,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.DimenUtil;
 import com.minilook.minilook.util.StringUtil;
@@ -66,7 +67,7 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
     }
 
     void onItemClick(View view) {
-        ProductDetailActivity.start(context, data.getId());
+        //ProductDetailActivity.start(context, data.getId());
     }
 
     @OnClick(R.id.layout_brand_panel)

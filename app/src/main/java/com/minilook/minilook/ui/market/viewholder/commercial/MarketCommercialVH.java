@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
 import androidx.viewpager2.widget.ViewPager2;
 import butterknife.BindView;
 import com.google.gson.Gson;
@@ -36,6 +37,7 @@ public class MarketCommercialVH extends BaseViewHolder<MarketDataModel> {
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(2);
         indicator.setViewPager2(viewPager);
+        ViewCompat.setNestedScrollingEnabled(viewPager, false);
     }
 
     @Override public void bind(MarketDataModel $data) {

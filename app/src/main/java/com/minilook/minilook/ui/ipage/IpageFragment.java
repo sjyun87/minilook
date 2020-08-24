@@ -34,33 +34,33 @@ public class IpageFragment extends BaseFragment implements IpagePresenter.View {
             .build();
     }
 
-    @OnClick(R.id.img_profile)
-    void onProfileClick() {
-        ProfileActivity.start(getContext());
-    }
-
-    @OnClick(R.id.layout_question_panel)
-    void onQuestionClick() {
-        QuestionActivity.start(getContext());
-    }
-
-    @OnClick(R.id.layout_point_panel)
-    void onPointClick() {
-        PointActivity.start(getContext());
-    }
-
-    @OnClick(R.id.layout_coupon_panel)
-    void onCouponClick() {
-        CouponActivity.start(getContext());
-    }
-
-    @OnClick(R.id.layout_scrap_panel)
-    void onScrapClick() {
-        ScrapActivity.start(getContext());
-    }
-
-    @OnClick(R.id.txt_order_more)
-    void onOrderMoreClick() {
-        OrderHistoryActivity.start(getContext());
-    }
+    //@OnClick(R.id.img_profile)
+    //void onProfileClick() {
+    //    ProfileActivity.start(getContext());
+    //}
+    //
+    //@OnClick(R.id.layout_question_panel)
+    //void onQuestionClick() {
+    //    QuestionActivity.start(getContext());
+    //}
+    //
+    //@OnClick(R.id.layout_point_panel)
+    //void onPointClick() {
+    //    PointActivity.start(getContext());
+    //}
+    //
+    //@OnClick(R.id.layout_coupon_panel)
+    //void onCouponClick() {
+    //    CouponActivity.start(getContext());
+    //}
+    //
+    //@OnClick(R.id.layout_scrap_panel)
+    //void onScrapClick() {
+    //    ScrapActivity.start(getContext());
+    //}
+    //
+    //@OnClick(R.id.txt_order_more)
+    //void onOrderMoreClick() {
+    //    OrderHistoryActivity.start(getContext());
+    //}
 }

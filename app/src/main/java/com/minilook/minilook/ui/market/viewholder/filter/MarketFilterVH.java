@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindDimen;
@@ -46,6 +47,7 @@ public class MarketFilterVH extends BaseViewHolder<MarketDataModel> {
             .asSpace()
             .build()
             .addTo(recyclerView);
+        ViewCompat.setNestedScrollingEnabled(recyclerView, false);
     }
 
     @Override public void bind(MarketDataModel $data) {
