@@ -184,7 +184,6 @@ public class TitleBar extends ConstraintLayout {
 
     @OnClick(R.id.img_titlebar_logo)
     void onLogoClick() {
-        if (activity != null) BrandDetailActivity.start(activity, 10);
     }
 
     @OnClick(R.id.img_titlebar_search_keyword)

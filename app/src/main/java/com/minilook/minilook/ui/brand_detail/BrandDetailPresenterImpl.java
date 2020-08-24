@@ -1,8 +1,6 @@
 package com.minilook.minilook.ui.brand_detail;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.common.SortDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
@@ -12,7 +10,6 @@ import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.brand_detail.di.BrandDetailArguments;
 import com.minilook.minilook.util.StringUtil;
-import io.reactivex.rxjava3.functions.Function;
 import java.util.ArrayList;
 import java.util.List;
 import timber.log.Timber;
@@ -20,7 +17,7 @@ import timber.log.Timber;
 public class BrandDetailPresenterImpl extends BasePresenterImpl implements BrandDetailPresenter {
 
     private final View view;
-    private final int id;
+    private final int brand_id;
     private final BaseAdapterDataModel<String> styleAdapter;
     private final BaseAdapterDataModel<SortDataModel> sortAdapter;
     private final BaseAdapterDataModel<ProductDataModel> productAdapter;
@@ -31,7 +28,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
 
     public BrandDetailPresenterImpl(BrandDetailArguments args) {
         view = args.getView();
-        id = args.getId();
+        brand_id = args.getBrand_id();
         styleAdapter = args.getStyleAdapter();
         sortAdapter = args.getSortAdapter();
         productAdapter = args.getProductAdapter();
@@ -45,25 +42,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         view.setupProductRecyclerView();
         reqBrand();
 
-        //List<SortDataModel> sortList = new ArrayList<>();
-        //SortDataModel model1 = new SortDataModel();
-        //model1.setName("최신순");
-        //sortList.add(model1);
-        //
-        //SortDataModel model2 = new SortDataModel();
-        //model2.setName("가격 낮은순");
-        //sortList.add(model2);
-        //
-        //SortDataModel model3 = new SortDataModel();
-        //model3.setName("가격 높은순");
-        //sortList.add(model3);
-        //
-        //sortAdapter.set(sortList);
-        //view.sortRefresh();
-        //
-        //
-        //addProductData();
-
+        addProductData();
     }
 
     private void addProductData() {
@@ -166,12 +145,16 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     }
 
     @Override public void onLoadMore() {
-        //addProductData();
+        addProductData();
+    }
+
+    @Override public void onBrandInfoClick() {
+        view.navigateToBrandInfo(brand_id);
     }
 
     private void reqBrand() {
         addDisposable(
-            brandRequest.getBrand(id)
+            brandRequest.getBrand(brand_id)
                 .map(data -> gson.fromJson(data.getData(), BrandDataModel.class))
                 .compose(Transformer.applySchedulers())
                 .subscribe(this::resBrand, Timber::e)

@@ -13,4 +13,8 @@ public class BrandRequest extends BaseRequest<BrandService> {
     public Single<BaseDataModel> getBrand(int id) {
         return getApi().getBrand(id);
     }
+
+    public Single<BaseDataModel> getBrandInfo(int id) {
+        return getApi().getBrandInfo(id);
+    }
 }

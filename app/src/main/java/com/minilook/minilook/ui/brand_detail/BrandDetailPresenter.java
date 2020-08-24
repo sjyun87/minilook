@@ -17,6 +17,8 @@ public interface BrandDetailPresenter extends LifecycleObserver {
 
     void onLoadMore();
 
+    void onBrandInfoClick();
+
     interface View {
 
         void setupScrollView();
@@ -50,5 +52,7 @@ public interface BrandDetailPresenter extends LifecycleObserver {
         void setupTag(String text);
 
         void setupDesc(String text);
+
+        void navigateToBrandInfo(int brand_id);
     }
 }

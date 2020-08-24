@@ -10,4 +10,8 @@ public interface BrandService {
     @GET("api/brands/{brand_id}") Single<BaseDataModel> getBrand(
         @Path("brand_id") int id
     );
+
+    @GET("api/brands/{brand_id}/sellers") Single<BaseDataModel> getBrandInfo(
+        @Path("brand_id") int id
+    );
 }

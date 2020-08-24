@@ -26,17 +26,18 @@ import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.brand_detail.adapter.BrandDetailSortAdapter;
 import com.minilook.minilook.ui.brand_detail.adapter.BrandDetailStyleAdapter;
 import com.minilook.minilook.ui.brand_detail.di.BrandDetailArguments;
+import com.minilook.minilook.ui.brand_info.BrandInfoActivity;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.util.DimenUtil;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
 
 public class BrandDetailActivity extends BaseActivity implements BrandDetailPresenter.View {
 
-    public static void start(Context context, int id) {
+    public static void start(Context context, int brand_id) {
         Intent intent = new Intent(context, BrandDetailActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        intent.putExtra("brand_id", id);
+        intent.putExtra("brand_id", brand_id);
         context.startActivity(intent);
     }
 
@@ -82,7 +83,7 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
     private BrandDetailArguments provideArguments() {
         return BrandDetailArguments.builder()
             .view(this)
-            .id(getIntent().getIntExtra("brand_id", -1))
+            .brand_id(getIntent().getIntExtra("brand_id", -1))
             .styleAdapter(styleAdapter)
             .sortAdapter(sortAdapter)
             .productAdapter(productAdapter)
@@ -210,6 +211,15 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
 
     @Override public void setupDesc(String text) {
         descTextView.setText(text);
+    }
+
+    @Override public void navigateToBrandInfo(int brand_id) {
+        BrandInfoActivity.start(this, brand_id);
+    }
+
+    @OnClick(R.id.layout_brand_info_panel)
+    void onBrandInfoClick() {
+        presenter.onBrandInfoClick();
     }
 
     @OnClick({ R.id.layout_sort_panel, R.id.layout_header_sort_panel })

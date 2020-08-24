@@ -10,7 +10,7 @@ import lombok.Getter;
 @Getter @Builder
 public class BrandDetailArguments {
     private final BrandDetailPresenter.View view;
-    private final int id;
+    private final int brand_id;
     private final BaseAdapterDataModel<String> styleAdapter;
     private final BaseAdapterDataModel<SortDataModel> sortAdapter;
     private final BaseAdapterDataModel<ProductDataModel> productAdapter;

@@ -131,6 +131,15 @@
     <string name="brand_selected_count">스타일선택 (%d/%d)</string>
     <string name="brand_reset">선택 초기화</string>
 
+    <!--Brand Info-->
+    <string name="brand_info_title">브랜드 정보</string>
+    <string name="brand_info_cs_title">고객센터</string>
+    <string name="brand_info_cs_time_caption">운영시간</string>
+    <string name="brand_info_cs_tel_caption">고객센터</string>
+    <string name="brand_info_cs_sns_caption">채팅문의</string>
+    <string name="brand_info_cs_email_caption">이메일문의</string>
+    <string name="brand_info_guide_title">배송/교환/환불 안내</string>
+
     <!--Order History-->
     <string name="order_history_title">주문/배송</string>
     <string name="order_history_more_detail">주문상세보기</string>
