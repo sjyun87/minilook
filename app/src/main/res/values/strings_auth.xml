@@ -5,4 +5,8 @@
 <resources>
     <string name="kakao_app_key">&kakao_app_key;</string>
     <string name="kakao_scheme">kakao&kakao_app_key;</string>
+
+    <string name="naver_client_id">NB6JUb4x3fzKOoxG0ARb</string>
+    <string name="naver_client_secret">eLAKiFgMXW</string>
+    <string name="naver_client_app_name">미니룩</string>
 </resources>

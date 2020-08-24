@@ -2,12 +2,14 @@ package com.minilook.minilook.ui.login;
 
 import android.content.Context;
 import android.content.Intent;
+import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.login.di.LoginArguments;
 import com.minilook.minilook.ui.login.dialog.NoEmailDialog;
 import com.minilook.minilook.ui.login.kakao.KakaoLoginManager;
+import com.minilook.minilook.ui.login.naver.NaverLoginManager;
 
 public class LoginActivity extends BaseActivity implements LoginPresenter.View {
 
@@ -34,7 +36,13 @@ public class LoginActivity extends BaseActivity implements LoginPresenter.View {
         return LoginArguments.builder()
             .view(this)
             .kakaoLoginManager(new KakaoLoginManager(this))
+            .naverLoginManager(new NaverLoginManager(this))
             .build();
+    }
+
+    @Override public void showNoEmailDialog() {
+        if (dialog == null) dialog = new NoEmailDialog(this);
+        dialog.show();
     }
 
     @OnClick(R.id.layout_naver_panel)
@@ -45,10 +53,5 @@ public class LoginActivity extends BaseActivity implements LoginPresenter.View {
     @OnClick(R.id.layout_kakao_panel)
     void onKakaoClick() {
         presenter.onKakaoClick();
-    }
-
-    @Override public void showNoEmailDialog() {
-        if (dialog == null) dialog = new NoEmailDialog(this);
-        dialog.show();
     }
 }

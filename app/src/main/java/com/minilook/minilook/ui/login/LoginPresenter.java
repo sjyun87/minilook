@@ -13,6 +13,8 @@ public interface LoginPresenter extends LifecycleObserver {
 
     void onKakaoClick();
 
+    void onLogoutClick();
+
     interface View {
 
         void showNoEmailDialog();
