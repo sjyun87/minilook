@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindColor;
@@ -16,6 +17,7 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
+import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.slider.Slider;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.CategoryDataModel;
@@ -26,6 +28,8 @@ import com.minilook.minilook.ui.search_filter.adapter.FilterCategoryAdapter;
 import com.minilook.minilook.ui.search_filter.adapter.FilterGenderAdapter;
 import com.minilook.minilook.ui.search_filter.di.SearchFilterArguments;
 import com.minilook.minilook.ui.search_filter.viewholder.FilterCategoryVH;
+import com.minilook.minilook.util.StringUtil;
+import timber.log.Timber;
 
 public class SearchFilterActivity extends BaseActivity implements SearchFilterPresenter.View {
 
@@ -44,11 +48,18 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
     @BindView(R.id.txt_stock_caption) TextView stockCaptionTextView;
     @BindView(R.id.img_stock_check) ImageView stockCheckImageView;
     @BindView(R.id.rcv_category) RecyclerView categoryRecyclerView;
+    @BindView(R.id.slider_price) RangeSlider priceSlider;
+    @BindView(R.id.txt_price_min) TextView minPriceTextView;
+    @BindView(R.id.txt_price_max) TextView maxPriceTextView;
+    @BindView(R.id.txt_price) TextView priceTextView;
 
     @BindDimen(R.dimen.dp_5) int dp_5;
     @BindString(R.string.search_filter_age_all) String format_all;
     @BindString(R.string.search_filter_age_month) String format_month;
     @BindString(R.string.search_filter_age_year) String format_year;
+    @BindString(R.string.search_filter_price_max) String format_price_max;
+    @BindString(R.string.search_filter_price_limit) String format_price_limit;
+    @BindString(R.string.search_filter_price_range) String format_price_range;
     @BindColor(R.color.color_FF232323) int color_FF232323;
     @BindColor(R.color.color_FF8140E5) int color_FF8140E5;
     @BindDrawable(R.drawable.ic_checkbox1_off) Drawable img_check_off;
@@ -108,16 +119,14 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
         categoryAdapterView.refresh();
     }
 
-    @Override public void setupAge(int age, boolean isBaby) {
+    @Override public void setupAgeText(int age, boolean isBaby) {
+        String text;
         if (isBaby) {
-            if (age == 0) {
-                ageTextView.setText(format_all);
-            } else {
-                ageTextView.setText(String.format(format_month, age));
-            }
+            text = age == 0 ? format_all : String.format(format_month, age);
         } else {
-            ageTextView.setText(String.format(format_year, age));
+            text = String.format(format_year, age);
         }
+        ageTextView.setText(text);
     }
 
     @Override public void setupSelectedDiscount() {
@@ -142,6 +151,33 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
         stockCaptionTextView.setTextColor(color_FF232323);
         stockCaptionTextView.setTypeface(font_regular);
         stockCheckImageView.setImageDrawable(img_check_off);
+    }
+
+    @Override public void setupPriceSlider() {
+        priceSlider.addOnChangeListener((slider, value, fromUser) -> presenter.onPriceChanged(slider.getValues()));
+    }
+
+    @Override public void initPriceSlider(int min, int max, int step) {
+        priceSlider.setValueTo((float) step);
+        priceSlider.setValues((float) min, (float) step);
+
+        minPriceTextView.setText(String.valueOf(min));
+        maxPriceTextView.setText(String.format(format_price_max, StringUtil.toDigit(max)));
+    }
+
+    @Override public void setupPriceText(int minPrice, int maxPrice, boolean isMinPriceLimit, boolean isMaxPriceLimit) {
+        String text;
+        if (isMinPriceLimit) {
+            text = String.format(format_price_range,
+                String.format(format_price_limit, StringUtil.toDigit(minPrice)), "").trim();
+        } else if (isMaxPriceLimit) {
+            text = String.format(format_price_range,
+                StringUtil.toDigit(minPrice), String.format(format_price_limit, StringUtil.toDigit(maxPrice)));
+        } else {
+            text = String.format(format_price_range,
+                StringUtil.toDigit(minPrice), StringUtil.toDigit(maxPrice));
+        }
+        priceTextView.setText(text);
     }
 
     @OnClick(R.id.layout_attr_discount_panel)

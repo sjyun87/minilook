@@ -5,6 +5,7 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.data.model.common.GenderDataModel;
+import java.util.List;
 
 public interface SearchFilterPresenter extends LifecycleObserver {
 
@@ -21,6 +22,8 @@ public interface SearchFilterPresenter extends LifecycleObserver {
 
     void onCategorySelected(CategoryDataModel data);
 
+    void onPriceChanged(List<Float> values);
+
     interface View {
 
         void setupGenderRecyclerView();
@@ -29,11 +32,11 @@ public interface SearchFilterPresenter extends LifecycleObserver {
 
         void setupAgeSlider();
 
+        void setupAgeText(int age, boolean isMonth);
+
         void setupCategoryRecyclerView();
 
         void categoryRefresh();
-
-        void setupAge(int age, boolean isMonth);
 
         void setupSelectedDiscount();
 
@@ -42,5 +45,11 @@ public interface SearchFilterPresenter extends LifecycleObserver {
         void setupSelectedStock();
 
         void setupUnselectedStock();
+
+        void setupPriceSlider();
+
+        void initPriceSlider(int min, int max, int step);
+
+        void setupPriceText(int minPrice, int maxPrice, boolean isMinPriceLimit, boolean isMaxPriceLimit);
     }
 }

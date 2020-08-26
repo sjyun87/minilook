@@ -225,7 +225,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingTop="@dimen/dp_9"
-                android:paddingBottom="@dimen/dp_15"
+                android:paddingBottom="@dimen/dp_11"
                 app:layout_constraintTop_toBottomOf="@+id/layout_attribute_panel">
 
                 <TextView
@@ -242,13 +242,87 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_10"
-                    android:layout_marginTop="@dimen/dp_9"
+                    android:layout_marginTop="@dimen/dp_5"
                     android:layout_marginEnd="@dimen/dp_10"
                     tools:itemCount="10"
                     tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     tools:listitem="@layout/item_filter_category"
                     tools:spanCount="4" />
             </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_price_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/dp_9"
+                android:paddingBottom="@dimen/dp_15"
+                app:layout_constraintTop_toBottomOf="@+id/layout_category_panel">
+
+                <TextView
+                    android:id="@+id/txt_price_caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:text="@string/search_filter_price_caption"
+                    android:textColor="@color/color_FF424242"
+                    android:textSize="@dimen/sp_7"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txt_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:text="@string/search_filter_age_all"
+                    android:textColor="@color/color_FF8140E5"
+                    android:textSize="@dimen/sp_7"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.slider.RangeSlider
+                    android:id="@+id/slider_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_9"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:stepSize="1"
+                    android:valueFrom="0"
+                    android:valueTo="100"
+                    app:labelBehavior="gone"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_price_caption"
+                    app:thumbColor="@color/color_FF8140E5"
+                    app:thumbElevation="0dp"
+                    app:tickColor="@android:color/transparent"
+                    app:trackColorActive="@color/color_FF8140E5"
+                    app:trackColorInactive="@color/color_FFEEEFF5" />
+
+                <TextView
+                    android:id="@+id/txt_price_min"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:textColor="@color/color_FF232323"
+                    android:textSize="@dimen/sp_6"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/slider_price" />
+
+                <TextView
+                    android:id="@+id/txt_price_max"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:textColor="@color/color_FF232323"
+                    android:textSize="@dimen/sp_6"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/slider_price" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

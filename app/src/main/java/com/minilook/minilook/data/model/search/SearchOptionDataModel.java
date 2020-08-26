@@ -29,9 +29,9 @@ import lombok.Data;
     @Expose @SerializedName("discount")
     private boolean isDiscount;
     @Expose @SerializedName("startPrice")
-    private int price_start;
+    private int price_min;
     @Expose @SerializedName("endPrice")
-    private int price_end;
+    private int price_max;
     @Expose @SerializedName("outOfStock")
     private boolean isStock;
     @Expose @SerializedName("sizeType")

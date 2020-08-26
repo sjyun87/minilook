@@ -16,10 +16,12 @@ import timber.log.Timber;
 
 public class SearchFilterPresenterImpl extends BasePresenterImpl implements SearchFilterPresenter {
 
+    private static final int AGE_BABY_MONTH = 24;
+    private static final int PRICE_STEP = 5000;
+
     private final View view;
     private final BaseAdapterDataModel<GenderDataModel> genderAdapter;
     private final BaseAdapterDataModel<CategoryDataModel> categoryAdapter;
-
     private final SearchRequest searchRequest;
 
     private Gson gson = new Gson();
@@ -29,6 +31,8 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
     private boolean isDiscount = false;
     private boolean isStock = false;
     private int categorySelectedPosition = -1;
+    private int limitMinPrice;
+    private int limitMaxPrice;
 
     public SearchFilterPresenterImpl(SearchFilterArguments args) {
         view = args.getView();
@@ -42,6 +46,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         view.setupGenderRecyclerView();
         view.setupAgeSlider();
         view.setupCategoryRecyclerView();
+        view.setupPriceSlider();
 
         reqFilterOptions();
     }
@@ -59,11 +64,11 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
     @Override public void onAgeChanged(float value) {
         int age = (int) value;
         int optionAge;
-        if (age <= 24) {    // 0 ~ 24개월
-            view.setupAge(age, true);
+        if (age <= AGE_BABY_MONTH) {    // 0 ~ 24개월
+            view.setupAgeText(age, true);
             optionAge = age;
         } else {    // 3 ~ 16세
-            view.setupAge(age - 22, false);
+            view.setupAgeText(age - 22, false);
             optionAge = ((age - 22) * 12) - 6;
         }
         options.setAge(optionAge);
@@ -106,6 +111,28 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         }
     }
 
+    @Override public void onPriceChanged(List<Float> values) {
+        int selectedMinStep = values.get(0).intValue();
+        int selectedMaxStep = values.get(1).intValue();
+
+        int minPrice = selectedMinStep * PRICE_STEP;
+        int maxPrice = selectedMaxStep * PRICE_STEP;
+
+        if (minPrice > limitMaxPrice) {
+            view.setupPriceText(limitMaxPrice, limitMaxPrice, true, true);
+            options.setPrice_min(-1);
+            options.setPrice_max(-1);
+        } else if (maxPrice > limitMaxPrice) {
+            view.setupPriceText(minPrice, limitMaxPrice, false, true);
+            options.setPrice_min(minPrice);
+            options.setPrice_max(-1);
+        } else {
+            view.setupPriceText(minPrice, maxPrice, false, false);
+            options.setPrice_min(minPrice);
+            options.setPrice_max(maxPrice);
+        }
+    }
+
     private void reqFilterOptions() {
         addDisposable(
             searchRequest.getFilterOptions()
@@ -128,6 +155,10 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
 
 
 
+        limitMinPrice = 0;
+        limitMaxPrice = 100000;
+        int step = (limitMaxPrice / PRICE_STEP) + 1;
+        view.initPriceSlider(limitMinPrice, limitMaxPrice, step);
     }
 
     private List<CategoryDataModel> getTestCategry() {
