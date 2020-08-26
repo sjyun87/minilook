@@ -18,6 +18,10 @@ public class SearchRequest extends BaseRequest<SearchService> {
         return getApi().getProducts(createRequestBody(parseToJson(options)));
     }
 
+    public Single<BaseDataModel> getFilterOptions() {
+        return getApi().getFilterOptions();
+    }
+
     private Map<String, Object> parseToJson(SearchOptionDataModel options) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("brandNo", options.getBrand_id());

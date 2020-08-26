@@ -18,6 +18,7 @@ import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.market.viewholder.filter.adapter.MarketFilterAdapter;
+import com.minilook.minilook.ui.search_filter.SearchFilterActivity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +62,6 @@ public class MarketFilterVH extends BaseViewHolder<MarketDataModel> {
 
     @OnClick(R.id.txt_more)
     void onMoreClick() {
-
+        SearchFilterActivity.start(context);
     }
 }

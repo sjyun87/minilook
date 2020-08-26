@@ -11,9 +11,11 @@ import lombok.Data;
 @Data public class ProductDataModel {
 
     @Expose @SerializedName("productNo")
-    private int id;
+    private int product_id;
     @Expose @SerializedName("image")
     private String image_url;
+    @Expose @SerializedName("brandNo")
+    private int brand_id;
     @Expose @SerializedName("brandName")
     private String brand_name;
     @Expose @SerializedName("brandLogo")

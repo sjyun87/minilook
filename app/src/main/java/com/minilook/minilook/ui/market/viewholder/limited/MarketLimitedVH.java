@@ -34,7 +34,7 @@ public class MarketLimitedVH extends BaseViewHolder<MarketDataModel> {
     @BindView(R.id.rcv_product) RecyclerView recyclerView;
 
     @BindDimen(R.dimen.dp_2) int dp_2;
-    @BindFont(R.font.nanum_square_eb) Typeface font_eb;
+    @BindFont(R.font.nanum_square_eb) Typeface font_extrabold;
 
     private ProductAdapter adapter;
     private Gson gson = new Gson();
@@ -71,7 +71,7 @@ public class MarketLimitedVH extends BaseViewHolder<MarketDataModel> {
         SpannableString title = new SpannableString(data.getTitle());
         StringTokenizer tokenizer = new StringTokenizer(data.getBold_text(), ",");
         while (tokenizer.hasMoreTokens()) {
-            SpannableUtil.fontSpan(title, tokenizer.nextToken(), font_eb);
+            SpannableUtil.fontSpan(title, tokenizer.nextToken(), font_extrabold);
         }
         return title;
     }

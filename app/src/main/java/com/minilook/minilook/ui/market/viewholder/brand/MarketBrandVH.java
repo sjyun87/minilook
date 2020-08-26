@@ -54,7 +54,7 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
     @BindColor(R.color.color_FFDBDBDB) int color_FFDBDBDB;
     @BindString(R.string.base_tag) String format_tag;
     @BindDimen(R.dimen.dp_6) int dp_6;
-    @BindFont(R.font.nanum_square_eb) Typeface font_eb;
+    @BindFont(R.font.nanum_square_eb) Typeface font_extrabold;
 
     private Gson gson = new Gson();
 
@@ -100,7 +100,7 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
         SpannableString title = new SpannableString(data.getTitle());
         StringTokenizer tokenizer = new StringTokenizer(data.getBold_text(), ",");
         while (tokenizer.hasMoreTokens()) {
-            SpannableUtil.fontSpan(title, tokenizer.nextToken(), font_eb);
+            SpannableUtil.fontSpan(title, tokenizer.nextToken(), font_extrabold);
         }
         return title;
     }

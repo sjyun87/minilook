@@ -15,6 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
+import com.minilook.minilook.ui.search_filter.SearchFilterActivity;
 import com.minilook.minilook.ui.setting.SettingActivity;
 import com.minilook.minilook.ui.shoppingbag.ShoppingBagActivity;
 import com.minilook.minilook.util.StringUtil;
@@ -188,7 +189,7 @@ public class TitleBar extends ConstraintLayout {
 
     @OnClick(R.id.img_titlebar_search_filter)
     void onFilterSearchClick() {
-        //if (activity != null) SearchFilterActivity.start(activity);
+        if (activity != null) SearchFilterActivity.start(activity);
     }
 
     @OnClick(R.id.img_titlebar_shoppingbag)
