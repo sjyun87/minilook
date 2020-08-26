@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/color_FFFFFFFF</item>
         <item name="colorPrimaryDark">@color/color_FFFFFFFF</item>
         <item name="colorAccent">@color/color_FF8140E5</item>
@@ -20,10 +20,4 @@
     <style name="DialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog">
         <item name="colorAccent">@color/color_FF8140E5</item>
     </style>
-
-<!--    <style name="TabTheme" parent="@android:style/TextAppearance.Widget.TabWidget">-->
-<!--        <item name="android:fontFamily">@font/nanum_square_b</item>-->
-<!--        <item name="android:textSize">@dimen/sp_7</item>-->
-<!--        <item name="android:textColor">@color/color_FF616161</item>-->
-<!--    </style>-->
 </resources>

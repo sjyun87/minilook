@@ -33,7 +33,8 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
     }
 
     @Override public void onCreate() {
-        view.genderRecyclerView();
+        view.setupGenderRecyclerView();
+        view.setupAgeSlider();
 
         reqFilterOptions();
     }
@@ -46,6 +47,19 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
             genderAdapter.get(genderSelectedPosition).setSelected(true);
             view.genderRefresh();
         }
+    }
+
+    @Override public void onAgeChanged(float value) {
+        int age = (int) value;
+        int optionAge;
+        if (age <= 24) {    // 0 ~ 24개월
+            view.setupAge(age, true);
+            optionAge = age;
+        } else {    // 3 ~ 16세
+            view.setupAge(age - 22, false);
+            optionAge = ((age - 22) * 12) - 6;
+        }
+        options.setAge(optionAge);
     }
 
     private void reqFilterOptions() {

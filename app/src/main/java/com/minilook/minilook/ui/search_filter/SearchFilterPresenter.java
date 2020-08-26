@@ -12,10 +12,16 @@ public interface SearchFilterPresenter extends LifecycleObserver {
 
     void onGenderSelected(GenderDataModel data);
 
+    void onAgeChanged(float value);
+
     interface View {
 
-        void genderRecyclerView();
+        void setupGenderRecyclerView();
 
         void genderRefresh();
+
+        void setupAgeSlider();
+
+        void setupAge(int age, boolean isMonth);
     }
 }

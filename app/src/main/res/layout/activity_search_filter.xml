@@ -49,8 +49,89 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_10"
                     android:layout_marginTop="@dimen/dp_9"
-                    android:layout_marginEnd="@dimen/dp_10" />
+                    android:layout_marginEnd="@dimen/dp_10"
+                    tools:itemCount="3"
+                    tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    tools:listitem="@layout/item_filter_gender"
+                    tools:spanCount="3" />
             </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_age_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/dp_9"
+                android:paddingBottom="@dimen/dp_16"
+                app:layout_constraintTop_toBottomOf="@+id/layout_gender_panel">
+
+                <TextView
+                    android:id="@+id/txt_age_caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:text="@string/search_filter_age_caption"
+                    android:textColor="@color/color_FF424242"
+                    android:textSize="@dimen/sp_7"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txt_age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:text="@string/search_filter_age_all"
+                    android:textColor="@color/color_FF8140E5"
+                    android:textSize="@dimen/sp_7"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/slider_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_9"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:stepSize="1"
+                    android:value="0"
+                    android:valueFrom="0"
+                    android:valueTo="38"
+                    app:labelBehavior="gone"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_age_caption"
+                    app:thumbColor="@color/color_FF8140E5"
+                    app:thumbElevation="0dp"
+                    app:tickColor="@android:color/transparent"
+                    app:trackColorActive="@color/color_FF8140E5"
+                    app:trackColorInactive="@color/color_FFEEEFF5" />
+
+                <TextView
+                    android:id="@+id/txt_age_min"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:text="@string/search_filter_age_min"
+                    android:textColor="@color/color_FF232323"
+                    android:textSize="@dimen/sp_6"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/slider_gender" />
+
+                <TextView
+                    android:id="@+id/txt_age_max"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:text="@string/search_filter_age_max"
+                    android:textColor="@color/color_FF232323"
+                    android:textSize="@dimen/sp_6"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/slider_gender" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

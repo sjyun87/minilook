@@ -258,6 +258,12 @@
 
     <string name="search_filter_title">필터검색</string>
     <string name="search_filter_gender_caption">성별</string>
+    <string name="search_filter_age_caption">연령</string>
+    <string name="search_filter_age_all">전체</string>
+    <string name="search_filter_age_month">%d개월</string>
+    <string name="search_filter_age_year">%d세</string>
+    <string name="search_filter_age_min">0개월</string>
+    <string name="search_filter_age_max">16세</string>
 
     <!--Setting-->
     <string name="setting_title">설정</string>

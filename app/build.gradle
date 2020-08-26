@@ -127,5 +127,8 @@ dependencies {
   implementation "com.nex3z:flow-layout:$flowlayout_version"
 
   // Switch Button
-  implementation "com.github.zcweng:switch-button:0.0.3@aar"
+  implementation "com.github.zcweng:switch-button:$switch_button_version"
+
+  // Material
+  implementation "com.google.android.material:material:$material_version"
 }
