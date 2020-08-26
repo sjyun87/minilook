@@ -8,6 +8,12 @@ import lombok.Data;
 @Data public class SearchOptionDataModel {
     @Expose @SerializedName("current")
     private int page;
+    @Expose @SerializedName("pageSize")
+    private int row;
+    @Expose @SerializedName("productOrderByCode")
+    private String order;
+    @Expose @SerializedName("memberNo")
+    private int user_id;
     @Expose @SerializedName("brandNo")
     private int brand_id;
     @Expose @SerializedName("genderCode")
@@ -22,8 +28,14 @@ import lombok.Data;
     private List<String> color_codes;
     @Expose @SerializedName("discount")
     private boolean isDiscount;
+    @Expose @SerializedName("startPrice")
+    private int price_start;
     @Expose @SerializedName("endPrice")
     private int price_end;
-
-
+    @Expose @SerializedName("outOfStock")
+    private int isStock;
+    @Expose @SerializedName("sizeType")
+    private int type;
+    @Expose @SerializedName("styleCode")
+    private List<String> styles;
 }

@@ -9,7 +9,4 @@ import lombok.Data;
     private String code;
     @Expose @SerializedName("codeName")
     private String name;
-
-
-    private int type;
 }

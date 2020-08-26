@@ -174,6 +174,11 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
         ViewCompat.setNestedScrollingEnabled(productRecyclerView, false);
     }
 
+    @Override public void productRefresh() {
+        productAdapterView.refresh();
+        isLoading = false;
+    }
+
     @Override public void productRefresh(int start, int row) {
         productAdapterView.refresh(start, row);
         isLoading = false;

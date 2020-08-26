@@ -4,7 +4,10 @@ import com.google.gson.Gson;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.common.SortDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
+import com.minilook.minilook.data.model.search.SearchDataModel;
+import com.minilook.minilook.data.model.search.SearchOptionDataModel;
 import com.minilook.minilook.data.network.brand.BrandRequest;
+import com.minilook.minilook.data.network.search.SearchRequest;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
@@ -12,6 +15,7 @@ import com.minilook.minilook.ui.brand_detail.di.BrandDetailArguments;
 import com.minilook.minilook.util.StringUtil;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import timber.log.Timber;
 
 public class BrandDetailPresenterImpl extends BasePresenterImpl implements BrandDetailPresenter {
@@ -22,11 +26,14 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     private final BaseAdapterDataModel<SortDataModel> sortAdapter;
     private final BaseAdapterDataModel<ProductDataModel> productAdapter;
     private final BrandRequest brandRequest;
+    private final SearchRequest searchRequest;
 
+    private static final int ROWS = 30;
+
+    private AtomicInteger page = new AtomicInteger(-1);
     private Gson gson = new Gson();
     private boolean isSortVisible = false;
-
-    private List<ProductDataModel> productList = new ArrayList<>();
+    private String sortCode;
 
     public BrandDetailPresenterImpl(BrandDetailArguments args) {
         view = args.getView();
@@ -35,6 +42,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         sortAdapter = args.getSortAdapter();
         productAdapter = args.getProductAdapter();
         brandRequest = new BrandRequest();
+        searchRequest = new SearchRequest();
     }
 
     @Override public void onCreate() {
@@ -43,125 +51,6 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         view.setupSortRecyclerView();
         view.setupProductRecyclerView();
         reqBrand();
-
-        addProductData();
-    }
-
-    private void addProductData() {
-        ProductDataModel productDataModel1 = new ProductDataModel();
-        productDataModel1.setBrand_name("리미떼두두");
-        productDataModel1.setProduct_name("Luxe point long pants");
-        productDataModel1.setDiscount(true);
-        productDataModel1.setDiscount_percent(20);
-        productDataModel1.setPrice(36000);
-        productDataModel1.setImage_url(
-            "http://lookbook.minilook.co.kr/data/goods/45/medium/" + "aEv7qJH2ggxSd3YNRjKw71b9jrRYRe.png");
-        productList.add(productDataModel1);
-
-        ProductDataModel productDataModel2 = new ProductDataModel();
-        productDataModel2.setBrand_name("로아앤제인");
-        productDataModel2.setProduct_name("에디 맨투맨");
-        productDataModel2.setDiscount(false);
-        productDataModel2.setDiscount_percent(0);
-        productDataModel2.setPrice(36800);
-        productDataModel2.setImage_url(
-            "http://lookbook.minilook.co.kr/data/goods/3/medium/" + "BPgAXK77NJBa9YnrEGz6JgTvHzYESg.png");
-        productList.add(productDataModel2);
-
-        ProductDataModel productDataModel3 = new ProductDataModel();
-        productDataModel3.setBrand_name("베베베베");
-        productDataModel3.setProduct_name("Triplets rabbits sweatshirt");
-        productDataModel3.setDiscount(true);
-        productDataModel3.setDiscount_percent(10);
-        productDataModel3.setPrice(29700);
-        productDataModel3.setImage_url(
-            "http://lookbook.minilook.co.kr/data/goods/6/medium/" + "M2NM5mX75fmdhGJdmQBZ1zmvATc9b9.png");
-        productList.add(productDataModel3);
-
-        ProductDataModel productDataModel4 = new ProductDataModel();
-        productDataModel4.setBrand_name("런래빗");
-        productDataModel4.setProduct_name("Pineapple Dress");
-        productDataModel4.setDiscount(false);
-        productDataModel4.setDiscount_percent(0);
-        productDataModel4.setPrice(79000);
-        productDataModel4.setImage_url(
-            "http://lookbook.minilook.co.kr/data/goods/83/medium/" + "j7JnLjNmRSDUgDk1N7aXvPeNWP8B1W.jpg");
-        productList.add(productDataModel4);
-
-        ProductDataModel productDataModel5 = new ProductDataModel();
-        productDataModel5.setBrand_name("젤리멜로");
-        productDataModel5.setProduct_name("TOUT LETTERING SWEATSHIRT_Blue_Kids");
-        productDataModel5.setDiscount(true);
-        productDataModel5.setDiscount_percent(10);
-        productDataModel5.setPrice(49500);
-        productDataModel5.setImage_url(
-            "http://lookbook.minilook.co.kr/data/goods/26/medium/" + "MXG1aZwspgSHKthrd8xZGlGK9N7G4q.jpg");
-        productList.add(productDataModel5);
-
-        ProductDataModel productDataModel6 = new ProductDataModel();
-        productDataModel6.setBrand_name("쥬쥬봉");
-        productDataModel6.setProduct_name("STRIPES RABBIT SWEAT SHIRT");
-        productDataModel6.setDiscount(true);
-        productDataModel6.setDiscount_percent(10);
-        productDataModel6.setPrice(35100);
-        productDataModel6.setImage_url(
-            "http://lookbook.minilook.co.kr/data/goods/48/medium/" + "Khy9KYtd9UNHW52HETRNnmxLKas7ft.jpg");
-        productList.add(productDataModel6);
-
-        ProductDataModel productDataModel7 = new ProductDataModel();
-        productDataModel7.setBrand_name("수아비");
-        productDataModel7.setProduct_name("Stripe T : Red");
-        productDataModel7.setDiscount(false);
-        productDataModel7.setDiscount_percent(0);
-        productDataModel7.setPrice(21000);
-        productDataModel7.setImage_url(
-            "http://lookbook.minilook.co.kr/data/goods/55/medium/" + "qKd2SW9E13zaDCNRN96t9LteUBtVVK.png");
-        productList.add(productDataModel7);
-
-        ProductDataModel productDataModel8 = new ProductDataModel();
-        productDataModel8.setBrand_name("슈슈앤크라");
-        productDataModel8.setProduct_name("일루지온 원피스 - 크림");
-        productDataModel8.setDiscount(true);
-        productDataModel8.setDiscount_percent(30);
-        productDataModel8.setPrice(57400);
-        productDataModel8.setImage_url(
-            "http://lookbook.minilook.co.kr/data/goods/57/medium/" + "uLkXXvfPBPhu7TdLz1AtN7a5hxDu1S.png");
-        productList.add(productDataModel8);
-
-        ProductDataModel productDataModel9 = new ProductDataModel();
-        productDataModel9.setBrand_name("메르시유");
-        productDataModel9.setProduct_name("Basic stripe t-shirt - orange");
-        productDataModel9.setDiscount(false);
-        productDataModel9.setDiscount_percent(0);
-        productDataModel9.setPrice(27000);
-        productDataModel9.setImage_url(
-            "http://lookbook.minilook.co.kr/data/goods/89/medium/" + "ejhgxPykfwhDGJKYfHaBM546luCCpc.jpg");
-        productList.add(productDataModel9);
-
-        ProductDataModel productDataModel10 = new ProductDataModel();
-        productDataModel10.setBrand_name("미니룩");
-        productDataModel10.setProduct_name("[20SUMMER_LIKE A SUMMER BREEZE] Hello Dino T-Shirt");
-        productDataModel10.setDiscount(true);
-        productDataModel10.setDiscount_percent(10);
-        productDataModel10.setPrice(22500);
-        productDataModel10.setImage_url(
-            "http://lookbook.minilook.co.kr/data/goods/106/medium/" + "s9XMYeFmGPFG1wvwrhPyysLtCBYjNL.png");
-        productList.add(productDataModel10);
-
-        productList.add(productDataModel1);
-        productList.add(productDataModel2);
-        productList.add(productDataModel3);
-        productList.add(productDataModel4);
-        productList.add(productDataModel5);
-        productList.add(productDataModel6);
-        productList.add(productDataModel7);
-        productList.add(productDataModel8);
-        productList.add(productDataModel9);
-        productList.add(productDataModel10);
-
-        int start = productAdapter.getSize();
-        productAdapter.addAll(productList);
-        view.productRefresh(start, 20);
     }
 
     @Override public void onSortClick() {
@@ -174,12 +63,19 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     }
 
     @Override public void onSortSelected(SortDataModel data) {
-        view.setupSortText(data.getName());
-        onSortClick();
+        if (!sortCode.equals(data.getCode())) {
+            sortCode = data.getCode();
+            view.setupSortText(data.getName());
+
+            productAdapter.clear();
+            view.productRefresh();
+            reqProducts();
+        }
+        view.hideSortPanel();
     }
 
     @Override public void onLoadMore() {
-        addProductData();
+        reqProducts();
     }
 
     @Override public void onBrandInfoClick() {
@@ -207,7 +103,10 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
 
         sortAdapter.set(data.getSorts());
         view.sortRefresh();
-        view.setupSortText(sortAdapter.get(0).getName());
+        sortCode = data.getSorts().get(0).getCode();
+        view.setupSortText(data.getSorts().get(0).getName());
+
+        reqProducts();
     }
 
     private List<String> checkValid(List<String> images) {
@@ -216,5 +115,30 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
             if (url != null && !url.equals("")) items.add(url);
         }
         return items;
+    }
+
+    private void reqProducts() {
+        addDisposable(
+            searchRequest.getProducts(parseToModel())
+                .map(data -> gson.fromJson(data.getData(), SearchDataModel.class))
+                .compose(Transformer.applySchedulers())
+                .subscribe(this::resProducts, Timber::e)
+        );
+    }
+
+    private void resProducts(SearchDataModel data) {
+        int start = productAdapter.getSize();
+        productAdapter.addAll(data.getProducts());
+        int row = productAdapter.getSize() - start;
+        view.productRefresh(start, row);
+    }
+
+    private SearchOptionDataModel parseToModel() {
+        SearchOptionDataModel options = new SearchOptionDataModel();
+        options.setBrand_id(brand_id);
+        options.setPage(page.incrementAndGet());
+        options.setRow(ROWS);
+        options.setOrder(sortCode);
+        return options;
     }
 }
