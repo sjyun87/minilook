@@ -1,24 +1,35 @@
 package com.minilook.minilook.ui.product_detail;
 
+import com.google.gson.Gson;
+import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.product.ProductColorDataModel;
 import com.minilook.minilook.data.model.product.ProductSizeDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
+import com.minilook.minilook.data.model.product.ProductStockModel;
 import com.minilook.minilook.data.network.product.ProductRequest;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
 import com.minilook.minilook.util.StringUtil;
+import io.reactivex.rxjava3.functions.Function;
+import java.util.ArrayList;
 import java.util.List;
 import timber.log.Timber;
 
 public class ProductDetailPresenterImpl extends BasePresenterImpl implements ProductDetailPresenter {
+
+    private static final String STOCK_TYPE_SIZE = "size";
+    private static final String STOCK_TYPE_COLOR = "color";
 
     private final View view;
     private final int id;
     private final BaseAdapterDataModel<String> productImageAdapter;
     private final BaseAdapterDataModel<ProductDataModel> relatedProductsAdapter;
     private final ProductRequest productRequest;
+
+    private Gson gson = new Gson();
+    private ProductDataModel data;
 
     public ProductDetailPresenterImpl(ProductDetailArguments args) {
         view = args.getView();
@@ -35,7 +46,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         view.setupRelatedProductRecyclerView();
 
         reqProductDetail();
-        reqProductOptions();
+        //reqProductOptions();
     }
 
     @Override public void onTabClick(int position) {
@@ -59,34 +70,37 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         view.showOptionSelector();
     }
 
+    @Override public void onBrandClick() {
+        view.navigateToBrandDetail(data.getBrand_id());
+    }
+
     private void reqProductDetail() {
         addDisposable(productRequest.getProductDetail(id)
+            .map(data -> gson.fromJson(data.getData(), ProductDataModel.class))
             .compose(Transformer.applySchedulers())
             .subscribe(this::resProductDetail, Timber::e));
     }
 
     private void resProductDetail(ProductDataModel data) {
-        // Product Image List
-        productImageAdapter.set(data.getImages());
+        this.data = data;
+        productImageAdapter.set(checkValid(data.getProduct_images()));
         view.productImageRefresh();
 
-        //view.setupBrandName(data.getBrand().getName());
-        view.setupProductName(data.getName());
+        view.setupBrandName(data.getBrand_name());
+        view.setupProductName(data.getProduct_name());
 
-        // Option
-        for (ProductColorDataModel productColorDataModel : data.getColors()) {
-            view.addColorView(productColorDataModel);
+        for (ProductStockModel model : data.getProductStocks()) {
+            if (model.getType().equals(STOCK_TYPE_COLOR)) {
+                view.addColorView(model);
+            } else if (model.getType().equals(STOCK_TYPE_SIZE)) {
+                view.addSizeView(model);
+            }
         }
 
-        for (ProductSizeDataModel productSizeDataModel : data.getSizes()) {
-            view.addSizeView(productSizeDataModel);
-        }
-
-        // Price
         if (data.isDiscount()) {
             view.setupPriceOrigin(StringUtil.toDigit(data.getPrice_origin()));
             view.showPriceOrigin();
-            view.setupDiscountPercent(data.getPrice_discount_percent());
+            view.setupDiscountPercent(data.getDiscount_percent());
             view.showDiscountPercent();
         } else {
             view.hidePriceOrigin();
@@ -94,11 +108,9 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         }
         view.setupPrice(StringUtil.toDigit(data.getPrice()));
 
-        int point = (int) (data.getPrice() * (data.getPoint_percent() / 100f));
-        view.setupPoint(point);
+        view.setupPoint(data.getPoint());
         view.setupDeliveryInfoTextView();
 
-        // Product Detail
         view.setupProductDetail(data.getDetail_url());
 
         view.setupReviewCount(StringUtil.toDigit(data.getReview_cnt()));
@@ -106,9 +118,22 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
 
         view.setupQuestionCount(StringUtil.toDigit(data.getQuestion_cnt()));
 
-        // Related Product List
-        relatedProductsAdapter.set(data.getRelated_products());
-        view.relatedProductRefresh();
+        List<ProductDataModel> relatedProducts = data.getRelated_products();
+        if (relatedProducts.size() > 0) {
+            relatedProductsAdapter.set(data.getRelated_products());
+            view.relatedProductRefresh();
+            view.showRelatedPanel();
+        } else {
+            view.hideRelatedPanel();
+        }
+    }
+
+    private List<String> checkValid(List<String> images) {
+        List<String> items = new ArrayList<>();
+        for (String url : images) {
+            if (url != null && !url.equals("")) items.add(url);
+        }
+        return items;
     }
 
     private void reqProductOptions() {

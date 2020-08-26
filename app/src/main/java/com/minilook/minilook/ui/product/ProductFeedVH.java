@@ -67,7 +67,7 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
     }
 
     void onItemClick(View view) {
-        //ProductDetailActivity.start(context, data.getId());
+        ProductDetailActivity.start(context, data.getProduct_id());
     }
 
     @OnClick(R.id.layout_brand_panel)

@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.product.ProductColorDataModel;
+import com.minilook.minilook.data.model.product.ProductStockModel;
 import lombok.Builder;
 
 public class ColorView extends FrameLayout {
@@ -19,16 +19,16 @@ public class ColorView extends FrameLayout {
     @BindView(R.id.img_color) ImageView colorImageView;
     @BindView(R.id.img_slash) ImageView slashImageView;
 
-    private ProductColorDataModel productColorDataModel;
+    private ProductStockModel model;
 
     @Builder
-    public ColorView(@NonNull Context context, @NonNull ProductColorDataModel model) {
+    public ColorView(@NonNull Context context, @NonNull ProductStockModel model) {
         super(context);
-        this.productColorDataModel = model;
+        this.model = model;
 
         initView();
-        setupColor(model.getColor());
-        if (model.isSoldout()) showSlash();
+        setupColor(model.getCode());
+        if (model.isStock()) showSlash();
     }
 
     public ColorView(@NonNull Context context) {

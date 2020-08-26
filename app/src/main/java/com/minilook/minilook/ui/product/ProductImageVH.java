@@ -32,6 +32,6 @@ public class ProductImageVH extends BaseViewHolder<ProductDataModel> {
     }
 
     void onItemClick(View view) {
-        //ProductDetailActivity.start(context, data.getId());
+        ProductDetailActivity.start(context, data.getProduct_id());
     }
 }

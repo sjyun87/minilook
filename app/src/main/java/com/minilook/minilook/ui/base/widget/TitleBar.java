@@ -175,7 +175,7 @@ public class TitleBar extends ConstraintLayout {
 
     @OnClick(R.id.img_titlebar_home)
     void onHomeClick() {
-
+        if (activity != null) activity.finishAffinity();
     }
 
     @OnClick(R.id.img_titlebar_logo)

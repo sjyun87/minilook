@@ -26,9 +26,11 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductColorDataModel;
 import com.minilook.minilook.data.model.product.ProductSizeDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
+import com.minilook.minilook.data.model.product.ProductStockModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.widget.ColorView;
+import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.option_selector.OptionSelector;
 import com.minilook.minilook.ui.product_detail.widget.ProductTabView;
 import com.minilook.minilook.ui.base.widget.SizeView;
@@ -44,11 +46,11 @@ import timber.log.Timber;
 
 public class ProductDetailActivity extends BaseActivity implements ProductDetailPresenter.View {
 
-    public static void start(Context context, int id) {
+    public static void start(Context context, int product_id) {
         Intent intent = new Intent(context, ProductDetailActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        intent.putExtra("id", id);
+        intent.putExtra("product_id", product_id);
         context.startActivity(intent);
     }
 
@@ -71,6 +73,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     @BindView(R.id.layout_question_panel) LinearLayout questionPanel;
     @BindView(R.id.txt_question_count) TextView questionCountTextView;
     @BindView(R.id.layout_shipping_n_refund_panel) LinearLayout shippingNRefundPanel;
+    @BindView(R.id.layout_related_panel) LinearLayout relatedPanel;
     @BindView(R.id.rcv_related_product) RecyclerView relatedProductRecyclerView;
 
     @BindView(R.id.option_selector) OptionSelector optionSelector;
@@ -102,7 +105,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     private ProductDetailArguments provideArguments() {
         return ProductDetailArguments.builder()
             .view(this)
-            .id(getIntent().getIntExtra("id", -1))
+            .id(getIntent().getIntExtra("product_id", -1))
             .productImageAdapter(productImageAdapter)
             .relatedProductAdapter(relatedProductAdapter)
             .build();
@@ -177,6 +180,14 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         relatedProductAdapterView.refresh();
     }
 
+    @Override public void showRelatedPanel() {
+        relatedPanel.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void hideRelatedPanel() {
+        relatedPanel.setVisibility(View.GONE);
+    }
+
     @Override public void setupBrandName(String text) {
         brandNameTextView.setText(text);
     }
@@ -185,7 +196,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         productNameTextView.setText(text);
     }
 
-    @Override public void addColorView(ProductColorDataModel model) {
+    @Override public void addColorView(ProductStockModel model) {
         ColorView colorView = ColorView.builder()
             .context(this)
             .model(model)
@@ -193,7 +204,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         colorPanel.addView(colorView);
     }
 
-    @Override public void addSizeView(ProductSizeDataModel model) {
+    @Override public void addSizeView(ProductStockModel model) {
         SizeView sizeView = SizeView.builder()
             .context(this)
             .model(model)
@@ -284,6 +295,15 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 
     @Override public void hideOptionSelector() {
         optionSelector.hide();
+    }
+
+    @Override public void navigateToBrandDetail(int brand_id) {
+        BrandDetailActivity.start(this, brand_id);
+    }
+
+    @OnClick(R.id.layout_brand_panel)
+    void onBrandClick() {
+        presenter.onBrandClick();
     }
 
     @OnClick(R.id.txt_buy)
