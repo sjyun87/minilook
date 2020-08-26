@@ -6,7 +6,7 @@
     android:layout_height="@dimen/dp_44">
 
     <View
-        android:id="@+id/line"
+        android:id="@+id/line_top"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="@dimen/dp_8"
@@ -22,7 +22,7 @@
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line"
+        app:layout_constraintTop_toBottomOf="@+id/line_top"
         tools:ignore="ContentDescription" />
 
     <TextView

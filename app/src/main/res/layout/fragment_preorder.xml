@@ -25,7 +25,7 @@
                 android:paddingBottom="@dimen/dp_24">
 
                 <View
-                    android:id="@+id/line"
+                    android:id="@+id/line_top"
                     android:layout_width="@dimen/dp_6"
                     android:layout_height="@dimen/dp_2"
                     android:layout_marginStart="@dimen/dp_12"

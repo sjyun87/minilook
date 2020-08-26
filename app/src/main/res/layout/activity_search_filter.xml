@@ -29,6 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_4"
+                android:descendantFocusability="blocksDescendants"
                 android:orientation="vertical"
                 android:paddingTop="@dimen/dp_9"
                 android:paddingBottom="@dimen/dp_12"
@@ -50,6 +51,7 @@
                     android:layout_marginStart="@dimen/dp_10"
                     android:layout_marginTop="@dimen/dp_9"
                     android:layout_marginEnd="@dimen/dp_10"
+                    android:nestedScrollingEnabled="false"
                     tools:itemCount="3"
                     tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     tools:listitem="@layout/item_filter_gender"
@@ -134,7 +136,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
-                android:id="@+id/line"
+                android:id="@+id/line_top"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/color_FFDBDBDB"
@@ -147,7 +149,7 @@
                 android:orientation="vertical"
                 android:paddingTop="@dimen/dp_13"
                 android:paddingBottom="@dimen/dp_10"
-                app:layout_constraintTop_toBottomOf="@+id/line">
+                app:layout_constraintTop_toBottomOf="@+id/line_top">
 
                 <TextView
                     android:id="@+id/txt_attribute_caption"
@@ -223,6 +225,7 @@
                 android:id="@+id/layout_category_panel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants"
                 android:orientation="vertical"
                 android:paddingTop="@dimen/dp_9"
                 android:paddingBottom="@dimen/dp_11"
@@ -244,6 +247,7 @@
                     android:layout_marginStart="@dimen/dp_10"
                     android:layout_marginTop="@dimen/dp_5"
                     android:layout_marginEnd="@dimen/dp_10"
+                    android:nestedScrollingEnabled="false"
                     tools:itemCount="10"
                     tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     tools:listitem="@layout/item_filter_category"
@@ -330,6 +334,7 @@
                 android:id="@+id/layout_color_panel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants"
                 android:orientation="vertical"
                 android:paddingTop="@dimen/dp_9"
                 android:paddingBottom="@dimen/dp_11"
@@ -351,13 +356,83 @@
                     android:layout_marginStart="@dimen/dp_10"
                     android:layout_marginTop="@dimen/dp_5"
                     android:layout_marginEnd="@dimen/dp_10"
-                    tools:itemCount="10"
+                    android:nestedScrollingEnabled="false"
+                    tools:itemCount="21"
                     tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    tools:listitem="@layout/item_filter_category"
+                    tools:listitem="@layout/item_filter_color"
                     tools:spanCount="5" />
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/layout_style_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/dp_9"
+                android:paddingBottom="@dimen/dp_16"
+                app:layout_constraintTop_toBottomOf="@+id/layout_color_panel">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:text="@string/search_filter_style_caption"
+                    android:textColor="@color/color_FF424242"
+                    android:textSize="@dimen/sp_7" />
+
+
+                <com.nex3z.flowlayout.FlowLayout
+                    android:id="@+id/layout_style_item_panel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_9"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    app:flChildSpacing="@dimen/dp_4"
+                    app:flRowSpacing="@dimen/dp_4" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_FFDBDBDB"
+                app:layout_constraintTop_toBottomOf="@+id/layout_style_panel" />
+
+            <TextView
+                android:id="@+id/txt_reset"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:fontFamily="@font/nanum_square_r"
+                android:gravity="center"
+                android:paddingStart="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_10"
+                android:text="@string/search_filter_reset"
+                android:textColor="@color/color_FF6200EA"
+                android:textSize="@dimen/sp_8"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line_bottom" />
+
+            <TextView
+                android:id="@+id/txt_search"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_20"
+                android:layout_marginStart="@dimen/dp_26"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginBottom="@dimen/dp_8"
+                android:background="@color/color_FF8140E5"
+                android:fontFamily="@font/nanum_square_b"
+                android:gravity="center"
+                android:text="@string/search_filter_search"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textSize="@dimen/sp_7"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/txt_reset"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line_bottom" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

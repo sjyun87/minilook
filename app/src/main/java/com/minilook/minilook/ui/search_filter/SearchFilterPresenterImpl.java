@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.data.model.common.ColorDataModel;
 import com.minilook.minilook.data.model.common.GenderDataModel;
+import com.minilook.minilook.data.model.common.StyleDataModel;
 import com.minilook.minilook.data.model.search.FilterDataModel;
 import com.minilook.minilook.data.model.search.SearchOptionDataModel;
 import com.minilook.minilook.data.network.search.SearchRequest;
@@ -168,6 +169,13 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
 
         colorAdapter.set(setupColorInit(data.getColors()));
         view.colorRefresh();
+
+        for (int i = 0; i < data.getStyles().size(); i++) {
+            StyleDataModel model = data.getStyles().get(i);
+            model.setPosition(i);
+            model.setSelected(false);
+            view.addStyleItem(model);
+        }
     }
 
     private List<CategoryDataModel> getTestCategry() {

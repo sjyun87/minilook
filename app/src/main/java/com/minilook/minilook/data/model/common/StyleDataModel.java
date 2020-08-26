@@ -5,8 +5,12 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 @Data public class StyleDataModel {
-    @Expose @SerializedName("styleCode")
+    @Expose @SerializedName(value = "styleCode", alternate = "code")
     private String code;
-    @Expose @SerializedName("styleName")
+    @Expose @SerializedName(value = "styleName", alternate = "code_name")
     private String name;
+
+    // -- Controller
+    private int position;
+    private boolean isSelected;
 }

@@ -6,6 +6,7 @@ import androidx.lifecycle.OnLifecycleEvent;
 import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.data.model.common.ColorDataModel;
 import com.minilook.minilook.data.model.common.GenderDataModel;
+import com.minilook.minilook.data.model.common.StyleDataModel;
 import java.util.List;
 
 public interface SearchFilterPresenter extends LifecycleObserver {
@@ -58,5 +59,7 @@ public interface SearchFilterPresenter extends LifecycleObserver {
         void setupColorRecyclerView();
 
         void colorRefresh();
+
+        void addStyleItem(StyleDataModel model);
     }
 }

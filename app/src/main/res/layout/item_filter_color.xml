@@ -34,5 +34,5 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_icon"
-        tools:text="스포츠/테마" />
+        tools:text="레드" />
 </androidx.constraintlayout.widget.ConstraintLayout>

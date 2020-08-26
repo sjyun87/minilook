@@ -8,7 +8,7 @@
     android:paddingBottom="@dimen/dp_24">
 
     <View
-        android:id="@+id/line"
+        android:id="@+id/line_top"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="@dimen/dp_8"
@@ -30,7 +30,7 @@
         android:textSize="@dimen/sp_12"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/img_more"
-        app:layout_constraintTop_toBottomOf="@+id/line"
+        app:layout_constraintTop_toBottomOf="@+id/line_top"
         tools:text="5만원 이하로\n선물하기 좋은 여아 원피스" />
 
     <ImageView

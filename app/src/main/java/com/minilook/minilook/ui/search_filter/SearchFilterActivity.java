@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindColor;
@@ -22,14 +23,17 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.data.model.common.ColorDataModel;
 import com.minilook.minilook.data.model.common.GenderDataModel;
+import com.minilook.minilook.data.model.common.StyleDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.ui.base.widget.StyleView;
 import com.minilook.minilook.ui.search_filter.adapter.FilterCategoryAdapter;
 import com.minilook.minilook.ui.search_filter.adapter.FilterColorAdapter;
 import com.minilook.minilook.ui.search_filter.adapter.FilterGenderAdapter;
 import com.minilook.minilook.ui.search_filter.di.SearchFilterArguments;
 import com.minilook.minilook.ui.search_filter.viewholder.FilterColorVH;
 import com.minilook.minilook.util.StringUtil;
+import com.nex3z.flowlayout.FlowLayout;
 
 public class SearchFilterActivity extends BaseActivity implements SearchFilterPresenter.View {
 
@@ -53,6 +57,7 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
     @BindView(R.id.txt_price_max) TextView maxPriceTextView;
     @BindView(R.id.txt_price) TextView priceTextView;
     @BindView(R.id.rcv_color) RecyclerView colorRecyclerView;
+    @BindView(R.id.layout_style_item_panel) FlowLayout styleItemPanel;
 
     @BindDimen(R.dimen.dp_5) int dp_5;
     @BindString(R.string.search_filter_age_all) String format_all;
@@ -104,6 +109,7 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
             .asSpace()
             .build()
             .addTo(genderRecyclerView);
+        ViewCompat.setNestedScrollingEnabled(genderRecyclerView, false);
     }
 
     @Override public void genderRefresh() {
@@ -118,6 +124,7 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
         categoryRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
         categoryAdapter.setListener(presenter::onCategorySelected);
         categoryRecyclerView.setAdapter(categoryAdapter);
+        ViewCompat.setNestedScrollingEnabled(categoryRecyclerView, false);
     }
 
     @Override public void categoryRefresh() {
@@ -193,10 +200,19 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
         colorRecyclerView.setLayoutManager(new GridLayoutManager(this, 5));
         colorAdapter.setListener(presenter::onColorSelected);
         colorRecyclerView.setAdapter(colorAdapter);
+        ViewCompat.setNestedScrollingEnabled(colorRecyclerView, false);
     }
 
     @Override public void colorRefresh() {
         colorAdapterView.refresh();
+    }
+
+    @Override public void addStyleItem(StyleDataModel model) {
+        StyleView styleView = StyleView.builder()
+            .context(this)
+            .model(model)
+            .build();
+        styleItemPanel.addView(styleView);
     }
 
     @OnClick(R.id.layout_attr_discount_panel)

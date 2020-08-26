@@ -65,13 +65,13 @@
         android:clipToPadding="false"
         android:paddingTop="@dimen/dp_10"
         android:paddingBottom="@dimen/dp_10"
-        app:layout_constraintBottom_toTopOf="@+id/line"
+        app:layout_constraintBottom_toTopOf="@+id/line_top"
         app:layout_constraintLeft_toLeftOf="@+id/layout_select_box_panel"
         app:layout_constraintRight_toRightOf="@+id/layout_select_box_panel"
         app:layout_constraintTop_toBottomOf="@+id/layout_select_box_panel" />
 
     <View
-        android:id="@+id/line"
+        android:id="@+id/line_top"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@color/color_FFDBDBDB"
