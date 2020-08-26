@@ -6,7 +6,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindColor;
@@ -27,9 +26,7 @@ import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.search_filter.adapter.FilterCategoryAdapter;
 import com.minilook.minilook.ui.search_filter.adapter.FilterGenderAdapter;
 import com.minilook.minilook.ui.search_filter.di.SearchFilterArguments;
-import com.minilook.minilook.ui.search_filter.viewholder.FilterCategoryVH;
 import com.minilook.minilook.util.StringUtil;
-import timber.log.Timber;
 
 public class SearchFilterActivity extends BaseActivity implements SearchFilterPresenter.View {
 
@@ -58,6 +55,7 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
     @BindString(R.string.search_filter_age_month) String format_month;
     @BindString(R.string.search_filter_age_year) String format_year;
     @BindString(R.string.search_filter_price_max) String format_price_max;
+    @BindString(R.string.search_filter_price_all) String format_price_all;
     @BindString(R.string.search_filter_price_limit) String format_price_limit;
     @BindString(R.string.search_filter_price_range) String format_price_range;
     @BindColor(R.color.color_FF232323) int color_FF232323;
@@ -171,8 +169,12 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
             text = String.format(format_price_range,
                 String.format(format_price_limit, StringUtil.toDigit(minPrice)), "").trim();
         } else if (isMaxPriceLimit) {
-            text = String.format(format_price_range,
-                StringUtil.toDigit(minPrice), String.format(format_price_limit, StringUtil.toDigit(maxPrice)));
+            if (minPrice == 0) {
+                text = format_price_all;
+            } else {
+                text = String.format(format_price_range,
+                    StringUtil.toDigit(minPrice), String.format(format_price_limit, StringUtil.toDigit(maxPrice)));
+            }
         } else {
             text = String.format(format_price_range,
                 StringUtil.toDigit(minPrice), StringUtil.toDigit(maxPrice));

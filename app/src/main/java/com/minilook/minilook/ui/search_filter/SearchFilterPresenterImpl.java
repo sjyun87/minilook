@@ -146,14 +146,9 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         genderAdapter.set(setupGenderInit(data.getGenders()));
         view.genderRefresh();
 
-
-
-
         //categoryAdapter.set(setupCategoryInit(data.getCategories()));
         categoryAdapter.set(setupCategoryInit(getTestCategry()));
         view.categoryRefresh();
-
-
 
         limitMinPrice = 0;
         limitMaxPrice = 100000;

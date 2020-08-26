@@ -269,6 +269,7 @@
     <string name="search_filter_attribute_stock">품절상품 제외하기</string>
     <string name="search_filter_category_caption">카테고리</string>
     <string name="search_filter_price_caption">가격</string>
+    <string name="search_filter_price_all">전체</string>
     <string name="search_filter_price_max">%s+</string>
     <string name="search_filter_price_limit">%s 이상</string>
     <string name="search_filter_price_range">%s ~ %s</string>
