@@ -2,13 +2,20 @@ package com.minilook.minilook.ui.search_filter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindColor;
 import butterknife.BindDimen;
+import butterknife.BindDrawable;
+import butterknife.BindFont;
 import butterknife.BindString;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.android.material.slider.Slider;
 import com.minilook.minilook.R;
@@ -30,11 +37,21 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
     @BindView(R.id.rcv_gender) RecyclerView genderRecyclerView;
     @BindView(R.id.slider_gender) Slider ageSlider;
     @BindView(R.id.txt_age) TextView ageTextView;
+    @BindView(R.id.txt_discount_caption) TextView discountCaptionTextView;
+    @BindView(R.id.img_discount_check) ImageView discountCheckImageView;
+    @BindView(R.id.txt_stock_caption) TextView stockCaptionTextView;
+    @BindView(R.id.img_stock_check) ImageView stockCheckImageView;
 
     @BindDimen(R.dimen.dp_5) int dp_5;
     @BindString(R.string.search_filter_age_all) String format_all;
     @BindString(R.string.search_filter_age_month) String format_month;
     @BindString(R.string.search_filter_age_year) String format_year;
+    @BindColor(R.color.color_FF232323) int color_FF232323;
+    @BindColor(R.color.color_FF8140E5) int color_FF8140E5;
+    @BindDrawable(R.drawable.ic_checkbox1_off) Drawable img_check_off;
+    @BindDrawable(R.drawable.ic_checkbox1_on) Drawable img_check_on;
+    @BindFont(R.font.nanum_square_r) Typeface font_regular;
+    @BindFont(R.font.nanum_square_b) Typeface font_bold;
 
     private SearchFilterPresenter presenter;
     private FilterGenderAdapter genderAdapter = new FilterGenderAdapter();
@@ -85,5 +102,39 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
         } else {
             ageTextView.setText(String.format(format_year, age));
         }
+    }
+
+    @Override public void setupSelectedDiscount() {
+        discountCaptionTextView.setTextColor(color_FF8140E5);
+        discountCaptionTextView.setTypeface(font_bold);
+        discountCheckImageView.setImageDrawable(img_check_on);
+    }
+
+    @Override public void setupUnselectedDiscount() {
+        discountCaptionTextView.setTextColor(color_FF232323);
+        discountCaptionTextView.setTypeface(font_regular);
+        discountCheckImageView.setImageDrawable(img_check_off);
+    }
+
+    @Override public void setupSelectedStock() {
+        stockCaptionTextView.setTextColor(color_FF8140E5);
+        stockCaptionTextView.setTypeface(font_bold);
+        stockCheckImageView.setImageDrawable(img_check_on);
+    }
+
+    @Override public void setupUnselectedStock() {
+        stockCaptionTextView.setTextColor(color_FF232323);
+        stockCaptionTextView.setTypeface(font_regular);
+        stockCheckImageView.setImageDrawable(img_check_off);
+    }
+
+    @OnClick(R.id.layout_attr_discount_panel)
+    void onAttributeDiscountClick() {
+        presenter.onAttributeDiscountClick();
+    }
+
+    @OnClick(R.id.layout_attr_stock_panel)
+    void onAttributeStockClick() {
+        presenter.onAttributeStockClick();
     }
 }

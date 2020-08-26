@@ -14,6 +14,10 @@ public interface SearchFilterPresenter extends LifecycleObserver {
 
     void onAgeChanged(float value);
 
+    void onAttributeDiscountClick();
+
+    void onAttributeStockClick();
+
     interface View {
 
         void setupGenderRecyclerView();
@@ -23,5 +27,13 @@ public interface SearchFilterPresenter extends LifecycleObserver {
         void setupAgeSlider();
 
         void setupAge(int age, boolean isMonth);
+
+        void setupSelectedDiscount();
+
+        void setupUnselectedDiscount();
+
+        void setupSelectedStock();
+
+        void setupUnselectedStock();
     }
 }

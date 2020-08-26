@@ -33,7 +33,7 @@ import lombok.Data;
     @Expose @SerializedName("endPrice")
     private int price_end;
     @Expose @SerializedName("outOfStock")
-    private int isStock;
+    private boolean isStock;
     @Expose @SerializedName("sizeType")
     private int type;
     @Expose @SerializedName("styleCode")

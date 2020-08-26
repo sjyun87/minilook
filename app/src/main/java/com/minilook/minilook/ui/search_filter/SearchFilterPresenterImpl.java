@@ -24,6 +24,8 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
     private SearchOptionDataModel options;
 
     private int genderSelectedPosition = 0;
+    private boolean isDiscount = false;
+    private boolean isStock = false;
 
     public SearchFilterPresenterImpl(SearchFilterArguments args) {
         view = args.getView();
@@ -60,6 +62,26 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
             optionAge = ((age - 22) * 12) - 6;
         }
         options.setAge(optionAge);
+    }
+
+    @Override public void onAttributeDiscountClick() {
+        if (isDiscount) {
+            view.setupSelectedDiscount();
+        } else {
+            view.setupUnselectedDiscount();
+        }
+        isDiscount = !isDiscount;
+        options.setDiscount(isDiscount);
+    }
+
+    @Override public void onAttributeStockClick() {
+        if (isStock) {
+            view.setupSelectedStock();
+        } else {
+            view.setupUnselectedStock();
+        }
+        isStock = !isStock;
+        options.setStock(isStock);
     }
 
     private void reqFilterOptions() {
