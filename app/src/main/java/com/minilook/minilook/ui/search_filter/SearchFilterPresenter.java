@@ -3,6 +3,7 @@ package com.minilook.minilook.ui.search_filter;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
+import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.data.model.common.GenderDataModel;
 
 public interface SearchFilterPresenter extends LifecycleObserver {
@@ -18,6 +19,8 @@ public interface SearchFilterPresenter extends LifecycleObserver {
 
     void onAttributeStockClick();
 
+    void onCategorySelected(CategoryDataModel data);
+
     interface View {
 
         void setupGenderRecyclerView();
@@ -25,6 +28,10 @@ public interface SearchFilterPresenter extends LifecycleObserver {
         void genderRefresh();
 
         void setupAgeSlider();
+
+        void setupCategoryRecyclerView();
+
+        void categoryRefresh();
 
         void setupAge(int age, boolean isMonth);
 

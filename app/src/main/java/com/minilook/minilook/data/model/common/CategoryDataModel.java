@@ -5,10 +5,14 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 @Data public class CategoryDataModel {
-    @Expose @SerializedName("cateNo")
-    private int id;
+    @Expose @SerializedName("catecode")
+    private String code;
     @Expose @SerializedName("catename")
     private String name;
     @Expose @SerializedName("icon")
     private String image_url;
+
+    // -- Controller
+    private int position;
+    private boolean isSelected;
 }

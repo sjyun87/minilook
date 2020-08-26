@@ -267,6 +267,7 @@
     <string name="search_filter_attribute_caption">상품정보</string>
     <string name="search_filter_attribute_discount">할인상품만 보기</string>
     <string name="search_filter_attribute_stock">품절상품 제외하기</string>
+    <string name="search_filter_category_caption">카테고리</string>
 
     <!--Setting-->
     <string name="setting_title">설정</string>

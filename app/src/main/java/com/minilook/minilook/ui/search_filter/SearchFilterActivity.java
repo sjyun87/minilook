@@ -6,7 +6,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindColor;
@@ -19,11 +18,14 @@ import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.android.material.slider.Slider;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.data.model.common.GenderDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.ui.search_filter.adapter.FilterCategoryAdapter;
 import com.minilook.minilook.ui.search_filter.adapter.FilterGenderAdapter;
 import com.minilook.minilook.ui.search_filter.di.SearchFilterArguments;
+import com.minilook.minilook.ui.search_filter.viewholder.FilterCategoryVH;
 
 public class SearchFilterActivity extends BaseActivity implements SearchFilterPresenter.View {
 
@@ -41,6 +43,7 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
     @BindView(R.id.img_discount_check) ImageView discountCheckImageView;
     @BindView(R.id.txt_stock_caption) TextView stockCaptionTextView;
     @BindView(R.id.img_stock_check) ImageView stockCheckImageView;
+    @BindView(R.id.rcv_category) RecyclerView categoryRecyclerView;
 
     @BindDimen(R.dimen.dp_5) int dp_5;
     @BindString(R.string.search_filter_age_all) String format_all;
@@ -56,6 +59,8 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
     private SearchFilterPresenter presenter;
     private FilterGenderAdapter genderAdapter = new FilterGenderAdapter();
     private BaseAdapterDataView<GenderDataModel> genderAdapterView = genderAdapter;
+    private FilterCategoryAdapter categoryAdapter = new FilterCategoryAdapter();
+    private BaseAdapterDataView<CategoryDataModel> categoryAdapterView = categoryAdapter;
 
     @Override protected int getLayoutID() {
         return R.layout.activity_search_filter;
@@ -70,6 +75,7 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
         return SearchFilterArguments.builder()
             .view(this)
             .genderAdapter(genderAdapter)
+            .categoryAdapter(categoryAdapter)
             .build();
     }
 
@@ -90,6 +96,16 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
 
     @Override public void setupAgeSlider() {
         ageSlider.addOnChangeListener((slider, value, fromUser) -> presenter.onAgeChanged(value));
+    }
+
+    @Override public void setupCategoryRecyclerView() {
+        categoryRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+        categoryAdapter.setListener(presenter::onCategorySelected);
+        categoryRecyclerView.setAdapter(categoryAdapter);
+    }
+
+    @Override public void categoryRefresh() {
+        categoryAdapterView.refresh();
     }
 
     @Override public void setupAge(int age, boolean isBaby) {
