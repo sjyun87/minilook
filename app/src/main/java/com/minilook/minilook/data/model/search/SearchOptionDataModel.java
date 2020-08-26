@@ -37,5 +37,5 @@ import lombok.Data;
     @Expose @SerializedName("sizeType")
     private int type;
     @Expose @SerializedName("styleCode")
-    private List<String> styles;
+    private List<String> style_codes;
 }

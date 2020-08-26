@@ -20,6 +20,10 @@ import lombok.Setter;
 
 public class FilterColorVH extends BaseViewHolder<ColorDataModel> {
 
+    private static final String COLOR_SILVER = "#C0C0C0";
+    private static final String COLOR_GOLD = "#FFD700";
+    private static final String COLOR_MULTI = "multi";
+
     @BindView(R.id.img_icon) ImageView iconImageView;
     @BindView(R.id.txt_name) TextView nameTextView;
 
@@ -54,14 +58,20 @@ public class FilterColorVH extends BaseViewHolder<ColorDataModel> {
             nameTextView.setTypeface(font_regular);
         }
 
-        if (data.getCode().equals("#C0C0C0")) {
-            iconImageView.setImageDrawable(color_silver);
-        } else if (data.getCode().equals("#FFD700")) {
-            iconImageView.setImageDrawable(color_gold);
-        } else if (data.getCode().equals("multi")) {
-            iconImageView.setImageDrawable(color_multi);
-        } else {
-            iconImageView.setBackgroundColor(Color.parseColor(data.getCode()));
+        switch (data.getCode()) {
+            case COLOR_SILVER:
+                iconImageView.setImageDrawable(color_silver);
+                break;
+            case COLOR_GOLD:
+                iconImageView.setImageDrawable(color_gold);
+                break;
+            case COLOR_MULTI:
+                iconImageView.setImageDrawable(color_multi);
+                break;
+            default:
+                iconImageView.setImageDrawable(null);
+                iconImageView.setBackgroundColor(Color.parseColor(data.getCode()));
+                break;
         }
         nameTextView.setText(data.getName());
 

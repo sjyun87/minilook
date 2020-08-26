@@ -20,6 +20,9 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
 
     private static final int AGE_BABY_MONTH = 24;
     private static final int PRICE_STEP = 5000;
+    private static final String SIZE_TYPE_BABY = "베이비";
+    private static final String SIZE_TYPE_SHOES = "신발";
+    private static final String SIZE_TYPE_ACCESSORIES = "악세사";
 
     private final View view;
     private final BaseAdapterDataModel<GenderDataModel> genderAdapter;
@@ -28,14 +31,22 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
     private final SearchRequest searchRequest;
 
     private Gson gson = new Gson();
-    private SearchOptionDataModel options;
 
     private int genderSelectedPosition = 0;
-    private boolean isDiscount = false;
-    private boolean isStock = false;
     private int categorySelectedPosition = -1;
     private int limitMinPrice;
     private int limitMaxPrice;
+
+    private String genderCode;
+    private int ageCode;
+    private boolean isShowDiscount = false;
+    private boolean isShowStock = false;
+    private String categoryCode;
+    private int sizeType = -1;
+    private int minPrice = -1;
+    private int maxPrice = -1;
+    private List<String> colorCodes = new ArrayList<>();
+    private List<String> styleCodes = new ArrayList<>();
 
     public SearchFilterPresenterImpl(SearchFilterArguments args) {
         view = args.getView();
@@ -43,7 +54,6 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         categoryAdapter = args.getCategoryAdapter();
         colorAdapter = args.getColorAdapter();
         searchRequest = new SearchRequest();
-        options = new SearchOptionDataModel();
     }
 
     @Override public void onCreate() {
@@ -58,7 +68,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
 
     @Override public void onGenderSelected(GenderDataModel data) {
         if (genderSelectedPosition != data.getPosition()) {
-            options.setGender_code(data.getCode());
+            genderCode = data.getCode();
             genderAdapter.get(genderSelectedPosition).setSelected(false);
             genderSelectedPosition = data.getPosition();
             genderAdapter.get(genderSelectedPosition).setSelected(true);
@@ -68,35 +78,35 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
 
     @Override public void onAgeChanged(float value) {
         int age = (int) value;
-        int optionAge;
+        int ageMonth;
         if (age <= AGE_BABY_MONTH) {    // 0 ~ 24개월
             view.setupAgeText(age, true);
-            optionAge = age;
+            ageMonth = age;
         } else {    // 3 ~ 16세
             view.setupAgeText(age - 22, false);
-            optionAge = ((age - 22) * 12) - 6;
+            ageMonth = ((age - 22) * 12) - 6;
         }
-        options.setAge(optionAge);
+        ageCode = ageMonth;
     }
 
     @Override public void onAttributeDiscountClick() {
-        if (isDiscount) {
-            view.setupSelectedDiscount();
-        } else {
+        if (isShowDiscount) {
             view.setupUnselectedDiscount();
+            isShowDiscount = false;
+        } else {
+            view.setupSelectedDiscount();
+            isShowDiscount = true;
         }
-        isDiscount = !isDiscount;
-        options.setDiscount(isDiscount);
     }
 
     @Override public void onAttributeStockClick() {
-        if (isStock) {
-            view.setupSelectedStock();
-        } else {
+        if (isShowStock) {
             view.setupUnselectedStock();
+            isShowStock = false;
+        } else {
+            view.setupSelectedStock();
+            isShowStock = true;
         }
-        isStock = !isStock;
-        options.setStock(isStock);
     }
 
     @Override public void onCategorySelected(CategoryDataModel data) {
@@ -107,11 +117,20 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
             categorySelectedPosition = data.getPosition();
             categoryAdapter.get(categorySelectedPosition).setSelected(true);
             view.categoryRefresh();
-            options.setCategory_code(data.getCode());
+            categoryCode = data.getCode();
+            if (data.getName().equals(SIZE_TYPE_BABY)) {
+                sizeType = 2;
+            } else if (data.getName().equals(SIZE_TYPE_SHOES)) {
+                sizeType = 4;
+            } else if (data.getName().equals(SIZE_TYPE_ACCESSORIES)) {
+                sizeType = 5;
+            } else {
+                sizeType = 3;
+            }
         } else {
             categoryAdapter.get(categorySelectedPosition).setSelected(false);
             categorySelectedPosition = -1;
-            options.setCategory_code("");
+            categoryCode = null;
             view.categoryRefresh();
         }
     }
@@ -120,29 +139,72 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         int selectedMinStep = values.get(0).intValue();
         int selectedMaxStep = values.get(1).intValue();
 
-        int minPrice = selectedMinStep * PRICE_STEP;
-        int maxPrice = selectedMaxStep * PRICE_STEP;
+        int selectedMinPrice = selectedMinStep * PRICE_STEP;
+        int selectedMaxPrice = selectedMaxStep * PRICE_STEP;
 
-        if (minPrice > limitMaxPrice) {
+        if (selectedMinPrice > limitMaxPrice) {
             view.setupPriceText(limitMaxPrice, limitMaxPrice, true, true);
-            options.setPrice_min(-1);
-            options.setPrice_max(-1);
-        } else if (maxPrice > limitMaxPrice) {
-            view.setupPriceText(minPrice, limitMaxPrice, false, true);
-            options.setPrice_min(minPrice);
-            options.setPrice_max(-1);
+            minPrice = -1;
+            maxPrice = -1;
+        } else if (selectedMaxPrice > limitMaxPrice) {
+            view.setupPriceText(selectedMinPrice, limitMaxPrice, false, true);
+            minPrice = selectedMinPrice;
+            maxPrice = -1;
         } else {
-            view.setupPriceText(minPrice, maxPrice, false, false);
-            options.setPrice_min(minPrice);
-            options.setPrice_max(maxPrice);
+            view.setupPriceText(selectedMinPrice, selectedMaxPrice, false, false);
+            minPrice = selectedMinPrice;
+            maxPrice = selectedMaxPrice;
         }
     }
 
     @Override public void onColorSelected(ColorDataModel data) {
+        if (colorCodes.contains(data.getCode())) {
+            colorCodes.remove(data.getCode());
+            colorAdapter.get(data.getPosition()).setSelected(false);
+        } else {
+            colorCodes.add(data.getCode());
+            colorAdapter.get(data.getPosition()).setSelected(true);
+        }
+        view.colorRefresh();
+    }
 
+    @Override public void onStyleSelected(StyleDataModel data) {
+        if (styleCodes.contains(data.getCode())) {
+            styleCodes.remove(data.getCode());
+            view.unselectedStyleView(data.getPosition());
+        } else {
+            styleCodes.add(data.getCode());
+            view.selectedStyleView(data.getPosition());
+        }
+    }
 
+    @Override public void onResetClick() {
+        resetGenderData();
+        resetAgeData();
+        resetShowDiscount();
+        resetShowStock();
+        resetCategoryData();
+        resetPriceData();
+        resetColorData();
+        resetStyleData();
+    }
 
+    @Override public void onSearchClick() {
+        SearchOptionDataModel model = new SearchOptionDataModel();
+        model.setBrand_id(-1);
+        model.setGender_code(genderCode);
+        model.setAge(ageCode);
+        model.setDiscount(isShowDiscount);
+        model.setStock(isShowStock);
+        model.setCategory_code(categoryCode);
+        model.setPrice_min(minPrice);
+        model.setPrice_max(maxPrice);
+        model.setColor_codes(colorCodes);
+        model.setStyle_codes(styleCodes);
+        model.setType(sizeType);
+        model.setColor_codes(colorCodes);
 
+        Timber.e(model.toString());
     }
 
     private void reqFilterOptions() {
@@ -155,11 +217,11 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
     }
 
     private void resFilterOptions(FilterDataModel data) {
-        genderAdapter.set(setupGenderInit(data.getGenders()));
+        genderAdapter.set(setupGenderDataInit(data.getGenders()));
         view.genderRefresh();
 
-        //categoryAdapter.set(setupCategoryInit(data.getCategories()));
-        categoryAdapter.set(setupCategoryInit(getTestCategry()));
+        //categoryAdapter.set(setupCategoryDataInit(data.getCategories()));
+        categoryAdapter.set(setupCategoryDataInit(getTestCategry()));
         view.categoryRefresh();
 
         limitMinPrice = 0;
@@ -167,7 +229,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         int step = (limitMaxPrice / PRICE_STEP) + 1;
         view.initPriceSlider(limitMinPrice, limitMaxPrice, step);
 
-        colorAdapter.set(setupColorInit(data.getColors()));
+        colorAdapter.set(setupColorDataInit(data.getColors()));
         view.colorRefresh();
 
         for (int i = 0; i < data.getStyles().size(); i++) {
@@ -177,6 +239,98 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
             view.addStyleItem(model);
         }
     }
+
+    private List<GenderDataModel> setupGenderDataInit(List<GenderDataModel> genders) {
+        genderCode = genders.get(0).getCode();
+        List<GenderDataModel> items = new ArrayList<>();
+        for (int i = 0; i < genders.size(); i++) {
+            GenderDataModel model = genders.get(i);
+            model.setPosition(i);
+            model.setSelected(i == 0);
+            items.add(model);
+        }
+        return items;
+    }
+
+    private void resetGenderData() {
+        List<GenderDataModel> items = genderAdapter.get();
+        for (int i = 0; i < items.size(); i++) {
+            GenderDataModel model = items.get(i);
+            model.setSelected(i == 0);
+        }
+        view.genderRefresh();
+        genderCode = items.get(0).getCode();
+    }
+
+    private void resetAgeData() {
+        view.resetAgeSlider();
+    }
+
+    private void resetShowDiscount() {
+        isShowDiscount = false;
+        view.setupUnselectedDiscount();
+    }
+
+    private void resetShowStock() {
+        isShowStock = false;
+        view.setupUnselectedStock();
+    }
+
+    private List<CategoryDataModel> setupCategoryDataInit(List<CategoryDataModel> categories) {
+        List<CategoryDataModel> items = new ArrayList<>();
+        for (int i = 0; i < categories.size(); i++) {
+            CategoryDataModel model = categories.get(i);
+            model.setPosition(i);
+            model.setSelected(false);
+            items.add(model);
+        }
+        return items;
+    }
+
+    private void resetCategoryData() {
+        for (CategoryDataModel model : categoryAdapter.get()) {
+            model.setSelected(false);
+        }
+        view.categoryRefresh();
+        categoryCode = null;
+        sizeType = -1;
+    }
+
+    private void resetPriceData() {
+        minPrice = -1;
+        maxPrice = -1;
+        view.resetPriceSlider();
+    }
+
+    private List<ColorDataModel> setupColorDataInit(List<ColorDataModel> colors) {
+        List<ColorDataModel> items = new ArrayList<>();
+        for (int i = 0; i < colors.size(); i++) {
+            ColorDataModel model = colors.get(i);
+            model.setPosition(i);
+            model.setSelected(false);
+            items.add(model);
+        }
+        return items;
+    }
+
+    private void resetColorData() {
+        for (ColorDataModel model : colorAdapter.get()) {
+            model.setSelected(false);
+        }
+        view.colorRefresh();
+        colorCodes = new ArrayList<>();
+    }
+
+    private void resetStyleData() {
+        view.resetStyleView();
+        styleCodes = new ArrayList<>();
+    }
+
+
+
+
+
+
 
     private List<CategoryDataModel> getTestCategry() {
         List<CategoryDataModel> items = new ArrayList<>();
@@ -241,40 +395,6 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         model10.setImage_url("http://lookbook.minilook.co.kr/data/category/medium/ic_category_accessories.png");
         items.add(model10);
 
-        return items;
-    }
-
-    private List<GenderDataModel> setupGenderInit(List<GenderDataModel> genders) {
-        options.setGender_code(genders.get(0).getCode());
-        List<GenderDataModel> items = new ArrayList<>();
-        for (int i = 0; i < genders.size(); i++) {
-            GenderDataModel model = genders.get(i);
-            model.setPosition(i);
-            model.setSelected(i == 0);
-            items.add(model);
-        }
-        return items;
-    }
-
-    private List<CategoryDataModel> setupCategoryInit(List<CategoryDataModel> categories) {
-        List<CategoryDataModel> items = new ArrayList<>();
-        for (int i = 0; i < categories.size(); i++) {
-            CategoryDataModel model = categories.get(i);
-            model.setPosition(i);
-            model.setSelected(false);
-            items.add(model);
-        }
-        return items;
-    }
-
-    private List<ColorDataModel> setupColorInit(List<ColorDataModel> colors) {
-        List<ColorDataModel> items = new ArrayList<>();
-        for (int i = 0; i < colors.size(); i++) {
-            ColorDataModel model = colors.get(i);
-            model.setPosition(i);
-            model.setSelected(false);
-            items.add(model);
-        }
         return items;
     }
 }

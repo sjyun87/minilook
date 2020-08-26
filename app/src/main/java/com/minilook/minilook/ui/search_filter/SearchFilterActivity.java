@@ -31,7 +31,6 @@ import com.minilook.minilook.ui.search_filter.adapter.FilterCategoryAdapter;
 import com.minilook.minilook.ui.search_filter.adapter.FilterColorAdapter;
 import com.minilook.minilook.ui.search_filter.adapter.FilterGenderAdapter;
 import com.minilook.minilook.ui.search_filter.di.SearchFilterArguments;
-import com.minilook.minilook.ui.search_filter.viewholder.FilterColorVH;
 import com.minilook.minilook.util.StringUtil;
 import com.nex3z.flowlayout.FlowLayout;
 
@@ -120,6 +119,10 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
         ageSlider.addOnChangeListener((slider, value, fromUser) -> presenter.onAgeChanged(value));
     }
 
+    @Override public void resetAgeSlider() {
+        ageSlider.setValue(0f);
+    }
+
     @Override public void setupCategoryRecyclerView() {
         categoryRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
         categoryAdapter.setListener(presenter::onCategorySelected);
@@ -177,6 +180,10 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
         maxPriceTextView.setText(String.format(format_price_max, StringUtil.toDigit(max)));
     }
 
+    @Override public void resetPriceSlider() {
+        priceSlider.setValues(0f, priceSlider.getValueTo());
+    }
+
     @Override public void setupPriceText(int minPrice, int maxPrice, boolean isMinPriceLimit, boolean isMaxPriceLimit) {
         String text;
         if (isMinPriceLimit) {
@@ -211,8 +218,23 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
         StyleView styleView = StyleView.builder()
             .context(this)
             .model(model)
+            .listener(presenter::onStyleSelected)
             .build();
         styleItemPanel.addView(styleView);
+    }
+
+    @Override public void selectedStyleView(int position) {
+        ((StyleView) styleItemPanel.getChildAt(position)).selected();
+    }
+
+    @Override public void unselectedStyleView(int position) {
+        ((StyleView) styleItemPanel.getChildAt(position)).unselected();
+    }
+
+    @Override public void resetStyleView() {
+        for (int i = 0; i < styleItemPanel.getChildCount(); i++) {
+            ((StyleView) styleItemPanel.getChildAt(i)).unselected();
+        }
     }
 
     @OnClick(R.id.layout_attr_discount_panel)
@@ -223,5 +245,15 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
     @OnClick(R.id.layout_attr_stock_panel)
     void onAttributeStockClick() {
         presenter.onAttributeStockClick();
+    }
+
+    @OnClick(R.id.txt_reset)
+    void onResetClick() {
+        presenter.onResetClick();
+    }
+
+    @OnClick(R.id.txt_search)
+    void onSearchClick() {
+        presenter.onSearchClick();
     }
 }

@@ -28,6 +28,12 @@ public interface SearchFilterPresenter extends LifecycleObserver {
 
     void onColorSelected(ColorDataModel data);
 
+    void onStyleSelected(StyleDataModel data);
+
+    void onResetClick();
+
+    void onSearchClick();
+
     interface View {
 
         void setupGenderRecyclerView();
@@ -35,6 +41,8 @@ public interface SearchFilterPresenter extends LifecycleObserver {
         void genderRefresh();
 
         void setupAgeSlider();
+
+        void resetAgeSlider();
 
         void setupAgeText(int age, boolean isMonth);
 
@@ -54,6 +62,8 @@ public interface SearchFilterPresenter extends LifecycleObserver {
 
         void initPriceSlider(int min, int max, int step);
 
+        void resetPriceSlider();
+
         void setupPriceText(int minPrice, int maxPrice, boolean isMinPriceLimit, boolean isMaxPriceLimit);
 
         void setupColorRecyclerView();
@@ -61,5 +71,11 @@ public interface SearchFilterPresenter extends LifecycleObserver {
         void colorRefresh();
 
         void addStyleItem(StyleDataModel model);
+
+        void selectedStyleView(int position);
+
+        void unselectedStyleView(int position);
+
+        void resetStyleView();
     }
 }

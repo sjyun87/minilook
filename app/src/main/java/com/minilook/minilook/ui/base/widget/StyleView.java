@@ -3,6 +3,7 @@ package com.minilook.minilook.ui.base.widget;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -13,8 +14,10 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.common.ColorDataModel;
 import com.minilook.minilook.data.model.common.StyleDataModel;
 import lombok.Builder;
+import lombok.Setter;
 
 public class StyleView extends FrameLayout {
 
@@ -29,11 +32,13 @@ public class StyleView extends FrameLayout {
     @BindString(R.string.base_tag) String format_tag;
 
     private StyleDataModel model;
+    private OnStyleListener listener;
 
     @Builder
-    public StyleView(@NonNull Context context, @NonNull StyleDataModel model) {
+    public StyleView(@NonNull Context context, @NonNull StyleDataModel model, OnStyleListener listener) {
         this(context);
         this.model = model;
+        this.listener = listener;
 
         initView();
         setupSize(model.getName());
@@ -45,6 +50,9 @@ public class StyleView extends FrameLayout {
 
     private void initView() {
         ButterKnife.bind(this, inflate(getContext(), R.layout.layout_style_view, this));
+        setOnClickListener(v -> {
+            if (listener != null) listener.OnStyleSelected(model);
+        });
     }
 
     public void setupSize(String name) {
@@ -61,5 +69,9 @@ public class StyleView extends FrameLayout {
         styleTextView.setBackground(bg_button_off);
         styleTextView.setTextColor(color_FF232323);
         styleTextView.setTypeface(font_regular);
+    }
+
+    public interface OnStyleListener {
+        void OnStyleSelected(StyleDataModel data);
     }
 }
