@@ -277,6 +277,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     }
 
     @Override public void setupReviewCount(String text) {
+        reviewCountTextView.setText(text);
         getTabView(1).setupCount(text);
     }
 
