@@ -273,6 +273,7 @@
     <string name="search_filter_price_max">%s+</string>
     <string name="search_filter_price_limit">%s 이상</string>
     <string name="search_filter_price_range">%s ~ %s</string>
+    <string name="search_filter_color_caption">색상</string>
 
 
     <!--Setting-->

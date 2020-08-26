@@ -2,6 +2,7 @@ package com.minilook.minilook.ui.search_filter;
 
 import com.google.gson.Gson;
 import com.minilook.minilook.data.model.common.CategoryDataModel;
+import com.minilook.minilook.data.model.common.ColorDataModel;
 import com.minilook.minilook.data.model.common.GenderDataModel;
 import com.minilook.minilook.data.model.search.FilterDataModel;
 import com.minilook.minilook.data.model.search.SearchOptionDataModel;
@@ -22,6 +23,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
     private final View view;
     private final BaseAdapterDataModel<GenderDataModel> genderAdapter;
     private final BaseAdapterDataModel<CategoryDataModel> categoryAdapter;
+    private final BaseAdapterDataModel<ColorDataModel> colorAdapter;
     private final SearchRequest searchRequest;
 
     private Gson gson = new Gson();
@@ -38,6 +40,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         view = args.getView();
         genderAdapter = args.getGenderAdapter();
         categoryAdapter = args.getCategoryAdapter();
+        colorAdapter = args.getColorAdapter();
         searchRequest = new SearchRequest();
         options = new SearchOptionDataModel();
     }
@@ -47,6 +50,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         view.setupAgeSlider();
         view.setupCategoryRecyclerView();
         view.setupPriceSlider();
+        view.setupColorRecyclerView();
 
         reqFilterOptions();
     }
@@ -133,6 +137,13 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         }
     }
 
+    @Override public void onColorSelected(ColorDataModel data) {
+
+
+
+
+    }
+
     private void reqFilterOptions() {
         addDisposable(
             searchRequest.getFilterOptions()
@@ -154,6 +165,9 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         limitMaxPrice = 100000;
         int step = (limitMaxPrice / PRICE_STEP) + 1;
         view.initPriceSlider(limitMinPrice, limitMaxPrice, step);
+
+        colorAdapter.set(setupColorInit(data.getColors()));
+        view.colorRefresh();
     }
 
     private List<CategoryDataModel> getTestCategry() {
@@ -238,6 +252,17 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         List<CategoryDataModel> items = new ArrayList<>();
         for (int i = 0; i < categories.size(); i++) {
             CategoryDataModel model = categories.get(i);
+            model.setPosition(i);
+            model.setSelected(false);
+            items.add(model);
+        }
+        return items;
+    }
+
+    private List<ColorDataModel> setupColorInit(List<ColorDataModel> colors) {
+        List<ColorDataModel> items = new ArrayList<>();
+        for (int i = 0; i < colors.size(); i++) {
+            ColorDataModel model = colors.get(i);
             model.setPosition(i);
             model.setSelected(false);
             items.add(model);

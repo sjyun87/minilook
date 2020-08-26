@@ -20,12 +20,15 @@ import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.slider.Slider;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.CategoryDataModel;
+import com.minilook.minilook.data.model.common.ColorDataModel;
 import com.minilook.minilook.data.model.common.GenderDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.search_filter.adapter.FilterCategoryAdapter;
+import com.minilook.minilook.ui.search_filter.adapter.FilterColorAdapter;
 import com.minilook.minilook.ui.search_filter.adapter.FilterGenderAdapter;
 import com.minilook.minilook.ui.search_filter.di.SearchFilterArguments;
+import com.minilook.minilook.ui.search_filter.viewholder.FilterColorVH;
 import com.minilook.minilook.util.StringUtil;
 
 public class SearchFilterActivity extends BaseActivity implements SearchFilterPresenter.View {
@@ -49,6 +52,7 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
     @BindView(R.id.txt_price_min) TextView minPriceTextView;
     @BindView(R.id.txt_price_max) TextView maxPriceTextView;
     @BindView(R.id.txt_price) TextView priceTextView;
+    @BindView(R.id.rcv_color) RecyclerView colorRecyclerView;
 
     @BindDimen(R.dimen.dp_5) int dp_5;
     @BindString(R.string.search_filter_age_all) String format_all;
@@ -70,6 +74,8 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
     private BaseAdapterDataView<GenderDataModel> genderAdapterView = genderAdapter;
     private FilterCategoryAdapter categoryAdapter = new FilterCategoryAdapter();
     private BaseAdapterDataView<CategoryDataModel> categoryAdapterView = categoryAdapter;
+    private FilterColorAdapter colorAdapter = new FilterColorAdapter();
+    private BaseAdapterDataView<ColorDataModel> colorAdapterView = colorAdapter;
 
     @Override protected int getLayoutID() {
         return R.layout.activity_search_filter;
@@ -85,6 +91,7 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
             .view(this)
             .genderAdapter(genderAdapter)
             .categoryAdapter(categoryAdapter)
+            .colorAdapter(colorAdapter)
             .build();
     }
 
@@ -180,6 +187,16 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
                 StringUtil.toDigit(minPrice), StringUtil.toDigit(maxPrice));
         }
         priceTextView.setText(text);
+    }
+
+    @Override public void setupColorRecyclerView() {
+        colorRecyclerView.setLayoutManager(new GridLayoutManager(this, 5));
+        colorAdapter.setListener(presenter::onColorSelected);
+        colorRecyclerView.setAdapter(colorAdapter);
+    }
+
+    @Override public void colorRefresh() {
+        colorAdapterView.refresh();
     }
 
     @OnClick(R.id.layout_attr_discount_panel)

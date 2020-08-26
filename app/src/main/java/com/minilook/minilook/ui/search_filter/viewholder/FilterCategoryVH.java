@@ -41,11 +41,11 @@ public class FilterCategoryVH extends BaseViewHolder<CategoryDataModel> {
         super.bind($data);
 
         if (data.isSelected()) {
-            iconImageView.setBackground(bg_icon_on);
+            iconImageView.setImageDrawable(bg_icon_on);
             nameTextView.setTextColor(color_FF8140E5);
             nameTextView.setTypeface(font_bold);
         } else {
-            iconImageView.setBackground(bg_icon_off);
+            iconImageView.setImageDrawable(bg_icon_off);
             nameTextView.setTextColor(color_FF232323);
             nameTextView.setTypeface(font_regular);
         }
