@@ -7,10 +7,8 @@ import butterknife.BindView;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.widget.BottomBar;
-import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.main.adapter.MainPagerAdapter;
 import com.minilook.minilook.ui.main.di.MainArguments;
-import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 
 public class MainActivity extends BaseActivity implements MainPresenter.View {
 
@@ -18,6 +16,12 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
         Intent intent = new Intent(context, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        context.startActivity(intent);
+    }
+
+    public static void clearStart(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
     }
 
@@ -34,6 +38,11 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
     @Override protected void createPresenter() {
         presenter = new MainPresenterImpl(provideArguments());
         getLifecycle().addObserver(presenter);
+    }
+
+    @Override protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        bottomBar.setCurrentPage(BottomBar.POSITION_MARKET);
     }
 
     private MainArguments provideArguments() {

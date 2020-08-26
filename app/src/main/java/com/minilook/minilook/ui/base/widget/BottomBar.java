@@ -19,11 +19,11 @@ import com.minilook.minilook.R;
 import lombok.Setter;
 
 public class BottomBar extends LinearLayout {
-    private static final int POSITION_LOOKBOOK = 0;
-    private static final int POSITION_MARKET = 1;
-    private static final int POSITION_CATEGORY = 2;
-    private static final int POSITION_PREORDER = 3;
-    private static final int POSITION_IPAGE = 4;
+    public static final int POSITION_LOOKBOOK = 0;
+    public static final int POSITION_MARKET = 1;
+    public static final int POSITION_CATEGORY = 2;
+    public static final int POSITION_PREORDER = 3;
+    public static final int POSITION_IPAGE = 4;
 
     @BindView(R.id.img_bottombar_lookbook) ImageView lookbookImageView;
     @BindView(R.id.txt_bottombar_lookbook) TextView lookbookTextView;
@@ -101,6 +101,26 @@ public class BottomBar extends LinearLayout {
     public void setupWhiteTheme(boolean flag) {
         this.isWhiteTheme = flag;
         updateUI();
+    }
+
+    public void setCurrentPage(int position) {
+        switch (position) {
+            case POSITION_LOOKBOOK:
+                onLookBookClick();
+                break;
+            case POSITION_MARKET:
+                onMarketClick();
+                break;
+            case POSITION_CATEGORY:
+                onCategoryClick();
+                break;
+            case POSITION_PREORDER:
+                onPreorderClick();
+                break;
+            case POSITION_IPAGE:
+                onIpageClick();
+                break;
+        }
     }
 
     private void updateUI() {
