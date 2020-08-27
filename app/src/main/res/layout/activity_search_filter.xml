@@ -104,11 +104,10 @@
                     android:valueTo="38"
                     app:labelBehavior="gone"
                     app:layout_constraintTop_toBottomOf="@+id/txt_age_caption"
-                    app:thumbColor="@color/color_FF8140E5"
+                    app:thumbColor="@color/color_FFEEEFF5"
                     app:thumbElevation="0dp"
                     app:tickColor="@android:color/transparent"
-                    app:trackColorActive="@color/color_FF8140E5"
-                    app:trackColorInactive="@color/color_FFEEEFF5" />
+                    app:trackColor="@color/color_FFEEEFF5" />
 
                 <TextView
                     android:id="@+id/txt_age_min"

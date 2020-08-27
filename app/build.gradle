@@ -75,7 +75,7 @@ dependencies {
   implementation "com.kakao.sdk:v2-user:$kakao_version"
 
   // Naver Login
-  implementation project(path: ':naveridlogin_android_sdk_4.2.6')
+//  implementation project(path: ':naveridlogin_android_sdk_4.2.6')
 
   // ViewPager2
   implementation "androidx.viewpager2:viewpager2:$viewpager2_version"

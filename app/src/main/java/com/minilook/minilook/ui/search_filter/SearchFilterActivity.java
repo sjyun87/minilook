@@ -2,13 +2,17 @@ package com.minilook.minilook.ui.search_filter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import butterknife.BindColor;
 import butterknife.BindDimen;
 import butterknife.BindDrawable;
@@ -16,6 +20,8 @@ import butterknife.BindFont;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
+import timber.log.Timber;
+
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.slider.Slider;
@@ -68,6 +74,7 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
     @BindString(R.string.search_filter_price_range) String format_price_range;
     @BindColor(R.color.color_FF232323) int color_FF232323;
     @BindColor(R.color.color_FF8140E5) int color_FF8140E5;
+    @BindColor(R.color.color_FFEEEFF5) int color_FFEEEFF5;
     @BindDrawable(R.drawable.ic_checkbox1_off) Drawable img_check_off;
     @BindDrawable(R.drawable.ic_checkbox1_on) Drawable img_check_on;
     @BindFont(R.font.nanum_square_r) Typeface font_regular;
@@ -116,7 +123,16 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
     }
 
     @Override public void setupAgeSlider() {
-        ageSlider.addOnChangeListener((slider, value, fromUser) -> presenter.onAgeChanged(value));
+        ageSlider.addOnChangeListener((slider, value, fromUser) -> {
+            ColorStateList color;
+            if (value == 0) {
+                color = ColorStateList.valueOf(color_FFEEEFF5);
+            } else {
+                color = ColorStateList.valueOf(color_FF8140E5);
+            }
+            slider.setThumbTintList(color);
+            presenter.onAgeChanged(value);
+        });
     }
 
     @Override public void resetAgeSlider() {
@@ -178,6 +194,10 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
 
         minPriceTextView.setText(String.valueOf(min));
         maxPriceTextView.setText(String.format(format_price_max, StringUtil.toDigit(max)));
+    }
+
+    @Override public void setupPriceValue(int currentMinStep, int currentMaxStep) {
+        priceSlider.setValues((float) currentMinStep, (float) currentMaxStep);
     }
 
     @Override public void resetPriceSlider() {

@@ -36,6 +36,8 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
     private int categorySelectedPosition = -1;
     private int limitMinPrice;
     private int limitMaxPrice;
+    private int currentMinStep;
+    private int currentMaxStep;
 
     private String genderCode;
     private int ageCode;
@@ -138,9 +140,16 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
     @Override public void onPriceChanged(List<Float> values) {
         int selectedMinStep = values.get(0).intValue();
         int selectedMaxStep = values.get(1).intValue();
+        if (selectedMinStep == selectedMaxStep) {
+            view.setupPriceValue(currentMinStep, currentMaxStep);
+            return;
+        }
 
-        int selectedMinPrice = selectedMinStep * PRICE_STEP;
-        int selectedMaxPrice = selectedMaxStep * PRICE_STEP;
+        currentMinStep = selectedMinStep;
+        currentMaxStep = selectedMaxStep;
+
+        int selectedMinPrice = currentMinStep * PRICE_STEP;
+        int selectedMaxPrice = currentMaxStep * PRICE_STEP;
 
         if (selectedMinPrice > limitMaxPrice) {
             view.setupPriceText(limitMaxPrice, limitMaxPrice, true, true);
