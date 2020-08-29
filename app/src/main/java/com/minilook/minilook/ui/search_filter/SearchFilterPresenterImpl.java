@@ -32,7 +32,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
 
     private Gson gson = new Gson();
 
-    private int genderSelectedPosition = 0;
+    private int genderSelectedPosition = -1;
     private int categorySelectedPosition = -1;
     private int limitMinPrice;
     private int limitMaxPrice;
@@ -69,13 +69,19 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
     }
 
     @Override public void onGenderSelected(GenderDataModel data) {
-        if (genderSelectedPosition != data.getPosition()) {
-            genderCode = data.getCode();
-            genderAdapter.get(genderSelectedPosition).setSelected(false);
+        if (data.isSelected()) {
+            genderSelectedPosition = -1;
+            genderCode = null;
+            genderAdapter.get(data.getPosition()).setSelected(false);
+        } else {
+            if (genderSelectedPosition != -1 && genderSelectedPosition != data.getPosition()) {
+                genderAdapter.get(genderSelectedPosition).setSelected(false);
+            }
             genderSelectedPosition = data.getPosition();
-            genderAdapter.get(genderSelectedPosition).setSelected(true);
-            view.genderRefresh();
+            genderCode = data.getCode();
+            genderAdapter.get(data.getPosition()).setSelected(true);
         }
+        view.genderRefresh();
     }
 
     @Override public void onAgeChanged(float value) {
@@ -200,7 +206,6 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
 
     @Override public void onSearchClick() {
         SearchOptionDataModel model = new SearchOptionDataModel();
-        model.setBrand_id(-1);
         model.setGender_code(genderCode);
         model.setAge(ageCode);
         model.setDiscount(isShowDiscount);
@@ -229,8 +234,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         genderAdapter.set(setupGenderDataInit(data.getGenders()));
         view.genderRefresh();
 
-        //categoryAdapter.set(setupCategoryDataInit(data.getCategories()));
-        categoryAdapter.set(setupCategoryDataInit(getTestCategry()));
+        categoryAdapter.set(setupCategoryDataInit(data.getCategories()));
         view.categoryRefresh();
 
         limitMinPrice = 0;
@@ -255,7 +259,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         for (int i = 0; i < genders.size(); i++) {
             GenderDataModel model = genders.get(i);
             model.setPosition(i);
-            model.setSelected(i == 0);
+            model.setSelected(false);
             items.add(model);
         }
         return items;
@@ -265,10 +269,10 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         List<GenderDataModel> items = genderAdapter.get();
         for (int i = 0; i < items.size(); i++) {
             GenderDataModel model = items.get(i);
-            model.setSelected(i == 0);
+            model.setSelected(false);
         }
         view.genderRefresh();
-        genderCode = items.get(0).getCode();
+        genderCode = null;
     }
 
     private void resetAgeData() {
@@ -333,77 +337,5 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
     private void resetStyleData() {
         view.resetStyleView();
         styleCodes = new ArrayList<>();
-    }
-
-
-
-
-
-
-
-    private List<CategoryDataModel> getTestCategry() {
-        List<CategoryDataModel> items = new ArrayList<>();
-
-        CategoryDataModel model1 = new CategoryDataModel();
-        model1.setCode("001");
-        model1.setName("베이비");
-        model1.setImage_url("http://lookbook.minilook.co.kr/data/category/medium/ic_category_baby.png");
-        items.add(model1);
-
-        CategoryDataModel model2 = new CategoryDataModel();
-        model2.setCode("002");
-        model2.setName("상의");
-        model2.setImage_url("http://lookbook.minilook.co.kr/data/category/medium/ic_category_top.png");
-        items.add(model2);
-
-        CategoryDataModel model3 = new CategoryDataModel();
-        model3.setCode("003");
-        model3.setName("하의");
-        model3.setImage_url("http://lookbook.minilook.co.kr/data/category/medium/ic_category_bottom.png");
-        items.add(model3);
-
-        CategoryDataModel model4 = new CategoryDataModel();
-        model4.setCode("004");
-        model4.setName("원피스");
-        model4.setImage_url("http://lookbook.minilook.co.kr/data/category/medium/ic_category_dress.png");
-        items.add(model4);
-
-        CategoryDataModel model5 = new CategoryDataModel();
-        model5.setCode("005");
-        model5.setName("아우터");
-        model5.setImage_url("http://lookbook.minilook.co.kr/data/category/medium/ic_category_outer.png");
-        items.add(model5);
-
-        CategoryDataModel model6 = new CategoryDataModel();
-        model6.setCode("006");
-        model6.setName("상하세트");
-        model6.setImage_url("http://lookbook.minilook.co.kr/data/category/medium/ic_category_set.png");
-        items.add(model6);
-
-        CategoryDataModel model7 = new CategoryDataModel();
-        model7.setCode("007");
-        model7.setName("실내복/속옷");
-        model7.setImage_url("http://lookbook.minilook.co.kr/data/category/medium/ic_category_inner.png");
-        items.add(model7);
-
-        CategoryDataModel model9 = new CategoryDataModel();
-        model9.setCode("008");
-        model9.setName("스포츠/테마");
-        model9.setImage_url("http://lookbook.minilook.co.kr/data/category/medium/ic_category_sports.png");
-        items.add(model9);
-
-        CategoryDataModel model8 = new CategoryDataModel();
-        model8.setCode("009");
-        model8.setName("신발");
-        model8.setImage_url("http://lookbook.minilook.co.kr/data/category/medium/ic_category_shoes.png");
-        items.add(model8);
-
-        CategoryDataModel model10 = new CategoryDataModel();
-        model10.setCode("010");
-        model10.setName("가방/잡화");
-        model10.setImage_url("http://lookbook.minilook.co.kr/data/category/medium/ic_category_accessories.png");
-        items.add(model10);
-
-        return items;
     }
 }

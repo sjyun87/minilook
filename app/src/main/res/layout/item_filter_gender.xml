@@ -9,5 +9,4 @@
     android:gravity="center"
     android:textColor="@color/color_FF232323"
     android:textSize="@dimen/sp_6"
-    tools:layout_width="@dimen/dp_50"
     tools:text="전체" />

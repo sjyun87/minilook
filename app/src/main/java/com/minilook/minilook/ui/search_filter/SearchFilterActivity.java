@@ -107,7 +107,7 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
     }
 
     @Override public void setupGenderRecyclerView() {
-        genderRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        genderRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         genderAdapter.setListener(presenter::onGenderSelected);
         genderRecyclerView.setAdapter(genderAdapter);
         DividerDecoration.builder(this)
