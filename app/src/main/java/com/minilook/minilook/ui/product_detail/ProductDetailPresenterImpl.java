@@ -106,7 +106,13 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         view.setupPrice(StringUtil.toDigit(data.getPrice()));
 
         view.setupPoint(data.getPoint());
-        view.setupDeliveryInfoTextView();
+        view.setupShipping(data.getPrice_shipping());
+        if (data.getPrice_shipping_conditional() > 0) {
+            view.setupShippingConditional(data.getPrice_shipping_conditional());
+            view.showShippingConditional();
+        } else {
+            view.hideShippingConditional();
+        }
 
         view.setupProductDetail(data.getDetail_url());
 

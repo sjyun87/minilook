@@ -64,7 +64,9 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     @BindView(R.id.txt_discount_percent) TextView discountPercentTextView;
     @BindView(R.id.txt_price) TextView priceTextView;
     @BindView(R.id.txt_point_save) TextView pointTextView;
-    @BindView(R.id.txt_delivery_info) TextView deliveryInfoTextView;
+    @BindView(R.id.txt_shipping) TextView shippingTextView;
+    @BindView(R.id.txt_shipping_conditional) TextView shippingConditionalTextView;
+    @BindView(R.id.txt_shipping_add) TextView shippingAddTextView;
     @BindView(R.id.layout_tab_panel) TabLayout tabLayout;
     @BindView(R.id.web_product_detail) WebView productDetailWebView;
     @BindView(R.id.layout_review_panel) LinearLayout reviewPanel;
@@ -83,8 +85,9 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     @BindString(R.string.product_detail_point_save) String format_point_save;
     @BindArray(R.array.tab_product_detail) String[] tabNames;
 
-    @BindString(R.string.product_detail_delivery_info) String str_delivery_info;
-    @BindString(R.string.product_detail_delivery_info_b) String str_delivery_info_b;
+    @BindString(R.string.product_detail_shipping_free) String str_shipping_free;
+    @BindString(R.string.product_detail_shipping) String format_shipping;
+    @BindString(R.string.product_detail_shipping_conditional) String format_shipping_conditional;
     @BindColor(R.color.color_FF8140E5) int color_FF8140E5;
 
     private ProductDetailPresenter presenter;
@@ -249,11 +252,24 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         pointTextView.setText(span);
     }
 
-    @Override public void setupDeliveryInfoTextView() {
-        SpannableString span = new SpannableString(str_delivery_info);
-        SpannableUtil.styleSpan(span, str_delivery_info_b, Typeface.BOLD);
-        SpannableUtil.foregroundColorSpan(span, str_delivery_info_b, color_FF8140E5);
-        deliveryInfoTextView.setText(span);
+    @Override public void setupShipping(int price) {
+        if (price == 0) {
+            shippingTextView.setText(str_shipping_free);
+        } else {
+            shippingTextView.setText(String.format(format_shipping, price));
+        }
+    }
+
+    @Override public void setupShippingConditional(int price) {
+        shippingConditionalTextView.setText(String.format(format_shipping_conditional, price));
+    }
+
+    @Override public void showShippingConditional() {
+        shippingConditionalTextView.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void hideShippingConditional() {
+        shippingConditionalTextView.setVisibility(View.GONE);
     }
 
     @Override public void scrollToProductInfo() {

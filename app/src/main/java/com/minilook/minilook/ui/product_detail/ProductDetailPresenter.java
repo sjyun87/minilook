@@ -61,7 +61,13 @@ public interface ProductDetailPresenter extends LifecycleObserver {
 
         void setupPoint(int point);
 
-        void setupDeliveryInfoTextView();
+        void setupShipping(int price);
+
+        void setupShippingConditional(int price);
+
+        void showShippingConditional();
+
+        void hideShippingConditional();
 
         void scrollToProductInfo();
 

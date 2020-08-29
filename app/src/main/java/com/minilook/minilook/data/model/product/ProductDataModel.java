@@ -50,10 +50,9 @@ import lombok.Data;
     @Expose @SerializedName("point")
     private int point;
     @Expose @SerializedName("freeShipping")
-    private int shipping_free;
+    private int price_shipping_conditional;
     @Expose @SerializedName("shippingFee")
-    @JsonAdapter(BooleanDeserializer.class)
-    private boolean isShippingFree;
+    private int price_shipping;
     @Expose @SerializedName("relationProducts")
     private List<ProductDataModel> related_products;
 

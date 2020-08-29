@@ -194,12 +194,14 @@
     <string name="order_cancel_detail_point_caption">포인트</string>
 
     <!--Product Detail-->
-    <string name="product_detail_point_title">포인트</string>
+    <string name="product_detail_point_caption">포인트</string>
     <string name="product_detail_point">%dP</string>
     <string name="product_detail_point_save">%s 적립</string>
-    <string name="product_detail_delivery">배송정보</string>
-    <string name="product_detail_delivery_info">미니룩은 전상품 무료배송!</string>
-    <string name="product_detail_delivery_info_b">무료배송!</string>
+    <string name="product_detail_shipping_caption">배송정보</string>
+    <string name="product_detail_shipping">배송비 %s원</string>
+    <string name="product_detail_shipping_free">무료배송</string>
+    <string name="product_detail_shipping_conditional">해당 브랜드에서 %s원 이상 구매 시 무료배송</string>
+    <string name="product_detail_shipping_add">제주도 포함 도서/산간지역은 추가배송비가 발생할 수 있습니다.</string>
     <string name="product_detail_review_title">상품리뷰</string>
     <string name="product_detail_question_title">상품문의</string>
     <string name="product_detail_shipping_n_refund_title">배송/환불/교환 안내</string>
