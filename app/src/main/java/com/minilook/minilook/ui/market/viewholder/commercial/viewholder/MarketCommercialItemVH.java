@@ -9,7 +9,11 @@ import butterknife.BindView;
 import com.bumptech.glide.Glide;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.commercial.CommercialDataModel;
+import com.minilook.minilook.data.type.CommercialType;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
+import com.minilook.minilook.ui.event_detail.EventDetailActivity;
+import com.minilook.minilook.ui.promotion_detail.PromotionDetailActivity;
 
 public class MarketCommercialItemVH extends BaseViewHolder<CommercialDataModel> {
 
@@ -31,6 +35,12 @@ public class MarketCommercialItemVH extends BaseViewHolder<CommercialDataModel> 
     }
 
     void onItemClick(View view) {
-        // 타입별 분기 처리
+        if (data.getType().equals(CommercialType.PROMOTION.getValue())) {
+            PromotionDetailActivity.start(context, data.getId());
+        } else if (data.getType().equals(CommercialType.EVENT.getValue())) {
+            EventDetailActivity.start(context, data.getId());
+        } else if (data.getType().equals(CommercialType.BRAND.getValue())) {
+            BrandDetailActivity.start(context, data.getId());
+        }
     }
 }

@@ -1,6 +1,8 @@
 package com.minilook.minilook.ui.market.viewholder.brand;
 
 import android.graphics.Typeface;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +42,8 @@ import java.util.StringTokenizer;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
 
 public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements MarketBrandMenuVH.OnMenuClickListener {
+
+    private static final String RECYCLER_STATE = "RECYCLER_STATE";
 
     @BindView(R.id.txt_title) TextView titleTextView;
     @BindView(R.id.rcv_brand) RecyclerView menuRecyclerView;
@@ -143,7 +147,7 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
         }.getType());
         for (int i = 0; i < items.size(); i++) {
             items.get(i).setPosition(i);
-            items.get(i).setSelect(i == 0);
+            items.get(i).setSelect(i == selectedPosition);
         }
         return items;
     }
