@@ -30,10 +30,11 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
 
     private static final int ROWS = 30;
 
-    private AtomicInteger page = new AtomicInteger(-1);
+    private AtomicInteger page = new AtomicInteger(0);
     private Gson gson = new Gson();
     private boolean isSortVisible = false;
     private String sortCode;
+    private int totalPageSize;
 
     public BrandDetailPresenterImpl(BrandDetailArguments args) {
         view = args.getView();
@@ -68,10 +69,11 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
             view.setupSortText(data.getName());
 
             productAdapter.clear();
-            view.productRefresh();
+            page = new AtomicInteger(0);
             reqProducts();
         }
         view.hideSortPanel();
+        isSortVisible = false;
     }
 
     @Override public void onLoadMore() {
@@ -118,6 +120,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     }
 
     private void reqProducts() {
+        if (page.get() != 0 && page.get() >= totalPageSize) return;
         addDisposable(
             searchRequest.getProducts(parseToModel())
                 .map(data -> gson.fromJson(data.getData(), SearchDataModel.class))
@@ -127,10 +130,13 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     }
 
     private void resProducts(SearchDataModel data) {
+        totalPageSize = data.getTotal();
         int start = productAdapter.getSize();
         productAdapter.addAll(data.getProducts());
         int row = productAdapter.getSize() - start;
         view.productRefresh(start, row);
+
+        view.scrollToTop();
     }
 
     private SearchOptionDataModel parseToModel() {

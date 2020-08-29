@@ -51,8 +51,8 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
     @BindView(R.id.txt_desc) TextView descTextView;
     @BindViews({ R.id.img_style1, R.id.img_style2, R.id.img_style3 }) List<ImageView> styleImageViews;
 
-    @BindColor(R.color.color_FFDBDBDB) int color_FFDBDBDB;
     @BindString(R.string.base_tag) String format_tag;
+    @BindColor(R.color.color_FFDBDBDB) int color_FFDBDBDB;
     @BindDimen(R.dimen.dp_6) int dp_6;
     @BindFont(R.font.nanum_square_eb) Typeface font_extrabold;
 

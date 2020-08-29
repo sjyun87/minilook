@@ -52,7 +52,7 @@ public class OptionSelector extends FrameLayout {
 
     @BindString(R.string.option_selector_total_count) String format_total_count;
     @BindString(R.string.option_selector_selected_color) String format_selected_color;
-    @BindString(R.string.option_selector_color_box_hint) String hint_color;
+    @BindString(R.string.option_selector_color_box_hint) String str_hint_color;
 
     @BindColor(R.color.color_FFA9A9A9) int color_FFA9A9A9;
     @BindColor(R.color.color_FF424242) int color_FF424242;
@@ -265,7 +265,7 @@ public class OptionSelector extends FrameLayout {
     }
 
     private void resetSelectedColor() {
-        selectedColorTextView.setText(hint_color);
+        selectedColorTextView.setText(str_hint_color);
         selectedColorTextView.setTextColor(color_FF616161);
         selectedColorTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, sp_6);
     }

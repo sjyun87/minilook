@@ -55,6 +55,8 @@ public interface BrandDetailPresenter extends LifecycleObserver {
 
         void setupDesc(String text);
 
+        void scrollToTop();
+
         void navigateToBrandInfo(int brand_id);
     }
 }

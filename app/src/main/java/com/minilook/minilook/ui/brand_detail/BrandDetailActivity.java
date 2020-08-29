@@ -232,6 +232,10 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
         descTextView.setText(text);
     }
 
+    @Override public void scrollToTop() {
+        if (rootScrollView.getScrollY() > productPanel.getY()) rootScrollView.setScrollY((int) productPanel.getY());
+    }
+
     @Override public void navigateToBrandInfo(int brand_id) {
         BrandInfoActivity.start(this, brand_id);
     }

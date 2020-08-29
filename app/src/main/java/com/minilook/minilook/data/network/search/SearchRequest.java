@@ -24,9 +24,10 @@ public class SearchRequest extends BaseRequest<SearchService> {
 
     private Map<String, Object> parseToJson(SearchOptionDataModel options) {
         Map<String, Object> jsonMap = new HashMap<>();
-        jsonMap.put("brandNo", options.getBrand_id());
+        if (options.getBrand_id() != 0) jsonMap.put("brandNo", options.getBrand_id());
         jsonMap.put("current", options.getPage());
         jsonMap.put("pageSize", options.getRow());
+        jsonMap.put("productOrderByCode", options.getOrder());
         return jsonMap;
     }
 }
