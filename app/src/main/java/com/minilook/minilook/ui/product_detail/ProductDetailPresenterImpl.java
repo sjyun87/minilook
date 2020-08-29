@@ -1,9 +1,7 @@
 package com.minilook.minilook.ui.product_detail;
 
 import com.google.gson.Gson;
-import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.product.ProductColorDataModel;
-import com.minilook.minilook.data.model.product.ProductSizeDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.product.ProductStockModel;
 import com.minilook.minilook.data.network.product.ProductRequest;
@@ -12,7 +10,6 @@ import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
 import com.minilook.minilook.util.StringUtil;
-import io.reactivex.rxjava3.functions.Function;
 import java.util.ArrayList;
 import java.util.List;
 import timber.log.Timber;
@@ -119,7 +116,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         view.setupQuestionCount(StringUtil.toDigit(data.getQuestion_cnt()));
 
         List<ProductDataModel> relatedProducts = data.getRelated_products();
-        if (relatedProducts.size() > 0) {
+        if (relatedProducts != null) {
             relatedProductsAdapter.set(data.getRelated_products());
             view.relatedProductRefresh();
             view.showRelatedPanel();

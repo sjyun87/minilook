@@ -31,9 +31,9 @@ public class FilterColorVH extends BaseViewHolder<ColorDataModel> {
     @BindFont(R.font.nanum_square_r) Typeface font_regular;
     @BindColor(R.color.color_FF8140E5) int color_FF8140E5;
     @BindColor(R.color.color_FF232323) int color_FF232323;
-    @BindDrawable(R.drawable.color_silver) Drawable color_silver;
-    @BindDrawable(R.drawable.color_gold) Drawable color_gold;
-    @BindDrawable(R.drawable.color_multi) Drawable color_multi;
+    @BindDrawable(R.drawable.color_silver_square) Drawable color_silver;
+    @BindDrawable(R.drawable.color_gold_square) Drawable color_gold;
+    @BindDrawable(R.drawable.color_multi_square) Drawable color_multi;
 
     //@BindDrawable(R.drawable.bg_filter_category_off) Drawable bg_icon_off;
     //@BindDrawable(R.drawable.bg_filter_category_on) Drawable bg_icon_on;

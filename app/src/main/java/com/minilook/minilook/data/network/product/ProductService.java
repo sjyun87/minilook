@@ -12,7 +12,7 @@ import retrofit2.http.Query;
 
 public interface ProductService {
 
-    @POST("/api/products/{product_id}") Single<BaseDataModel> getProductDetail(
+    @GET("/api/products/{product_id}") Single<BaseDataModel> getProductDetail(
         @Path("product_id") int id
     );
 
