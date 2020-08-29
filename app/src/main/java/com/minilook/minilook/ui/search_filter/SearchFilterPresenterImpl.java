@@ -1,6 +1,7 @@
 package com.minilook.minilook.ui.search_filter;
 
 import com.google.gson.Gson;
+import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.data.model.common.ColorDataModel;
 import com.minilook.minilook.data.model.common.GenderDataModel;
@@ -38,11 +39,11 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
     private int selectedMinStep;
     private int selectedMaxStep;
 
-    private String genderCode;
-    private int ageCode;
+    private String genderCode = null;
+    private int ageCode = 0;
     private boolean isShowDiscount = false;
     private boolean isShowStock = false;
-    private String categoryCode;
+    private String categoryCode = null;
     private int sizeType = -1;
     private int minPrice = -1;
     private int maxPrice = -1;
@@ -214,7 +215,19 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         model.setType(sizeType);
         model.setColor_codes(colorCodes);
 
-        Timber.e(model.toString());
+
+
+        model.setPage(1);
+        model.setRow(30);
+        model.setOrder("HGHST_PRC");
+
+        addDisposable(searchRequest.getProducts(model)
+            .compose(Transformer.applySchedulers())
+            .subscribe(this::resProducts, Timber::e));
+    }
+
+    private void resProducts(BaseDataModel dataModel) {
+        Timber.e(dataModel.getData().toString());
     }
 
     private void reqFilterOptions() {
@@ -245,7 +258,6 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
     }
 
     private List<GenderDataModel> setupGenderDataInit(List<GenderDataModel> genders) {
-        genderCode = genders.get(0).getCode();
         List<GenderDataModel> items = new ArrayList<>();
         for (int i = 0; i < genders.size(); i++) {
             GenderDataModel model = genders.get(i);
@@ -268,6 +280,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
 
     private void resetAgeData() {
         view.resetAgeSlider();
+        ageCode = -1;
     }
 
     private void resetShowDiscount() {

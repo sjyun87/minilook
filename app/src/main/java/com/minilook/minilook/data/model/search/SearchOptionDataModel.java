@@ -15,27 +15,27 @@ import lombok.Data;
     @Expose @SerializedName("memberNo")
     private int user_id;
     @Expose @SerializedName("brandNo")
-    private int brand_id;
+    private int brand_id = 0;
     @Expose @SerializedName("genderCode")
-    private String gender_code;
+    private String gender_code = null;
     @Expose @SerializedName("age")
-    private int age;
+    private int age = 0;
     @Expose @SerializedName("categoryCode")
-    private String category_code;
+    private String category_code = null;
     @Expose @SerializedName("categoryDetailCode")
-    private String category_derail_code;
+    private String category_derail_code = null;
     @Expose @SerializedName("colorCode")
-    private List<String> color_codes;
+    private List<String> color_codes = null;
     @Expose @SerializedName("discount")
-    private boolean isDiscount;
+    private boolean isDiscount = false;
     @Expose @SerializedName("startPrice")
-    private int price_min;
+    private int price_min = -1;
     @Expose @SerializedName("endPrice")
-    private int price_max;
+    private int price_max = -1;
     @Expose @SerializedName("outOfStock")
-    private boolean isStock;
+    private boolean isStock = false;
     @Expose @SerializedName("sizeType")
-    private int type;
+    private int type = -1;
     @Expose @SerializedName("styleCode")
-    private List<String> style_codes;
+    private List<String> style_codes = null;
 }
