@@ -2,6 +2,7 @@ package com.minilook.minilook.ui.search_filter.viewholder;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ public class FilterColorVH extends BaseViewHolder<ColorDataModel> {
     private static final String COLOR_MULTI = "multi";
 
     @BindView(R.id.img_icon) ImageView iconImageView;
+    @BindView(R.id.img_check) ImageView checkImageView;
     @BindView(R.id.txt_name) TextView nameTextView;
 
     @BindFont(R.font.nanum_square_b) Typeface font_bold;
@@ -34,9 +36,6 @@ public class FilterColorVH extends BaseViewHolder<ColorDataModel> {
     @BindDrawable(R.drawable.color_silver_square) Drawable color_silver;
     @BindDrawable(R.drawable.color_gold_square) Drawable color_gold;
     @BindDrawable(R.drawable.color_multi_square) Drawable color_multi;
-
-    //@BindDrawable(R.drawable.bg_filter_category_off) Drawable bg_icon_off;
-    //@BindDrawable(R.drawable.bg_filter_category_on) Drawable bg_icon_on;
 
     @Setter private OnColorListener listener;
 
@@ -49,11 +48,11 @@ public class FilterColorVH extends BaseViewHolder<ColorDataModel> {
         super.bind($data);
 
         if (data.isSelected()) {
-            //iconImageView.setBackground(bg_icon_on);
+            checkImageView.setVisibility(View.VISIBLE);
             nameTextView.setTextColor(color_FF8140E5);
             nameTextView.setTypeface(font_bold);
         } else {
-            //iconImageView.setBackground(bg_icon_off);
+            checkImageView.setVisibility(View.GONE);
             nameTextView.setTextColor(color_FF232323);
             nameTextView.setTypeface(font_regular);
         }
@@ -69,8 +68,7 @@ public class FilterColorVH extends BaseViewHolder<ColorDataModel> {
                 iconImageView.setImageDrawable(color_multi);
                 break;
             default:
-                iconImageView.setImageDrawable(null);
-                iconImageView.setBackgroundColor(Color.parseColor(data.getCode()));
+                iconImageView.setImageDrawable(new ColorDrawable(Color.parseColor(data.getCode())));
                 break;
         }
         nameTextView.setText(data.getName());
