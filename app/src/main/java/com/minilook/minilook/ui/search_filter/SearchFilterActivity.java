@@ -204,21 +204,18 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
         priceSlider.setValues(0f, priceSlider.getValueTo());
     }
 
-    @Override public void setupPriceText(int minPrice, int maxPrice, boolean isMinPriceLimit, boolean isMaxPriceLimit) {
-        String text;
-        if (isMinPriceLimit) {
-            text = String.format(format_price_range,
-                String.format(format_price_limit, StringUtil.toDigit(minPrice)), "").trim();
-        } else if (isMaxPriceLimit) {
-            if (minPrice == 0) {
+    @Override public void setupPriceText(int minPrice, int maxPrice, int type) {
+        String text = null;
+        switch (type) {
+            case 0:     // All
                 text = format_price_all;
-            } else {
-                text = String.format(format_price_range,
-                    StringUtil.toDigit(minPrice), String.format(format_price_limit, StringUtil.toDigit(maxPrice)));
-            }
-        } else {
-            text = String.format(format_price_range,
-                StringUtil.toDigit(minPrice), StringUtil.toDigit(maxPrice));
+                break;
+            case 1:     // More than
+                text = String.format(format_price_range, StringUtil.toDigit(minPrice), "").trim();
+                break;
+            case 2:     // Range
+                text = String.format(format_price_range, StringUtil.toDigit(minPrice), StringUtil.toDigit(maxPrice));
+                break;
         }
         priceTextView.setText(text);
     }

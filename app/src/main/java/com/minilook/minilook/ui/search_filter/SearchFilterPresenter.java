@@ -66,7 +66,7 @@ public interface SearchFilterPresenter extends LifecycleObserver {
 
         void resetPriceSlider();
 
-        void setupPriceText(int minPrice, int maxPrice, boolean isMinPriceLimit, boolean isMaxPriceLimit);
+        void setupPriceText(int minPrice, int maxPrice, int type);
 
         void setupColorRecyclerView();
 

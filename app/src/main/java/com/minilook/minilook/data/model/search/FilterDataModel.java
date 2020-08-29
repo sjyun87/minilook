@@ -19,4 +19,8 @@ import lombok.Data;
     private List<CategoryDataModel> categories;
     @Expose @SerializedName("colors")
     private List<ColorDataModel> colors;
+    @Expose @SerializedName("minPrice")
+    private int price_min;
+    @Expose @SerializedName("maxPrice")
+    private int price_max;
 }

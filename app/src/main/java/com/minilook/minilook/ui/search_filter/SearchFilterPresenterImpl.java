@@ -22,7 +22,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
     private static final int PRICE_STEP = 5000;
     private static final String SIZE_TYPE_BABY = "베이비";
     private static final String SIZE_TYPE_SHOES = "신발";
-    private static final String SIZE_TYPE_ACCESSORIES = "악세사";
+    private static final String SIZE_TYPE_ACCESSORIES = "악세사리";
 
     private final View view;
     private final BaseAdapterDataModel<GenderDataModel> genderAdapter;
@@ -34,10 +34,9 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
 
     private int genderSelectedPosition = -1;
     private int categorySelectedPosition = -1;
-    private int limitMinPrice;
-    private int limitMaxPrice;
-    private int currentMinStep;
-    private int currentMaxStep;
+    private int priceMaxStep;
+    private int selectedMinStep;
+    private int selectedMaxStep;
 
     private String genderCode;
     private int ageCode;
@@ -144,31 +143,28 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
     }
 
     @Override public void onPriceChanged(List<Float> values) {
-        int selectedMinStep = values.get(0).intValue();
-        int selectedMaxStep = values.get(1).intValue();
-        if (selectedMinStep == selectedMaxStep) {
-            view.setupPriceValue(currentMinStep, currentMaxStep);
+        int minStep = values.get(0).intValue();
+        int maxStep = values.get(1).intValue();
+        if (minStep == maxStep) {
+            view.setupPriceValue(selectedMinStep, selectedMaxStep);
             return;
         }
 
-        currentMinStep = selectedMinStep;
-        currentMaxStep = selectedMaxStep;
+        selectedMinStep = minStep;
+        selectedMaxStep = maxStep;
 
-        int selectedMinPrice = currentMinStep * PRICE_STEP;
-        int selectedMaxPrice = currentMaxStep * PRICE_STEP;
-
-        if (selectedMinPrice > limitMaxPrice) {
-            view.setupPriceText(limitMaxPrice, limitMaxPrice, true, true);
+        if (selectedMinStep == 0 && selectedMaxStep == priceMaxStep) {
             minPrice = -1;
             maxPrice = -1;
-        } else if (selectedMaxPrice > limitMaxPrice) {
-            view.setupPriceText(selectedMinPrice, limitMaxPrice, false, true);
-            minPrice = selectedMinPrice;
+            view.setupPriceText(minPrice, maxPrice, 0);
+        } else if (selectedMaxStep == priceMaxStep) {
+            minPrice = selectedMinStep * PRICE_STEP;
             maxPrice = -1;
+            view.setupPriceText(minPrice, maxPrice, 1);
         } else {
-            view.setupPriceText(selectedMinPrice, selectedMaxPrice, false, false);
-            minPrice = selectedMinPrice;
-            maxPrice = selectedMaxPrice;
+            minPrice = selectedMinStep * PRICE_STEP;
+            maxPrice = selectedMaxStep * PRICE_STEP;
+            view.setupPriceText(minPrice, maxPrice, 2);
         }
     }
 
@@ -237,20 +233,15 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         categoryAdapter.set(setupCategoryDataInit(data.getCategories()));
         view.categoryRefresh();
 
-        limitMinPrice = 0;
-        limitMaxPrice = 100000;
-        int step = (limitMaxPrice / PRICE_STEP) + 1;
-        view.initPriceSlider(limitMinPrice, limitMaxPrice, step);
+        int minPriceLimit = data.getPrice_min();
+        int maxPriceLimit = data.getPrice_max();
+        priceMaxStep = (maxPriceLimit / PRICE_STEP) + 1;
+        view.initPriceSlider(minPriceLimit, maxPriceLimit, priceMaxStep);
 
         colorAdapter.set(setupColorDataInit(data.getColors()));
         view.colorRefresh();
 
-        for (int i = 0; i < data.getStyles().size(); i++) {
-            StyleDataModel model = data.getStyles().get(i);
-            model.setPosition(i);
-            model.setSelected(false);
-            view.addStyleItem(model);
-        }
+        setupStyleInit(data.getStyles());
     }
 
     private List<GenderDataModel> setupGenderDataInit(List<GenderDataModel> genders) {
@@ -332,6 +323,15 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         }
         view.colorRefresh();
         colorCodes = new ArrayList<>();
+    }
+
+    private void setupStyleInit(List<StyleDataModel> styles) {
+        for (int i = 0; i < styles.size(); i++) {
+            StyleDataModel model = styles.get(i);
+            model.setPosition(i);
+            model.setSelected(false);
+            view.addStyleItem(model);
+        }
     }
 
     private void resetStyleData() {
