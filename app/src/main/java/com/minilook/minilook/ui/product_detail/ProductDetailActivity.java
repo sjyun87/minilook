@@ -38,6 +38,7 @@ import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.product_detail.adapter.ProductDetailImageAdapter;
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
 import com.minilook.minilook.util.SpannableUtil;
+import com.minilook.minilook.util.StringUtil;
 import com.nex3z.flowlayout.FlowLayout;
 import java.util.List;
 import java.util.Objects;
@@ -256,12 +257,12 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         if (price == 0) {
             shippingTextView.setText(str_shipping_free);
         } else {
-            shippingTextView.setText(String.format(format_shipping, price));
+            shippingTextView.setText(String.format(format_shipping, StringUtil.toDigit(price)));
         }
     }
 
     @Override public void setupShippingConditional(int price) {
-        shippingConditionalTextView.setText(String.format(format_shipping_conditional, price));
+        shippingConditionalTextView.setText(String.format(format_shipping_conditional, StringUtil.toDigit(price)));
     }
 
     @Override public void showShippingConditional() {
