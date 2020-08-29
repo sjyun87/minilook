@@ -11,6 +11,7 @@
     <dimen name="sp_12">24sp</dimen>
     <dimen name="sp_14">28sp</dimen>
     <dimen name="sp_16">32sp</dimen>
+    <dimen name="sp_32">64sp</dimen>
 
     <!--dp-->
     <dimen name="dp_1">2dp</dimen>

@@ -1,133 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="0dp">
-
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll">
-
-            <LinearLayout
-                android:id="@+id/layout_info_panel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_FFF5F6F9"
-                android:orientation="vertical"
-                android:paddingTop="@dimen/dp_18"
-                android:paddingBottom="@dimen/dp_24">
-
-                <View
-                    android:id="@+id/line_top"
-                    android:layout_width="@dimen/dp_6"
-                    android:layout_height="@dimen/dp_2"
-                    android:layout_marginStart="@dimen/dp_12"
-                    android:background="@color/color_FF8140E5"
-                    tools:ignore="MissingConstraints" />
-
-                <TextView
-                    android:id="@+id/txt_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_12"
-                    android:layout_marginTop="@dimen/dp_2"
-                    android:fontFamily="@font/nanum_square_eb"
-                    android:letterSpacing="-0.02"
-                    android:text="@string/preorder_title"
-                    android:textColor="@color/color_FF232323"
-                    android:textSize="@dimen/sp_14" />
-
-                <TextView
-                    android:id="@+id/txt_desc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_12"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:layout_marginEnd="@dimen/dp_12"
-                    android:fontFamily="@font/nanum_square_r"
-                    android:lineSpacingMultiplier="1.5"
-                    android:text="@string/preorder_desc"
-                    android:textColor="@color/color_FF232323"
-                    android:textSize="@dimen/sp_8" />
-
-                <TextView
-                    android:id="@+id/txt_accent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_12"
-                    android:layout_marginTop="@dimen/dp_8"
-                    android:layout_marginEnd="@dimen/dp_12"
-                    android:fontFamily="@font/nanum_square_r"
-                    android:lineSpacingMultiplier="1.5"
-                    android:text="@string/preorder_accent"
-                    android:textColor="@color/color_FF6200EA"
-                    android:textSize="@dimen/sp_8" />
-
-                <TextView
-                    android:id="@+id/txt_process_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_12"
-                    android:layout_marginTop="@dimen/dp_20"
-                    android:fontFamily="@font/nanum_square_eb"
-                    android:text="@string/preorder_process_title"
-                    android:textColor="@color/color_FF232323"
-                    android:textSize="@dimen/sp_7" />
-
-                <ImageView
-                    android:id="@+id/img_process"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_10"
-                    android:layout_marginTop="@dimen/dp_7"
-                    android:src="@drawable/img_preorder_process"
-                    tools:ignore="ContentDescription" />
-            </LinearLayout>
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <me.didik.component.StickyNestedScrollView
-        android:id="@+id/nsv_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".ui.preorder.PreorderFragment">
+        android:paddingBottom="@dimen/dp_50">
 
         <LinearLayout
+            android:id="@+id/layout_info_panel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@color/color_FFF5F6F9"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/dp_18"
+            android:paddingBottom="@dimen/dp_24"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/layout_tab_panel"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_28"
-                android:tag="sticky"
-                app:tabBackground="@drawable/tab_preorder_selector"
-                app:tabIndicatorColor="@color/color_FF8140E5"
-                app:tabIndicatorFullWidth="false"
-                app:tabIndicatorHeight="@dimen/dp_1"
-                app:tabMode="fixed"
-                app:tabPaddingEnd="0dp"
-                app:tabPaddingStart="0dp"
-                app:tabRippleColor="@android:color/transparent" />
+            <View
+                android:id="@+id/line_top"
+                android:layout_width="@dimen/dp_6"
+                android:layout_height="@dimen/dp_2"
+                android:layout_marginStart="@dimen/dp_12"
+                android:background="@color/color_FF8140E5"
+                tools:ignore="MissingConstraints" />
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/vp_preorder"
+            <TextView
+                android:id="@+id/txt_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_12"
+                android:layout_marginTop="@dimen/dp_2"
+                android:fontFamily="@font/nanum_square_eb"
+                android:letterSpacing="-0.02"
+                android:text="@string/preorder_title"
+                android:textColor="@color/color_FF232323"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:id="@+id/txt_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_6"
-                android:layout_marginEnd="@dimen/dp_6"
-                android:layout_marginBottom="@dimen/dp_50"
-                android:background="@color/color_FFFFFFFF" />
+                android:layout_marginStart="@dimen/dp_12"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_12"
+                android:fontFamily="@font/nanum_square_r"
+                android:lineSpacingMultiplier="1.5"
+                android:text="@string/preorder_desc"
+                android:textColor="@color/color_FF232323"
+                android:textSize="@dimen/sp_8" />
+
+            <TextView
+                android:id="@+id/txt_accent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_12"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_12"
+                android:fontFamily="@font/nanum_square_r"
+                android:lineSpacingMultiplier="1.5"
+                android:text="@string/preorder_accent"
+                android:textColor="@color/color_FF232323"
+                android:textSize="@dimen/sp_8" />
+
+            <TextView
+                android:id="@+id/txt_process_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_12"
+                android:layout_marginTop="@dimen/dp_20"
+                android:fontFamily="@font/nanum_square_eb"
+                android:text="@string/preorder_process_title"
+                android:textColor="@color/color_FF232323"
+                android:textSize="@dimen/sp_7" />
+
+            <ImageView
+                android:id="@+id/img_process"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_7"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:adjustViewBounds="true"
+                android:src="@drawable/img_preorder_process"
+                tools:ignore="ContentDescription" />
         </LinearLayout>
-    </me.didik.component.StickyNestedScrollView>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <TextView
+            android:id="@+id/txt_coming_soon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_18"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:background="@color/color_FFF5F5F5"
+            android:fontFamily="@font/nanum_square_r"
+            android:gravity="center"
+            android:text="@string/preorder_coming_soon"
+            android:textColor="@color/color_FFA9A9A9"
+            android:textSize="@dimen/sp_32"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_info_panel" />
+
+        <TextView
+            android:id="@+id/txt_coming_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@color/color_FF232323"
+            android:fontFamily="@font/nanum_square_r"
+            android:paddingStart="@dimen/dp_6"
+            android:paddingTop="@dimen/dp_4"
+            android:paddingEnd="@dimen/dp_6"
+            android:paddingBottom="@dimen/dp_4"
+            android:text="2020년 9월 중 오픈 예정"
+            android:textColor="@color/color_FFFFFFFF"
+            android:textSize="@dimen/sp_7"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_coming_soon" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:fontFamily="@font/nanum_square_r"
+            android:lineSpacingMultiplier="1.5"
+            android:text="기다려주신 만큼 더 좋은 가격과 퀄리티를 갖춘 디자이너 브랜드 상품 라인업을 선보이겠습니다."
+            android:textColor="@color/color_FF232323"
+            android:textSize="@dimen/sp_7"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_coming_date" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

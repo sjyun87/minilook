@@ -35,15 +35,15 @@ public class PreorderOpenItemVH extends BaseViewHolder<PreorderDataModel> {
     @Override public void bind(PreorderDataModel $data) {
         super.bind($data);
 
-        if (data.getId() == 0) {
-            Glide.with(context)
-                .load(ContextCompat.getDrawable(context, R.drawable.test_img1))
-                .into(thumbImageView);
-        } else {
-            Glide.with(context)
-                .load(ContextCompat.getDrawable(context, R.drawable.test_img2))
-                .into(thumbImageView);
-        }
+        //if (data.getId() == 0) {
+        //    Glide.with(context)
+        //        .load(ContextCompat.getDrawable(context, R.drawable.test_img1))
+        //        .into(thumbImageView);
+        //} else {
+        //    Glide.with(context)
+        //        .load(ContextCompat.getDrawable(context, R.drawable.test_img2))
+        //        .into(thumbImageView);
+        //}
 
         endDateTextView.setText(getEndDate(data.getDate_end()));
         brandTextView.setText(data.getBrand());

@@ -48,16 +48,16 @@ public class PreorderComingItemVH extends BaseViewHolder<PreorderDataModel> {
         super.bind($data);
 
         if (data.getId() == 0) {
-            Glide.with(context)
-                .load(ContextCompat.getDrawable(context, R.drawable.test_img3))
-                .into(thumbImageView);
+            //Glide.with(context)
+            //    .load(ContextCompat.getDrawable(context, R.drawable.test_img3))
+            //    .into(thumbImageView);
             notificationTextView.setTextColor(color_FF232323);
             notificationTextView.setBackground(bg_noti_off);
             notificationTextView.setText(str_noti_off);
         } else {
-            Glide.with(context)
-                .load(ContextCompat.getDrawable(context, R.drawable.test_img4))
-                .into(thumbImageView);
+            //Glide.with(context)
+            //    .load(ContextCompat.getDrawable(context, R.drawable.test_img4))
+            //    .into(thumbImageView);
             notificationTextView.setTextColor(color_FF8140E5);
             notificationTextView.setBackground(bg_noti_on);
             notificationTextView.setText(str_noti_on);
