@@ -6,6 +6,7 @@ import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface SearchService {
 
@@ -13,5 +14,7 @@ public interface SearchService {
         @Body RequestBody requestBody
     );
 
-    @GET("/api/commons/filters") Single<BaseDataModel> getFilterOptions();
+    @GET("/api/commons/filters/options/{category_code}") Single<BaseDataModel> getFilterOptions(
+        @Path("category_code") String code
+    );
 }

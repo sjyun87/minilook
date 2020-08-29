@@ -19,8 +19,8 @@ public class SearchRequest extends BaseRequest<SearchService> {
         return getApi().getProducts(createRequestBody(parseToJson(options)));
     }
 
-    public Single<BaseDataModel> getFilterOptions() {
-        return getApi().getFilterOptions();
+    public Single<BaseDataModel> getFilterOptions(String category_code) {
+        return getApi().getFilterOptions(category_code);
     }
 
     private Map<String, Object> parseToJson(SearchOptionDataModel options) {

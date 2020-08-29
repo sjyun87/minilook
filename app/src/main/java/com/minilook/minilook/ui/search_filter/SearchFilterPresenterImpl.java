@@ -232,7 +232,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
 
     private void reqFilterOptions() {
         addDisposable(
-            searchRequest.getFilterOptions()
+            searchRequest.getFilterOptions("")
                 .map(data -> gson.fromJson(data.getData(), FilterDataModel.class))
                 .compose(Transformer.applySchedulers())
                 .subscribe(this::resFilterOptions, Timber::e)
