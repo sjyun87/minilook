@@ -2,12 +2,12 @@ package com.minilook.minilook.ui.login;
 
 import android.content.Context;
 import android.content.Intent;
-import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.type.LoginType;
 import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.dialog.NoEmailDialog;
 import com.minilook.minilook.ui.login.di.LoginArguments;
-import com.minilook.minilook.ui.login.dialog.NoEmailDialog;
 import com.minilook.minilook.ui.login.kakao.KakaoLoginManager;
 import com.minilook.minilook.ui.login.naver.NaverLoginManager;
 
@@ -21,7 +21,8 @@ public class LoginActivity extends BaseActivity implements LoginPresenter.View {
     }
 
     private LoginPresenter presenter;
-    private NoEmailDialog dialog;
+    private KakaoLoginManager kakaoLoginManager = new KakaoLoginManager(this);
+    private NaverLoginManager naverLoginManager = new NaverLoginManager(this);
 
     @Override protected int getLayoutID() {
         return R.layout.activity_login;
@@ -35,14 +36,44 @@ public class LoginActivity extends BaseActivity implements LoginPresenter.View {
     private LoginArguments provideArguments() {
         return LoginArguments.builder()
             .view(this)
-            .kakaoLoginManager(new KakaoLoginManager(this))
-            .naverLoginManager(new NaverLoginManager(this))
+            .kakaoLoginManager(kakaoLoginManager)
+            .naverLoginManager(naverLoginManager)
             .build();
     }
 
+    @Override public void setupKakaoLoginManager() {
+        kakaoLoginManager.setOnKakaoLoginListener(new KakaoLoginManager.OnKakaoLoginListener() {
+            @Override public void onKakaoLoginSuccess(String email) {
+                presenter.onLoginSuccess(email, LoginType.KAKAO.getValue());
+            }
+
+            @Override public void onKakaoLogoutSuccess() {
+            }
+
+            @Override public void onKakaoError(int errorCode, String message) {
+                presenter.onLoginError(errorCode, message);
+            }
+        });
+    }
+
+    @Override public void setupNaverLoginManager() {
+        naverLoginManager.setOnNaverLoginListener(new NaverLoginManager.OnNaverLoginListener() {
+            @Override public void onNaverLoginSuccess(String email) {
+                presenter.onLoginSuccess(email, LoginType.NAVER.getValue());
+            }
+
+            @Override public void onNaverLogoutSuccess() {
+
+            }
+
+            @Override public void onNaverError(int errorCode, String message) {
+                presenter.onLoginError(errorCode, message);
+            }
+        });
+    }
+
     @Override public void showNoEmailDialog() {
-        if (dialog == null) dialog = new NoEmailDialog(this);
-        dialog.show();
+        new NoEmailDialog(this).show();
     }
 
     @OnClick(R.id.layout_naver_panel)

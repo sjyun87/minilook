@@ -20,5 +20,7 @@ public interface MainPresenter extends LifecycleObserver {
         void setupBottomBarTheme(boolean flag);
 
         void setupCurrentPage(int position);
+
+        void navigateToLogin();
     }
 }

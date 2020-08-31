@@ -131,4 +131,7 @@ dependencies {
 
   // Material
   implementation "com.google.android.material:material:$material_version"
+
+  // Preference
+  implementation "com.pixplicity.easyprefs:library:$preference_version"
 }

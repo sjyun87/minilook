@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.login.dialog;
+package com.minilook.minilook.ui.dialog;
 
 import android.app.Dialog;
 import android.content.Context;

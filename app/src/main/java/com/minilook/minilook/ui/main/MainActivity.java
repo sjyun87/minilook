@@ -9,8 +9,11 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.manager.ToastManager;
 import com.minilook.minilook.ui.base.widget.BottomBar;
+import com.minilook.minilook.ui.base.widget.ToastView;
+import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.main.adapter.MainPagerAdapter;
 import com.minilook.minilook.ui.main.di.MainArguments;
+import timber.log.Timber;
 
 public class MainActivity extends BaseActivity implements MainPresenter.View {
 
@@ -76,10 +79,18 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
         viewPager.setCurrentItem(position, false);
     }
 
+    @Override public void navigateToLogin() {
+        LoginActivity.start(this);
+    }
+
     @Override public void onBackPressed() {
         if (System.currentTimeMillis() > backPressedTime + 2000) {
             backPressedTime = System.currentTimeMillis();
-            ToastManager.showToast(this, str_app_finish);
+            ToastManager.showToast(this, str_app_finish, "바로가기", new ToastView.OnButtonClickListener() {
+                @Override public void onButtonClick() {
+                    Timber.e("버튼 클릭");
+                }
+            });
         } else {
             finishAffinity();
         }

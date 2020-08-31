@@ -83,4 +83,7 @@ ext {
 
   // Material
   material_version = '1.2.0'
+
+  // Preference
+  preference_version = '1.9.0'
 }

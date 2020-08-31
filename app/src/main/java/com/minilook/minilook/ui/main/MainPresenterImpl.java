@@ -1,5 +1,6 @@
 package com.minilook.minilook.ui.main;
 
+import com.minilook.minilook.App;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.lookbook.LookBookPresenterImpl;
@@ -18,9 +19,14 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
     }
 
     @Override public void onCreate() {
+        checkLogin();
         toRxObservable();
         view.setupViewPager();
         view.setupBottomBar();
+    }
+
+    private void checkLogin() {
+        if (!App.getInstance().isLogin()) view.navigateToLogin();
     }
 
     @Override public void onTabChanged(int position) {

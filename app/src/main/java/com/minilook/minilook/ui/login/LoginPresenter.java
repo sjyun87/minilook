@@ -13,9 +13,15 @@ public interface LoginPresenter extends LifecycleObserver {
 
     void onKakaoClick();
 
-    void onLogoutClick();
+    void onLoginSuccess(String email, String type);
+
+    void onLoginError(int errorCode, String message);
 
     interface View {
+
+        void setupKakaoLoginManager();
+
+        void setupNaverLoginManager();
 
         void showNoEmailDialog();
 
