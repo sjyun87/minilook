@@ -14,7 +14,7 @@ public interface LoginPresenter extends LifecycleObserver {
 
     void onKakaoClick();
 
-    void onLoginSuccess(String email, String type);
+    void onLoginSuccess(String id, String email, String type);
 
     void onLoginError(int errorCode, String message);
 

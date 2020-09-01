@@ -1,10 +1,7 @@
 package com.minilook.minilook;
 
 import android.app.Application;
-
 import android.content.ContextWrapper;
-import butterknife.BindString;
-import butterknife.ButterKnife;
 import com.kakao.sdk.common.KakaoSdk;
 import com.pixplicity.easyprefs.library.Prefs;
 import lombok.Getter;
@@ -15,7 +12,10 @@ public class App extends Application {
 
     @Getter private static App instance;
     @Getter @Setter private boolean isLogin = false;
-    @Getter @Setter private int memberNo;
+    private int userId;
+    private String snsId;
+    private String snsType;
+    private String pushToken;
 
     @Override public void onCreate() {
         super.onCreate();
@@ -44,5 +44,45 @@ public class App extends Application {
             .setPrefsName(getPackageName())
             .setUseDefaultSharedPreference(true)
             .build();
+    }
+
+    public void setUserId(int id) {
+        userId = id;
+        Prefs.putInt("userId", id);
+    }
+
+    public int getUserId() {
+        userId = Prefs.getInt("userId", -1);
+        return userId;
+    }
+
+    public void setSnsId(String id) {
+        snsId = id;
+        Prefs.putString("snsId", id);
+    }
+
+    public String getSnsId() {
+        snsId = Prefs.getString("userId", "");
+        return snsId;
+    }
+
+    public void setSnsType(String type) {
+        snsType = type;
+        Prefs.putString("snsType", type);
+    }
+
+    public String getSnsType() {
+        snsType = Prefs.getString("snsType", "");
+        return snsType;
+    }
+
+    public void setPushToken(String token) {
+        pushToken = token;
+        Prefs.putString("pushToken", pushToken);
+    }
+
+    public String getPushToken() {
+        pushToken = Prefs.getString("PushToken", "");
+        return pushToken;
     }
 }

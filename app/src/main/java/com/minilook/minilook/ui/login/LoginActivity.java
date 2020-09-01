@@ -11,6 +11,7 @@ import com.minilook.minilook.ui.dialog.NoEmailDialog;
 import com.minilook.minilook.ui.join.JoinActivity;
 import com.minilook.minilook.ui.login.di.LoginArguments;
 import com.minilook.minilook.ui.login.kakao.KakaoLoginManager;
+import com.minilook.minilook.ui.login.listener.OnLoginListener;
 import com.minilook.minilook.ui.login.naver.NaverLoginManager;
 
 public class LoginActivity extends BaseActivity implements LoginPresenter.View {
@@ -44,35 +45,25 @@ public class LoginActivity extends BaseActivity implements LoginPresenter.View {
     }
 
     @Override public void setupKakaoLoginManager() {
-        kakaoLoginManager.setOnKakaoLoginListener(new KakaoLoginManager.OnKakaoLoginListener() {
-            @Override public void onKakaoLoginSuccess(String email) {
-                presenter.onLoginSuccess(email, LoginType.KAKAO.getValue());
-            }
-
-            @Override public void onKakaoLogoutSuccess() {
-            }
-
-            @Override public void onKakaoError(int errorCode, String message) {
-                presenter.onLoginError(errorCode, message);
-            }
-        });
+        kakaoLoginManager.setListener(loginListener);
     }
 
     @Override public void setupNaverLoginManager() {
-        naverLoginManager.setOnNaverLoginListener(new NaverLoginManager.OnNaverLoginListener() {
-            @Override public void onNaverLoginSuccess(String email) {
-                presenter.onLoginSuccess(email, LoginType.NAVER.getValue());
-            }
-
-            @Override public void onNaverLogoutSuccess() {
-
-            }
-
-            @Override public void onNaverError(int errorCode, String message) {
-                presenter.onLoginError(errorCode, message);
-            }
-        });
+        naverLoginManager.setListener(loginListener);
     }
+
+    private OnLoginListener loginListener = new OnLoginListener() {
+        @Override public void onLogin(String sns_id, String email, String type) {
+            presenter.onLoginSuccess(sns_id, email, type);
+        }
+
+        @Override public void onLogout() {
+        }
+
+        @Override public void onError(int errorCode, String message) {
+            presenter.onLoginError(errorCode, message);
+        }
+    };
 
     @Override public void showNoEmailDialog() {
         new NoEmailDialog(this).show();

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "367710165553",
+    "firebase_url": "https://minilook-ff190.firebaseio.com",
+    "project_id": "minilook-ff190",
+    "storage_bucket": "minilook-ff190.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367710165553:android:b840ab41b3f09ad1e55310",
+        "android_client_info": {
+          "package_name": "com.minilook.minilook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "367710165553-583q913s0uch384ch2qbg4vci000e4s6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgAt-tCEVxUuUrsTKHxJBHCcjqZ-fKoKc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "367710165553-583q913s0uch384ch2qbg4vci000e4s6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "367710165553-cj8ons3oocuvhqm67fuu6snico1ah6ng.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "co.kr.minilook-ios",
+                "app_store_id": "1526261228"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -6,7 +6,7 @@ import lombok.Getter;
 @AllArgsConstructor @Getter public enum CommercialType {
     PROMOTION("promotion"),
     EVENT("event"),
-    BRAND("brand");
+    PRODUCT("product");
 
     private String value;
 

@@ -2,10 +2,11 @@ package com.minilook.minilook.ui.login.naver;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import androidx.core.content.ContextCompat;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.type.LoginType;
+import com.minilook.minilook.ui.login.listener.OnLoginListener;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
 import com.nhn.android.naverlogin.data.OAuthLoginState;
@@ -23,7 +24,7 @@ public class NaverLoginManager {
     private Activity activity;
     private OAuthLogin oAuthLogin;
     private Gson gson = new Gson();
-    @Setter private OnNaverLoginListener onNaverLoginListener;
+    @Setter private OnLoginListener listener;
 
     public NaverLoginManager(Activity activity) {
         this.activity = activity;
@@ -48,14 +49,12 @@ public class NaverLoginManager {
         oAuthLogin.startOauthLoginActivity(activity, new OAuthLoginHandler() {
             @Override public void run(boolean success) {
                 if (success) {
-                    Timber.e("Naver Login :: Access Token :: %s", oAuthLogin.getAccessToken(activity));
                     getUserData(oAuthLogin.getAccessToken(activity));
+                    Timber.e("Naver Login :: Access Token :: %s", oAuthLogin.getAccessToken(activity));
                 } else {
                     Timber.e("Naver Login :: error code = %s / error message = %s",
                         oAuthLogin.getLastErrorCode(activity).getCode(), oAuthLogin.getLastErrorDesc(activity));
-                    if (onNaverLoginListener != null) {
-                        onNaverLoginListener.onNaverError(ERROR_LOGIN, oAuthLogin.getLastErrorDesc(activity));
-                    }
+                    if (listener != null) listener.onError(ERROR_LOGIN, oAuthLogin.getLastErrorDesc(activity));
                 }
             }
         });
@@ -68,11 +67,12 @@ public class NaverLoginManager {
                 JsonObject json = gson.fromJson(data, JsonObject.class);
                 String message = json.get("message").getAsString();
                 JsonObject response = json.getAsJsonObject("response");
+                String id = response.get("id").getAsString();
                 String email = response.get("email").getAsString();
                 if (email != null) {
-                    if (onNaverLoginListener != null) onNaverLoginListener.onNaverLoginSuccess(email);
+                    if (listener != null) listener.onLogin(id, email, LoginType.NAVER.getValue());
                 } else {
-                    if (onNaverLoginListener != null) onNaverLoginListener.onNaverError(ERROR_NO_EMAIL, message);
+                    if (listener != null) listener.onError(ERROR_NO_EMAIL, message);
                 }
             }
         }.start();
@@ -80,13 +80,5 @@ public class NaverLoginManager {
 
     public void logout() {
         oAuthLogin.logout(activity);
-    }
-
-    public interface OnNaverLoginListener {
-        void onNaverLoginSuccess(String email);
-
-        void onNaverLogoutSuccess();
-
-        void onNaverError(int errorCode, String message);
     }
 }

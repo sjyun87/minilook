@@ -177,7 +177,7 @@ public class TitleBar extends ConstraintLayout {
 
     @OnClick(R.id.img_titlebar_home)
     void onHomeClick() {
-        if (activity != null) MainActivity.clearStart(activity);
+        if (activity != null) MainActivity.start(activity, BottomBar.POSITION_MARKET);
     }
 
     @OnClick(R.id.img_titlebar_logo)

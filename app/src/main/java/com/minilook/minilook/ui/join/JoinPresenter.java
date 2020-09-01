@@ -46,5 +46,7 @@ public interface JoinPresenter extends LifecycleObserver {
         void enableJoinButton();
 
         void disableJoinButton();
+
+        void finish();
     }
 }

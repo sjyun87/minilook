@@ -24,6 +24,10 @@ ext {
   rxjava_version = '3.0.4'
   rxandroid_version = '3.0.0'
 
+  // Firebase
+  firebase_analytics_version = '17.4.4'
+  firebase_messaging_version = '20.2.4'
+
   // Butter Knife
   butterknife_version = '10.2.1'
 

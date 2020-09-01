@@ -6,10 +6,10 @@ import java.io.Serializable;
 import lombok.Data;
 
 @Data public class UserDataModel implements Serializable {
-    @Expose @SerializedName("deviceId")
-    private String device_id;
     @Expose @SerializedName("memberNo")
-    private String user_id;
+    private int user_id;
+    @Expose @SerializedName("snsAccount")
+    private String sns_id;
     @Expose @SerializedName("email")
     private String email;
     @Expose @SerializedName("name")
@@ -20,10 +20,8 @@ import lombok.Data;
     private String phone;
     @Expose @SerializedName("snsTypeCode")
     private String type;
-    @Expose @SerializedName("pushToken")
-    private String token_push;
     @Expose @SerializedName("isAgreeCommercial")
-    private boolean isCommercialNoti;
+    private boolean isCommercialInfo;
     @Expose @SerializedName("ci")
     private String ci;
 }

@@ -26,6 +26,7 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
     }
 
     private void checkLogin() {
+        // 카운트 처리
         if (!App.getInstance().isLogin()) view.navigateToLogin();
     }
 

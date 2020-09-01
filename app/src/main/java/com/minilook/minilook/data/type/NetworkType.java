@@ -10,5 +10,5 @@ import lombok.Getter;
     public static final String REQUEST_TIMEOUT = "408";
     public static final String INTERNAL_SERVER_ERROR = "500";
     public static final String BAD_GATEWAY = "502";
-    public static final String NON_MEMBERS = "512";
+    public static final String NO_DATA = "512";
 }

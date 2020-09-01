@@ -13,6 +13,7 @@ import com.minilook.minilook.data.type.CommercialType;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.event_detail.EventDetailActivity;
+import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.ui.promotion_detail.PromotionDetailActivity;
 
 public class MarketCommercialItemVH extends BaseViewHolder<CommercialDataModel> {
@@ -39,8 +40,8 @@ public class MarketCommercialItemVH extends BaseViewHolder<CommercialDataModel> 
             PromotionDetailActivity.start(context, data.getId());
         } else if (data.getType().equals(CommercialType.EVENT.getValue())) {
             EventDetailActivity.start(context, data.getId());
-        } else if (data.getType().equals(CommercialType.BRAND.getValue())) {
-            BrandDetailActivity.start(context, data.getId());
+        } else if (data.getType().equals(CommercialType.PRODUCT.getValue())) {
+            ProductDetailActivity.start(context, data.getId());
         }
     }
 }

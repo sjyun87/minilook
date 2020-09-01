@@ -24,9 +24,10 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
         context.startActivity(intent);
     }
 
-    public static void clearStart(Context context) {
+    public static void start(Context context, int position) {
         Intent intent = new Intent(context, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("position", position);
         context.startActivity(intent);
     }
 
@@ -51,7 +52,8 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
 
     @Override protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        bottomBar.setCurrentPage(BottomBar.POSITION_MARKET);
+        int position = intent.getIntExtra("position", -1);
+        if (position != -1) bottomBar.setCurrentPage(position);
     }
 
     private MainArguments provideArguments() {
