@@ -30,6 +30,7 @@ public class LookBookImageModuleVH extends BaseViewHolder<String> {
 
         Glide.with(context)
             .load(data)
+            .thumbnail(0.3f)
             .placeholder(new ColorDrawable(color_FFEEEFF5))
             .into(bgImageView);
 

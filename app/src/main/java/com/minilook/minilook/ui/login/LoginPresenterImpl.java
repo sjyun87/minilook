@@ -4,6 +4,7 @@ import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.user.UserDataModel;
 import com.minilook.minilook.data.network.member.MemberRequest;
 import com.minilook.minilook.data.rx.SchedulersFacade;
+import com.minilook.minilook.data.type.NetworkType;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.login.di.LoginArguments;
 import com.minilook.minilook.ui.login.kakao.KakaoLoginManager;
@@ -16,6 +17,8 @@ public class LoginPresenterImpl extends BasePresenterImpl implements LoginPresen
     private final KakaoLoginManager kakaoLoginManager;
     private final NaverLoginManager naverLoginManager;
     private final MemberRequest memberRequest;
+
+    private UserDataModel userData;
 
     public LoginPresenterImpl(LoginArguments args) {
         view = args.getView();
@@ -52,13 +55,17 @@ public class LoginPresenterImpl extends BasePresenterImpl implements LoginPresen
     }
 
     private UserDataModel getUserData(String email, String type) {
-        UserDataModel model = new UserDataModel();
-        model.setEmail(email);
-        model.setType(type);
-        return model;
+        userData = new UserDataModel();
+        userData.setEmail(email);
+        userData.setType(type);
+        return userData;
     }
 
     private void resCheckResult(BaseDataModel data) {
-        Timber.e(data.toString());
+        if (data.getCode().equals(NetworkType.OK)) {
+            // Token 갱신 로직
+        } else if (data.getCode().equals(NetworkType.NON_MEMBERS)){
+            view.navigateToJoin(userData);
+        }
     }
 }

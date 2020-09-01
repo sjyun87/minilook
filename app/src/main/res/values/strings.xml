@@ -25,6 +25,19 @@
     <string name="login_dialog_title">이메일 정보가 없습니다.</string>
     <string name="login_dialog_desc">SNS계정에 이메일을 등록하거나\n이메일 제공을 허용해주세요.</string>
 
+    <!--Join-->
+    <string name="join_title">회원가입</string>
+    <string name="join_chain_naver">네이버 계정으로 연결됨</string>
+    <string name="join_chain_kakao">카카오 계정으로 연결됨</string>
+    <string name="join_btn_verify">휴대폰 본인인증하기</string>
+    <string name="join_btn_verify_complete">본인인증완료</string>
+    <string name="join_full_agree">약관 전체동의</string>
+    <string name="join_terms_of_use">[필수] 이용약관</string>
+    <string name="join_privacy_policy">[필수] 개인정보처리방침</string>
+    <string name="join_commercial_info">[선택] 광고성 정보 수신 동의</string>
+    <string name="join_view_detail">보기</string>
+    <string name="join_btn_join">가입하기</string>
+
     <!--Market-->
     <string name="market_limited_desc">매일 오전 9시 오픈되는 한정 할인 상품</string>
     <string name="market_brand_go_detail">브랜드샵으로 이동하기</string>

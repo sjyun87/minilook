@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.minilook.minilook.ui.base.widget.TitleBar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:setTitle="@string/join_title"
+        app:showBack="true"
+        app:showTitle="true" />
+
+    <ImageView
+        android:id="@+id/img_sns"
+        android:layout_width="@dimen/dp_12"
+        android:layout_height="@dimen/dp_12"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_8"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titlebar"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/ic_naver" />
+
+    <TextView
+        android:id="@+id/txt_chain_sns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_6"
+        android:fontFamily="@font/nanum_square_r"
+        android:textColor="@color/color_FF232323"
+        android:textSize="@dimen/sp_7"
+        app:layout_constraintBottom_toBottomOf="@+id/img_sns"
+        app:layout_constraintLeft_toRightOf="@+id/img_sns"
+        app:layout_constraintTop_toTopOf="@+id/img_sns"
+        tools:text="@string/join_chain_naver" />
+
+    <TextView
+        android:id="@+id/txt_email"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_20"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:background="@drawable/bg_button_border_lightgray"
+        android:fontFamily="@font/nanum_square_r"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/dp_8"
+        android:paddingEnd="@dimen/dp_8"
+        android:textColor="@color/color_FFA9A9A9"
+        android:textSize="@dimen/sp_7"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_sns"
+        tools:text="email@minilook.co.kr" />
+
+    <TextView
+        android:id="@+id/txt_verify"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_22"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_16"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:background="@drawable/bg_button_border_darkgray"
+        android:fontFamily="@font/nanum_square_b"
+        android:gravity="center"
+        android:text="@string/join_btn_verify"
+        android:textColor="@color/color_FF232323"
+        android:textSize="@dimen/sp_7"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_email" />
+
+    <LinearLayout
+        android:id="@+id/layout_verify_complete"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_22"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_16"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:background="@color/color_FFF8F8F8"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_email">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_check_black"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_2"
+            android:background="@color/color_FFF8F8F8"
+            android:fontFamily="@font/nanum_square_r"
+            android:text="@string/join_btn_verify_complete"
+            android:textColor="@color/color_FF232323"
+            android:textSize="@dimen/sp_7" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_full_agree"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_26"
+        android:layout_marginStart="@dimen/dp_6"
+        android:layout_marginTop="@dimen/dp_16"
+        android:layout_marginEnd="@dimen/dp_6"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/txt_verify"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/img_full_agree_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_4"
+            android:src="@drawable/ic_checkbox2_off"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_6"
+            android:background="@color/color_FFF8F8F8"
+            android:fontFamily="@font/nanum_square_b"
+            android:text="@string/join_full_agree"
+            android:textColor="@color/color_FF232323"
+            android:textSize="@dimen/sp_7" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/dp_6"
+        android:layout_marginEnd="@dimen/dp_6"
+        android:background="@color/color_FFA9A9A9"
+        app:layout_constraintTop_toBottomOf="@+id/layout_full_agree" />
+
+    <LinearLayout
+        android:id="@+id/layout_terms_of_use"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_20"
+        android:layout_marginStart="@dimen/dp_6"
+        android:layout_marginTop="@dimen/dp_4"
+        android:layout_marginEnd="@dimen/dp_6"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/line"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/img_terms_of_use_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_4"
+            android:src="@drawable/ic_checkbox2_off"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_4"
+            android:layout_weight="1"
+            android:fontFamily="@font/nanum_square_r"
+            android:text="@string/join_terms_of_use"
+            android:textColor="@color/color_FF232323"
+            android:textSize="@dimen/sp_7" />
+
+        <TextView
+            android:id="@+id/txt_terms_of_use_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/nanum_square_b"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/dp_7"
+            android:paddingEnd="@dimen/dp_7"
+            android:text="@string/join_view_detail"
+            android:textColor="@color/color_FF8140E5"
+            android:textSize="@dimen/sp_7" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_privacy_policy"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_20"
+        android:layout_marginStart="@dimen/dp_6"
+        android:layout_marginEnd="@dimen/dp_6"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/layout_terms_of_use"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/img_privacy_policy_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_4"
+            android:src="@drawable/ic_checkbox2_off"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_4"
+            android:layout_weight="1"
+            android:fontFamily="@font/nanum_square_r"
+            android:text="@string/join_privacy_policy"
+            android:textColor="@color/color_FF232323"
+            android:textSize="@dimen/sp_7" />
+
+        <TextView
+            android:id="@+id/txt_privacy_policy_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/nanum_square_b"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/dp_7"
+            android:paddingEnd="@dimen/dp_7"
+            android:text="@string/join_view_detail"
+            android:textColor="@color/color_FF8140E5"
+            android:textSize="@dimen/sp_7" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_commercial_info"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_20"
+        android:layout_marginStart="@dimen/dp_6"
+        android:layout_marginEnd="@dimen/dp_6"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/layout_privacy_policy"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/img_commercial_info_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_4"
+            android:src="@drawable/ic_checkbox2_off"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_4"
+            android:layout_weight="1"
+            android:fontFamily="@font/nanum_square_r"
+            android:text="@string/join_commercial_info"
+            android:textColor="@color/color_FF232323"
+            android:textSize="@dimen/sp_7" />
+
+        <TextView
+            android:id="@+id/txt_commercial_info_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/nanum_square_b"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/dp_7"
+            android:paddingEnd="@dimen/dp_7"
+            android:text="@string/join_view_detail"
+            android:textColor="@color/color_FF8140E5"
+            android:textSize="@dimen/sp_7" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txt_join"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_28"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_18"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:background="@color/color_FFF5F5F5"
+        android:enabled="false"
+        android:fontFamily="@font/nanum_square_eb"
+        android:gravity="center"
+        android:letterSpacing="-0.02"
+        android:text="@string/join_btn_join"
+        android:textColor="@color/color_FFFFFFFF"
+        android:textSize="@dimen/sp_9"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_commercial_info"
+        tools:background="@color/color_FF8140E5" />
+</androidx.constraintlayout.widget.ConstraintLayout>

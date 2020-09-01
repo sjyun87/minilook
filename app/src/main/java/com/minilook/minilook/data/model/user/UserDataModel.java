@@ -2,14 +2,10 @@ package com.minilook.minilook.data.model.user;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.minilook.minilook.data.model.common.CategoryDataModel;
-import com.minilook.minilook.data.model.common.ColorDataModel;
-import com.minilook.minilook.data.model.common.GenderDataModel;
-import com.minilook.minilook.data.model.common.StyleDataModel;
-import java.util.List;
+import java.io.Serializable;
 import lombok.Data;
 
-@Data public class UserDataModel {
+@Data public class UserDataModel implements Serializable {
     @Expose @SerializedName("deviceId")
     private String device_id;
     @Expose @SerializedName("memberNo")

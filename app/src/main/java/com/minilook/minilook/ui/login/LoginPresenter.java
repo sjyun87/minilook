@@ -3,6 +3,7 @@ package com.minilook.minilook.ui.login;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
+import com.minilook.minilook.data.model.user.UserDataModel;
 
 public interface LoginPresenter extends LifecycleObserver {
 
@@ -26,5 +27,7 @@ public interface LoginPresenter extends LifecycleObserver {
         void showNoEmailDialog();
 
         void finish();
+
+        void navigateToJoin(UserDataModel userData);
     }
 }
