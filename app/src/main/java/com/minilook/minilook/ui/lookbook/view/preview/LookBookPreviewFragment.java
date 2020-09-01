@@ -49,7 +49,12 @@ public class LookBookPreviewFragment extends BaseFragment implements LookBookPre
     }
 
     @Override public void refresh() {
+        adapterView.refresh();
+    }
+
+    @Override public void postRefresh() {
         viewPager.post(() -> adapterView.refresh());
+
     }
 
     private ViewPager2.OnPageChangeCallback OnPageChangeCallback = new ViewPager2.OnPageChangeCallback() {

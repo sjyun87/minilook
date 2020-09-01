@@ -18,6 +18,8 @@ public interface LoginPresenter extends LifecycleObserver {
 
     void onLoginError(int errorCode, String message);
 
+    void onCloseClick();
+
     interface View {
 
         void setupKakaoLoginManager();

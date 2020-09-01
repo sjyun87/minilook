@@ -1,30 +1,37 @@
 package com.minilook.minilook.ui.splash;
 
 import android.os.Handler;
+import androidx.annotation.NonNull;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.minilook.minilook.App;
-import com.minilook.minilook.data.model.base.BaseDataModel;
-import com.minilook.minilook.data.network.member.MemberRequest;
-import com.minilook.minilook.data.rx.Transformer;
+import com.minilook.minilook.BuildConfig;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.splash.di.SplashArguments;
-import timber.log.Timber;
 
 public class SplashPresenterImpl extends BasePresenterImpl implements SplashPresenter {
 
     private static final int TIME_ANIMATION = 2000;
 
     private final View view;
-    private final MemberRequest memberRequest;
 
     private boolean isAnimationEnd = false;
     private boolean isLoginChecked = false;
 
     public SplashPresenterImpl(SplashArguments args) {
         view = args.getView();
-        memberRequest = new MemberRequest();
     }
 
     @Override public void onCreate() {
+        checkAppVersion();
+    }
+
+    private void checkAppVersion() {
+        appStart();
+    }
+
+    private void appStart() {
         checkAnimation();
         checkLogin();
     }

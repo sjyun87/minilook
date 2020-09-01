@@ -16,15 +16,35 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
 
     private final View view;
 
+    private boolean isLoginVisible = false;
+    private boolean isMainVisible = true;
+
     public MainPresenterImpl(MainArguments args) {
         view = args.getView();
     }
 
     @Override public void onCreate() {
-        checkLogin();
         toRxObservable();
         view.setupViewPager();
         view.setupBottomBar();
+        view.setupMainMarketingNotifyDialog();
+
+        checkLogin();
+    }
+
+    @Override public void onResume() {
+        if (!isMainVisible) {
+            isMainVisible = true;
+            isLoginVisible = false;
+        }
+
+        if (!isLoginVisible) {
+            checkMarketingNotify();
+        }
+    }
+
+    @Override public void onPause() {
+        isMainVisible = false;
     }
 
     private void checkLogin() {
@@ -33,6 +53,17 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
             if (visibleCount < 3) {
                 view.navigateToLogin();
                 Prefs.putInt(PrefsKey.KEY_LOGIN_VISIBLE_COUNT, ++visibleCount);
+                isLoginVisible = true;
+            }
+        }
+    }
+
+    private void checkMarketingNotify() {
+        if (!App.getInstance().isLogin()) {
+            boolean isVisible = Prefs.getBoolean(PrefsKey.KEY_MAIN_MARKETING_NOTIFY, false);
+            if (!isVisible) {
+                view.showMainMarketingNotifyDialog();
+                Prefs.putBoolean(PrefsKey.KEY_MAIN_MARKETING_NOTIFY, true);
             }
         }
     }
@@ -43,6 +74,10 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
             RxBus.send(new LookBookDetailPresenterImpl.RxEventLookBookDetailScrollToTop());
         }
         view.setupCurrentPage(position);
+    }
+
+    @Override public void onMarketingNotifyAgree() {
+        /// 수신 동의 콜
     }
 
     private void toRxObservable() {

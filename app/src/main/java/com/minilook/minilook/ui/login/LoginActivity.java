@@ -87,4 +87,9 @@ public class LoginActivity extends BaseActivity implements LoginPresenter.View {
     void onKakaoClick() {
         presenter.onKakaoClick();
     }
+
+    @OnClick(R.id.img_titlebar_close)
+    void onCloseClick() {
+        presenter.onCloseClick();
+    }
 }

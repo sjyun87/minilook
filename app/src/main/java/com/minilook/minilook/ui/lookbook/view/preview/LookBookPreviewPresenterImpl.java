@@ -49,7 +49,7 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
     private void setupLoadMoreData() {
         int dataSize = Math.min(dataPool.size(), DATA_ROW);
         adapter.addAll(dataPool.subList(0, dataSize));
-        view.refresh();
+        view.postRefresh();
         dataPool.subList(0, dataSize).clear();
         reqLoadMoreLookBookModules();
     }

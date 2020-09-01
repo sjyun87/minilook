@@ -73,6 +73,10 @@ public class LoginPresenterImpl extends BasePresenterImpl implements LoginPresen
         }
     }
 
+    @Override public void onCloseClick() {
+        view.finish();
+    }
+
     private void reqCheckUser() {
         addDisposable(memberRequest.checkUser(userData)
             .subscribeOn(SchedulersFacade.io())
