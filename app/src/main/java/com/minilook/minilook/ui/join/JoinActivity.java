@@ -17,6 +17,8 @@ import com.minilook.minilook.data.common.CommonURL;
 import com.minilook.minilook.data.model.user.UserDataModel;
 import com.minilook.minilook.data.type.LoginType;
 import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.dialog.CompleteJoinDialog;
+import com.minilook.minilook.ui.dialog.LimitJoinDialog;
 import com.minilook.minilook.ui.dialog.ResetJoinDialog;
 import com.minilook.minilook.ui.dialog.listener.OnButtonClickListener;
 import com.minilook.minilook.ui.webview.WebViewActivity;
@@ -55,6 +57,9 @@ public class JoinActivity extends BaseActivity implements JoinPresenter.View {
     @BindColor(R.color.color_FFF5F5F5) int color_FFF5F5F5;
 
     private JoinPresenter presenter;
+    private ResetJoinDialog resetJoinDialog;
+    private LimitJoinDialog limitJoinDialog;
+    private CompleteJoinDialog completeJoinDialog;
 
     @Override protected int getLayoutID() {
         return R.layout.activity_join;
@@ -84,6 +89,45 @@ public class JoinActivity extends BaseActivity implements JoinPresenter.View {
 
     @Override public void setupEmail(String email) {
         emailTextView.setText(email);
+    }
+
+    @Override public void setupResetJoinDialog() {
+        resetJoinDialog = new ResetJoinDialog(this, new OnButtonClickListener() {
+            @Override public void onPositiveClick() {
+                resetJoinDialog.dismiss();
+                finish();
+            }
+
+            @Override public void onNegativeClick() {
+            }
+        });
+    }
+
+    @Override public void showResetJoinDialog() {
+        resetJoinDialog.show();
+    }
+
+    @Override public void setupLimitJoinDialog() {
+        limitJoinDialog = new LimitJoinDialog(this);
+    }
+
+    @Override public void showLimitJoinDialog() {
+        limitJoinDialog.show();
+    }
+
+    @Override public void setupCompleteJoinDialog() {
+        completeJoinDialog = new CompleteJoinDialog(this, new OnButtonClickListener() {
+            @Override public void onPositiveClick() {
+            }
+
+            @Override public void onNegativeClick() {
+                presenter.onCompleteJoinDialogClose();
+            }
+        });
+    }
+
+    @Override public void showCompleteJoinDialog() {
+        completeJoinDialog.show();
     }
 
     @Override public void showVerifyCompleteButton() {
@@ -164,13 +208,6 @@ public class JoinActivity extends BaseActivity implements JoinPresenter.View {
 
     @OnClick(R.id.img_titlebar_back)
     void onBackClick() {
-        new ResetJoinDialog(this, new OnButtonClickListener() {
-            @Override public void onPositiveClick() {
-                finish();
-            }
-
-            @Override public void onNegativeClick() {
-            }
-        }).show();
+        presenter.onBackClick();
     }
 }

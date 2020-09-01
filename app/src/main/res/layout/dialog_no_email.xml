@@ -3,18 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/dp_160"
-    android:layout_height="@dimen/dp_100"
+    android:layout_height="wrap_content"
     android:background="@color/color_FFFFFFFF">
-
-    <ImageView
-        android:id="@+id/img_close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dp_8"
-        android:src="@drawable/ic_close"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/img_caution"
@@ -31,24 +21,43 @@
         android:id="@+id/txt_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_10"
         android:fontFamily="@font/nanum_square_b"
-        android:text="@string/login_dialog_title"
+        android:text="@string/dialog_noemail_title"
         android:textColor="@color/color_FF232323"
-        android:textSize="@dimen/sp_7"
+        android:textSize="@dimen/sp_8"
         app:layout_constraintLeft_toLeftOf="@+id/img_caution"
         app:layout_constraintTop_toBottomOf="@+id/img_caution" />
 
     <TextView
-        android:id="@+id/txt_desc"
+        android:id="@+id/txt_contents"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_10"
         android:fontFamily="@font/nanum_square_r"
         android:lineSpacingMultiplier="1.5"
-        android:text="@string/login_dialog_desc"
+        android:text="@string/dialog_noemail_contents"
         android:textColor="@color/color_FF232323"
-        android:textSize="@dimen/sp_7"
+        android:textSize="@dimen/sp_8"
         app:layout_constraintLeft_toLeftOf="@+id/img_caution"
         app:layout_constraintTop_toBottomOf="@+id/txt_title" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/dp_24"
+        android:background="@color/color_FFDBDBDB"
+        app:layout_constraintTop_toBottomOf="@+id/txt_contents" />
+
+    <TextView
+        android:id="@+id/txt_ok"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_28"
+        android:fontFamily="@font/nanum_square_b"
+        android:gravity="center"
+        android:text="@string/dialog_ok"
+        android:textColor="@color/color_FF6200EA"
+        android:textSize="@dimen/sp_8"
+        app:layout_constraintTop_toBottomOf="@+id/line" />
 </androidx.constraintlayout.widget.ConstraintLayout>

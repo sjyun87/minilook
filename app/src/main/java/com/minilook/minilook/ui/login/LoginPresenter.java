@@ -24,6 +24,8 @@ public interface LoginPresenter extends LifecycleObserver {
 
         void setupNaverLoginManager();
 
+        void setupNoEmailDialog();
+
         void showNoEmailDialog();
 
         void finish();

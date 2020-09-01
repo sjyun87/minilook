@@ -1,11 +1,9 @@
 package com.minilook.minilook.ui.join;
 
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.PrefsKey;
-import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.user.UserDataModel;
 import com.minilook.minilook.data.network.member.MemberRequest;
 import com.minilook.minilook.data.rx.RxBus;
@@ -14,7 +12,6 @@ import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.join.di.JoinArguments;
 import com.minilook.minilook.ui.webview.WebViewActivity;
 import com.pixplicity.easyprefs.library.Prefs;
-import io.reactivex.rxjava3.functions.Function;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import timber.log.Timber;
@@ -43,6 +40,9 @@ public class JoinPresenterImpl extends BasePresenterImpl implements JoinPresente
         toRxObservable();
         view.setupChainSNS(userData.getType());
         view.setupEmail(userData.getEmail());
+        view.setupResetJoinDialog();
+        view.setupLimitJoinDialog();
+        view.setupCompleteJoinDialog();
     }
 
     private void toRxObservable() {
@@ -118,6 +118,15 @@ public class JoinPresenterImpl extends BasePresenterImpl implements JoinPresente
         reqJoin();
     }
 
+    @Override public void onBackClick() {
+        view.showResetJoinDialog();
+    }
+
+    @Override public void onCompleteJoinDialogClose() {
+        RxBus.send(new RxEventJoinComplete());
+        view.finish();
+    }
+
     private void reqJoin() {
         addDisposable(memberRequest.join(userData)
             .map(data -> gson.fromJson(data.getData(), UserDataModel.class))
@@ -132,8 +141,7 @@ public class JoinPresenterImpl extends BasePresenterImpl implements JoinPresente
         App.getInstance().setSnsType(data.getType());
         Prefs.putInt(PrefsKey.KEY_LOGIN_VISIBLE_COUNT, 3);
 
-        RxBus.send(new RxEventJoinComplete());
-        view.finish();
+        view.showCompleteJoinDialog();
     }
 
     public void checkFullAgree() {

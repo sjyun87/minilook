@@ -19,11 +19,27 @@ public interface JoinPresenter extends LifecycleObserver {
 
     void onJoinClick();
 
+    void onBackClick();
+
+    void onCompleteJoinDialogClose();
+
     interface View {
 
         void setupChainSNS(String type);
 
         void setupEmail(String email);
+
+        void setupResetJoinDialog();
+
+        void showResetJoinDialog();
+
+        void setupLimitJoinDialog();
+
+        void showLimitJoinDialog();
+
+        void setupCompleteJoinDialog();
+
+        void showCompleteJoinDialog();
 
         void showVerifyCompleteButton();
 

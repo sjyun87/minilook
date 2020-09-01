@@ -26,6 +26,7 @@ public class LoginActivity extends BaseActivity implements LoginPresenter.View {
     private LoginPresenter presenter;
     private KakaoLoginManager kakaoLoginManager = new KakaoLoginManager(this);
     private NaverLoginManager naverLoginManager = new NaverLoginManager(this);
+    private NoEmailDialog noEmailDialog;
 
     @Override protected int getLayoutID() {
         return R.layout.activity_login;
@@ -65,8 +66,12 @@ public class LoginActivity extends BaseActivity implements LoginPresenter.View {
         }
     };
 
+    @Override public void setupNoEmailDialog() {
+        noEmailDialog = new NoEmailDialog(this);
+    }
+
     @Override public void showNoEmailDialog() {
-        new NoEmailDialog(this).show();
+        noEmailDialog.show();
     }
 
     @Override public void navigateToJoin(UserDataModel userData) {

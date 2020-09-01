@@ -38,6 +38,7 @@ public class LoginPresenterImpl extends BasePresenterImpl implements LoginPresen
         toRxObservable();
         view.setupKakaoLoginManager();
         view.setupNaverLoginManager();
+        view.setupNoEmailDialog();
     }
 
     private void toRxObservable() {

@@ -8,11 +8,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
 
-public class NoEmailDialog extends Dialog {
+public class LimitJoinDialog extends Dialog {
 
     private Context context;
 
-    public NoEmailDialog(@NonNull Context context) {
+    public LimitJoinDialog(@NonNull Context context) {
         super(context);
         this.context = context;
 
@@ -22,7 +22,7 @@ public class NoEmailDialog extends Dialog {
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_no_email);
+        setContentView(R.layout.dialog_limit_join);
         ButterKnife.bind(this);
     }
 
