@@ -10,7 +10,7 @@ import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.manager.ToastManager;
 import com.minilook.minilook.ui.base.widget.BottomBar;
 import com.minilook.minilook.ui.base.widget.ToastView;
-import com.minilook.minilook.ui.dialog.MainMarketingNotifyDialog;
+import com.minilook.minilook.ui.dialog.MarketingDialog;
 import com.minilook.minilook.ui.dialog.listener.OnButtonClickListener;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.main.adapter.MainPagerAdapter;
@@ -40,7 +40,6 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
 
     private MainPresenter presenter;
     private MainPagerAdapter adapter;
-    private MainMarketingNotifyDialog mainMarketingNotifyDialog;
 
     private long backPressedTime;
 
@@ -72,6 +71,10 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
         viewPager.setOffscreenPageLimit(5);
     }
 
+    @Override public void setupCurrentPage(int position) {
+        viewPager.setCurrentItem(position, false);
+    }
+
     @Override public void setupBottomBar() {
         bottomBar.setOnTabChangeListener(position -> presenter.onTabChanged(position));
     }
@@ -80,23 +83,15 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
         bottomBar.setupWhiteTheme(flag);
     }
 
-    @Override public void setupMainMarketingNotifyDialog() {
-        mainMarketingNotifyDialog = new MainMarketingNotifyDialog(this, new OnButtonClickListener() {
+    @Override public void showMarketingDialog() {
+        new MarketingDialog(this, new OnButtonClickListener() {
             @Override public void onPositiveClick() {
-                presenter.onMarketingNotifyAgree();
+                presenter.onMarketingAgree();
             }
 
             @Override public void onNegativeClick() {
             }
-        });
-    }
-
-    @Override public void showMainMarketingNotifyDialog() {
-        mainMarketingNotifyDialog.show();
-    }
-
-    @Override public void setupCurrentPage(int position) {
-        viewPager.setCurrentItem(position, false);
+        }).show();
     }
 
     @Override public void navigateToLogin() {

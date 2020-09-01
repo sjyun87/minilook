@@ -2,7 +2,9 @@ package com.minilook.minilook.ui.main;
 
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.PrefsKey;
+import com.minilook.minilook.data.network.member.MemberRequest;
 import com.minilook.minilook.data.rx.RxBus;
+import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.lookbook.LookBookPresenterImpl;
 import com.minilook.minilook.ui.lookbook.view.detail.LookBookDetailPresenterImpl;
@@ -15,19 +17,20 @@ import timber.log.Timber;
 public class MainPresenterImpl extends BasePresenterImpl implements MainPresenter {
 
     private final View view;
+    private final MemberRequest memberRequest;
 
     private boolean isLoginVisible = false;
     private boolean isMainVisible = true;
 
     public MainPresenterImpl(MainArguments args) {
         view = args.getView();
+        memberRequest = new MemberRequest();
     }
 
     @Override public void onCreate() {
         toRxObservable();
         view.setupViewPager();
         view.setupBottomBar();
-        view.setupMainMarketingNotifyDialog();
 
         checkLogin();
     }
@@ -60,10 +63,10 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
 
     private void checkMarketingNotify() {
         if (!App.getInstance().isLogin()) {
-            boolean isVisible = Prefs.getBoolean(PrefsKey.KEY_MAIN_MARKETING_NOTIFY, false);
+            boolean isVisible = Prefs.getBoolean(PrefsKey.KEY_MAIN_MARKETING_VISIBLE, false);
             if (!isVisible) {
-                view.showMainMarketingNotifyDialog();
-                Prefs.putBoolean(PrefsKey.KEY_MAIN_MARKETING_NOTIFY, true);
+                view.showMarketingDialog();
+                Prefs.putBoolean(PrefsKey.KEY_MAIN_MARKETING_VISIBLE, true);
             }
         }
     }
@@ -76,8 +79,14 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
         view.setupCurrentPage(position);
     }
 
-    @Override public void onMarketingNotifyAgree() {
-        /// 수신 동의 콜
+    @Override public void onMarketingAgree() {
+        reqUpdateNonUserMarketingAgree();
+    }
+
+    private void reqUpdateNonUserMarketingAgree() {
+        addDisposable(memberRequest.updateNonUserMarketing(true)
+            .compose(Transformer.applySchedulers())
+            .subscribe());
     }
 
     private void toRxObservable() {

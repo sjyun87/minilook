@@ -17,21 +17,19 @@ public interface MainPresenter extends LifecycleObserver {
 
     void onTabChanged(int position);
 
-    void onMarketingNotifyAgree();
+    void onMarketingAgree();
 
     interface View {
 
         void setupViewPager();
 
+        void setupCurrentPage(int position);
+
         void setupBottomBar();
 
         void setupBottomBarTheme(boolean flag);
 
-        void setupMainMarketingNotifyDialog();
-
-        void showMainMarketingNotifyDialog();
-
-        void setupCurrentPage(int position);
+        void showMarketingDialog();
 
         void navigateToLogin();
     }

@@ -29,18 +29,6 @@ public interface JoinPresenter extends LifecycleObserver {
 
         void setupEmail(String email);
 
-        void setupResetJoinDialog();
-
-        void showResetJoinDialog();
-
-        void setupLimitJoinDialog();
-
-        void showLimitJoinDialog();
-
-        void setupCompleteJoinDialog();
-
-        void showCompleteJoinDialog();
-
         void showVerifyCompleteButton();
 
         void checkFullAgree();
@@ -62,6 +50,12 @@ public interface JoinPresenter extends LifecycleObserver {
         void enableJoinButton();
 
         void disableJoinButton();
+
+        void showResetJoinDialog();
+
+        void showLimitJoinDialog();
+
+        void showCompleteJoinDialog();
 
         void finish();
     }

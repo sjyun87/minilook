@@ -21,8 +21,8 @@ import com.minilook.minilook.ui.dialog.CompleteJoinDialog;
 import com.minilook.minilook.ui.dialog.LimitJoinDialog;
 import com.minilook.minilook.ui.dialog.ResetJoinDialog;
 import com.minilook.minilook.ui.dialog.listener.OnButtonClickListener;
-import com.minilook.minilook.ui.webview.WebViewActivity;
 import com.minilook.minilook.ui.join.di.JoinArguments;
+import com.minilook.minilook.ui.webview.WebViewActivity;
 
 public class JoinActivity extends BaseActivity implements JoinPresenter.View {
 
@@ -57,9 +57,6 @@ public class JoinActivity extends BaseActivity implements JoinPresenter.View {
     @BindColor(R.color.color_FFF5F5F5) int color_FFF5F5F5;
 
     private JoinPresenter presenter;
-    private ResetJoinDialog resetJoinDialog;
-    private LimitJoinDialog limitJoinDialog;
-    private CompleteJoinDialog completeJoinDialog;
 
     @Override protected int getLayoutID() {
         return R.layout.activity_join;
@@ -91,43 +88,30 @@ public class JoinActivity extends BaseActivity implements JoinPresenter.View {
         emailTextView.setText(email);
     }
 
-    @Override public void setupResetJoinDialog() {
-        resetJoinDialog = new ResetJoinDialog(this, new OnButtonClickListener() {
+    @Override public void showResetJoinDialog() {
+        new ResetJoinDialog(this, new OnButtonClickListener() {
             @Override public void onPositiveClick() {
-                resetJoinDialog.dismiss();
                 finish();
             }
 
             @Override public void onNegativeClick() {
             }
-        });
-    }
-
-    @Override public void showResetJoinDialog() {
-        resetJoinDialog.show();
-    }
-
-    @Override public void setupLimitJoinDialog() {
-        limitJoinDialog = new LimitJoinDialog(this);
+        }).show();
     }
 
     @Override public void showLimitJoinDialog() {
-        limitJoinDialog.show();
+        new LimitJoinDialog(this).show();
     }
 
-    @Override public void setupCompleteJoinDialog() {
-        completeJoinDialog = new CompleteJoinDialog(this, new OnButtonClickListener() {
+    @Override public void showCompleteJoinDialog() {
+        new CompleteJoinDialog(this, new OnButtonClickListener() {
             @Override public void onPositiveClick() {
             }
 
             @Override public void onNegativeClick() {
                 presenter.onCompleteJoinDialogClose();
             }
-        });
-    }
-
-    @Override public void showCompleteJoinDialog() {
-        completeJoinDialog.show();
+        }).show();
     }
 
     @Override public void showVerifyCompleteButton() {

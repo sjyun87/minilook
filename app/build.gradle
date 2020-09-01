@@ -67,7 +67,6 @@ dependencies {
   // Firebase
   implementation "com.google.firebase:firebase-analytics:$firebase_analytics_version"
   implementation "com.google.firebase:firebase-messaging:$firebase_messaging_version"
-  implementation "com.google.firebase:firebase-config:$firebase_config_version"
 
   // Butter Knife
   implementation "com.jakewharton:butterknife:$butterknife_version"

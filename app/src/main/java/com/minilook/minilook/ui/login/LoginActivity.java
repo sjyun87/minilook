@@ -5,7 +5,6 @@ import android.content.Intent;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.user.UserDataModel;
-import com.minilook.minilook.data.type.LoginType;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.dialog.NoEmailDialog;
 import com.minilook.minilook.ui.join.JoinActivity;
@@ -26,7 +25,6 @@ public class LoginActivity extends BaseActivity implements LoginPresenter.View {
     private LoginPresenter presenter;
     private KakaoLoginManager kakaoLoginManager = new KakaoLoginManager(this);
     private NaverLoginManager naverLoginManager = new NaverLoginManager(this);
-    private NoEmailDialog noEmailDialog;
 
     @Override protected int getLayoutID() {
         return R.layout.activity_login;
@@ -66,12 +64,8 @@ public class LoginActivity extends BaseActivity implements LoginPresenter.View {
         }
     };
 
-    @Override public void setupNoEmailDialog() {
-        noEmailDialog = new NoEmailDialog(this);
-    }
-
     @Override public void showNoEmailDialog() {
-        noEmailDialog.show();
+        new NoEmailDialog(this).show();
     }
 
     @Override public void navigateToJoin(UserDataModel userData) {

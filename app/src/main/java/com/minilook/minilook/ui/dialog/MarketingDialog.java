@@ -15,14 +15,13 @@ import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.dialog.listener.OnButtonClickListener;
 import com.minilook.minilook.util.SpannableUtil;
-import timber.log.Timber;
 
-public class MainMarketingNotifyDialog extends Dialog {
+public class MarketingDialog extends Dialog {
 
     @BindView(R.id.txt_desc) TextView descTextView;
 
-    @BindString(R.string.dialog_main_marketing_desc) String str_desc;
-    @BindString(R.string.dialog_main_marketing_desc_b) String str_desc_bold;
+    @BindString(R.string.dialog_marketing_desc) String str_desc;
+    @BindString(R.string.dialog_marketing_desc_b) String str_desc_bold;
 
     @BindFont(R.font.nanum_square_r) Typeface font_regular;
     @BindFont(R.font.nanum_square_b) Typeface font_bold;
@@ -30,7 +29,7 @@ public class MainMarketingNotifyDialog extends Dialog {
     private Context context;
     private OnButtonClickListener listener;
 
-    public MainMarketingNotifyDialog(@NonNull Context context, @NonNull OnButtonClickListener listener) {
+    public MarketingDialog(@NonNull Context context, @NonNull OnButtonClickListener listener) {
         super(context);
         this.context = context;
         this.listener = listener;
@@ -39,14 +38,9 @@ public class MainMarketingNotifyDialog extends Dialog {
         setCancelable(true);
     }
 
-    @Override public void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        Timber.e("onAttachedToWindow");
-    }
-
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_main_marketing);
+        setContentView(R.layout.dialog_marketing);
         ButterKnife.bind(this);
 
         setupDesc();
@@ -64,6 +58,7 @@ public class MainMarketingNotifyDialog extends Dialog {
 
     @OnClick(R.id.txt_agree)
     void onAgreeClick() {
+        this.dismiss();
         listener.onPositiveClick();
     }
 }

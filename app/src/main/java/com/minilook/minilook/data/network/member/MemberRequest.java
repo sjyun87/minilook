@@ -44,26 +44,32 @@ public class MemberRequest extends BaseRequest<MemberService> {
         return jsonMap;
     }
 
-    public Single<BaseDataModel> updateUserToken() {
-        return getApi().updateToken(App.getInstance().getUserId(), createRequestBody(getUserTokenJson()));
+    public Single<BaseDataModel> updateUserToken(boolean isLogin) {
+        if (isLogin) {
+            return getApi().updateToken(App.getInstance().getUserId(), createRequestBody(getUpdateTokenJson(true)));
+        } else {
+            return getApi().updateToken(createRequestBody(getUpdateTokenJson(false)));
+        }
     }
 
-    private Map<String, Object> getUserTokenJson() {
+    private Map<String, Object> getUpdateTokenJson(boolean isLogin) {
         Map<String, Object> jsonMap = new HashMap<>();
-        jsonMap.put("snsAccount", App.getInstance().getSnsId());
-        jsonMap.put("snsTypeCode", App.getInstance().getSnsType());
+        if (isLogin) {
+            jsonMap.put("snsAccount", App.getInstance().getSnsId());
+            jsonMap.put("snsTypeCode", App.getInstance().getSnsType());
+        }
         jsonMap.put("token", App.getInstance().getPushToken());
         return jsonMap;
     }
 
-    public Single<BaseDataModel> updateNonUserToken() {
-        return getApi().updateToken(createRequestBody(getNonUserTokenJson()));
+    public Single<BaseDataModel> updateNonUserMarketing(boolean enable) {
+        return getApi().updateToken(createRequestBody(getNonUserMarketingJson(enable)));
     }
 
-    private Map<String, Object> getNonUserTokenJson() {
+    private Map<String, Object> getNonUserMarketingJson(boolean enable) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("token", App.getInstance().getPushToken());
-        Timber.e(jsonMap.toString());
+        jsonMap.put("isMarketingAgree", enable);
         return jsonMap;
     }
 }

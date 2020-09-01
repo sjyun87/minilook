@@ -36,6 +36,7 @@ public class ResetJoinDialog extends Dialog {
 
     @OnClick(R.id.txt_ok)
     void onOkClick() {
+        this.dismiss();
         listener.onPositiveClick();
     }
 }

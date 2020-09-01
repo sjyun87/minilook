@@ -40,9 +40,6 @@ public class JoinPresenterImpl extends BasePresenterImpl implements JoinPresente
         toRxObservable();
         view.setupChainSNS(userData.getType());
         view.setupEmail(userData.getEmail());
-        view.setupResetJoinDialog();
-        view.setupLimitJoinDialog();
-        view.setupCompleteJoinDialog();
     }
 
     private void toRxObservable() {
