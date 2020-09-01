@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Message;
 import android.view.ViewGroup;
-import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -16,7 +15,6 @@ import butterknife.BindView;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.search_address.di.SearchAddressArguments;
-import timber.log.Timber;
 
 public class SearchAddressActivity extends BaseActivity implements SearchAddressPresenter.View {
 
@@ -32,7 +30,7 @@ public class SearchAddressActivity extends BaseActivity implements SearchAddress
     private SearchAddressPresenter presenter;
 
     @Override protected int getLayoutID() {
-        return R.layout.activity_search_address;
+        return R.layout.activity_webview;
     }
 
     @Override protected void createPresenter() {
@@ -53,7 +51,7 @@ public class SearchAddressActivity extends BaseActivity implements SearchAddress
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webSettings.setSupportMultipleWindows(true);
         webView.setWebViewClient(new WebViewClient());
-        webView.setWebChromeClient(new CustomWebChromeClient());
+        webView.setWebChromeClient(new WebChromeClient());
         webView.loadUrl("http://lookbook.minilook.co.kr/m/bbs/register_form.php");
     }
 

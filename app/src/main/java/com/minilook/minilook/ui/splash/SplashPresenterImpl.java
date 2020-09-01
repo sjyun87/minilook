@@ -2,7 +2,7 @@ package com.minilook.minilook.ui.splash;
 
 import android.os.Handler;
 import com.minilook.minilook.App;
-import com.minilook.minilook.data.prefs_key.PrefsKey;
+import com.minilook.minilook.data.common.PrefsKey;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.splash.di.SplashArguments;
 import com.pixplicity.easyprefs.library.Prefs;

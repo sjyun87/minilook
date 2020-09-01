@@ -25,6 +25,8 @@ public interface JoinPresenter extends LifecycleObserver {
 
         void setupEmail(String email);
 
+        void showVerifyCompleteButton();
+
         void checkFullAgree();
 
         void uncheckFullAgree();

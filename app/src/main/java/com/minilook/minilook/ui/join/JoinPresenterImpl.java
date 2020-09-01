@@ -1,8 +1,11 @@
 package com.minilook.minilook.ui.join;
 
 import com.minilook.minilook.data.model.user.UserDataModel;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.join.di.JoinArguments;
+import com.minilook.minilook.ui.lookbook.LookBookPresenterImpl;
+import com.minilook.minilook.ui.webview.WebViewActivity;
 import timber.log.Timber;
 
 public class JoinPresenterImpl extends BasePresenterImpl implements JoinPresenter {
@@ -22,8 +25,20 @@ public class JoinPresenterImpl extends BasePresenterImpl implements JoinPresente
     }
 
     @Override public void onCreate() {
+        toRxObservable();
         view.setupChainSNS(userData.getType());
         view.setupEmail(userData.getEmail());
+    }
+
+    private void toRxObservable() {
+        addDisposable(RxBus.toObservable().subscribe(o -> {
+            if (o instanceof WebViewActivity.RxEventIdentityVerificationComplete) {
+                isVerifyComplete = true;
+                String json = ((WebViewActivity.RxEventIdentityVerificationComplete)o).getJson();
+                view.showVerifyCompleteButton();
+                
+            }
+        }, Timber::e));
     }
 
     @Override public void onFullAgreeClick() {

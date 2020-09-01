@@ -3,6 +3,7 @@ package com.minilook.minilook.ui.join;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -12,11 +13,14 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.common.CommonURL;
 import com.minilook.minilook.data.model.user.UserDataModel;
 import com.minilook.minilook.data.type.LoginType;
 import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.dialog.ResetJoinDialog;
+import com.minilook.minilook.ui.dialog.listener.OnButtonClickListener;
+import com.minilook.minilook.ui.webview.WebViewActivity;
 import com.minilook.minilook.ui.join.di.JoinArguments;
-import lombok.NonNull;
 
 public class JoinActivity extends BaseActivity implements JoinPresenter.View {
 
@@ -82,6 +86,10 @@ public class JoinActivity extends BaseActivity implements JoinPresenter.View {
         emailTextView.setText(email);
     }
 
+    @Override public void showVerifyCompleteButton() {
+        verifyCompleteButton.post(() -> verifyCompleteButton.setVisibility(View.VISIBLE));
+    }
+
     @Override public void checkFullAgree() {
         fullAgreeCheckBox.setImageDrawable(img_check_on);
     }
@@ -126,7 +134,7 @@ public class JoinActivity extends BaseActivity implements JoinPresenter.View {
 
     @OnClick(R.id.txt_verify)
     void onVerifyClick() {
-
+        WebViewActivity.start(this, CommonURL.IDENTITY_VERIFICATION);
     }
 
     @OnClick(R.id.layout_full_agree)
@@ -156,6 +164,13 @@ public class JoinActivity extends BaseActivity implements JoinPresenter.View {
 
     @OnClick(R.id.img_titlebar_back)
     void onBackClick() {
+        new ResetJoinDialog(this, new OnButtonClickListener() {
+            @Override public void onPositiveClick() {
+                finish();
+            }
 
+            @Override public void onNegativeClick() {
+            }
+        }).show();
     }
 }
