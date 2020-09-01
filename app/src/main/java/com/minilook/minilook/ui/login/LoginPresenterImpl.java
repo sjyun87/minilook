@@ -2,6 +2,7 @@ package com.minilook.minilook.ui.login;
 
 import com.google.gson.Gson;
 import com.minilook.minilook.App;
+import com.minilook.minilook.data.common.PrefsKey;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.user.UserDataModel;
 import com.minilook.minilook.data.network.member.MemberRequest;
@@ -13,6 +14,7 @@ import com.minilook.minilook.ui.join.JoinPresenterImpl;
 import com.minilook.minilook.ui.login.di.LoginArguments;
 import com.minilook.minilook.ui.login.kakao.KakaoLoginManager;
 import com.minilook.minilook.ui.login.naver.NaverLoginManager;
+import com.pixplicity.easyprefs.library.Prefs;
 import timber.log.Timber;
 
 public class LoginPresenterImpl extends BasePresenterImpl implements LoginPresenter {
@@ -84,6 +86,7 @@ public class LoginPresenterImpl extends BasePresenterImpl implements LoginPresen
             App.getInstance().setUserId(userData.getUser_id());
             App.getInstance().setSnsId(userData.getSns_id());
             App.getInstance().setSnsType(userData.getType());
+            Prefs.putInt(PrefsKey.KEY_LOGIN_VISIBLE_COUNT, 3);
             view.finish();
         } else if (data.getCode().equals(NetworkType.NO_DATA)) {
             view.navigateToJoin(userData);

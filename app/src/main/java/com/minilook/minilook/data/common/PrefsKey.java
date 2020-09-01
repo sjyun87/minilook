@@ -1,5 +1,5 @@
 package com.minilook.minilook.data.common;
 
 public class PrefsKey {
-    public static final String KEY_MEMBER_NO = "KEY_MEMBER_NO";
+    public static final String KEY_LOGIN_VISIBLE_COUNT = "KEY_LOGIN_VISIBLE_COUNT";
 }

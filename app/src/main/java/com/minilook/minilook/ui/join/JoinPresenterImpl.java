@@ -4,6 +4,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.minilook.minilook.App;
+import com.minilook.minilook.data.common.PrefsKey;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.user.UserDataModel;
 import com.minilook.minilook.data.network.member.MemberRequest;
@@ -12,6 +13,7 @@ import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.join.di.JoinArguments;
 import com.minilook.minilook.ui.webview.WebViewActivity;
+import com.pixplicity.easyprefs.library.Prefs;
 import io.reactivex.rxjava3.functions.Function;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -128,6 +130,7 @@ public class JoinPresenterImpl extends BasePresenterImpl implements JoinPresente
         App.getInstance().setUserId(data.getUser_id());
         App.getInstance().setSnsId(data.getSns_id());
         App.getInstance().setSnsType(data.getType());
+        Prefs.putInt(PrefsKey.KEY_LOGIN_VISIBLE_COUNT, 3);
 
         RxBus.send(new RxEventJoinComplete());
         view.finish();

@@ -1,11 +1,13 @@
 package com.minilook.minilook.ui.main;
 
 import com.minilook.minilook.App;
+import com.minilook.minilook.data.common.PrefsKey;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.lookbook.LookBookPresenterImpl;
 import com.minilook.minilook.ui.lookbook.view.detail.LookBookDetailPresenterImpl;
 import com.minilook.minilook.ui.main.di.MainArguments;
+import com.pixplicity.easyprefs.library.Prefs;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import timber.log.Timber;
@@ -26,8 +28,13 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
     }
 
     private void checkLogin() {
-        // 카운트 처리
-        if (!App.getInstance().isLogin()) view.navigateToLogin();
+        if (!App.getInstance().isLogin()) {
+            int visibleCount = Prefs.getInt(PrefsKey.KEY_LOGIN_VISIBLE_COUNT, 0);
+            if (visibleCount < 3) {
+                view.navigateToLogin();
+                Prefs.putInt(PrefsKey.KEY_LOGIN_VISIBLE_COUNT, ++visibleCount);
+            }
+        }
     }
 
     @Override public void onTabChanged(int position) {
