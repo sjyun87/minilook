@@ -1,12 +1,7 @@
 package com.minilook.minilook.ui.splash;
 
 import android.os.Handler;
-import androidx.annotation.NonNull;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.minilook.minilook.App;
-import com.minilook.minilook.BuildConfig;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.splash.di.SplashArguments;
 

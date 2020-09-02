@@ -56,13 +56,18 @@ public class App extends Application {
         return userId;
     }
 
+    public void clearUserId() {
+        userId = -1;
+        Prefs.remove("userId");
+    }
+
     public void setSnsId(String id) {
         snsId = id;
         Prefs.putString("snsId", id);
     }
 
     public String getSnsId() {
-        snsId = Prefs.getString("userId", "");
+        snsId = Prefs.getString("snsId", "");
         return snsId;
     }
 

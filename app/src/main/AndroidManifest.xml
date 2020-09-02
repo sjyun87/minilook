@@ -140,7 +140,7 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name=".ui.scrap.ScrapActivity"
+            android:name=".ui.scrap.ScrapBookActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 

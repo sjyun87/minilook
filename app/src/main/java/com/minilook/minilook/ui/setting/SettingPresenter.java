@@ -9,6 +9,8 @@ public interface SettingPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
+    void onLogoutClick();
+
     interface View {
 
     }

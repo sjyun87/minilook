@@ -4,7 +4,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindDimen;
 import butterknife.BindView;
-import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
@@ -12,10 +11,10 @@ import com.minilook.minilook.ui.base.BaseFragment;
 import com.minilook.minilook.ui.preorder.adapter.PreorderAdapter;
 import com.minilook.minilook.ui.scrap.view.brand.di.ScrapBrandArguments;
 
-public class ScrapBrandFragment extends BaseFragment implements ScrapBrandPresenter.View {
+public class ScrapbookBrandFragment extends BaseFragment implements ScrapBrandPresenter.View {
 
-    public static ScrapBrandFragment newInstance() {
-        return new ScrapBrandFragment();
+    public static ScrapbookBrandFragment newInstance() {
+        return new ScrapbookBrandFragment();
     }
 
     @BindView(R.id.rcv_scrap_brand) RecyclerView recyclerView;

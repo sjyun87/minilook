@@ -45,14 +45,17 @@
     <string name="category_title">카테고리</string>
 
     <!--Ipage-->
+    <string name="ipage_profile_login">로그인/회원가입</string>
     <string name="ipage_profile_point_caption">포인트</string>
+    <string name="ipage_profile_point">%sP</string>
     <string name="ipage_profile_coupon_caption">쿠폰</string>
+    <string name="ipage_profile_coupon">%s장</string>
     <string name="ipage_shopping_scrap">스크랩</string>
     <string name="ipage_shopping_basket">장바구니</string>
     <string name="ipage_shopping_recent">최근 본 상품</string>
     <string name="ipage_shopping_order_title">주문/배송</string>
     <string name="ipage_shopping_order_more">전체보기</string>
-    <string name="ipage_shopping_order_completed_caption">주문완료</string>
+    <string name="ipage_shopping_order_complete_caption">주문완료</string>
     <string name="ipage_shopping_order_packing_caption">배송준비중</string>
     <string name="ipage_shopping_order_delivery_caption">배송중</string>
     <string name="ipage_shopping_order_delivery_completed_caption">배송완료</string>

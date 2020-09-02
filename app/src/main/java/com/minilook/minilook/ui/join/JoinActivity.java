@@ -162,7 +162,7 @@ public class JoinActivity extends BaseActivity implements JoinPresenter.View {
 
     @OnClick(R.id.txt_verify)
     void onVerifyClick() {
-        WebViewActivity.start(this, CommonURL.IDENTITY_VERIFICATION);
+        WebViewActivity.start(this, CommonURL.URL_IDENTITY_VERIFICATION);
     }
 
     @OnClick(R.id.layout_full_agree)

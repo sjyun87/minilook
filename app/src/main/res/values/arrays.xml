@@ -12,7 +12,7 @@
         <item>오픈예정</item>
     </string-array>
 
-    <string-array name="tab_scrap">
+    <string-array name="tab_scrapbook">
         <item>상품</item>
         <item>브랜드</item>
     </string-array>

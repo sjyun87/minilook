@@ -44,8 +44,8 @@ public class MemberRequest extends BaseRequest<MemberService> {
         return jsonMap;
     }
 
-    public Single<BaseDataModel> updateUserToken(boolean isLogin) {
-        if (isLogin) {
+    public Single<BaseDataModel> updateUserToken() {
+        if (App.getInstance().isLogin()) {
             return getApi().updateToken(App.getInstance().getUserId(), createRequestBody(getUpdateTokenJson(true)));
         } else {
             return getApi().updateToken(createRequestBody(getUpdateTokenJson(false)));
@@ -71,5 +71,10 @@ public class MemberRequest extends BaseRequest<MemberService> {
         jsonMap.put("token", App.getInstance().getPushToken());
         jsonMap.put("isMarketingAgree", enable);
         return jsonMap;
+    }
+
+    public Single<BaseDataModel> getIpage() {
+        //return getApi().getIpage(App.getInstance().getUserId());
+        return getApi().getIpage(87);
     }
 }

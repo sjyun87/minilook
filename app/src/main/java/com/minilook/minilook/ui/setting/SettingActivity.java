@@ -2,6 +2,7 @@ package com.minilook.minilook.ui.setting;
 
 import android.content.Context;
 import android.content.Intent;
+import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.setting.di.SettingArguments;
@@ -30,5 +31,10 @@ public class SettingActivity extends BaseActivity implements SettingPresenter.Vi
         return SettingArguments.builder()
             .view(this)
             .build();
+    }
+
+    @OnClick(R.id.txt_logout)
+    void onLogoutClick() {
+        presenter.onLogoutClick();
     }
 }

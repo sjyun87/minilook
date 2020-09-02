@@ -30,7 +30,7 @@
         app:tabRippleColor="@android:color/transparent" />
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/vp_scrap"
+        android:id="@+id/vp_scrapbook"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -1,5 +1,6 @@
 package com.minilook.minilook.ui.setting;
 
+import com.minilook.minilook.App;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.setting.di.SettingArguments;
 
@@ -12,5 +13,9 @@ public class SettingPresenterImpl extends BasePresenterImpl implements SettingPr
     }
 
     @Override public void onCreate() {
+    }
+
+    @Override public void onLogoutClick() {
+        App.getInstance().clearUserId();
     }
 }

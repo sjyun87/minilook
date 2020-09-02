@@ -24,34 +24,37 @@
             android:layout_height="match_parent"
             android:paddingBottom="@dimen/dp_50">
 
-            <ImageView
-                android:id="@+id/img_profile"
-                android:layout_width="@dimen/dp_28"
-                android:layout_height="@dimen/dp_28"
+            <LinearLayout
+                android:id="@+id/layout_profile_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_4"
-                android:scaleType="fitXY"
-                android:src="@drawable/test_profile"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
-
-            <TextView
-                android:id="@+id/txt_nick"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/sp_6"
                 android:layout_marginEnd="@dimen/dp_10"
-                android:fontFamily="@font/nanum_square_eb"
-                android:letterSpacing="-0.02"
-                android:text="한라봉맛파인애플"
-                android:textColor="@color/color_FF232323"
-                android:textSize="@dimen/sp_9"
-                app:layout_constraintBottom_toBottomOf="@+id/img_profile"
-                app:layout_constraintLeft_toRightOf="@+id/img_profile"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/img_profile"
-                tools:text="미니룩" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/img_profile"
+                    android:layout_width="@dimen/dp_28"
+                    android:layout_height="@dimen/dp_28"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/img_default_profile"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/txt_nick"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sp_6"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:fontFamily="@font/nanum_square_eb"
+                    android:letterSpacing="-0.02"
+                    android:textColor="@color/color_FF232323"
+                    android:textSize="@dimen/sp_9"
+                    tools:text="미니룩" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layout_info_panel"
@@ -61,7 +64,7 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_marginEnd="@dimen/dp_6"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/img_profile">
+                app:layout_constraintTop_toBottomOf="@+id/layout_profile_panel">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_point_panel"
@@ -100,7 +103,6 @@
                         android:layout_marginTop="@dimen/dp_5"
                         android:fontFamily="@font/nanum_square_b"
                         android:includeFontPadding="false"
-                        android:text="10,000P"
                         android:textColor="@color/color_FF6200EA"
                         android:textSize="@dimen/sp_8"
                         app:layout_constraintBottom_toBottomOf="@+id/img_point"
@@ -150,7 +152,6 @@
                         android:layout_marginTop="@dimen/dp_5"
                         android:fontFamily="@font/nanum_square_b"
                         android:includeFontPadding="false"
-                        android:text="12장"
                         android:textColor="@color/color_FF6200EA"
                         android:textSize="@dimen/sp_8"
                         app:layout_constraintBottom_toBottomOf="@+id/img_coupon"
@@ -306,6 +307,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/order_line">
 
                     <LinearLayout
+                        android:id="@+id/layout_order_complete_panel"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -316,18 +318,19 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/nanum_square_r"
-                            android:text="@string/ipage_shopping_order_completed_caption"
+                            android:text="@string/ipage_shopping_order_complete_caption"
                             android:textColor="@color/color_FF232323"
                             android:textSize="@dimen/sp_6" />
 
                         <TextView
+                            android:id="@+id/txt_order_complete"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dp_4"
                             android:fontFamily="@font/nanum_square_b"
-                            android:text="0"
                             android:textColor="@color/color_FF232323"
-                            android:textSize="@dimen/sp_8" />
+                            android:textSize="@dimen/sp_8"
+                            tools:text="0" />
                     </LinearLayout>
 
                     <ImageView
@@ -337,6 +340,7 @@
                         tools:ignore="ContentDescription" />
 
                     <LinearLayout
+                        android:id="@+id/layout_packing_panel"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -352,13 +356,14 @@
                             android:textSize="@dimen/sp_6" />
 
                         <TextView
+                            android:id="@+id/txt_packing"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dp_4"
                             android:fontFamily="@font/nanum_square_b"
-                            android:text="1"
                             android:textColor="@color/color_FF232323"
-                            android:textSize="@dimen/sp_8" />
+                            android:textSize="@dimen/sp_8"
+                            tools:text="0" />
                     </LinearLayout>
 
                     <ImageView
@@ -368,6 +373,7 @@
                         tools:ignore="ContentDescription" />
 
                     <LinearLayout
+                        android:id="@+id/layout_delivery_panel"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -383,13 +389,14 @@
                             android:textSize="@dimen/sp_6" />
 
                         <TextView
+                            android:id="@+id/txt_delivery"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dp_4"
                             android:fontFamily="@font/nanum_square_b"
-                            android:text="2"
                             android:textColor="@color/color_FF232323"
-                            android:textSize="@dimen/sp_8" />
+                            android:textSize="@dimen/sp_8"
+                            tools:text="0" />
                     </LinearLayout>
 
                     <ImageView
@@ -399,6 +406,7 @@
                         tools:ignore="ContentDescription" />
 
                     <LinearLayout
+                        android:id="@+id/layout_delivery_complete_panel"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -414,13 +422,14 @@
                             android:textSize="@dimen/sp_6" />
 
                         <TextView
+                            android:id="@+id/txt_delivery_complete"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dp_4"
                             android:fontFamily="@font/nanum_square_b"
-                            android:text="0"
                             android:textColor="@color/color_FF232323"
-                            android:textSize="@dimen/sp_8" />
+                            android:textSize="@dimen/sp_8"
+                            tools:text="0" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -506,6 +515,15 @@
                 app:layout_constraintLeft_toRightOf="@+id/txt_service_notice"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line_question_bottom" />
+
+            <View
+                android:id="@+id/curtain"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintBottom_toTopOf="@+id/txt_service_notice"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
