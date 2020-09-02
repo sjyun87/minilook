@@ -16,7 +16,7 @@ import com.minilook.minilook.ui.lookbook.LookBookPresenterImpl;
 
 public class LookBookImageModuleVH extends BaseViewHolder<String> {
 
-    @BindView(R.id.img_lookbook) ImageView bgImageView;
+    @BindView(R.id.img_lookbook) ImageView imageView;
 
     @BindColor(R.color.color_FFEEEFF5) int color_FFEEEFF5;
 
@@ -32,7 +32,7 @@ public class LookBookImageModuleVH extends BaseViewHolder<String> {
             .load(data)
             .thumbnail(0.3f)
             .placeholder(new ColorDrawable(color_FFEEEFF5))
-            .into(bgImageView);
+            .into(imageView);
 
         itemView.setOnClickListener(this::onItemClick);
     }

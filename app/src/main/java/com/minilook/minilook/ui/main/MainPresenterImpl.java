@@ -98,11 +98,15 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
 
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
-            if (o instanceof LookBookPresenterImpl.RxEventLookBookPageChanged) {
-                int position = ((LookBookPresenterImpl.RxEventLookBookPageChanged) o).getPosition();
+            if (o instanceof RxEventLookBookPageChanged) {
+                int position = ((RxEventLookBookPageChanged) o).getPosition();
                 view.setupBottomBarTheme(position != 0);
             }
         }, Timber::e));
+    }
+
+    @AllArgsConstructor @Getter public final static class RxEventLookBookPageChanged {
+        private int position;
     }
 
     @AllArgsConstructor @Getter public final static class RxEventNavigateToBrandDetail {

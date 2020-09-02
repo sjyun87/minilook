@@ -23,10 +23,10 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
     }
 
     private void checkAppVersion() {
-        appStart();
+        startApp();
     }
 
-    private void appStart() {
+    private void startApp() {
         checkAnimation();
         checkLogin();
     }
@@ -50,10 +50,6 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
     }
 
     private void checkToDo() {
-        if (isLoginChecked && isAnimationEnd) navigateToMain();
-    }
-
-    private void navigateToMain() {
-        view.navigateToMain();
+        if (isLoginChecked && isAnimationEnd) view.navigateToMain();
     }
 }

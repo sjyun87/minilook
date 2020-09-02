@@ -3,6 +3,8 @@ package com.minilook.minilook.ui.lookbook;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.lookbook.di.LookBookArguments;
+import com.minilook.minilook.ui.lookbook.view.detail.LookBookDetailPresenterImpl;
+import com.minilook.minilook.ui.main.MainPresenterImpl;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import timber.log.Timber;
@@ -22,8 +24,8 @@ public class LookBookPresenterImpl extends BasePresenterImpl implements LookBook
     }
 
     @Override public void onPageSelected(int position) {
-        RxBus.send(new RxEventLookBookPageChanged(position));
-        //if (position == 0) RxBus.send(new LookBookDetailPresenterImpl.RxEventLookBookDetailScrollToTop());
+        RxBus.send(new MainPresenterImpl.RxEventLookBookPageChanged(position));
+        if (position == 0) RxBus.send(new LookBookDetailPresenterImpl.RxEventLookBookDetailScrollToTop());
     }
 
     private void toRxObservable() {
@@ -36,10 +38,6 @@ public class LookBookPresenterImpl extends BasePresenterImpl implements LookBook
                 view.navigateToDetailPage(smoothScroll);
             }
         }, Timber::e));
-    }
-
-    @AllArgsConstructor @Getter public final static class RxEventLookBookPageChanged {
-        private int position;
     }
 
     @AllArgsConstructor @Getter public final static class RxEventNavigateToPreview {

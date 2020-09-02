@@ -16,7 +16,6 @@ public class LookBookFragment extends BaseFragment implements LookBookPresenter.
     @BindView(R.id.viewpager) ViewPager2 viewPager;
 
     private LookBookPresenter presenter;
-    private LookBookPagerAdapter adapter;
 
     @Override protected int getLayoutID() {
         return R.layout.fragment_lookbook;
@@ -39,8 +38,7 @@ public class LookBookFragment extends BaseFragment implements LookBookPresenter.
     }
 
     @Override public void setupViewPager() {
-        adapter = new LookBookPagerAdapter(getChildFragmentManager(), getLifecycle());
-        viewPager.setAdapter(adapter);
+        viewPager.setAdapter(new LookBookPagerAdapter(getChildFragmentManager(), getLifecycle()));
         viewPager.setOffscreenPageLimit(1);
         viewPager.registerOnPageChangeCallback(OnPageChangeCallback);
     }
