@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import butterknife.BindView;
+
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.brand_info.di.BrandInfoArguments;
+
+import butterknife.BindView;
 
 public class BrandInfoActivity extends BaseActivity implements BrandInfoPresenter.View {
 

@@ -3,8 +3,8 @@ package com.minilook.minilook.ui.brand_detail;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
+
 import com.minilook.minilook.data.model.common.SortDataModel;
-import java.util.List;
 
 public interface BrandDetailPresenter extends LifecycleObserver {
 

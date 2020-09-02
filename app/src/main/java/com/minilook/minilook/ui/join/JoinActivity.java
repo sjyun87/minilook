@@ -13,7 +13,7 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.common.CommonURL;
+import com.minilook.minilook.data.common.URLKeys;
 import com.minilook.minilook.data.model.user.UserDataModel;
 import com.minilook.minilook.data.type.LoginType;
 import com.minilook.minilook.ui.base.BaseActivity;
@@ -162,7 +162,7 @@ public class JoinActivity extends BaseActivity implements JoinPresenter.View {
 
     @OnClick(R.id.txt_verify)
     void onVerifyClick() {
-        WebViewActivity.start(this, CommonURL.URL_IDENTITY_VERIFICATION);
+        WebViewActivity.start(this, URLKeys.URL_IDENTITY_VERIFICATION);
     }
 
     @OnClick(R.id.layout_full_agree)

@@ -2,9 +2,7 @@ package com.minilook.minilook.ui.ipage;
 
 import android.view.View;
 import android.widget.TextView;
-import butterknife.BindString;
-import butterknife.BindView;
-import butterknife.OnClick;
+
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseFragment;
 import com.minilook.minilook.ui.coupon.CouponActivity;
@@ -20,6 +18,10 @@ import com.minilook.minilook.ui.shoppingbag.ShoppingBagActivity;
 import com.minilook.minilook.ui.webview.WebViewActivity;
 import com.minilook.minilook.util.StringUtil;
 
+import butterknife.BindString;
+import butterknife.BindView;
+import butterknife.OnClick;
+
 public class IpageFragment extends BaseFragment implements IpagePresenter.View {
 
     public static IpageFragment newInstance() {
@@ -33,7 +35,7 @@ public class IpageFragment extends BaseFragment implements IpagePresenter.View {
     @BindView(R.id.txt_packing) TextView packingTextView;
     @BindView(R.id.txt_delivery) TextView deliveryTextView;
     @BindView(R.id.txt_delivery_complete) TextView deliveryCompleteTextView;
-    @BindView(R.id.curtain) View curtain;
+    @BindView(R.id.curtain) View curtainView;
 
     @BindString(R.string.ipage_profile_login) String str_login;
     @BindString(R.string.ipage_profile_point) String format_point;
@@ -89,11 +91,11 @@ public class IpageFragment extends BaseFragment implements IpagePresenter.View {
     }
 
     @Override public void showCurtain() {
-        curtain.setVisibility(View.VISIBLE);
+        curtainView.setVisibility(View.VISIBLE);
     }
 
     @Override public void hideCurtain() {
-        curtain.setVisibility(View.GONE);
+        curtainView.setVisibility(View.GONE);
     }
 
     @Override public void navigateToLogin() {

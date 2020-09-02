@@ -17,6 +17,6 @@ public interface LookBookPreviewPresenter extends LifecycleObserver {
 
         void refresh();
 
-        void refresh(int start, int end);
+        void refresh(int start, int rows);
     }
 }

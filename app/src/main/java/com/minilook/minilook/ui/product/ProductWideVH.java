@@ -24,7 +24,7 @@ public class ProductWideVH extends BaseViewHolder<ProductDataModel> {
     @BindView(R.id.txt_product_name) TextView productNameTextView;
     @BindView(R.id.txt_discount_percent) TextView discountPercentTextView;
     @BindView(R.id.txt_price) TextView priceTextView;
-    @BindView(R.id.curtain) View curtain;
+    @BindView(R.id.curtain) View curtainView;
     @BindView(R.id.txt_display_label) TextView displayLabelTextView;
 
     @BindString(R.string.base_price_percent) String format_percent;
@@ -65,11 +65,11 @@ public class ProductWideVH extends BaseViewHolder<ProductDataModel> {
     }
 
     private void showCurtain() {
-        curtain.setVisibility(View.VISIBLE);
+        curtainView.setVisibility(View.VISIBLE);
     }
 
     private void hideCurtain() {
-        curtain.setVisibility(View.GONE);
+        curtainView.setVisibility(View.GONE);
     }
 
     private void showDisplayLabel() {

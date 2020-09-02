@@ -2,18 +2,20 @@ package com.minilook.minilook.ui.base;
 
 import android.graphics.Color;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.minilook.minilook.data.rx.RxBus;
+import com.minilook.minilook.data.rx.RxBusEvent;
+import com.minilook.minilook.ui.base.listener.OnLoginListener;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import com.minilook.minilook.data.rx.RxBus;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import timber.log.Timber;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements OnLoginListener {
 
     private CompositeDisposable disposable = new CompositeDisposable();
     private Unbinder binder;
@@ -24,12 +26,31 @@ public abstract class BaseActivity extends AppCompatActivity {
         getWindow().getDecorView().setBackgroundColor(Color.WHITE);
         binder = ButterKnife.bind(this);
         createPresenter();
+        toRxBusObservable();
     }
 
     @Override protected void onDestroy() {
         if (binder != null) binder.unbind();
         clearDisposable();
         super.onDestroy();
+    }
+
+    private void toRxBusObservable() {
+        addDisposable(
+            RxBus.toObservable().subscribe(o -> {
+                if (o instanceof RxBusEvent.RxBusEventLogin) {
+                    onLogin();
+                } else if (o instanceof RxBusEvent.RxBusEventLogout) {
+                    onLogout();
+                }
+            })
+        );
+    }
+
+    @Override public void onLogin() {
+    }
+
+    @Override public void onLogout() {
     }
 
     protected abstract int getLayoutID();
@@ -46,11 +67,5 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected CompositeDisposable getDisposable() {
         return disposable;
-    }
-
-    @AllArgsConstructor @Getter public final static class RxEventLogin {
-    }
-
-    @AllArgsConstructor @Getter public final static class RxEventLogout {
     }
 }

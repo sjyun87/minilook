@@ -1,14 +1,18 @@
 package com.minilook.minilook.ui.brand_detail.adapter;
 
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.brand_detail.viewholder.BrandDetailCategoryItemVH;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import lombok.Setter;
 
 public class BrandDetailCategoryAdapter extends RecyclerView.Adapter<BrandDetailCategoryItemVH> implements

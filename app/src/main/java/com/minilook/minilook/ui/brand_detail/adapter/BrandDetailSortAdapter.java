@@ -1,14 +1,18 @@
 package com.minilook.minilook.ui.brand_detail.adapter;
 
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.minilook.minilook.data.model.common.SortDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.brand_detail.viewholder.BrandDetailSortItemVH;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import lombok.Setter;
 
 public class BrandDetailSortAdapter extends RecyclerView.Adapter<BrandDetailSortItemVH> implements

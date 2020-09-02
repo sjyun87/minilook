@@ -4,11 +4,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
-import butterknife.BindView;
+
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.SortDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+
+import butterknife.BindView;
 import lombok.Setter;
 
 public class BrandDetailSortItemVH extends BaseViewHolder<SortDataModel> {
@@ -27,9 +30,11 @@ public class BrandDetailSortItemVH extends BaseViewHolder<SortDataModel> {
 
         sortTextView.setText(data.getName());
 
-        itemView.setOnClickListener(v -> {
-            if (onSortSelectListener != null) onSortSelectListener.onSortSelected(data);
-        });
+        itemView.setOnClickListener(this::onItemClick);
+    }
+
+    private void onItemClick(View view) {
+        if (onSortSelectListener != null) onSortSelectListener.onSortSelected(data);
     }
 
     public interface OnSortSelectListener {

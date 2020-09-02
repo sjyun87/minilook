@@ -7,17 +7,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindColor;
-import butterknife.BindDimen;
-import butterknife.BindView;
-import butterknife.OnClick;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.fondesa.recyclerviewdivider.BaseDividerItemDecoration;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.SortDataModel;
@@ -30,6 +29,11 @@ import com.minilook.minilook.ui.brand_detail.di.BrandDetailArguments;
 import com.minilook.minilook.ui.brand_info.BrandInfoActivity;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.util.DimenUtil;
+
+import butterknife.BindColor;
+import butterknife.BindDimen;
+import butterknife.BindView;
+import butterknife.OnClick;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
 
 public class BrandDetailActivity extends BaseActivity implements BrandDetailPresenter.View {
@@ -51,10 +55,10 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
     @BindView(R.id.txt_desc) TextView descTextView;
     @BindView(R.id.rcv_style) RecyclerView styleRecyclerView;
     @BindView(R.id.layout_product_panel) LinearLayout productPanel;
-    @BindView(R.id.txt_sort) TextView sortTextView;
-    @BindView(R.id.rcv_sort) RecyclerView sortRecyclerView;
     @BindView(R.id.rcv_product) RecyclerView productRecyclerView;
 
+    @BindView(R.id.txt_sort) TextView sortTextView;
+    @BindView(R.id.rcv_sort) RecyclerView sortRecyclerView;
     @BindView(R.id.layout_header_panel) LinearLayout headerPanel;
     @BindView(R.id.txt_header_sort) TextView headerSortTextView;
     @BindView(R.id.rcv_header_sort) RecyclerView headerSortRecyclerView;
@@ -100,17 +104,9 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
         rootScrollView.setOnScrollChangeListener(
             (NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
                 if (scrollY > productPanel.getY()) {
-                    headerPanel.setVisibility(View.VISIBLE);
-                    if (sortRecyclerView.getVisibility() == View.VISIBLE) {
-                        sortRecyclerView.setVisibility(View.GONE);
-                        headerSortRecyclerView.setVisibility(View.VISIBLE);
-                    }
+                    handleHeaderPanel(true);
                 } else {
-                    headerPanel.setVisibility(View.GONE);
-                    if (headerSortRecyclerView.getVisibility() == View.VISIBLE) {
-                        sortRecyclerView.setVisibility(View.VISIBLE);
-                        headerSortRecyclerView.setVisibility(View.GONE);
-                    }
+                    handleHeaderPanel(false);
                 }
 
                 if (scrollY > ((v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) - (dp_150 * 3))) {
@@ -120,6 +116,22 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
                     }
                 }
             });
+    }
+
+    private void handleHeaderPanel(boolean isHeaderVisible) {
+        if (isHeaderVisible) {
+            headerPanel.setVisibility(View.VISIBLE);
+            if (sortRecyclerView.getVisibility() == View.VISIBLE) {
+                sortRecyclerView.setVisibility(View.GONE);
+                headerSortRecyclerView.setVisibility(View.VISIBLE);
+            }
+        } else {
+            headerPanel.setVisibility(View.GONE);
+            if (headerSortRecyclerView.getVisibility() == View.VISIBLE) {
+                sortRecyclerView.setVisibility(View.VISIBLE);
+                headerSortRecyclerView.setVisibility(View.GONE);
+            }
+        }
     }
 
     @Override public void setupStyleRecyclerView() {
@@ -138,23 +150,20 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
     }
 
     @Override public void setupSortRecyclerView() {
-        sortRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         sortAdapter.setOnSortSelectListener(presenter::onSortSelected);
-        sortRecyclerView.setAdapter(sortAdapter);
-        DividerDecoration.builder(this)
-            .size(DimenUtil.dpToPx(this, 1))
-            .color(color_FFF5F5F5)
-            .build()
-            .addTo(sortRecyclerView);
+        BaseDividerItemDecoration itemDecoration =
+            DividerDecoration.builder(this)
+                .size(DimenUtil.dpToPx(this, 1))
+                .color(color_FFF5F5F5)
+                .build();
 
-        headerSortRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        sortAdapter.setOnSortSelectListener(presenter::onSortSelected);
+        sortRecyclerView.setLayoutManager(layoutManager);
+        sortRecyclerView.setAdapter(sortAdapter);
+        headerSortRecyclerView.setLayoutManager(layoutManager);
         headerSortRecyclerView.setAdapter(sortAdapter);
-        DividerDecoration.builder(this)
-            .size(DimenUtil.dpToPx(this, 1))
-            .color(color_FFF5F5F5)
-            .build()
-            .addTo(headerSortRecyclerView);
+        itemDecoration.addTo(sortRecyclerView);
+        itemDecoration.addTo(headerSortRecyclerView);
     }
 
     @Override public void sortRefresh() {

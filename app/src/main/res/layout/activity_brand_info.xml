@@ -154,7 +154,7 @@
                     android:fontFamily="@font/nanum_square_b"
                     android:textColor="@color/color_FF000000"
                     android:textSize="@dimen/sp_6"
-                    tools:text="카카오톡 @아델리" />
+                    tools:text="minilook@minilook.co.kr" />
             </LinearLayout>
 
             <View

@@ -5,13 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
-import butterknife.BindColor;
-import butterknife.BindFont;
-import butterknife.BindView;
+
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+
+import butterknife.BindColor;
+import butterknife.BindFont;
+import butterknife.BindView;
 import lombok.Setter;
 
 public class BrandDetailCategoryItemVH extends BaseViewHolder<CategoryDataModel> {
@@ -36,6 +39,8 @@ public class BrandDetailCategoryItemVH extends BaseViewHolder<CategoryDataModel>
 
     @Override public void bind(CategoryDataModel $data) {
         super.bind($data);
+
+        // TODO : 브랜드 상품 카테고리
 
         //if (data.isSelect()) {
         //    categoryTextView.setTextColor(color_FF8140E5);

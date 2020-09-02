@@ -132,8 +132,9 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     private void resProducts(SearchDataModel data) {
         totalPageSize = data.getTotal();
         int start = productAdapter.getSize();
+        int row = data.getProducts().size();
+
         productAdapter.addAll(data.getProducts());
-        int row = productAdapter.getSize() - start;
         view.productRefresh(start, row);
 
         view.scrollToTop();
