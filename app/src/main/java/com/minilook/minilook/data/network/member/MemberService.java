@@ -46,4 +46,13 @@ public interface MemberService {
         @Path("user_id") int user_id,
         @Body RequestBody body
     );
+
+    @PUT("/api/members/{user_id}/informationpushes") Single<BaseDataModel> updateInfoNotify(
+        @Path("user_id") int user_id,
+        @Body RequestBody body
+    );
+
+    @PUT("/api/nonmembers/pushtokens") Single<BaseDataModel> updateMarketing(
+        @Body RequestBody body
+    );
 }

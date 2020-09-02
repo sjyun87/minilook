@@ -11,7 +11,14 @@ public interface SettingPresenter extends LifecycleObserver {
 
     void onLogoutClick();
 
+    void onInfoNotifyChecked(boolean isChecked);
+
+    void onMarketingChecked(boolean isChecked);
+
     interface View {
 
+        void setupInfoSwitchButton();
+
+        void setupMarketingSwitchButton();
     }
 }

@@ -4,7 +4,6 @@ import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.PrefsKey;
 import com.minilook.minilook.data.network.member.MemberRequest;
 import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.data.rx.SchedulersFacade;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.lookbook.LookBookPresenterImpl;
@@ -53,7 +52,7 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
     }
 
     private void reqUpdateToken() {
-        addDisposable(memberRequest.updateUserToken()
+        addDisposable(memberRequest.updateToken()
             .compose(Transformer.applySchedulers())
             .subscribe());
     }
@@ -92,7 +91,7 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
     }
 
     private void reqUpdateNonUserMarketingAgree() {
-        addDisposable(memberRequest.updateNonUserMarketing(true)
+        addDisposable(memberRequest.updateMarketing(true)
             .compose(Transformer.applySchedulers())
             .subscribe());
     }
