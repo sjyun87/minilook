@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.scrap;
+package com.minilook.minilook.ui.scrapbook;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,11 +10,11 @@ import com.google.android.material.tabs.TabLayout;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.widget.TabView;
-import com.minilook.minilook.ui.scrap.adapter.ScrapbookPagerAdapter;
-import com.minilook.minilook.ui.scrap.di.ScrapArguments;
+import com.minilook.minilook.ui.scrapbook.adapter.ScrapbookPagerAdapter;
+import com.minilook.minilook.ui.scrapbook.di.ScrapbookArguments;
 import java.util.Objects;
 
-public class ScrapBookActivity extends BaseActivity implements ScrapPresenter.View {
+public class ScrapBookActivity extends BaseActivity implements ScrapbookPresenter.View {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, ScrapBookActivity.class);
@@ -29,7 +29,7 @@ public class ScrapBookActivity extends BaseActivity implements ScrapPresenter.Vi
     @BindArray(R.array.tab_scrapbook) String[] tabNames;
     @BindDimen(R.dimen.dp_48) int dp_48;
 
-    private ScrapPresenter presenter;
+    private ScrapbookPresenter presenter;
     private ScrapbookPagerAdapter adapter;
 
     @Override protected int getLayoutID() {
@@ -37,12 +37,12 @@ public class ScrapBookActivity extends BaseActivity implements ScrapPresenter.Vi
     }
 
     @Override protected void createPresenter() {
-        presenter = new ScrapPresenterImpl(provideArguments());
+        presenter = new ScrapbookPresenterImpl(provideArguments());
         getLifecycle().addObserver(presenter);
     }
 
-    private ScrapArguments provideArguments() {
-        return ScrapArguments.builder()
+    private ScrapbookArguments provideArguments() {
+        return ScrapbookArguments.builder()
             .view(this)
             .build();
     }
@@ -94,7 +94,7 @@ public class ScrapBookActivity extends BaseActivity implements ScrapPresenter.Vi
 
 
     @Override public void setupCurrentPage(int position) {
-
+        viewPager.setCurrentItem(position);
     }
 
     @Override public void scrollToTop() {

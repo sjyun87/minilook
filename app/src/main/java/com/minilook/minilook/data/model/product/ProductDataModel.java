@@ -18,7 +18,7 @@ import lombok.Data;
     private List<String> product_images;
     @Expose @SerializedName("brandNo")
     private int brand_id;
-    @Expose @SerializedName("brandName")
+    @Expose @SerializedName(value = "brandName", alternate = "brandNm")
     private String brand_name;
     @Expose @SerializedName("brandLogo")
     private String brand_logo;
@@ -35,6 +35,10 @@ import lombok.Data;
     private int price;
     @Expose @SerializedName("supplyPrice")
     private int price_origin;
+    @Expose @SerializedName("stockName")
+    private int stock_name;
+    @Expose @SerializedName("stockCode")
+    private int stock_code;
     @Expose @SerializedName("detailUrl")
     private String detail_url;
     @Expose @SerializedName("categoryName")
@@ -55,20 +59,4 @@ import lombok.Data;
     private int price_shipping;
     @Expose @SerializedName("relationProducts")
     private List<ProductDataModel> related_products;
-
-
-    // reviews
-
-
-    private String name;
-    private String tag;
-    private String desc;
-    private String url_thumb;
-    private String url_image;
-    private int price_discount_percent;
-    private int point_percent;
-    private boolean is_scrap;
-    private String detail_info;
-    private List<ProductColorDataModel> colors;
-    private List<ProductSizeDataModel> sizes;
 }

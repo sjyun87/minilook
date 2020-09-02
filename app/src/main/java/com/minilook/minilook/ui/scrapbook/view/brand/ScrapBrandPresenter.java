@@ -1,10 +1,10 @@
-package com.minilook.minilook.ui.scrap.view.product;
+package com.minilook.minilook.ui.scrapbook.view.brand;
 
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
-public interface ScrapProductPresenter extends LifecycleObserver {
+public interface ScrapBrandPresenter extends LifecycleObserver {
 
   @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
   void onCreate();

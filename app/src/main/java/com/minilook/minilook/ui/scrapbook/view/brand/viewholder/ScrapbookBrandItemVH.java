@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.scrap.view.product.viewholder;
+package com.minilook.minilook.ui.scrapbook.view.brand.viewholder;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,11 +8,11 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 
-public class ScrapbookProductItemVH extends BaseViewHolder<CategoryDataModel> {
+public class ScrapbookBrandItemVH extends BaseViewHolder<CategoryDataModel> {
 
-    public ScrapbookProductItemVH(@NonNull View itemView) {
+    public ScrapbookBrandItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_product_type_grid, (ViewGroup) itemView, false));
+            .inflate(R.layout.item_scrapbook_brand, (ViewGroup) itemView, false));
     }
 
     @Override public void bind(CategoryDataModel $data) {

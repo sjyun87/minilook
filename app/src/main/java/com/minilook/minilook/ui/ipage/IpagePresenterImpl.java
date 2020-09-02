@@ -5,7 +5,10 @@ import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.CommonURL;
 import com.minilook.minilook.data.model.ipage.IpageDataModel;
 import com.minilook.minilook.data.network.member.MemberRequest;
+import com.minilook.minilook.data.rx.RxBus;
+import com.minilook.minilook.data.rx.SchedulersFacade;
 import com.minilook.minilook.data.rx.Transformer;
+import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.ipage.di.IpageArguments;
 import timber.log.Timber;
@@ -23,13 +26,55 @@ public class IpagePresenterImpl extends BasePresenterImpl implements IpagePresen
     }
 
     @Override public void onCreate() {
+        toRxObservable();
         if (App.getInstance().isLogin()) {
-            view.hideCurtain();
-            reqIpage();
+            setupUser();
         } else {
-            view.showCurtain();
             setupNonUser();
         }
+    }
+
+    protected void toRxObservable() {
+        addDisposable(RxBus.toObservable().observeOn(SchedulersFacade.ui()).subscribe(o -> {
+            if (o instanceof BaseActivity.RxEventLogin) {
+                setupUser();
+            } else if (o instanceof BaseActivity.RxEventLogout) {
+                setupNonUser();
+            }
+        }, Timber::e));
+    }
+
+    private void setupUser() {
+        view.hideCurtain();
+        reqIpage();
+    }
+
+    private void setupNonUser() {
+        view.showCurtain();
+        view.setupLogin();
+        view.setupPoint(0);
+        view.setupCoupon(0);
+        view.setupOrderComplete(0);
+        view.setupPacking(0);
+        view.setupDelivery(0);
+        view.setupDeliveryComplete(0);
+    }
+
+    private void reqIpage() {
+        addDisposable(memberRequest.getIpage()
+            .map(data -> gson.fromJson(data.getData(), IpageDataModel.class))
+            .compose(Transformer.applySchedulers())
+            .subscribe(this::resIpage, Timber::e));
+    }
+
+    private void resIpage(IpageDataModel data) {
+        view.setupNick(data.getNick());
+        view.setupPoint(data.getPoint());
+        view.setupCoupon(data.getCoupon());
+        view.setupOrderComplete(data.getOrder_complete());
+        view.setupPacking(data.getPacking());
+        view.setupDelivery(data.getDelivery());
+        view.setupDeliveryComplete(data.getDelivery_complete());
     }
 
     @Override public void onCurtainClick() {
@@ -90,32 +135,5 @@ public class IpagePresenterImpl extends BasePresenterImpl implements IpagePresen
 
     @Override public void onFAQClick() {
         view.navigateToWebView(CommonURL.URL_FAQ);
-    }
-
-    private void setupNonUser() {
-        view.setupLogin();
-        view.setupPoint(0);
-        view.setupCoupon(0);
-        view.setupOrderComplete(0);
-        view.setupPacking(0);
-        view.setupDelivery(0);
-        view.setupDeliveryComplete(0);
-    }
-
-    private void reqIpage() {
-        addDisposable(memberRequest.getIpage()
-            .map(data -> gson.fromJson(data.getData(), IpageDataModel.class))
-            .compose(Transformer.applySchedulers())
-            .subscribe(this::resIpage, Timber::e));
-    }
-
-    private void resIpage(IpageDataModel data) {
-        view.setupNick(data.getNick());
-        view.setupPoint(data.getPoint());
-        view.setupCoupon(data.getCoupon());
-        view.setupOrderComplete(data.getOrder_complete());
-        view.setupPacking(data.getPacking());
-        view.setupDelivery(data.getDelivery());
-        view.setupDeliveryComplete(data.getDelivery_complete());
     }
 }

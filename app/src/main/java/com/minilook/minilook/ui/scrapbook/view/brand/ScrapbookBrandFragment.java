@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.scrap.view.brand;
+package com.minilook.minilook.ui.scrapbook.view.brand;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,7 +9,7 @@ import com.minilook.minilook.data.model.preorder.PreorderDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseFragment;
 import com.minilook.minilook.ui.preorder.adapter.PreorderAdapter;
-import com.minilook.minilook.ui.scrap.view.brand.di.ScrapBrandArguments;
+import com.minilook.minilook.ui.scrapbook.view.brand.di.ScrapbookBrandArguments;
 
 public class ScrapbookBrandFragment extends BaseFragment implements ScrapBrandPresenter.View {
 
@@ -34,8 +34,8 @@ public class ScrapbookBrandFragment extends BaseFragment implements ScrapBrandPr
         getLifecycle().addObserver(presenter);
     }
 
-    private ScrapBrandArguments provideArguments() {
-        return ScrapBrandArguments.builder()
+    private ScrapbookBrandArguments provideArguments() {
+        return ScrapbookBrandArguments.builder()
             .view(this)
             .adapter(adapter)
             .build();

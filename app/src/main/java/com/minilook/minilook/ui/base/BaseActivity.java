@@ -2,14 +2,16 @@ package com.minilook.minilook.ui.base;
 
 import android.graphics.Color;
 import android.os.Bundle;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import com.minilook.minilook.data.rx.RxBus;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import timber.log.Timber;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -44,5 +46,11 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected CompositeDisposable getDisposable() {
         return disposable;
+    }
+
+    @AllArgsConstructor @Getter public final static class RxEventLogin {
+    }
+
+    @AllArgsConstructor @Getter public final static class RxEventLogout {
     }
 }

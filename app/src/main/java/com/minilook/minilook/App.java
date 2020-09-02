@@ -3,6 +3,8 @@ package com.minilook.minilook;
 import android.app.Application;
 import android.content.ContextWrapper;
 import com.kakao.sdk.common.KakaoSdk;
+import com.minilook.minilook.data.rx.RxBus;
+import com.minilook.minilook.ui.base.BaseActivity;
 import com.pixplicity.easyprefs.library.Prefs;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,6 +51,7 @@ public class App extends Application {
     public void setUserId(int id) {
         userId = id;
         Prefs.putInt("userId", id);
+        RxBus.send(new BaseActivity.RxEventLogin());
     }
 
     public int getUserId() {
@@ -59,6 +62,7 @@ public class App extends Application {
     public void clearUserId() {
         userId = -1;
         Prefs.remove("userId");
+        RxBus.send(new BaseActivity.RxEventLogout());
     }
 
     public void setSnsId(String id) {

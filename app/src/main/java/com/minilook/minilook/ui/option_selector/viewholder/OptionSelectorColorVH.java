@@ -14,7 +14,6 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductColorDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.base.widget.ColorView;
-import com.minilook.minilook.util.SpannableUtil;
 import lombok.Setter;
 
 public class OptionSelectorColorVH extends BaseViewHolder<ProductColorDataModel> {

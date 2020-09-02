@@ -15,7 +15,7 @@ import com.minilook.minilook.ui.point.PointActivity;
 import com.minilook.minilook.ui.profile.ProfileActivity;
 import com.minilook.minilook.ui.question.QuestionActivity;
 import com.minilook.minilook.ui.recent.RecentActivity;
-import com.minilook.minilook.ui.scrap.ScrapBookActivity;
+import com.minilook.minilook.ui.scrapbook.ScrapBookActivity;
 import com.minilook.minilook.ui.shoppingbag.ShoppingBagActivity;
 import com.minilook.minilook.ui.webview.WebViewActivity;
 import com.minilook.minilook.util.StringUtil;
