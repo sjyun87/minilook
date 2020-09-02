@@ -6,13 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindFont;
-import butterknife.BindView;
-import butterknife.OnClick;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.R;
@@ -21,9 +20,14 @@ import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.util.SpannableUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import butterknife.BindFont;
+import butterknife.BindView;
+import butterknife.OnClick;
 
 public class MarketRecommendVH extends BaseViewHolder<MarketDataModel> {
 
@@ -91,6 +95,6 @@ public class MarketRecommendVH extends BaseViewHolder<MarketDataModel> {
 
     @OnClick(R.id.img_more)
     void onMoreClick() {
-
+        //TODO : 전체보기
     }
 }

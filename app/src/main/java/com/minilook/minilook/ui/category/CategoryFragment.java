@@ -2,15 +2,17 @@ package com.minilook.minilook.ui.category;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindDimen;
-import butterknife.BindView;
+
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseFragment;
 import com.minilook.minilook.ui.category.adapter.CategoryAdapter;
 import com.minilook.minilook.ui.category.di.CategoryArguments;
-import com.minilook.minilook.util.DimenUtil;
+
+import butterknife.BindDimen;
+import butterknife.BindView;
 
 public class CategoryFragment extends BaseFragment implements CategoryPresenter.View {
 
@@ -24,7 +26,7 @@ public class CategoryFragment extends BaseFragment implements CategoryPresenter.
 
     private CategoryPresenter presenter;
     private CategoryAdapter adapter = new CategoryAdapter();
-    private BaseAdapterDataView adapterView = adapter;
+    private BaseAdapterDataView<CategoryDataModel> adapterView = adapter;
 
     @Override protected int getLayoutID() {
         return R.layout.fragment_category;
@@ -45,7 +47,7 @@ public class CategoryFragment extends BaseFragment implements CategoryPresenter.
     @Override public void setupRecyclerView() {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(adapter);
-        DividerDecoration.builder(getContext())
+        DividerDecoration.builder(requireContext())
             .size(dp_6)
             .asSpace()
             .build()

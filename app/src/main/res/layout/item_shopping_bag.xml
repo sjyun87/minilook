@@ -35,7 +35,7 @@
     </LinearLayout>
 
     <View
-        android:id="@+id/line_top"
+        android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/color_FFF5F5F5"
@@ -50,7 +50,7 @@
         android:padding="@dimen/dp_4"
         android:src="@drawable/ic_checkbox2_off"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line_top"
+        app:layout_constraintTop_toBottomOf="@+id/line"
         tools:ignore="ContentDescription" />
 
     <LinearLayout
@@ -60,7 +60,7 @@
         android:orientation="horizontal"
         app:layout_constraintLeft_toRightOf="@+id/img_checkbox"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line_top">
+        app:layout_constraintTop_toBottomOf="@+id/line">
 
         <ImageView
             android:id="@+id/img_product_thumb"

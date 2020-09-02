@@ -161,7 +161,7 @@
             </LinearLayout>
 
             <View
-                android:id="@+id/line_top"
+                android:id="@+id/line"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_4"
                 android:layout_marginTop="@dimen/dp_6"
@@ -177,7 +177,7 @@
                 android:layout_marginEnd="@dimen/dp_6"
                 android:baselineAligned="false"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/line_top">
+                app:layout_constraintTop_toBottomOf="@+id/line">
 
                 <LinearLayout
                     android:id="@+id/layout_scrap_panel"

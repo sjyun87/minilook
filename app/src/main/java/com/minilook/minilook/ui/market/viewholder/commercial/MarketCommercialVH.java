@@ -3,10 +3,11 @@ package com.minilook.minilook.ui.market.viewholder.commercial;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 import androidx.viewpager2.widget.ViewPager2;
-import butterknife.BindView;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.R;
@@ -15,8 +16,11 @@ import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.market.viewholder.commercial.adapter.MarketCommercialAdapter;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
 
 public class MarketCommercialVH extends BaseViewHolder<MarketDataModel> {
 
@@ -48,6 +52,7 @@ public class MarketCommercialVH extends BaseViewHolder<MarketDataModel> {
     }
 
     private List<CommercialDataModel> parseJsonToModel() {
-        return gson.fromJson(data.getData(), new TypeToken<ArrayList<CommercialDataModel>>() {}.getType());
+        return gson.fromJson(data.getData(), new TypeToken<ArrayList<CommercialDataModel>>() {
+        }.getType());
     }
 }

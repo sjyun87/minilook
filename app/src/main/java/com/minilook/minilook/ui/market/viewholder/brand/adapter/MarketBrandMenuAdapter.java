@@ -1,14 +1,18 @@
 package com.minilook.minilook.ui.market.viewholder.brand.adapter;
 
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.market.viewholder.brand.viewholder.MarketBrandMenuVH;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import lombok.Setter;
 
 public class MarketBrandMenuAdapter extends RecyclerView.Adapter<MarketBrandMenuVH> implements

@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <View
-                android:id="@+id/line_top"
+                android:id="@+id/line"
                 android:layout_width="@dimen/dp_6"
                 android:layout_height="@dimen/dp_2"
                 android:layout_marginStart="@dimen/dp_12"

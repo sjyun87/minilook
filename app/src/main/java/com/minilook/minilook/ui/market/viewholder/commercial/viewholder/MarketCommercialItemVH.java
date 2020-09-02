@@ -4,17 +4,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
-import butterknife.BindView;
+
 import com.bumptech.glide.Glide;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.commercial.CommercialDataModel;
 import com.minilook.minilook.data.type.CommercialType;
 import com.minilook.minilook.ui.base.BaseViewHolder;
-import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.event_detail.EventDetailActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.ui.promotion_detail.PromotionDetailActivity;
+
+import butterknife.BindView;
 
 public class MarketCommercialItemVH extends BaseViewHolder<CommercialDataModel> {
 

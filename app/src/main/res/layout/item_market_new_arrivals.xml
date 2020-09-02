@@ -9,7 +9,7 @@
     android:paddingBottom="@dimen/dp_16">
 
     <View
-        android:id="@+id/line_top"
+        android:id="@+id/line"
         android:layout_width="@dimen/dp_6"
         android:layout_height="@dimen/dp_2"
         android:layout_marginStart="@dimen/dp_10"
@@ -27,8 +27,8 @@
         android:letterSpacing="-0.02"
         android:textColor="@color/color_FF232323"
         android:textSize="@dimen/sp_14"
-        app:layout_constraintLeft_toLeftOf="@+id/line_top"
-        app:layout_constraintTop_toBottomOf="@+id/line_top"
+        app:layout_constraintLeft_toLeftOf="@+id/line"
+        app:layout_constraintTop_toBottomOf="@+id/line"
         tools:text="NEW" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -38,7 +38,6 @@
         android:layout_marginTop="@dimen/dp_10"
         android:clipToPadding="false"
         app:layout_constraintTop_toBottomOf="@+id/txt_title"
-        tools:ignore="RtlSymmetry"
         tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_product_type_size_84"
         tools:orientation="horizontal" />

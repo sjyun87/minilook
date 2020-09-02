@@ -46,11 +46,11 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
     }
 
     private void resMarketModules(@NonNull List<MarketDataModel> data) {
-        adapter.set(checkData(data));
+        adapter.set(parseToModuleType(data));
         view.refresh();
     }
 
-    private List<MarketDataModel> checkData(List<MarketDataModel> data) {
+    private List<MarketDataModel> parseToModuleType(List<MarketDataModel> data) {
         List<MarketDataModel> items = new ArrayList<>();
         for (MarketDataModel model : data) {
             if (model.getModule().equals(MarketModuleCode.COMMERCIAL.name())) {

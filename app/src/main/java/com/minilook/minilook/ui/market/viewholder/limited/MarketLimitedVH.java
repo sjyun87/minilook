@@ -6,13 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindDimen;
-import butterknife.BindFont;
-import butterknife.BindView;
+
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -22,9 +21,14 @@ import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.util.SpannableUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import butterknife.BindDimen;
+import butterknife.BindFont;
+import butterknife.BindView;
 
 import static com.minilook.minilook.ui.product.adapter.ProductAdapter.VIEW_TYPE_FULL;
 

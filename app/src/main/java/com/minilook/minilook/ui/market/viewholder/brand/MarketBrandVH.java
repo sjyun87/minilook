@@ -1,25 +1,18 @@
 package com.minilook.minilook.ui.market.viewholder.brand;
 
 import android.graphics.Typeface;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindColor;
-import butterknife.BindDimen;
-import butterknife.BindFont;
-import butterknife.BindString;
-import butterknife.BindView;
-import butterknife.BindViews;
-import butterknife.OnClick;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
@@ -36,14 +29,21 @@ import com.minilook.minilook.ui.market.viewholder.brand.viewholder.MarketBrandMe
 import com.minilook.minilook.util.DimenUtil;
 import com.minilook.minilook.util.SpannableUtil;
 import com.minilook.minilook.util.StringUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import butterknife.BindColor;
+import butterknife.BindDimen;
+import butterknife.BindFont;
+import butterknife.BindString;
+import butterknife.BindView;
+import butterknife.BindViews;
+import butterknife.OnClick;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
 
 public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements MarketBrandMenuVH.OnMenuClickListener {
-
-    private static final String RECYCLER_STATE = "RECYCLER_STATE";
 
     @BindView(R.id.txt_title) TextView titleTextView;
     @BindView(R.id.rcv_brand) RecyclerView menuRecyclerView;
@@ -56,8 +56,11 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
     @BindViews({ R.id.img_style1, R.id.img_style2, R.id.img_style3 }) List<ImageView> styleImageViews;
 
     @BindString(R.string.base_tag) String format_tag;
+
     @BindColor(R.color.color_FFDBDBDB) int color_FFDBDBDB;
+
     @BindDimen(R.dimen.dp_6) int dp_6;
+
     @BindFont(R.font.nanum_square_eb) Typeface font_extrabold;
 
     private Gson gson = new Gson();
@@ -122,7 +125,7 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
 
         scrapCountTextView.setText(StringUtil.toDigit(model.getScrap_cnt()));
         nameTextView.setText(model.getBrand_name());
-        tagTextView.setText(parseToTag(model.getStyles()));
+        tagTextView.setText(getStyleTag(model.getStyles()));
         descTextView.setText(model.getBrand_desc());
 
         List<String> styleImages = model.getStyle_images();
@@ -133,7 +136,7 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
         }
     }
 
-    private String parseToTag(List<StyleDataModel> styles) {
+    private String getStyleTag(List<StyleDataModel> styles) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < styles.size(); i++) {
             if (i != 0) sb.append(" ");
