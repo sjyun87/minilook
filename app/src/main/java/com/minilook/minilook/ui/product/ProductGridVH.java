@@ -1,16 +1,19 @@
 package com.minilook.minilook.ui.product;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
 import com.bumptech.glide.Glide;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
+import com.minilook.minilook.data.type.DisplayType;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.StringUtil;
@@ -19,12 +22,18 @@ import lombok.Setter;
 public class ProductGridVH extends BaseViewHolder<ProductDataModel> {
 
     @BindView(R.id.img_product_thumb) ImageView thumbImageView;
+    @BindView(R.id.img_curtain) View curtain;
+    @BindView(R.id.txt_display_label) TextView displayLabelTextView;
+    @BindView(R.id.img_scrap) ImageView scrapImageView;
     @BindView(R.id.txt_brand_name) TextView brandNameTextView;
     @BindView(R.id.txt_product_name) TextView productNameTextView;
     @BindView(R.id.txt_discount_percent) TextView discountPercentTextView;
     @BindView(R.id.txt_price) TextView priceTextView;
 
     @BindString(R.string.base_price_percent) String format_percent;
+
+    @BindDrawable(R.drawable.ic_scrap_off) Drawable img_scrap_off;
+    @BindDrawable(R.drawable.ic_scrap_on) Drawable img_scrap_on;
 
     @Setter private boolean isShowScrap;
     @Setter private boolean isShowBrand;
@@ -41,6 +50,17 @@ public class ProductGridVH extends BaseViewHolder<ProductDataModel> {
             .load(data.getImage_url())
             .into(thumbImageView);
 
+        if (isShowScrap) {
+            showScrap();
+            if (data.isScrap()) {
+                scrapImageView.setImageDrawable(img_scrap_on);
+            } else {
+                scrapImageView.setImageDrawable(img_scrap_off);
+            }
+        } else {
+            hideScrap();
+        }
+
         if (isShowBrand) {
             showBrand();
             brandNameTextView.setText(data.getBrand_name());
@@ -48,6 +68,15 @@ public class ProductGridVH extends BaseViewHolder<ProductDataModel> {
             hideBrand();
         }
         productNameTextView.setText(data.getProduct_name());
+
+        if (data.getDisplay_code() == DisplayType.DISPLAY.getValue()) {
+            hideCurtain();
+            hideDisplayLabel();
+        } else {
+            showCurtain();
+            showDisplayLabel();
+            displayLabelTextView.setText(data.getDisplay_label());
+        }
 
         if (data.isDiscount()) {
             discountPercentTextView.setText(String.format(format_percent, data.getDiscount_percent()));
@@ -58,6 +87,30 @@ public class ProductGridVH extends BaseViewHolder<ProductDataModel> {
         priceTextView.setText(StringUtil.toDigit(data.getPrice()));
 
         itemView.setOnClickListener(this::onItemClick);
+    }
+
+    private void showDisplayLabel() {
+        displayLabelTextView.setVisibility(View.VISIBLE);
+    }
+
+    private void hideDisplayLabel() {
+        displayLabelTextView.setVisibility(View.GONE);
+    }
+
+    private void showCurtain() {
+        curtain.setVisibility(View.VISIBLE);
+    }
+
+    private void hideCurtain() {
+        curtain.setVisibility(View.GONE);
+    }
+
+    private void showScrap() {
+        scrapImageView.setVisibility(View.VISIBLE);
+    }
+
+    private void hideScrap() {
+        scrapImageView.setVisibility(View.GONE);
     }
 
     private void showBrand() {

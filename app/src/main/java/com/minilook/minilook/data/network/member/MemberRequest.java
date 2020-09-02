@@ -7,7 +7,6 @@ import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
 import java.util.HashMap;
 import java.util.Map;
-import timber.log.Timber;
 
 public class MemberRequest extends BaseRequest<MemberService> {
 
@@ -46,13 +45,13 @@ public class MemberRequest extends BaseRequest<MemberService> {
 
     public Single<BaseDataModel> updateUserToken() {
         if (App.getInstance().isLogin()) {
-            return getApi().updateToken(App.getInstance().getUserId(), createRequestBody(getUpdateTokenJson(true)));
+            return getApi().updateToken(App.getInstance().getUserId(), createRequestBody(parseUpdateTokenJson(true)));
         } else {
-            return getApi().updateToken(createRequestBody(getUpdateTokenJson(false)));
+            return getApi().updateToken(createRequestBody(parseUpdateTokenJson(false)));
         }
     }
 
-    private Map<String, Object> getUpdateTokenJson(boolean isLogin) {
+    private Map<String, Object> parseUpdateTokenJson(boolean isLogin) {
         Map<String, Object> jsonMap = new HashMap<>();
         if (isLogin) {
             jsonMap.put("snsAccount", App.getInstance().getSnsId());
@@ -63,10 +62,10 @@ public class MemberRequest extends BaseRequest<MemberService> {
     }
 
     public Single<BaseDataModel> updateNonUserMarketing(boolean enable) {
-        return getApi().updateToken(createRequestBody(getNonUserMarketingJson(enable)));
+        return getApi().updateToken(createRequestBody(parseNonUserMarketingJson(enable)));
     }
 
-    private Map<String, Object> getNonUserMarketingJson(boolean enable) {
+    private Map<String, Object> parseNonUserMarketingJson(boolean enable) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("token", App.getInstance().getPushToken());
         jsonMap.put("isMarketingAgree", enable);
@@ -76,5 +75,22 @@ public class MemberRequest extends BaseRequest<MemberService> {
     public Single<BaseDataModel> getIpage() {
         //return getApi().getIpage(App.getInstance().getUserId());
         return getApi().getIpage(87);
+    }
+
+    public Single<BaseDataModel> getScrapProducts(int page, int rows) {
+        //return getApi().getScrapbookProduct(App.getInstance().getUserId());
+        return getApi().getScrapProducts(85, createRequestBody(parseToScrapJson(page, rows)));
+    }
+
+    public Single<BaseDataModel> getScrapBrands(int page, int rows) {
+        //return getApi().getScrapbookProduct(App.getInstance().getUserId());
+        return getApi().getScrapBrands(85, createRequestBody(parseToScrapJson(page, rows)));
+    }
+
+    private Map<String, Object> parseToScrapJson(int page, int rows) {
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("current", page);
+        jsonMap.put("pageSize", rows);
+        return jsonMap;
     }
 }

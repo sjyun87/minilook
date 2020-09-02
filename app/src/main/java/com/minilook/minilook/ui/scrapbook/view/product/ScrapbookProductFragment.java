@@ -1,8 +1,7 @@
 package com.minilook.minilook.ui.scrapbook.view.product;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindDimen;
 import butterknife.BindView;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
@@ -11,7 +10,7 @@ import com.minilook.minilook.ui.base.BaseFragment;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.scrapbook.view.product.di.ScrapbookProductArguments;
 
-public class ScrapbookProductFragment extends BaseFragment implements ScrapProductPresenter.View {
+public class ScrapbookProductFragment extends BaseFragment implements ScrapbookProductPresenter.View {
 
     public static ScrapbookProductFragment newInstance() {
         return new ScrapbookProductFragment();
@@ -19,9 +18,7 @@ public class ScrapbookProductFragment extends BaseFragment implements ScrapProdu
 
     @BindView(R.id.rcv_scrapbook_product) RecyclerView recyclerView;
 
-    @BindDimen(R.dimen.dp_4) int dp_4;
-
-    private ScrapProductPresenter presenter;
+    private ScrapbookProductPresenter presenter;
     private ProductAdapter adapter = new ProductAdapter();
     private BaseAdapterDataView<ProductDataModel> adapterView = adapter;
 
@@ -30,7 +27,7 @@ public class ScrapbookProductFragment extends BaseFragment implements ScrapProdu
     }
 
     @Override protected void createPresenter() {
-        presenter = new ScrapProductPresenterImpl(provideArguments());
+        presenter = new ScrapbookProductPresenterImpl(provideArguments());
         getLifecycle().addObserver(presenter);
     }
 
@@ -42,11 +39,12 @@ public class ScrapbookProductFragment extends BaseFragment implements ScrapProdu
     }
 
     @Override public void setupRecyclerView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        adapter.setViewType(ProductAdapter.VIEW_TYPE_GRID);
         recyclerView.setAdapter(adapter);
     }
 
-    @Override public void refresh() {
-        adapterView.refresh();
+    @Override public void refresh(int start, int end) {
+        adapterView.refresh(start, end);
     }
 }

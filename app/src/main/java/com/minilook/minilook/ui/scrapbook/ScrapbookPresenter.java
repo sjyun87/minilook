@@ -15,10 +15,8 @@ public interface ScrapbookPresenter extends LifecycleObserver {
 
         void setupTabLayout();
 
-        void setupCurrentPage(int position);
-
-        void scrollToTop();
-
         void setupViewPager();
+
+        void setupCurrentPage(int position);
     }
 }

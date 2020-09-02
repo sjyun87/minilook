@@ -15,6 +15,33 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
 
+    <View
+        android:id="@+id/img_curtain"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/color_80FFFFFF"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/img_product_thumb"
+        app:layout_constraintLeft_toLeftOf="@+id/img_product_thumb"
+        app:layout_constraintRight_toRightOf="@+id/img_product_thumb"
+        app:layout_constraintTop_toTopOf="@+id/img_product_thumb"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/txt_display_label"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_10"
+        android:layout_marginStart="@dimen/dp_6"
+        android:layout_marginTop="@dimen/dp_6"
+        android:background="@drawable/bg_display_label"
+        android:fontFamily="@font/nanum_square_r"
+        android:gravity="center"
+        android:textColor="@color/color_FFFFFFFF"
+        android:textSize="@dimen/sp_6"
+        app:layout_constraintLeft_toLeftOf="@+id/img_product_thumb"
+        app:layout_constraintTop_toTopOf="@id/img_product_thumb"
+        tools:text="품절" />
+
     <ImageView
         android:id="@+id/img_scrap"
         android:layout_width="wrap_content"

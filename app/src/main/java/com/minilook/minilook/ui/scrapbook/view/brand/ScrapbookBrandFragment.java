@@ -5,10 +5,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindDimen;
 import butterknife.BindView;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.preorder.PreorderDataModel;
+import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseFragment;
-import com.minilook.minilook.ui.preorder.adapter.PreorderAdapter;
+import com.minilook.minilook.ui.scrapbook.view.brand.adapter.ScrapbookBrandAdapter;
 import com.minilook.minilook.ui.scrapbook.view.brand.di.ScrapbookBrandArguments;
 
 public class ScrapbookBrandFragment extends BaseFragment implements ScrapBrandPresenter.View {
@@ -19,11 +19,9 @@ public class ScrapbookBrandFragment extends BaseFragment implements ScrapBrandPr
 
     @BindView(R.id.rcv_scrap_brand) RecyclerView recyclerView;
 
-    @BindDimen(R.dimen.dp_4) int dp_4;
-
     private ScrapBrandPresenter presenter;
-    private PreorderAdapter adapter = new PreorderAdapter();
-    private BaseAdapterDataView<PreorderDataModel> adapterView = adapter;
+    private ScrapbookBrandAdapter adapter = new ScrapbookBrandAdapter();
+    private BaseAdapterDataView<BrandDataModel> adapterView = adapter;
 
     @Override protected int getLayoutID() {
         return R.layout.fragment_scrap_brand;
@@ -46,7 +44,7 @@ public class ScrapbookBrandFragment extends BaseFragment implements ScrapBrandPr
         recyclerView.setAdapter(adapter);
     }
 
-    @Override public void refresh() {
-        adapterView.refresh();
+    @Override public void refresh(int start, int end) {
+        adapterView.refresh(start, end);
     }
 }

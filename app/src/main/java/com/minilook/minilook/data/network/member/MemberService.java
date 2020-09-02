@@ -31,4 +31,14 @@ public interface MemberService {
     @GET("/api/members/{user_id}") Single<BaseDataModel> getIpage(
         @Path("user_id") int userId
     );
+
+    @POST("/api/members/{user_id}/scrabs/products") Single<BaseDataModel> getScrapProducts(
+        @Path("user_id") int user_id,
+        @Body RequestBody body
+    );
+
+    @POST("/api/members/{user_id}/scrabs/brands") Single<BaseDataModel> getScrapBrands(
+        @Path("user_id") int user_id,
+        @Body RequestBody body
+    );
 }

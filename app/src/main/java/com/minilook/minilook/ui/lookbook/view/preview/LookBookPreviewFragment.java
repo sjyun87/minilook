@@ -52,8 +52,8 @@ public class LookBookPreviewFragment extends BaseFragment implements LookBookPre
         adapterView.refresh();
     }
 
-    @Override public void postRefresh() {
-        viewPager.post(() -> adapterView.refresh());
+    @Override public void refresh(int start, int end) {
+        viewPager.post(() -> adapterView.refresh(start, end));
 
     }
 

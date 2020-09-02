@@ -96,8 +96,4 @@ public class ScrapBookActivity extends BaseActivity implements ScrapbookPresente
     @Override public void setupCurrentPage(int position) {
         viewPager.setCurrentItem(position);
     }
-
-    @Override public void scrollToTop() {
-
-    }
 }

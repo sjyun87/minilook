@@ -22,6 +22,8 @@ import lombok.Data;
     private String image_url;
     @Expose @SerializedName("scrapCount")
     private int scrap_cnt;
+    @Expose @SerializedName("isScrap")
+    private boolean isScrap;
     @Expose @SerializedName("styles")
     private List<StyleDataModel> styles;
     @Expose @SerializedName("styleImages")

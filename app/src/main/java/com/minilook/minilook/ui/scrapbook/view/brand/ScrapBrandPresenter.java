@@ -13,6 +13,6 @@ public interface ScrapBrandPresenter extends LifecycleObserver {
 
       void setupRecyclerView();
 
-      void refresh();
+      void refresh(int start, int end);
   }
 }

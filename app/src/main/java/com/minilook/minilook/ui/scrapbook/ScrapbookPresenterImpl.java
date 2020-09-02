@@ -18,6 +18,5 @@ public class ScrapbookPresenterImpl extends BasePresenterImpl implements Scrapbo
 
     @Override public void onTabClick(int position) {
         view.setupCurrentPage(position);
-        view.scrollToTop();
     }
 }
