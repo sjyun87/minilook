@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.recent.di.RecentArguments;
 
@@ -22,7 +24,8 @@ public class RecentActivity extends BaseActivity implements RecentPresenter.View
     @BindView(R.id.rcv_goods) RecyclerView recyclerView;
 
     private RecentPresenter presenter;
-    private ProductAdapter adapter;
+    private ProductAdapter adapter = new ProductAdapter();
+    private BaseAdapterDataView<ProductDataModel> adapterView = adapter;
 
     @Override protected int getLayoutID() {
         return R.layout.activity_recent;
@@ -36,6 +39,7 @@ public class RecentActivity extends BaseActivity implements RecentPresenter.View
     private RecentArguments provideArguments() {
         return RecentArguments.builder()
             .view(this)
+            .adapter(adapter)
             .build();
     }
 
@@ -43,5 +47,9 @@ public class RecentActivity extends BaseActivity implements RecentPresenter.View
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter.setViewType(ProductAdapter.VIEW_TYPE_WIDE);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override public void refresh(int start, int end) {
+        adapterView.refresh(start, end);
     }
 }

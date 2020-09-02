@@ -59,4 +59,6 @@ import lombok.Data;
     private int price_shipping;
     @Expose @SerializedName("relationProducts")
     private List<ProductDataModel> related_products;
+    @Expose @SerializedName("recentNo")
+    private int recent_id;
 }

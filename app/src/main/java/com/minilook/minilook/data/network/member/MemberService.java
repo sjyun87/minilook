@@ -41,4 +41,9 @@ public interface MemberService {
         @Path("user_id") int user_id,
         @Body RequestBody body
     );
+
+    @POST("/api/members/{user_id}/latestproducts") Single<BaseDataModel> getRecentProducts(
+        @Path("user_id") int user_id,
+        @Body RequestBody body
+    );
 }

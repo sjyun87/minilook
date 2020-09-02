@@ -12,5 +12,7 @@ public interface RecentPresenter extends LifecycleObserver {
     interface View {
 
         void setupRecyclerView();
+
+        void refresh(int start, int end);
     }
 }

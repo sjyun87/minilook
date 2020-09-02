@@ -8,9 +8,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import butterknife.BindString;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
+import com.minilook.minilook.data.type.DisplayType;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.StringUtil;
@@ -22,6 +24,8 @@ public class ProductWideVH extends BaseViewHolder<ProductDataModel> {
     @BindView(R.id.txt_product_name) TextView productNameTextView;
     @BindView(R.id.txt_discount_percent) TextView discountPercentTextView;
     @BindView(R.id.txt_price) TextView priceTextView;
+    @BindView(R.id.curtain) View curtain;
+    @BindView(R.id.txt_display_label) TextView displayLabelTextView;
 
     @BindString(R.string.base_price_percent) String format_percent;
 
@@ -37,6 +41,15 @@ public class ProductWideVH extends BaseViewHolder<ProductDataModel> {
             .load(data.getImage_url())
             .into(thumbImageView);
 
+        if (data.getDisplay_code() == DisplayType.DISPLAY.getValue()) {
+            hideCurtain();
+            hideDisplayLabel();
+        } else {
+            showCurtain();
+            showDisplayLabel();
+            displayLabelTextView.setText(data.getDisplay_label());
+        }
+
         brandNameTextView.setText(data.getBrand_name());
         productNameTextView.setText(data.getProduct_name());
 
@@ -51,7 +64,29 @@ public class ProductWideVH extends BaseViewHolder<ProductDataModel> {
         itemView.setOnClickListener(this::onItemClick);
     }
 
+    private void showCurtain() {
+        curtain.setVisibility(View.VISIBLE);
+    }
+
+    private void hideCurtain() {
+        curtain.setVisibility(View.GONE);
+    }
+
+    private void showDisplayLabel() {
+        displayLabelTextView.setVisibility(View.VISIBLE);
+    }
+
+    private void hideDisplayLabel() {
+        displayLabelTextView.setVisibility(View.GONE);
+    }
+
     void onItemClick(View view) {
         ProductDetailActivity.start(context, data.getProduct_id());
+    }
+
+    @OnClick(R.id.img_delete)
+    void onDeleteClick() {
+
+
     }
 }

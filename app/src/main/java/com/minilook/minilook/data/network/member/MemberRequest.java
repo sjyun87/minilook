@@ -93,4 +93,16 @@ public class MemberRequest extends BaseRequest<MemberService> {
         jsonMap.put("pageSize", rows);
         return jsonMap;
     }
+
+    public Single<BaseDataModel> getRecentProducts(int id, int rows) {
+        //return getApi().getScrapbookProduct(App.getInstance().getUserId());
+        return getApi().getRecentProducts(85, createRequestBody(parseToRecentJson(id, rows)));
+    }
+
+    private Map<String, Object> parseToRecentJson(int id, int rows) {
+        Map<String, Object> jsonMap = new HashMap<>();
+        if (id != -1) jsonMap.put("lastRecentNo", id);
+        jsonMap.put("pageSize", rows);
+        return jsonMap;
+    }
 }
