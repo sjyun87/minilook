@@ -44,7 +44,6 @@ public class SearchRequest extends BaseRequest<SearchService> {
         }
         jsonMap.put("discount", options.isDiscount());
         jsonMap.put("outOfStock", options.isStock());
-        Timber.e(jsonMap.toString());
         return jsonMap;
     }
 }

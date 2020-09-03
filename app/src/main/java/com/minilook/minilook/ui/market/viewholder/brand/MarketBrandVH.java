@@ -23,6 +23,7 @@ import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.common.StyleDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.brand.BrandActivity;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.market.viewholder.brand.adapter.MarketBrandMenuAdapter;
 import com.minilook.minilook.ui.market.viewholder.brand.viewholder.MarketBrandMenuVH;
@@ -163,6 +164,11 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
         menuAdapter.refresh();
 
         setupBrandData(brandItems.get(selectedPosition));
+    }
+
+    @OnClick(R.id.txt_more)
+    void onMoreClick() {
+        BrandActivity.start(context);
     }
 
     @OnClick(R.id.layout_brand_panel)

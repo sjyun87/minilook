@@ -1,11 +1,13 @@
 package com.minilook.minilook.ui.product;
 
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.BindView;
 import com.bumptech.glide.Glide;
@@ -27,6 +29,8 @@ public class ProductSize84VH extends BaseViewHolder<ProductDataModel> {
 
     @BindString(R.string.base_price_percent) String format_percent;
 
+    @BindColor(R.color.color_FFEEEFF5) int color_FFEEEFF5;
+
     @Setter private boolean isShowScrap;
     @Setter private boolean isShowBrand;
 
@@ -46,6 +50,7 @@ public class ProductSize84VH extends BaseViewHolder<ProductDataModel> {
 
         Glide.with(context)
             .load(data.getImage_url())
+            .placeholder(new ColorDrawable(color_FFEEEFF5))
             .into(thumbImageView);
 
         brandNameTextView.setText(data.getBrand_name());

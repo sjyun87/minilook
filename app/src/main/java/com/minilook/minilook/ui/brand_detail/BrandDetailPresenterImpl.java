@@ -53,7 +53,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         view.setupStyleRecyclerView();
         view.setupSortRecyclerView();
         view.setupProductRecyclerView();
-        reqBrand();
+        reqBrandDetail();
         setupSortData();
     }
 
@@ -87,17 +87,17 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         view.navigateToBrandInfo(brand_id);
     }
 
-    private void reqBrand() {
+    private void reqBrandDetail() {
         addDisposable(
-            brandRequest.getBrand(brand_id)
+            brandRequest.getBrandDetail(brand_id)
                 .compose(Transformer.applySchedulers())
                 .filter(data -> data.getCode().equals(HttpCode.OK))
                 .map(data -> gson.fromJson(data.getData(), BrandDataModel.class))
-                .subscribe(this::resBrand, Timber::e)
+                .subscribe(this::resBrandDetail, Timber::e)
         );
     }
 
-    private void resBrand(BrandDataModel data) {
+    private void resBrandDetail(BrandDataModel data) {
         view.setupThumb(data.getImage_url());
         view.setupLogo(data.getBrand_logo());
         view.setupScrapCount(StringUtil.toDigit(data.getScrap_cnt()));
