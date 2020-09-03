@@ -14,9 +14,11 @@ import lombok.Data;
     private String email;
     @Expose @SerializedName("name")
     private String name;
+    @Expose @SerializedName("nickname")
+    private String nick;
     @Expose @SerializedName("birthDate")
     private String birth;
-    @Expose @SerializedName("phoneNumber")
+    @Expose @SerializedName(value = "phoneNumber", alternate = "cellphone")
     private String phone;
     @Expose @SerializedName("snsTypeCode")
     private String type;
@@ -24,4 +26,14 @@ import lombok.Data;
     private boolean isCommercialInfo;
     @Expose @SerializedName("ci")
     private String ci;
+    @Expose @SerializedName("shippingName")
+    private String shipping_name;
+    @Expose @SerializedName("shippingPhone")
+    private String shipping_phone;
+    @Expose @SerializedName("zipcode")
+    private String shipping_zipcode;
+    @Expose @SerializedName("shippingAddress1")
+    private String shipping_address;
+    @Expose @SerializedName("shippingAddress2")
+    private String shipping_address_detail;
 }

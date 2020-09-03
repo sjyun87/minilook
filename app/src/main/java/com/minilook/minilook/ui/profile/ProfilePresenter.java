@@ -11,5 +11,16 @@ public interface ProfilePresenter extends LifecycleObserver {
 
     interface View {
 
+        void setupNick(String text);
+
+        void setupPhone(String text);
+
+        void setupEmail(String text);
+
+        void setupShippingName(String text);
+
+        void setupShippingPhone(String text);
+
+        void setupShippingAddress(String zipcode, String address, String address_detil);
     }
 }

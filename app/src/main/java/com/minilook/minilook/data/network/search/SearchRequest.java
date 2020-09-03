@@ -24,7 +24,6 @@ public class SearchRequest extends BaseRequest<SearchService> {
     }
 
     private Map<String, Object> parseToJson(SearchOptionDataModel options) {
-        Timber.e(options.toString());
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("current", options.getPage());
         jsonMap.put("pageSize", options.getRow());

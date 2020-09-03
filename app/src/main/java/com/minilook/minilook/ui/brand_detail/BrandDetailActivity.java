@@ -150,7 +150,6 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
     }
 
     @Override public void setupSortRecyclerView() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         sortAdapter.setOnSortSelectListener(presenter::onSortSelected);
         BaseDividerItemDecoration itemDecoration =
             DividerDecoration.builder(this)
@@ -158,9 +157,9 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
                 .color(color_FFF5F5F5)
                 .build();
 
-        sortRecyclerView.setLayoutManager(layoutManager);
+        sortRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         sortRecyclerView.setAdapter(sortAdapter);
-        headerSortRecyclerView.setLayoutManager(layoutManager);
+        headerSortRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         headerSortRecyclerView.setAdapter(sortAdapter);
         itemDecoration.addTo(sortRecyclerView);
         itemDecoration.addTo(headerSortRecyclerView);

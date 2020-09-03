@@ -6,12 +6,24 @@ import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
 import java.util.HashMap;
 import java.util.Map;
+import timber.log.Timber;
 
 public class MemberRequest extends BaseRequest<MemberService> {
 
     @Override protected Class<MemberService> getService() {
         return MemberService.class;
     }
+
+    public Single<BaseDataModel> getProfile() {
+        int user_id = App.getInstance().getUserId();
+        return getApi().getProfile(user_id);
+    }
+
+
+
+
+
+
 
     public Single<BaseDataModel> updateToken() {
         if (App.getInstance().isLogin()) {

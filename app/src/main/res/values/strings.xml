@@ -75,6 +75,7 @@
     <string name="profile_phone_caption">연락처</string>
     <string name="profile_email_caption">이메일</string>
     <string name="profile_shipping_caption">배송지 정보</string>
+    <string name="profile_shipping_address">(%s) %s, %s</string>
     <string name="profile_shipping_empty">등록된 배송지가 없습니다.</string>
     <string name="profile_edit">변경</string>
 
