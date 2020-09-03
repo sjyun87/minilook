@@ -1,8 +1,11 @@
 package com.minilook.minilook.ui.scrapbook.view.brand;
 
+import android.view.View;
+import android.widget.LinearLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
@@ -18,6 +21,7 @@ public class ScrapbookBrandFragment extends BaseFragment implements ScrapbookBra
     }
 
     @BindView(R.id.rcv_brand) RecyclerView recyclerView;
+    @BindView(R.id.layout_empty_panel) LinearLayout emptyPanel;
 
     private ScrapbookBrandPresenter presenter;
     private ScrapbookBrandAdapter adapter = new ScrapbookBrandAdapter();
@@ -52,7 +56,20 @@ public class ScrapbookBrandFragment extends BaseFragment implements ScrapbookBra
         recyclerView.addOnScrollListener(scrollListener);
     }
 
+    @Override public void refresh() {
+        adapterView.refresh();
+    }
+
     @Override public void refresh(int start, int rows) {
         adapterView.refresh(start, rows);
+    }
+
+    @Override public void showEmptyPanel() {
+        emptyPanel.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.txt_empty)
+    void onEmptyClick() {
+        presenter.onEmptyClick();
     }
 }

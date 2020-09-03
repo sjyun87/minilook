@@ -76,6 +76,11 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
         viewPager.setAdapter(adapter);
         viewPager.setUserInputEnabled(false);
         viewPager.setOffscreenPageLimit(5);
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override public void onPageSelected(int position) {
+                bottomBar.setCurrentPage(position);
+            }
+        });
     }
 
     @Override public void setupCurrentPage(int position) {

@@ -89,6 +89,9 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
             if (o instanceof RxEventLookBookPageChanged) {
                 int position = ((RxEventLookBookPageChanged) o).getPosition();
                 view.setupBottomBarTheme(position != 0);
+            } else if (o instanceof RxEventNavigateToPage) {
+                int position = ((RxEventNavigateToPage) o).getPosition();
+                view.setupCurrentPage(position);
             }
         }, Timber::e));
     }
@@ -99,5 +102,9 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
 
     @AllArgsConstructor @Getter public final static class RxEventNavigateToBrandDetail {
         private int brandId;
+    }
+
+    @AllArgsConstructor @Getter public final static class RxEventNavigateToPage {
+        private int position;
     }
 }

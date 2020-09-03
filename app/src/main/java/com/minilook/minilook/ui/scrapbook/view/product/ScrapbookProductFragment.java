@@ -1,8 +1,11 @@
 package com.minilook.minilook.ui.scrapbook.view.product;
 
+import android.view.View;
+import android.widget.LinearLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
@@ -18,6 +21,7 @@ public class ScrapbookProductFragment extends BaseFragment implements ScrapbookP
     }
 
     @BindView(R.id.rcv_product) RecyclerView recyclerView;
+    @BindView(R.id.layout_empty_panel) LinearLayout emptyPanel;
 
     private ScrapbookProductPresenter presenter;
     private ProductAdapter adapter = new ProductAdapter();
@@ -53,7 +57,20 @@ public class ScrapbookProductFragment extends BaseFragment implements ScrapbookP
         recyclerView.addOnScrollListener(scrollListener);
     }
 
+    @Override public void refresh() {
+        adapterView.refresh();
+    }
+
     @Override public void refresh(int start, int rows) {
         adapterView.refresh(start, rows);
+    }
+
+    @Override public void showEmptyPanel() {
+        emptyPanel.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.txt_empty)
+    void onEmptyClick() {
+        presenter.onEmptyClick();
     }
 }

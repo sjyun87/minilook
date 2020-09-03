@@ -141,6 +141,9 @@
 
     <!--ScrapBook-->
     <string name="scrapbook_title">스크랩</string>
+    <string name="scrapbook_product_empty">스크랩 한 상품이 없습니다.</string>
+    <string name="scrapbook_brand_empty">스크랩 한 브랜드가 없습니다.</string>
+    <string name="scrapbook_more">상품 보러가기</string>
 
     <!--Brand-->
     <string name="brand_title">브랜드</string>

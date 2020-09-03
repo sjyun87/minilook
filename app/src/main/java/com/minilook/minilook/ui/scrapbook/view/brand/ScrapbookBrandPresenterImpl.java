@@ -4,9 +4,12 @@ import com.google.gson.Gson;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.scrap.ScrapBrandDataModel;
 import com.minilook.minilook.data.network.member.MemberRequest;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
+import com.minilook.minilook.ui.base.widget.BottomBar;
+import com.minilook.minilook.ui.main.MainPresenterImpl;
 import com.minilook.minilook.ui.scrapbook.view.brand.di.ScrapbookBrandArguments;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -36,7 +39,11 @@ public class ScrapbookBrandPresenterImpl extends BasePresenterImpl implements Sc
     }
 
     @Override public void onLoadMore() {
-        reqScrapBrands();
+        reqLoadMoreScrapBrands();
+    }
+
+    @Override public void onEmptyClick() {
+        RxBus.send(new MainPresenterImpl.RxEventNavigateToPage(BottomBar.POSITION_MARKET));
     }
 
     private void reqScrapBrands() {
@@ -47,6 +54,22 @@ public class ScrapbookBrandPresenterImpl extends BasePresenterImpl implements Sc
     }
 
     private void resScrapBrands(ScrapBrandDataModel data) {
+        if (data.getBrands().size() > 0) {
+            adapter.set(parseToScrap(data.getBrands()));
+            view.refresh();
+        } else {
+            view.showEmptyPanel();
+        }
+    }
+
+    private void reqLoadMoreScrapBrands() {
+        addDisposable(memberRequest.getScrapBrands(page.incrementAndGet(), ROWS)
+            .map(data -> gson.fromJson(data.getData(), ScrapBrandDataModel.class))
+            .compose(Transformer.applySchedulers())
+            .subscribe(this::resLoadMoreScrapBrands, Timber::e));
+    }
+
+    private void resLoadMoreScrapBrands(ScrapBrandDataModel data) {
         int start = adapter.getSize();
         int rows = data.getBrands().size();
 

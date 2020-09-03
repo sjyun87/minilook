@@ -18,5 +18,7 @@ public interface ScrapbookPresenter extends LifecycleObserver {
         void setupViewPager();
 
         void setupCurrentPage(int position);
+
+        void finish();
     }
 }
