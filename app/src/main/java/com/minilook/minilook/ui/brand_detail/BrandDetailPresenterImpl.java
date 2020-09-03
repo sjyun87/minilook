@@ -1,6 +1,7 @@
 package com.minilook.minilook.ui.brand_detail;
 
 import com.google.gson.Gson;
+import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.common.SortDataModel;
@@ -53,6 +54,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         view.setupSortRecyclerView();
         view.setupProductRecyclerView();
         reqBrand();
+        setupSortData();
     }
 
     @Override public void onSortClick() {
@@ -104,13 +106,6 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         view.setupDesc(data.getBrand_desc());
         styleAdapter.set(checkValid(data.getStyle_images()));
         view.styleRefresh();
-
-        sortAdapter.set(data.getSorts());
-        view.sortRefresh();
-        sortCode = data.getSorts().get(0).getCode();
-        view.setupSortText(data.getSorts().get(0).getName());
-
-        reqProducts();
     }
 
     private List<String> checkValid(List<String> images) {
@@ -119,6 +114,16 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
             if (url != null && !url.equals("")) items.add(url);
         }
         return items;
+    }
+
+    private void setupSortData() {
+        List<SortDataModel> sortItems = App.getInstance().getSortCodes();
+        sortAdapter.set(sortItems);
+        view.sortRefresh();
+        sortCode = sortItems.get(0).getCode();
+        view.setupSortText(sortItems.get(0).getName());
+
+        reqProducts();
     }
 
     private void reqProducts() {

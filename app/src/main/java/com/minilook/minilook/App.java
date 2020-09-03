@@ -2,14 +2,14 @@ package com.minilook.minilook;
 
 import android.app.Application;
 import android.content.ContextWrapper;
-
 import com.kakao.sdk.common.KakaoSdk;
 import com.minilook.minilook.data.common.PrefsKey;
+import com.minilook.minilook.data.model.common.SortDataModel;
 import com.minilook.minilook.data.model.user.UserDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.RxBusEvent;
 import com.pixplicity.easyprefs.library.Prefs;
-
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import timber.log.Timber;
@@ -22,6 +22,7 @@ public class App extends Application {
     private String snsId;
     private String snsType;
     private String pushToken;
+    @Getter @Setter private List<SortDataModel> sortCodes;
 
     @Override public void onCreate() {
         super.onCreate();
