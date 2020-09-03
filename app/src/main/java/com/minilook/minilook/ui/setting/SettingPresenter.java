@@ -23,6 +23,10 @@ public interface SettingPresenter extends LifecycleObserver {
 
     void onMarketingInfoChecked(boolean isChecked);
 
+    void onTermsOfUseClick();
+
+    void onPrivacyPolicyClick();
+
     interface View {
 
         void setupInfoSwitchButton();
@@ -48,5 +52,7 @@ public interface SettingPresenter extends LifecycleObserver {
         void navigateToLogin();
 
         void navigateToLeave();
+
+        void navigateToWebView(String url);
     }
 }

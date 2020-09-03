@@ -1,6 +1,7 @@
 package com.minilook.minilook.ui.setting;
 
 import com.minilook.minilook.App;
+import com.minilook.minilook.data.common.URLKeys;
 import com.minilook.minilook.data.network.member.MemberRequest;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.setting.di.SettingArguments;
@@ -54,6 +55,14 @@ public class SettingPresenterImpl extends BasePresenterImpl implements SettingPr
     @Override public void onMarketingInfoChecked(boolean isChecked) {
         addDisposable(memberRequest.updateMarketingInfo(isChecked)
             .subscribe());
+    }
+
+    @Override public void onTermsOfUseClick() {
+        view.navigateToWebView(URLKeys.URL_TERMS_OF_USE);
+    }
+
+    @Override public void onPrivacyPolicyClick() {
+        view.navigateToWebView(URLKeys.URL_PRIVACY_POLICY);
     }
 
     private void setupUser() {

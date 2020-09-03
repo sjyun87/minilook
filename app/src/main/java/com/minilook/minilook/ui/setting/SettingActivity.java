@@ -12,6 +12,7 @@ import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.leave.LeaveActivity;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.setting.di.SettingArguments;
+import com.minilook.minilook.ui.webview.WebViewActivity;
 import com.suke.widget.SwitchButton;
 
 public class SettingActivity extends BaseActivity implements SettingPresenter.View {
@@ -103,6 +104,20 @@ public class SettingActivity extends BaseActivity implements SettingPresenter.Vi
 
     @Override public void navigateToLeave() {
         LeaveActivity.start(this);
+    }
+
+    @Override public void navigateToWebView(String url) {
+        WebViewActivity.start(this, url);
+    }
+
+    @OnClick(R.id.txt_terms_of_use)
+    void onTermsOfUseClick() {
+        presenter.onTermsOfUseClick();
+    }
+
+    @OnClick(R.id.txt_privacy_policy)
+    void onPrivacyPolicyClick() {
+        presenter.onPrivacyPolicyClick();
     }
 
     @OnClick(R.id.txt_login)
