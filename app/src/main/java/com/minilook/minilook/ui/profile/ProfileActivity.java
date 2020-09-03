@@ -2,10 +2,15 @@ package com.minilook.minilook.ui.profile;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -13,6 +18,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.profile.di.ProfileArguments;
 import com.minilook.minilook.ui.shipping.ShippingActivity;
+import com.minilook.minilook.util.KeyboardUtil;
 
 public class ProfileActivity extends BaseActivity implements ProfilePresenter.View {
 
@@ -24,6 +30,9 @@ public class ProfileActivity extends BaseActivity implements ProfilePresenter.Vi
     }
 
     @BindView(R.id.edit_nick) EditText nickEditText;
+    @BindView(R.id.img_nick_clear) ImageView nickClearImageView;
+    @BindView(R.id.txt_nick_check_msg) TextView nickCheckMsgTextView;
+    @BindView(R.id.txt_nick_save) TextView nickSaveTextView;
     @BindView(R.id.txt_phone) TextView phoneTextView;
     @BindView(R.id.txt_email) TextView emailTextView;
 
@@ -36,6 +45,10 @@ public class ProfileActivity extends BaseActivity implements ProfilePresenter.Vi
     @BindView(R.id.txt_shipping_add) TextView shippingAddTextView;
 
     @BindString(R.string.profile_shipping_address) String format_address;
+    @BindString(R.string.profile_nick_input_pattern) String pattern_input;
+
+    @BindColor(R.color.color_FF8140E5) int color_FF8140E5;
+    @BindColor(R.color.color_FFEEEFF5) int color_FFEEEFF5;
 
     private ProfilePresenter presenter;
 
@@ -54,8 +67,35 @@ public class ProfileActivity extends BaseActivity implements ProfilePresenter.Vi
             .build();
     }
 
+    @Override public void setupEditText() {
+        InputFilter[] filters = new InputFilter[] {
+            (source, start, end, dest, dstart, dend) -> source.toString().matches(pattern_input) ? source : ""
+        };
+        nickEditText.setFilters(filters);
+        nickEditText.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                presenter.onTextChanged(s.toString());
+            }
+
+            @Override public void afterTextChanged(Editable s) {
+            }
+        });
+    }
+
     @Override public void setupNick(String text) {
         nickEditText.setText(text);
+    }
+
+    @Override public void showCheckMessage(String message) {
+        nickCheckMsgTextView.setText(message);
+        nickCheckMsgTextView.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void hideCheckMessage() {
+        nickCheckMsgTextView.setVisibility(View.GONE);
     }
 
     @Override public void setupPhone(String text) {
@@ -108,6 +148,40 @@ public class ProfileActivity extends BaseActivity implements ProfilePresenter.Vi
 
     @Override public void hideShippingEditButton() {
         shippingEditTextView.setVisibility(View.GONE);
+    }
+
+    @Override public void enableNickSaveButton() {
+        nickSaveTextView.setBackgroundColor(color_FF8140E5);
+        nickSaveTextView.setEnabled(true);
+    }
+
+    @Override public void disableNickSaveButton() {
+        nickSaveTextView.setBackgroundColor(color_FFEEEFF5);
+        nickSaveTextView.setEnabled(false);
+    }
+
+    @Override public void showNickClearButton() {
+        nickClearImageView.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void hideNickClearButton() {
+        nickClearImageView.setVisibility(View.GONE);
+    }
+
+    @Override public void hideKeyboard() {
+        KeyboardUtil.hide(nickEditText);
+        nickEditText.clearFocus();
+    }
+
+    @OnClick(R.id.img_nick_clear)
+    void onNickClearClick() {
+        presenter.onNickClearClick();
+    }
+
+    @OnClick(R.id.txt_nick_save)
+    void onNickSaveClick() {
+        presenter.onNickSaveClick();
+        KeyboardUtil.hide(nickEditText);
     }
 
     @OnClick(R.id.txt_shipping_edit)

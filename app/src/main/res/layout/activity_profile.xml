@@ -99,7 +99,7 @@
                         tools:ignore="LabelFor" />
 
                     <ImageView
-                        android:id="@+id/img_clear"
+                        android:id="@+id/img_nick_clear"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_3"
@@ -112,6 +112,7 @@
                         android:layout_width="@dimen/dp_32"
                         android:layout_height="match_parent"
                         android:background="@color/color_FFEEEFF5"
+                        android:enabled="false"
                         android:fontFamily="@font/nanum_square_b"
                         android:gravity="center"
                         android:text="@string/profile_nick_save"
@@ -127,8 +128,9 @@
                     android:fontFamily="@font/nanum_square_r"
                     android:gravity="center"
                     android:text="@string/profile_nick_check_already"
-                    android:textColor="@color/color_FF232323"
+                    android:textColor="@color/color_FFFF3C50"
                     android:textSize="@dimen/sp_6"
+                    android:visibility="gone"
                     app:layout_constraintLeft_toLeftOf="@+id/layout_nick_panel"
                     app:layout_constraintTop_toBottomOf="@+id/layout_nick_panel" />
             </androidx.constraintlayout.widget.ConstraintLayout>

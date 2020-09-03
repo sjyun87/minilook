@@ -2,12 +2,16 @@ package com.minilook.minilook.ui.ipage;
 
 import com.google.gson.Gson;
 import com.minilook.minilook.App;
+import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.common.URLKeys;
 import com.minilook.minilook.data.model.ipage.IpageDataModel;
 import com.minilook.minilook.data.network.ipage.IpageRequest;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.ipage.di.IpageArguments;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import timber.log.Timber;
 
 public class IpagePresenterImpl extends BasePresenterImpl implements IpagePresenter {
@@ -23,6 +27,7 @@ public class IpagePresenterImpl extends BasePresenterImpl implements IpagePresen
     }
 
     @Override public void onCreate() {
+        toRxObservable();
         if (App.getInstance().isLogin()) {
             setupUser();
         } else {
@@ -36,6 +41,15 @@ public class IpagePresenterImpl extends BasePresenterImpl implements IpagePresen
 
     @Override public void onLogout() {
         setupNonUser();
+    }
+
+    private void toRxObservable() {
+        addDisposable(RxBus.toObservable().subscribe(o -> {
+            if (o instanceof RxBusEventNickChanged) {
+                String nick = ((RxBusEventNickChanged) o).getNick();
+                view.setupNick(nick);
+            }
+        }, Timber::e));
     }
 
     private void setupUser() {
@@ -56,8 +70,9 @@ public class IpagePresenterImpl extends BasePresenterImpl implements IpagePresen
 
     private void reqIpage() {
         addDisposable(ipageRequest.getIpage()
-            .map(data -> gson.fromJson(data.getData(), IpageDataModel.class))
             .compose(Transformer.applySchedulers())
+            .filter(data -> data.getCode().equals(HttpCode.OK))
+            .map(data -> gson.fromJson(data.getData(), IpageDataModel.class))
             .subscribe(this::resIpage, Timber::e));
     }
 
@@ -129,5 +144,9 @@ public class IpagePresenterImpl extends BasePresenterImpl implements IpagePresen
 
     @Override public void onFAQClick() {
         view.navigateToWebView(URLKeys.URL_FAQ);
+    }
+
+    @AllArgsConstructor @Getter public final static class RxBusEventNickChanged {
+        String nick;
     }
 }

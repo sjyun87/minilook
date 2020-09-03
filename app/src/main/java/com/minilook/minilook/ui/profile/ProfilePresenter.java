@@ -9,9 +9,21 @@ public interface ProfilePresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
+    void onTextChanged(String text);
+
+    void onNickClearClick();
+
+    void onNickSaveClick();
+
     interface View {
 
+        void setupEditText();
+
         void setupNick(String text);
+
+        void showCheckMessage(String message);
+
+        void hideCheckMessage();
 
         void setupPhone(String text);
 
@@ -38,5 +50,15 @@ public interface ProfilePresenter extends LifecycleObserver {
         void showShippingEditButton();
 
         void hideShippingEditButton();
+
+        void enableNickSaveButton();
+
+        void disableNickSaveButton();
+
+        void showNickClearButton();
+
+        void hideNickClearButton();
+
+        void hideKeyboard();
     }
 }

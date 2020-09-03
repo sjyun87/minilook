@@ -15,6 +15,12 @@ public interface MemberService {
         @Path("user_id") int user_id
     );
 
+    @PUT("/api/members/{user_id}/nicknamnes") Single<BaseDataModel> updateNick(
+        @Path("user_id") int user_id,
+        @Body RequestBody body
+    );
+
+
 
     @PUT("/api/members/{user_id}") Single<BaseDataModel> updateToken(
         @Path("user_id") int user_id,

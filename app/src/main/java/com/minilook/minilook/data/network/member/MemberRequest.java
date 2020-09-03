@@ -6,7 +6,6 @@ import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
 import java.util.HashMap;
 import java.util.Map;
-import timber.log.Timber;
 
 public class MemberRequest extends BaseRequest<MemberService> {
 
@@ -19,7 +18,16 @@ public class MemberRequest extends BaseRequest<MemberService> {
         return getApi().getProfile(user_id);
     }
 
+    public Single<BaseDataModel> updateNick(String nick) {
+        int user_id = App.getInstance().getUserId();
+        return getApi().updateNick(user_id, createRequestBody(parseToUpdateNick(nick)));
+    }
 
+    private Map<String, Object> parseToUpdateNick(String nick) {
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("nickname", nick);
+        return jsonMap;
+    }
 
 
 
