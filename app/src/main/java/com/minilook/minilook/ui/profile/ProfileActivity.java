@@ -18,6 +18,8 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.profile.di.ProfileArguments;
 import com.minilook.minilook.ui.shipping.ShippingActivity;
+import com.minilook.minilook.ui.shipping_add.ShippingAddActivity;
+import com.minilook.minilook.ui.webview.WebViewActivity;
 import com.minilook.minilook.util.KeyboardUtil;
 
 public class ProfileActivity extends BaseActivity implements ProfilePresenter.View {
@@ -173,6 +175,18 @@ public class ProfileActivity extends BaseActivity implements ProfilePresenter.Vi
         nickEditText.clearFocus();
     }
 
+    @Override public void navigateToWebView(String url) {
+        WebViewActivity.start(this, url);
+    }
+
+    @Override public void navigateToShipping() {
+        ShippingActivity.start(this);
+    }
+
+    @Override public void navigateToShippingAdd() {
+        ShippingAddActivity.start(this);
+    }
+
     @OnClick(R.id.img_nick_clear)
     void onNickClearClick() {
         presenter.onNickClearClick();
@@ -184,8 +198,18 @@ public class ProfileActivity extends BaseActivity implements ProfilePresenter.Vi
         KeyboardUtil.hide(nickEditText);
     }
 
+    @OnClick(R.id.txt_phone_edit)
+    void onPhoneEditClick() {
+        presenter.onPhoneEditClick();
+    }
+
+    @OnClick(R.id.txt_shipping_add)
+    void onShippingAddClick() {
+        presenter.onShippingAddClick();
+    }
+
     @OnClick(R.id.txt_shipping_edit)
     void onShippingEditClick() {
-        ShippingActivity.start(this);
+        presenter.onShippingEditClick();
     }
 }

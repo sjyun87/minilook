@@ -29,6 +29,21 @@ public class MemberRequest extends BaseRequest<MemberService> {
         return jsonMap;
     }
 
+    public Single<BaseDataModel> updatePhone(String phone, String ci) {
+        int user_id = App.getInstance().getUserId();
+        return getApi().updateNick(user_id, createRequestBody(parseToUpdateNick(phone, ci)));
+    }
+
+    private Map<String, Object> parseToUpdateNick(String phone, String ci) {
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("ci", ci);
+        jsonMap.put("phone", phone);
+        return jsonMap;
+    }
+
+
+
+
 
 
 

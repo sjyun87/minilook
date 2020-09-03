@@ -20,6 +20,13 @@ public interface MemberService {
         @Body RequestBody body
     );
 
+    @PUT("/api/members/{user_id}/contacts") Single<BaseDataModel> updatePhone(
+        @Path("user_id") int user_id,
+        @Body RequestBody body
+    );
+
+
+
 
 
     @PUT("/api/members/{user_id}") Single<BaseDataModel> updateToken(

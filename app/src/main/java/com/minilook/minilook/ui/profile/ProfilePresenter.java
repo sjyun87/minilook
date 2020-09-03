@@ -15,6 +15,12 @@ public interface ProfilePresenter extends LifecycleObserver {
 
     void onNickSaveClick();
 
+    void onPhoneEditClick();
+
+    void onShippingAddClick();
+
+    void onShippingEditClick();
+
     interface View {
 
         void setupEditText();
@@ -60,5 +66,11 @@ public interface ProfilePresenter extends LifecycleObserver {
         void hideNickClearButton();
 
         void hideKeyboard();
+
+        void navigateToWebView(String url);
+
+        void navigateToShipping();
+
+        void navigateToShippingAdd();
     }
 }

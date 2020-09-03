@@ -1,7 +1,9 @@
 package com.minilook.minilook.ui.profile;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.minilook.minilook.data.common.HttpCode;
+import com.minilook.minilook.data.common.URLKeys;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.user.UserDataModel;
 import com.minilook.minilook.data.network.member.MemberRequest;
@@ -10,6 +12,7 @@ import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.ipage.IpagePresenterImpl;
 import com.minilook.minilook.ui.profile.di.ProfileArguments;
+import com.minilook.minilook.ui.webview.WebViewActivity;
 import timber.log.Timber;
 
 public class ProfilePresenterImpl extends BasePresenterImpl implements ProfilePresenter {
@@ -26,8 +29,18 @@ public class ProfilePresenterImpl extends BasePresenterImpl implements ProfilePr
     }
 
     @Override public void onCreate() {
+        toRxObservable();
         view.setupEditText();
         reqProfile();
+    }
+
+    private void toRxObservable() {
+        addDisposable(RxBus.toObservable().subscribe(o -> {
+            if (o instanceof WebViewActivity.RxEventIdentityVerificationComplete) {
+                String json = ((WebViewActivity.RxEventIdentityVerificationComplete) o).getJson();
+                updatePhone(json);
+            }
+        }, Timber::e));
     }
 
     @Override public void onTextChanged(String text) {
@@ -49,22 +62,19 @@ public class ProfilePresenterImpl extends BasePresenterImpl implements ProfilePr
         view.hideKeyboard();
         view.disableNickSaveButton();
 
-
-        addDisposable(memberRequest.updateNick(nick)
-            .compose(Transformer.applySchedulers())
-            .filter(data -> {
-                String code = data.getCode();
-                if (code.equals(HttpCode.ALREADY_USED)) {
-                    view.showCheckMessage(data.getMessage());
-                }
-                return code.equals(HttpCode.OK);
-            })
-            .subscribe(this::resUpdateKick, Timber::e));
+        reqUpdateNick();
     }
 
-    private void resUpdateKick(BaseDataModel data) {
-        view.hideCheckMessage();
-        RxBus.send(new IpagePresenterImpl.RxBusEventNickChanged(nick));
+    @Override public void onPhoneEditClick() {
+        view.navigateToWebView(URLKeys.URL_IDENTITY_VERIFICATION);
+    }
+
+    @Override public void onShippingAddClick() {
+        view.navigateToShippingAdd();
+    }
+
+    @Override public void onShippingEditClick() {
+        view.navigateToShipping();
     }
 
     private void reqProfile() {
@@ -93,6 +103,40 @@ public class ProfilePresenterImpl extends BasePresenterImpl implements ProfilePr
         } else {
             hideShippingPanel();
         }
+    }
+
+    private void reqUpdateNick() {
+        addDisposable(memberRequest.updateNick(nick)
+            .compose(Transformer.applySchedulers())
+            .filter(data -> {
+                String code = data.getCode();
+                if (code.equals(HttpCode.ALREADY_USED)) {
+                    view.showCheckMessage(data.getMessage());
+                }
+                return code.equals(HttpCode.OK);
+            })
+            .subscribe(this::resUpdateNick, Timber::e));
+    }
+
+    private void resUpdateNick(BaseDataModel data) {
+        // TODO : 토스트 메시지
+        view.hideCheckMessage();
+        RxBus.send(new IpagePresenterImpl.RxBusEventNickChanged(nick));
+    }
+
+    private void updatePhone(String json) {
+        JsonObject data = gson.fromJson(json, JsonObject.class);
+        String phone = data.get("phoneNumber").getAsString();
+        String ci = data.get("ci").getAsString();
+        view.setupPhone(phone);
+        reqUpdatePhone(phone, ci);
+    }
+
+    private void reqUpdatePhone(String phone, String ci) {
+        addDisposable(memberRequest.updatePhone(phone, ci)
+            .compose(Transformer.applySchedulers())
+            .filter(data -> data.getCode().equals(HttpCode.OK))
+            .subscribe());
     }
 
     private void showShippingPanel() {
