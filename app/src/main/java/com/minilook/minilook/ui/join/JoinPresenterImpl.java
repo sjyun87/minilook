@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.model.user.UserDataModel;
-import com.minilook.minilook.data.network.member.MemberRequest;
+import com.minilook.minilook.data.network.login.LoginRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
@@ -16,7 +16,7 @@ public class JoinPresenterImpl extends BasePresenterImpl implements JoinPresente
 
     private final View view;
     private final UserDataModel userData;
-    private final MemberRequest memberRequest;
+    private final LoginRequest loginRequest;
 
     private Gson gson = new Gson();
 
@@ -29,7 +29,7 @@ public class JoinPresenterImpl extends BasePresenterImpl implements JoinPresente
     public JoinPresenterImpl(JoinArguments args) {
         view = args.getView();
         userData = args.getUserData();
-        memberRequest = new MemberRequest();
+        loginRequest = new LoginRequest();
     }
 
     @Override public void onCreate() {
@@ -125,7 +125,7 @@ public class JoinPresenterImpl extends BasePresenterImpl implements JoinPresente
     }
 
     private void reqJoin() {
-        addDisposable(memberRequest.join(userData)
+        addDisposable(loginRequest.join(userData)
             .map(data -> gson.fromJson(data.getData(), UserDataModel.class))
             .compose(Transformer.applySchedulers())
             .subscribe(this::resJoin, Timber::e));

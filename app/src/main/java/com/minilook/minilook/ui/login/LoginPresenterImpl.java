@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.user.UserDataModel;
-import com.minilook.minilook.data.network.member.MemberRequest;
+import com.minilook.minilook.data.network.login.LoginRequest;
 import com.minilook.minilook.data.rx.SchedulersFacade;
 import com.minilook.minilook.data.type.NetworkType;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
@@ -18,7 +18,7 @@ public class LoginPresenterImpl extends BasePresenterImpl implements LoginPresen
     private final View view;
     private final KakaoLoginManager kakaoLoginManager;
     private final NaverLoginManager naverLoginManager;
-    private final MemberRequest memberRequest;
+    private final LoginRequest loginRequest;
 
     private Gson gson = new Gson();
     private UserDataModel userData;
@@ -27,7 +27,7 @@ public class LoginPresenterImpl extends BasePresenterImpl implements LoginPresen
         view = args.getView();
         kakaoLoginManager = args.getKakaoLoginManager();
         naverLoginManager = args.getNaverLoginManager();
-        memberRequest = new MemberRequest();
+        loginRequest = new LoginRequest();
     }
 
     @Override public void onCreate() {
@@ -68,7 +68,7 @@ public class LoginPresenterImpl extends BasePresenterImpl implements LoginPresen
     }
 
     private void reqCheckUser() {
-        addDisposable(memberRequest.checkUser(userData)
+        addDisposable(loginRequest.login(userData)
             .subscribeOn(SchedulersFacade.io())
             .observeOn(SchedulersFacade.io())
             .subscribe(this::resCheckUser, Timber::e));

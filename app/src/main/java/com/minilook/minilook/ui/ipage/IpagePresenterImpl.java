@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.URLKeys;
 import com.minilook.minilook.data.model.ipage.IpageDataModel;
-import com.minilook.minilook.data.network.member.MemberRequest;
+import com.minilook.minilook.data.network.ipage.IpageRequest;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.ipage.di.IpageArguments;
@@ -13,13 +13,13 @@ import timber.log.Timber;
 public class IpagePresenterImpl extends BasePresenterImpl implements IpagePresenter {
 
     private final View view;
-    private final MemberRequest memberRequest;
+    private final IpageRequest ipageRequest;
 
     private Gson gson = new Gson();
 
     public IpagePresenterImpl(IpageArguments args) {
         view = args.getView();
-        memberRequest = new MemberRequest();
+        ipageRequest = new IpageRequest();
     }
 
     @Override public void onCreate() {
@@ -55,7 +55,7 @@ public class IpagePresenterImpl extends BasePresenterImpl implements IpagePresen
     }
 
     private void reqIpage() {
-        addDisposable(memberRequest.getIpage()
+        addDisposable(ipageRequest.getIpage()
             .map(data -> gson.fromJson(data.getData(), IpageDataModel.class))
             .compose(Transformer.applySchedulers())
             .subscribe(this::resIpage, Timber::e));

@@ -3,7 +3,7 @@ package com.minilook.minilook.ui.scrapbook.view.product;
 import com.google.gson.Gson;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.scrap.ScrapProductDataModel;
-import com.minilook.minilook.data.network.member.MemberRequest;
+import com.minilook.minilook.data.network.scrap.ScrapRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
@@ -21,7 +21,7 @@ public class ScrapbookProductPresenterImpl extends BasePresenterImpl implements 
 
     private final View view;
     private final BaseAdapterDataModel<ProductDataModel> adapter;
-    private final MemberRequest memberRequest;
+    private final ScrapRequest scrapRequest;
 
     private AtomicInteger page = new AtomicInteger(0);
     private Gson gson = new Gson();
@@ -29,7 +29,7 @@ public class ScrapbookProductPresenterImpl extends BasePresenterImpl implements 
     public ScrapbookProductPresenterImpl(ScrapbookProductArguments args) {
         view = args.getView();
         adapter = args.getAdapter();
-        memberRequest = new MemberRequest();
+        scrapRequest = new ScrapRequest();
     }
 
     @Override public void onCreate() {
@@ -47,7 +47,7 @@ public class ScrapbookProductPresenterImpl extends BasePresenterImpl implements 
     }
 
     private void reqScrapProduct() {
-        addDisposable(memberRequest.getScrapProducts(page.incrementAndGet(), ROWS)
+        addDisposable(scrapRequest.getScrapProducts(page.incrementAndGet(), ROWS)
             .map(data -> gson.fromJson(data.getData(), ScrapProductDataModel.class))
             .compose(Transformer.applySchedulers())
             .subscribe(this::resScrapProducts, Timber::e));
@@ -63,7 +63,7 @@ public class ScrapbookProductPresenterImpl extends BasePresenterImpl implements 
     }
 
     private void reqLoadMoreScrapProduct() {
-        addDisposable(memberRequest.getScrapProducts(page.incrementAndGet(), ROWS)
+        addDisposable(scrapRequest.getScrapProducts(page.incrementAndGet(), ROWS)
             .map(data -> gson.fromJson(data.getData(), ScrapProductDataModel.class))
             .compose(Transformer.applySchedulers())
             .subscribe(this::resLoadMoreScrapProducts, Timber::e));

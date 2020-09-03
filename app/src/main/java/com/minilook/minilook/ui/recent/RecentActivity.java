@@ -2,9 +2,12 @@ package com.minilook.minilook.ui.recent;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
+import android.widget.LinearLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
@@ -23,6 +26,7 @@ public class RecentActivity extends BaseActivity implements RecentPresenter.View
     }
 
     @BindView(R.id.rcv_product) RecyclerView recyclerView;
+    @BindView(R.id.layout_empty_panel) LinearLayout emptyPanel;
 
     private RecentPresenter presenter;
     private ProductAdapter adapter = new ProductAdapter();
@@ -58,7 +62,20 @@ public class RecentActivity extends BaseActivity implements RecentPresenter.View
         recyclerView.addOnScrollListener(scrollListener);
     }
 
+    @Override public void refresh() {
+        adapterView.refresh();
+    }
+
     @Override public void refresh(int start, int rows) {
         adapterView.refresh(start, rows);
+    }
+
+    @Override public void showEmptyPanel() {
+        emptyPanel.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.txt_empty)
+    void onEmptyClick() {
+        presenter.onEmptyClick();
     }
 }

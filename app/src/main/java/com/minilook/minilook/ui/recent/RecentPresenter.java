@@ -11,10 +11,18 @@ public interface RecentPresenter extends LifecycleObserver {
 
     void onLoadMore();
 
+    void onEmptyClick();
+
     interface View {
 
         void setupRecyclerView();
 
+        void refresh();
+
         void refresh(int start, int rows);
+
+        void showEmptyPanel();
+
+        void finish();
     }
 }

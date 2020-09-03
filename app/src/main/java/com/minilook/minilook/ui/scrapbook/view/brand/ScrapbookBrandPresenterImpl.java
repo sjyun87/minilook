@@ -3,7 +3,7 @@ package com.minilook.minilook.ui.scrapbook.view.brand;
 import com.google.gson.Gson;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.scrap.ScrapBrandDataModel;
-import com.minilook.minilook.data.network.member.MemberRequest;
+import com.minilook.minilook.data.network.scrap.ScrapRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
@@ -21,7 +21,7 @@ public class ScrapbookBrandPresenterImpl extends BasePresenterImpl implements Sc
 
     private final View view;
     private final BaseAdapterDataModel<BrandDataModel> adapter;
-    private final MemberRequest memberRequest;
+    private final ScrapRequest scrapRequest;
 
     private AtomicInteger page = new AtomicInteger(0);
     private Gson gson = new Gson();
@@ -29,7 +29,7 @@ public class ScrapbookBrandPresenterImpl extends BasePresenterImpl implements Sc
     public ScrapbookBrandPresenterImpl(ScrapbookBrandArguments args) {
         view = args.getView();
         adapter = args.getAdapter();
-        memberRequest = new MemberRequest();
+        scrapRequest = new ScrapRequest();
     }
 
     @Override public void onCreate() {
@@ -47,7 +47,7 @@ public class ScrapbookBrandPresenterImpl extends BasePresenterImpl implements Sc
     }
 
     private void reqScrapBrands() {
-        addDisposable(memberRequest.getScrapBrands(page.incrementAndGet(), ROWS)
+        addDisposable(scrapRequest.getScrapBrands(page.incrementAndGet(), ROWS)
             .map(data -> gson.fromJson(data.getData(), ScrapBrandDataModel.class))
             .compose(Transformer.applySchedulers())
             .subscribe(this::resScrapBrands, Timber::e));
@@ -63,7 +63,7 @@ public class ScrapbookBrandPresenterImpl extends BasePresenterImpl implements Sc
     }
 
     private void reqLoadMoreScrapBrands() {
-        addDisposable(memberRequest.getScrapBrands(page.incrementAndGet(), ROWS)
+        addDisposable(scrapRequest.getScrapBrands(page.incrementAndGet(), ROWS)
             .map(data -> gson.fromJson(data.getData(), ScrapBrandDataModel.class))
             .compose(Transformer.applySchedulers())
             .subscribe(this::resLoadMoreScrapBrands, Timber::e));
