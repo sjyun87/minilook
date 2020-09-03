@@ -13,7 +13,7 @@
         android:fontFamily="@font/nanum_square_r"
         android:gravity="center"
         android:lineSpacingMultiplier="1.5"
-        android:text="@string/dialog_signin_cancel_contents"
+        android:text="@string/dialog_join_cancel_contents"
         android:textColor="@color/color_FF232323"
         android:textSize="@dimen/sp_8"
         app:layout_constraintBottom_toTopOf="@+id/line_horizontal"

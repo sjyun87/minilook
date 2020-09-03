@@ -2,18 +2,16 @@ package com.minilook.minilook.ui.login;
 
 import android.content.Context;
 import android.content.Intent;
-
+import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.user.UserDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
-import com.minilook.minilook.ui.dialog.NoEmailDialog;
-import com.minilook.minilook.ui.signin.SignInActivity;
+import com.minilook.minilook.ui.dialog.manager.DialogManager;
+import com.minilook.minilook.ui.join.JoinActivity;
 import com.minilook.minilook.ui.login.di.LoginArguments;
 import com.minilook.minilook.ui.login.kakao.KakaoLoginManager;
 import com.minilook.minilook.ui.login.listener.OnSNSLoginListener;
 import com.minilook.minilook.ui.login.naver.NaverLoginManager;
-
-import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity implements LoginPresenter.View {
 
@@ -71,11 +69,11 @@ public class LoginActivity extends BaseActivity implements LoginPresenter.View {
     };
 
     @Override public void showNoEmailDialog() {
-        new NoEmailDialog(this).show();
+        DialogManager.showNoEmailDialog(this);
     }
 
     @Override public void navigateToJoin(UserDataModel userData) {
-        SignInActivity.start(this, userData);
+        JoinActivity.start(this, userData);
     }
 
     @OnClick(R.id.layout_naver_panel)

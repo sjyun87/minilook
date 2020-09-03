@@ -1,5 +1,5 @@
 package com.minilook.minilook.ui.dialog.listener;
 
-public interface OnCancelClickListener {
+public interface OnNegativeClickListener {
     void onNegativeClick();
 }

@@ -1,21 +1,19 @@
 package com.minilook.minilook.ui.dialog;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Typeface;
-import android.os.Bundle;
 import android.text.SpannableString;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import butterknife.BindFont;
 import butterknife.BindString;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
+import com.minilook.minilook.ui.base.BaseDialog;
 import com.minilook.minilook.util.SpannableUtil;
 
-public class MarketingDialog extends Dialog {
+public class MarketingDialog extends BaseDialog {
 
     @BindView(R.id.txt_desc) TextView descTextView;
 
@@ -25,24 +23,14 @@ public class MarketingDialog extends Dialog {
     @BindFont(R.font.nanum_square_r) Typeface font_regular;
     @BindFont(R.font.nanum_square_b) Typeface font_bold;
 
-    private Context context;
-    private OnDialogClickListener listener;
-
-    public MarketingDialog(@NonNull Context context, @NonNull OnDialogClickListener listener) {
+    public MarketingDialog(@NonNull Context context) {
         super(context);
-        this.context = context;
-        this.listener = listener;
-
-        setCanceledOnTouchOutside(true);
-        setCancelable(true);
-    }
-
-    @Override protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_marketing);
-        ButterKnife.bind(this);
 
         setupDesc();
+    }
+
+    @Override protected int getLayoutID() {
+        return R.layout.dialog_marketing;
     }
 
     private void setupDesc() {
@@ -58,6 +46,6 @@ public class MarketingDialog extends Dialog {
     @OnClick(R.id.txt_agree)
     void onAgreeClick() {
         this.dismiss();
-        listener.onPositiveClick();
+        onPositiveClickListener.onPositiveClick();
     }
 }

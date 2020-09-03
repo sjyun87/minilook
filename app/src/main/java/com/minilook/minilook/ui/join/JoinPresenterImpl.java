@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.signin;
+package com.minilook.minilook.ui.join;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -8,12 +8,11 @@ import com.minilook.minilook.data.network.member.MemberRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
-import com.minilook.minilook.ui.signin.di.SignInArguments;
+import com.minilook.minilook.ui.join.di.JoinArguments;
 import com.minilook.minilook.ui.webview.WebViewActivity;
-
 import timber.log.Timber;
 
-public class SignInPresenterImpl extends BasePresenterImpl implements SignInPresenter {
+public class JoinPresenterImpl extends BasePresenterImpl implements JoinPresenter {
 
     private final View view;
     private final UserDataModel userData;
@@ -27,7 +26,7 @@ public class SignInPresenterImpl extends BasePresenterImpl implements SignInPres
     private boolean isPrivacyPolicyCheck = false;
     private boolean isCommercialInfoCheck = false;
 
-    public SignInPresenterImpl(SignInArguments args) {
+    public JoinPresenterImpl(JoinArguments args) {
         view = args.getView();
         userData = args.getUserData();
         memberRequest = new MemberRequest();
@@ -113,10 +112,14 @@ public class SignInPresenterImpl extends BasePresenterImpl implements SignInPres
     }
 
     @Override public void onBackClick() {
-        view.showResetJoinDialog();
+        view.showSignInCancelDialog();
     }
 
-    @Override public void onSignInCompletedDialogCloseClick() {
+    @Override public void onJoinCompletedDialogCloseClick() {
+        view.finish();
+    }
+
+    @Override public void onJoinCancelDialogCancelClick() {
         view.finish();
     }
 
@@ -129,7 +132,7 @@ public class SignInPresenterImpl extends BasePresenterImpl implements SignInPres
 
     private void resJoin(UserDataModel data) {
         App.getInstance().setupLogin(data);
-        view.showSignCompletedDialog();
+        view.showJoinCompletedDialog();
     }
 
     public void checkFullAgree() {

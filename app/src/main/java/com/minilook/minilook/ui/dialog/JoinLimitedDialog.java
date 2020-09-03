@@ -6,14 +6,14 @@ import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseDialog;
 
-public class NoEmailDialog extends BaseDialog {
+public class JoinLimitedDialog extends BaseDialog {
 
-    public NoEmailDialog(@NonNull Context context) {
+    public JoinLimitedDialog(@NonNull Context context) {
         super(context);
     }
 
     @Override protected int getLayoutID() {
-        return R.layout.dialog_no_email;
+        return R.layout.dialog_limit_join;
     }
 
     @OnClick(R.id.txt_ok)

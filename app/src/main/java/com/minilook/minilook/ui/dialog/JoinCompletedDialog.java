@@ -6,18 +6,19 @@ import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseDialog;
 
-public class NoEmailDialog extends BaseDialog {
+public class JoinCompletedDialog extends BaseDialog {
 
-    public NoEmailDialog(@NonNull Context context) {
+    public JoinCompletedDialog(@NonNull Context context) {
         super(context);
     }
 
     @Override protected int getLayoutID() {
-        return R.layout.dialog_no_email;
+        return R.layout.dialog_join_completed;
     }
 
-    @OnClick(R.id.txt_ok)
-    void onOkClick() {
+    @OnClick(R.id.img_close)
+    void onClose() {
         this.dismiss();
+        onCloseClickListener.onCloseClick();
     }
 }

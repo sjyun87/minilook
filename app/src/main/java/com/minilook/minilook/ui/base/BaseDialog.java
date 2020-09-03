@@ -6,28 +6,28 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
-import com.minilook.minilook.ui.dialog.listener.OnCancelClickListener;
+import com.minilook.minilook.ui.dialog.listener.OnNegativeClickListener;
 import com.minilook.minilook.ui.dialog.listener.OnCloseClickListener;
-import com.minilook.minilook.ui.dialog.listener.OnOkClickListener;
+import com.minilook.minilook.ui.dialog.listener.OnPositiveClickListener;
 
 import butterknife.ButterKnife;
 import lombok.Builder;
 
 public abstract class BaseDialog extends Dialog {
 
-    private OnOkClickListener onOkClickListener;
-    private OnCancelClickListener onCancelClickListener;
-    private OnCloseClickListener onCloseClickListener;
+    protected OnPositiveClickListener onPositiveClickListener;
+    protected OnNegativeClickListener onNegativeClickListener;
+    protected OnCloseClickListener onCloseClickListener;
 
     @Builder
     public BaseDialog(@NonNull Context context,
-        OnOkClickListener onOkClickListener,
-        OnCancelClickListener onCancelClickListener,
+        OnPositiveClickListener onPositiveClickListener,
+        OnNegativeClickListener onNegativeClickListener,
         OnCloseClickListener onCloseClickListener) {
         super(context);
 
-        this.onOkClickListener = onOkClickListener;
-        this.onCancelClickListener = onCancelClickListener;
+        this.onPositiveClickListener = onPositiveClickListener;
+        this.onNegativeClickListener = onNegativeClickListener;
         this.onCloseClickListener = onCloseClickListener;
     }
 
