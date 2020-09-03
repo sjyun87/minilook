@@ -3,7 +3,6 @@ package com.minilook.minilook.ui.preorder_detail;
 import android.content.Context;
 import android.content.Intent;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.room.recent_keyword.RecentKeywordDB;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.preorder_detail.adapter.PreorderDetailArguments;
 
@@ -17,7 +16,7 @@ public class PreorderDetailActivity extends BaseActivity implements PreorderDeta
     }
 
     private PreorderDetailPresenter presenter;
-    private RecentKeywordDB recentKeywordDB;
+    //private RecentKeywordDB recentKeywordDB;
 
     @Override protected int getLayoutID() {
         return R.layout.activity_search_filter;

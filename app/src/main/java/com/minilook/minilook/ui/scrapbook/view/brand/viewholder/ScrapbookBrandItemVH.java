@@ -1,5 +1,6 @@
 package com.minilook.minilook.ui.scrapbook.view.brand.viewholder;
 
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class ScrapbookBrandItemVH extends BaseViewHolder<BrandDataModel> {
     @BindView(R.id.txt_scrap_count) TextView scrapCountTextView;
 
     @BindColor(R.color.color_FFDBDBDB) int color_FFDBDBDB;
+    @BindColor(R.color.color_FFEEEFF5) int color_FFEEEFF5;
 
     public ScrapbookBrandItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
@@ -40,7 +42,9 @@ public class ScrapbookBrandItemVH extends BaseViewHolder<BrandDataModel> {
         super.bind($data);
 
         Glide.with(context)
+            .asBitmap()
             .load(data.getBrand_logo())
+            .placeholder(new ColorDrawable(color_FFEEEFF5))
             .apply(RequestOptions.bitmapTransform(
                 new CropCircleWithBorderTransformation(DimenUtil.dpToPx(context, 1), color_FFDBDBDB)))
             .into(logoImageView);

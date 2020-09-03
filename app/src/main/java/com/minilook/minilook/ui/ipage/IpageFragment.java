@@ -58,6 +58,14 @@ public class IpageFragment extends BaseFragment implements IpagePresenter.View {
             .build();
     }
 
+    @Override public void onLogin() {
+        presenter.onLogin();
+    }
+
+    @Override public void onLogout() {
+        presenter.onLogout();
+    }
+
     @Override public void setupLogin() {
         nickTextView.setText(str_login);
     }

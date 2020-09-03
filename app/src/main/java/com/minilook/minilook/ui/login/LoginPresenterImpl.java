@@ -2,20 +2,15 @@ package com.minilook.minilook.ui.login;
 
 import com.google.gson.Gson;
 import com.minilook.minilook.App;
-import com.minilook.minilook.data.common.PrefsKey;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.user.UserDataModel;
 import com.minilook.minilook.data.network.member.MemberRequest;
-import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.data.rx.RxBusEvent;
 import com.minilook.minilook.data.rx.SchedulersFacade;
 import com.minilook.minilook.data.type.NetworkType;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.login.di.LoginArguments;
 import com.minilook.minilook.ui.login.kakao.KakaoLoginManager;
 import com.minilook.minilook.ui.login.naver.NaverLoginManager;
-import com.pixplicity.easyprefs.library.Prefs;
-
 import timber.log.Timber;
 
 public class LoginPresenterImpl extends BasePresenterImpl implements LoginPresenter {
@@ -83,6 +78,7 @@ public class LoginPresenterImpl extends BasePresenterImpl implements LoginPresen
         if (data.getCode().equals(NetworkType.OK)) {
             userData = gson.fromJson(data.getData(), UserDataModel.class);
             App.getInstance().setupLogin(userData);
+            view.navigateToMain();
             view.finish();
         } else if (data.getCode().equals(NetworkType.NO_DATA)) {
             view.navigateToJoin(userData);

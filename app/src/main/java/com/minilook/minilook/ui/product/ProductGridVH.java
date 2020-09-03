@@ -1,5 +1,6 @@
 package com.minilook.minilook.ui.product;
 
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import butterknife.BindColor;
 import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
@@ -35,6 +37,8 @@ public class ProductGridVH extends BaseViewHolder<ProductDataModel> {
     @BindDrawable(R.drawable.ic_scrap_off) Drawable img_scrap_off;
     @BindDrawable(R.drawable.ic_scrap_on) Drawable img_scrap_on;
 
+    @BindColor(R.color.color_FFEEEFF5) int color_FFEEEFF5;
+
     @Setter private boolean isShowScrap;
     @Setter private boolean isShowBrand;
 
@@ -48,6 +52,7 @@ public class ProductGridVH extends BaseViewHolder<ProductDataModel> {
 
         Glide.with(context)
             .load(data.getImage_url())
+            .placeholder(new ColorDrawable(color_FFEEEFF5))
             .into(thumbImageView);
 
         if (isShowScrap) {

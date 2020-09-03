@@ -35,6 +35,10 @@ public class ScrapbookProductPresenterImpl extends BasePresenterImpl implements 
         reqScrapProduct();
     }
 
+    @Override public void onLoadMore() {
+        reqScrapProduct();
+    }
+
     private void reqScrapProduct() {
         addDisposable(memberRequest.getScrapProducts(page.incrementAndGet(), ROWS)
             .map(data -> gson.fromJson(data.getData(), ScrapProductDataModel.class))
@@ -44,10 +48,10 @@ public class ScrapbookProductPresenterImpl extends BasePresenterImpl implements 
 
     private void resScrapProducts(ScrapProductDataModel data) {
         int start = adapter.getSize();
-        int end = start + data.getProducts().size();
+        int rows = data.getProducts().size();
 
         adapter.addAll(parseToScrap(data.getProducts()));
-        view.refresh(start, end);
+        view.refresh(start, rows);
     }
 
     private List<ProductDataModel> parseToScrap(List<ProductDataModel> products) {

@@ -2,16 +2,14 @@ package com.minilook.minilook.ui.base;
 
 import android.graphics.Color;
 import android.os.Bundle;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.data.rx.RxBusEvent;
-import com.minilook.minilook.ui.base.listener.OnLoginListener;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import com.minilook.minilook.data.rx.RxBus;
+import com.minilook.minilook.data.rx.RxBusEvent;
+import com.minilook.minilook.data.rx.SchedulersFacade;
+import com.minilook.minilook.ui.base.listener.OnLoginListener;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 
@@ -37,7 +35,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnLoginL
 
     private void toRxBusObservable() {
         addDisposable(
-            RxBus.toObservable().subscribe(o -> {
+            RxBus.toObservable().observeOn(SchedulersFacade.ui()).subscribe(o -> {
                 if (o instanceof RxBusEvent.RxBusEventLogin) {
                     onLogin();
                 } else if (o instanceof RxBusEvent.RxBusEventLogout) {

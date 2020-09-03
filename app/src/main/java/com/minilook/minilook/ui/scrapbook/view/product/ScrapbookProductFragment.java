@@ -7,6 +7,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseFragment;
+import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.scrapbook.view.product.di.ScrapbookProductArguments;
 
@@ -16,7 +17,7 @@ public class ScrapbookProductFragment extends BaseFragment implements ScrapbookP
         return new ScrapbookProductFragment();
     }
 
-    @BindView(R.id.rcv_scrapbook_product) RecyclerView recyclerView;
+    @BindView(R.id.rcv_product) RecyclerView recyclerView;
 
     private ScrapbookProductPresenter presenter;
     private ProductAdapter adapter = new ProductAdapter();
@@ -39,12 +40,20 @@ public class ScrapbookProductFragment extends BaseFragment implements ScrapbookP
     }
 
     @Override public void setupRecyclerView() {
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+        recyclerView.setLayoutManager(layoutManager);
         adapter.setViewType(ProductAdapter.VIEW_TYPE_GRID);
         recyclerView.setAdapter(adapter);
+        EndlessOnScrollListener scrollListener =
+            EndlessOnScrollListener.builder()
+                .layoutManager(layoutManager)
+                .onLoadMoreListener(presenter::onLoadMore)
+                .visibleThreshold(10)
+                .build();
+        recyclerView.addOnScrollListener(scrollListener);
     }
 
-    @Override public void refresh(int start, int end) {
-        adapterView.refresh(start, end);
+    @Override public void refresh(int start, int rows) {
+        adapterView.refresh(start, rows);
     }
 }

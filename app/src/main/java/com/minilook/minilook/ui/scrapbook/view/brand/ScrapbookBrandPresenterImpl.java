@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import timber.log.Timber;
 
-public class ScrapBrandPresenterImpl extends BasePresenterImpl implements ScrapBrandPresenter {
+public class ScrapbookBrandPresenterImpl extends BasePresenterImpl implements ScrapbookBrandPresenter {
 
     private final static int ROWS = 10;
 
@@ -23,7 +23,7 @@ public class ScrapBrandPresenterImpl extends BasePresenterImpl implements ScrapB
     private AtomicInteger page = new AtomicInteger(0);
     private Gson gson = new Gson();
 
-    public ScrapBrandPresenterImpl(ScrapbookBrandArguments args) {
+    public ScrapbookBrandPresenterImpl(ScrapbookBrandArguments args) {
         view = args.getView();
         adapter = args.getAdapter();
         memberRequest = new MemberRequest();
@@ -32,6 +32,10 @@ public class ScrapBrandPresenterImpl extends BasePresenterImpl implements ScrapB
     @Override public void onCreate() {
         view.setupRecyclerView();
 
+        reqScrapBrands();
+    }
+
+    @Override public void onLoadMore() {
         reqScrapBrands();
     }
 
@@ -44,10 +48,10 @@ public class ScrapBrandPresenterImpl extends BasePresenterImpl implements ScrapB
 
     private void resScrapBrands(ScrapBrandDataModel data) {
         int start = adapter.getSize();
-        int end = start + data.getBrands().size();
+        int rows = data.getBrands().size();
 
         adapter.addAll(parseToScrap(data.getBrands()));
-        view.refresh(start, end);
+        view.refresh(start, rows);
     }
 
     private List<BrandDataModel> parseToScrap(List<BrandDataModel> brands) {

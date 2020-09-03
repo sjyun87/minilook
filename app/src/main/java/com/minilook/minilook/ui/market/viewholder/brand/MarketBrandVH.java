@@ -118,6 +118,7 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
             .into(thumbImageView);
 
         Glide.with(context)
+            .asBitmap()
             .load(model.getBrand_logo())
             .apply(RequestOptions.bitmapTransform(
                 new CropCircleWithBorderTransformation(DimenUtil.dpToPx(context, 1), color_FFDBDBDB)))

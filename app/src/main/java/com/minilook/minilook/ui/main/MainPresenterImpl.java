@@ -10,7 +10,6 @@ import com.minilook.minilook.ui.lookbook.LookBookPresenterImpl;
 import com.minilook.minilook.ui.lookbook.view.detail.LookBookDetailPresenterImpl;
 import com.minilook.minilook.ui.main.di.MainArguments;
 import com.pixplicity.easyprefs.library.Prefs;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import timber.log.Timber;
@@ -19,8 +18,6 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
 
     private final View view;
     private final MemberRequest memberRequest;
-
-    private boolean isLoginVisible = false;
 
     public MainPresenterImpl(MainArguments args) {
         view = args.getView();
@@ -34,15 +31,13 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
 
         reqUpdateToken();
         checkVisibleLogin();
-        if (!isLoginVisible) checkMarketingNotify();
-    }
-
-    @Override public void onLogin() {
         checkMarketingNotify();
     }
 
-    @Override public void onLogout() {
+    @Override public void onLogin() {
+    }
 
+    @Override public void onLogout() {
     }
 
     private void reqUpdateToken() {
@@ -57,7 +52,6 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
             if (visibleCount < 3) {
                 view.navigateToLogin();
                 Prefs.putInt(PrefsKey.KEY_LOGIN_VISIBLE_COUNT, ++visibleCount);
-                isLoginVisible = true;
             }
         }
     }

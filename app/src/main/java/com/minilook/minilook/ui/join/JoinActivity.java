@@ -19,6 +19,7 @@ import com.minilook.minilook.data.type.LoginType;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.join.di.JoinArguments;
+import com.minilook.minilook.ui.main.MainActivity;
 import com.minilook.minilook.ui.webview.WebViewActivity;
 
 public class JoinActivity extends BaseActivity implements JoinPresenter.View {
@@ -95,6 +96,10 @@ public class JoinActivity extends BaseActivity implements JoinPresenter.View {
 
     @Override public void showJoinCompletedDialog() {
         DialogManager.showJoinCompletedDialog(this, presenter::onJoinCompletedDialogCloseClick);
+    }
+
+    @Override public void navigateToMain() {
+        MainActivity.start(this);
     }
 
     @Override public void showVerifyCompleteButton() {

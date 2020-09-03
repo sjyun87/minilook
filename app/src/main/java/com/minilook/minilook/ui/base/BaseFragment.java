@@ -4,17 +4,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.data.rx.RxBusEvent;
-import com.minilook.minilook.ui.base.listener.OnLoginListener;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import com.minilook.minilook.data.rx.RxBus;
+import com.minilook.minilook.data.rx.RxBusEvent;
+import com.minilook.minilook.data.rx.SchedulersFacade;
+import com.minilook.minilook.ui.base.listener.OnLoginListener;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 
@@ -41,7 +39,7 @@ public abstract class BaseFragment extends Fragment implements OnLoginListener {
 
     private void toRxBusObservable() {
         addDisposable(
-            RxBus.toObservable().subscribe(o -> {
+            RxBus.toObservable().observeOn(SchedulersFacade.ui()).subscribe(o -> {
                 if (o instanceof RxBusEvent.RxBusEventLogin) {
                     onLogin();
                 } else if (o instanceof RxBusEvent.RxBusEventLogout) {

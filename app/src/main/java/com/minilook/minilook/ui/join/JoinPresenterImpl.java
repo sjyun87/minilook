@@ -116,6 +116,7 @@ public class JoinPresenterImpl extends BasePresenterImpl implements JoinPresente
     }
 
     @Override public void onJoinCompletedDialogCloseClick() {
+        view.navigateToMain();
         view.finish();
     }
 

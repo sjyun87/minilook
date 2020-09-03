@@ -59,6 +59,8 @@ public interface JoinPresenter extends LifecycleObserver {
 
         void showJoinCompletedDialog();
 
+        void navigateToMain();
+
         void finish();
     }
 }

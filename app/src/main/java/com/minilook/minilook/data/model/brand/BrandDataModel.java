@@ -10,7 +10,7 @@ import lombok.Data;
 @Data public class BrandDataModel {
     @Expose @SerializedName("brandNo")
     private int id;
-    @Expose @SerializedName("name")
+    @Expose @SerializedName(value = "name", alternate = "brandName")
     private String brand_name;
     @Expose @SerializedName("logo")
     private String brand_logo;

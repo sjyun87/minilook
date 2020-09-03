@@ -33,6 +33,8 @@ public interface LoginPresenter extends LifecycleObserver {
 
         void navigateToJoin(UserDataModel userData);
 
+        void navigateToMain();
+
         void finish();
     }
 }

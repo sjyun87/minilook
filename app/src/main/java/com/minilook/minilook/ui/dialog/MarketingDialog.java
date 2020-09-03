@@ -2,6 +2,7 @@ package com.minilook.minilook.ui.dialog;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.text.SpannableString;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -25,12 +26,16 @@ public class MarketingDialog extends BaseDialog {
 
     public MarketingDialog(@NonNull Context context) {
         super(context);
-
-        setupDesc();
     }
 
     @Override protected int getLayoutID() {
         return R.layout.dialog_marketing;
+    }
+
+    @Override protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setupDesc();
     }
 
     private void setupDesc() {

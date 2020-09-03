@@ -6,12 +6,14 @@ import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.user.UserDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base.widget.BottomBar;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.join.JoinActivity;
 import com.minilook.minilook.ui.login.di.LoginArguments;
 import com.minilook.minilook.ui.login.kakao.KakaoLoginManager;
 import com.minilook.minilook.ui.login.listener.OnSNSLoginListener;
 import com.minilook.minilook.ui.login.naver.NaverLoginManager;
+import com.minilook.minilook.ui.main.MainActivity;
 
 public class LoginActivity extends BaseActivity implements LoginPresenter.View {
 
@@ -74,6 +76,10 @@ public class LoginActivity extends BaseActivity implements LoginPresenter.View {
 
     @Override public void navigateToJoin(UserDataModel userData) {
         JoinActivity.start(this, userData);
+    }
+
+    @Override public void navigateToMain() {
+        MainActivity.start(this);
     }
 
     @OnClick(R.id.layout_naver_panel)

@@ -29,7 +29,7 @@
 
         <ImageView
             android:id="@+id/img_brand_logo"
-            android:layout_width="@dimen/dp_20"
+            android:layout_width="35dp"
             android:layout_height="@dimen/dp_20"
             android:layout_marginStart="@dimen/dp_16"
             android:scaleType="fitXY"

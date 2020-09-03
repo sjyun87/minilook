@@ -10,7 +10,7 @@ import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.manager.ToastManager;
 import com.minilook.minilook.ui.base.widget.BottomBar;
 import com.minilook.minilook.ui.base.widget.ToastView;
-import com.minilook.minilook.ui.dialog.MarketingDialog;
+import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.main.adapter.MainPagerAdapter;
 import com.minilook.minilook.ui.main.di.MainArguments;
@@ -91,14 +91,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
     }
 
     @Override public void showMarketingDialog() {
-        new MarketingDialog(this, new OnDialogClickListener() {
-            @Override public void onPositiveClick() {
-                presenter.onMarketingAgree();
-            }
-
-            @Override public void onNegativeClick() {
-            }
-        }).show();
+        DialogManager.showMarketingDialog(this, presenter::onMarketingAgree);
     }
 
     @Override public void navigateToLogin() {

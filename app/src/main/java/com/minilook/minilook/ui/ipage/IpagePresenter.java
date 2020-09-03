@@ -9,6 +9,10 @@ public interface IpagePresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
+    void onLogin();
+
+    void onLogout();
+
     void onCurtainClick();
 
     void onProfileClick();

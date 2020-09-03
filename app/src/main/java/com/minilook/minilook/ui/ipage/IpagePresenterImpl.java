@@ -5,10 +5,7 @@ import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.URLKeys;
 import com.minilook.minilook.data.model.ipage.IpageDataModel;
 import com.minilook.minilook.data.network.member.MemberRequest;
-import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.data.rx.SchedulersFacade;
 import com.minilook.minilook.data.rx.Transformer;
-import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.ipage.di.IpageArguments;
 import timber.log.Timber;
@@ -26,26 +23,19 @@ public class IpagePresenterImpl extends BasePresenterImpl implements IpagePresen
     }
 
     @Override public void onCreate() {
-        toRxObservable();
-        setupData();
-    }
-
-    protected void toRxObservable() {
-        addDisposable(RxBus.toObservable().observeOn(SchedulersFacade.ui()).subscribe(o -> {
-            if (o instanceof BaseActivity.RxEventLogin) {
-                setupUser();
-            } else if (o instanceof BaseActivity.RxEventLogout) {
-                setupNonUser();
-            }
-        }, Timber::e));
-    }
-
-    private void setupData() {
         if (App.getInstance().isLogin()) {
             setupUser();
         } else {
             setupNonUser();
         }
+    }
+
+    @Override public void onLogin() {
+        setupUser();
+    }
+
+    @Override public void onLogout() {
+        setupNonUser();
     }
 
     private void setupUser() {

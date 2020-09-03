@@ -9,10 +9,12 @@ public interface ScrapbookProductPresenter extends LifecycleObserver {
   @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
   void onCreate();
 
-  interface View {
+    void onLoadMore();
+
+    interface View {
 
       void setupRecyclerView();
 
-      void refresh(int start, int end);
+      void refresh(int start, int rows);
   }
 }

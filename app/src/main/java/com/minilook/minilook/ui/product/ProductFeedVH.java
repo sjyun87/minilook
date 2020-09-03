@@ -44,6 +44,7 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
         super.bind($data);
 
         Glide.with(context)
+            .asBitmap()
             .load(data.getBrand_logo())
             .placeholder(new ColorDrawable(color_FFEEEFF5))
             .apply(RequestOptions.bitmapTransform(
