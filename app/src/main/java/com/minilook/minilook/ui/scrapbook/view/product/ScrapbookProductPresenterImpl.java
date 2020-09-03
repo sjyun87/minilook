@@ -1,6 +1,7 @@
 package com.minilook.minilook.ui.scrapbook.view.product;
 
 import com.google.gson.Gson;
+import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.scrap.ScrapProductDataModel;
 import com.minilook.minilook.data.network.scrap.ScrapRequest;
@@ -48,24 +49,31 @@ public class ScrapbookProductPresenterImpl extends BasePresenterImpl implements 
 
     private void reqScrapProduct() {
         addDisposable(scrapRequest.getScrapProducts(page.incrementAndGet(), ROWS)
-            .map(data -> gson.fromJson(data.getData(), ScrapProductDataModel.class))
             .compose(Transformer.applySchedulers())
+            .filter(data -> {
+                String code = data.getCode();
+                if (HttpCode.NO_DATA.equals(code)) {
+                    view.showEmptyPanel();
+                }
+                return code.equals(HttpCode.OK);
+            })
+            .map(data -> gson.fromJson(data.getData(), ScrapProductDataModel.class))
             .subscribe(this::resScrapProducts, Timber::e));
     }
 
     private void resScrapProducts(ScrapProductDataModel data) {
-        if (data.getProducts().size() > 0) {
-            adapter.set(parseToScrap(data.getProducts()));
-            view.refresh();
-        } else {
-            view.showEmptyPanel();
-        }
+        adapter.set(parseToScrap(data.getProducts()));
+        view.refresh();
     }
 
     private void reqLoadMoreScrapProduct() {
         addDisposable(scrapRequest.getScrapProducts(page.incrementAndGet(), ROWS)
-            .map(data -> gson.fromJson(data.getData(), ScrapProductDataModel.class))
             .compose(Transformer.applySchedulers())
+            .filter(data -> {
+                String code = data.getCode();
+                return code.equals(HttpCode.OK);
+            })
+            .map(data -> gson.fromJson(data.getData(), ScrapProductDataModel.class))
             .subscribe(this::resLoadMoreScrapProducts, Timber::e));
     }
 

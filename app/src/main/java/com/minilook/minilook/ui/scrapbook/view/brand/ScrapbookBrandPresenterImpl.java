@@ -1,6 +1,7 @@
 package com.minilook.minilook.ui.scrapbook.view.brand;
 
 import com.google.gson.Gson;
+import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.scrap.ScrapBrandDataModel;
 import com.minilook.minilook.data.network.scrap.ScrapRequest;
@@ -48,8 +49,15 @@ public class ScrapbookBrandPresenterImpl extends BasePresenterImpl implements Sc
 
     private void reqScrapBrands() {
         addDisposable(scrapRequest.getScrapBrands(page.incrementAndGet(), ROWS)
-            .map(data -> gson.fromJson(data.getData(), ScrapBrandDataModel.class))
             .compose(Transformer.applySchedulers())
+            .filter(data -> {
+                String code = data.getCode();
+                if (HttpCode.NO_DATA.equals(code)) {
+                    view.showEmptyPanel();
+                }
+                return code.equals(HttpCode.OK);
+            })
+            .map(data -> gson.fromJson(data.getData(), ScrapBrandDataModel.class))
             .subscribe(this::resScrapBrands, Timber::e));
     }
 
@@ -64,8 +72,9 @@ public class ScrapbookBrandPresenterImpl extends BasePresenterImpl implements Sc
 
     private void reqLoadMoreScrapBrands() {
         addDisposable(scrapRequest.getScrapBrands(page.incrementAndGet(), ROWS)
-            .map(data -> gson.fromJson(data.getData(), ScrapBrandDataModel.class))
             .compose(Transformer.applySchedulers())
+            .filter(data -> data.getCode().equals(HttpCode.OK))
+            .map(data -> gson.fromJson(data.getData(), ScrapBrandDataModel.class))
             .subscribe(this::resLoadMoreScrapBrands, Timber::e));
     }
 

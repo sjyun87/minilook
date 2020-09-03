@@ -2,6 +2,7 @@ package com.minilook.minilook.ui.recent;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.network.recent.RecentRequest;
@@ -51,30 +52,34 @@ public class RecentPresenterImpl extends BasePresenterImpl implements RecentPres
 
     private void reqRecentProducts() {
         addDisposable(recentRequest.getRecentProducts(lastRecentId, ROWS)
+            .compose(Transformer.applySchedulers())
+            .filter(data -> {
+                String code = data.getCode();
+                if (HttpCode.NO_DATA.equals(code)) {
+                    view.showEmptyPanel();
+                }
+                return code.equals(HttpCode.OK);
+            })
             .map((Function<BaseDataModel, List<ProductDataModel>>)
                 data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<ProductDataModel>>() {
                 }.getType()))
-            .compose(Transformer.applySchedulers())
             .subscribe(this::resRecentProducts, Timber::e));
     }
 
     private void resRecentProducts(List<ProductDataModel> data) {
-        if (data.size() > 0) {
-            lastRecentId = data.get(data.size() - 1).getRecent_id();
+        lastRecentId = data.get(data.size() - 1).getRecent_id();
 
-            adapter.set(data);
-            view.refresh();
-        } else {
-            view.showEmptyPanel();
-        }
+        adapter.set(data);
+        view.refresh();
     }
 
     private void reqLoadMoreRecentProducts() {
         addDisposable(recentRequest.getRecentProducts(lastRecentId, ROWS)
+            .compose(Transformer.applySchedulers())
+            .filter(data -> data.getCode().equals(HttpCode.OK))
             .map((Function<BaseDataModel, List<ProductDataModel>>)
                 data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<ProductDataModel>>() {
                 }.getType()))
-            .compose(Transformer.applySchedulers())
             .subscribe(this::resLoadMoreRecentProducts, Timber::e));
     }
 

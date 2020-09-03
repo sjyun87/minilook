@@ -1,9 +1,9 @@
-package com.minilook.minilook.data.type;
+package com.minilook.minilook.data.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@AllArgsConstructor @Getter public class NetworkType {
+@AllArgsConstructor @Getter public class HttpCode {
     public static final String OK = "200";
     public static final String BAD_REQUEST = "400";
     public static final String NOT_FOUND = "404";

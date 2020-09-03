@@ -10,7 +10,7 @@ import retrofit2.http.Path;
 
 public interface RecentService {
 
-    @POST("/api/members/{user_id}/latestproducts") Single<BaseDataModel> getRecentProducts(
+    @POST("/api/members/{user_id}/recents") Single<BaseDataModel> getRecentProducts(
         @Path("user_id") int user_id,
         @Body RequestBody body
     );
