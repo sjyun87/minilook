@@ -226,41 +226,48 @@
                 app:layout_constraintLeft_toLeftOf="@+id/txt_shipping_caption"
                 app:layout_constraintTop_toBottomOf="@+id/txt_shipping_caption" />
 
-            <TextView
-                android:id="@+id/txt_shipping_name"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+            <LinearLayout
+                android:id="@+id/layout_shipping_panel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_6"
-                android:fontFamily="@font/nanum_square_b"
-                android:textColor="@color/color_FF232323"
-                android:textSize="@dimen/sp_8"
-                app:layout_constraintLeft_toLeftOf="@+id/txt_shipping_caption"
-                app:layout_constraintTop_toBottomOf="@+id/txt_shipping_caption"
-                tools:text="이소연" />
+                android:layout_marginEnd="@dimen/dp_10"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_shipping_caption">
 
-            <TextView
-                android:id="@+id/txt_shipping_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/dp_6"
-                android:fontFamily="@font/nanum_square_r"
-                android:textColor="@color/color_FF232323"
-                android:textSize="@dimen/sp_7"
-                app:layout_constraintLeft_toLeftOf="@+id/txt_shipping_name"
-                app:layout_constraintTop_toBottomOf="@+id/txt_shipping_name"
-                tools:text="010-1234-4242" />
+                <TextView
+                    android:id="@+id/txt_shipping_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:textColor="@color/color_FF232323"
+                    android:textSize="@dimen/sp_8"
+                    tools:text="이소연" />
 
-            <TextView
-                android:id="@+id/txt_shipping_address"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/dp_4"
-                android:fontFamily="@font/nanum_square_r"
-                android:textColor="@color/color_FF232323"
-                android:textSize="@dimen/sp_7"
-                app:layout_constraintLeft_toLeftOf="@+id/txt_shipping_name"
-                app:layout_constraintTop_toBottomOf="@+id/txt_shipping_phone"
-                tools:text="서울 양천구 목동중앙남로 342, 302호" />
+                <TextView
+                    android:id="@+id/txt_shipping_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/dp_6"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:textColor="@color/color_FF232323"
+                    android:textSize="@dimen/sp_7"
+                    tools:text="010-1234-4242" />
+
+                <TextView
+                    android:id="@+id/txt_shipping_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:lineSpacingMultiplier="1.5"
+                    android:textColor="@color/color_FF232323"
+                    android:textSize="@dimen/sp_7"
+                    tools:text="서울 양천구 목동중앙남로 342, 302호" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/txt_shipping_edit"
@@ -275,6 +282,24 @@
                 android:paddingBottom="@dimen/dp_5"
                 android:text="@string/profile_edit"
                 android:textColor="@color/color_FF232323"
+                android:textSize="@dimen/sp_7"
+                android:visibility="gone"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/txt_shipping_caption" />
+
+            <TextView
+                android:id="@+id/txt_shipping_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:background="@drawable/bg_button_border_purple"
+                android:fontFamily="@font/nanum_square_b"
+                android:paddingStart="@dimen/dp_13"
+                android:paddingTop="@dimen/dp_5"
+                android:paddingEnd="@dimen/dp_13"
+                android:paddingBottom="@dimen/dp_5"
+                android:text="@string/profile_add"
+                android:textColor="@color/color_FF8140E5"
                 android:textSize="@dimen/sp_7"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/txt_shipping_caption" />

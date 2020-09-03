@@ -17,10 +17,26 @@ public interface ProfilePresenter extends LifecycleObserver {
 
         void setupEmail(String text);
 
+        void showShippingPanel();
+
+        void hideShippingPanel();
+
         void setupShippingName(String text);
 
         void setupShippingPhone(String text);
 
         void setupShippingAddress(String zipcode, String address, String address_detil);
+
+        void showEmptyShippingText();
+
+        void hideEmptyShippingText();
+
+        void showShippingAddButton();
+
+        void hideShippingAddButton();
+
+        void showShippingEditButton();
+
+        void hideShippingEditButton();
     }
 }

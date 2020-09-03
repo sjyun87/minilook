@@ -11,12 +11,6 @@ public class BooleanDeserializer implements JsonDeserializer<Boolean> {
     public Boolean deserialize(JsonElement json, java.lang.reflect.Type typeOfT, JsonDeserializationContext context)
         throws JsonParseException {
         int code = json.getAsInt();
-        if (code == 0) {
-            return false;
-        } else if (code == 1) {
-            return true;
-        } else {
-            return null;
-        }
+        return code != 0;
     }
 }
