@@ -19,21 +19,57 @@ public class SettingPresenterImpl extends BasePresenterImpl implements SettingPr
     @Override public void onCreate() {
         view.setupInfoSwitchButton();
         view.setupMarketingSwitchButton();
+
+        if (App.getInstance().isLogin()) {
+            setupUser();
+        } else {
+            setupNonUser();
+        }
+    }
+
+    @Override public void onLogin() {
+        setupUser();
+    }
+
+    @Override public void onLogout() {
+        setupNonUser();
+    }
+
+    @Override public void onLoginClick() {
+        view.navigateToLogin();
     }
 
     @Override public void onLogoutClick() {
-        App.getInstance().clearUserId();
+        App.getInstance().setupLogout();
     }
 
-    @Override public void onInfoNotifyChecked(boolean isChecked) {
+    @Override public void onLeaveClick() {
+        view.navigateToLeave();
+    }
+
+    @Override public void onOrderInfoChecked(boolean isChecked) {
         addDisposable(memberRequest.updateInfoNotify(isChecked)
             .compose(Transformer.applySchedulers())
             .subscribe());
     }
 
-    @Override public void onMarketingChecked(boolean isChecked) {
+    @Override public void onMarketingInfoChecked(boolean isChecked) {
         addDisposable(memberRequest.updateMarketing(isChecked)
             .compose(Transformer.applySchedulers())
             .subscribe());
+    }
+
+    private void setupUser() {
+        view.showOrderInfoPanel();
+        view.hideLoginButton();
+        view.showLogoutButton();
+        view.showLeaveButton();
+    }
+
+    private void setupNonUser() {
+        view.hideOrderInfoPanel();
+        view.showLoginButton();
+        view.hideLogoutButton();
+        view.hideLeaveButton();
     }
 }

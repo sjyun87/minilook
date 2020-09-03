@@ -2,11 +2,10 @@ package com.minilook.minilook.ui.login;
 
 import com.google.gson.Gson;
 import com.minilook.minilook.App;
-import com.minilook.minilook.data.model.base.BaseDataModel;
+import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.user.UserDataModel;
 import com.minilook.minilook.data.network.login.LoginRequest;
-import com.minilook.minilook.data.rx.SchedulersFacade;
-import com.minilook.minilook.data.common.HttpCode;
+import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.login.di.LoginArguments;
 import com.minilook.minilook.ui.login.kakao.KakaoLoginManager;
@@ -53,7 +52,7 @@ public class LoginPresenterImpl extends BasePresenterImpl implements LoginPresen
         userData.setEmail(email);
         userData.setType(type);
 
-        reqCheckUser();
+        reqLogin();
     }
 
     @Override public void onSNSError(int errorCode, String message) {
@@ -67,21 +66,24 @@ public class LoginPresenterImpl extends BasePresenterImpl implements LoginPresen
         view.finish();
     }
 
-    private void reqCheckUser() {
+    private void reqLogin() {
         addDisposable(loginRequest.login(userData)
-            .subscribeOn(SchedulersFacade.io())
-            .observeOn(SchedulersFacade.io())
-            .subscribe(this::resCheckUser, Timber::e));
+            .compose(Transformer.applySchedulers())
+            .filter(data -> {
+                String code = data.getCode();
+                if (code.equals(HttpCode.NO_DATA)) {
+                    view.navigateToJoin(userData);
+                }
+                return code.equals(HttpCode.OK);
+            })
+            .map(data -> gson.fromJson(data.getData(), UserDataModel.class))
+            .subscribe(this::resLogin, Timber::e));
     }
 
-    private void resCheckUser(BaseDataModel data) {
-        if (data.getCode().equals(HttpCode.OK)) {
-            userData = gson.fromJson(data.getData(), UserDataModel.class);
-            App.getInstance().setupLogin(userData);
-            view.navigateToMain();
-            view.finish();
-        } else if (data.getCode().equals(HttpCode.NO_DATA)) {
-            view.navigateToJoin(userData);
-        }
+    private void resLogin(UserDataModel data) {
+        userData = data;
+        App.getInstance().setupLogin(userData);
+        view.navigateToMain();
+        view.finish();
     }
 }

@@ -40,6 +40,18 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
     @Override public void onLogout() {
     }
 
+    @Override public void onTabChanged(int position) {
+        if (position != 0) {
+            RxBus.send(new LookBookPresenterImpl.RxEventNavigateToPreview(false));
+            RxBus.send(new LookBookDetailPresenterImpl.RxEventLookBookDetailScrollToTop());
+        }
+        view.setupCurrentPage(position);
+    }
+
+    @Override public void onMarketingAgree() {
+        reqUpdateNonUserMarketingAgree();
+    }
+
     private void reqUpdateToken() {
         addDisposable(memberRequest.updateToken()
             .compose(Transformer.applySchedulers())
@@ -64,18 +76,6 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
                 Prefs.putBoolean(PrefsKey.KEY_MAIN_MARKETING_VISIBLE, true);
             }
         }
-    }
-
-    @Override public void onTabChanged(int position) {
-        if (position != 0) {
-            RxBus.send(new LookBookPresenterImpl.RxEventNavigateToPreview(false));
-            RxBus.send(new LookBookDetailPresenterImpl.RxEventLookBookDetailScrollToTop());
-        }
-        view.setupCurrentPage(position);
-    }
-
-    @Override public void onMarketingAgree() {
-        reqUpdateNonUserMarketingAgree();
     }
 
     private void reqUpdateNonUserMarketingAgree() {

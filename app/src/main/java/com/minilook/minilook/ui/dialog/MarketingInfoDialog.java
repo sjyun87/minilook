@@ -14,17 +14,17 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseDialog;
 import com.minilook.minilook.util.SpannableUtil;
 
-public class MarketingDialog extends BaseDialog {
+public class MarketingInfoDialog extends BaseDialog {
 
     @BindView(R.id.txt_desc) TextView descTextView;
 
-    @BindString(R.string.dialog_marketing_desc) String str_desc;
-    @BindString(R.string.dialog_marketing_desc_b) String str_desc_bold;
+    @BindString(R.string.dialog_marketing_info_desc) String str_desc;
+    @BindString(R.string.dialog_marketing_info_desc_b) String str_desc_bold;
 
     @BindFont(R.font.nanum_square_r) Typeface font_regular;
     @BindFont(R.font.nanum_square_b) Typeface font_bold;
 
-    public MarketingDialog(@NonNull Context context) {
+    public MarketingInfoDialog(@NonNull Context context) {
         super(context);
     }
 

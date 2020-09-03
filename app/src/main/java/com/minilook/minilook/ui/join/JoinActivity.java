@@ -98,10 +98,6 @@ public class JoinActivity extends BaseActivity implements JoinPresenter.View {
         DialogManager.showJoinCompletedDialog(this, presenter::onJoinCompletedDialogCloseClick);
     }
 
-    @Override public void navigateToMain() {
-        MainActivity.start(this);
-    }
-
     @Override public void showVerifyCompleteButton() {
         verifyCompleteButton.post(() -> verifyCompleteButton.setVisibility(View.VISIBLE));
     }
@@ -146,6 +142,10 @@ public class JoinActivity extends BaseActivity implements JoinPresenter.View {
     @Override public void disableJoinButton() {
         joinTextView.setBackgroundColor(color_FFF5F5F5);
         joinTextView.setEnabled(false);
+    }
+
+    @Override public void navigateToMain() {
+        MainActivity.start(this);
     }
 
     @OnClick(R.id.txt_certify)

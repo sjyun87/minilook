@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.splash.SplashActivity">
+
+    <com.minilook.minilook.ui.base.widget.TitleBar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:setTitle="@string/leave_title"
+        app:showClose="true"
+        app:showTitle="true" />
+
+    <TextView
+        android:id="@+id/txt_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_11"
+        android:fontFamily="@font/nanum_square_b"
+        android:letterSpacing="-0.02"
+        android:text="@string/leave_info"
+        android:textColor="@color/color_FF232323"
+        android:textSize="@dimen/sp_10"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titlebar" />
+
+    <TextView
+        android:id="@+id/txt_info_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_40"
+        android:fontFamily="@font/nanum_square_r"
+        android:lineSpacingMultiplier="1.5"
+        android:text="@string/leave_info_desc"
+        android:textColor="@color/color_FF232323"
+        android:textSize="@dimen/sp_7"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_info" />
+
+    <View
+        android:id="@+id/line_top"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_11"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:background="@color/color_FFDBDBDB"
+        app:layout_constraintTop_toBottomOf="@+id/txt_info_desc" />
+
+    <TextView
+        android:id="@+id/txt_point_caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_12"
+        android:fontFamily="@font/nanum_square_b"
+        android:text="@string/leave_point_caption"
+        android:textColor="@color/color_FF8140E5"
+        android:textSize="@dimen/sp_7"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_point"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txt_point" />
+
+    <TextView
+        android:id="@+id/txt_point"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_12"
+        android:fontFamily="@font/nanum_square_eb"
+        android:textColor="@color/color_FF8140E5"
+        android:textSize="@dimen/sp_10"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line_top"
+        tools:text="10,000P" />
+
+    <TextView
+        android:id="@+id/txt_coupon_caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_12"
+        android:fontFamily="@font/nanum_square_b"
+        android:text="@string/leave_coupon_caption"
+        android:textColor="@color/color_FF8140E5"
+        android:textSize="@dimen/sp_7"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_coupon"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txt_coupon" />
+
+    <TextView
+        android:id="@+id/txt_coupon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_9"
+        android:layout_marginEnd="@dimen/dp_12"
+        android:fontFamily="@font/nanum_square_eb"
+        android:textColor="@color/color_FF8140E5"
+        android:textSize="@dimen/sp_10"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_point"
+        tools:text="2장" />
+
+    <ImageView
+        android:id="@+id/img_chaim_sns"
+        android:layout_width="@dimen/dp_12"
+        android:layout_height="@dimen/dp_12"
+        android:layout_marginStart="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_26"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_coupon_caption"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/ic_naver" />
+
+    <View
+        android:id="@+id/line_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:background="@color/color_FFDBDBDB"
+        app:layout_constraintTop_toBottomOf="@+id/img_chaim_sns" />
+
+    <TextView
+        android:id="@+id/txt_rejoin_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_34"
+        android:fontFamily="@font/nanum_square_r"
+        android:lineSpacingMultiplier="1.5"
+        android:text="@string/leave_info_desc"
+        android:textColor="@color/color_FF232323"
+        android:textSize="@dimen/sp_7"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line_bottom" />
+
+    <TextView
+        android:id="@+id/txt_ok"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_24"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:background="@drawable/bg_button_border_purple"
+        android:fontFamily="@font/nanum_square_eb"
+        android:gravity="center"
+        android:text="@string/leave_ok"
+        android:textColor="@color/color_FF6200EA"
+        android:textSize="@dimen/sp_8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

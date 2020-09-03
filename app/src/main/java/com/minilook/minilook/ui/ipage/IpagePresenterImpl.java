@@ -43,15 +43,6 @@ public class IpagePresenterImpl extends BasePresenterImpl implements IpagePresen
         setupNonUser();
     }
 
-    private void toRxObservable() {
-        addDisposable(RxBus.toObservable().subscribe(o -> {
-            if (o instanceof RxBusEventNickChanged) {
-                String nick = ((RxBusEventNickChanged) o).getNick();
-                view.setupNick(nick);
-            }
-        }, Timber::e));
-    }
-
     private void setupUser() {
         view.hideCurtain();
         reqIpage();
@@ -144,6 +135,15 @@ public class IpagePresenterImpl extends BasePresenterImpl implements IpagePresen
 
     @Override public void onFAQClick() {
         view.navigateToWebView(URLKeys.URL_FAQ);
+    }
+
+    private void toRxObservable() {
+        addDisposable(RxBus.toObservable().subscribe(o -> {
+            if (o instanceof RxBusEventNickChanged) {
+                String nick = ((RxBusEventNickChanged) o).getNick();
+                view.setupNick(nick);
+            }
+        }, Timber::e));
     }
 
     @AllArgsConstructor @Getter public final static class RxBusEventNickChanged {

@@ -3,6 +3,7 @@ package com.minilook.minilook.ui.join;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.minilook.minilook.App;
+import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.user.UserDataModel;
 import com.minilook.minilook.data.network.login.LoginRequest;
 import com.minilook.minilook.data.rx.RxBus;
@@ -36,30 +37,6 @@ public class JoinPresenterImpl extends BasePresenterImpl implements JoinPresente
         toRxObservable();
         view.setupChainSNS(userData.getType());
         view.setupEmail(userData.getEmail());
-    }
-
-    private void toRxObservable() {
-        addDisposable(RxBus.toObservable().subscribe(o -> {
-            if (o instanceof WebViewActivity.RxEventIdentityVerificationComplete) {
-                isVerifyComplete = true;
-                String json = ((WebViewActivity.RxEventIdentityVerificationComplete) o).getJson();
-                putUserData(json);
-                view.showVerifyCompleteButton();
-            }
-        }, Timber::e));
-    }
-
-    private void putUserData(String json) {
-        JsonObject data = gson.fromJson(json, JsonObject.class);
-        String phone = data.get("phoneNumber").getAsString();
-        String name = data.get("name").getAsString();
-        String ci = data.get("ci").getAsString();
-        String birth = data.get("birth_day").getAsString();
-
-        userData.setPhone(phone);
-        userData.setName(name);
-        userData.setCi(ci);
-        userData.setBirth(birth);
     }
 
     @Override public void onFullAgreeClick() {
@@ -124,10 +101,30 @@ public class JoinPresenterImpl extends BasePresenterImpl implements JoinPresente
         view.finish();
     }
 
+    private void putUserData(String json) {
+        JsonObject data = gson.fromJson(json, JsonObject.class);
+        String phone = data.get("phoneNumber").getAsString();
+        String name = data.get("name").getAsString();
+        String ci = data.get("ci").getAsString();
+        String birth = data.get("birth_day").getAsString();
+
+        userData.setPhone(phone);
+        userData.setName(name);
+        userData.setCi(ci);
+        userData.setBirth(birth);
+    }
+
     private void reqJoin() {
         addDisposable(loginRequest.join(userData)
-            .map(data -> gson.fromJson(data.getData(), UserDataModel.class))
             .compose(Transformer.applySchedulers())
+            .filter(data -> {
+                String code = data.getCode();
+                if (code.equals(HttpCode.REJOIN_LIMITED)) {
+                    view.showJoinLimitedDialog();
+                }
+                return code.equals(HttpCode.OK);
+            })
+            .map(data -> gson.fromJson(data.getData(), UserDataModel.class))
             .subscribe(this::resJoin, Timber::e));
     }
 
@@ -196,5 +193,16 @@ public class JoinPresenterImpl extends BasePresenterImpl implements JoinPresente
         } else {
             view.disableJoinButton();
         }
+    }
+
+    private void toRxObservable() {
+        addDisposable(RxBus.toObservable().subscribe(o -> {
+            if (o instanceof WebViewActivity.RxEventIdentityVerificationComplete) {
+                isVerifyComplete = true;
+                String json = ((WebViewActivity.RxEventIdentityVerificationComplete) o).getJson();
+                putUserData(json);
+                view.showVerifyCompleteButton();
+            }
+        }, Timber::e));
     }
 }

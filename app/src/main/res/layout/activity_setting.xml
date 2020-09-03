@@ -26,7 +26,7 @@
             android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_info_notify_panel"
+                android:id="@+id/layout_order_info_panel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_8"
@@ -34,35 +34,35 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/txt_info_notify_caption"
+                    android:id="@+id/txt_order_info_caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_10"
                     android:fontFamily="@font/nanum_square_b"
-                    android:text="@string/setting_info_notify_caption"
+                    android:text="@string/setting_order_info_caption"
                     android:textColor="@color/color_FF232323"
                     android:textSize="@dimen/sp_7"
-                    app:layout_constraintBottom_toTopOf="@+id/txt_info_notify_desc"
+                    app:layout_constraintBottom_toTopOf="@+id/txt_order_info_desc"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_chainStyle="packed" />
 
                 <TextView
-                    android:id="@+id/txt_info_notify_desc"
+                    android:id="@+id/txt_order_info_desc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_10"
                     android:layout_marginTop="@dimen/dp_4"
                     android:fontFamily="@font/nanum_square_r"
-                    android:text="@string/setting_info_notify_desc"
+                    android:text="@string/setting_order_info_desc"
                     android:textColor="@color/color_FF616161"
                     android:textSize="@dimen/sp_6"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_info_notify_caption" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_order_info_caption" />
 
                 <com.suke.widget.SwitchButton
-                    android:id="@+id/sb_info"
+                    android:id="@+id/sb_order_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_10"
@@ -80,44 +80,44 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_marketing_notify_panel"
+                android:id="@+id/layout_marketing_info_panel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_1"
                 android:background="@color/color_FFFFFFFF"
-                app:layout_constraintTop_toBottomOf="@+id/layout_info_notify_panel"
+                app:layout_constraintTop_toBottomOf="@+id/layout_order_info_panel"
                 app:layout_goneMarginTop="@dimen/dp_8">
 
                 <TextView
-                    android:id="@+id/txt_marketing_notify_caption"
+                    android:id="@+id/txt_marketing_info_caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_10"
                     android:fontFamily="@font/nanum_square_b"
-                    android:text="@string/setting_marketing_notify_caption"
+                    android:text="@string/setting_marketing_info_caption"
                     android:textColor="@color/color_FF232323"
                     android:textSize="@dimen/sp_7"
-                    app:layout_constraintBottom_toTopOf="@+id/txt_marketing_notify_desc"
+                    app:layout_constraintBottom_toTopOf="@+id/txt_marketing_info_desc"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_chainStyle="packed" />
 
                 <TextView
-                    android:id="@+id/txt_marketing_notify_desc"
+                    android:id="@+id/txt_marketing_info_desc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_10"
                     android:layout_marginTop="@dimen/dp_4"
                     android:fontFamily="@font/nanum_square_r"
-                    android:text="@string/setting_marketing_notify_desc"
+                    android:text="@string/setting_marketing_info_desc"
                     android:textColor="@color/color_FF616161"
                     android:textSize="@dimen/sp_6"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_marketing_notify_caption" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_marketing_info_caption" />
 
                 <com.suke.widget.SwitchButton
-                    android:id="@+id/sb_marketing"
+                    android:id="@+id/sb_marketing_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_10"
@@ -147,7 +147,7 @@
                 android:textColor="@color/color_FF232323"
                 android:textSize="@dimen/sp_7"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layout_marketing_notify_panel"
+                app:layout_constraintTop_toBottomOf="@+id/layout_marketing_info_panel"
                 tools:ignore="RtlSymmetry" />
 
             <TextView

@@ -20,15 +20,15 @@ public class ScrapbookPresenterImpl extends BasePresenterImpl implements Scrapbo
         view.setupViewPager();
     }
 
+    @Override public void onTabClick(int position) {
+        view.setupCurrentPage(position);
+    }
+
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
             if (o instanceof MainPresenterImpl.RxEventNavigateToPage) {
                 view.finish();
             }
         }, Timber::e));
-    }
-
-    @Override public void onTabClick(int position) {
-        view.setupCurrentPage(position);
     }
 }

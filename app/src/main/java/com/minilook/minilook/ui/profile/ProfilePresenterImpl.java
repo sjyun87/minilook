@@ -34,15 +34,6 @@ public class ProfilePresenterImpl extends BasePresenterImpl implements ProfilePr
         reqProfile();
     }
 
-    private void toRxObservable() {
-        addDisposable(RxBus.toObservable().subscribe(o -> {
-            if (o instanceof WebViewActivity.RxEventIdentityVerificationComplete) {
-                String json = ((WebViewActivity.RxEventIdentityVerificationComplete) o).getJson();
-                updatePhone(json);
-            }
-        }, Timber::e));
-    }
-
     @Override public void onTextChanged(String text) {
         if (text.trim().length() > 0) {
             nick = text;
@@ -151,5 +142,14 @@ public class ProfilePresenterImpl extends BasePresenterImpl implements ProfilePr
         view.hideShippingPanel();
         view.showShippingAddButton();
         view.hideShippingEditButton();
+    }
+
+    private void toRxObservable() {
+        addDisposable(RxBus.toObservable().subscribe(o -> {
+            if (o instanceof WebViewActivity.RxEventIdentityVerificationComplete) {
+                String json = ((WebViewActivity.RxEventIdentityVerificationComplete) o).getJson();
+                updatePhone(json);
+            }
+        }, Timber::e));
     }
 }

@@ -18,15 +18,15 @@ public class LoginRequest extends BaseRequest<LoginService> {
         return getApi().login(createRequestBody(parseToLoginJson(model)));
     }
 
-    public Single<BaseDataModel> join(UserDataModel model) {
-        return getApi().join(createRequestBody(parseToJoinJson(model)));
-    }
-
     private Map<String, Object> parseToLoginJson(UserDataModel model) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("snsAccount", model.getSns_id());
         jsonMap.put("snsTypeCode", model.getType());
         return jsonMap;
+    }
+
+    public Single<BaseDataModel> join(UserDataModel model) {
+        return getApi().join(createRequestBody(parseToJoinJson(model)));
     }
 
     private Map<String, Object> parseToJoinJson(UserDataModel model) {
@@ -40,6 +40,18 @@ public class LoginRequest extends BaseRequest<LoginService> {
         jsonMap.put("ci", model.getCi());
         jsonMap.put("pushToken", App.getInstance().getPushToken());
         jsonMap.put("isAgreeCommercial", model.isCommercialInfo());
+        return jsonMap;
+    }
+
+    public Single<BaseDataModel> leave() {
+        int user_id = App.getInstance().getUserId();
+        return getApi().leave(user_id, createRequestBody(parseToLeaveJson()));
+    }
+
+    private Map<String, Object> parseToLeaveJson() {
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("snsAccount", App.getInstance().getSnsId());
+        jsonMap.put("snsTypeCode", App.getInstance().getSnsType());
         return jsonMap;
     }
 }

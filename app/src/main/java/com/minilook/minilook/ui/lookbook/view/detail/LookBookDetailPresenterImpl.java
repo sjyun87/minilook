@@ -37,18 +37,6 @@ public class LookBookDetailPresenterImpl extends BasePresenterImpl implements Lo
         RxBus.send(new LookBookPresenterImpl.RxEventNavigateToPreview(true));
     }
 
-    private void toRxObservable() {
-        addDisposable(RxBus.toObservable().subscribe(o -> {
-            if (o instanceof LookBookPreviewPresenterImpl.RxEventLookBookModuleChanged) {
-                LookBookModuleDataModel data =
-                    ((LookBookPreviewPresenterImpl.RxEventLookBookModuleChanged) o).getData();
-                setupData(data);
-            } else if (o instanceof RxEventLookBookDetailScrollToTop) {
-                view.scrollToTop();
-            }
-        }, Timber::e));
-    }
-
     private void setupData(LookBookModuleDataModel data) {
         view.scrollToTop();
         view.setupLabel(data.getLabel());
@@ -71,6 +59,18 @@ public class LookBookDetailPresenterImpl extends BasePresenterImpl implements Lo
             if (url != null && !url.equals("")) items.add(url);
         }
         return items;
+    }
+
+    private void toRxObservable() {
+        addDisposable(RxBus.toObservable().subscribe(o -> {
+            if (o instanceof LookBookPreviewPresenterImpl.RxEventLookBookModuleChanged) {
+                LookBookModuleDataModel data =
+                    ((LookBookPreviewPresenterImpl.RxEventLookBookModuleChanged) o).getData();
+                setupData(data);
+            } else if (o instanceof RxEventLookBookDetailScrollToTop) {
+                view.scrollToTop();
+            }
+        }, Timber::e));
     }
 
     @AllArgsConstructor @Getter public final static class RxEventLookBookDetailScrollToTop {

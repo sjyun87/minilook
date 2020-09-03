@@ -2,10 +2,15 @@ package com.minilook.minilook.ui.setting;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
+import android.widget.TextView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.leave.LeaveActivity;
+import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.setting.di.SettingArguments;
 import com.suke.widget.SwitchButton;
 
@@ -18,8 +23,12 @@ public class SettingActivity extends BaseActivity implements SettingPresenter.Vi
         context.startActivity(intent);
     }
 
-    @BindView(R.id.sb_info) SwitchButton infoNotifySwitchButton;
-    @BindView(R.id.sb_marketing) SwitchButton marketingSwitchButton;
+    @BindView(R.id.layout_order_info_panel) ConstraintLayout orderInfoPanel;
+    @BindView(R.id.sb_order_info) SwitchButton orderInfoSwitchButton;
+    @BindView(R.id.sb_marketing_info) SwitchButton marketingInfoSwitchButton;
+    @BindView(R.id.txt_login) TextView loginTextView;
+    @BindView(R.id.txt_logout) TextView logoutTextView;
+    @BindView(R.id.txt_leave) TextView leaveTextView;
 
     private SettingPresenter presenter;
 
@@ -38,18 +47,76 @@ public class SettingActivity extends BaseActivity implements SettingPresenter.Vi
             .build();
     }
 
+    @Override public void onLogin() {
+        presenter.onLogin();
+    }
+
+    @Override public void onLogout() {
+        presenter.onLogout();
+    }
+
     @Override public void setupInfoSwitchButton() {
-        infoNotifySwitchButton.setOnCheckedChangeListener(
-            (view, isChecked) -> presenter.onInfoNotifyChecked(isChecked));
+        orderInfoSwitchButton.setOnCheckedChangeListener(
+            (view, isChecked) -> presenter.onOrderInfoChecked(isChecked));
     }
 
     @Override public void setupMarketingSwitchButton() {
-        marketingSwitchButton.setOnCheckedChangeListener(
-            (view, isChecked) -> presenter.onMarketingChecked(isChecked));
+        marketingInfoSwitchButton.setOnCheckedChangeListener(
+            (view, isChecked) -> presenter.onMarketingInfoChecked(isChecked));
+    }
+
+    @Override public void showOrderInfoPanel() {
+        orderInfoPanel.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void hideOrderInfoPanel() {
+        orderInfoPanel.setVisibility(View.GONE);
+    }
+
+    @Override public void showLoginButton() {
+        loginTextView.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void hideLoginButton() {
+        loginTextView.setVisibility(View.GONE);
+    }
+
+    @Override public void showLogoutButton() {
+        logoutTextView.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void hideLogoutButton() {
+        logoutTextView.setVisibility(View.GONE);
+    }
+
+    @Override public void showLeaveButton() {
+        leaveTextView.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void hideLeaveButton() {
+        leaveTextView.setVisibility(View.GONE);
+    }
+
+    @Override public void navigateToLogin() {
+        LoginActivity.start(this);
+    }
+
+    @Override public void navigateToLeave() {
+        LeaveActivity.start(this);
+    }
+
+    @OnClick(R.id.txt_login)
+    void onLoginClick() {
+        presenter.onLoginClick();
     }
 
     @OnClick(R.id.txt_logout)
     void onLogoutClick() {
         presenter.onLogoutClick();
+    }
+
+    @OnClick(R.id.txt_leave)
+    void onLeaveClick() {
+        presenter.onLeaveClick();
     }
 }

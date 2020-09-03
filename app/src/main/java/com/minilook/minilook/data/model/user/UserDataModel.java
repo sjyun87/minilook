@@ -22,7 +22,7 @@ import lombok.Data;
     private String birth;
     @Expose @SerializedName(value = "phoneNumber", alternate = "cellphone")
     private String phone;
-    @Expose @SerializedName("snsTypeCode")
+    @Expose @SerializedName(value = "snsTypeCode", alternate = "snsType")
     private String type;
     @Expose @SerializedName("isAgreeCommercial")
     private boolean isCommercialInfo;
