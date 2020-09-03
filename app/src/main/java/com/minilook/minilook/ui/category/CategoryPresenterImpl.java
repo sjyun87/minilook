@@ -2,6 +2,7 @@ package com.minilook.minilook.ui.category;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.data.network.category.CategoryRequest;
@@ -37,10 +38,11 @@ public class CategoryPresenterImpl extends BasePresenterImpl implements Category
     private void reqCategory() {
         addDisposable(
             categoryRequest.getCategoryList()
+                .compose(Transformer.applySchedulers())
+                .filter(data -> data.getCode().equals(HttpCode.OK))
                 .map((Function<BaseDataModel, List<CategoryDataModel>>)
                     data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<CategoryDataModel>>() {
                     }.getType()))
-                .compose(Transformer.applySchedulers())
                 .subscribe(this::resCategory, Timber::e)
         );
     }

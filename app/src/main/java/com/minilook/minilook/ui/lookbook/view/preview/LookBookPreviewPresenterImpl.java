@@ -1,19 +1,17 @@
 package com.minilook.minilook.ui.lookbook.view.preview;
 
 import com.google.gson.Gson;
+import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.lookbook.LookBookDataModel;
 import com.minilook.minilook.data.model.lookbook.LookBookModuleDataModel;
 import com.minilook.minilook.data.network.lookbook.LookBookRequest;
 import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.data.rx.SchedulersFacade;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.lookbook.view.preview.di.LookBookPreviewArguments;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import timber.log.Timber;
@@ -60,8 +58,9 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
     private void reqLookBookModules() {
         addDisposable(
             lookBookRequest.getLookbookModules(DATA_ROW, usedLookbooks)
-                .map(data -> gson.fromJson(data.getData(), LookBookDataModel.class))
                 .compose(Transformer.applySchedulers())
+                .filter(data -> data.getCode().equals(HttpCode.OK))
+                .map(data -> gson.fromJson(data.getData(), LookBookDataModel.class))
                 .subscribe(this::resLookBookModules, Timber::e)
         );
     }
@@ -78,9 +77,8 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
     private void reqLoadMoreLookBookModules() {
         addDisposable(
             lookBookRequest.getLookbookModules(DATA_ROW, usedLookbooks)
+                .filter(data -> data.getCode().equals(HttpCode.OK))
                 .map(data -> gson.fromJson(data.getData(), LookBookDataModel.class))
-                .observeOn(SchedulersFacade.io())
-                .subscribeOn(SchedulersFacade.io())
                 .subscribe(this::resLoadMoreLookBookModules, Timber::e)
         );
     }

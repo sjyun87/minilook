@@ -1,6 +1,7 @@
 package com.minilook.minilook.ui.brand_detail;
 
 import com.google.gson.Gson;
+import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.common.SortDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
@@ -87,8 +88,9 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     private void reqBrand() {
         addDisposable(
             brandRequest.getBrand(brand_id)
-                .map(data -> gson.fromJson(data.getData(), BrandDataModel.class))
                 .compose(Transformer.applySchedulers())
+                .filter(data -> data.getCode().equals(HttpCode.OK))
+                .map(data -> gson.fromJson(data.getData(), BrandDataModel.class))
                 .subscribe(this::resBrand, Timber::e)
         );
     }
@@ -123,8 +125,9 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         if (page.get() != 0 && page.get() >= totalPageSize) return;
         addDisposable(
             searchRequest.getProducts(parseToModel())
-                .map(data -> gson.fromJson(data.getData(), SearchDataModel.class))
                 .compose(Transformer.applySchedulers())
+                .filter(data -> data.getCode().equals(HttpCode.OK))
+                .map(data -> gson.fromJson(data.getData(), SearchDataModel.class))
                 .subscribe(this::resProducts, Timber::e)
         );
     }

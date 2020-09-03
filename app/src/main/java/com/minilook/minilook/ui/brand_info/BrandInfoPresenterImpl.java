@@ -1,6 +1,7 @@
 package com.minilook.minilook.ui.brand_info;
 
 import com.google.gson.Gson;
+import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.brand.BrandInfoDataModel;
 import com.minilook.minilook.data.network.brand.BrandRequest;
 import com.minilook.minilook.data.rx.Transformer;
@@ -29,8 +30,9 @@ public class BrandInfoPresenterImpl extends BasePresenterImpl implements BrandIn
     private void reqBrandInfo() {
         addDisposable(
             brandRequest.getBrandInfo(brand_id)
-                .map(data -> gson.fromJson(data.getData(), BrandInfoDataModel.class))
                 .compose(Transformer.applySchedulers())
+                .filter(data -> data.getCode().equals(HttpCode.OK))
+                .map(data -> gson.fromJson(data.getData(), BrandInfoDataModel.class))
                 .subscribe(this::resBrandInfo, Timber::e)
         );
     }

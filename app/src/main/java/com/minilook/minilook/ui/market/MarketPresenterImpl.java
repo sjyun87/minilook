@@ -3,6 +3,7 @@ package com.minilook.minilook.ui.market;
 import androidx.annotation.NonNull;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.network.market.MarketRequest;
@@ -38,10 +39,11 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
 
     private void reqMarketModule() {
         addDisposable(marketRequest.getMarketModules()
+            .compose(Transformer.applySchedulers())
+            .filter(data -> data.getCode().equals(HttpCode.OK))
             .map((Function<BaseDataModel, List<MarketDataModel>>)
                 data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<MarketDataModel>>() {
                 }.getType()))
-            .compose(Transformer.applySchedulers())
             .subscribe(this::resMarketModules, Timber::e));
     }
 

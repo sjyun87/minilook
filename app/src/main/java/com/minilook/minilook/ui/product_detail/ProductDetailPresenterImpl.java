@@ -1,6 +1,7 @@
 package com.minilook.minilook.ui.product_detail;
 
 import com.google.gson.Gson;
+import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.product.ProductColorDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.product.ProductStockModel;
@@ -73,8 +74,9 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
 
     private void reqProductDetail() {
         addDisposable(productRequest.getProductDetail(id)
-            .map(data -> gson.fromJson(data.getData(), ProductDataModel.class))
             .compose(Transformer.applySchedulers())
+            .filter(data -> data.getCode().equals(HttpCode.OK))
+            .map(data -> gson.fromJson(data.getData(), ProductDataModel.class))
             .subscribe(this::resProductDetail, Timber::e));
     }
 
