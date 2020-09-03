@@ -1,11 +1,13 @@
 package com.minilook.minilook.ui.product;
 
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -16,6 +18,7 @@ import com.minilook.minilook.data.type.DisplayType;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.StringUtil;
+import lombok.Setter;
 
 public class ProductWideVH extends BaseViewHolder<ProductDataModel> {
 
@@ -29,6 +32,10 @@ public class ProductWideVH extends BaseViewHolder<ProductDataModel> {
 
     @BindString(R.string.base_price_percent) String format_percent;
 
+    @BindColor(R.color.color_FFEEEFF5) int color_FFEEEFF5;
+
+    @Setter private OnDeleteClickListener listener;
+
     public ProductWideVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
             .inflate(R.layout.item_product_type_wide, (ViewGroup) itemView, false));
@@ -39,6 +46,7 @@ public class ProductWideVH extends BaseViewHolder<ProductDataModel> {
 
         Glide.with(context)
             .load(data.getImage_url())
+            .placeholder(new ColorDrawable(color_FFEEEFF5))
             .into(thumbImageView);
 
         if (data.getDisplay_code() == DisplayType.DISPLAY.getValue()) {
@@ -86,7 +94,10 @@ public class ProductWideVH extends BaseViewHolder<ProductDataModel> {
 
     @OnClick(R.id.img_delete)
     void onDeleteClick() {
+        if (listener != null) listener.onDeleteClick(data);
+    }
 
-
+    public interface OnDeleteClickListener {
+        void onDeleteClick(ProductDataModel data);
     }
 }

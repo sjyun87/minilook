@@ -32,6 +32,7 @@ public class ProductAdapter extends RecyclerView.Adapter<BaseViewHolder<ProductD
     @Setter private int viewType = 0;
     @Setter private boolean isShowScrap = true;
     @Setter private boolean isShowBrand = true;
+    @Setter private ProductWideVH.OnDeleteClickListener onDeleteClickListener;
 
     private List<ProductDataModel> items = new ArrayList<>();
 
@@ -55,7 +56,9 @@ public class ProductAdapter extends RecyclerView.Adapter<BaseViewHolder<ProductD
                 productSize84VH.setShowBrand(isShowBrand);
                 return productSize84VH;
             case VIEW_TYPE_WIDE:
-                return new ProductWideVH(parent);
+                ProductWideVH productWideVH = new ProductWideVH(parent);
+                productWideVH.setListener(onDeleteClickListener);
+                return productWideVH;
             default:
                 Timber.e("Product view type is null..");
                 return new BaseViewHolder<>(parent);

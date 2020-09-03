@@ -52,6 +52,7 @@ public class RecentActivity extends BaseActivity implements RecentPresenter.View
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         adapter.setViewType(ProductAdapter.VIEW_TYPE_WIDE);
+        adapter.setOnDeleteClickListener(presenter::onDeleteClick);
         recyclerView.setAdapter(adapter);
         EndlessOnScrollListener scrollListener =
             EndlessOnScrollListener.builder()

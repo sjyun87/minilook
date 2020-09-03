@@ -3,6 +3,7 @@ package com.minilook.minilook.ui.recent;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
+import com.minilook.minilook.data.model.product.ProductDataModel;
 
 public interface RecentPresenter extends LifecycleObserver {
 
@@ -12,6 +13,8 @@ public interface RecentPresenter extends LifecycleObserver {
     void onLoadMore();
 
     void onEmptyClick();
+
+    void onDeleteClick(ProductDataModel data);
 
     interface View {
 

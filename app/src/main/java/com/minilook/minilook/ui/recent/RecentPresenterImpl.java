@@ -50,6 +50,17 @@ public class RecentPresenterImpl extends BasePresenterImpl implements RecentPres
         view.finish();
     }
 
+    @Override public void onDeleteClick(ProductDataModel data) {
+        adapter.remove(data);
+        view.refresh();
+        reqDeleteRecent(data.getRecent_id());
+    }
+
+    private void reqDeleteRecent(int recent_id) {
+        addDisposable(recentRequest.deleteRecent(recent_id)
+            .subscribe());
+    }
+
     private void reqRecentProducts() {
         addDisposable(recentRequest.getRecentProducts(lastRecentId, ROWS)
             .compose(Transformer.applySchedulers())
