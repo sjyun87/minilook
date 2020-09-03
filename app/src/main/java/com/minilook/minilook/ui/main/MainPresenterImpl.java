@@ -54,7 +54,6 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
 
     private void reqUpdateToken() {
         addDisposable(memberRequest.updateToken()
-            .compose(Transformer.applySchedulers())
             .subscribe());
     }
 
@@ -79,7 +78,7 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
     }
 
     private void reqUpdateNonUserMarketingAgree() {
-        addDisposable(memberRequest.updateMarketing(true)
+        addDisposable(memberRequest.updateMarketingInfo(true)
             .compose(Transformer.applySchedulers())
             .subscribe());
     }

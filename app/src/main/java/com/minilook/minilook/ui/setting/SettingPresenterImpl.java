@@ -2,7 +2,6 @@ package com.minilook.minilook.ui.setting;
 
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.network.member.MemberRequest;
-import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.setting.di.SettingArguments;
 
@@ -48,14 +47,12 @@ public class SettingPresenterImpl extends BasePresenterImpl implements SettingPr
     }
 
     @Override public void onOrderInfoChecked(boolean isChecked) {
-        addDisposable(memberRequest.updateInfoNotify(isChecked)
-            .compose(Transformer.applySchedulers())
+        addDisposable(memberRequest.updateOrderInfo(isChecked)
             .subscribe());
     }
 
     @Override public void onMarketingInfoChecked(boolean isChecked) {
-        addDisposable(memberRequest.updateMarketing(isChecked)
-            .compose(Transformer.applySchedulers())
+        addDisposable(memberRequest.updateMarketingInfo(isChecked)
             .subscribe());
     }
 

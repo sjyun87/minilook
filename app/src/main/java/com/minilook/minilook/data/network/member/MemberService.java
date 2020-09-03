@@ -11,6 +11,15 @@ import retrofit2.http.Path;
 
 public interface MemberService {
 
+    @PUT("/api/members/{user_id}") Single<BaseDataModel> updateToken(
+        @Path("user_id") int user_id,
+        @Body RequestBody body
+    );
+
+    @POST("/api/nonmembers/pushtokens") Single<BaseDataModel> updateToken(
+        @Body RequestBody body
+    );
+
     @GET("/api/members/{user_id}/details") Single<BaseDataModel> getProfile(
         @Path("user_id") int user_id
     );
@@ -25,25 +34,17 @@ public interface MemberService {
         @Body RequestBody body
     );
 
-
-
-
-
-    @PUT("/api/members/{user_id}") Single<BaseDataModel> updateToken(
+    @PUT("/api/members/{user_id}/informationpushes") Single<BaseDataModel> updateOrderInfo(
         @Path("user_id") int user_id,
         @Body RequestBody body
     );
 
-    @POST("/api/nonmembers/pushtokens") Single<BaseDataModel> updateToken(
+    @PUT("/api/nonmembers/pushtokens") Single<BaseDataModel> updateMarketingInfo(
         @Body RequestBody body
     );
 
-    @PUT("/api/members/{user_id}/informationpushes") Single<BaseDataModel> updateInfoNotify(
+    @PUT("/api/members/{user_id}/marketingpushes") Single<BaseDataModel> updateMarketingInfo(
         @Path("user_id") int user_id,
-        @Body RequestBody body
-    );
-
-    @PUT("/api/nonmembers/pushtokens") Single<BaseDataModel> updateMarketing(
         @Body RequestBody body
     );
 }

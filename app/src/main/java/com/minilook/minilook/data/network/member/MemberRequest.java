@@ -13,6 +13,25 @@ public class MemberRequest extends BaseRequest<MemberService> {
         return MemberService.class;
     }
 
+    public Single<BaseDataModel> updateToken() {
+        if (App.getInstance().isLogin()) {
+            int user_id = App.getInstance().getUserId();
+            return getApi().updateToken(user_id, createRequestBody(parseUpdateTokenJson(true)));
+        } else {
+            return getApi().updateToken(createRequestBody(parseUpdateTokenJson(false)));
+        }
+    }
+
+    private Map<String, Object> parseUpdateTokenJson(boolean isLogin) {
+        Map<String, Object> jsonMap = new HashMap<>();
+        if (isLogin) {
+            jsonMap.put("snsAccount", App.getInstance().getSnsId());
+            jsonMap.put("snsTypeCode", App.getInstance().getSnsType());
+        }
+        jsonMap.put("token", App.getInstance().getPushToken());
+        return jsonMap;
+    }
+
     public Single<BaseDataModel> getProfile() {
         int user_id = App.getInstance().getUserId();
         return getApi().getProfile(user_id);
@@ -31,58 +50,39 @@ public class MemberRequest extends BaseRequest<MemberService> {
 
     public Single<BaseDataModel> updatePhone(String phone, String ci) {
         int user_id = App.getInstance().getUserId();
-        return getApi().updateNick(user_id, createRequestBody(parseToUpdateNick(phone, ci)));
+        return getApi().updatePhone(user_id, createRequestBody(parseToUpdatePhoneJson(phone, ci)));
     }
 
-    private Map<String, Object> parseToUpdateNick(String phone, String ci) {
+    private Map<String, Object> parseToUpdatePhoneJson(String phone, String ci) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("ci", ci);
         jsonMap.put("phone", phone);
         return jsonMap;
     }
 
-
-
-
-
-
-
-
-    public Single<BaseDataModel> updateToken() {
-        if (App.getInstance().isLogin()) {
-            return getApi().updateToken(App.getInstance().getUserId(), createRequestBody(parseUpdateTokenJson(true)));
-        } else {
-            return getApi().updateToken(createRequestBody(parseUpdateTokenJson(false)));
-        }
+    public Single<BaseDataModel> updateOrderInfo(boolean enable) {
+        int user_id = App.getInstance().getUserId();
+        return getApi().updateOrderInfo(user_id, createRequestBody(parseToOrderInfoJson(enable)));
     }
 
-    public Single<BaseDataModel> updateInfoNotify(boolean enable) {
-        //return getApi().getScrapbookProduct(App.getInstance().getUserId());
-        return getApi().updateInfoNotify(85, createRequestBody(parseInfoNotifyJson(enable)));
-    }
-
-    public Single<BaseDataModel> updateMarketing(boolean enable) {
-        return getApi().updateMarketing(createRequestBody(parseMarketingNotifyJson(enable)));
-    }
-
-    private Map<String, Object> parseUpdateTokenJson(boolean isLogin) {
-        Map<String, Object> jsonMap = new HashMap<>();
-        if (isLogin) {
-            jsonMap.put("snsAccount", App.getInstance().getSnsId());
-            jsonMap.put("snsTypeCode", App.getInstance().getSnsType());
-        }
-        jsonMap.put("token", App.getInstance().getPushToken());
-        return jsonMap;
-    }
-
-    private Map<String, Object> parseInfoNotifyJson(boolean enable) {
+    private Map<String, Object> parseToOrderInfoJson(boolean enable) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("isInformationAgree", enable);
         return jsonMap;
     }
 
-    private Map<String, Object> parseMarketingNotifyJson(boolean enable) {
+    public Single<BaseDataModel> updateMarketingInfo(boolean enable) {
+        if (App.getInstance().isLogin()) {
+            int user_id = App.getInstance().getUserId();
+            return getApi().updateMarketingInfo(user_id, createRequestBody(parseToMarketingInfoJson(enable)));
+        } else {
+            return getApi().updateMarketingInfo(createRequestBody(parseToMarketingInfoJson(enable)));
+        }
+    }
+
+    private Map<String, Object> parseToMarketingInfoJson(boolean enable) {
         Map<String, Object> jsonMap = new HashMap<>();
+        if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getUserId());
         jsonMap.put("token", App.getInstance().getPushToken());
         jsonMap.put("isMarketingAgree", enable);
         return jsonMap;
