@@ -37,6 +37,10 @@ public class RecentPresenterImpl extends BasePresenterImpl implements RecentPres
         reqRecentProducts();
     }
 
+    @Override public void onLoadMore() {
+        reqRecentProducts();
+    }
+
     private void reqRecentProducts() {
         addDisposable(memberRequest.getRecentProducts(lastRecentId, ROWS)
             .map((Function<BaseDataModel, List<ProductDataModel>>)
@@ -47,10 +51,13 @@ public class RecentPresenterImpl extends BasePresenterImpl implements RecentPres
     }
 
     private void resRecentProducts(List<ProductDataModel> data) {
-        int start = adapter.getSize();
-        int end = start + data.size();
+        if (data.size() > 0) {
+            lastRecentId = data.get(data.size() - 1).getRecent_id();
+            int start = adapter.getSize();
+            int rows = data.size();
 
-        adapter.addAll(data);
-        view.refresh(start, end);
+            adapter.addAll(data);
+            view.refresh(start, rows);
+        }
     }
 }

@@ -9,6 +9,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.recent.di.RecentArguments;
 
@@ -21,7 +22,7 @@ public class RecentActivity extends BaseActivity implements RecentPresenter.View
         context.startActivity(intent);
     }
 
-    @BindView(R.id.rcv_goods) RecyclerView recyclerView;
+    @BindView(R.id.rcv_product) RecyclerView recyclerView;
 
     private RecentPresenter presenter;
     private ProductAdapter adapter = new ProductAdapter();
@@ -44,12 +45,20 @@ public class RecentActivity extends BaseActivity implements RecentPresenter.View
     }
 
     @Override public void setupRecyclerView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
         adapter.setViewType(ProductAdapter.VIEW_TYPE_WIDE);
         recyclerView.setAdapter(adapter);
+        EndlessOnScrollListener scrollListener =
+            EndlessOnScrollListener.builder()
+                .layoutManager(layoutManager)
+                .onLoadMoreListener(presenter::onLoadMore)
+                .visibleThreshold(5)
+                .build();
+        recyclerView.addOnScrollListener(scrollListener);
     }
 
-    @Override public void refresh(int start, int end) {
-        adapterView.refresh(start, end);
+    @Override public void refresh(int start, int rows) {
+        adapterView.refresh(start, rows);
     }
 }

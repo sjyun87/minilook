@@ -47,7 +47,7 @@ public class ScrapbookBrandFragment extends BaseFragment implements ScrapbookBra
             EndlessOnScrollListener.builder()
                 .layoutManager(layoutManager)
                 .onLoadMoreListener(presenter::onLoadMore)
-                .visibleThreshold(4)
+                .visibleThreshold(5)
                 .build();
         recyclerView.addOnScrollListener(scrollListener);
     }

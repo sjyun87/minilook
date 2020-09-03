@@ -16,9 +16,11 @@
         app:showTitle="true" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_goods"
+        android:id="@+id/rcv_product"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/dp_50"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titlebar"
         tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
