@@ -11,7 +11,6 @@ import com.minilook.minilook.ui.base.manager.ToastManager;
 import com.minilook.minilook.ui.base.widget.BottomBar;
 import com.minilook.minilook.ui.base.widget.ToastView;
 import com.minilook.minilook.ui.dialog.MarketingDialog;
-import com.minilook.minilook.ui.dialog.listener.OnButtonClickListener;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.main.adapter.MainPagerAdapter;
 import com.minilook.minilook.ui.main.di.MainArguments;
@@ -58,6 +57,14 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
         if (position != -1) bottomBar.setCurrentPage(position);
     }
 
+    @Override public void onLogin() {
+        presenter.onLogin();
+    }
+
+    @Override public void onLogout() {
+        presenter.onLogout();
+    }
+
     private MainArguments provideArguments() {
         return MainArguments.builder()
             .view(this)
@@ -84,7 +91,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
     }
 
     @Override public void showMarketingDialog() {
-        new MarketingDialog(this, new OnButtonClickListener() {
+        new MarketingDialog(this, new OnDialogClickListener() {
             @Override public void onPositiveClick() {
                 presenter.onMarketingAgree();
             }

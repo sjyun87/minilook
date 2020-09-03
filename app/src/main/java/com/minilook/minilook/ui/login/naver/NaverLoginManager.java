@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.type.LoginType;
-import com.minilook.minilook.ui.login.listener.OnLoginListener;
+import com.minilook.minilook.ui.login.listener.OnSNSLoginListener;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
 import com.nhn.android.naverlogin.data.OAuthLoginState;
@@ -24,7 +24,7 @@ public class NaverLoginManager {
     private Activity activity;
     private OAuthLogin oAuthLogin;
     private Gson gson = new Gson();
-    @Setter private OnLoginListener listener;
+    @Setter private OnSNSLoginListener listener;
 
     public NaverLoginManager(Activity activity) {
         this.activity = activity;
@@ -54,7 +54,7 @@ public class NaverLoginManager {
                 } else {
                     Timber.e("Naver Login :: error code = %s / error message = %s",
                         oAuthLogin.getLastErrorCode(activity).getCode(), oAuthLogin.getLastErrorDesc(activity));
-                    if (listener != null) listener.onError(ERROR_LOGIN, oAuthLogin.getLastErrorDesc(activity));
+                    if (listener != null) listener.onSNSError(ERROR_LOGIN, oAuthLogin.getLastErrorDesc(activity));
                 }
             }
         });
@@ -70,9 +70,9 @@ public class NaverLoginManager {
                 String id = response.get("id").getAsString();
                 String email = response.get("email").getAsString();
                 if (email != null) {
-                    if (listener != null) listener.onLogin(id, email, LoginType.NAVER.getValue());
+                    if (listener != null) listener.onSNSLogin(id, email, LoginType.NAVER.getValue());
                 } else {
-                    if (listener != null) listener.onError(ERROR_NO_EMAIL, message);
+                    if (listener != null) listener.onSNSError(ERROR_NO_EMAIL, message);
                 }
             }
         }.start();

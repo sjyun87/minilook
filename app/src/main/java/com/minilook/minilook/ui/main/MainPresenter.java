@@ -9,11 +9,9 @@ public interface MainPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    void onResume();
+    void onLogin();
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    void onPause();
+    void onLogout();
 
     void onTabChanged(int position);
 

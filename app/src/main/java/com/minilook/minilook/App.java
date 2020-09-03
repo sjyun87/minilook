@@ -2,10 +2,14 @@ package com.minilook.minilook;
 
 import android.app.Application;
 import android.content.ContextWrapper;
+
 import com.kakao.sdk.common.KakaoSdk;
+import com.minilook.minilook.data.common.PrefsKey;
+import com.minilook.minilook.data.model.user.UserDataModel;
 import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.data.rx.RxBusEvent;
 import com.pixplicity.easyprefs.library.Prefs;
+
 import lombok.Getter;
 import lombok.Setter;
 import timber.log.Timber;
@@ -48,10 +52,26 @@ public class App extends Application {
             .build();
     }
 
+    public void setupLogin(UserDataModel data) {
+        this.isLogin = true;
+        setUserId(data.getUser_id());
+        setSnsId(data.getSns_id());
+        setSnsType(data.getType());
+        Prefs.putInt(PrefsKey.KEY_LOGIN_VISIBLE_COUNT, 3);
+        RxBus.send(new RxBusEvent.RxBusEventLogin());
+    }
+
+    public void setupLogout() {
+        this.isLogin = false;
+        clearUserId();
+        clearSnsId();
+        clearSnsType();
+        RxBus.send(new RxBusEvent.RxBusEventLogout());
+    }
+
     public void setUserId(int id) {
         userId = id;
         Prefs.putInt("userId", id);
-        RxBus.send(new BaseActivity.RxEventLogin());
     }
 
     public int getUserId() {
@@ -62,7 +82,6 @@ public class App extends Application {
     public void clearUserId() {
         userId = -1;
         Prefs.remove("userId");
-        RxBus.send(new BaseActivity.RxEventLogout());
     }
 
     public void setSnsId(String id) {
@@ -75,6 +94,11 @@ public class App extends Application {
         return snsId;
     }
 
+    public void clearSnsId() {
+        snsId = null;
+        Prefs.remove("snsId");
+    }
+
     public void setSnsType(String type) {
         snsType = type;
         Prefs.putString("snsType", type);
@@ -83,6 +107,11 @@ public class App extends Application {
     public String getSnsType() {
         snsType = Prefs.getString("snsType", "");
         return snsType;
+    }
+
+    public void clearSnsType() {
+        snsType = null;
+        Prefs.remove("snsType");
     }
 
     public void setPushToken(String token) {

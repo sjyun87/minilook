@@ -5,7 +5,7 @@ import com.kakao.sdk.auth.LoginClient;
 import com.kakao.sdk.auth.model.OAuthToken;
 import com.kakao.sdk.user.UserApiClient;
 import com.minilook.minilook.data.type.LoginType;
-import com.minilook.minilook.ui.login.listener.OnLoginListener;
+import com.minilook.minilook.ui.login.listener.OnSNSLoginListener;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function2;
 import lombok.Setter;
@@ -19,7 +19,7 @@ public class KakaoLoginManager {
 
     private Context context;
     private LoginClient client;
-    @Setter private OnLoginListener listener;
+    @Setter private OnSNSLoginListener listener;
 
     public KakaoLoginManager(Context context) {
         this.context = context;
@@ -38,7 +38,7 @@ public class KakaoLoginManager {
         @Override public Unit invoke(OAuthToken oAuthToken, Throwable error) {
             if (error != null) {
                 Timber.e("Kakao Login :: error = %s", error.getMessage());
-                if (listener != null) listener.onError(ERROR_LOGIN, error.getMessage());
+                if (listener != null) listener.onSNSError(ERROR_LOGIN, error.getMessage());
             } else {
                 Timber.e("Kakao Login :: Access Token :: %s", oAuthToken.getAccessToken());
                 getUserData(oAuthToken.getAccessToken());
@@ -51,14 +51,14 @@ public class KakaoLoginManager {
         UserApiClient.getInstance().me((user, error) -> {
             if (error != null) {
                 Timber.e("Kakao Login :: error = %s", error.getMessage());
-                if (listener != null) listener.onError(ERROR_LOGIN, error.getMessage());
+                if (listener != null) listener.onSNSError(ERROR_LOGIN, error.getMessage());
             } else if (user != null && user.getKakaoAccount() != null) {
                 String id = String.valueOf(user.getId());
                 String email = user.getKakaoAccount().getEmail();
                 if (email != null) {
-                    if (listener != null) listener.onLogin(id, email, LoginType.KAKAO.getValue());
+                    if (listener != null) listener.onSNSLogin(id, email, LoginType.KAKAO.getValue());
                 } else {
-                    if (listener != null) listener.onError(ERROR_NO_EMAIL, "No Email..");
+                    if (listener != null) listener.onSNSError(ERROR_NO_EMAIL, "No Email..");
                 }
             }
             return null;
@@ -69,10 +69,10 @@ public class KakaoLoginManager {
         UserApiClient.getInstance().logout(error -> {
             if (error != null) {
                 Timber.e("Kakao Logout :: error = %s", error.getMessage());
-                if (listener != null) listener.onError(ERROR_LOGOUT, error.getMessage());
+                if (listener != null) listener.onSNSError(ERROR_LOGOUT, error.getMessage());
             } else {
                 Timber.e("Kakao Logout :: Success!");
-                if (listener != null) listener.onLogout();
+                if (listener != null) listener.onSNSLogout();
             }
             return null;
         });

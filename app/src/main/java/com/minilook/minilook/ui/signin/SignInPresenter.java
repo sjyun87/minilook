@@ -1,10 +1,10 @@
-package com.minilook.minilook.ui.join;
+package com.minilook.minilook.ui.signin;
 
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
-public interface JoinPresenter extends LifecycleObserver {
+public interface SignInPresenter extends LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
@@ -21,7 +21,7 @@ public interface JoinPresenter extends LifecycleObserver {
 
     void onBackClick();
 
-    void onCompleteJoinDialogClose();
+    void onSignInCompletedDialogCloseClick();
 
     interface View {
 
@@ -55,7 +55,7 @@ public interface JoinPresenter extends LifecycleObserver {
 
         void showLimitJoinDialog();
 
-        void showCompleteJoinDialog();
+        void showSignCompletedDialog();
 
         void finish();
     }

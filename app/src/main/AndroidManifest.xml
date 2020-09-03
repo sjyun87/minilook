@@ -40,7 +40,7 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name=".ui.join.JoinActivity"
+            android:name=".ui.signin.SignInActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 

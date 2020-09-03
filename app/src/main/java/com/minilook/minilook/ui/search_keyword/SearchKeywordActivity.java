@@ -9,12 +9,9 @@ import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.room.recent_keyword.RecentKeywordDB;
 import com.minilook.minilook.ui.base.BaseActivity;
-import com.minilook.minilook.ui.base.manager.DialogManager;
 import com.minilook.minilook.ui.base.widget.KeywordView;
 import com.minilook.minilook.ui.product_bridge.ProductBridgeActivity;
 import com.minilook.minilook.ui.search_keyword.di.SearchKeywordArguments;
@@ -24,7 +21,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class SearchKeywordActivity extends BaseActivity implements SearchKeywordPresenter.View,
-    KeywordView.OnClickListener, DialogManager.OnButtonClickListener {
+    KeywordView.OnClickListener {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, SearchKeywordActivity.class);
@@ -42,7 +39,6 @@ public class SearchKeywordActivity extends BaseActivity implements SearchKeyword
     @BindView(R.id.rcv_brand) RecyclerView brandRecyclerView;
 
     private SearchKeywordPresenter presenter;
-    private RecentKeywordDB recentKeywordDB;
 
     @Override protected int getLayoutID() {
         return R.layout.activity_search_keyword;
@@ -57,14 +53,10 @@ public class SearchKeywordActivity extends BaseActivity implements SearchKeyword
     private SearchKeywordArguments provideArguments() {
         return SearchKeywordArguments.builder()
             .view(this)
-            .recentKeywordDB(recentKeywordDB)
             .build();
     }
 
     private void setupRecentKeywordDB() {
-        recentKeywordDB = Room.databaseBuilder(this, RecentKeywordDB.class, getString(R.string.app_name))
-            .allowMainThreadQueries()
-            .build();
     }
 
     @Override
@@ -115,7 +107,6 @@ public class SearchKeywordActivity extends BaseActivity implements SearchKeyword
 
     @OnClick(R.id.txt_recent_clear)
     void onRemoveAllClick() {
-        DialogManager.showRemoveAllDialog(this, this);
     }
 
     // KeywordView OnClickListener
@@ -129,12 +120,12 @@ public class SearchKeywordActivity extends BaseActivity implements SearchKeyword
         if (recentItemPanel.getChildCount() == 0) hideRecentPanel();
     }
 
-    // Dialog OnButtonClickListener
-    @Override public void onPositiveClick() {
-        presenter.removeAllClick();
-    }
-
-    @Override public void onNegativeClick() {
-
-    }
+    //// Dialog OnButtonClickListener
+    //@Override public void onPositiveClick() {
+    //    presenter.removeAllClick();
+    //}
+    //
+    //@Override public void onNegativeClick() {
+    //
+    //}
 }

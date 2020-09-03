@@ -1,22 +1,19 @@
-package com.minilook.minilook.ui.join;
+package com.minilook.minilook.ui.signin;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.minilook.minilook.App;
-import com.minilook.minilook.data.common.PrefsKey;
 import com.minilook.minilook.data.model.user.UserDataModel;
 import com.minilook.minilook.data.network.member.MemberRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
-import com.minilook.minilook.ui.join.di.JoinArguments;
+import com.minilook.minilook.ui.signin.di.SignInArguments;
 import com.minilook.minilook.ui.webview.WebViewActivity;
-import com.pixplicity.easyprefs.library.Prefs;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+
 import timber.log.Timber;
 
-public class JoinPresenterImpl extends BasePresenterImpl implements JoinPresenter {
+public class SignInPresenterImpl extends BasePresenterImpl implements SignInPresenter {
 
     private final View view;
     private final UserDataModel userData;
@@ -30,7 +27,7 @@ public class JoinPresenterImpl extends BasePresenterImpl implements JoinPresente
     private boolean isPrivacyPolicyCheck = false;
     private boolean isCommercialInfoCheck = false;
 
-    public JoinPresenterImpl(JoinArguments args) {
+    public SignInPresenterImpl(SignInArguments args) {
         view = args.getView();
         userData = args.getUserData();
         memberRequest = new MemberRequest();
@@ -119,8 +116,7 @@ public class JoinPresenterImpl extends BasePresenterImpl implements JoinPresente
         view.showResetJoinDialog();
     }
 
-    @Override public void onCompleteJoinDialogClose() {
-        RxBus.send(new RxEventJoinComplete());
+    @Override public void onSignInCompletedDialogCloseClick() {
         view.finish();
     }
 
@@ -132,13 +128,8 @@ public class JoinPresenterImpl extends BasePresenterImpl implements JoinPresente
     }
 
     private void resJoin(UserDataModel data) {
-        App.getInstance().setLogin(true);
-        App.getInstance().setUserId(data.getUser_id());
-        App.getInstance().setSnsId(data.getSns_id());
-        App.getInstance().setSnsType(data.getType());
-        Prefs.putInt(PrefsKey.KEY_LOGIN_VISIBLE_COUNT, 3);
-
-        view.showCompleteJoinDialog();
+        App.getInstance().setupLogin(data);
+        view.showSignCompletedDialog();
     }
 
     public void checkFullAgree() {
@@ -201,8 +192,5 @@ public class JoinPresenterImpl extends BasePresenterImpl implements JoinPresente
         } else {
             view.disableJoinButton();
         }
-    }
-
-    @AllArgsConstructor @Getter public final static class RxEventJoinComplete {
     }
 }

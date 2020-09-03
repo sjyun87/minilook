@@ -2,16 +2,18 @@ package com.minilook.minilook.ui.login;
 
 import android.content.Context;
 import android.content.Intent;
-import butterknife.OnClick;
+
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.user.UserDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.dialog.NoEmailDialog;
-import com.minilook.minilook.ui.join.JoinActivity;
+import com.minilook.minilook.ui.signin.SignInActivity;
 import com.minilook.minilook.ui.login.di.LoginArguments;
 import com.minilook.minilook.ui.login.kakao.KakaoLoginManager;
-import com.minilook.minilook.ui.login.listener.OnLoginListener;
+import com.minilook.minilook.ui.login.listener.OnSNSLoginListener;
 import com.minilook.minilook.ui.login.naver.NaverLoginManager;
+
+import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity implements LoginPresenter.View {
 
@@ -43,24 +45,28 @@ public class LoginActivity extends BaseActivity implements LoginPresenter.View {
             .build();
     }
 
+    @Override public void onLogin() {
+        presenter.onLogin();
+    }
+
     @Override public void setupKakaoLoginManager() {
-        kakaoLoginManager.setListener(loginListener);
+        kakaoLoginManager.setListener(snsLoginListener);
     }
 
     @Override public void setupNaverLoginManager() {
-        naverLoginManager.setListener(loginListener);
+        naverLoginManager.setListener(snsLoginListener);
     }
 
-    private OnLoginListener loginListener = new OnLoginListener() {
-        @Override public void onLogin(String sns_id, String email, String type) {
-            presenter.onLoginSuccess(sns_id, email, type);
+    private OnSNSLoginListener snsLoginListener = new OnSNSLoginListener() {
+        @Override public void onSNSLogin(String sns_id, String email, String type) {
+            presenter.onSNSLogin(sns_id, email, type);
         }
 
-        @Override public void onLogout() {
+        @Override public void onSNSLogout() {
         }
 
-        @Override public void onError(int errorCode, String message) {
-            presenter.onLoginError(errorCode, message);
+        @Override public void onSNSError(int errorCode, String message) {
+            presenter.onSNSError(errorCode, message);
         }
     };
 
@@ -69,7 +75,7 @@ public class LoginActivity extends BaseActivity implements LoginPresenter.View {
     }
 
     @Override public void navigateToJoin(UserDataModel userData) {
-        JoinActivity.start(this, userData);
+        SignInActivity.start(this, userData);
     }
 
     @OnClick(R.id.layout_naver_panel)

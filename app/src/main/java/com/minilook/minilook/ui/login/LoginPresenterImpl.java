@@ -7,14 +7,15 @@ import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.user.UserDataModel;
 import com.minilook.minilook.data.network.member.MemberRequest;
 import com.minilook.minilook.data.rx.RxBus;
+import com.minilook.minilook.data.rx.RxBusEvent;
 import com.minilook.minilook.data.rx.SchedulersFacade;
 import com.minilook.minilook.data.type.NetworkType;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
-import com.minilook.minilook.ui.join.JoinPresenterImpl;
 import com.minilook.minilook.ui.login.di.LoginArguments;
 import com.minilook.minilook.ui.login.kakao.KakaoLoginManager;
 import com.minilook.minilook.ui.login.naver.NaverLoginManager;
 import com.pixplicity.easyprefs.library.Prefs;
+
 import timber.log.Timber;
 
 public class LoginPresenterImpl extends BasePresenterImpl implements LoginPresenter {
@@ -35,17 +36,12 @@ public class LoginPresenterImpl extends BasePresenterImpl implements LoginPresen
     }
 
     @Override public void onCreate() {
-        toRxObservable();
         view.setupKakaoLoginManager();
         view.setupNaverLoginManager();
     }
 
-    private void toRxObservable() {
-        addDisposable(RxBus.toObservable().subscribe(o -> {
-            if (o instanceof JoinPresenterImpl.RxEventJoinComplete) {
-                view.finish();
-            }
-        }, Timber::e));
+    @Override public void onLogin() {
+        view.finish();
     }
 
     @Override public void onNaverClick() {
@@ -56,7 +52,7 @@ public class LoginPresenterImpl extends BasePresenterImpl implements LoginPresen
         kakaoLoginManager.login();
     }
 
-    @Override public void onLoginSuccess(String sns_id, String email, String type) {
+    @Override public void onSNSLogin(String sns_id, String email, String type) {
         userData = new UserDataModel();
         userData.setSns_id(sns_id);
         userData.setEmail(email);
@@ -65,7 +61,7 @@ public class LoginPresenterImpl extends BasePresenterImpl implements LoginPresen
         reqCheckUser();
     }
 
-    @Override public void onLoginError(int errorCode, String message) {
+    @Override public void onSNSError(int errorCode, String message) {
         Timber.e(errorCode + " = " + message);
         if (errorCode == KakaoLoginManager.ERROR_NO_EMAIL) {
             view.showNoEmailDialog();
@@ -86,11 +82,7 @@ public class LoginPresenterImpl extends BasePresenterImpl implements LoginPresen
     private void resCheckUser(BaseDataModel data) {
         if (data.getCode().equals(NetworkType.OK)) {
             userData = gson.fromJson(data.getData(), UserDataModel.class);
-            App.getInstance().setLogin(true);
-            App.getInstance().setUserId(userData.getUser_id());
-            App.getInstance().setSnsId(userData.getSns_id());
-            App.getInstance().setSnsType(userData.getType());
-            Prefs.putInt(PrefsKey.KEY_LOGIN_VISIBLE_COUNT, 3);
+            App.getInstance().setupLogin(userData);
             view.finish();
         } else if (data.getCode().equals(NetworkType.NO_DATA)) {
             view.navigateToJoin(userData);

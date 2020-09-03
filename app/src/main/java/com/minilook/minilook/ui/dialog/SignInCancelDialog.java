@@ -3,29 +3,30 @@ package com.minilook.minilook.ui.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
+
+import com.minilook.minilook.R;
+import com.minilook.minilook.ui.dialog.listener.OnOkClickListener;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.minilook.minilook.R;
-import com.minilook.minilook.ui.dialog.listener.OnButtonClickListener;
 
-public class ResetJoinDialog extends Dialog {
+public class SignInCancelDialog extends Dialog {
 
-    private Context context;
-    private OnButtonClickListener listener;
+    private OnDialogClickListener listener;
 
-    public ResetJoinDialog(@NonNull Context context, @NonNull OnButtonClickListener listener) {
+    public SignInCancelDialog(@NonNull Context context, @NonNull OnOkClickListener listener) {
         super(context);
-        this.context = context;
         this.listener = listener;
 
-        setCanceledOnTouchOutside(true);
+        setCanceledOnTouchOutside(false);
         setCancelable(true);
     }
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_reset_join);
+        setContentView(R.layout.dialog_signin_cancel);
         ButterKnife.bind(this);
     }
 
