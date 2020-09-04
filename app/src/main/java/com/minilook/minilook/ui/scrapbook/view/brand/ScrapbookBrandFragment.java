@@ -43,6 +43,10 @@ public class ScrapbookBrandFragment extends BaseFragment implements ScrapbookBra
             .build();
     }
 
+    @Override public void onBrandScrap(boolean isScrap, BrandDataModel brand) {
+        presenter.onBrandScrap(isScrap, brand);
+    }
+
     @Override public void setupRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -58,6 +62,10 @@ public class ScrapbookBrandFragment extends BaseFragment implements ScrapbookBra
 
     @Override public void refresh() {
         adapterView.refresh();
+    }
+
+    @Override public void refresh(int position) {
+        adapter.notifyItemRemoved(position);
     }
 
     @Override public void refresh(int start, int rows) {

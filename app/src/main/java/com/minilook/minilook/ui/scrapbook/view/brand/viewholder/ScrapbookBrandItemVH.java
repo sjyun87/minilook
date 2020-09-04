@@ -10,12 +10,17 @@ import androidx.annotation.NonNull;
 import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.BindViews;
+import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.minilook.minilook.App;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
+import com.minilook.minilook.data.rx.RxBus;
+import com.minilook.minilook.data.rx.RxBusEvent;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
+import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.util.DimenUtil;
 import com.minilook.minilook.util.StringUtil;
 import java.util.List;
@@ -58,5 +63,15 @@ public class ScrapbookBrandItemVH extends BaseViewHolder<BrandDataModel> {
 
     void onItemClick(View view) {
         BrandDetailActivity.start(context, data.getId());
+    }
+
+    @OnClick({ R.id.img_scrap, R.id.txt_scrap_count })
+    void onScrapClick() {
+        if (App.getInstance().isLogin()) {
+            data.setScrap(!data.isScrap());
+            RxBus.send(new RxBusEvent.RxBusEventBrandScrap(data.isScrap(), data));
+        } else {
+            LoginActivity.start(context);
+        }
     }
 }
