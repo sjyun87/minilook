@@ -56,6 +56,10 @@ public class MarketFilterAdapter extends RecyclerView.Adapter<MarketFilterItemVH
         return this.items;
     }
 
+    @Override public int get(CategoryDataModel $item) {
+        return items.indexOf($item);
+    }
+
     @Override public void remove(int $index) {
         this.items.remove($index);
     }

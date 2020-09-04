@@ -1,7 +1,6 @@
 package com.minilook.minilook.ui.product.adapter;
 
 import android.view.ViewGroup;
-import android.widget.GridView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.minilook.minilook.data.model.product.ProductDataModel;
@@ -108,6 +107,10 @@ public class ProductAdapter extends RecyclerView.Adapter<BaseViewHolder<ProductD
 
     @Override public List<ProductDataModel> get() {
         return this.items;
+    }
+
+    @Override public int get(ProductDataModel $item) {
+        return items.indexOf($item);
     }
 
     @Override public void remove(int $index) {

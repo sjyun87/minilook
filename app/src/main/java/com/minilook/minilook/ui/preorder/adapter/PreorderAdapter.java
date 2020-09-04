@@ -70,6 +70,10 @@ public class PreorderAdapter extends RecyclerView.Adapter<BaseViewHolder<Preorde
         return this.items;
     }
 
+    @Override public int get(PreorderDataModel $item) {
+        return items.indexOf($item);
+    }
+
     @Override public void remove(int $index) {
         this.items.remove($index);
     }

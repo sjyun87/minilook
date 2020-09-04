@@ -59,6 +59,10 @@ public class OptionSelectorSizeAdapter extends RecyclerView.Adapter<OptionSelect
         return this.items;
     }
 
+    @Override public int get(ProductSizeDataModel $item) {
+        return items.indexOf($item);
+    }
+
     @Override public void remove(int $index) {
         this.items.remove($index);
     }

@@ -64,6 +64,10 @@ public class MarketBrandMenuAdapter extends RecyclerView.Adapter<MarketBrandMenu
         return this.items;
     }
 
+    @Override public int get(BrandDataModel $item) {
+        return items.indexOf($item);
+    }
+
     @Override public void remove(int $index) {
         this.items.remove($index);
     }

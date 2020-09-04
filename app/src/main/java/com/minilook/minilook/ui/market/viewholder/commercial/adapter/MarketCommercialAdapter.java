@@ -59,6 +59,10 @@ public class MarketCommercialAdapter extends RecyclerView.Adapter<MarketCommerci
         return this.items;
     }
 
+    @Override public int get(CommercialDataModel $item) {
+        return items.indexOf($item);
+    }
+
     @Override public void remove(int $index) {
         this.items.remove($index);
     }

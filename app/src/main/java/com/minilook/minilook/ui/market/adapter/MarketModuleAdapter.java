@@ -95,6 +95,10 @@ public class MarketModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<Mar
         return this.items;
     }
 
+    @Override public int get(MarketDataModel $item) {
+        return items.indexOf($item);
+    }
+
     @Override public void remove(int $index) {
         this.items.remove($index);
     }

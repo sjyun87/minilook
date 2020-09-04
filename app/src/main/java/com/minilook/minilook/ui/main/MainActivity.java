@@ -6,6 +6,8 @@ import androidx.viewpager2.widget.ViewPager2;
 import butterknife.BindString;
 import butterknife.BindView;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.brand.BrandDataModel;
+import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.manager.ToastManager;
 import com.minilook.minilook.ui.base.widget.BottomBar;
@@ -63,12 +65,12 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
             .build();
     }
 
-    @Override public void onProductScrap(boolean isScrap, int product_id) {
-        presenter.onProductScrap(isScrap, product_id);
+    @Override public void onProductScrap(boolean isScrap, ProductDataModel product) {
+        presenter.onProductScrap(isScrap, product);
     }
 
-    @Override public void onBrandScrap(boolean isScrap, int brand_id) {
-        presenter.onBrandScrap(isScrap, brand_id);
+    @Override public void onBrandScrap(boolean isScrap, BrandDataModel brand) {
+        presenter.onBrandScrap(isScrap, brand);
     }
 
     @Override public void setupViewPager() {

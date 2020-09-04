@@ -59,6 +59,10 @@ public class OptionSelectorColorAdapter extends RecyclerView.Adapter<OptionSelec
         return this.items;
     }
 
+    @Override public int get(ProductColorDataModel $item) {
+        return items.indexOf($item);
+    }
+
     @Override public void remove(int $index) {
         this.items.remove($index);
     }

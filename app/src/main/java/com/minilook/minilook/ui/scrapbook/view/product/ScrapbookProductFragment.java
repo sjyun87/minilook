@@ -43,6 +43,10 @@ public class ScrapbookProductFragment extends BaseFragment implements ScrapbookP
             .build();
     }
 
+    @Override public void onProductScrap(boolean isScrap, ProductDataModel product) {
+        presenter.onProductScrap(isScrap, product);
+    }
+
     @Override public void setupRecyclerView() {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
@@ -59,6 +63,10 @@ public class ScrapbookProductFragment extends BaseFragment implements ScrapbookP
 
     @Override public void refresh() {
         adapterView.refresh();
+    }
+
+    @Override public void refresh(int position) {
+        adapter.notifyItemRemoved(position);
     }
 
     @Override public void refresh(int start, int rows) {

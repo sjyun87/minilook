@@ -59,6 +59,10 @@ public class FilterCategoryAdapter extends RecyclerView.Adapter<FilterCategoryVH
         return this.items;
     }
 
+    @Override public int get(CategoryDataModel $item) {
+        return items.indexOf($item);
+    }
+
     @Override public void remove(int $index) {
         this.items.remove($index);
     }

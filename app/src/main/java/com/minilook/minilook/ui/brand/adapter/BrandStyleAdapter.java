@@ -60,6 +60,10 @@ public class BrandStyleAdapter extends RecyclerView.Adapter<BrandStyleVH> implem
         return this.items;
     }
 
+    @Override public int get(BrandMenuDataModel $item) {
+        return items.indexOf($item);
+    }
+
     @Override public void remove(int $index) {
         this.items.remove($index);
     }

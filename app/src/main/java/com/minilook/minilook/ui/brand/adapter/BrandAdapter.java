@@ -57,6 +57,10 @@ public class BrandAdapter extends RecyclerView.Adapter<BrandVH> implements
         return this.items;
     }
 
+    @Override public int get(BrandMenuDataModel $item) {
+        return items.indexOf($item);
+    }
+
     @Override public void remove(int $index) {
         this.items.remove($index);
     }

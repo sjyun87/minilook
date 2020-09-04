@@ -18,6 +18,8 @@ public interface BaseAdapterDataModel<T> {
 
     List<T> get();
 
+    int get(T $item);
+
     void remove(int $index);
 
     void remove(T $item);

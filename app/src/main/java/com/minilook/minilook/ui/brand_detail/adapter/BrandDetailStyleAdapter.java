@@ -58,6 +58,10 @@ public class BrandDetailStyleAdapter extends RecyclerView.Adapter<BrandDetailSty
         return this.items;
     }
 
+    @Override public int get(String $item) {
+        return items.indexOf($item);
+    }
+
     @Override public void remove(int $index) {
         this.items.remove($index);
     }

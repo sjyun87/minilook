@@ -63,6 +63,10 @@ public class BrandDetailCategoryAdapter extends RecyclerView.Adapter<BrandDetail
         return this.items;
     }
 
+    @Override public int get(CategoryDataModel $item) {
+        return items.indexOf($item);
+    }
+
     @Override public void remove(int $index) {
         this.items.remove($index);
     }

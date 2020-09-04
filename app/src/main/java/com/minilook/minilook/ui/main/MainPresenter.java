@@ -3,6 +3,8 @@ package com.minilook.minilook.ui.main;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
+import com.minilook.minilook.data.model.brand.BrandDataModel;
+import com.minilook.minilook.data.model.product.ProductDataModel;
 
 public interface MainPresenter extends LifecycleObserver {
 
@@ -13,9 +15,9 @@ public interface MainPresenter extends LifecycleObserver {
 
     void onMarketingAgree();
 
-    void onProductScrap(boolean isScrap, int product_id);
+    void onProductScrap(boolean isScrap, ProductDataModel product);
 
-    void onBrandScrap(boolean isScrap, int brand_id);
+    void onBrandScrap(boolean isScrap, BrandDataModel brand);
 
     interface View {
 

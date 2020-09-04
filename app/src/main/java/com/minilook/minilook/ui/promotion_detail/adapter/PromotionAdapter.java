@@ -59,6 +59,10 @@ public class PromotionAdapter extends RecyclerView.Adapter<PromotionItemVH>
         return this.items;
     }
 
+    @Override public int get(ProductDataModel $item) {
+        return items.indexOf($item);
+    }
+
     @Override public void remove(int $index) {
         this.items.remove($index);
     }

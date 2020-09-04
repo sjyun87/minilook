@@ -63,6 +63,10 @@ public class BrandDetailSortAdapter extends RecyclerView.Adapter<BrandDetailSort
         return this.items;
     }
 
+    @Override public int get(SortDataModel $item) {
+        return items.indexOf($item);
+    }
+
     @Override public void remove(int $index) {
         this.items.remove($index);
     }

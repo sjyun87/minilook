@@ -145,7 +145,7 @@ public class ProductGridVH extends BaseViewHolder<ProductDataModel> {
         if (App.getInstance().isLogin()) {
             data.setScrap(!data.isScrap());
             setupScrapImage();
-            RxBus.send(new RxBusEvent.RxBusEventProductScrap(data.isScrap(), data.getProduct_id()));
+            RxBus.send(new RxBusEvent.RxBusEventProductScrap(data.isScrap(), data));
         } else {
             LoginActivity.start(context);
         }

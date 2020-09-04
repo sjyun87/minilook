@@ -2,6 +2,8 @@ package com.minilook.minilook.ui.main;
 
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.PrefsKey;
+import com.minilook.minilook.data.model.brand.BrandDataModel;
+import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.network.member.MemberRequest;
 import com.minilook.minilook.data.network.scrap.ScrapRequest;
 import com.minilook.minilook.data.rx.RxBus;
@@ -48,12 +50,12 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
         reqUpdateNonUserMarketingAgree();
     }
 
-    @Override public void onProductScrap(boolean isScrap, int product_id) {
-        reqProductScrap(isScrap, product_id);
+    @Override public void onProductScrap(boolean isScrap, ProductDataModel product) {
+        reqProductScrap(isScrap, product);
     }
 
-    @Override public void onBrandScrap(boolean isScrap, int brand_id) {
-        reqBrandScrap(isScrap, brand_id);
+    @Override public void onBrandScrap(boolean isScrap, BrandDataModel brand) {
+        reqBrandScrap(isScrap, brand);
     }
 
     private void reqUpdateToken() {
@@ -86,13 +88,13 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
             .subscribe());
     }
 
-    private void reqProductScrap(boolean isScrap, int product_id) {
-        addDisposable(scrapRequest.updateProductScrap(isScrap, product_id)
+    private void reqProductScrap(boolean isScrap, ProductDataModel product) {
+        addDisposable(scrapRequest.updateProductScrap(isScrap, product.getProduct_id())
             .subscribe());
     }
 
-    private void reqBrandScrap(boolean isScrap, int brand_id) {
-        addDisposable(scrapRequest.updateBrandScrap(isScrap, brand_id)
+    private void reqBrandScrap(boolean isScrap, BrandDataModel brand) {
+        addDisposable(scrapRequest.updateBrandScrap(isScrap, brand.getId())
             .subscribe());
     }
 

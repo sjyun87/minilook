@@ -55,6 +55,10 @@ public class ProductDetailImageAdapter extends RecyclerView.Adapter<ProductDetai
         return this.items;
     }
 
+    @Override public int get(String $item) {
+        return items.indexOf($item);
+    }
+
     @Override public void remove(int $index) {
         this.items.remove($index);
     }

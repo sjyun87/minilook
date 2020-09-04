@@ -187,7 +187,7 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
             BrandDataModel model = brandItems.get(selectedPosition);
             model.setScrap(!model.isScrap());
             setupScrapImage(model.isScrap());
-            RxBus.send(new RxBusEvent.RxBusEventBrandScrap(model.isScrap(), model.getId()));
+            RxBus.send(new RxBusEvent.RxBusEventBrandScrap(model.isScrap(), model));
         } else {
             LoginActivity.start(context);
         }

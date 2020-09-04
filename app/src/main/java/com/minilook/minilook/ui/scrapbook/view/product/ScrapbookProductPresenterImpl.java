@@ -47,6 +47,13 @@ public class ScrapbookProductPresenterImpl extends BasePresenterImpl implements 
         RxBus.send(new MainPresenterImpl.RxEventNavigateToPage(BottomBar.POSITION_MARKET));
     }
 
+    @Override public void onProductScrap(boolean isScrap, ProductDataModel product) {
+        int position = adapter.get(product);
+        adapter.remove(product);
+        view.refresh(position);
+        if (adapter.getSize() == 0) view.showEmptyPanel();
+    }
+
     private void reqScrapProduct() {
         addDisposable(scrapRequest.getScrapProducts(page.incrementAndGet(), ROWS)
             .compose(Transformer.applySchedulers())

@@ -1,5 +1,7 @@
 package com.minilook.minilook.data.rx;
 
+import com.minilook.minilook.data.model.brand.BrandDataModel;
+import com.minilook.minilook.data.model.product.ProductDataModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,11 +15,11 @@ public final class RxBusEvent {
 
     @AllArgsConstructor @Getter public final static class RxBusEventProductScrap {
         boolean isScrap;
-        int product_id;
+        ProductDataModel product;
     }
 
     @AllArgsConstructor @Getter public final static class RxBusEventBrandScrap {
         boolean isScrap;
-        int brand_id;
+        BrandDataModel brand;
     }
 }

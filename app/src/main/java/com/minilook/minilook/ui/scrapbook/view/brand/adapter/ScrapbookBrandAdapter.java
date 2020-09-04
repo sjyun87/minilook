@@ -57,6 +57,10 @@ public class ScrapbookBrandAdapter extends RecyclerView.Adapter<ScrapbookBrandIt
         return this.items;
     }
 
+    @Override public int get(BrandDataModel $item) {
+        return items.indexOf($item);
+    }
+
     @Override public void remove(int $index) {
         this.items.remove($index);
     }
