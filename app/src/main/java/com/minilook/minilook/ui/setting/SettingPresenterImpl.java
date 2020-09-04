@@ -19,6 +19,7 @@ public class SettingPresenterImpl extends BasePresenterImpl implements SettingPr
     @Override public void onCreate() {
         view.setupInfoSwitchButton();
         view.setupMarketingSwitchButton();
+        view.setupCurrentVersion();
 
         if (App.getInstance().isLogin()) {
             setupUser();

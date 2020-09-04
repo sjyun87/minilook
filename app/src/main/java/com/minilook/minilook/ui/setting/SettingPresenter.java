@@ -37,6 +37,8 @@ public interface SettingPresenter extends LifecycleObserver {
 
         void hideOrderInfoPanel();
 
+        void setupCurrentVersion();
+
         void showLoginButton();
 
         void hideLoginButton();

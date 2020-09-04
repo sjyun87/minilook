@@ -7,6 +7,7 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import butterknife.BindView;
 import butterknife.OnClick;
+import com.minilook.minilook.BuildConfig;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.widget.BottomBar;
@@ -29,6 +30,7 @@ public class SettingActivity extends BaseActivity implements SettingPresenter.Vi
     @BindView(R.id.layout_order_info_panel) ConstraintLayout orderInfoPanel;
     @BindView(R.id.sb_order_info) SwitchButton orderInfoSwitchButton;
     @BindView(R.id.sb_marketing_info) SwitchButton marketingInfoSwitchButton;
+    @BindView(R.id.txt_version) TextView versionTextView;
     @BindView(R.id.txt_login) TextView loginTextView;
     @BindView(R.id.txt_logout) TextView logoutTextView;
     @BindView(R.id.txt_leave) TextView leaveTextView;
@@ -74,6 +76,10 @@ public class SettingActivity extends BaseActivity implements SettingPresenter.Vi
 
     @Override public void hideOrderInfoPanel() {
         orderInfoPanel.setVisibility(View.GONE);
+    }
+
+    @Override public void setupCurrentVersion() {
+        versionTextView.setText(BuildConfig.VERSION_NAME);
     }
 
     @Override public void showLoginButton() {
