@@ -13,10 +13,11 @@ import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.RxBusEvent;
 import com.minilook.minilook.data.rx.SchedulersFacade;
 import com.minilook.minilook.ui.base.listener.OnLoginListener;
+import com.minilook.minilook.ui.base.listener.OnScrapListener;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 
-public abstract class BaseFragment extends Fragment implements OnLoginListener {
+public abstract class BaseFragment extends Fragment implements OnLoginListener, OnScrapListener {
 
     private CompositeDisposable disposable = new CompositeDisposable();
     private Unbinder binder;
@@ -44,6 +45,14 @@ public abstract class BaseFragment extends Fragment implements OnLoginListener {
                     onLogin();
                 } else if (o instanceof RxBusEvent.RxBusEventLogout) {
                     onLogout();
+                } else if (o instanceof RxBusEvent.RxBusEventProductScrap) {
+                    boolean isScrap = ((RxBusEvent.RxBusEventProductScrap) o).isScrap();
+                    int product_id = ((RxBusEvent.RxBusEventProductScrap) o).getProduct_id();
+                    onProductScrap(isScrap, product_id);
+                } else if (o instanceof RxBusEvent.RxBusEventBrandScrap) {
+                    boolean isScrap = ((RxBusEvent.RxBusEventBrandScrap) o).isScrap();
+                    int brand_id = ((RxBusEvent.RxBusEventBrandScrap) o).getBrand_id();
+                    onBrandScrap(isScrap, brand_id);
                 }
             })
         );
@@ -53,6 +62,12 @@ public abstract class BaseFragment extends Fragment implements OnLoginListener {
     }
 
     @Override public void onLogout() {
+    }
+
+    @Override public void onProductScrap(boolean isScrap, int product_id) {
+    }
+
+    @Override public void onBrandScrap(boolean isScrap, int brand_id) {
     }
 
     protected abstract int getLayoutID();

@@ -1,5 +1,6 @@
 package com.minilook.minilook.data.network.market;
 
+import com.minilook.minilook.App;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
@@ -11,6 +12,7 @@ public class MarketRequest extends BaseRequest<MarketService> {
     }
 
     public Single<BaseDataModel> getMarketModules() {
-        return getApi().getMarketModules();
+        int user_id = App.getInstance().getUserId();
+        return getApi().getMarketModules(user_id);
     }
 }

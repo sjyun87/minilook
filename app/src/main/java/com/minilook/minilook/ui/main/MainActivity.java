@@ -57,18 +57,18 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
         if (position != -1) bottomBar.setCurrentPage(position);
     }
 
+    private MainArguments provideArguments() {
+        return MainArguments.builder()
+            .view(this)
+            .build();
+    }
+
     @Override public void onLogin() {
         presenter.onLogin();
     }
 
     @Override public void onLogout() {
         presenter.onLogout();
-    }
-
-    private MainArguments provideArguments() {
-        return MainArguments.builder()
-            .view(this)
-            .build();
     }
 
     @Override public void setupViewPager() {

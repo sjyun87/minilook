@@ -41,6 +41,7 @@ public class SettingPresenterImpl extends BasePresenterImpl implements SettingPr
 
     @Override public void onLogoutClick() {
         App.getInstance().setupLogout();
+        view.navigateToMain();
     }
 
     @Override public void onLeaveClick() {

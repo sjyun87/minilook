@@ -1,6 +1,7 @@
 package com.minilook.minilook.ui.product;
 
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,14 +9,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import butterknife.BindColor;
+import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.minilook.minilook.App;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
+import com.minilook.minilook.ui.login.LoginActivity;
+import com.minilook.minilook.ui.main.MainPresenterImpl;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.DimenUtil;
 import com.minilook.minilook.util.StringUtil;
@@ -27,6 +33,7 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
     @BindView(R.id.txt_brand_name) TextView brandNameTextView;
     @BindView(R.id.img_product_thumb) ImageView thumbImageView;
     @BindView(R.id.txt_review) TextView reviewTextView;
+    @BindView(R.id.img_scrap) ImageView scrapImageView;
     @BindView(R.id.txt_scrap) TextView scrapTextView;
     @BindView(R.id.txt_category) TextView categoryTextView;
     @BindView(R.id.txt_product_name) TextView nameTextView;
@@ -34,6 +41,9 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
 
     @BindColor(R.color.color_FFDBDBDB) int color_FFDBDBDB;
     @BindColor(R.color.color_FFEEEFF5) int color_FFEEEFF5;
+
+    @BindDrawable(R.drawable.ic_scrap_off) Drawable img_scrap_off;
+    @BindDrawable(R.drawable.ic_scrap_on) Drawable img_scrap_on;
 
     public ProductFeedVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
@@ -64,7 +74,17 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
         nameTextView.setText(data.getProduct_name());
         descTextView.setText(data.getProduct_desc());
 
+        setupScrapImage();
+
         itemView.setOnClickListener(this::onItemClick);
+    }
+
+    private void setupScrapImage() {
+        if (data.isScrap()) {
+            scrapImageView.setImageDrawable(img_scrap_on);
+        } else {
+            scrapImageView.setImageDrawable(img_scrap_off);
+        }
     }
 
     void onItemClick(View view) {
@@ -83,6 +103,12 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
 
     @OnClick(R.id.layout_scrap_panel)
     void onScrapClick() {
-
+        if (App.getInstance().isLogin()) {
+            data.setScrap(!data.isScrap());
+            setupScrapImage();
+            RxBus.send(new MainPresenterImpl.RxEventProductScrap(data.isScrap(), data.getProduct_id()));
+        } else {
+            LoginActivity.start(context);
+        }
     }
 }

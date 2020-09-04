@@ -11,6 +11,8 @@ public interface LookBookDetailPresenter extends LifecycleObserver {
 
     void onBackClick();
 
+    void onProductScrap(boolean isScrap, int product_id);
+
     interface View {
 
         void setupStyleRecyclerView();
@@ -30,6 +32,8 @@ public interface LookBookDetailPresenter extends LifecycleObserver {
         void styleRefresh();
 
         void productRefresh();
+
+        void productRefresh(int position);
 
         void scrollToTop();
     }

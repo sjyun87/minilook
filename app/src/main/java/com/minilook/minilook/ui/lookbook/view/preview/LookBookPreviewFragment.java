@@ -37,6 +37,10 @@ public class LookBookPreviewFragment extends BaseFragment implements LookBookPre
             .build();
     }
 
+    @Override public void onProductScrap(boolean isScrap, int product_id) {
+        presenter.onProductScrap(isScrap, product_id);
+    }
+
     @Override public void onDestroyView() {
         viewPager.unregisterOnPageChangeCallback(OnPageChangeCallback);
         super.onDestroyView();
@@ -50,6 +54,10 @@ public class LookBookPreviewFragment extends BaseFragment implements LookBookPre
 
     @Override public void refresh() {
         adapterView.refresh();
+    }
+
+    @Override public void refresh(int position) {
+        adapterView.refresh(position);
     }
 
     @Override public void refresh(int start, int rows) {

@@ -2,9 +2,10 @@ package com.minilook.minilook.ui.main;
 
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.PrefsKey;
+import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.network.member.MemberRequest;
+import com.minilook.minilook.data.network.scrap.ScrapRequest;
 import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.lookbook.LookBookPresenterImpl;
 import com.minilook.minilook.ui.lookbook.view.detail.LookBookDetailPresenterImpl;
@@ -18,10 +19,12 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
 
     private final View view;
     private final MemberRequest memberRequest;
+    private final ScrapRequest scrapRequest;
 
     public MainPresenterImpl(MainArguments args) {
         view = args.getView();
         memberRequest = new MemberRequest();
+        scrapRequest = new ScrapRequest();
     }
 
     @Override public void onCreate() {
@@ -79,8 +82,16 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
 
     private void reqUpdateNonUserMarketingAgree() {
         addDisposable(memberRequest.updateMarketingInfo(true)
-            .compose(Transformer.applySchedulers())
             .subscribe());
+    }
+
+    private void reqScrap(boolean isScrap, int product_id) {
+        addDisposable(scrapRequest.updateScrap(isScrap, product_id)
+            .subscribe(this::text, Timber::e));
+    }
+
+    private void text(BaseDataModel dataModel) {
+        Timber.e(dataModel.toString());
     }
 
     private void toRxObservable() {
@@ -91,6 +102,10 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
             } else if (o instanceof RxEventNavigateToPage) {
                 int position = ((RxEventNavigateToPage) o).getPosition();
                 view.setupCurrentPage(position);
+            } else if (o instanceof RxEventProductScrap) {
+                boolean isScrap = ((RxEventProductScrap) o).isScrap();
+                int product_id = ((RxEventProductScrap) o).getProduct_id();
+                reqScrap(isScrap, product_id);
             }
         }, Timber::e));
     }
@@ -105,5 +120,10 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
 
     @AllArgsConstructor @Getter public final static class RxEventNavigateToPage {
         private int position;
+    }
+
+    @AllArgsConstructor @Getter public final static class RxEventProductScrap {
+        private boolean isScrap;
+        private int product_id;
     }
 }

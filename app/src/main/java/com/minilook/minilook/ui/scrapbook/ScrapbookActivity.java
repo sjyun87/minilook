@@ -14,10 +14,10 @@ import com.minilook.minilook.ui.scrapbook.adapter.ScrapbookPagerAdapter;
 import com.minilook.minilook.ui.scrapbook.di.ScrapbookArguments;
 import java.util.Objects;
 
-public class ScrapBookActivity extends BaseActivity implements ScrapbookPresenter.View {
+public class ScrapbookActivity extends BaseActivity implements ScrapbookPresenter.View {
 
     public static void start(Context context) {
-        Intent intent = new Intent(context, ScrapBookActivity.class);
+        Intent intent = new Intent(context, ScrapbookActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         context.startActivity(intent);

@@ -46,6 +46,7 @@ import lombok.Data;
     @Expose @SerializedName("scrapCount")
     private int scrap_cnt;
     @Expose @SerializedName("isScrap")
+    @JsonAdapter(BooleanDeserializer.class)
     private boolean isScrap;
     @Expose @SerializedName("qaCount")
     private int question_cnt;

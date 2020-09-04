@@ -9,8 +9,10 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base.widget.BottomBar;
 import com.minilook.minilook.ui.leave.LeaveActivity;
 import com.minilook.minilook.ui.login.LoginActivity;
+import com.minilook.minilook.ui.main.MainActivity;
 import com.minilook.minilook.ui.setting.di.SettingArguments;
 import com.minilook.minilook.ui.webview.WebViewActivity;
 import com.suke.widget.SwitchButton;
@@ -108,6 +110,10 @@ public class SettingActivity extends BaseActivity implements SettingPresenter.Vi
 
     @Override public void navigateToWebView(String url) {
         WebViewActivity.start(this, url);
+    }
+
+    @Override public void navigateToMain() {
+        MainActivity.start(this, BottomBar.POSITION_LOOKBOOK);
     }
 
     @OnClick(R.id.txt_terms_of_use)

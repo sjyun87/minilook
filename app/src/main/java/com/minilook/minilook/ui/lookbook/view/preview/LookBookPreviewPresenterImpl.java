@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.lookbook.LookBookDataModel;
 import com.minilook.minilook.data.model.lookbook.LookBookModuleDataModel;
+import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.network.lookbook.LookBookRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
@@ -44,6 +45,10 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
     @Override public void onPageSelected(int position) {
         if (dataPool.size() > 0 && position == adapter.getSize() - 3) setupLoadMoreData();
         RxBus.send(new RxEventLookBookModuleChanged(adapter.get(position)));
+    }
+
+    @Override public void onProductScrap(boolean isScrap, int product_id) {
+        checkProductScrap(isScrap, product_id);
     }
 
     private void setupLoadMoreData() {
@@ -96,6 +101,21 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
     private void usedData(List<LookBookModuleDataModel> lookbooks) {
         for (LookBookModuleDataModel model : lookbooks) {
             usedLookbooks.add(model.getId());
+        }
+    }
+
+    private void checkProductScrap(boolean isScrap, int product_id) {
+        List<LookBookModuleDataModel> lookbooks = adapter.get();
+        for (int i = 0; i < lookbooks.size(); i++) {
+            List<ProductDataModel> products = lookbooks.get(i).getProducts();
+            for (int j = 0; j < products.size(); j++) {
+                if (product_id == products.get(j).getProduct_id()
+                    && isScrap != products.get(j).isScrap()) {
+                    products.get(j).setScrap(isScrap);
+                    view.refresh(i);
+                    return;
+                }
+            }
         }
     }
 

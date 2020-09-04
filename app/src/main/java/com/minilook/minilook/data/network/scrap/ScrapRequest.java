@@ -15,18 +15,33 @@ public class ScrapRequest extends BaseRequest<ScrapService> {
 
     public Single<BaseDataModel> getScrapProducts(int page, int rows) {
         int user_id = App.getInstance().getUserId();
-        return getApi().getScrapProducts(user_id, createRequestBody(parseToJson(page, rows)));
+        return getApi().getScrapProducts(user_id, createRequestBody(parseToScrapbookJson(page, rows)));
     }
 
     public Single<BaseDataModel> getScrapBrands(int page, int rows) {
         int user_id = App.getInstance().getUserId();
-        return getApi().getScrapBrands(user_id, createRequestBody(parseToJson(page, rows)));
+        return getApi().getScrapBrands(user_id, createRequestBody(parseToScrapbookJson(page, rows)));
     }
 
-    private Map<String, Object> parseToJson(int page, int rows) {
+    private Map<String, Object> parseToScrapbookJson(int page, int rows) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("current", page);
         jsonMap.put("pageSize", rows);
+        return jsonMap;
+    }
+
+    public Single<BaseDataModel> updateScrap(boolean isScrap, int product_id) {
+        if (isScrap) {
+            return getApi().checkScrap(createRequestBody(parseToScrapJson(product_id)));
+        } else {
+            return getApi().uncheckScrap(createRequestBody(parseToScrapJson(product_id)));
+        }
+    }
+
+    private Map<String, Object> parseToScrapJson(int product_id) {
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("memberNo", App.getInstance().getUserId());
+        jsonMap.put("productNo", product_id);
         return jsonMap;
     }
 }

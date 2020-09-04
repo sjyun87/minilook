@@ -37,6 +37,10 @@ public class LookBookDetailPresenterImpl extends BasePresenterImpl implements Lo
         RxBus.send(new LookBookPresenterImpl.RxEventNavigateToPreview(true));
     }
 
+    @Override public void onProductScrap(boolean isScrap, int product_id) {
+        checkProductScrap(isScrap, product_id);
+    }
+
     private void setupData(LookBookModuleDataModel data) {
         view.scrollToTop();
         view.setupLabel(data.getLabel());
@@ -59,6 +63,18 @@ public class LookBookDetailPresenterImpl extends BasePresenterImpl implements Lo
             if (url != null && !url.equals("")) items.add(url);
         }
         return items;
+    }
+
+    private void checkProductScrap(boolean isScrap, int product_id) {
+        List<ProductDataModel> products = productAdapter.get();
+        for (int i = 0; i < products.size(); i++) {
+            if (product_id == products.get(i).getProduct_id()
+                && isScrap != products.get(i).isScrap()) {
+                products.get(i).setScrap(isScrap);
+                view.productRefresh(i);
+                return;
+            }
+        }
     }
 
     private void toRxObservable() {

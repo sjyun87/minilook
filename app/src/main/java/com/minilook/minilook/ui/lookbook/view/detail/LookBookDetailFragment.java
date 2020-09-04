@@ -57,6 +57,10 @@ public class LookBookDetailFragment extends BaseFragment implements LookBookDeta
             .build();
     }
 
+    @Override public void onProductScrap(boolean isScrap, int product_id) {
+        presenter.onProductScrap(isScrap, product_id);
+    }
+
     @Override public void setupStyleRecyclerView() {
         styleRecyclerView.setHasFixedSize(true);
         styleRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
@@ -98,6 +102,10 @@ public class LookBookDetailFragment extends BaseFragment implements LookBookDeta
 
     @Override public void productRefresh() {
         productAdapterDataView.refresh();
+    }
+
+    @Override public void productRefresh(int position) {
+        productAdapterDataView.refresh(position);
     }
 
     @Override public void scrollToTop() {

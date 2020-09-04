@@ -54,5 +54,7 @@ public interface SettingPresenter extends LifecycleObserver {
         void navigateToLeave();
 
         void navigateToWebView(String url);
+
+        void navigateToMain();
     }
 }
