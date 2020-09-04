@@ -9,8 +9,18 @@ public interface GuidePresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
+    void onPageSelected(int position);
+
+    void onGuideEndClick();
+
     interface View {
 
         void setupViewPager();
+
+        void showStartButton();
+
+        void hideStartButton();
+
+        void navigateToMain();
     }
 }

@@ -4,11 +4,13 @@ import android.os.Handler;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.App;
+import com.minilook.minilook.data.common.PrefsKey;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.common.SortDataModel;
 import com.minilook.minilook.data.network.common.CommonRequest;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.splash.di.SplashArguments;
+import com.pixplicity.easyprefs.library.Prefs;
 import io.reactivex.rxjava3.functions.Function;
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +81,14 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
     }
 
     private void checkToDo() {
-        if (isLoginChecked && isAnimationEnd && isCommonDataGet) view.navigateToMain();
+        if (isLoginChecked && isAnimationEnd && isCommonDataGet) {
+            int visibleCount = Prefs.getInt(PrefsKey.KEY_GUIDE_VISIBLE_COUNT, 0);
+            if (visibleCount >= 3) {
+                view.navigateToMain();
+            } else {
+                Prefs.putInt(PrefsKey.KEY_GUIDE_VISIBLE_COUNT, ++visibleCount);
+                view.navigateToGuide();
+            }
+        }
     }
 }

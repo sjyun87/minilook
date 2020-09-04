@@ -2,16 +2,17 @@ package com.minilook.minilook.ui.guide;
 
 import android.content.Context;
 import android.content.Intent;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 import androidx.viewpager2.widget.ViewPager2;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.guide.adapter.GuideAdapter;
 import com.minilook.minilook.ui.guide.di.GuideArguments;
-import com.minilook.minilook.ui.lookbook.adapter.LookBookPagerAdapter;
-import com.minilook.minilook.ui.product.adapter.ProductAdapter;
+import com.minilook.minilook.ui.main.MainActivity;
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 public class GuideActivity extends BaseActivity implements GuidePresenter.View {
 
@@ -23,9 +24,11 @@ public class GuideActivity extends BaseActivity implements GuidePresenter.View {
     }
 
     @BindView(R.id.vp_guide) ViewPager2 viewPager;
+    @BindView(R.id.txt_skip) TextView skipTextView;
+    @BindView(R.id.indicator) DotsIndicator indicator;
+    @BindView(R.id.txt_start) TextView startTextView;
 
     private GuidePresenter presenter;
-    private GuideAdapter adapter;
 
     @Override protected int getLayoutID() {
         return R.layout.activity_guide;
@@ -43,6 +46,33 @@ public class GuideActivity extends BaseActivity implements GuidePresenter.View {
     }
 
     @Override public void setupViewPager() {
-        viewPager.setAdapter(adapter);
+        viewPager.setAdapter(new GuideAdapter());
+        indicator.setViewPager2(viewPager);
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override public void onPageSelected(int position) {
+                presenter.onPageSelected(position);
+            }
+        });
+    }
+
+    @Override public void showStartButton() {
+        startTextView.setVisibility(View.VISIBLE);
+        skipTextView.setVisibility(View.GONE);
+        indicator.setVisibility(View.GONE);
+    }
+
+    @Override public void hideStartButton() {
+        startTextView.setVisibility(View.GONE);
+        skipTextView.setVisibility(View.VISIBLE);
+        indicator.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void navigateToMain() {
+        MainActivity.start(this);
+    }
+
+    @OnClick({ R.id.txt_skip, R.id.txt_start })
+    void onGuideEndClick() {
+        presenter.onGuideEndClick();
     }
 }

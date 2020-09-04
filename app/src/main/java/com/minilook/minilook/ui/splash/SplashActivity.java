@@ -2,6 +2,7 @@ package com.minilook.minilook.ui.splash;
 
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.guide.GuideActivity;
 import com.minilook.minilook.ui.main.MainActivity;
 import com.minilook.minilook.ui.splash.di.SplashArguments;
 import com.minilook.minilook.util.HashKeyUtil;
@@ -23,6 +24,10 @@ public class SplashActivity extends BaseActivity implements SplashPresenter.View
         return SplashArguments.builder()
             .view(this)
             .build();
+    }
+
+    @Override public void navigateToGuide() {
+        GuideActivity.start(this);
     }
 
     @Override public void navigateToMain() {
