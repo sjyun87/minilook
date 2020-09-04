@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.Gravity;
 import android.widget.Toast;
 import com.google.android.material.snackbar.Snackbar;
+import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.widget.ToastView;
 import lombok.Builder;
 import lombok.NonNull;

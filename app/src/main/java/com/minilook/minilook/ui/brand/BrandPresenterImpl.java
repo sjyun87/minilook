@@ -7,6 +7,7 @@ import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.network.brand.BrandRequest;
 import com.minilook.minilook.data.rx.Transformer;
+import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.brand.di.BrandArguments;
 import io.reactivex.rxjava3.functions.Function;
@@ -17,6 +18,7 @@ import timber.log.Timber;
 public class BrandPresenterImpl extends BasePresenterImpl implements BrandPresenter {
 
     private final View view;
+    private final BaseAdapterDataModel<BrandDataModel> brandAdapter;
     private final BrandRequest brandRequest;
 
     private Gson gson = new Gson();
@@ -25,6 +27,7 @@ public class BrandPresenterImpl extends BasePresenterImpl implements BrandPresen
 
     public BrandPresenterImpl(BrandArguments args) {
         view = args.getView();
+        brandAdapter = args.getBrandAdapter();
         brandRequest = new BrandRequest();
     }
 
@@ -43,13 +46,7 @@ public class BrandPresenterImpl extends BasePresenterImpl implements BrandPresen
     private void reqBrands() {
         addDisposable(brandRequest.getBrands(selectedStyles)
             .compose(Transformer.applySchedulers())
-            .filter(data -> {
-                String code = data.getCode();
-                if (code.equals(HttpCode.NO_DATA)) {
-
-                }
-                return code.equals(HttpCode.OK);
-            })
+            .filter(data -> data.getCode().equals(HttpCode.OK))
             .map((Function<BaseDataModel, List<BrandDataModel>>)
                 data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<BrandDataModel>>() {
                 }.getType()))
@@ -57,9 +54,7 @@ public class BrandPresenterImpl extends BasePresenterImpl implements BrandPresen
     }
 
     private void resBrands(List<BrandDataModel> data) {
-        Timber.e(data.toString());
-
-
-
+        brandAdapter.addAll(data);
+        view.brandRefresh();
     }
 }

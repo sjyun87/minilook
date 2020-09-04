@@ -112,6 +112,7 @@ public class JoinPresenterImpl extends BasePresenterImpl implements JoinPresente
         userData.setName(name);
         userData.setCi(ci);
         userData.setBirth(birth);
+        checkButtonEnable();
     }
 
     private void reqJoin() {

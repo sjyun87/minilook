@@ -1,9 +1,12 @@
 package com.minilook.minilook.ui.ipage;
 
+import android.net.Uri;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.browser.customtabs.CustomTabsIntent;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.common.URLKeys;
 import com.minilook.minilook.ui.base.BaseFragment;
 import com.minilook.minilook.ui.coupon.CouponActivity;
 import com.minilook.minilook.ui.ipage.di.IpageArguments;
@@ -143,7 +146,9 @@ public class IpageFragment extends BaseFragment implements IpagePresenter.View {
     }
 
     @Override public void navigateToWebView(String url) {
-        WebViewActivity.start(getContext(), url);
+        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+        CustomTabsIntent customTabsIntent = builder.build();
+        customTabsIntent.launchUrl(requireContext(), Uri.parse(URLKeys.URL_NOTICE));
     }
 
     @OnClick(R.id.curtain)

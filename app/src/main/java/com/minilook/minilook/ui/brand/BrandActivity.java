@@ -5,11 +5,16 @@ import android.content.Intent;
 import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindDimen;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
+import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.ui.brand.adapter.BrandAdapter;
 import com.minilook.minilook.ui.brand.adapter.BrandStyleAdapter;
 import com.minilook.minilook.ui.brand.di.BrandArguments;
 
@@ -28,7 +33,11 @@ public class BrandActivity extends BaseActivity implements BrandPresenter.View {
 
     @BindString(R.string.brand_selected_count) String format_selected_count;
 
+    @BindDimen(R.dimen.dp_2) int dp_2;
+
     private BrandPresenter presenter;
+    private BrandAdapter brandAdapter = new BrandAdapter();
+    private BaseAdapterDataView<BrandDataModel> brandAdapterView = brandAdapter;
     private BrandStyleAdapter styleAdapter;
 
     @Override protected int getLayoutID() {
@@ -43,12 +52,8 @@ public class BrandActivity extends BaseActivity implements BrandPresenter.View {
     private BrandArguments provideArguments() {
         return BrandArguments.builder()
             .view(this)
+            .brandAdapter(brandAdapter)
             .build();
-    }
-
-    @OnClick(R.id.txt_reset)
-    void resetClick() {
-        presenter.resetClick();
     }
 
     @Override public void setupStyleRecyclerView() {
@@ -57,6 +62,21 @@ public class BrandActivity extends BaseActivity implements BrandPresenter.View {
     }
 
     @Override public void setupBrandRecyclerView() {
+        brandRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        brandRecyclerView.setAdapter(brandAdapter);
+        DividerDecoration.builder(this)
+            .size(dp_2)
+            .asSpace()
+            .build()
+            .addTo(styleRecyclerView);
+    }
 
+    @Override public void brandRefresh() {
+        brandAdapterView.refresh();
+    }
+
+    @OnClick(R.id.txt_reset)
+    void resetClick() {
+        presenter.resetClick();
     }
 }

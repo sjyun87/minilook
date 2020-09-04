@@ -16,5 +16,7 @@ public interface BrandPresenter extends LifecycleObserver {
         void setupStyleRecyclerView();
 
         void setupBrandRecyclerView();
+
+        void brandRefresh();
     }
 }

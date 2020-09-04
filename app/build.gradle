@@ -139,4 +139,7 @@ dependencies {
 
   // Preference
   implementation "com.pixplicity.easyprefs:library:$preference_version"
+
+
+  implementation "androidx.browser:browser:1.2.0"
 }
