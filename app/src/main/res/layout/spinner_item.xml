@@ -10,4 +10,5 @@
     android:paddingEnd="@dimen/dp_8"
     android:textColor="@color/color_FF232323"
     android:textSize="@dimen/sp_6"
-    tools:text="최신등록순" />
+    tools:text="최신등록순"
+    tools:keep="@layout/spinner_item" />
