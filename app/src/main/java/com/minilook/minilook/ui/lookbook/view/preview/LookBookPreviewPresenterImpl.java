@@ -47,10 +47,6 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
         RxBus.send(new RxEventLookBookModuleChanged(adapter.get(position)));
     }
 
-    @Override public void onProductScrap(boolean isScrap, int product_id) {
-        checkProductScrap(isScrap, product_id);
-    }
-
     private void setupLoadMoreData() {
         int dataSize = Math.min(dataPool.size(), DATA_ROW);
         int start = adapter.getSize();
@@ -104,20 +100,19 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
         }
     }
 
-    private void checkProductScrap(boolean isScrap, int product_id) {
-        List<LookBookModuleDataModel> lookbooks = adapter.get();
-        for (int i = 0; i < lookbooks.size(); i++) {
-            List<ProductDataModel> products = lookbooks.get(i).getProducts();
-            for (int j = 0; j < products.size(); j++) {
-                if (product_id == products.get(j).getProduct_id()
-                    && isScrap != products.get(j).isScrap()) {
-                    products.get(j).setScrap(isScrap);
-                    view.refresh(i);
-                    return;
-                }
-            }
-        }
-    }
+    //private void checkProductScrap(boolean isScrap, int product_id) {
+    //    List<LookBookModuleDataModel> lookbooks = adapter.get();
+    //    for (int i = 0; i < lookbooks.size(); i++) {
+    //        List<ProductDataModel> products = lookbooks.get(i).getProducts();
+    //        for (int j = 0; j < products.size(); j++) {
+    //            if (product_id == products.get(j).getProduct_id()
+    //                && isScrap != products.get(i).isScrap()) {
+    //                products.get(j).setScrap(isScrap);
+    //                return;
+    //            }
+    //        }
+    //    }
+    //}
 
     @AllArgsConstructor @Getter public final static class RxEventLookBookModuleChanged {
         private LookBookModuleDataModel data;

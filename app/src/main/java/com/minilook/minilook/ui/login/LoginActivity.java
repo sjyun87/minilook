@@ -79,7 +79,7 @@ public class LoginActivity extends BaseActivity implements LoginPresenter.View {
     }
 
     @Override public void navigateToMain() {
-        MainActivity.start(this, BottomBar.POSITION_LOOKBOOK);
+        MainActivity.start(this);
     }
 
     @OnClick(R.id.layout_naver_panel)

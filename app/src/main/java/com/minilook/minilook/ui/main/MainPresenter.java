@@ -9,13 +9,11 @@ public interface MainPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
-    void onLogin();
-
-    void onLogout();
-
     void onTabChanged(int position);
 
     void onMarketingAgree();
+
+    void onProductScrap(boolean isScrap, int product_id);
 
     interface View {
 

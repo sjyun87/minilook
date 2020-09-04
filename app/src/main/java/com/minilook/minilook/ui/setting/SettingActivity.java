@@ -113,7 +113,7 @@ public class SettingActivity extends BaseActivity implements SettingPresenter.Vi
     }
 
     @Override public void navigateToMain() {
-        MainActivity.start(this, BottomBar.POSITION_LOOKBOOK);
+        MainActivity.start(this);
     }
 
     @OnClick(R.id.txt_terms_of_use)

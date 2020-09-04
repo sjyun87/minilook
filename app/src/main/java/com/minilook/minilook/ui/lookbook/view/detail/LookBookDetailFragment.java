@@ -1,7 +1,5 @@
 package com.minilook.minilook.ui.lookbook.view.detail;
 
-import android.annotation.SuppressLint;
-import android.view.MotionEvent;
 import android.widget.TextView;
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
@@ -11,10 +9,8 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
-import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseFragment;
-import com.minilook.minilook.ui.lookbook.LookBookPresenterImpl;
 import com.minilook.minilook.ui.lookbook.view.detail.adapter.LookBookStyleAdapter;
 import com.minilook.minilook.ui.lookbook.view.detail.di.LookBookDetailArguments;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
@@ -55,10 +51,6 @@ public class LookBookDetailFragment extends BaseFragment implements LookBookDeta
             .styleAdapter(styleAdapter)
             .productAdapter(productAdapter)
             .build();
-    }
-
-    @Override public void onProductScrap(boolean isScrap, int product_id) {
-        presenter.onProductScrap(isScrap, product_id);
     }
 
     @Override public void setupStyleRecyclerView() {
@@ -102,10 +94,6 @@ public class LookBookDetailFragment extends BaseFragment implements LookBookDeta
 
     @Override public void productRefresh() {
         productAdapterDataView.refresh();
-    }
-
-    @Override public void productRefresh(int position) {
-        productAdapterDataView.refresh(position);
     }
 
     @Override public void scrollToTop() {

@@ -146,7 +146,7 @@ public class JoinActivity extends BaseActivity implements JoinPresenter.View {
     }
 
     @Override public void navigateToMain() {
-        MainActivity.start(this, BottomBar.POSITION_LOOKBOOK);
+        MainActivity.start(this);
     }
 
     @OnClick(R.id.txt_certify)

@@ -15,7 +15,9 @@ import com.minilook.minilook.ui.product.ProductImageVH;
 import com.minilook.minilook.ui.product.ProductSize84VH;
 import com.minilook.minilook.ui.product.ProductWideVH;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import lombok.Setter;
 import timber.log.Timber;
 
@@ -34,6 +36,7 @@ public class ProductAdapter extends RecyclerView.Adapter<BaseViewHolder<ProductD
     @Setter private boolean isShowBrand = true;
     @Setter private ProductWideVH.OnDeleteClickListener onDeleteClickListener;
 
+    private Map<Integer, BaseViewHolder<ProductDataModel>> viewHolders = new HashMap<>();
     private List<ProductDataModel> items = new ArrayList<>();
 
     @NonNull @Override
@@ -67,6 +70,7 @@ public class ProductAdapter extends RecyclerView.Adapter<BaseViewHolder<ProductD
 
     @Override public void onBindViewHolder(@NonNull BaseViewHolder<ProductDataModel> holder, int position) {
         holder.bind(items.get(position));
+        viewHolders.put(position, holder);
     }
 
     @Override public int getItemViewType(int position) {

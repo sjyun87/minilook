@@ -18,9 +18,9 @@ import com.minilook.minilook.App;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
+import com.minilook.minilook.data.rx.RxBusEvent;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.login.LoginActivity;
-import com.minilook.minilook.ui.main.MainPresenterImpl;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.StringUtil;
 import lombok.Setter;
@@ -104,7 +104,7 @@ public class ProductSize84VH extends BaseViewHolder<ProductDataModel> {
         if (App.getInstance().isLogin()) {
             data.setScrap(!data.isScrap());
             setupScrapImage();
-            RxBus.send(new MainPresenterImpl.RxEventProductScrap(data.isScrap(), data.getProduct_id()));
+            RxBus.send(new RxBusEvent.RxBusEventProductScrap(data.isScrap(), data.getProduct_id()));
         } else {
             LoginActivity.start(context);
         }

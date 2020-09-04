@@ -11,8 +11,6 @@ public interface LookBookPreviewPresenter extends LifecycleObserver {
 
     void onPageSelected(int position);
 
-    void onProductScrap(boolean isScrap, int product_id);
-
     interface View {
 
         void setupViewPager();

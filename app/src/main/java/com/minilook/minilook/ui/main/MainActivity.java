@@ -63,12 +63,8 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
             .build();
     }
 
-    @Override public void onLogin() {
-        presenter.onLogin();
-    }
-
-    @Override public void onLogout() {
-        presenter.onLogout();
+    @Override public void onProductScrap(boolean isScrap, int product_id) {
+        presenter.onProductScrap(isScrap, product_id);
     }
 
     @Override public void setupViewPager() {

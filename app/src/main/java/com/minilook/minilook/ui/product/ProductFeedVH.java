@@ -18,6 +18,7 @@ import com.minilook.minilook.App;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
+import com.minilook.minilook.data.rx.RxBusEvent;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.login.LoginActivity;
@@ -106,7 +107,7 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
         if (App.getInstance().isLogin()) {
             data.setScrap(!data.isScrap());
             setupScrapImage();
-            RxBus.send(new MainPresenterImpl.RxEventProductScrap(data.isScrap(), data.getProduct_id()));
+            RxBus.send(new RxBusEvent.RxBusEventProductScrap(data.isScrap(), data.getProduct_id()));
         } else {
             LoginActivity.start(context);
         }

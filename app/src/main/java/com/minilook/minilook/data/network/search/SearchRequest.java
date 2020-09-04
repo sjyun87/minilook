@@ -1,13 +1,12 @@
 package com.minilook.minilook.data.network.search;
 
+import com.minilook.minilook.App;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.search.SearchOptionDataModel;
 import com.minilook.minilook.data.network.base.BaseRequest;
-
 import io.reactivex.rxjava3.core.Single;
 import java.util.HashMap;
 import java.util.Map;
-import timber.log.Timber;
 
 public class SearchRequest extends BaseRequest<SearchService> {
 
@@ -25,6 +24,7 @@ public class SearchRequest extends BaseRequest<SearchService> {
 
     private Map<String, Object> parseToJson(SearchOptionDataModel options) {
         Map<String, Object> jsonMap = new HashMap<>();
+        if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getUserId());
         jsonMap.put("current", options.getPage());
         jsonMap.put("pageSize", options.getRow());
         jsonMap.put("productOrderByCode", options.getOrder());

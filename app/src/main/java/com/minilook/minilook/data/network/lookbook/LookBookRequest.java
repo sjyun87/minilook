@@ -1,5 +1,6 @@
 package com.minilook.minilook.data.network.lookbook;
 
+import com.minilook.minilook.App;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
@@ -19,6 +20,7 @@ public class LookBookRequest extends BaseRequest<LookBookService> {
 
     private Map<String, Object> parseToJson(int row, List<Integer> usedItems) {
         Map<String, Object> jsonMap = new HashMap<>();
+        if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getUserId());
         jsonMap.put("pageSize", row);
         jsonMap.put("usedLookbooks", usedItems);
         return jsonMap;

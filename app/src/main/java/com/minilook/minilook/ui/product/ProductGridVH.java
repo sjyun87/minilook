@@ -12,11 +12,16 @@ import butterknife.BindColor;
 import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.bumptech.glide.Glide;
+import com.minilook.minilook.App;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
+import com.minilook.minilook.data.rx.RxBus;
+import com.minilook.minilook.data.rx.RxBusEvent;
 import com.minilook.minilook.data.type.DisplayType;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.StringUtil;
 import lombok.Setter;
@@ -57,11 +62,6 @@ public class ProductGridVH extends BaseViewHolder<ProductDataModel> {
 
         if (isShowScrap) {
             showScrap();
-            if (data.isScrap()) {
-                scrapImageView.setImageDrawable(img_scrap_on);
-            } else {
-                scrapImageView.setImageDrawable(img_scrap_off);
-            }
         } else {
             hideScrap();
         }
@@ -91,7 +91,17 @@ public class ProductGridVH extends BaseViewHolder<ProductDataModel> {
         }
         priceTextView.setText(StringUtil.toDigit(data.getPrice()));
 
+        setupScrapImage();
+
         itemView.setOnClickListener(this::onItemClick);
+    }
+
+    private void setupScrapImage() {
+        if (data.isScrap()) {
+            scrapImageView.setImageDrawable(img_scrap_on);
+        } else {
+            scrapImageView.setImageDrawable(img_scrap_off);
+        }
     }
 
     private void showDisplayLabel() {
@@ -128,5 +138,16 @@ public class ProductGridVH extends BaseViewHolder<ProductDataModel> {
 
     void onItemClick(View view) {
         ProductDetailActivity.start(context, data.getProduct_id());
+    }
+
+    @OnClick(R.id.img_scrap)
+    void onScrapClick() {
+        if (App.getInstance().isLogin()) {
+            data.setScrap(!data.isScrap());
+            setupScrapImage();
+            RxBus.send(new RxBusEvent.RxBusEventProductScrap(data.isScrap(), data.getProduct_id()));
+        } else {
+            LoginActivity.start(context);
+        }
     }
 }
