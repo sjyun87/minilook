@@ -15,6 +15,8 @@ public interface MainPresenter extends LifecycleObserver {
 
     void onProductScrap(boolean isScrap, int product_id);
 
+    void onBrandScrap(boolean isScrap, int brand_id);
+
     interface View {
 
         void setupViewPager();

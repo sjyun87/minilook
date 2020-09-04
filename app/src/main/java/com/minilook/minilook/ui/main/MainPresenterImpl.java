@@ -49,7 +49,11 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
     }
 
     @Override public void onProductScrap(boolean isScrap, int product_id) {
-        reqScrap(isScrap, product_id);
+        reqProductScrap(isScrap, product_id);
+    }
+
+    @Override public void onBrandScrap(boolean isScrap, int brand_id) {
+        reqBrandScrap(isScrap, brand_id);
     }
 
     private void reqUpdateToken() {
@@ -82,8 +86,13 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
             .subscribe());
     }
 
-    private void reqScrap(boolean isScrap, int product_id) {
-        addDisposable(scrapRequest.updateScrap(isScrap, product_id)
+    private void reqProductScrap(boolean isScrap, int product_id) {
+        addDisposable(scrapRequest.updateProductScrap(isScrap, product_id)
+            .subscribe());
+    }
+
+    private void reqBrandScrap(boolean isScrap, int brand_id) {
+        addDisposable(scrapRequest.updateBrandScrap(isScrap, brand_id)
             .subscribe());
     }
 

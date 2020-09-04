@@ -38,10 +38,6 @@ public class MarketFragment extends BaseFragment implements MarketPresenter.View
             .build();
     }
 
-    @Override public void onProductScrap(boolean isScrap, int product_id) {
-        presenter.onProductScrap(isScrap, product_id);
-    }
-
     @Override public void setupRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);

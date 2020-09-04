@@ -1,47 +1,49 @@
 package com.minilook.minilook.ui.market.viewholder.brand;
 
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.fondesa.recyclerviewdivider.DividerDecoration;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.brand.BrandDataModel;
-import com.minilook.minilook.data.model.common.StyleDataModel;
-import com.minilook.minilook.data.model.market.MarketDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
-import com.minilook.minilook.ui.brand.BrandActivity;
-import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
-import com.minilook.minilook.ui.market.viewholder.brand.adapter.MarketBrandMenuAdapter;
-import com.minilook.minilook.ui.market.viewholder.brand.viewholder.MarketBrandMenuVH;
-import com.minilook.minilook.util.DimenUtil;
-import com.minilook.minilook.util.SpannableUtil;
-import com.minilook.minilook.util.StringUtil;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
-
 import butterknife.BindColor;
 import butterknife.BindDimen;
+import butterknife.BindDrawable;
 import butterknife.BindFont;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.OnClick;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.fondesa.recyclerviewdivider.DividerDecoration;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.minilook.minilook.App;
+import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.brand.BrandDataModel;
+import com.minilook.minilook.data.model.common.StyleDataModel;
+import com.minilook.minilook.data.model.market.MarketDataModel;
+import com.minilook.minilook.data.rx.RxBus;
+import com.minilook.minilook.data.rx.RxBusEvent;
+import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.brand.BrandActivity;
+import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
+import com.minilook.minilook.ui.login.LoginActivity;
+import com.minilook.minilook.ui.market.viewholder.brand.adapter.MarketBrandMenuAdapter;
+import com.minilook.minilook.ui.market.viewholder.brand.viewholder.MarketBrandMenuVH;
+import com.minilook.minilook.util.DimenUtil;
+import com.minilook.minilook.util.SpannableUtil;
+import com.minilook.minilook.util.StringUtil;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
 
 public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements MarketBrandMenuVH.OnMenuClickListener {
@@ -50,6 +52,7 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
     @BindView(R.id.rcv_brand) RecyclerView menuRecyclerView;
     @BindView(R.id.img_thumb) ImageView thumbImageView;
     @BindView(R.id.img_logo) ImageView logoImageView;
+    @BindView(R.id.img_scrap) ImageView scrapImageView;
     @BindView(R.id.txt_scrap) TextView scrapCountTextView;
     @BindView(R.id.txt_name) TextView nameTextView;
     @BindView(R.id.txt_tag) TextView tagTextView;
@@ -63,6 +66,9 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
     @BindDimen(R.dimen.dp_6) int dp_6;
 
     @BindFont(R.font.nanum_square_eb) Typeface font_extrabold;
+
+    @BindDrawable(R.drawable.ic_scrap_off) Drawable img_scrap_off;
+    @BindDrawable(R.drawable.ic_scrap_on) Drawable img_scrap_on;
 
     private Gson gson = new Gson();
 
@@ -125,6 +131,7 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
                 new CropCircleWithBorderTransformation(DimenUtil.dpToPx(context, 1), color_FFDBDBDB)))
             .into(logoImageView);
 
+        setupScrapImage(model.isScrap());
         scrapCountTextView.setText(StringUtil.toDigit(model.getScrap_cnt()));
         nameTextView.setText(model.getBrand_name());
         tagTextView.setText(getStyleTag(model.getStyles()));
@@ -135,6 +142,14 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
             Glide.with(context)
                 .load(styleImages.get(i))
                 .into(styleImageViews.get(i));
+        }
+    }
+
+    private void setupScrapImage(boolean isScrap) {
+        if (isScrap) {
+            scrapImageView.setImageDrawable(img_scrap_on);
+        } else {
+            scrapImageView.setImageDrawable(img_scrap_off);
         }
     }
 
@@ -164,6 +179,18 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
         menuAdapter.refresh();
 
         setupBrandData(brandItems.get(selectedPosition));
+    }
+
+    @OnClick(R.id.layout_scrap_panel)
+    void onScrapClick() {
+        if (App.getInstance().isLogin()) {
+            BrandDataModel model = brandItems.get(selectedPosition);
+            model.setScrap(!model.isScrap());
+            setupScrapImage(model.isScrap());
+            RxBus.send(new RxBusEvent.RxBusEventBrandScrap(model.isScrap(), model.getId()));
+        } else {
+            LoginActivity.start(context);
+        }
     }
 
     @OnClick(R.id.txt_more)

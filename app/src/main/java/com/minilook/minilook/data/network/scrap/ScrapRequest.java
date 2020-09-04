@@ -30,18 +30,33 @@ public class ScrapRequest extends BaseRequest<ScrapService> {
         return jsonMap;
     }
 
-    public Single<BaseDataModel> updateScrap(boolean isScrap, int product_id) {
+    public Single<BaseDataModel> updateProductScrap(boolean isScrap, int product_id) {
         if (isScrap) {
-            return getApi().checkScrap(createRequestBody(parseToScrapJson(product_id)));
+            return getApi().productScrapOn(createRequestBody(parseToProductScrapJson(product_id)));
         } else {
-            return getApi().uncheckScrap(createRequestBody(parseToScrapJson(product_id)));
+            return getApi().productScrapOff(createRequestBody(parseToProductScrapJson(product_id)));
         }
     }
 
-    private Map<String, Object> parseToScrapJson(int product_id) {
+    private Map<String, Object> parseToProductScrapJson(int product_id) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("memberNo", App.getInstance().getUserId());
         jsonMap.put("productNo", product_id);
+        return jsonMap;
+    }
+
+    public Single<BaseDataModel> updateBrandScrap(boolean isScrap, int brand_id) {
+        if (isScrap) {
+            return getApi().brandScrapOn(createRequestBody(parseToBrandScrapJson(brand_id)));
+        } else {
+            return getApi().brandScrapOff(createRequestBody(parseToBrandScrapJson(brand_id)));
+        }
+    }
+
+    private Map<String, Object> parseToBrandScrapJson(int brand_id) {
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("memberNo", App.getInstance().getUserId());
+        jsonMap.put("brandNo", brand_id);
         return jsonMap;
     }
 }

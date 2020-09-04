@@ -67,6 +67,10 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
         presenter.onProductScrap(isScrap, product_id);
     }
 
+    @Override public void onBrandScrap(boolean isScrap, int brand_id) {
+        presenter.onBrandScrap(isScrap, brand_id);
+    }
+
     @Override public void setupViewPager() {
         adapter = new MainPagerAdapter(this);
         viewPager.setAdapter(adapter);

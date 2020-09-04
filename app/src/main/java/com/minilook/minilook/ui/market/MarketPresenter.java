@@ -9,8 +9,6 @@ public interface MarketPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
-    void onProductScrap(boolean isScrap, int product_id);
-
     interface View {
 
         void setupRecyclerView();

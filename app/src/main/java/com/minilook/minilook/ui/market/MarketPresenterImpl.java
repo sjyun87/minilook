@@ -37,10 +37,6 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
         reqMarketModule();
     }
 
-    @Override public void onProductScrap(boolean isScrap, int product_id) {
-        reqMarketModule();
-    }
-
     private void reqMarketModule() {
         addDisposable(marketRequest.getMarketModules()
             .compose(Transformer.applySchedulers())
