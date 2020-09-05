@@ -1,5 +1,6 @@
 package com.minilook.minilook.data.network.recent;
 
+import com.minilook.minilook.App;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
@@ -13,8 +14,7 @@ public class RecentRequest extends BaseRequest<RecentService> {
     }
 
     public Single<BaseDataModel> getRecentProducts(int recent_id, int rows) {
-        //int user_id = App.getInstance().getUserId();
-        int user_id = 85;
+        int user_id = App.getInstance().getUserId();
         return getApi().getRecentProducts(user_id, createRequestBody(parseToJson(recent_id, rows)));
     }
 
@@ -26,8 +26,7 @@ public class RecentRequest extends BaseRequest<RecentService> {
     }
 
     public Single<BaseDataModel> deleteRecent(int recent_id) {
-        //int user_id = App.getInstance().getUserId();
-        int user_id = 85;
+        int user_id = App.getInstance().getUserId();
         return getApi().deleteRecent(user_id, recent_id);
     }
 }
