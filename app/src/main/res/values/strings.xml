@@ -16,6 +16,7 @@
     <string name="base_toast_order_info_disagree">정보성 알림이 수신거부 되었습니다</string>
     <string name="base_toast_login">로그인 되었습니다</string>
     <string name="base_toast_logout">로그아웃 되었습니다</string>
+    <string name="base_toast_update_completed">닉네임이 변경되었습니다</string>
 
     <!--Bottom Bar-->
     <string name="bottombar_lookbook">룩북</string>
@@ -93,12 +94,11 @@
     <string name="profile_nick_check_available">사용 가능한 닉네임입니다.</string>
     <string name="profile_phone_caption">연락처</string>
     <string name="profile_email_caption">이메일</string>
-    <string name="profile_shipping_caption">배송지 정보</string>
+    <string name="profile_shipping_caption">기본배송지 정보</string>
     <string name="profile_shipping_address">(%s) %s, %s</string>
-    <string name="profile_shipping_empty">등록된 배송지가 없습니다.</string>
+    <string name="profile_shipping_empty">등록된 기본배송지가 없습니다.</string>
     <string name="profile_edit">변경</string>
-    <string name="profile_add">추가</string>
-    <string name="profile_nick_input_pattern">"^[ㄱ-ㅣ가-힣]*$"</string>
+    <string name="profile_management">관리</string>
 
     <!--Shipping-->
     <string name="shipping_title">배송지</string>

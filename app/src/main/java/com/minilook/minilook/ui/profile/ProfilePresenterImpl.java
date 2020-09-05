@@ -60,11 +60,7 @@ public class ProfilePresenterImpl extends BasePresenterImpl implements ProfilePr
         view.navigateToWebView(URLKeys.URL_IDENTITY_VERIFICATION);
     }
 
-    @Override public void onShippingAddClick() {
-        view.navigateToShippingAdd();
-    }
-
-    @Override public void onShippingEditClick() {
+    @Override public void onShippingManagementClick() {
         view.navigateToShipping();
     }
 
@@ -110,7 +106,7 @@ public class ProfilePresenterImpl extends BasePresenterImpl implements ProfilePr
     }
 
     private void resUpdateNick(BaseDataModel data) {
-        // TODO : 토스트 메시지
+        view.showUpdateCompletedToast();
         view.hideCheckMessage();
         RxBus.send(new IpagePresenterImpl.RxBusEventNickChanged(nick));
     }
@@ -133,15 +129,11 @@ public class ProfilePresenterImpl extends BasePresenterImpl implements ProfilePr
     private void showShippingPanel() {
         view.hideEmptyShippingText();
         view.showShippingPanel();
-        view.hideShippingAddButton();
-        view.showShippingEditButton();
     }
 
     private void hideShippingPanel() {
         view.showEmptyShippingText();
         view.hideShippingPanel();
-        view.showShippingAddButton();
-        view.hideShippingEditButton();
     }
 
     private void toRxObservable() {

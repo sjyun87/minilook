@@ -51,12 +51,21 @@ public class ScrapbookBrandItemVH extends BaseViewHolder<BrandDataModel> {
         super.bind($data);
 
         for (int i = 0; i < styleImageViews.size(); i++) {
-            Glide.with(context)
-                .load(data.getStyle_images().get(i))
-                .placeholder(img_placeholder)
-                .error(img_placeholder)
-                .transition(new DrawableTransitionOptions().crossFade())
-                .into(styleImageViews.get(i));
+            if (data.getStyle_images() != null && data.getStyle_images().size() > 0) {
+                Glide.with(context)
+                    .load(data.getStyle_images().get(i))
+                    .placeholder(img_placeholder)
+                    .error(img_placeholder)
+                    .transition(new DrawableTransitionOptions().crossFade())
+                    .into(styleImageViews.get(i));
+            } else {
+                Glide.with(context)
+                    .load(img_placeholder)
+                    .placeholder(img_placeholder)
+                    .error(img_placeholder)
+                    .transition(new DrawableTransitionOptions().crossFade())
+                    .into(styleImageViews.get(i));
+            }
         }
 
         Glide.with(context)

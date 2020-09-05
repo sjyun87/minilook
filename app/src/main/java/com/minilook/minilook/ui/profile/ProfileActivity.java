@@ -16,10 +16,10 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base.widget.CustomToast;
 import com.minilook.minilook.ui.profile.di.ProfileArguments;
 import com.minilook.minilook.ui.search_address.SearchAddressActivity;
 import com.minilook.minilook.ui.shipping.ShippingActivity;
-import com.minilook.minilook.ui.shipping_add.ShippingAddActivity;
 import com.minilook.minilook.util.KeyboardUtil;
 
 public class ProfileActivity extends BaseActivity implements ProfilePresenter.View {
@@ -30,6 +30,8 @@ public class ProfileActivity extends BaseActivity implements ProfilePresenter.Vi
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         context.startActivity(intent);
     }
+
+    private static final String pattern_nick = "^[ㄱ-ㅣ가-힣]*$";
 
     @BindView(R.id.edit_nick) EditText nickEditText;
     @BindView(R.id.img_nick_clear) ImageView nickClearImageView;
@@ -43,11 +45,9 @@ public class ProfileActivity extends BaseActivity implements ProfilePresenter.Vi
     @BindView(R.id.txt_shipping_phone) TextView shippingPhoneTextView;
     @BindView(R.id.txt_shipping_address) TextView shippingAddressTextView;
     @BindView(R.id.txt_shipping_empty) TextView emptyShippingTextView;
-    @BindView(R.id.txt_shipping_edit) TextView shippingEditTextView;
-    @BindView(R.id.txt_shipping_add) TextView shippingAddTextView;
 
+    @BindString(R.string.base_toast_update_completed) String str_toast_update_completed;
     @BindString(R.string.profile_shipping_address) String format_address;
-    @BindString(R.string.profile_nick_input_pattern) String pattern_input;
 
     @BindColor(R.color.color_FF8140E5) int color_FF8140E5;
     @BindColor(R.color.color_FFEEEFF5) int color_FFEEEFF5;
@@ -71,7 +71,7 @@ public class ProfileActivity extends BaseActivity implements ProfilePresenter.Vi
 
     @Override public void setupEditText() {
         InputFilter[] filters = new InputFilter[] {
-            (source, start, end, dest, dstart, dend) -> source.toString().matches(pattern_input) ? source : ""
+            (source, start, end, dest, dstart, dend) -> source.toString().matches(pattern_nick) ? source : ""
         };
         nickEditText.setFilters(filters);
         nickEditText.addTextChangedListener(new TextWatcher() {
@@ -136,22 +136,6 @@ public class ProfileActivity extends BaseActivity implements ProfilePresenter.Vi
         emptyShippingTextView.setVisibility(View.GONE);
     }
 
-    @Override public void showShippingAddButton() {
-        shippingAddTextView.setVisibility(View.VISIBLE);
-    }
-
-    @Override public void hideShippingAddButton() {
-        shippingAddTextView.setVisibility(View.GONE);
-    }
-
-    @Override public void showShippingEditButton() {
-        shippingEditTextView.setVisibility(View.VISIBLE);
-    }
-
-    @Override public void hideShippingEditButton() {
-        shippingEditTextView.setVisibility(View.GONE);
-    }
-
     @Override public void enableNickSaveButton() {
         nickSaveTextView.setBackgroundColor(color_FF8140E5);
         nickSaveTextView.setEnabled(true);
@@ -175,16 +159,16 @@ public class ProfileActivity extends BaseActivity implements ProfilePresenter.Vi
         nickEditText.clearFocus();
     }
 
+    @Override public void showUpdateCompletedToast() {
+        CustomToast.make(this, str_toast_update_completed).show();
+    }
+
     @Override public void navigateToWebView(String url) {
         SearchAddressActivity.start(this);
     }
 
     @Override public void navigateToShipping() {
         ShippingActivity.start(this);
-    }
-
-    @Override public void navigateToShippingAdd() {
-        ShippingAddActivity.start(this);
     }
 
     @OnClick(R.id.img_nick_clear)
@@ -203,13 +187,8 @@ public class ProfileActivity extends BaseActivity implements ProfilePresenter.Vi
         presenter.onPhoneEditClick();
     }
 
-    @OnClick(R.id.txt_shipping_add)
-    void onShippingAddClick() {
-        presenter.onShippingAddClick();
-    }
-
-    @OnClick(R.id.txt_shipping_edit)
-    void onShippingEditClick() {
-        presenter.onShippingEditClick();
+    @OnClick(R.id.txt_shipping_management)
+    void onShippingManagementClick() {
+        presenter.onShippingManagementClick();
     }
 }
