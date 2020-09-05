@@ -69,7 +69,7 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
     @BindFont(R.font.nanum_square_eb) Typeface font_extrabold;
 
     @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
-    @BindDrawable(R.drawable.placeholder_image_wide_21) Drawable img_placeholder_wide_21;
+    @BindDrawable(R.drawable.placeholder_image_wide) Drawable img_placeholder_wide;
     @BindDrawable(R.drawable.placeholder_logo) Drawable img_placeholder_logo;
     @BindDrawable(R.drawable.ic_scrap_off) Drawable img_scrap_off;
     @BindDrawable(R.drawable.ic_scrap_on) Drawable img_scrap_on;
@@ -126,8 +126,8 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
     private void setupBrandData(BrandDataModel model) {
         Glide.with(context)
             .load(model.getImage_url())
-            .placeholder(img_placeholder_wide_21)
-            .error(img_placeholder_wide_21)
+            .placeholder(img_placeholder_wide)
+            .error(img_placeholder_wide)
             .transition(new DrawableTransitionOptions().crossFade())
             .into(thumbImageView);
 

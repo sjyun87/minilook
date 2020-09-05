@@ -102,7 +102,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         view.setupLogo(data.getBrand_logo());
         view.setupScrapCount(StringUtil.toDigit(data.getScrap_cnt()));
         view.setupName(data.getBrand_name());
-        if (data.getBrand_tag() != null && data.getBrand_tag().equals("")) view.setupTag(data.getBrand_tag().replace(",", " "));
+        if (data.getBrand_tag() != null && !data.getBrand_tag().equals("")) view.setupTag(data.getBrand_tag().replace(",", " "));
         view.setupDesc(data.getBrand_desc());
         styleAdapter.set(checkValid(data.getStyle_images()));
         view.styleRefresh();

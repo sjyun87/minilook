@@ -2,7 +2,7 @@ package com.minilook.minilook.ui.brand_detail;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import butterknife.BindDrawable;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.fondesa.recyclerviewdivider.BaseDividerItemDecoration;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
@@ -65,7 +67,10 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
 
     @BindColor(R.color.color_FFDBDBDB) int color_FFDBDBDB;
     @BindColor(R.color.color_FFF5F5F5) int color_FFF5F5F5;
-    @BindColor(R.color.color_FFEEEFF5) int color_FFEEEFF5;
+
+    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @BindDrawable(R.drawable.placeholder_image_wide) Drawable img_placeholder_wide;
+    @BindDrawable(R.drawable.placeholder_logo) Drawable img_placeholder_logo;
 
     @BindDimen(R.dimen.dp_2) int dp_2;
     @BindDimen(R.dimen.dp_50) int dp_50;
@@ -211,14 +216,18 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
     @Override public void setupThumb(String url) {
         Glide.with(this)
             .load(url)
-            .placeholder(new ColorDrawable(color_FFEEEFF5))
+            .placeholder(img_placeholder_wide)
+            .error(img_placeholder_wide)
+            .transition(new DrawableTransitionOptions().crossFade())
             .into(thumbImageView);
     }
 
     @Override public void setupLogo(String url) {
         Glide.with(this)
             .load(url)
-            .placeholder(new ColorDrawable(color_FFEEEFF5))
+            .placeholder(img_placeholder_logo)
+            .error(img_placeholder_logo)
+            .transition(new DrawableTransitionOptions().crossFade())
             .apply(RequestOptions.bitmapTransform(
                 new CropCircleWithBorderTransformation(DimenUtil.dpToPx(this, 1), color_FFDBDBDB)))
             .into(logoImageView);
