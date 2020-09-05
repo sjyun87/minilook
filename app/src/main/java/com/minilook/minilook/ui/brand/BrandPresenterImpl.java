@@ -46,9 +46,9 @@ public class BrandPresenterImpl extends BasePresenterImpl implements BrandPresen
         reqBrands();
     }
 
-    @Override public void resetClick() {
+    @Override public void onResetClick() {
         selectedStyles.clear();
-        for (StyleDataModel model :styleAdapter.get()) {
+        for (StyleDataModel model : styleAdapter.get()) {
             model.setSelected(false);
         }
         view.styleRefresh();
@@ -97,7 +97,12 @@ public class BrandPresenterImpl extends BasePresenterImpl implements BrandPresen
     private void reqBrands() {
         addDisposable(brandRequest.getBrands(selectedStyles)
             .compose(Transformer.applySchedulers())
-            .filter(data -> data.getCode().equals(HttpCode.OK))
+            .filter(data -> {
+                if (data.getCode().equals(HttpCode.NO_DATA)) {
+                    view.showEmptyPanel();
+                }
+                return data.getCode().equals(HttpCode.OK);
+            })
             .map((Function<BaseDataModel, List<BrandDataModel>>)
                 data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<BrandDataModel>>() {
                 }.getType()))
@@ -107,5 +112,6 @@ public class BrandPresenterImpl extends BasePresenterImpl implements BrandPresen
     private void resBrands(List<BrandDataModel> data) {
         brandAdapter.set(data);
         view.brandRefresh();
+        view.hideEmptyPanel();
     }
 }

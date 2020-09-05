@@ -173,6 +173,8 @@
     <string name="brand_title">브랜드</string>
     <string name="brand_selected_count">스타일선택 (%d/%d)</string>
     <string name="brand_reset">선택 초기화</string>
+    <string name="brand_empty">해당하는 브랜드가 없습니다.</string>
+    <string name="brand_empty_button">선택 초기화하기</string>
 
     <!--Brand Info-->
     <string name="brand_info_title">브랜드 정보</string>

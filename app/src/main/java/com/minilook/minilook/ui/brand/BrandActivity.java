@@ -2,6 +2,8 @@ package com.minilook.minilook.ui.brand;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,7 +20,6 @@ import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.brand.adapter.BrandAdapter;
 import com.minilook.minilook.ui.brand.adapter.BrandStyleAdapter;
 import com.minilook.minilook.ui.brand.di.BrandArguments;
-import com.minilook.minilook.util.StringUtil;
 
 public class BrandActivity extends BaseActivity implements BrandPresenter.View {
 
@@ -32,6 +33,7 @@ public class BrandActivity extends BaseActivity implements BrandPresenter.View {
     @BindView(R.id.txt_selected_count) TextView selectedCountTextView;
     @BindView(R.id.rcv_style) RecyclerView styleRecyclerView;
     @BindView(R.id.rcv_brand) RecyclerView brandRecyclerView;
+    @BindView(R.id.layout_empty_panel) LinearLayout emptyPanel;
 
     @BindString(R.string.brand_selected_count) String format_selected_count;
 
@@ -88,8 +90,21 @@ public class BrandActivity extends BaseActivity implements BrandPresenter.View {
         selectedCountTextView.setText(String.format(format_selected_count, count, total));
     }
 
+    @Override public void showEmptyPanel() {
+        emptyPanel.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void hideEmptyPanel() {
+        emptyPanel.setVisibility(View.GONE);
+    }
+
     @OnClick(R.id.txt_reset)
-    void resetClick() {
-        presenter.resetClick();
+    void onResetClick() {
+        presenter.onResetClick();
+    }
+
+    @OnClick(R.id.txt_empty)
+    void onEmptyClick() {
+        presenter.onResetClick();
     }
 }

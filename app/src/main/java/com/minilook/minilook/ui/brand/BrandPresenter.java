@@ -9,7 +9,7 @@ public interface BrandPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
-    void resetClick();
+    void onResetClick();
 
     void onStyleClick(int position);
 
@@ -24,5 +24,9 @@ public interface BrandPresenter extends LifecycleObserver {
         void brandRefresh();
 
         void setupSelectedStyleCount(int count, int total);
+
+        void showEmptyPanel();
+
+        void hideEmptyPanel();
     }
 }
