@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.search_address;
+package com.minilook.minilook.ui.search_zip;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -14,14 +14,15 @@ import butterknife.BindView;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseActivity;
-import com.minilook.minilook.ui.search_address.di.SearchAddressArguments;
+import com.minilook.minilook.ui.search_zip.di.SearchZipArguments;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import timber.log.Timber;
 
-public class SearchAddressActivity extends BaseActivity implements SearchAddressPresenter.View {
+public class SearchZipActivity extends BaseActivity implements SearchZipPresenter.View {
 
     public static void start(Context context) {
-        Intent intent = new Intent(context, SearchAddressActivity.class);
+        Intent intent = new Intent(context, SearchZipActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         context.startActivity(intent);
@@ -30,21 +31,21 @@ public class SearchAddressActivity extends BaseActivity implements SearchAddress
     @BindView(R.id.root) FrameLayout rootView;
     @BindView(R.id.webview) WebView webView;
 
-    private SearchAddressPresenter presenter;
+    private SearchZipPresenter presenter;
     private WebViewClient webViewClient = new WebViewClient();
     private CustomWebChromeClient webChromeClient = new CustomWebChromeClient();
 
     @Override protected int getLayoutID() {
-        return R.layout.activity_search_address;
+        return R.layout.activity_search_zip;
     }
 
     @Override protected void createPresenter() {
-        presenter = new SearchAddressPresenterImpl(provideArguments());
+        presenter = new SearchZipPresenterImpl(provideArguments());
         getLifecycle().addObserver(presenter);
     }
 
-    private SearchAddressArguments provideArguments() {
-        return SearchAddressArguments.builder()
+    private SearchZipArguments provideArguments() {
+        return SearchZipArguments.builder()
             .view(this)
             .build();
     }
@@ -89,9 +90,10 @@ public class SearchAddressActivity extends BaseActivity implements SearchAddress
 
     private class AndroidBridgeInterface {
         @JavascriptInterface
-        public void phoneAuthResult(String json) {
-            RxBus.send(new RxEventIdentityVerificationComplete(json));
-            finish();
+        public void addressResult(String json) {
+            Timber.e(json);
+            //RxBus.send(new RxEventIdentityVerificationComplete(json));
+            //finish();
         }
     }
 

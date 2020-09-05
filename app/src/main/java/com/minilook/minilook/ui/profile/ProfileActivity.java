@@ -18,7 +18,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.widget.CustomToast;
 import com.minilook.minilook.ui.profile.di.ProfileArguments;
-import com.minilook.minilook.ui.search_address.SearchAddressActivity;
+import com.minilook.minilook.ui.verify.VerifyActivity;
 import com.minilook.minilook.ui.shipping.ShippingActivity;
 import com.minilook.minilook.util.KeyboardUtil;
 
@@ -30,8 +30,6 @@ public class ProfileActivity extends BaseActivity implements ProfilePresenter.Vi
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         context.startActivity(intent);
     }
-
-    private static final String pattern_nick = "^[ㄱ-ㅣ가-힣]*$";
 
     @BindView(R.id.edit_nick) EditText nickEditText;
     @BindView(R.id.img_nick_clear) ImageView nickClearImageView;
@@ -48,6 +46,7 @@ public class ProfileActivity extends BaseActivity implements ProfilePresenter.Vi
 
     @BindString(R.string.base_toast_update_completed) String str_toast_update_completed;
     @BindString(R.string.profile_shipping_address) String format_address;
+    @BindString(R.string.base_pattern) String pattern;
 
     @BindColor(R.color.color_FF8140E5) int color_FF8140E5;
     @BindColor(R.color.color_FFEEEFF5) int color_FFEEEFF5;
@@ -71,7 +70,7 @@ public class ProfileActivity extends BaseActivity implements ProfilePresenter.Vi
 
     @Override public void setupEditText() {
         InputFilter[] filters = new InputFilter[] {
-            (source, start, end, dest, dstart, dend) -> source.toString().matches(pattern_nick) ? source : ""
+            (source, start, end, dest, dstart, dend) -> source.toString().matches(pattern) ? source : ""
         };
         nickEditText.setFilters(filters);
         nickEditText.addTextChangedListener(new TextWatcher() {
@@ -164,7 +163,7 @@ public class ProfileActivity extends BaseActivity implements ProfilePresenter.Vi
     }
 
     @Override public void navigateToWebView(String url) {
-        SearchAddressActivity.start(this);
+        VerifyActivity.start(this);
     }
 
     @Override public void navigateToShipping() {

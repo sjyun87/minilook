@@ -123,12 +123,17 @@ public class ShippingPresenterImpl extends BasePresenterImpl implements Shipping
                 ShippingDataModel data = ((RxEventShippingDelete) o).data;
                 removeShipping(data);
                 reqDeleteShipping(data.getAddress_id());
+            } else if (o instanceof RxEventShippingAdd) {
+                reqShippings();
             }
         }, Timber::e));
     }
 
     @AllArgsConstructor @Getter public final static class RxEventShippingSelect {
         private ShippingDataModel data;
+    }
+
+    @AllArgsConstructor @Getter public final static class RxEventShippingAdd {
     }
 
     @AllArgsConstructor @Getter public final static class RxEventShippingEdit {

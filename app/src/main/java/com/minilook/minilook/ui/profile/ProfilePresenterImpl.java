@@ -12,7 +12,7 @@ import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.ipage.IpagePresenterImpl;
 import com.minilook.minilook.ui.profile.di.ProfileArguments;
-import com.minilook.minilook.ui.search_address.SearchAddressActivity;
+import com.minilook.minilook.ui.verify.VerifyActivity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import timber.log.Timber;
@@ -59,7 +59,7 @@ public class ProfilePresenterImpl extends BasePresenterImpl implements ProfilePr
     }
 
     @Override public void onPhoneEditClick() {
-        view.navigateToWebView(URLKeys.URL_IDENTITY_VERIFICATION);
+        view.navigateToWebView(URLKeys.URL_VERIFY);
     }
 
     @Override public void onShippingManagementClick() {
@@ -140,8 +140,8 @@ public class ProfilePresenterImpl extends BasePresenterImpl implements ProfilePr
 
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
-            if (o instanceof SearchAddressActivity.RxEventIdentityVerificationComplete) {
-                String json = ((SearchAddressActivity.RxEventIdentityVerificationComplete) o).getJson();
+            if (o instanceof VerifyActivity.RxEventIdentityVerificationComplete) {
+                String json = ((VerifyActivity.RxEventIdentityVerificationComplete) o).getJson();
                 updatePhone(json);
             } else if (o instanceof RxEventShippingUpdated) {
                 reqProfile();

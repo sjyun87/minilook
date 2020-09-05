@@ -26,4 +26,9 @@ public interface ShippingService {
         @Path("address_id") int address_id,
         @Body RequestBody body
     );
+
+    @POST("/api/members/{user_id}/addresses") Single<BaseDataModel> addShipping(
+        @Path("user_id") int user_id,
+        @Body RequestBody body
+    );
 }

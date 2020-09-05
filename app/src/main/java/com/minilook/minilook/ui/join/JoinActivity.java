@@ -13,7 +13,6 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.common.URLKeys;
 import com.minilook.minilook.data.model.user.UserDataModel;
 import com.minilook.minilook.data.type.LoginType;
 import com.minilook.minilook.ui.base.BaseActivity;
@@ -21,7 +20,7 @@ import com.minilook.minilook.ui.base.widget.BottomBar;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.join.di.JoinArguments;
 import com.minilook.minilook.ui.main.MainActivity;
-import com.minilook.minilook.ui.search_address.SearchAddressActivity;
+import com.minilook.minilook.ui.verify.VerifyActivity;
 import com.minilook.minilook.ui.webview.WebViewActivity;
 
 public class JoinActivity extends BaseActivity implements JoinPresenter.View {
@@ -156,7 +155,7 @@ public class JoinActivity extends BaseActivity implements JoinPresenter.View {
 
     @OnClick(R.id.txt_certify)
     void onCerifyClick() {
-        SearchAddressActivity.start(this);
+        VerifyActivity.start(this);
     }
 
     @OnClick(R.id.layout_full_agree)

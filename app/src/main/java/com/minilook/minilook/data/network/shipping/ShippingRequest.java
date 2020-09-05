@@ -26,10 +26,15 @@ public class ShippingRequest extends BaseRequest<ShippingService> {
 
     public Single<BaseDataModel> updateShipping(ShippingDataModel model) {
         int user_id = App.getInstance().getUserId();
-        return getApi().updateShipping(user_id, model.getAddress_id(), createRequestBody(parseToUpdateJson(model)));
+        return getApi().updateShipping(user_id, model.getAddress_id(), createRequestBody(parseToJson(model)));
     }
 
-    private Map<String, Object> parseToUpdateJson(ShippingDataModel model) {
+    public Single<BaseDataModel> addShipping(ShippingDataModel model) {
+        int user_id = App.getInstance().getUserId();
+        return getApi().addShipping(user_id, createRequestBody(parseToJson(model)));
+    }
+
+    private Map<String, Object> parseToJson(ShippingDataModel model) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("isDefault", model.isDefault());
         jsonMap.put("name", model.getName());

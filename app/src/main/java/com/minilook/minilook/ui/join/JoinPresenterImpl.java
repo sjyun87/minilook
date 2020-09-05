@@ -11,7 +11,7 @@ import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.join.di.JoinArguments;
-import com.minilook.minilook.ui.search_address.SearchAddressActivity;
+import com.minilook.minilook.ui.verify.VerifyActivity;
 import timber.log.Timber;
 
 public class JoinPresenterImpl extends BasePresenterImpl implements JoinPresenter {
@@ -207,9 +207,9 @@ public class JoinPresenterImpl extends BasePresenterImpl implements JoinPresente
 
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
-            if (o instanceof SearchAddressActivity.RxEventIdentityVerificationComplete) {
+            if (o instanceof VerifyActivity.RxEventIdentityVerificationComplete) {
                 isVerifyComplete = true;
-                String json = ((SearchAddressActivity.RxEventIdentityVerificationComplete) o).getJson();
+                String json = ((VerifyActivity.RxEventIdentityVerificationComplete) o).getJson();
                 putUserData(json);
                 view.showVerifyCompleteButton();
             }
