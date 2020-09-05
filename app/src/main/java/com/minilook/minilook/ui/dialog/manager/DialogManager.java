@@ -7,6 +7,7 @@ import com.minilook.minilook.ui.dialog.JoinLimitedDialog;
 import com.minilook.minilook.ui.dialog.LeaveDialog;
 import com.minilook.minilook.ui.dialog.MarketingInfoDialog;
 import com.minilook.minilook.ui.dialog.NoEmailDialog;
+import com.minilook.minilook.ui.dialog.UpdateDefaultDialog;
 import com.minilook.minilook.ui.dialog.listener.OnCloseClickListener;
 import com.minilook.minilook.ui.dialog.listener.OnPositiveClickListener;
 import lombok.Builder;
@@ -49,6 +50,13 @@ public final class DialogManager {
     @Builder
     public static void showLeaveDialog(Activity activity, OnPositiveClickListener listener) {
         LeaveDialog dialog = new LeaveDialog(activity);
+        dialog.setOnPositiveClickListener(listener);
+        dialog.show();
+    }
+
+    @Builder
+    public static void showUpdateDefault(Activity activity, OnPositiveClickListener listener) {
+        UpdateDefaultDialog dialog = new UpdateDefaultDialog(activity);
         dialog.setOnPositiveClickListener(listener);
         dialog.show();
     }

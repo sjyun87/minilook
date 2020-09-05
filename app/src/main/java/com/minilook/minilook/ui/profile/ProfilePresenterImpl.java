@@ -13,6 +13,8 @@ import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.ipage.IpagePresenterImpl;
 import com.minilook.minilook.ui.profile.di.ProfileArguments;
 import com.minilook.minilook.ui.search_address.SearchAddressActivity;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import timber.log.Timber;
 
 public class ProfilePresenterImpl extends BasePresenterImpl implements ProfilePresenter {
@@ -78,7 +80,7 @@ public class ProfilePresenterImpl extends BasePresenterImpl implements ProfilePr
         view.setupPhone(data.getPhone());
         view.setupEmail(data.getEmail());
 
-        if (data.isShipping()) {
+        if (data.getAddress_id() != 0) {
             view.setupShippingName(data.getShipping_name());
             view.setupShippingPhone(data.getShipping_phone());
             view.setupShippingAddress(
@@ -141,7 +143,12 @@ public class ProfilePresenterImpl extends BasePresenterImpl implements ProfilePr
             if (o instanceof SearchAddressActivity.RxEventIdentityVerificationComplete) {
                 String json = ((SearchAddressActivity.RxEventIdentityVerificationComplete) o).getJson();
                 updatePhone(json);
+            } else if (o instanceof RxEventShippingUpdated) {
+                reqProfile();
             }
         }, Timber::e));
+    }
+
+    @AllArgsConstructor @Getter public final static class RxEventShippingUpdated {
     }
 }

@@ -168,7 +168,7 @@ public class ProfileActivity extends BaseActivity implements ProfilePresenter.Vi
     }
 
     @Override public void navigateToShipping() {
-        ShippingActivity.start(this);
+        ShippingActivity.start(this, ProfileActivity.class.getSimpleName());
     }
 
     @OnClick(R.id.img_nick_clear)

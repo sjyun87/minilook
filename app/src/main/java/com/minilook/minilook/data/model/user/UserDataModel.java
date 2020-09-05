@@ -1,9 +1,7 @@
 package com.minilook.minilook.data.model.user;
 
 import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.minilook.minilook.data.model.base.BooleanDeserializer;
 import java.io.Serializable;
 import lombok.Data;
 
@@ -29,8 +27,7 @@ import lombok.Data;
     @Expose @SerializedName("ci")
     private String ci;
     @Expose @SerializedName("addressNo")
-    @JsonAdapter(BooleanDeserializer.class)
-    private boolean isShipping;
+    private int address_id;
     @Expose @SerializedName("shippingName")
     private String shipping_name;
     @Expose @SerializedName("shippingPhone")

@@ -55,7 +55,7 @@
             android:gravity="center"
             android:paddingStart="@dimen/dp_30"
             android:paddingEnd="@dimen/dp_30"
-            android:text="@string/recent_more"
+            android:text="@string/recent_empty_button"
             android:textColor="@color/color_FF232323"
             android:textSize="@dimen/sp_7" />
     </LinearLayout>

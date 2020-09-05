@@ -174,7 +174,7 @@
         tools:ignore="ContentDescription" />
 
     <TextView
-        android:id="@+id/txt_default"
+        android:id="@+id/txt_basic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_2"

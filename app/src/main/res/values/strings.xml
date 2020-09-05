@@ -104,8 +104,11 @@
     <string name="shipping_title">배송지</string>
     <string name="shipping_add">추가하기</string>
     <string name="shipping_default">기본배송지</string>
+    <string name="shipping_address">(%s) %s, %s</string>
     <string name="shipping_edit">수정</string>
-    <string name="shipping_select">선택</string>
+    <string name="shipping_empty">배송지가 없습니다.</string>
+    <string name="shipping_empty_button">추가하기</string>
+    <string name="shipping_update_default">기본배송지로 등록하시겠습니깨?</string>
 
     <!--Shipping Add-->
     <string name="shipping_add_title">배송지 추가</string>
@@ -161,7 +164,7 @@
     <!--Recent-->
     <string name="recent_title">최근 본 상품</string>
     <string name="recent_empty">최근 본 상품이 없습니다.</string>
-    <string name="recent_more">상품 보러가기</string>
+    <string name="recent_empty_button">상품 보러가기</string>
 
     <!--ScrapBook-->
     <string name="scrapbook_title">스크랩</string>
