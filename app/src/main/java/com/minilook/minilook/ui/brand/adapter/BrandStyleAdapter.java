@@ -3,7 +3,7 @@ package com.minilook.minilook.ui.brand.adapter;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.minilook.minilook.data.model.brand.BrandMenuDataModel;
+import com.minilook.minilook.data.model.common.StyleDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.brand.viewholder.BrandStyleVH;
@@ -12,9 +12,9 @@ import java.util.List;
 import lombok.Setter;
 
 public class BrandStyleAdapter extends RecyclerView.Adapter<BrandStyleVH> implements
-    BaseAdapterDataModel<BrandMenuDataModel>, BaseAdapterDataView<BrandMenuDataModel> {
+    BaseAdapterDataModel<StyleDataModel>, BaseAdapterDataView<StyleDataModel> {
 
-    private List<BrandMenuDataModel> items = new ArrayList<>();
+    private List<StyleDataModel> items = new ArrayList<>();
     @Setter private BrandStyleVH.OnStyleClickListener onStyleClickListener;
 
     @NonNull @Override
@@ -31,36 +31,36 @@ public class BrandStyleAdapter extends RecyclerView.Adapter<BrandStyleVH> implem
         return getSize();
     }
 
-    @Override public void add(BrandMenuDataModel $item) {
+    @Override public void add(StyleDataModel $item) {
         this.items.add($item);
     }
 
-    @Override public void add(int $index, BrandMenuDataModel $item) {
+    @Override public void add(int $index, StyleDataModel $item) {
         this.items.add($index, $item);
     }
 
-    @Override public void addAll(List<BrandMenuDataModel> $items) {
+    @Override public void addAll(List<StyleDataModel> $items) {
         this.items.addAll($items);
     }
 
-    @Override public void set(int $index, BrandMenuDataModel $item) {
+    @Override public void set(int $index, StyleDataModel $item) {
         this.items.set($index, $item);
     }
 
-    @Override public void set(List<BrandMenuDataModel> $items) {
+    @Override public void set(List<StyleDataModel> $items) {
         this.items.clear();
         this.items.addAll($items);
     }
 
-    @Override public BrandMenuDataModel get(int $index) {
+    @Override public StyleDataModel get(int $index) {
         return this.items.get($index);
     }
 
-    @Override public List<BrandMenuDataModel> get() {
+    @Override public List<StyleDataModel> get() {
         return this.items;
     }
 
-    @Override public int get(BrandMenuDataModel $item) {
+    @Override public int get(StyleDataModel $item) {
         return items.indexOf($item);
     }
 
@@ -68,7 +68,7 @@ public class BrandStyleAdapter extends RecyclerView.Adapter<BrandStyleVH> implem
         this.items.remove($index);
     }
 
-    @Override public void remove(BrandMenuDataModel $item) {
+    @Override public void remove(StyleDataModel $item) {
         this.items.remove($item);
     }
 

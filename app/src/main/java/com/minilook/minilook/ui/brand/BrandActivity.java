@@ -12,11 +12,13 @@ import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
+import com.minilook.minilook.data.model.common.StyleDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.brand.adapter.BrandAdapter;
 import com.minilook.minilook.ui.brand.adapter.BrandStyleAdapter;
 import com.minilook.minilook.ui.brand.di.BrandArguments;
+import com.minilook.minilook.util.StringUtil;
 
 public class BrandActivity extends BaseActivity implements BrandPresenter.View {
 
@@ -38,7 +40,8 @@ public class BrandActivity extends BaseActivity implements BrandPresenter.View {
     private BrandPresenter presenter;
     private BrandAdapter brandAdapter = new BrandAdapter();
     private BaseAdapterDataView<BrandDataModel> brandAdapterView = brandAdapter;
-    private BrandStyleAdapter styleAdapter;
+    private BrandStyleAdapter styleAdapter = new BrandStyleAdapter();
+    private BaseAdapterDataView<StyleDataModel> styleAdapterView = styleAdapter;
 
     @Override protected int getLayoutID() {
         return R.layout.activity_brand;
@@ -52,13 +55,19 @@ public class BrandActivity extends BaseActivity implements BrandPresenter.View {
     private BrandArguments provideArguments() {
         return BrandArguments.builder()
             .view(this)
+            .styleAdapter(styleAdapter)
             .brandAdapter(brandAdapter)
             .build();
     }
 
     @Override public void setupStyleRecyclerView() {
         styleRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        styleAdapter.setOnStyleClickListener(presenter::onStyleClick);
         styleRecyclerView.setAdapter(styleAdapter);
+    }
+
+    @Override public void styleRefresh() {
+        styleAdapterView.refresh();
     }
 
     @Override public void setupBrandRecyclerView() {
@@ -73,6 +82,10 @@ public class BrandActivity extends BaseActivity implements BrandPresenter.View {
 
     @Override public void brandRefresh() {
         brandAdapterView.refresh();
+    }
+
+    @Override public void setupSelectedStyleCount(int count, int total) {
+        selectedCountTextView.setText(String.format(format_selected_count, count, total));
     }
 
     @OnClick(R.id.txt_reset)

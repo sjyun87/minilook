@@ -11,12 +11,18 @@ public interface BrandPresenter extends LifecycleObserver {
 
     void resetClick();
 
+    void onStyleClick(int position);
+
     interface View {
 
         void setupStyleRecyclerView();
 
+        void styleRefresh();
+
         void setupBrandRecyclerView();
 
         void brandRefresh();
+
+        void setupSelectedStyleCount(int count, int total);
     }
 }
