@@ -12,6 +12,7 @@ import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.widget.BottomBar;
+import com.minilook.minilook.ui.base.widget.CustomToast;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.main.adapter.MainPagerAdapter;
@@ -110,8 +111,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
     @Override public void onBackPressed() {
         if (System.currentTimeMillis() > backPressedTime + 2000) {
             backPressedTime = System.currentTimeMillis();
-
-
+            CustomToast.make(this, str_app_finish).show();
         } else {
             finishAffinity();
         }

@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
-import com.minilook.minilook.ui.base.widget.KeywordView;
 import com.minilook.minilook.ui.product_bridge.ProductBridgeActivity;
 import com.minilook.minilook.ui.search_keyword.di.SearchKeywordArguments;
 import com.nex3z.flowlayout.FlowLayout;
@@ -20,8 +19,7 @@ import com.nex3z.flowlayout.FlowLayout;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class SearchKeywordActivity extends BaseActivity implements SearchKeywordPresenter.View,
-    KeywordView.OnClickListener {
+public class SearchKeywordActivity extends BaseActivity implements SearchKeywordPresenter.View {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, SearchKeywordActivity.class);
@@ -107,17 +105,6 @@ public class SearchKeywordActivity extends BaseActivity implements SearchKeyword
 
     @OnClick(R.id.txt_recent_clear)
     void onRemoveAllClick() {
-    }
-
-    // KeywordView OnClickListener
-    @Override public void onKeywordClick(String keyword) {
-        presenter.onKeywordClick(keyword);
-    }
-
-    @Override public void onDeleteClick(View view, String keyword) {
-        presenter.onDeleteClick(keyword);
-        recentItemPanel.removeView(view);
-        if (recentItemPanel.getChildCount() == 0) hideRecentPanel();
     }
 
     //// Dialog OnButtonClickListener
