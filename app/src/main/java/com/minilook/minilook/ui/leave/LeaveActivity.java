@@ -13,6 +13,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.type.LoginType;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.widget.BottomBar;
+import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.leave.di.LeaveArguments;
 import com.minilook.minilook.ui.main.MainActivity;
 import com.minilook.minilook.util.StringUtil;
@@ -67,6 +68,10 @@ public class LeaveActivity extends BaseActivity implements LeavePresenter.View {
         } else if (type.equals(LoginType.NAVER.getValue())) {
             snsImageView.setImageDrawable(img_naver);
         }
+    }
+
+    @Override public void showLeaveDialog() {
+        DialogManager.showLeaveDialog(this, presenter::onLeaveDialogOkClick);
     }
 
     @Override public void navigateToMain() {

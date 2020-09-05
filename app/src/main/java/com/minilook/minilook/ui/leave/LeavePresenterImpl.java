@@ -26,6 +26,10 @@ public class LeavePresenterImpl extends BasePresenterImpl implements LeavePresen
     }
 
     @Override public void onLeaveClick() {
+        view.showLeaveDialog();
+    }
+
+    @Override public void onLeaveDialogOkClick() {
         reqLeave();
     }
 

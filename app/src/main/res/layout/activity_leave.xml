@@ -107,40 +107,40 @@
         app:layout_constraintTop_toBottomOf="@+id/txt_point"
         tools:text="2장" />
 
-    <ImageView
-        android:id="@+id/img_chaim_sns"
-        android:layout_width="@dimen/dp_12"
-        android:layout_height="@dimen/dp_12"
-        android:layout_marginStart="@dimen/dp_12"
-        android:layout_marginTop="@dimen/dp_26"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_coupon_caption"
-        tools:ignore="ContentDescription"
-        tools:src="@drawable/ic_naver" />
-
     <View
         android:id="@+id/line_bottom"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="@dimen/dp_8"
-        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_24"
         android:layout_marginEnd="@dimen/dp_8"
         android:background="@color/color_FFDBDBDB"
-        app:layout_constraintTop_toBottomOf="@+id/img_chaim_sns" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_coupon" />
+
+    <ImageView
+        android:id="@+id/img_chaim_sns"
+        android:layout_width="@dimen/dp_12"
+        android:layout_height="@dimen/dp_12"
+        android:layout_marginStart="@dimen/dp_12"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txt_rejoin_info"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_rejoin_info"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/ic_naver" />
 
     <TextView
         android:id="@+id/txt_rejoin_info"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginStart="@dimen/dp_8"
         android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginEnd="@dimen/dp_34"
+        android:layout_marginEnd="@dimen/dp_12"
         android:fontFamily="@font/nanum_square_r"
         android:lineSpacingMultiplier="1.5"
         android:text="@string/leave_info_desc"
         android:textColor="@color/color_FF232323"
         android:textSize="@dimen/sp_7"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/img_chaim_sns"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/line_bottom" />
 

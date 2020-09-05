@@ -11,6 +11,8 @@ public interface LeavePresenter extends LifecycleObserver {
 
     void onLeaveClick();
 
+    void onLeaveDialogOkClick();
+
     interface View {
 
         void setupPoint(int point);
@@ -18,6 +20,8 @@ public interface LeavePresenter extends LifecycleObserver {
         void setupCoupon(int coupon);
 
         void setupChainSNS(String type);
+
+        void showLeaveDialog();
 
         void navigateToMain();
 

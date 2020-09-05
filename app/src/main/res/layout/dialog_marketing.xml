@@ -6,59 +6,58 @@
     android:layout_height="wrap_content"
     android:background="@color/color_FFFFFFFF">
 
-    <TextView
-        android:id="@+id/txt_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_12"
-        android:layout_marginTop="@dimen/dp_20"
-        android:fontFamily="@font/nanum_square_b"
-        android:text="@string/dialog_marketing_info_title"
-        android:textColor="@color/color_FF232323"
-        android:textSize="@dimen/sp_10"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txt_contents"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_12"
-        android:layout_marginTop="@dimen/dp_8"
-        android:layout_marginEnd="@dimen/dp_12"
-        android:fontFamily="@font/nanum_square_r"
-        android:lineSpacingMultiplier="1.5"
-        android:text="@string/dialog_marketing_info_contents"
-        android:textColor="@color/color_FF232323"
-        android:textSize="@dimen/sp_8"
+    <LinearLayout
+        android:id="@+id/layout_contents_panel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_104"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/dp_12"
+        android:paddingEnd="@dimen/dp_12"
+        app:layout_constraintBottom_toTopOf="@+id/line_horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_title" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/txt_desc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_12"
-        android:layout_marginTop="@dimen/dp_8"
-        android:layout_marginEnd="@dimen/dp_12"
-        android:bufferType="spannable"
-        android:fontFamily="@font/nanum_square_b"
-        android:lineSpacingMultiplier="1.5"
-        android:textColor="@color/color_FF232323"
-        android:textSize="@dimen/sp_6"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_contents"
-        tools:text="@string/dialog_marketing_info_desc" />
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:fontFamily="@font/nanum_square_b"
+            android:text="@string/dialog_marketing_info_title"
+            android:textColor="@color/color_FF232323"
+            android:textSize="@dimen/sp_10" />
+
+        <TextView
+            android:id="@+id/txt_contents"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:fontFamily="@font/nanum_square_r"
+            android:lineSpacingMultiplier="1.5"
+            android:text="@string/dialog_marketing_info_contents"
+            android:textColor="@color/color_FF232323"
+            android:textSize="@dimen/sp_8" />
+
+        <TextView
+            android:id="@+id/txt_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:bufferType="spannable"
+            android:fontFamily="@font/nanum_square_b"
+            android:lineSpacingMultiplier="1.5"
+            android:textColor="@color/color_FF232323"
+            android:textSize="@dimen/sp_6"
+            tools:text="@string/dialog_marketing_info_desc" />
+    </LinearLayout>
 
     <View
         android:id="@+id/line_horizontal"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="@dimen/dp_20"
         android:background="@color/color_FFDBDBDB"
-        app:layout_constraintTop_toBottomOf="@+id/txt_desc" />
+        app:layout_constraintTop_toBottomOf="@+id/layout_contents_panel" />
 
     <TextView
         android:id="@+id/txt_later"

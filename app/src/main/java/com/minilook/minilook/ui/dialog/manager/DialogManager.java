@@ -4,6 +4,7 @@ import android.app.Activity;
 import com.minilook.minilook.ui.dialog.JoinCancelDialog;
 import com.minilook.minilook.ui.dialog.JoinCompletedDialog;
 import com.minilook.minilook.ui.dialog.JoinLimitedDialog;
+import com.minilook.minilook.ui.dialog.LeaveDialog;
 import com.minilook.minilook.ui.dialog.MarketingInfoDialog;
 import com.minilook.minilook.ui.dialog.NoEmailDialog;
 import com.minilook.minilook.ui.dialog.listener.OnCloseClickListener;
@@ -41,6 +42,13 @@ public final class DialogManager {
     @Builder
     public static void showMarketingDialog(Activity activity, OnPositiveClickListener listener) {
         MarketingInfoDialog dialog = new MarketingInfoDialog(activity);
+        dialog.setOnPositiveClickListener(listener);
+        dialog.show();
+    }
+
+    @Builder
+    public static void showLeaveDialog(Activity activity, OnPositiveClickListener listener) {
+        LeaveDialog dialog = new LeaveDialog(activity);
         dialog.setOnPositiveClickListener(listener);
         dialog.show();
     }
