@@ -1,7 +1,10 @@
 package com.minilook.minilook.ui.splash;
 
+import android.content.Intent;
+import android.net.Uri;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.guide.GuideActivity;
 import com.minilook.minilook.ui.main.MainActivity;
 import com.minilook.minilook.ui.splash.di.SplashArguments;
@@ -24,6 +27,17 @@ public class SplashActivity extends BaseActivity implements SplashPresenter.View
         return SplashArguments.builder()
             .view(this)
             .build();
+    }
+
+    @Override public void showUpdateDialog() {
+        DialogManager.showUpdateDialog(this, presenter::onUpdateDialogOkClick, presenter::onUpdateDialogCancelClick);
+    }
+
+    @Override public void navigateToPlatStore() {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("market://details?id=" + getPackageName()));
+        startActivity(intent);
+        finish();
     }
 
     @Override public void navigateToGuide() {

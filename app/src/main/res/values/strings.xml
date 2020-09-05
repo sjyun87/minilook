@@ -349,6 +349,9 @@
     <string name="dialog_ok">확인</string>
     <string name="dialog_agree">동의</string>
     <string name="dialog_later">나중에</string>
+    <string name="dialog_update_title">업데이트 알림</string>
+    <string name="dialog_update_content">필수 업데이트가 있습니다.\n새로운 버전의 미니룩을 만나보세요.</string>
+    <string name="dialog_update_desc">원할한 서비스 이용을 위해 업데이트 후, 다시 시작하시기 바랍니다.</string>
     <string name="dialog_noemail_title">이메일 정보가 없습니다.</string>
     <string name="dialog_noemail_contents">SNS계정에 이메일을 등록하거나\n이메일 제공을 허용해주세요.</string>
     <string name="dialog_join_cancel_contents">회원가입 절차가 초기화 됩니다.\n계속 진행하시겠습니까?</string>

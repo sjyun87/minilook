@@ -8,7 +8,9 @@ import com.minilook.minilook.ui.dialog.JoinLimitedDialog;
 import com.minilook.minilook.ui.dialog.LeaveDialog;
 import com.minilook.minilook.ui.dialog.MarketingInfoDialog;
 import com.minilook.minilook.ui.dialog.NoEmailDialog;
+import com.minilook.minilook.ui.dialog.UpdateDialog;
 import com.minilook.minilook.ui.dialog.listener.OnCloseClickListener;
+import com.minilook.minilook.ui.dialog.listener.OnNegativeClickListener;
 import com.minilook.minilook.ui.dialog.listener.OnPositiveClickListener;
 import lombok.Builder;
 
@@ -58,6 +60,15 @@ public final class DialogManager {
     public static void showDefaultShippingDialog(Activity activity, OnPositiveClickListener listener) {
         DefaultShippingDialog dialog = new DefaultShippingDialog(activity);
         dialog.setOnPositiveClickListener(listener);
+        dialog.show();
+    }
+
+    @Builder
+    public static void showUpdateDialog(Activity activity, OnPositiveClickListener onPositiveListener,
+        OnNegativeClickListener onNegativeClickListener) {
+        UpdateDialog dialog = new UpdateDialog(activity);
+        dialog.setOnPositiveClickListener(onPositiveListener);
+        dialog.setOnNegativeClickListener(onNegativeClickListener);
         dialog.show();
     }
 }

@@ -4,10 +4,14 @@ import android.os.Handler;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.App;
+import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.common.PrefsKey;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.common.SortDataModel;
+import com.minilook.minilook.data.model.common.VersionDataModel;
 import com.minilook.minilook.data.network.common.CommonRequest;
+import com.minilook.minilook.data.rx.Transformer;
+import com.minilook.minilook.data.type.VersionStatus;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.splash.di.SplashArguments;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -38,8 +42,35 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
         checkAppVersion();
     }
 
+    @Override public void onUpdateDialogOkClick() {
+        view.navigateToPlatStore();
+    }
+
+    @Override public void onUpdateDialogCancelClick() {
+        view.finish();
+    }
+
     private void checkAppVersion() {
-        startApp();
+        reqCheckAppVersion();
+    }
+
+    private void reqCheckAppVersion() {
+        addDisposable(commonRequest.checkVersion("0.0.1")
+            .compose(Transformer.applySchedulers())
+            .filter(data -> {
+                // TODO 예외 처리
+                return data.getCode().equals(HttpCode.OK);
+            })
+            .map(data -> gson.fromJson(data.getData(), VersionDataModel.class))
+            .subscribe(this::resCheckAppVersion, Timber::e));
+    }
+
+    private void resCheckAppVersion(VersionDataModel data) {
+        if (data.getStatus() == VersionStatus.FORCE.getValue()) {
+            view.showUpdateDialog();
+        } else {
+            startApp();
+        }
     }
 
     private void startApp() {
