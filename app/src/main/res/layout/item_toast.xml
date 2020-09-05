@@ -8,8 +8,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_22"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="@dimen/dp_22"
         android:background="@drawable/bg_toast"
         android:gravity="center_vertical">
 

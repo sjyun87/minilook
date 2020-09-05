@@ -73,14 +73,16 @@ public class CustomToast {
     }
 
     private PopupWindow setupPopup(View layout) {
-        int startMargin = activity.getResources().getDimensionPixelSize(R.dimen.dp_6);
-        int endMargin = activity.getResources().getDimensionPixelSize(R.dimen.dp_6);
+        int startMargin = activity.getResources().getDimensionPixelSize(R.dimen.dp_10);
+        int endMargin = activity.getResources().getDimensionPixelSize(R.dimen.dp_10);
         int height = activity.getResources().getDimensionPixelSize(R.dimen.dp_44);
 
         popup = new PopupWindow(layout);
         popup.setWidth(root.getWidth() - (startMargin + endMargin));
         popup.setHeight(height);
         popup.setAnimationStyle(R.style.ToastStyle);
+        popup.setTouchable(false);
+        popup.setFocusable(false);
         return popup;
     }
 }
