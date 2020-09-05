@@ -14,6 +14,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.util.DimenUtil;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
 
@@ -50,6 +51,6 @@ public class BrandVH extends BaseViewHolder<BrandDataModel> {
     }
 
     void onItemClick(View view) {
-
+        BrandDetailActivity.start(context, data.getId());
     }
 }
