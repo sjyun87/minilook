@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.BuildConfig;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.widget.BottomBar;
+import com.minilook.minilook.ui.base.widget.CustomToast;
 import com.minilook.minilook.ui.leave.LeaveActivity;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.main.MainActivity;
@@ -34,6 +36,11 @@ public class SettingActivity extends BaseActivity implements SettingPresenter.Vi
     @BindView(R.id.txt_login) TextView loginTextView;
     @BindView(R.id.txt_logout) TextView logoutTextView;
     @BindView(R.id.txt_leave) TextView leaveTextView;
+
+    @BindString(R.string.base_toast_marketing_info_agree) String str_toast_marketing_agree;
+    @BindString(R.string.base_toast_marketing_info_disagree) String str_toast_marketing_disagree;
+    @BindString(R.string.base_toast_order_info_agree) String str_toast_order_agree;
+    @BindString(R.string.base_toast_order_info_disagree) String str_toast_order_disagree;
 
     private SettingPresenter presenter;
 
@@ -62,12 +69,26 @@ public class SettingActivity extends BaseActivity implements SettingPresenter.Vi
 
     @Override public void setupInfoSwitchButton() {
         orderInfoSwitchButton.setOnCheckedChangeListener(
-            (view, isChecked) -> presenter.onOrderInfoChecked(isChecked));
+            (view, isChecked) -> {
+                presenter.onOrderInfoChecked(isChecked);
+                if (isChecked) {
+                    CustomToast.make(this, str_toast_order_agree).show();
+                } else {
+                    CustomToast.make(this, str_toast_order_disagree).show();
+                }
+            });
     }
 
     @Override public void setupMarketingSwitchButton() {
         marketingInfoSwitchButton.setOnCheckedChangeListener(
-            (view, isChecked) -> presenter.onMarketingInfoChecked(isChecked));
+            (view, isChecked) -> {
+                presenter.onMarketingInfoChecked(isChecked);
+                if (isChecked) {
+                    CustomToast.make(this, str_toast_marketing_agree).show();
+                } else {
+                    CustomToast.make(this, str_toast_marketing_disagree).show();
+                }
+            });
     }
 
     @Override public void showOrderInfoPanel() {
@@ -119,7 +140,7 @@ public class SettingActivity extends BaseActivity implements SettingPresenter.Vi
     }
 
     @Override public void navigateToMain() {
-        MainActivity.start(this);
+        MainActivity.start(this, BottomBar.POSITION_LOOKBOOK);
     }
 
     @OnClick(R.id.txt_terms_of_use)

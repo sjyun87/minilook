@@ -38,7 +38,10 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
     @BindView(R.id.viewpager) ViewPager2 viewPager;
     @BindView(R.id.bottombar) BottomBar bottomBar;
 
-    @BindString(R.string.base_app_finish) String str_app_finish;
+    @BindString(R.string.base_toast_app_finish) String str_toast_app_finish;
+    @BindString(R.string.base_toast_marketing_info_agree) String str_toast_marketing_agree;
+    @BindString(R.string.base_toast_login) String str_toast_login;
+    @BindString(R.string.base_toast_logout) String str_toast_logout;
 
     @BindColor(R.color.color_FF616161) int color_FF616161;
 
@@ -66,6 +69,14 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
         return MainArguments.builder()
             .view(this)
             .build();
+    }
+
+    @Override public void onLogin() {
+        CustomToast.make(this, str_toast_login).show();
+    }
+
+    @Override public void onLogout() {
+        CustomToast.make(this, str_toast_login).show();
     }
 
     @Override public void onProductScrap(boolean isScrap, ProductDataModel product) {
@@ -101,7 +112,10 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
     }
 
     @Override public void showMarketingDialog() {
-        DialogManager.showMarketingDialog(this, presenter::onMarketingAgree);
+        DialogManager.showMarketingDialog(this, () -> {
+            presenter.onMarketingAgree();
+            CustomToast.make(this, str_toast_marketing_agree).show();
+        });
     }
 
     @Override public void navigateToLogin() {
@@ -111,7 +125,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
     @Override public void onBackPressed() {
         if (System.currentTimeMillis() > backPressedTime + 2000) {
             backPressedTime = System.currentTimeMillis();
-            CustomToast.make(this, str_app_finish).show();
+            CustomToast.make(this, str_toast_app_finish).show();
         } else {
             finishAffinity();
         }

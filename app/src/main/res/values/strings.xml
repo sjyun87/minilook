@@ -7,7 +7,15 @@
     <string name="base_price_percent">%d%%</string>
     <string name="base_brand_shop">브랜드샵</string>
     <string name="base_tag">#%s</string>
-    <string name="base_app_finish">뒤로 가기 버튼을 한 번 더 누르면 종료됩니다</string>
+
+    <!--Toast-->
+    <string name="base_toast_app_finish">뒤로 가기 버튼을 한 번 더 누르면 종료됩니다</string>
+    <string name="base_toast_marketing_info_agree">마케팅 알림이 수신동의 되었습니다</string>
+    <string name="base_toast_marketing_info_disagree">마케팅 알림이 수신거부 되었습니다</string>
+    <string name="base_toast_order_info_agree">정보성 알림이 수신동의 되었습니다</string>
+    <string name="base_toast_order_info_disagree">정보성 알림이 수신거부 되었습니다</string>
+    <string name="base_toast_login">로그인 되었습니다</string>
+    <string name="base_toast_logout">로그아웃 되었습니다</string>
 
     <!--Bottom Bar-->
     <string name="bottombar_lookbook">룩북</string>
