@@ -190,7 +190,7 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name=".ui.webview.WebViewActivity"
+            android:name=".ui.search_address.SearchAddressActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 

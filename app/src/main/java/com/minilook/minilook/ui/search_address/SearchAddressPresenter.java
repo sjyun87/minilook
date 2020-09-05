@@ -12,5 +12,7 @@ public interface SearchAddressPresenter extends LifecycleObserver {
     interface View {
 
         void setupWebView();
+
+        void loadURL(String url);
     }
 }

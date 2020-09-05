@@ -1,20 +1,22 @@
 package com.minilook.minilook.ui.search_address;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Message;
-import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import butterknife.BindView;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.search_address.di.SearchAddressArguments;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 public class SearchAddressActivity extends BaseActivity implements SearchAddressPresenter.View {
 
@@ -25,12 +27,15 @@ public class SearchAddressActivity extends BaseActivity implements SearchAddress
         context.startActivity(intent);
     }
 
+    @BindView(R.id.root) FrameLayout rootView;
     @BindView(R.id.webView) WebView webView;
 
     private SearchAddressPresenter presenter;
+    private WebViewClient webViewClient = new WebViewClient();
+    private CustomWebChromeClient webChromeClient = new CustomWebChromeClient();
 
     @Override protected int getLayoutID() {
-        return R.layout.activity_webview;
+        return R.layout.activity_search_address;
     }
 
     @Override protected void createPresenter() {
@@ -44,53 +49,53 @@ public class SearchAddressActivity extends BaseActivity implements SearchAddress
             .build();
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
     @Override public void setupWebView() {
+        setupWebViewInit(webView);
+        webView.addJavascriptInterface(new AndroidBridgeInterface(), "MinilookApp");
+    }
+
+    @Override public void loadURL(String url) {
+        webView.loadUrl(url);
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    private void setupWebViewInit(WebView webView) {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webSettings.setSupportMultipleWindows(true);
-        webView.setWebViewClient(new WebViewClient());
-        webView.setWebChromeClient(new WebChromeClient());
-        webView.loadUrl("http://lookbook.minilook.co.kr/m/bbs/register_form.php");
+        webView.setWebViewClient(webViewClient);
+        webView.setWebChromeClient(webChromeClient);
     }
 
     private class CustomWebChromeClient extends WebChromeClient {
         @Override
         public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, Message resultMsg) {
-            // Dialog Create Code
-            WebView newWebView = new WebView(SearchAddressActivity.this);
-            WebSettings webSettings = newWebView.getSettings();
-            webSettings.setJavaScriptEnabled(true);
+            WebView childWebView = new WebView(view.getContext());
+            setupWebViewInit(childWebView);
+            childWebView.setLayoutParams(view.getLayoutParams());
+            rootView.addView(childWebView);
 
-            final Dialog dialog = new Dialog(SearchAddressActivity.this);
-            dialog.setContentView(newWebView);
-
-            ViewGroup.LayoutParams params = dialog.getWindow().getAttributes();
-            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-            params.height = ViewGroup.LayoutParams.MATCH_PARENT;
-            dialog.getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
-            dialog.show();
-            newWebView.setWebChromeClient(new WebChromeClient() {
-                @Override
-                public void onCloseWindow(WebView window) {
-                    dialog.dismiss();
-                }
-            });
-
-            // WebView Popup에서 내용이 안보이고 빈 화면만 보여 아래 코드 추가
-            newWebView.setWebViewClient(new WebViewClient() {
-                @Override
-                public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                    return false;
-                }
-            });
-
-            ((WebView.WebViewTransport)resultMsg.obj).setWebView(newWebView);
+            ((WebView.WebViewTransport) resultMsg.obj).setWebView(childWebView);
             resultMsg.sendToTarget();
             return true;
-
         }
 
+        @Override public void onCloseWindow(WebView window) {
+            super.onCloseWindow(window);
+            rootView.removeView(window);
+        }
+    }
+
+    private class AndroidBridgeInterface {
+        @JavascriptInterface
+        public void phoneAuthResult(String json) {
+            RxBus.send(new RxEventIdentityVerificationComplete(json));
+            finish();
+        }
+    }
+
+    @AllArgsConstructor @Getter public final static class RxEventIdentityVerificationComplete {
+        private String json;
     }
 }

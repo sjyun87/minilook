@@ -21,7 +21,7 @@ import com.minilook.minilook.ui.base.widget.BottomBar;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.join.di.JoinArguments;
 import com.minilook.minilook.ui.main.MainActivity;
-import com.minilook.minilook.ui.webview.WebViewActivity;
+import com.minilook.minilook.ui.search_address.SearchAddressActivity;
 
 public class JoinActivity extends BaseActivity implements JoinPresenter.View {
 
@@ -151,7 +151,7 @@ public class JoinActivity extends BaseActivity implements JoinPresenter.View {
 
     @OnClick(R.id.txt_certify)
     void onVerifyClick() {
-        WebViewActivity.start(this, URLKeys.URL_IDENTITY_VERIFICATION);
+        SearchAddressActivity.start(this);
     }
 
     @OnClick(R.id.layout_full_agree)

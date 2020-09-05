@@ -12,7 +12,7 @@ import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.ipage.IpagePresenterImpl;
 import com.minilook.minilook.ui.profile.di.ProfileArguments;
-import com.minilook.minilook.ui.webview.WebViewActivity;
+import com.minilook.minilook.ui.search_address.SearchAddressActivity;
 import timber.log.Timber;
 
 public class ProfilePresenterImpl extends BasePresenterImpl implements ProfilePresenter {
@@ -146,8 +146,8 @@ public class ProfilePresenterImpl extends BasePresenterImpl implements ProfilePr
 
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
-            if (o instanceof WebViewActivity.RxEventIdentityVerificationComplete) {
-                String json = ((WebViewActivity.RxEventIdentityVerificationComplete) o).getJson();
+            if (o instanceof SearchAddressActivity.RxEventIdentityVerificationComplete) {
+                String json = ((SearchAddressActivity.RxEventIdentityVerificationComplete) o).getJson();
                 updatePhone(json);
             }
         }, Timber::e));

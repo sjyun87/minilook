@@ -17,9 +17,9 @@ import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.profile.di.ProfileArguments;
+import com.minilook.minilook.ui.search_address.SearchAddressActivity;
 import com.minilook.minilook.ui.shipping.ShippingActivity;
 import com.minilook.minilook.ui.shipping_add.ShippingAddActivity;
-import com.minilook.minilook.ui.webview.WebViewActivity;
 import com.minilook.minilook.util.KeyboardUtil;
 
 public class ProfileActivity extends BaseActivity implements ProfilePresenter.View {
@@ -176,7 +176,7 @@ public class ProfileActivity extends BaseActivity implements ProfilePresenter.Vi
     }
 
     @Override public void navigateToWebView(String url) {
-        WebViewActivity.start(this, url);
+        SearchAddressActivity.start(this, url);
     }
 
     @Override public void navigateToShipping() {
