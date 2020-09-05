@@ -1,14 +1,15 @@
 package com.minilook.minilook.ui.market.viewholder.commercial.viewholder;
 
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
-import butterknife.BindColor;
+import butterknife.BindDrawable;
 import butterknife.BindView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.commercial.CommercialDataModel;
 import com.minilook.minilook.data.type.CommercialType;
@@ -21,7 +22,7 @@ public class MarketCommercialItemVH extends BaseViewHolder<CommercialDataModel> 
 
     @BindView(R.id.img_contents) ImageView contentsImageView;
 
-    @BindColor(R.color.color_FFEEEFF5) int color_FFEEEFF5;
+    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
 
     public MarketCommercialItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
@@ -33,7 +34,9 @@ public class MarketCommercialItemVH extends BaseViewHolder<CommercialDataModel> 
 
         Glide.with(context)
             .load(data.getImage_url())
-            .placeholder(new ColorDrawable(color_FFEEEFF5))
+            .placeholder(img_placeholder)
+            .error(img_placeholder)
+            .transition(new DrawableTransitionOptions().crossFade())
             .into(contentsImageView);
 
         itemView.setOnClickListener(this::onItemClick);

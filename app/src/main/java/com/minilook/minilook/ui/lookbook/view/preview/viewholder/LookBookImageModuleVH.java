@@ -1,14 +1,15 @@
 package com.minilook.minilook.ui.lookbook.view.preview.viewholder;
 
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
-import butterknife.BindColor;
+import butterknife.BindDrawable;
 import butterknife.BindView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
@@ -18,7 +19,7 @@ public class LookBookImageModuleVH extends BaseViewHolder<String> {
 
     @BindView(R.id.img_lookbook) ImageView imageView;
 
-    @BindColor(R.color.color_FFEEEFF5) int color_FFEEEFF5;
+    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
 
     public LookBookImageModuleVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
@@ -30,8 +31,9 @@ public class LookBookImageModuleVH extends BaseViewHolder<String> {
 
         Glide.with(context)
             .load(data)
-            .thumbnail(0.1f)
-            .placeholder(new ColorDrawable(color_FFEEEFF5))
+            .placeholder(img_placeholder)
+            .error(img_placeholder)
+            .transition(new DrawableTransitionOptions().crossFade())
             .into(imageView);
 
         itemView.setOnClickListener(this::onItemClick);

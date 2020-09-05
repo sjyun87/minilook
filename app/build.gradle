@@ -140,6 +140,6 @@ dependencies {
   // Preference
   implementation "com.pixplicity.easyprefs:library:$preference_version"
 
-
-  implementation "androidx.browser:browser:1.2.0"
+  // BootPay
+  implementation 'com.github.bootpay:client_android_java:3.2.71'
 }

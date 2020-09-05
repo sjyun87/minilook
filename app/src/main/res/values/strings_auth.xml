@@ -9,4 +9,6 @@
     <string name="naver_client_id">NB6JUb4x3fzKOoxG0ARb</string>
     <string name="naver_client_secret">eLAKiFgMXW</string>
     <string name="naver_client_app_name">미니룩</string>
+
+    <string name="bootpay_key">5f5115420627a8002a564ccd</string>
 </resources>

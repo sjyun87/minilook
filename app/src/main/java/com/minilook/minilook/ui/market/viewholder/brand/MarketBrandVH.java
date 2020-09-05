@@ -21,6 +21,7 @@ import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.OnClick;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.gson.Gson;
@@ -67,6 +68,9 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
 
     @BindFont(R.font.nanum_square_eb) Typeface font_extrabold;
 
+    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @BindDrawable(R.drawable.placeholder_image_wide_21) Drawable img_placeholder_wide_21;
+    @BindDrawable(R.drawable.placeholder_logo) Drawable img_placeholder_logo;
     @BindDrawable(R.drawable.ic_scrap_off) Drawable img_scrap_off;
     @BindDrawable(R.drawable.ic_scrap_on) Drawable img_scrap_on;
 
@@ -122,13 +126,18 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
     private void setupBrandData(BrandDataModel model) {
         Glide.with(context)
             .load(model.getImage_url())
+            .placeholder(img_placeholder_wide_21)
+            .error(img_placeholder_wide_21)
+            .transition(new DrawableTransitionOptions().crossFade())
             .into(thumbImageView);
 
         Glide.with(context)
-            .asBitmap()
             .load(model.getBrand_logo())
+            .placeholder(img_placeholder_logo)
+            .error(img_placeholder_logo)
             .apply(RequestOptions.bitmapTransform(
                 new CropCircleWithBorderTransformation(DimenUtil.dpToPx(context, 1), color_FFDBDBDB)))
+            .transition(new DrawableTransitionOptions().crossFade())
             .into(logoImageView);
 
         setupScrapImage(model.isScrap());
@@ -141,6 +150,9 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
         for (int i = 0; i < styleImageViews.size(); i++) {
             Glide.with(context)
                 .load(styleImages.get(i))
+                .placeholder(img_placeholder)
+                .error(img_placeholder)
+                .transition(new DrawableTransitionOptions().crossFade())
                 .into(styleImageViews.get(i));
         }
     }

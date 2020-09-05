@@ -17,6 +17,7 @@ import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.util.DimenUtil;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
+import timber.log.Timber;
 
 public class BrandVH extends BaseViewHolder<BrandDataModel> {
 
@@ -35,7 +36,7 @@ public class BrandVH extends BaseViewHolder<BrandDataModel> {
 
     @Override public void bind(BrandDataModel $data) {
         super.bind($data);
-
+        Timber.e(data.toString());
         Glide.with(context)
             .load(data.getBrand_logo())
             .placeholder(new ColorDrawable(color_FFEEEFF5))

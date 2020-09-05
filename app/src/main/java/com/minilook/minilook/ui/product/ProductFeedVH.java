@@ -1,6 +1,5 @@
 package com.minilook.minilook.ui.product;
 
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +12,7 @@ import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.minilook.minilook.App;
 import com.minilook.minilook.R;
@@ -40,8 +40,9 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
     @BindView(R.id.txt_product_desc) TextView descTextView;
 
     @BindColor(R.color.color_FFDBDBDB) int color_FFDBDBDB;
-    @BindColor(R.color.color_FFEEEFF5) int color_FFEEEFF5;
 
+    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @BindDrawable(R.drawable.placeholder_logo) Drawable img_placeholder_logo;
     @BindDrawable(R.drawable.ic_scrap_off) Drawable img_scrap_off;
     @BindDrawable(R.drawable.ic_scrap_on) Drawable img_scrap_on;
 
@@ -54,18 +55,21 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
         super.bind($data);
 
         Glide.with(context)
-            .asBitmap()
             .load(data.getBrand_logo())
-            .placeholder(new ColorDrawable(color_FFEEEFF5))
+            .placeholder(img_placeholder_logo)
+            .error(img_placeholder_logo)
             .apply(RequestOptions.bitmapTransform(
                 new CropCircleWithBorderTransformation(DimenUtil.dpToPx(context, 1), color_FFDBDBDB)))
+            .transition(new DrawableTransitionOptions().crossFade())
             .into(brandLogoImageView);
 
         brandNameTextView.setText(data.getBrand_name());
 
         Glide.with(context)
             .load(data.getImage_url())
-            .placeholder(new ColorDrawable(color_FFEEEFF5))
+            .placeholder(img_placeholder)
+            .error(img_placeholder)
+            .transition(new DrawableTransitionOptions().crossFade())
             .into(thumbImageView);
 
         reviewTextView.setText(StringUtil.toDigit(data.getReview_cnt()));
