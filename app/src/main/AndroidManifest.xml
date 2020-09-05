@@ -101,7 +101,7 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name=".ui.shipping_add.ShippingAddActivity"
+            android:name=".ui.shipping_update.ShippingUpdateActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 

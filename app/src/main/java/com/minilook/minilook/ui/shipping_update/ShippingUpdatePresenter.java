@@ -1,10 +1,10 @@
-package com.minilook.minilook.ui.shipping_add;
+package com.minilook.minilook.ui.shipping_update;
 
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
-public interface ShippingAddPresenter extends LifecycleObserver {
+public interface ShippingUpdatePresenter extends LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
@@ -23,6 +23,8 @@ public interface ShippingAddPresenter extends LifecycleObserver {
 
     interface View {
 
+        void setupShippingEditTitleBar();
+
         void setupNameEditText();
 
         void setupPhoneEditText();
@@ -37,6 +39,18 @@ public interface ShippingAddPresenter extends LifecycleObserver {
 
         void disableSaveButton();
 
+        void setupName(String text);
+
+        void setupPhone(String text);
+
+        void setupZip(String text);
+
+        void setupAddress(String text);
+
+        void setupAddressDetail(String text);
+
         void navigateToSearchZip();
+
+        void finish();
     }
 }

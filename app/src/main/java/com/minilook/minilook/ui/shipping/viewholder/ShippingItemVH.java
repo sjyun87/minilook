@@ -45,11 +45,16 @@ public class ShippingItemVH extends BaseViewHolder<ShippingDataModel> {
     }
 
     void onItemClick(View view) {
-        RxBus.send(new ShippingPresenterImpl.RxEventShippingSelect(data));
+        RxBus.send(new ShippingPresenterImpl.RxEventShippingSelectClick(data));
     }
 
     @OnClick(R.id.img_delete)
     void onDeleteClick() {
-        RxBus.send(new ShippingPresenterImpl.RxEventShippingDelete(data));
+        RxBus.send(new ShippingPresenterImpl.RxEventShippingDeleteClick(data));
+    }
+
+    @OnClick(R.id.txt_edit)
+    void onEditClick() {
+        RxBus.send(new ShippingPresenterImpl.RxEventShippingEditClick(data));
     }
 }

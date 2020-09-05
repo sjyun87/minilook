@@ -78,6 +78,7 @@
         tools:text="서울 양천구 목동중앙남로 342, 302호" />
 
     <TextView
+        android:id="@+id/txt_edit"
         android:layout_width="@dimen/dp_48"
         android:layout_height="@dimen/dp_16"
         android:layout_marginTop="@dimen/dp_10"

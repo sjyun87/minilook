@@ -23,7 +23,7 @@
             android:fontFamily="@font/nanum_square_r"
             android:gravity="center"
             android:lineSpacingMultiplier="1.5"
-            android:text="@string/shipping_update_default"
+            android:text="@string/shipping_default_shipping"
             android:textColor="@color/color_FF232323"
             android:textSize="@dimen/sp_8" />
     </LinearLayout>

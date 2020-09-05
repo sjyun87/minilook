@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.shipping_add;
+package com.minilook.minilook.ui.shipping_update;
 
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
@@ -7,28 +7,56 @@ import com.minilook.minilook.data.network.shipping.ShippingRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.shipping.ShippingPresenterImpl;
-import com.minilook.minilook.ui.shipping_add.di.ShippingAddArguments;
+import com.minilook.minilook.ui.shipping_update.di.ShippingUpdateArguments;
 import timber.log.Timber;
 
-public class ShippingAddPresenterImpl extends BasePresenterImpl implements ShippingAddPresenter {
+public class ShippingUpdatePresenterImpl extends BasePresenterImpl implements ShippingUpdatePresenter {
 
     private final View view;
+    private final ShippingDataModel shippingData;
     private final ShippingRequest shippingRequest;
+    private final boolean isAddPage;
 
     private String name;
     private String phone;
+    private String zip;
+    private String address;
     private String address_detail;
     private boolean isDefault = false;
 
-    public ShippingAddPresenterImpl(ShippingAddArguments args) {
+    public ShippingUpdatePresenterImpl(ShippingUpdateArguments args) {
         view = args.getView();
+        shippingData = args.getShippingData();
         shippingRequest = new ShippingRequest();
+        isAddPage = shippingData == null;
     }
 
     @Override public void onCreate() {
         view.setupNameEditText();
         view.setupPhoneEditText();
         view.setupAddressDetailEditText();
+
+        if (!isAddPage) {
+            view.setupShippingEditTitleBar();
+            name = shippingData.getName();
+            phone = shippingData.getPhone();
+            zip = shippingData.getZipcode();
+            address = shippingData.getAddress();
+            address_detail = shippingData.getAddress_detail();
+            isDefault = shippingData.isDefault();
+
+            view.setupName(shippingData.getName());
+            view.setupPhone(shippingData.getPhone());
+            view.setupZip(shippingData.getZipcode());
+            view.setupAddress(shippingData.getAddress());
+            view.setupAddressDetail(shippingData.getAddress_detail());
+            if (shippingData.isDefault()) {
+                view.checkDefault();
+            } else {
+                view.uncheckDefault();
+            }
+            checkButtonEnable();
+        }
     }
 
     @Override public void onSearchZipClick() {
@@ -61,25 +89,38 @@ public class ShippingAddPresenterImpl extends BasePresenterImpl implements Shipp
     }
 
     @Override public void onSaveClick() {
-        reqAddShipping();
+        if (isAddPage) {
+            reqAddShipping();
+        } else {
+            reqEditShipping();
+        }
     }
 
     private void reqAddShipping() {
         addDisposable(shippingRequest.addShipping(getShippingModel())
             .filter(data -> data.getCode().equals(HttpCode.OK))
-            .subscribe(this::resAddShipping, Timber::e));
+            .subscribe(this::resUpdateShipping, Timber::e));
     }
 
-    private void resAddShipping(BaseDataModel dataModel) {
-        RxBus.send(new ShippingPresenterImpl.RxEventShippingAdd());
+    private void reqEditShipping() {
+        addDisposable(shippingRequest.updateShipping(getShippingModel())
+            .filter(data -> data.getCode().equals(HttpCode.OK))
+            .subscribe(this::resUpdateShipping, Timber::e));
+    }
+
+    private void resUpdateShipping(BaseDataModel data) {
+        Timber.e(data.toString());
+        RxBus.send(new ShippingPresenterImpl.RxEventShippingUpdated());
+        view.finish();
     }
 
     private ShippingDataModel getShippingModel() {
         ShippingDataModel model = new ShippingDataModel();
+        model.setAddress_id(shippingData.getAddress_id());
         model.setName(name);
         model.setPhone(phone);
-        // zip
-        // address
+        model.setZipcode(zip);
+        model.setAddress(address);
         model.setAddress_detail(address_detail);
         model.setDefault(isDefault);
         return model;

@@ -125,7 +125,7 @@
         app:layout_constraintTop_toBottomOf="@+id/edit_phone" />
 
     <TextView
-        android:id="@+id/txt_address_basic"
+        android:id="@+id/txt_address"
         android:layout_width="0dp"
         android:layout_height="@dimen/dp_20"
         android:layout_marginTop="@dimen/dp_4"
@@ -134,7 +134,7 @@
         android:gravity="center_vertical"
         android:paddingStart="@dimen/dp_8"
         android:paddingEnd="8dp"
-        android:text="@string/shipping_input_address_basic_hint"
+        android:text="@string/shipping_input_address_hint"
         android:textColor="@color/color_FFA9A9A9"
         android:textSize="@dimen/sp_7"
         app:layout_constraintLeft_toLeftOf="@+id/txt_zip"
@@ -157,9 +157,9 @@
         android:textColor="@color/color_FF232323"
         android:textColorHint="@color/color_FFA9A9A9"
         android:textSize="@dimen/sp_7"
-        app:layout_constraintLeft_toLeftOf="@+id/txt_address_basic"
-        app:layout_constraintRight_toRightOf="@+id/txt_address_basic"
-        app:layout_constraintTop_toBottomOf="@+id/txt_address_basic"
+        app:layout_constraintLeft_toLeftOf="@+id/txt_address"
+        app:layout_constraintRight_toRightOf="@+id/txt_address"
+        app:layout_constraintTop_toBottomOf="@+id/txt_address"
         tools:ignore="TextFields" />
 
     <ImageView

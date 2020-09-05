@@ -6,14 +6,14 @@ import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseDialog;
 
-public class UpdateDefaultDialog extends BaseDialog {
+public class DefaultShippingDialog extends BaseDialog {
 
-    public UpdateDefaultDialog(@NonNull Context context) {
+    public DefaultShippingDialog(@NonNull Context context) {
         super(context);
     }
 
     @Override protected int getLayoutID() {
-        return R.layout.dialog_update_default;
+        return R.layout.dialog_default_shipping;
     }
 
     @OnClick(R.id.txt_cancel)

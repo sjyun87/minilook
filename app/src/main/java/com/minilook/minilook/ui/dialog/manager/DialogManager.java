@@ -1,13 +1,13 @@
 package com.minilook.minilook.ui.dialog.manager;
 
 import android.app.Activity;
+import com.minilook.minilook.ui.dialog.DefaultShippingDialog;
 import com.minilook.minilook.ui.dialog.JoinCancelDialog;
 import com.minilook.minilook.ui.dialog.JoinCompletedDialog;
 import com.minilook.minilook.ui.dialog.JoinLimitedDialog;
 import com.minilook.minilook.ui.dialog.LeaveDialog;
 import com.minilook.minilook.ui.dialog.MarketingInfoDialog;
 import com.minilook.minilook.ui.dialog.NoEmailDialog;
-import com.minilook.minilook.ui.dialog.UpdateDefaultDialog;
 import com.minilook.minilook.ui.dialog.listener.OnCloseClickListener;
 import com.minilook.minilook.ui.dialog.listener.OnPositiveClickListener;
 import lombok.Builder;
@@ -55,8 +55,8 @@ public final class DialogManager {
     }
 
     @Builder
-    public static void showUpdateDefault(Activity activity, OnPositiveClickListener listener) {
-        UpdateDefaultDialog dialog = new UpdateDefaultDialog(activity);
+    public static void showDefaultShippingDialog(Activity activity, OnPositiveClickListener listener) {
+        DefaultShippingDialog dialog = new DefaultShippingDialog(activity);
         dialog.setOnPositiveClickListener(listener);
         dialog.show();
     }

@@ -17,7 +17,7 @@ import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.shipping.adapter.ShippingAdapter;
 import com.minilook.minilook.ui.shipping.di.ShippingArguments;
-import com.minilook.minilook.ui.shipping_add.ShippingAddActivity;
+import com.minilook.minilook.ui.shipping_update.ShippingUpdateActivity;
 
 public class ShippingActivity extends BaseActivity implements ShippingPresenter.View {
 
@@ -73,12 +73,20 @@ public class ShippingActivity extends BaseActivity implements ShippingPresenter.
         adapterView.refresh();
     }
 
-    @Override public void showUpdateShippingDialog() {
-        DialogManager.showUpdateDefault(this, presenter::onUpdateDefaultOkClick);
+    @Override public void showDefaultShippingDialog() {
+        DialogManager.showDefaultShippingDialog(this, presenter::onDefaultShippingDialogOkClick);
+    }
+
+    @Override public void navigateToShippingAdd() {
+        ShippingUpdateActivity.start(this);
+    }
+
+    @Override public void navigateToShippingEdit(ShippingDataModel data) {
+        ShippingUpdateActivity.start(this, data);
     }
 
     @OnClick(R.id.txt_add)
     void onAddClick() {
-        ShippingAddActivity.start(this);
+        presenter.onAddClick();
     }
 }

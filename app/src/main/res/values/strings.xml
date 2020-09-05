@@ -109,7 +109,7 @@
     <string name="shipping_edit">수정</string>
     <string name="shipping_empty">배송지가 없습니다.</string>
     <string name="shipping_empty_button">추가하기</string>
-    <string name="shipping_update_default">기본배송지로 등록하시겠습니깨?</string>
+    <string name="shipping_default_shipping">기본배송지로 등록하시겠습니까?</string>
 
     <!--Shipping Add-->
     <string name="shipping_add_title">배송지 추가</string>
@@ -125,7 +125,7 @@
     <string name="shipping_input_address_caption">배송지</string>
     <string name="shipping_input_address_zip_hint">우편번호</string>
     <string name="shipping_input_address_zip_search">우편번호 검색</string>
-    <string name="shipping_input_address_basic_hint">기본주소</string>
+    <string name="shipping_input_address_hint">기본주소</string>
     <string name="shipping_input_address_detail_hint">상세주소 입력</string>
     <string name="shipping_input_check_default">기본배송지로 등록</string>
     <string name="shipping_input_save">저장하기</string>

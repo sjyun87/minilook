@@ -44,9 +44,13 @@ public class ShippingPresenterImpl extends BasePresenterImpl implements Shipping
         reqShippings();
     }
 
-    @Override public void onUpdateDefaultOkClick() {
+    @Override public void onDefaultShippingDialogOkClick() {
         selectedShipping.setDefault(true);
         reqUpdateDefault();
+    }
+
+    @Override public void onAddClick() {
+        view.navigateToShippingAdd();
     }
 
     private void reqShippings() {
@@ -88,7 +92,7 @@ public class ShippingPresenterImpl extends BasePresenterImpl implements Shipping
                 selectShipping();
             } else {
                 selectedShipping = data;
-                view.showUpdateShippingDialog();
+                view.showDefaultShippingDialog();
             }
         } else {
                 // TODO 주문서에서 들어올때
@@ -116,31 +120,34 @@ public class ShippingPresenterImpl extends BasePresenterImpl implements Shipping
 
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
-            if (o instanceof RxEventShippingSelect) {
-                ShippingDataModel data = ((RxEventShippingSelect) o).data;
+            if (o instanceof RxEventShippingSelectClick) {
+                ShippingDataModel data = ((RxEventShippingSelectClick) o).data;
                 handleData(data);
-            } else if (o instanceof RxEventShippingDelete) {
-                ShippingDataModel data = ((RxEventShippingDelete) o).data;
+            } else if (o instanceof RxEventShippingDeleteClick) {
+                ShippingDataModel data = ((RxEventShippingDeleteClick) o).data;
                 removeShipping(data);
                 reqDeleteShipping(data.getAddress_id());
-            } else if (o instanceof RxEventShippingAdd) {
+            } else if (o instanceof RxEventShippingEditClick) {
+                ShippingDataModel data = ((RxEventShippingEditClick) o).data;
+                view.navigateToShippingEdit(data);
+            } else if (o instanceof RxEventShippingUpdated) {
                 reqShippings();
             }
         }, Timber::e));
     }
 
-    @AllArgsConstructor @Getter public final static class RxEventShippingSelect {
+    @AllArgsConstructor @Getter public final static class RxEventShippingSelectClick {
         private ShippingDataModel data;
     }
 
-    @AllArgsConstructor @Getter public final static class RxEventShippingAdd {
-    }
-
-    @AllArgsConstructor @Getter public final static class RxEventShippingEdit {
+    @AllArgsConstructor @Getter public final static class RxEventShippingEditClick {
         private ShippingDataModel data;
     }
 
-    @AllArgsConstructor @Getter public final static class RxEventShippingDelete {
+    @AllArgsConstructor @Getter public final static class RxEventShippingDeleteClick {
         private ShippingDataModel data;
+    }
+
+    @AllArgsConstructor @Getter public final static class RxEventShippingUpdated {
     }
 }

@@ -2,9 +2,10 @@ package com.minilook.minilook.data.model.shipping;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
 import lombok.Data;
 
-@Data public class ShippingDataModel {
+@Data public class ShippingDataModel implements Serializable {
     @Expose @SerializedName("addressNo")
     private int address_id;
     @Expose @SerializedName("name")
