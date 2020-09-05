@@ -1,6 +1,6 @@
 package com.minilook.minilook.ui.scrapbook.view.brand.viewholder;
 
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,10 +8,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import butterknife.BindColor;
+import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.OnClick;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.minilook.minilook.App;
 import com.minilook.minilook.R;
@@ -36,7 +38,9 @@ public class ScrapbookBrandItemVH extends BaseViewHolder<BrandDataModel> {
     @BindView(R.id.txt_scrap_count) TextView scrapCountTextView;
 
     @BindColor(R.color.color_FFDBDBDB) int color_FFDBDBDB;
-    @BindColor(R.color.color_FFEEEFF5) int color_FFEEEFF5;
+
+    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @BindDrawable(R.drawable.placeholder_logo) Drawable img_placeholder_logo;
 
     public ScrapbookBrandItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
@@ -46,10 +50,20 @@ public class ScrapbookBrandItemVH extends BaseViewHolder<BrandDataModel> {
     @Override public void bind(BrandDataModel $data) {
         super.bind($data);
 
+        for (int i = 0; i < styleImageViews.size(); i++) {
+            Glide.with(context)
+                .load(data.getStyle_images().get(i))
+                .placeholder(img_placeholder)
+                .error(img_placeholder)
+                .transition(new DrawableTransitionOptions().crossFade())
+                .into(styleImageViews.get(i));
+        }
+
         Glide.with(context)
-            .asBitmap()
             .load(data.getBrand_logo())
-            .placeholder(new ColorDrawable(color_FFEEEFF5))
+            .placeholder(img_placeholder_logo)
+            .error(img_placeholder_logo)
+            .transition(new DrawableTransitionOptions().crossFade())
             .apply(RequestOptions.bitmapTransform(
                 new CropCircleWithBorderTransformation(DimenUtil.dpToPx(context, 1), color_FFDBDBDB)))
             .into(logoImageView);

@@ -1,6 +1,5 @@
 package com.minilook.minilook.ui.product;
 
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import butterknife.BindColor;
 import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
