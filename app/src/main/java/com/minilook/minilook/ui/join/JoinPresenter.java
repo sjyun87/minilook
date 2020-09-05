@@ -13,7 +13,11 @@ public interface JoinPresenter extends LifecycleObserver {
 
     void onTermsOfUseClick();
 
+    void onTermsOfUseDetailClick();
+
     void onPrivacyPolicyClick();
+
+    void onPrivacyPolicyDetailClick();
 
     void onCommercialClick();
 
@@ -60,6 +64,8 @@ public interface JoinPresenter extends LifecycleObserver {
         void showJoinCompletedDialog();
 
         void navigateToMain();
+
+        void navigateToWebView(String url);
 
         void finish();
     }

@@ -1,12 +1,11 @@
 package com.minilook.minilook.ui.ipage;
 
-import android.net.Uri;
 import android.view.View;
 import android.widget.TextView;
-
-import androidx.browser.customtabs.CustomTabsIntent;
+import butterknife.BindString;
+import butterknife.BindView;
+import butterknife.OnClick;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.common.URLKeys;
 import com.minilook.minilook.ui.base.BaseFragment;
 import com.minilook.minilook.ui.coupon.CouponActivity;
 import com.minilook.minilook.ui.ipage.di.IpageArguments;
@@ -18,11 +17,8 @@ import com.minilook.minilook.ui.question.QuestionActivity;
 import com.minilook.minilook.ui.recent.RecentActivity;
 import com.minilook.minilook.ui.scrapbook.ScrapbookActivity;
 import com.minilook.minilook.ui.shoppingbag.ShoppingBagActivity;
+import com.minilook.minilook.ui.webview.WebViewActivity;
 import com.minilook.minilook.util.StringUtil;
-
-import butterknife.BindString;
-import butterknife.BindView;
-import butterknife.OnClick;
 
 public class IpageFragment extends BaseFragment implements IpagePresenter.View {
 
@@ -145,9 +141,7 @@ public class IpageFragment extends BaseFragment implements IpagePresenter.View {
     }
 
     @Override public void navigateToWebView(String url) {
-        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-        CustomTabsIntent customTabsIntent = builder.build();
-        customTabsIntent.launchUrl(requireContext(), Uri.parse(URLKeys.URL_NOTICE));
+        WebViewActivity.start(getContext(), url);
     }
 
     @OnClick(R.id.curtain)

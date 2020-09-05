@@ -22,6 +22,7 @@ import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.join.di.JoinArguments;
 import com.minilook.minilook.ui.main.MainActivity;
 import com.minilook.minilook.ui.search_address.SearchAddressActivity;
+import com.minilook.minilook.ui.webview.WebViewActivity;
 
 public class JoinActivity extends BaseActivity implements JoinPresenter.View {
 
@@ -145,12 +146,16 @@ public class JoinActivity extends BaseActivity implements JoinPresenter.View {
         joinTextView.setEnabled(false);
     }
 
+    @Override public void navigateToWebView(String url) {
+        WebViewActivity.start(this, url);
+    }
+
     @Override public void navigateToMain() {
         MainActivity.start(this, BottomBar.POSITION_LOOKBOOK);
     }
 
     @OnClick(R.id.txt_certify)
-    void onVerifyClick() {
+    void onCerifyClick() {
         SearchAddressActivity.start(this);
     }
 
@@ -164,9 +169,19 @@ public class JoinActivity extends BaseActivity implements JoinPresenter.View {
         presenter.onTermsOfUseClick();
     }
 
+    @OnClick(R.id.txt_terms_of_use_detail)
+    void onTermsOfUseDetailClick() {
+        presenter.onTermsOfUseDetailClick();
+    }
+
     @OnClick(R.id.layout_privacy_policy)
     void onPrivacyPolicyClick() {
         presenter.onPrivacyPolicyClick();
+    }
+
+    @OnClick(R.id.txt_privacy_policy_detail)
+    void onPrivacyPolicyDetailClick() {
+        presenter.onPrivacyPolicyDetailClick();
     }
 
     @OnClick(R.id.layout_commercial_info)

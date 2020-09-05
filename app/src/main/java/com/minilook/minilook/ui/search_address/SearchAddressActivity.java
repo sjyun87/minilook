@@ -28,7 +28,7 @@ public class SearchAddressActivity extends BaseActivity implements SearchAddress
     }
 
     @BindView(R.id.root) FrameLayout rootView;
-    @BindView(R.id.webView) WebView webView;
+    @BindView(R.id.webview) WebView webView;
 
     private SearchAddressPresenter presenter;
     private WebViewClient webViewClient = new WebViewClient();

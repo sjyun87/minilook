@@ -256,18 +256,6 @@
             android:text="@string/join_commercial_info"
             android:textColor="@color/color_FF232323"
             android:textSize="@dimen/sp_7" />
-
-        <TextView
-            android:id="@+id/txt_commercial_info_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/nanum_square_b"
-            android:gravity="center_vertical"
-            android:paddingStart="@dimen/dp_7"
-            android:paddingEnd="@dimen/dp_7"
-            android:text="@string/join_view_detail"
-            android:textColor="@color/color_FF8140E5"
-            android:textSize="@dimen/sp_7" />
     </LinearLayout>
 
     <TextView

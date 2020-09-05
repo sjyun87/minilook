@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
+import com.minilook.minilook.data.common.URLKeys;
 import com.minilook.minilook.data.model.user.UserDataModel;
 import com.minilook.minilook.data.network.login.LoginRequest;
 import com.minilook.minilook.data.rx.RxBus;
@@ -64,6 +65,10 @@ public class JoinPresenterImpl extends BasePresenterImpl implements JoinPresente
         checkButtonEnable();
     }
 
+    @Override public void onTermsOfUseDetailClick() {
+        view.navigateToWebView(URLKeys.URL_TERMS_OF_USE);
+    }
+
     @Override public void onPrivacyPolicyClick() {
         if (isPrivacyPolicyCheck) {
             uncheckPrivacyPolicy();
@@ -72,6 +77,10 @@ public class JoinPresenterImpl extends BasePresenterImpl implements JoinPresente
         }
         setupCheckBox();
         checkButtonEnable();
+    }
+
+    @Override public void onPrivacyPolicyDetailClick() {
+        view.navigateToWebView(URLKeys.URL_PRIVACY_POLICY);
     }
 
     @Override public void onCommercialClick() {

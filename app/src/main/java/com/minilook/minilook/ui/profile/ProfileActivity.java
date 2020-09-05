@@ -176,7 +176,7 @@ public class ProfileActivity extends BaseActivity implements ProfilePresenter.Vi
     }
 
     @Override public void navigateToWebView(String url) {
-        SearchAddressActivity.start(this, url);
+        SearchAddressActivity.start(this);
     }
 
     @Override public void navigateToShipping() {
