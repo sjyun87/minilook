@@ -36,5 +36,15 @@ public interface ProductBridgePresenter extends LifecycleObserver {
         void showEmptyPanel();
 
         void hideEmptyPanel();
+
+        void setupBottomSheet();
+
+        void showBottomSheet();
+
+        void hideBottomSheet();
+
+        void showCurtain();
+
+        void hideCurtain();
     }
 }

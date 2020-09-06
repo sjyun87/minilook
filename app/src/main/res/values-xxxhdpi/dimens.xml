@@ -55,7 +55,9 @@
     <dimen name="dp_90">180dp</dimen>
     <dimen name="dp_100">200dp</dimen>
     <dimen name="dp_104">208dp</dimen>
+    <dimen name="dp_120">240dp</dimen>
     <dimen name="dp_148">296dp</dimen>
     <dimen name="dp_150">300dp</dimen>
     <dimen name="dp_160">320dp</dimen>
+    <dimen name="dp_180">360dp</dimen>
 </resources>

@@ -141,5 +141,8 @@ dependencies {
   implementation "com.pixplicity.easyprefs:library:$preference_version"
 
   // BootPay
-  implementation 'com.github.bootpay:client_android_java:3.2.71'
+  implementation "com.github.bootpay:client_android_java:$bootpay_version"
+
+  // Material
+  implementation "com.google.android.material:material:$material_version"
 }

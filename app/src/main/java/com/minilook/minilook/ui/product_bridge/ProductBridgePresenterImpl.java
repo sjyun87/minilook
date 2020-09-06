@@ -67,6 +67,7 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
     @Override public void onCreate() {
         view.setupOptionRecyclerView();
         view.setupProductRecyclerView();
+        view.setupBottomSheet();
 
         isCategoryDepth1 = options.getCategory_code() == null;
         if (!isCategoryDepth1) view.setupTitle(options.getCategory_name());
@@ -100,6 +101,8 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
     @Override public void onMenuClick(int position) {
         int bottomPosition = optionAdapter.get(position).getValue();
         // TODO 바텀 뷰 이동
+
+        view.showBottomSheet();
     }
 
     private List<OptionMenuDataModel> getInitOptionMenuData() {

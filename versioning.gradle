@@ -90,4 +90,10 @@ ext {
 
   // Preference
   preference_version = '1.9.0'
+
+  // BootPay
+  bootpay_version = '3.2.71'
+
+  // Material
+  material_version = '1.2.1'
 }

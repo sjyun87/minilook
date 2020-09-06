@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.View;
 import android.widget.LinearLayout;
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +15,7 @@ import butterknife.BindDimen;
 import butterknife.BindFont;
 import butterknife.BindView;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.tabs.TabLayout;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.CategoryDataModel;
@@ -46,6 +49,9 @@ public class ProductBridgeActivity extends BaseActivity implements ProductBridge
     @BindView(R.id.rcv_product) RecyclerView productRecyclerView;
     @BindView(R.id.layout_empty_panel) LinearLayout emptyPanel;
 
+    @BindView(R.id.curtain) View curtain;
+    @BindView(R.id.layout_bottom_sheet) ConstraintLayout bottomSheet;
+
     @BindColor(R.color.color_FF424242) int color_FF424242;
     @BindColor(R.color.color_FF8140E5) int color_FF8140E5;
 
@@ -58,6 +64,7 @@ public class ProductBridgeActivity extends BaseActivity implements ProductBridge
     private BaseAdapterDataView<OptionMenuDataModel> optionAdapterView = optionAdapter;
     private ProductAdapter productAdapter = new ProductAdapter();
     private BaseAdapterDataView<ProductDataModel> productAdapterView = productAdapter;
+    private BottomSheetBehavior bottomSheetBehavior;
 
     @Override protected int getLayoutID() {
         return R.layout.activity_product_bridge;
@@ -162,5 +169,42 @@ public class ProductBridgeActivity extends BaseActivity implements ProductBridge
 
     @Override public void hideEmptyPanel() {
         emptyPanel.setVisibility(View.GONE);
+    }
+
+    @Override public void setupBottomSheet() {
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
+                    hideCurtain();
+                } else {
+                    showCurtain();
+                }
+            }
+
+            @Override public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+    }
+
+    @Override public void showBottomSheet() {
+        if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        }
+    }
+
+    @Override public void hideBottomSheet() {
+        if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED) {
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        }
+    }
+
+    @Override public void showCurtain() {
+        curtain.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void hideCurtain() {
+        curtain.setVisibility(View.GONE);
     }
 }
