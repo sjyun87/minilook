@@ -9,16 +9,22 @@ public interface PromotionDetailPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
+    void onLoadMore();
+
     interface View {
 
-        void setupRecyclerView();
+        void setupThumb(String url);
 
-        void setupBgImage(String url);
+        void setupEventImage(String url);
 
-        void setupDesc(String text);
+        void setupTotal(int count);
 
-        void setupTitle(String text);
+        void setupProductRecyclerView();
 
-        void refresh();
+        void productRefresh();
+
+        void setupPromotionRecyclerView();
+
+        void promotionRefresh();
     }
 }

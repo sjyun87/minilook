@@ -1,47 +1,44 @@
 package com.minilook.minilook.ui.promotion_detail.viewholder;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.ImageView;
 import androidx.annotation.NonNull;
-
+import butterknife.BindDrawable;
+import butterknife.BindView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.product.ProductDataModel;
+import com.minilook.minilook.data.model.promotion.PromotionDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 
-public class PromotionItemVH extends BaseViewHolder<ProductDataModel> {
+public class PromotionItemVH extends BaseViewHolder<PromotionDataModel> {
 
-    //@BindView(R.id.img_product_thumb) ImageView thumbImageView;
-    //@BindView(R.id.txt_price_percent) TextView pricePercentTextView;
-    //@BindView(R.id.txt_price) TextView priceTextView;
-    //@BindView(R.id.txt_product_name) TextView nameTextView;
+    @BindView(R.id.img_promotion) ImageView thumbImageView;
 
-    //@BindString(R.string.base_price_percent) String formatPercent;
-    //@BindString(R.string.base_product_name) String formatProductName;
+    @BindDrawable(R.drawable.placeholder_image_wide) Drawable img_placeholder_wide;
 
     public PromotionItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_product_type_grid, (ViewGroup) itemView, false));
+            .inflate(R.layout.item_promotion, (ViewGroup) itemView, false));
     }
 
-    @Override public void bind(ProductDataModel $data) {
+    @Override public void bind(PromotionDataModel $data) {
         super.bind($data);
 
-        //Glide.with(itemView)
-        //    .load(data.getImage_thumb_url())
-        //    .error(defaultImage)
-        //    .into(thumbImageView);
-        //
-        //if (data.is_sale()) {
-        //    pricePercentTextView.setVisibility(View.VISIBLE);
-        //    pricePercentTextView.setText(String.format(formatPercent, data.getPrice_sale_percent()));
-        //} else {
-        //    pricePercentTextView.setVisibility(View.GONE);
-        //}
-        //priceTextView.setText(StringUtil.toDigit(data.getPrice_sale()));
-        //nameTextView.setText(String.format(formatProductName, data.getBrand().getName(), data.getName()));
-        //
-        //itemView.setOnClickListener(v -> RxBus.send(new MainPresenterImpl.RxEventNavigateToDetail(data.getWeb_url())));
+        Glide.with(itemView)
+            .load(data.getThumb_url())
+            .placeholder(img_placeholder_wide)
+            .error(img_placeholder_wide)
+            .transition(new DrawableTransitionOptions().crossFade())
+            .into(thumbImageView);
+
+        itemView.setOnClickListener(this::onItemClick);
+    }
+
+    private void onItemClick(View view) {
+
     }
 }

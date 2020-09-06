@@ -2,19 +2,31 @@ package com.minilook.minilook.ui.promotion_detail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindDimen;
+import butterknife.BindDrawable;
+import butterknife.BindFont;
+import butterknife.BindString;
 import butterknife.BindView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
+import com.minilook.minilook.data.model.promotion.PromotionDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
+import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.promotion_detail.adapter.PromotionAdapter;
 import com.minilook.minilook.ui.promotion_detail.di.PromotionDetailArguments;
+import com.minilook.minilook.util.SpannableUtil;
 
 public class PromotionDetailActivity extends BaseActivity implements PromotionDetailPresenter.View {
 
@@ -26,17 +38,30 @@ public class PromotionDetailActivity extends BaseActivity implements PromotionDe
         context.startActivity(intent);
     }
 
-    @BindView(R.id.img_bg) ImageView bgImageView;
-    @BindView(R.id.txt_desc) TextView descTextView;
-    @BindView(R.id.txt_title) TextView titleTextView;
-    @BindView(R.id.rcv_goods) RecyclerView productRecyclerView;
+    @BindView(R.id.img_thumb) ImageView thumbImageView;
+    @BindView(R.id.img_event) ImageView eventImageView;
+    @BindView(R.id.txt_total) TextView totalTextView;
+    @BindView(R.id.rcv_product) RecyclerView productRecyclerView;
+    @BindView(R.id.rcv_promotion) RecyclerView promotionRecyclerView;
+
+    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @BindDrawable(R.drawable.placeholder_image_wide) Drawable img_placeholder_wide;
+
+    @BindString(R.string.promotion_total) String format_total;
+    @BindString(R.string.promotion_total_b) String format_total_bold;
+
+    @BindDimen(R.dimen.dp_2) int dp_2;
+
+    @BindFont(R.font.nanum_square_b) Typeface font_bold;
 
     private PromotionDetailPresenter presenter;
-    private PromotionAdapter adapter = new PromotionAdapter();
-    private BaseAdapterDataView<ProductDataModel> adapterView = adapter;
+    private ProductAdapter productAdapter = new ProductAdapter();
+    private BaseAdapterDataView<ProductDataModel> productAdapterView = productAdapter;
+    private PromotionAdapter promotionAdapter = new PromotionAdapter();
+    private BaseAdapterDataView<PromotionDataModel> promotionAdapterView = promotionAdapter;
 
     @Override protected int getLayoutID() {
-        return R.layout.activity_promotion;
+        return R.layout.activity_promotion_detail;
     }
 
     @Override protected void createPresenter() {
@@ -48,35 +73,63 @@ public class PromotionDetailActivity extends BaseActivity implements PromotionDe
         return PromotionDetailArguments.builder()
             .view(this)
             .promotionId(getIntent().getIntExtra("promotion_id", -1))
-            .adapter(adapter)
+            .productAdapter(productAdapter)
+            .promotionAdapter(promotionAdapter)
             .build();
     }
 
-    @Override public void setupRecyclerView() {
+    @Override public void setupProductRecyclerView() {
         productRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        productRecyclerView.setAdapter(adapter);
+        productAdapter.setViewType(ProductAdapter.VIEW_TYPE_GRID);
+        productRecyclerView.setAdapter(productAdapter);
+    }
+
+    @Override public void productRefresh() {
+        productAdapterView.refresh();
+    }
+
+    @Override public void setupPromotionRecyclerView() {
+        promotionRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        promotionRecyclerView.setAdapter(promotionAdapter);
         DividerDecoration.builder(this)
-            .size(getResources().getDimensionPixelSize(R.dimen.dp_10))
+            .size(dp_2)
             .asSpace()
             .build()
-            .addTo(productRecyclerView);
+            .addTo(promotionRecyclerView);
+        EndlessOnScrollListener scrollListener =
+            EndlessOnScrollListener.builder()
+                .layoutManager(productRecyclerView.getLayoutManager())
+                .onLoadMoreListener(presenter::onLoadMore)
+                .visibleThreshold(4)
+                .build();
+        promotionRecyclerView.addOnScrollListener(scrollListener);
     }
 
-    @Override public void setupBgImage(String url) {
+    @Override public void promotionRefresh() {
+        promotionAdapterView.refresh();
+    }
+
+    @Override public void setupThumb(String url) {
         Glide.with(this)
             .load(url)
-            .into(bgImageView);
+            .placeholder(img_placeholder_wide)
+            .error(img_placeholder_wide)
+            .transition(new DrawableTransitionOptions().crossFade())
+            .into(thumbImageView);
     }
 
-    @Override public void setupDesc(String text) {
-        descTextView.setText(text);
+    @Override public void setupEventImage(String url) {
+        Glide.with(this)
+            .load(R.drawable.test)
+            .placeholder(img_placeholder)
+            .error(img_placeholder)
+            .transition(new DrawableTransitionOptions().crossFade())
+            .into(eventImageView);
     }
 
-    @Override public void setupTitle(String text) {
-        titleTextView.setText(text);
-    }
-
-    @Override public void refresh() {
-        adapterView.refresh();
+    @Override public void setupTotal(int count) {
+        String total = String.format(format_total, count);
+        String bold = String.format(format_total_bold, count);
+        totalTextView.setText(SpannableUtil.fontSpan(total, bold, font_bold));
     }
 }

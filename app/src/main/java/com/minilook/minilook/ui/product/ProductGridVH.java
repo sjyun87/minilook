@@ -74,13 +74,15 @@ public class ProductGridVH extends BaseViewHolder<ProductDataModel> {
         }
         productNameTextView.setText(data.getProduct_name());
 
-        if (data.getDisplay_code() == DisplayType.DISPLAY.getValue()) {
-            hideCurtain();
-            hideDisplayLabel();
-        } else {
-            showCurtain();
-            showDisplayLabel();
-            displayLabelTextView.setText(data.getDisplay_label());
+        if (data.getDisplay_code() != 0) {
+            if (data.getDisplay_code() == DisplayType.DISPLAY.getValue()) {
+                hideCurtain();
+                hideDisplayLabel();
+            } else {
+                showCurtain();
+                showDisplayLabel();
+                displayLabelTextView.setText(data.getDisplay_label());
+            }
         }
 
         if (data.isDiscount()) {

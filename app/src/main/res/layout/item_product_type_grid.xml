@@ -38,6 +38,7 @@
         android:gravity="center"
         android:textColor="@color/color_FFFFFFFF"
         android:textSize="@dimen/sp_6"
+        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="@+id/img_product_thumb"
         app:layout_constraintTop_toTopOf="@id/img_product_thumb"
         tools:text="품절" />

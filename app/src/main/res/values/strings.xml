@@ -64,6 +64,12 @@
     <string name="market_filter_title">다양한 필터로 상품을 찾아보세요</string>
     <string name="market_filter_more">필터 전체보기</string>
 
+    <!--Promotion Detail-->
+    <string name="promotion_detail">기획전</string>
+    <string name="promotion_total">총 %s개 상품</string>
+    <string name="promotion_total_b">%s개</string>
+    <string name="promotion_together">같이보면 좋은 기획전</string>
+
     <!--Category-->
     <string name="category_title">카테고리</string>
 
