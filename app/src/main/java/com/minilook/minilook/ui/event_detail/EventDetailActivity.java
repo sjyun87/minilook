@@ -2,13 +2,22 @@ package com.minilook.minilook.ui.event_detail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.widget.ImageView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindDimen;
+import butterknife.BindDrawable;
 import butterknife.BindView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
+import com.minilook.minilook.ui.event_detail.adapter.EventAdapter;
 import com.minilook.minilook.ui.event_detail.di.EventDetailArguments;
-import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 
 public class EventDetailActivity extends BaseActivity implements EventDetailPresenter.View {
 
@@ -20,10 +29,17 @@ public class EventDetailActivity extends BaseActivity implements EventDetailPres
         context.startActivity(intent);
     }
 
-    @BindView(R.id.rcv_goods) RecyclerView recyclerView;
+    @BindView(R.id.img_event) ImageView eventImageView;
+    @BindView(R.id.rcv_event) RecyclerView eventRecyclerView;
+
+    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @BindDrawable(R.drawable.placeholder_image_wide) Drawable img_placeholder_wide;
+
+    @BindDimen(R.dimen.dp_2) int dp_2;
 
     private EventDetailPresenter presenter;
-    private ProductAdapter adapter;
+    private EventAdapter adapter = new EventAdapter();
+    private BaseAdapterDataView<String> adapterView = adapter;
 
     @Override protected int getLayoutID() {
         return R.layout.activity_event_detail;
@@ -38,12 +54,37 @@ public class EventDetailActivity extends BaseActivity implements EventDetailPres
         return EventDetailArguments.builder()
             .view(this)
             .event_id(getIntent().getIntExtra("event_id", -1))
+            .adapter(adapter)
             .build();
     }
 
     @Override public void setupRecyclerView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter.setViewType(ProductAdapter.VIEW_TYPE_WIDE);
-        recyclerView.setAdapter(adapter);
+        eventRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        eventRecyclerView.setAdapter(adapter);
+        DividerDecoration.builder(this)
+            .size(dp_2)
+            .asSpace()
+            .build()
+            .addTo(eventRecyclerView);
+        EndlessOnScrollListener scrollListener =
+            EndlessOnScrollListener.builder()
+                .layoutManager(eventRecyclerView.getLayoutManager())
+                .onLoadMoreListener(presenter::onLoadMore)
+                .visibleThreshold(4)
+                .build();
+        eventRecyclerView.addOnScrollListener(scrollListener);
+    }
+
+    @Override public void refresh() {
+        adapterView.refresh();
+    }
+
+    @Override public void setupEventImage(String url) {
+        Glide.with(this)
+            .load(R.drawable.test)
+            .placeholder(img_placeholder)
+            .error(img_placeholder)
+            .transition(new DrawableTransitionOptions().crossFade())
+            .into(eventImageView);
     }
 }

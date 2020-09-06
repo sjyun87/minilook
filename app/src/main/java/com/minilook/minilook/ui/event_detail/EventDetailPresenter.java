@@ -9,8 +9,14 @@ public interface EventDetailPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
+    void onLoadMore();
+
     interface View {
 
+        void setupEventImage(String url);
+
         void setupRecyclerView();
+
+        void refresh();
     }
 }
