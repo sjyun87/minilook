@@ -18,6 +18,8 @@ public interface SearchFilterPresenter extends LifecycleObserver {
 
     void onAgeChanged(float value);
 
+    void onAgeResetClick();
+
     void onAttributeDiscountClick();
 
     void onAttributeStockClick();
@@ -45,6 +47,16 @@ public interface SearchFilterPresenter extends LifecycleObserver {
         void resetAgeSlider();
 
         void setupAgeText(int age, boolean isMonth);
+
+        void resetAgeText();
+
+        void enableAgeSlider();
+
+        void disableAgeSlider();
+
+        void showAgeResetButton();
+
+        void hideAgeResetButton();
 
         void setupCategoryRecyclerView();
 

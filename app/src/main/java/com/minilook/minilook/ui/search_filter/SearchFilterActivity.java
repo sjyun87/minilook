@@ -5,14 +5,12 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import butterknife.BindColor;
 import butterknife.BindDimen;
 import butterknife.BindDrawable;
@@ -20,8 +18,6 @@ import butterknife.BindFont;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
-import timber.log.Timber;
-
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.slider.Slider;
@@ -52,6 +48,7 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
     @BindView(R.id.rcv_gender) RecyclerView genderRecyclerView;
     @BindView(R.id.slider_gender) Slider ageSlider;
     @BindView(R.id.txt_age) TextView ageTextView;
+    @BindView(R.id.img_age_reset) ImageView ageResetImageView;
     @BindView(R.id.txt_discount_caption) TextView discountCaptionTextView;
     @BindView(R.id.img_discount_check) ImageView discountCheckImageView;
     @BindView(R.id.txt_stock_caption) TextView stockCaptionTextView;
@@ -124,15 +121,40 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
 
     @Override public void setupAgeSlider() {
         ageSlider.addOnChangeListener((slider, value, fromUser) -> {
-            ColorStateList color;
-            if (value == 0) {
-                color = ColorStateList.valueOf(color_FFEEEFF5);
-            } else {
-                color = ColorStateList.valueOf(color_FF8140E5);
-            }
-            slider.setThumbTintList(color);
             presenter.onAgeChanged(value);
         });
+    }
+
+    @Override public void setupAgeText(int age, boolean isBaby) {
+        String text;
+        if (isBaby) {
+            text = String.format(format_month, age);
+        } else {
+            text = String.format(format_year, age);
+        }
+        ageTextView.setText(text);
+    }
+
+    @Override public void resetAgeText() {
+        ageTextView.setText(format_all);
+    }
+
+    @Override public void enableAgeSlider() {
+        ColorStateList color = ColorStateList.valueOf(color_FF8140E5);
+        ageSlider.setThumbTintList(color);
+    }
+
+    @Override public void disableAgeSlider() {
+        ColorStateList color = ColorStateList.valueOf(color_FFEEEFF5);
+        ageSlider.setThumbTintList(color);
+    }
+
+    @Override public void showAgeResetButton() {
+        ageResetImageView.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void hideAgeResetButton() {
+        ageResetImageView.setVisibility(View.GONE);
     }
 
     @Override public void resetAgeSlider() {
@@ -148,16 +170,6 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
 
     @Override public void categoryRefresh() {
         categoryAdapterView.refresh();
-    }
-
-    @Override public void setupAgeText(int age, boolean isBaby) {
-        String text;
-        if (isBaby) {
-            text = age == 0 ? format_all : String.format(format_month, age);
-        } else {
-            text = String.format(format_year, age);
-        }
-        ageTextView.setText(text);
     }
 
     @Override public void setupSelectedDiscount() {
@@ -252,6 +264,11 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
         for (int i = 0; i < styleItemPanel.getChildCount(); i++) {
             ((StyleView) styleItemPanel.getChildAt(i)).unselected();
         }
+    }
+
+    @OnClick(R.id.img_age_reset)
+    void onAgeResetClick() {
+        presenter.onAgeResetClick();
     }
 
     @OnClick(R.id.layout_attr_discount_panel)

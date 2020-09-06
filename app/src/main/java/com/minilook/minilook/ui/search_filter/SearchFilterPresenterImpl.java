@@ -95,6 +95,15 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
             ageMonth = ((age - 22) * 12) - 6;
         }
         ageCode = ageMonth;
+        view.enableAgeSlider();
+        view.showAgeResetButton();
+    }
+
+    @Override public void onAgeResetClick() {
+        resetAgeData();
+        view.disableAgeSlider();
+        view.hideAgeResetButton();
+        view.resetAgeText();
     }
 
     @Override public void onAttributeDiscountClick() {
@@ -191,6 +200,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
     }
 
     @Override public void onResetClick() {
+        view.hideAgeResetButton();
         resetGenderData();
         resetAgeData();
         resetShowDiscount();
