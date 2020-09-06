@@ -62,4 +62,31 @@ import lombok.Data;
     private List<ProductDataModel> related_products;
     @Expose @SerializedName("recentNo")
     private int recent_id;
+
+    @Expose @SerializedName("productStyleNo")
+    private String info_style_no;
+    @Expose @SerializedName("kcAuthInfo")
+    private String info_kc_auth;
+    @Expose @SerializedName("weight")
+    private String info_weight;
+    @Expose @SerializedName("color")
+    private String info_color;
+    @Expose @SerializedName("material")
+    private String info_material;
+    @Expose @SerializedName("age")
+    private String info_age;
+    @Expose @SerializedName("releaseDate")
+    private String info_release_date;
+    @Expose @SerializedName("manufacturer")
+    private String info_manufacturer;
+    @Expose @SerializedName("country")
+    private String info_country;
+    @Expose @SerializedName("caution")
+    private String info_caution;
+    @Expose @SerializedName("warranty")
+    private String info_warranty;
+    @Expose @SerializedName("damageCompensation")
+    private String info_damage;
+    @Expose @SerializedName("serviceCenter")
+    private String info_service_center;
 }

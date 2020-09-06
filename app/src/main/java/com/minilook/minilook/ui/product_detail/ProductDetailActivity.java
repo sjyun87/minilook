@@ -5,12 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.text.SpannableString;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 import butterknife.BindArray;
 import butterknife.BindColor;
+import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -70,6 +73,23 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     @BindView(R.id.txt_shipping_add) TextView shippingAddTextView;
     @BindView(R.id.layout_tab_panel) TabLayout tabLayout;
     @BindView(R.id.web_product_detail) WebView productDetailWebView;
+    @BindView(R.id.txt_info_style_no) TextView infoStyleNoTextView;
+    @BindView(R.id.txt_info_kc_auth) TextView infoKcAuthTextView;
+    @BindView(R.id.txt_info_weight) TextView infoWeightTextView;
+    @BindView(R.id.txt_info_color) TextView infoColorTextView;
+    @BindView(R.id.txt_info_material) TextView infoMaterialTextView;
+    @BindView(R.id.txt_info_age) TextView infoAgeTextView;
+    @BindView(R.id.txt_info_release_date) TextView infoReleaseDateTextView;
+    @BindView(R.id.txt_info_manufacturer) TextView infoManufacturerTextView;
+    @BindView(R.id.txt_info_country) TextView infoCountryTextView;
+    @BindView(R.id.txt_info_caution) TextView infoCautionTextView;
+    @BindView(R.id.txt_info_warranty) TextView infoWarrantyTextView;
+    @BindView(R.id.txt_info_damage) TextView infoDamageTextView;
+    @BindView(R.id.txt_info_service_center) TextView infoServiceCenterTextView;
+    @BindView(R.id.layout_info_more_panel) LinearLayout infoMorePanel;
+    @BindView(R.id.txt_expand) TextView expandTextView;
+    @BindView(R.id.img_expand) ImageView expandImageView;
+
     @BindView(R.id.layout_review_panel) LinearLayout reviewPanel;
     @BindView(R.id.txt_review_count) TextView reviewCountTextView;
 
@@ -89,6 +109,13 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     @BindString(R.string.product_detail_shipping_free) String str_shipping_free;
     @BindString(R.string.product_detail_shipping) String format_shipping;
     @BindString(R.string.product_detail_shipping_conditional) String format_shipping_conditional;
+
+    @BindString(R.string.product_detail_info_expand) String str_expand;
+    @BindString(R.string.product_detail_info_collapse) String str_collapse;
+
+    @BindDrawable(R.drawable.ic_arrow_down_xs) Drawable img_arrow_down;
+    @BindDrawable(R.drawable.ic_arrow_up_xs) Drawable img_arrow_up;
+
     @BindColor(R.color.color_FF8140E5) int color_FF8140E5;
 
     private ProductDetailPresenter presenter;
@@ -315,8 +342,77 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         optionSelector.hide();
     }
 
+    @Override public void setupInfoStyleNo(String text) {
+        infoStyleNoTextView.setText(text);
+    }
+
+    @Override public void setupInfoKcAuth(String text) {
+        infoKcAuthTextView.setText(text);
+    }
+
+    @Override public void setupInfoWeight(String text) {
+        infoWeightTextView.setText(text);
+    }
+
+    @Override public void setupInfoColor(String text) {
+        infoColorTextView.setText(text);
+    }
+
+    @Override public void setupInfoMaterial(String text) {
+        infoMaterialTextView.setText(text);
+    }
+
+    @Override public void setupInfoAge(String text) {
+        infoAgeTextView.setText(text);
+    }
+
+    @Override public void setupInfoReleaseDate(String text) {
+        infoReleaseDateTextView.setText(text);
+    }
+
+    @Override public void setupInfoManufacturer(String text) {
+        infoManufacturerTextView.setText(text);
+    }
+
+    @Override public void setupInfoCountry(String text) {
+        infoCountryTextView.setText(text);
+    }
+
+    @Override public void setupInfoCaution(String text) {
+        infoCautionTextView.setText(text);
+    }
+
+    @Override public void setupInfoWarranty(String text) {
+        infoWarrantyTextView.setText(text);
+    }
+
+    @Override public void setupInfoDamage(String text) {
+        infoDamageTextView.setText(text);
+    }
+
+    @Override public void setupInfoServiceCenter(String text) {
+        infoServiceCenterTextView.setText(text);
+    }
+
+    @Override public void expandInfoMorePanel() {
+        infoMorePanel.setVisibility(View.VISIBLE);
+        expandTextView.setText(str_collapse);
+        expandImageView.setImageDrawable(img_arrow_up);
+    }
+
+    @Override public void collapseInfoMorePanel() {
+        infoMorePanel.setVisibility(View.GONE);
+        expandTextView.setText(str_expand);
+        expandImageView.setImageDrawable(img_arrow_down);
+    }
+
     @Override public void navigateToBrandDetail(int brand_id) {
         BrandDetailActivity.start(this, brand_id);
+    }
+
+    @OnClick(R.id.layout_expand_panel)
+    void onExpandClick() {
+        presenter.onExpandClick();
     }
 
     @OnClick(R.id.layout_brand_panel)

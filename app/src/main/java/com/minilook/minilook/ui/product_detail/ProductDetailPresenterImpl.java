@@ -30,6 +30,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
 
     private Gson gson = new Gson();
     private ProductDataModel data;
+    private boolean isInfoPanelExpanded = false;
 
     public ProductDetailPresenterImpl(ProductDetailArguments args) {
         view = args.getView();
@@ -72,6 +73,15 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
 
     @Override public void onBrandClick() {
         view.navigateToBrandDetail(data.getBrand_id());
+    }
+
+    @Override public void onExpandClick() {
+        if (isInfoPanelExpanded) {
+            view.collapseInfoMorePanel();
+        } else {
+            view.expandInfoMorePanel();
+        }
+        isInfoPanelExpanded = !isInfoPanelExpanded;
     }
 
     private void reqProductDetail() {
@@ -124,6 +134,20 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         }
 
         view.setupProductDetail(data.getDetail_url());
+
+        view.setupInfoStyleNo(data.getInfo_style_no());
+        view.setupInfoKcAuth(data.getInfo_kc_auth());
+        view.setupInfoWeight(data.getInfo_weight());
+        view.setupInfoColor(data.getInfo_color());
+        view.setupInfoMaterial(data.getInfo_material());
+        view.setupInfoAge(data.getInfo_age());
+        view.setupInfoReleaseDate(data.getInfo_release_date());
+        view.setupInfoManufacturer(data.getInfo_manufacturer());
+        view.setupInfoCountry(data.getInfo_country());
+        view.setupInfoCaution(data.getInfo_caution());
+        view.setupInfoWarranty(data.getInfo_warranty());
+        view.setupInfoDamage(data.getInfo_damage());
+        view.setupInfoServiceCenter(data.getInfo_service_center());
 
         view.setupReviewCount(StringUtil.toDigit(data.getReview_cnt()));
         // 리뷰 화면 들어가야함

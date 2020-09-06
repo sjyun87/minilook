@@ -4,7 +4,6 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import com.minilook.minilook.data.model.product.ProductColorDataModel;
-import com.minilook.minilook.data.model.product.ProductSizeDataModel;
 import com.minilook.minilook.data.model.product.ProductStockModel;
 import java.util.List;
 
@@ -18,6 +17,8 @@ public interface ProductDetailPresenter extends LifecycleObserver {
     void onBuyClick();
 
     void onBrandClick();
+
+    void onExpandClick();
 
     interface View {
 
@@ -88,6 +89,36 @@ public interface ProductDetailPresenter extends LifecycleObserver {
         void showOptionSelector();
 
         void hideOptionSelector();
+
+        void setupInfoStyleNo(String text);
+
+        void setupInfoKcAuth(String text);
+
+        void setupInfoWeight(String text);
+
+        void setupInfoColor(String text);
+
+        void setupInfoMaterial(String text);
+
+        void setupInfoAge(String text);
+
+        void setupInfoReleaseDate(String text);
+
+        void setupInfoManufacturer(String text);
+
+        void setupInfoCountry(String text);
+
+        void setupInfoCaution(String text);
+
+        void setupInfoWarranty(String text);
+
+        void setupInfoDamage(String text);
+
+        void setupInfoServiceCenter(String text);
+
+        void expandInfoMorePanel();
+
+        void collapseInfoMorePanel();
 
         void navigateToBrandDetail(int brand_id);
     }

@@ -267,6 +267,23 @@
     <string name="product_detail_related_products_title">함께 구매하면 좋은 상품</string>
     <string name="product_detail_buy">구매하기</string>
 
+    <string name="product_detail_info_style_no">제품명(스타일넘버)</string>
+    <string name="product_detail_info_kc_auth">KC 인증 유무</string>
+    <string name="product_detail_info_weight">무게(g)</string>
+    <string name="product_detail_info_color">색상</string>
+    <string name="product_detail_info_material">소재(혼용률)</string>
+    <string name="product_detail_info_age">사용연령</string>
+    <string name="product_detail_info_release_date">출시년월</string>
+    <string name="product_detail_info_manufacturer">제조자</string>
+    <string name="product_detail_info_country">제조국</string>
+    <string name="product_detail_info_caution">취급방법 및 주의사항</string>
+    <string name="product_detail_info_warranty">품질보증기준</string>
+    <string name="product_detail_info_damage">피해보상규정</string>
+    <string name="product_detail_info_service_center">소비자 상담실</string>
+    <string name="product_detail_info_expand">상품필수정보 펼쳐보기</string>
+    <string name="product_detail_info_collapse">상품필수정보 접기</string>
+    <string name="product_detail_info_desc">* 해당 내용은 전자상거래 등에서의 상품정보제공 고시에 따라 작성되었습니다.</string>
+
     <!--Option Selector-->
     <string name="option_selector_select_box_hint">옵션을 선택해주세요</string>
     <string name="option_selector_total_count">총 %d개 상품</string>
