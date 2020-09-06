@@ -230,6 +230,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         model.setColor_codes(colorCodes);
 
         view.navigateToProductBridge(model);
+        view.scrollToTop();
     }
 
     private void reqFilterOptions() {

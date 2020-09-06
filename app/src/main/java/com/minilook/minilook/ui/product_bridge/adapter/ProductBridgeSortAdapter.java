@@ -3,64 +3,63 @@ package com.minilook.minilook.ui.product_bridge.adapter;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.minilook.minilook.data.model.search.OptionMenuDataModel;
+import com.minilook.minilook.data.model.common.SortDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.product_bridge.viewholder.ProductBridgeOptionVH;
+import com.minilook.minilook.ui.product_bridge.viewholder.ProductBridgeSortItemVH;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Setter;
 
-public class ProductBridgeOptionAdapter extends RecyclerView.Adapter<ProductBridgeOptionVH> implements
-    BaseAdapterDataModel<OptionMenuDataModel>, BaseAdapterDataView<OptionMenuDataModel> {
+public class ProductBridgeSortAdapter extends RecyclerView.Adapter<ProductBridgeSortItemVH> implements
+    BaseAdapterDataModel<SortDataModel>, BaseAdapterDataView<SortDataModel> {
 
-    private List<OptionMenuDataModel> items = new ArrayList<>();
-    @Setter private ProductBridgeOptionVH.OnMenuClickListener onMenuClickListener;
+    private List<SortDataModel> items = new ArrayList<>();
+    @Setter private ProductBridgeSortItemVH.OnSortSelectListener onSortSelectListener;
 
-    @NonNull @Override
-    public ProductBridgeOptionVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ProductBridgeOptionVH(parent);
+    @NonNull @Override public ProductBridgeSortItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ProductBridgeSortItemVH(parent);
     }
 
-    @Override public void onBindViewHolder(@NonNull ProductBridgeOptionVH holder, int position) {
+    @Override public void onBindViewHolder(@NonNull ProductBridgeSortItemVH holder, int position) {
         holder.bind(items.get(position));
-        holder.setOnMenuClickListener(onMenuClickListener);
+        holder.setOnSortSelectListener(onSortSelectListener);
     }
 
     @Override public int getItemCount() {
         return getSize();
     }
 
-    @Override public void add(OptionMenuDataModel $item) {
+    @Override public void add(SortDataModel $item) {
         this.items.add($item);
     }
 
-    @Override public void add(int $index, OptionMenuDataModel $item) {
+    @Override public void add(int $index, SortDataModel $item) {
         this.items.add($index, $item);
     }
 
-    @Override public void addAll(List<OptionMenuDataModel> $items) {
+    @Override public void addAll(List<SortDataModel> $items) {
         this.items.addAll($items);
     }
 
-    @Override public void set(int $index, OptionMenuDataModel $item) {
+    @Override public void set(int $index, SortDataModel $item) {
         this.items.set($index, $item);
     }
 
-    @Override public void set(List<OptionMenuDataModel> $items) {
+    @Override public void set(List<SortDataModel> $items) {
         this.items.clear();
         this.items.addAll($items);
     }
 
-    @Override public OptionMenuDataModel get(int $index) {
+    @Override public SortDataModel get(int $index) {
         return this.items.get($index);
     }
 
-    @Override public List<OptionMenuDataModel> get() {
+    @Override public List<SortDataModel> get() {
         return this.items;
     }
 
-    @Override public int get(OptionMenuDataModel $item) {
+    @Override public int get(SortDataModel $item) {
         return items.indexOf($item);
     }
 
@@ -68,7 +67,7 @@ public class ProductBridgeOptionAdapter extends RecyclerView.Adapter<ProductBrid
         this.items.remove($index);
     }
 
-    @Override public void remove(OptionMenuDataModel $item) {
+    @Override public void remove(SortDataModel $item) {
         this.items.remove($item);
     }
 

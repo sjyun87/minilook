@@ -4,6 +4,8 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import com.minilook.minilook.data.model.common.CategoryDataModel;
+import com.minilook.minilook.data.model.common.SortDataModel;
+import com.minilook.minilook.data.model.search.SearchOptionDataModel;
 import java.util.List;
 
 public interface ProductBridgePresenter extends LifecycleObserver {
@@ -15,7 +17,11 @@ public interface ProductBridgePresenter extends LifecycleObserver {
 
     void onTabClick(int position);
 
-    void onMenuClick(int position);
+    void onSortClick();
+
+    void onSortSelected(SortDataModel data);
+
+    void onFilterClick();
 
     interface View {
 
@@ -23,9 +29,15 @@ public interface ProductBridgePresenter extends LifecycleObserver {
 
         void setupTabItems(List<CategoryDataModel> categories);
 
-        void setupOptionRecyclerView();
+        void setupSortRecyclerView();
 
-        void optionMenuRefresh();
+        void sortRefresh();
+
+        void setupSortText(String name);
+
+        void showSortPanel();
+
+        void hideSortPanel();
 
         void setupProductRecyclerView();
 
@@ -37,14 +49,8 @@ public interface ProductBridgePresenter extends LifecycleObserver {
 
         void hideEmptyPanel();
 
-        void setupBottomSheet();
+        void navigateToSearchFilter();
 
-        void showBottomSheet();
-
-        void hideBottomSheet();
-
-        void showCurtain();
-
-        void hideCurtain();
+        void finish();
     }
 }

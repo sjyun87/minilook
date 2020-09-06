@@ -340,6 +340,12 @@
     <string name="search_filter_empty">해당하는 상품이 없습니다.</string>
     <string name="search_filter_empty_button">필터 초기화하기</string>
 
+    <!--Bridge-->
+    <string name="bridge_filter">필터</string>
+    <string name="bridge_total">총 %s개 상품</string>
+    <string name="bridge_total_b">%s개</string>
+
+
     <!--Setting-->
     <string name="setting_title">설정</string>
     <string name="setting_order_info_caption">정보성 알림</string>

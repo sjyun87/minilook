@@ -46,7 +46,6 @@ public class TabView extends LinearLayout {
 
         initView();
         setupName();
-        setupSelected();
         if (width != 0) setupWidth(width);
     }
 

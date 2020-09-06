@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.core.view.ViewCompat;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindColor;
@@ -42,11 +43,11 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
 
     public static void start(Context context) {
         Intent intent = new Intent(context, SearchFilterActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         context.startActivity(intent);
     }
 
+    @BindView(R.id.nsv_contents) NestedScrollView contentsScrollView;
     @BindView(R.id.rcv_gender) RecyclerView genderRecyclerView;
     @BindView(R.id.slider_gender) Slider ageSlider;
     @BindView(R.id.txt_age) TextView ageTextView;
@@ -270,6 +271,10 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
 
     @Override public void navigateToProductBridge(SearchOptionDataModel model) {
         ProductBridgeActivity.start(this, model);
+    }
+
+    @Override public void scrollToTop() {
+        contentsScrollView.fullScroll(View.FOCUS_UP);
     }
 
     @OnClick(R.id.img_age_reset)

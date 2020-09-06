@@ -5,18 +5,13 @@ import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.common.CategoryDataModel;
-import com.minilook.minilook.data.model.common.ColorDataModel;
-import com.minilook.minilook.data.model.common.GenderDataModel;
 import com.minilook.minilook.data.model.common.SortDataModel;
-import com.minilook.minilook.data.model.common.StyleDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.search.FilterDataModel;
-import com.minilook.minilook.data.model.search.OptionMenuDataModel;
 import com.minilook.minilook.data.model.search.SearchOptionDataModel;
 import com.minilook.minilook.data.model.search.SearchResultDataModel;
 import com.minilook.minilook.data.network.search.SearchRequest;
 import com.minilook.minilook.data.rx.Transformer;
-import com.minilook.minilook.data.type.OptionType;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.product_bridge.di.ProductBridgeArguments;
@@ -31,8 +26,8 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
     private static final int ROWS = 30;
 
     private final View view;
-    private final SearchOptionDataModel options;
-    private final BaseAdapterDataModel<OptionMenuDataModel> optionAdapter;
+    private SearchOptionDataModel options;
+    private final BaseAdapterDataModel<SortDataModel> sortAdapter;
     private final BaseAdapterDataModel<ProductDataModel> productAdapter;
     private final SearchRequest searchRequest;
     private final List<SortDataModel> sortCodes;
@@ -44,42 +39,23 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
 
     private boolean isCategoryDepth1;
     private List<CategoryDataModel> categoryOptions = new ArrayList<>();
-    private List<OptionMenuDataModel> optionMenus = new ArrayList<>();
-
-
-
-    private List<StyleDataModel> styleOptions;
-    private List<GenderDataModel> genderOptions;
-    private List<ColorDataModel> colorOptions;
-
-    private int minPrice;
-    private int maxPrice;
+    private String selectedSortCode;
+    private boolean isSortVisible = false;
 
     public ProductBridgePresenterImpl(ProductBridgeArguments args) {
         view = args.getView();
         options = args.getOptions();
-        optionAdapter = args.getOptionAdapter();
+        sortAdapter = args.getSortAdapter();
         productAdapter = args.getProductAdapter();
         searchRequest = new SearchRequest();
         sortCodes = App.getInstance().getSortCodes();
     }
 
     @Override public void onCreate() {
-        view.setupOptionRecyclerView();
+        view.setupSortRecyclerView();
         view.setupProductRecyclerView();
-        view.setupBottomSheet();
 
-        isCategoryDepth1 = options.getCategory_code() == null;
-        if (!isCategoryDepth1) view.setupTitle(options.getCategory_name());
-
-        optionAdapter.set(getInitOptionMenuData());
-        view.optionMenuRefresh();
-
-        String categoryCode = isCategoryDepth1 ? "" : options.getCategory_code();
-        reqFilters(categoryCode);
-
-        options.setOrder(sortCodes.get(0).getCode());
-        reqProducts();
+        initData();
     }
 
     @Override public void onLoadMore() {
@@ -98,24 +74,53 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
         reqProducts();
     }
 
-    @Override public void onMenuClick(int position) {
-        int bottomPosition = optionAdapter.get(position).getValue();
-        // TODO 바텀 뷰 이동
-
-        view.showBottomSheet();
+    @Override public void onSortClick() {
+        if (isSortVisible) {
+            view.hideSortPanel();
+        } else {
+            view.showSortPanel();
+        }
+        isSortVisible = !isSortVisible;
     }
 
-    private List<OptionMenuDataModel> getInitOptionMenuData() {
-        OptionType[] options = OptionType.values();
-        for (int i = 0; i < options.length; i++) {
-            OptionMenuDataModel model = new OptionMenuDataModel();
-            model.setName(options[i].getName());
-            model.setValue(options[i].getValue());
-            model.setPosition(i);
-            model.setSelected(false);
-            optionMenus.add(model);
+    @Override public void onSortSelected(SortDataModel data) {
+        if (!selectedSortCode.equals(data.getCode())) {
+            selectedSortCode = data.getCode();
+            view.setupSortText(data.getName());
+
+            productAdapter.clear();
+            page = new AtomicInteger(0);
+            reqProducts();
         }
-        return optionMenus;
+        view.hideSortPanel();
+        isSortVisible = false;
+    }
+
+    @Override public void onFilterClick() {
+        view.navigateToSearchFilter();
+        view.finish();
+    }
+
+    private void initData() {
+        isCategoryDepth1 = options.getCategory_code() == null;
+        if (!isCategoryDepth1) view.setupTitle(options.getCategory_name());
+
+        String categoryCode = isCategoryDepth1 ? "" : options.getCategory_code();
+        reqFilters(categoryCode);
+
+        options.setOrder(sortCodes.get(0).getCode());
+        setupSortData();
+    }
+
+    private void setupSortData() {
+        List<SortDataModel> sortItems = App.getInstance().getSortCodes();
+        sortAdapter.set(sortItems);
+        view.sortRefresh();
+        view.setupSortText(sortItems.get(0).getName());
+        selectedSortCode = sortItems.get(0).getCode();
+
+        options.setOrder(sortItems.get(0).getCode());
+        reqProducts();
     }
 
     private void reqFilters(String category_code) {
