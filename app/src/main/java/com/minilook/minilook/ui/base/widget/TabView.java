@@ -27,17 +27,27 @@ public class TabView extends LinearLayout {
     @BindFont(R.font.nanum_square_eb) Typeface font_extrabold;
 
     @Getter private String name;
-    private int width;
+    private int unselectedTextColor = color_FF616161;
+    private int selectedTextColor = color_FF232323;
+    private Typeface unselectedTextFont = font_bold;
+    private Typeface selectedTextFont = font_extrabold;
 
     @Builder
-    public TabView(@NonNull Context context, String name, int width) {
-        this(context);
+    public TabView(@NonNull Context context, @NonNull String name, int width,
+        int unselectedTextColor, int selectedTextColor,
+        Typeface unselectedTextFont, Typeface selectedTextFont) {
+
+        super(context);
         this.name = name;
-        this.width = width;
+        this.unselectedTextColor = unselectedTextColor;
+        this.selectedTextColor = selectedTextColor;
+        this.unselectedTextFont = unselectedTextFont;
+        this.selectedTextFont = selectedTextFont;
 
         initView();
         setupName();
-        setupWidth();
+        setupSelected();
+        if (width != 0) setupWidth(width);
     }
 
     public TabView(@NonNull Context context) {
@@ -54,17 +64,17 @@ public class TabView extends LinearLayout {
         nameTextView.setText(name);
     }
 
-    private void setupWidth() {
-        if (width != 0) nameTextView.setWidth(width);
+    private void setupWidth(int width) {
+        nameTextView.setWidth(width);
     }
 
     public void setupSelected() {
-        nameTextView.setTextColor(color_FF232323);
-        nameTextView.setTypeface(font_extrabold);
+        nameTextView.setTextColor(selectedTextColor != 0 ? selectedTextColor : color_FF232323);
+        nameTextView.setTypeface(selectedTextFont != null ? selectedTextFont : font_extrabold);
     }
 
     public void setupUnselected() {
-        nameTextView.setTextColor(color_FF616161);
-        nameTextView.setTypeface(font_bold);
+        nameTextView.setTextColor(unselectedTextColor != 0 ? unselectedTextColor : color_FF616161);
+        nameTextView.setTypeface(unselectedTextFont != null ? unselectedTextFont : font_bold);
     }
 }

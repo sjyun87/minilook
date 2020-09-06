@@ -1,6 +1,7 @@
 package com.minilook.minilook.ui.product_bridge.di;
 
 import com.minilook.minilook.data.model.product.ProductDataModel;
+import com.minilook.minilook.data.model.search.OptionMenuDataModel;
 import com.minilook.minilook.data.model.search.SearchOptionDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.product_bridge.ProductBridgePresenter;
@@ -12,5 +13,6 @@ import lombok.Getter;
 public class ProductBridgeArguments {
     private final ProductBridgePresenter.View view;
     private final SearchOptionDataModel options;
+    private final BaseAdapterDataModel<OptionMenuDataModel> optionAdapter;
     private final BaseAdapterDataModel<ProductDataModel> productAdapter;
 }

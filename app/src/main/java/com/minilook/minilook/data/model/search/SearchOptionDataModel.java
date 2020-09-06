@@ -17,6 +17,8 @@ import lombok.Data;
     private String gender_code = null;
     @Expose @SerializedName("age")
     private int age = 0;
+    @Expose @SerializedName("categoryName")
+    private String category_name = null;
     @Expose @SerializedName("categoryCode")
     private String category_code = null;
     @Expose @SerializedName("categoryDetailCode")

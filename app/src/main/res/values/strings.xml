@@ -337,6 +337,8 @@
     <string name="search_filter_style_caption">스타일</string>
     <string name="search_filter_reset">전체 초기화</string>
     <string name="search_filter_search">결과 보기</string>
+    <string name="search_filter_empty">해당하는 상품이 없습니다.</string>
+    <string name="search_filter_empty_button">필터 초기화하기</string>
 
     <!--Setting-->
     <string name="setting_title">설정</string>

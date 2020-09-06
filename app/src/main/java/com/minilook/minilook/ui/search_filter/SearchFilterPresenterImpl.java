@@ -1,6 +1,7 @@
 package com.minilook.minilook.ui.search_filter;
 
 import com.google.gson.Gson;
+import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.data.model.common.ColorDataModel;
 import com.minilook.minilook.data.model.common.GenderDataModel;
@@ -43,6 +44,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
     private boolean isShowDiscount = false;
     private boolean isShowStock = false;
     private String categoryCode = null;
+    private String categoryName = null;
     private int sizeType = -1;
     private int minPrice = -1;
     private int maxPrice = -1;
@@ -134,6 +136,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
             categoryAdapter.get(categorySelectedPosition).setSelected(true);
             view.categoryRefresh();
             categoryCode = data.getCode();
+            categoryName = data.getName();
             if (data.getName().equals(SIZE_TYPE_BABY)) {
                 sizeType = 2;
             } else if (data.getName().equals(SIZE_TYPE_SHOES)) {
@@ -147,6 +150,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
             categoryAdapter.get(categorySelectedPosition).setSelected(false);
             categorySelectedPosition = -1;
             categoryCode = null;
+            categoryName = null;
             view.categoryRefresh();
         }
     }
@@ -216,6 +220,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         model.setAge(ageCode);
         model.setDiscount(isShowDiscount);
         model.setStock(isShowStock);
+        model.setCategory_name(categoryName);
         model.setCategory_code(categoryCode);
         model.setPrice_min(minPrice);
         model.setPrice_max(maxPrice);
@@ -230,8 +235,9 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
     private void reqFilterOptions() {
         addDisposable(
             searchRequest.getFilterOptions("")
-                .map(data -> gson.fromJson(data.getData(), FilterDataModel.class))
                 .compose(Transformer.applySchedulers())
+                .filter(data -> data.getCode().equals(HttpCode.OK))
+                .map(data -> gson.fromJson(data.getData(), FilterDataModel.class))
                 .subscribe(this::resFilterOptions, Timber::e)
         );
     }
@@ -307,6 +313,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         }
         view.categoryRefresh();
         categoryCode = null;
+        categoryName = null;
         sizeType = -1;
     }
 
