@@ -1,7 +1,6 @@
 package com.minilook.minilook.ui.search_filter;
 
 import com.google.gson.Gson;
-import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.data.model.common.ColorDataModel;
 import com.minilook.minilook.data.model.common.GenderDataModel;
@@ -225,19 +224,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         model.setType(sizeType);
         model.setColor_codes(colorCodes);
 
-
-
-        model.setPage(1);
-        model.setRow(30);
-        model.setOrder("HGHST_PRC");
-
-        addDisposable(searchRequest.getProducts(model)
-            .compose(Transformer.applySchedulers())
-            .subscribe(this::resProducts, Timber::e));
-    }
-
-    private void resProducts(BaseDataModel dataModel) {
-        Timber.e(dataModel.getData().toString());
+        view.navigateToProductBridge(model);
     }
 
     private void reqFilterOptions() {

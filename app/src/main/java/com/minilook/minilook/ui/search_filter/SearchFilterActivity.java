@@ -26,9 +26,11 @@ import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.data.model.common.ColorDataModel;
 import com.minilook.minilook.data.model.common.GenderDataModel;
 import com.minilook.minilook.data.model.common.StyleDataModel;
+import com.minilook.minilook.data.model.search.SearchOptionDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.widget.StyleView;
+import com.minilook.minilook.ui.product_bridge.ProductBridgeActivity;
 import com.minilook.minilook.ui.search_filter.adapter.FilterCategoryAdapter;
 import com.minilook.minilook.ui.search_filter.adapter.FilterColorAdapter;
 import com.minilook.minilook.ui.search_filter.adapter.FilterGenderAdapter;
@@ -264,6 +266,10 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
         for (int i = 0; i < styleItemPanel.getChildCount(); i++) {
             ((StyleView) styleItemPanel.getChildAt(i)).unselected();
         }
+    }
+
+    @Override public void navigateToProductBridge(SearchOptionDataModel model) {
+        ProductBridgeActivity.start(this, model);
     }
 
     @OnClick(R.id.img_age_reset)

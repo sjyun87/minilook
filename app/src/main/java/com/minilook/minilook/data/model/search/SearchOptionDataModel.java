@@ -2,14 +2,11 @@ package com.minilook.minilook.data.model.search;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
 import java.util.List;
 import lombok.Data;
 
-@Data public class SearchOptionDataModel {
-    @Expose @SerializedName("current")
-    private int page;
-    @Expose @SerializedName("pageSize")
-    private int row;
+@Data public class SearchOptionDataModel implements Serializable {
     @Expose @SerializedName("productOrderByCode")
     private String order;
     @Expose @SerializedName("memberNo")

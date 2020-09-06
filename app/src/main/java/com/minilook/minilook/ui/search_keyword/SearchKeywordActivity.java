@@ -85,7 +85,7 @@ public class SearchKeywordActivity extends BaseActivity implements SearchKeyword
     }
 
     @Override public void navigateToBridge(String keyword) {
-        ProductBridgeActivity.start(this);
+        //ProductBridgeActivity.start(this);
     }
 
     @Override public void addKeywordView(String keyword) {

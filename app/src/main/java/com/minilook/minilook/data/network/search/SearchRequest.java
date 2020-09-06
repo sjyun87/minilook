@@ -14,19 +14,19 @@ public class SearchRequest extends BaseRequest<SearchService> {
         return SearchService.class;
     }
 
-    public Single<BaseDataModel> getProducts(SearchOptionDataModel options) {
-        return getApi().getProducts(createRequestBody(parseToJson(options)));
+    public Single<BaseDataModel> getProducts(int page, int rows, SearchOptionDataModel options) {
+        return getApi().getProducts(createRequestBody(parseToJson(page, rows, options)));
     }
 
     public Single<BaseDataModel> getFilterOptions(String category_code) {
         return getApi().getFilterOptions(category_code);
     }
 
-    private Map<String, Object> parseToJson(SearchOptionDataModel options) {
+    private Map<String, Object> parseToJson(int page, int rows, SearchOptionDataModel options) {
         Map<String, Object> jsonMap = new HashMap<>();
         if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getUserId());
-        jsonMap.put("current", options.getPage());
-        jsonMap.put("pageSize", options.getRow());
+        jsonMap.put("current", page);
+        jsonMap.put("pageSize", rows);
         jsonMap.put("productOrderByCode", options.getOrder());
         if (options.getBrand_id() != 0) jsonMap.put("brandNo", options.getBrand_id());
         if (options.getGender_code() != null) jsonMap.put("genderCode", options.getGender_code());

@@ -9,7 +9,14 @@ public interface ProductBridgePresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
+    void onLoadMore();
+
     interface View {
 
+        void setupProductRecyclerView();
+
+        void productRefresh();
+
+        void productRefresh(int start, int rows);
     }
 }
