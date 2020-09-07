@@ -1,9 +1,11 @@
 package com.minilook.minilook.ui.splash;
 
 import android.os.Handler;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.App;
+import com.minilook.minilook.BuildConfig;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.common.PrefsKey;
 import com.minilook.minilook.data.model.base.BaseDataModel;
@@ -30,6 +32,7 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
     private boolean isAnimationEnd = false;
     private boolean isLoginChecked = false;
     private boolean isCommonDataGet = false;
+    private boolean isTokenChecked = false;
 
     private Gson gson = new Gson();
 
@@ -39,7 +42,11 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
     }
 
     @Override public void onCreate() {
-        checkAppVersion();
+        if (BuildConfig.DEBUG) {
+            startApp();
+        } else {
+            checkAppVersion();
+        }
     }
 
     @Override public void onUpdateDialogOkClick() {
@@ -55,7 +62,7 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
     }
 
     private void reqCheckAppVersion() {
-        addDisposable(commonRequest.checkVersion("0.0.1")
+        addDisposable(commonRequest.checkVersion(BuildConfig.VERSION_NAME)
             .compose(Transformer.applySchedulers())
             .filter(data -> {
                 // TODO 예외 처리
@@ -77,6 +84,7 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
         reqSortCode();
         checkAnimation();
         checkLogin();
+        checkToken();
     }
 
     private void reqSortCode() {
@@ -101,14 +109,31 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
     }
 
     private void checkLogin() {
-        int userId = App.getInstance().getUserId();
-        if (userId == -1) {
-            App.getInstance().setLogin(false);
-        } else {
-            App.getInstance().setLogin(true);
-        }
+        App.getInstance().checkLogin();
         isLoginChecked = true;
         checkToDo();
+    }
+
+    private void checkToken() {
+        String token = App.getInstance().getPushToken();
+        if (token.isEmpty()) {
+            getCurrentToken();
+        } else {
+            isTokenChecked = true;
+            checkToDo();
+        }
+    }
+
+    private void getCurrentToken() {
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult() != null) {
+                String pushToken = task.getResult().getToken();
+                if (!pushToken.isEmpty()) {
+                    isTokenChecked = true;
+                    checkToDo();
+                }
+            }
+        });
     }
 
     private void checkToDo() {

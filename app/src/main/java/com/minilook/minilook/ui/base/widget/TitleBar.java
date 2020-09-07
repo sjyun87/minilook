@@ -14,7 +14,9 @@ import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.minilook.minilook.App;
 import com.minilook.minilook.R;
+import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.main.MainActivity;
 import com.minilook.minilook.ui.search_filter.SearchFilterActivity;
 import com.minilook.minilook.ui.setting.SettingActivity;
@@ -195,7 +197,13 @@ public class TitleBar extends ConstraintLayout {
 
     @OnClick(R.id.img_titlebar_shoppingbag)
     void onShoppingBagClick() {
-        if (activity != null) ShoppingBagActivity.start(activity);
+        if (activity != null) {
+            if (App.getInstance().isLogin()) {
+                ShoppingBagActivity.start(activity);
+            } else {
+                LoginActivity.start(activity);
+            }
+        }
     }
 
     @OnClick(R.id.img_titlebar_setting)

@@ -81,7 +81,7 @@ public class EventDetailActivity extends BaseActivity implements EventDetailPres
 
     @Override public void setupEventImage(String url) {
         Glide.with(this)
-            .load(R.drawable.test)
+            .load(url)
             .placeholder(img_placeholder)
             .error(img_placeholder)
             .transition(new DrawableTransitionOptions().crossFade())

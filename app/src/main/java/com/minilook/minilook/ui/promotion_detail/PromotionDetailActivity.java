@@ -120,7 +120,7 @@ public class PromotionDetailActivity extends BaseActivity implements PromotionDe
 
     @Override public void setupEventImage(String url) {
         Glide.with(this)
-            .load(R.drawable.test)
+            .load(url)
             .placeholder(img_placeholder)
             .error(img_placeholder)
             .transition(new DrawableTransitionOptions().crossFade())

@@ -2,6 +2,11 @@ package com.minilook.minilook;
 
 import android.app.Application;
 import android.content.ContextWrapper;
+import androidx.annotation.NonNull;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.kakao.sdk.common.KakaoSdk;
 import com.minilook.minilook.data.common.PrefsKey;
 import com.minilook.minilook.data.model.common.SortDataModel;
@@ -68,6 +73,14 @@ public class App extends Application {
         clearSnsId();
         clearSnsType();
         RxBus.send(new RxBusEvent.RxBusEventLogout());
+    }
+
+    public void checkLogin() {
+        if (getUserId() != -1) {
+            isLogin = true;
+        } else {
+            isLogin = false;
+        }
     }
 
     public void setUserId(int id) {
