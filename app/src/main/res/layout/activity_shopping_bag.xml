@@ -64,7 +64,7 @@
         android:paddingBottom="@dimen/dp_100"
         app:layout_constraintBottom_toTopOf="@+id/txt_order"
         app:layout_constraintTop_toBottomOf="@+id/img_checkbox"
-        tools:listitem="@layout/item_shopping_bag" />
+        tools:listitem="@layout/item_shoppingbag" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_total_panel"

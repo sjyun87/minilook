@@ -1,10 +1,8 @@
 package com.minilook.minilook.data.network.product;
 
 import com.minilook.minilook.data.model.base.BaseDataModel;
-import com.minilook.minilook.data.model.product.ProductColorDataModel;
 import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
-import java.util.List;
 
 public class ProductRequest extends BaseRequest<ProductService> {
 
@@ -16,7 +14,7 @@ public class ProductRequest extends BaseRequest<ProductService> {
         return getApi().getProductDetail(product_id);
     }
 
-    public Single<List<ProductColorDataModel>> getProductOptions(int id) {
-        return getApi().getProductOptions("GoodsOptions", id);
+    public Single<BaseDataModel> getProductOptions(int id) {
+        return getApi().getProductOptions(id);
     }
 }

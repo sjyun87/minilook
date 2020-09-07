@@ -1,12 +1,15 @@
 package com.minilook.minilook.ui.product_detail;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
-import com.minilook.minilook.data.model.product.ProductColorDataModel;
+import com.minilook.minilook.data.model.product.GoodsDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
+import com.minilook.minilook.data.model.product.ProductOptionDataModel;
 import com.minilook.minilook.data.model.product.ProductStockModel;
 import com.minilook.minilook.data.model.review.ReviewDataModel;
+import com.minilook.minilook.data.network.order.OrderRequest;
 import com.minilook.minilook.data.network.product.ProductRequest;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.data.type.DisplayCode;
@@ -14,6 +17,7 @@ import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
 import com.minilook.minilook.util.StringUtil;
+import io.reactivex.rxjava3.functions.Function;
 import io.reactivex.rxjava3.functions.Predicate;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +34,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     private final BaseAdapterDataModel<ReviewDataModel> reviewAdapter;
     private final BaseAdapterDataModel<ProductDataModel> relatedProductsAdapter;
     private final ProductRequest productRequest;
+    private final OrderRequest orderRequest;
 
     private Gson gson = new Gson();
     private ProductDataModel data;
@@ -42,6 +47,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         reviewAdapter = args.getReviewAdapter();
         relatedProductsAdapter = args.getRelatedProductAdapter();
         productRequest = new ProductRequest();
+        orderRequest = new OrderRequest();
     }
 
     @Override public void onCreate() {
@@ -52,7 +58,6 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         view.setupRelatedProductRecyclerView();
 
         reqProductDetail();
-        //reqProductOptions();
     }
 
     @Override public void onTabClick(int position) {
@@ -89,14 +94,27 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         isInfoPanelExpanded = !isInfoPanelExpanded;
     }
 
+    @Override public void onShoppingBagClick(List<GoodsDataModel> goodsData) {
+        reqAddShoppingBag(goodsData);
+        view.hideOptionSelector();
+    }
+
+    private void reqAddShoppingBag(List<GoodsDataModel> goodsData) {
+        addDisposable(orderRequest.addShoppingBag(goodsData)
+            .compose(Transformer.applySchedulers())
+            .subscribe(this::resAddShoppingBag, Timber::e));
+    }
+
+    private void resAddShoppingBag(BaseDataModel data) {
+        Timber.e(data.toString());
+        view.navigateToShoppingBag();
+    }
+
     private void reqProductDetail() {
         addDisposable(productRequest.getProductDetail(id)
             .compose(Transformer.applySchedulers())
-            .filter(new Predicate<BaseDataModel>() {
-                @Override public boolean test(BaseDataModel data) throws Throwable {
-                    Timber.e(data.toString());
-                    return data.getCode().equals(HttpCode.OK);
-                }
+            .filter(data -> {
+                return data.getCode().equals(HttpCode.OK);
             })
             .map(data -> gson.fromJson(data.getData(), ProductDataModel.class))
             .subscribe(this::resProductDetail, Timber::e));
@@ -104,6 +122,8 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
 
     private void resProductDetail(ProductDataModel data) {
         this.data = data;
+        reqProductOptions();
+
         productImageAdapter.set(checkValid(data.getProduct_images()));
         view.productImageRefresh();
 
@@ -129,7 +149,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         }
         view.setupPrice(StringUtil.toDigit(data.getPrice()));
 
-        view.setupPoint(data.getPoint());
+        view.setupPoint(data.getPrice() / data.getPoint());
         view.setupShipping(data.getPrice_shipping());
         if (data.getPrice_shipping_conditional() > 0) {
             view.setupShippingConditional(data.getPrice_shipping_conditional());
@@ -194,12 +214,16 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     }
 
     private void reqProductOptions() {
-        addDisposable(productRequest.getProductOptions(76)
+        addDisposable(productRequest.getProductOptions(id)
             .compose(Transformer.applySchedulers())
+            .filter(data -> data.getCode().equals(HttpCode.OK))
+            .map((Function<BaseDataModel, List<ProductOptionDataModel>>)
+                data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<ProductOptionDataModel>>() {
+                }.getType()))
             .subscribe(this::resProductOptions, Timber::e));
     }
 
-    private void resProductOptions(List<ProductColorDataModel> data) {
-        view.setupOptionSelector(data);
+    private void resProductOptions(List<ProductOptionDataModel> options) {
+        view.setupOptionSelector(data.getPrice(), options);
     }
 }

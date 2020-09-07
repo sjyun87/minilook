@@ -68,7 +68,7 @@ public class FilterCategoryAdapter extends RecyclerView.Adapter<FilterCategoryVH
     }
 
     @Override public void remove(CategoryDataModel $item) {
-        this.remove($item);
+        this.items.remove($item);
     }
 
     @Override public void removeAll() {

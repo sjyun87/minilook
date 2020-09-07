@@ -11,12 +11,12 @@ import butterknife.BindColor;
 import butterknife.BindFont;
 import butterknife.BindView;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.product.ProductSizeDataModel;
+import com.minilook.minilook.data.model.product.ProductStockDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.util.StringUtil;
 import lombok.Setter;
 
-public class OptionSelectorSizeVH extends BaseViewHolder<ProductSizeDataModel> {
+public class OptionSelectorSizeVH extends BaseViewHolder<ProductStockDataModel> {
 
     @BindView(R.id.txt_size) TextView sizeTextView;
     @BindView(R.id.txt_price_add) TextView addPriceTextView;
@@ -35,10 +35,10 @@ public class OptionSelectorSizeVH extends BaseViewHolder<ProductSizeDataModel> {
             .inflate(R.layout.item_option_selector_size, (ViewGroup) itemView, false));
     }
 
-    @Override public void bind(ProductSizeDataModel $data) {
+    @Override public void bind(ProductStockDataModel $data) {
         super.bind($data);
 
-        sizeTextView.setText(data.getName());
+        sizeTextView.setText(data.getSize_name());
         if (data.getPrice_add() == 0) {
             addPriceTextView.setVisibility(View.GONE);
         } else {
@@ -46,7 +46,7 @@ public class OptionSelectorSizeVH extends BaseViewHolder<ProductSizeDataModel> {
             addPriceTextView.setVisibility(View.VISIBLE);
         }
 
-        if (data.isSoldout()) {
+        if (data.getSize_stock() == 0) {
             soldOutTextView.setVisibility(View.VISIBLE);
             sizeTextView.setPaintFlags(sizeTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             sizeTextView.setTypeface(font_regular);
@@ -66,6 +66,6 @@ public class OptionSelectorSizeVH extends BaseViewHolder<ProductSizeDataModel> {
     }
 
     public interface OnSizeSelectedListener {
-        void onSizeSelected(ProductSizeDataModel data);
+        void onSizeSelected(ProductStockDataModel data);
     }
 }

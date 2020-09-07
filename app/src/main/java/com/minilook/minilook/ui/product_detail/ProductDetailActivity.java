@@ -27,7 +27,8 @@ import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.android.material.tabs.TabLayout;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.product.ProductColorDataModel;
+import com.minilook.minilook.data.model.product.GoodsDataModel;
+import com.minilook.minilook.data.model.product.ProductOptionDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.product.ProductStockModel;
 import com.minilook.minilook.data.model.review.ReviewDataModel;
@@ -42,6 +43,7 @@ import com.minilook.minilook.ui.product_detail.adapter.ProductDetailImageAdapter
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
 import com.minilook.minilook.ui.product_detail.widget.ProductTabView;
 import com.minilook.minilook.ui.review.adapter.ReviewAdapter;
+import com.minilook.minilook.ui.shoppingbag.ShoppingBagActivity;
 import com.minilook.minilook.util.DimenUtil;
 import com.minilook.minilook.util.SpannableUtil;
 import com.minilook.minilook.util.StringUtil;
@@ -365,8 +367,17 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         getTabView(2).setupCount(text);
     }
 
-    @Override public void setupOptionSelector(List<ProductColorDataModel> data) {
-        optionSelector.setupData(data);
+    @Override public void setupOptionSelector(int price, List<ProductOptionDataModel> options) {
+        optionSelector.setupData(price, options);
+        optionSelector.setOnButtonClickListener(new OptionSelector.OnButtonClickListener() {
+            @Override public void onShoppingBagClick(List<GoodsDataModel> goodsData) {
+                presenter.onShoppingBagClick(goodsData);
+            }
+
+            @Override public void onBuyClick(List<GoodsDataModel> goodsData) {
+
+            }
+        });
     }
 
     @Override public void showOptionSelector() {
@@ -470,6 +481,10 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 
     @Override public void navigateToBrandDetail(int brand_id) {
         BrandDetailActivity.start(this, brand_id);
+    }
+
+    @Override public void navigateToShoppingBag() {
+        ShoppingBagActivity.start(this);
     }
 
     @OnClick(R.id.layout_expand_panel)

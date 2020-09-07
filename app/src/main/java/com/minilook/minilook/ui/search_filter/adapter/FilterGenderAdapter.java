@@ -68,7 +68,7 @@ public class FilterGenderAdapter extends RecyclerView.Adapter<FilterGenderVH>
     }
 
     @Override public void remove(GenderDataModel $item) {
-        this.remove($item);
+        this.items.remove($item);
     }
 
     @Override public void removeAll() {

@@ -65,7 +65,7 @@ public class LookBookStyleAdapter extends RecyclerView.Adapter<LookBookStyleVH>
     }
 
     @Override public void remove(String $item) {
-        this.remove($item);
+        this.items.remove($item);
     }
 
     @Override public void removeAll() {

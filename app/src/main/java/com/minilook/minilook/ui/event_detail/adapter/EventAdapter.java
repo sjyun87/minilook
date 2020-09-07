@@ -65,7 +65,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventItemVH>
     }
 
     @Override public void remove(EventDataModel $item) {
-        this.remove($item);
+        this.items.remove($item);
     }
 
     @Override public void removeAll() {

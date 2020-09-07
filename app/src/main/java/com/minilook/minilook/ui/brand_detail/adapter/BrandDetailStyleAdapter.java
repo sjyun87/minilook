@@ -67,7 +67,7 @@ public class BrandDetailStyleAdapter extends RecyclerView.Adapter<BrandDetailSty
     }
 
     @Override public void remove(String $item) {
-        this.remove($item);
+        this.items.remove($item);
     }
 
     @Override public void removeAll() {

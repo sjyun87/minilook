@@ -137,7 +137,7 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
     }
 
     private void checkToDo() {
-        if (isLoginChecked && isAnimationEnd && isCommonDataGet) {
+        if (isLoginChecked && isAnimationEnd && isCommonDataGet && isTokenChecked) {
             int visibleCount = Prefs.getInt(PrefsKey.KEY_GUIDE_VISIBLE_COUNT, 0);
             if (visibleCount >= 3) {
                 view.navigateToMain();

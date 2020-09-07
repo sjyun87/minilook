@@ -30,7 +30,7 @@ public class SearchRequest extends BaseRequest<SearchService> {
         jsonMap.put("productOrderByCode", options.getOrder());
         if (options.getBrand_id() != 0) jsonMap.put("brandNo", options.getBrand_id());
         if (options.getGender_code() != null) jsonMap.put("genderCode", options.getGender_code());
-        if (options.getAge() != 0) jsonMap.put("age", options.getAge());
+        if (options.getAge() != -1) jsonMap.put("age", options.getAge());
         if (options.getCategory_code() != null) jsonMap.put("categoryCode", options.getCategory_code());
         if (options.getCategory_derail_code() != null) jsonMap.put("categoryCode", options.getCategory_derail_code());
         if (options.getType() != -1) jsonMap.put("sizeType", options.getType());

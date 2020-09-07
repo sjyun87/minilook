@@ -157,15 +157,21 @@
     <string name="shoppingbag_title">장바구니</string>
     <string name="shoppingbag_selected_count">전체선택 (%d/%d)</string>
     <string name="shoppingbag_delete">선택삭제</string>
+    <string name="shoppingbag_goods_option">%s / %s</string>
+    <string name="shoppingbag_shipping_free">무료배송</string>
+    <string name="shoppingbag_shipping_free_condition">(%d만원 이상 무료배송)</string>
+    <string name="shoppingbag_remain_shipping_free">%s원 더 구입 시 무료배송</string>
+    <string name="shoppingbag_remain_shipping_free_bold">%s원</string>
+    <string name="shoppingbag_remain_shipping_free_purple">무료배송</string>
+    <string name="shoppingbag_final_shipping_price">+ %s</string>
+    <string name="shoppingbag_order_available">주문가능 수량 %s개</string>
+
     <string name="shoppingbag_order">총 %s원 구매하기</string>
     <string name="shoppingbag_total_count_caption">주문 상품 수</string>
-    <string name="shoppingbag_total_count">%s</string>
     <string name="shoppingbag_total_count_unit">개</string>
     <string name="shoppingbag_total_product_price_caption">총 상품금액</string>
-    <string name="shoppingbag_total_product_price">%s</string>
     <string name="shoppingbag_total_product_price_unit">원</string>
     <string name="shoppingbag_total_shipping_price_caption">배송비</string>
-    <string name="shoppingbag_total_shipping_price">%s</string>
     <string name="shoppingbag_total_shipping_price_unit">원</string>
 
     <string name="shoppingbag_shipping_price_caption">배송비</string>
@@ -366,7 +372,6 @@
     <string name="bridge_filter">필터</string>
     <string name="bridge_total">총 %s개 상품</string>
     <string name="bridge_total_b">%s개</string>
-
 
     <!--Setting-->
     <string name="setting_title">설정</string>

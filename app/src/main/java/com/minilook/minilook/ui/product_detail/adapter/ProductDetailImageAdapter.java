@@ -64,7 +64,7 @@ public class ProductDetailImageAdapter extends RecyclerView.Adapter<ProductDetai
     }
 
     @Override public void remove(String $item) {
-        this.remove($item);
+        this.items.remove($item);
     }
 
     @Override public void removeAll() {

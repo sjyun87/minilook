@@ -23,21 +23,28 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.order.OrderProductDataModel;
-import com.minilook.minilook.data.model.product.ProductColorDataModel;
-import com.minilook.minilook.data.model.product.ProductSizeDataModel;
+import com.minilook.minilook.data.model.product.GoodsDataModel;
+import com.minilook.minilook.data.model.product.ProductOptionDataModel;
+import com.minilook.minilook.data.model.product.ProductStockDataModel;
 import com.minilook.minilook.ui.option_selector.adpater.OptionSelectorColorAdapter;
+import com.minilook.minilook.ui.option_selector.adpater.OptionSelectorGoodsAdapter;
 import com.minilook.minilook.ui.option_selector.adpater.OptionSelectorSizeAdapter;
+import com.minilook.minilook.ui.option_selector.viewholder.OptionSelectorGoodsItemVH;
 import com.minilook.minilook.util.DimenUtil;
 import com.minilook.minilook.util.StringUtil;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import lombok.Setter;
 
-public class OptionSelector extends FrameLayout {
+public class OptionSelector extends FrameLayout implements OptionSelectorGoodsItemVH.OnButtonClickListener {
 
     @BindView(R.id.curtain) View curtainView;
     @BindView(R.id.layout_option_buy_panel) ConstraintLayout buyPanel;
     @BindView(R.id.txt_selected_option) TextView selectedOptionTextView;
     @BindView(R.id.img_option_arrow) ImageView optionArrowImageView;
-    @BindView(R.id.rcv_selected_product) RecyclerView selectedOptionRecyclerView;
+    @BindView(R.id.rcv_goods) RecyclerView goodsRecyclerView;
     @BindView(R.id.txt_total_count) TextView totalCountTextView;
     @BindView(R.id.txt_total_price) TextView totalPriceTextView;
 
@@ -61,18 +68,21 @@ public class OptionSelector extends FrameLayout {
     @BindDimen(R.dimen.sp_6) int sp_6;
     @BindDimen(R.dimen.sp_7) int sp_7;
 
+    @Setter OnButtonClickListener onButtonClickListener;
+
     private OptionSelectorColorAdapter colorAdapter;
     private OptionSelectorSizeAdapter sizeAdapter;
+    private OptionSelectorGoodsAdapter goodsAdapter;
 
-    private List<ProductColorDataModel> data;
+    private int product_price;
+    private List<ProductOptionDataModel> options;
 
     private boolean isColorSelectBoxOpened = false;
     private boolean isSizeSelectBoxOpened = false;
 
-    private ProductColorDataModel selectedColorData;
-    private ProductSizeDataModel selectedSizeData;
-
-    private List<OrderProductDataModel> selectedData;
+    private ProductOptionDataModel selectedColorData;
+    private ProductStockDataModel selectedSizeData;
+    private Map<Integer, Integer> selectedData = new HashMap<>();
 
     public OptionSelector(@NonNull Context context) {
         this(context, null);
@@ -92,6 +102,13 @@ public class OptionSelector extends FrameLayout {
         initView();
         setupColorRecyclerView();
         setupSizeRecyclerView();
+        setupGoodsRecyclerView();
+    }
+
+    private void initView() {
+        ButterKnife.bind(this, inflate(getContext(), R.layout.layout_option_selector, this));
+        setupTotalCount(0);
+        setupTotalPrice(0);
     }
 
     private void setupColorRecyclerView() {
@@ -120,16 +137,18 @@ public class OptionSelector extends FrameLayout {
         sizeAdapter.setOnSizeSelectedListener(this::onSizeSelected);
     }
 
-    private void initView() {
-        ButterKnife.bind(this, inflate(getContext(), R.layout.layout_option_selector, this));
-        setupTotalCount(0);
-        setupTotalPrice(0);
+    private void setupGoodsRecyclerView() {
+        goodsAdapter = new OptionSelectorGoodsAdapter();
+        goodsAdapter.setOnButtonClickListener(this);
+        goodsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        goodsRecyclerView.setAdapter(goodsAdapter);
     }
 
-    public void setupData(List<ProductColorDataModel> model) {
-        this.data = model;
+    public void setupData(int price, List<ProductOptionDataModel> options) {
+        this.product_price = price;
+        this.options = options;
 
-        colorAdapter.set(model);
+        colorAdapter.set(options);
         colorAdapter.refresh();
         showColorSelectBox();
     }
@@ -190,9 +209,7 @@ public class OptionSelector extends FrameLayout {
     private void hideSelectPanel() {
         YoYo.with(Techniques.SlideOutDown)
             .duration(150)
-            .onEnd(animator -> {
-                selectPanel.setVisibility(View.GONE);
-            })
+            .onEnd(animator -> selectPanel.setVisibility(View.GONE))
             .playOn(selectPanel);
     }
 
@@ -222,12 +239,12 @@ public class OptionSelector extends FrameLayout {
         colorArrowImageView.animate().rotation(0).setDuration(150).start();
     }
 
-    private void onColorSelected(ProductColorDataModel data) {
+    private void onColorSelected(ProductOptionDataModel data) {
         this.selectedColorData = data;
-        setupSelectedColor(data.getName());
+        setupSelectedColor(data.getColor_name());
         hideColorSelectBox();
 
-        sizeAdapter.set(data.getSize());
+        sizeAdapter.set(data.getStocks());
         sizeAdapter.refresh();
         postDelayed(this::showSizeSelectBox, 150);
     }
@@ -270,7 +287,7 @@ public class OptionSelector extends FrameLayout {
         selectedColorTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, sp_6);
     }
 
-    private void onSizeSelected(ProductSizeDataModel data) {
+    private void onSizeSelected(ProductStockDataModel data) {
         this.selectedSizeData = data;
         addSelectedData();
 
@@ -283,16 +300,46 @@ public class OptionSelector extends FrameLayout {
     }
 
     private void addSelectedData() {
-        //OrderProductDataModel model = new OrderProductDataModel();
-        //model.setColor(selectedColorData.getName());
-        //model.setSize(selectedSizeData.getName());
-        //model.setPrice_add(selectedSizeData.getPrice_add());
-        //model.setPrice_total();
-        //model.setPrice(0);
-        //model.setCount(1);
+        int goods_id = selectedSizeData.getGoods_id();
+        if (!selectedData.containsKey(goods_id)) {
+            GoodsDataModel model = new GoodsDataModel();
+            model.setGoods_id(goods_id);
+            int price = product_price + selectedSizeData.getPrice_add();
+            model.setPrice(price);
+            model.setColor_name(selectedColorData.getColor_name());
+            model.setSize_name(selectedSizeData.getSize_name());
+            int order_limit = selectedSizeData.getOrder_limit();
+            int stock = selectedSizeData.getSize_stock();
+            model.setOrder_available_quantity(Math.min(order_limit, stock));
+            model.setSelected_quantity(1);
 
+            selectedData.put(goods_id, 1);
+            goodsAdapter.add(model);
+            goodsAdapter.refresh();
+        } else {
+            for (GoodsDataModel model : goodsAdapter.get()) {
+                if (model.getGoods_id() == goods_id) {
+                    int currentCount = model.getSelected_quantity();
+                    model.setSelected_quantity(currentCount + 1);
+                    selectedData.put(goods_id, currentCount + 1);
+                    goodsAdapter.refresh();
+                    break;
+                }
+            }
+        }
 
+        setupTotalCount(goodsAdapter.getSize());
+        setupTotalPrice(calPrice());
+    }
 
+    private int calPrice() {
+        int totalPrice = 0;
+        for (GoodsDataModel model : goodsAdapter.get()) {
+            int count = model.getSelected_quantity();
+            int price = model.getPrice();
+            totalPrice += (price * count);
+        }
+        return totalPrice;
     }
 
     @OnClick(R.id.curtain)
@@ -306,14 +353,15 @@ public class OptionSelector extends FrameLayout {
         showSelectPanel();
     }
 
+
     @OnClick(R.id.txt_shopping_bag)
     void onShoppingBagClick() {
-
+        onButtonClickListener.onShoppingBagClick(goodsAdapter.get());
     }
 
     @OnClick(R.id.txt_buy_now)
     void onBuyNowClick() {
-
+        // TODO 바로 구매
     }
 
     // Select Panel ----------------------------------------------------------------------------------------------------
@@ -327,5 +375,29 @@ public class OptionSelector extends FrameLayout {
     void onSizeSelectBoxClick() {
         isSizeSelectBoxOpened = !isSizeSelectBoxOpened;
         handleSizeSelectedBox();
+    }
+
+    // Goods Adapter
+    @Override public void onDeleteClick(GoodsDataModel data) {
+        goodsAdapter.remove(data);
+        goodsAdapter.refresh();
+        selectedData.remove(data.getGoods_id());
+        totalPriceTextView.setText(StringUtil.toDigit(calPrice()));
+    }
+
+    @Override public void onMinusClick() {
+        goodsAdapter.refresh();
+        totalPriceTextView.setText(StringUtil.toDigit(calPrice()));
+    }
+
+    @Override public void onPlusClick() {
+        goodsAdapter.refresh();
+        totalPriceTextView.setText(StringUtil.toDigit(calPrice()));
+    }
+
+    public interface OnButtonClickListener {
+        void onShoppingBagClick(List<GoodsDataModel> goodsData);
+
+        void onBuyClick(List<GoodsDataModel> goodsData);
     }
 }

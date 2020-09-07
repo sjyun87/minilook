@@ -68,7 +68,7 @@ public class PromotionAdapter extends RecyclerView.Adapter<PromotionItemVH>
     }
 
     @Override public void remove(PromotionDataModel $item) {
-        this.remove($item);
+        this.items.remove($item);
     }
 
     @Override public void removeAll() {

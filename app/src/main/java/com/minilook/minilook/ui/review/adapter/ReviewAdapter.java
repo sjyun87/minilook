@@ -65,7 +65,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewItemVH>
     }
 
     @Override public void remove(ReviewDataModel $item) {
-        this.remove($item);
+        this.items.remove($item);
     }
 
     @Override public void removeAll() {

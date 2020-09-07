@@ -68,7 +68,7 @@ public class FilterColorAdapter extends RecyclerView.Adapter<FilterColorVH>
     }
 
     @Override public void remove(ColorDataModel $item) {
-        this.remove($item);
+        this.items.remove($item);
     }
 
     @Override public void removeAll() {
