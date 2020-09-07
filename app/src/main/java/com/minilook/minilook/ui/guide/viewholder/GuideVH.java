@@ -1,7 +1,7 @@
 package com.minilook.minilook.ui.guide.viewholder;
 
-import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import butterknife.BindColor;
+import butterknife.BindDrawable;
 import butterknife.BindFont;
 import butterknife.BindString;
 import butterknife.BindView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.util.SpannableUtil;
@@ -34,6 +37,7 @@ public class GuideVH extends BaseViewHolder<Integer> {
     @BindFont(R.font.nanum_square_b) Typeface font_bold;
 
     @BindColor(R.color.color_FF8140E5) int color_FF8140E5;
+    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
 
     public GuideVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
@@ -44,19 +48,39 @@ public class GuideVH extends BaseViewHolder<Integer> {
         super.bind($data);
         switch (data) {
             case 0:
-                guideImageView.setBackgroundColor(Color.RED);
+                Glide.with(context)
+                    .load(R.drawable.img_guide1)
+                    .placeholder(img_placeholder)
+                    .error(img_placeholder)
+                    .transition(new DrawableTransitionOptions().crossFade())
+                    .into(guideImageView);
                 descTextView.setText(parseToSpan(str_desc1, str_desc1_bold));
                 break;
             case 1:
-                guideImageView.setBackgroundColor(Color.YELLOW);
+                Glide.with(context)
+                    .load(R.drawable.img_guide2)
+                    .placeholder(img_placeholder)
+                    .error(img_placeholder)
+                    .transition(new DrawableTransitionOptions().crossFade())
+                    .into(guideImageView);
                 descTextView.setText(parseToSpan(str_desc2, str_desc2_bold));
                 break;
             case 2:
-                guideImageView.setBackgroundColor(Color.GREEN);
+                Glide.with(context)
+                    .load(R.drawable.img_guide3)
+                    .placeholder(img_placeholder)
+                    .error(img_placeholder)
+                    .transition(new DrawableTransitionOptions().crossFade())
+                    .into(guideImageView);
                 descTextView.setText(parseToSpan(str_desc3, str_desc3_bold));
                 break;
             case 3:
-                guideImageView.setBackgroundColor(Color.BLUE);
+                Glide.with(context)
+                    .load(R.drawable.img_guide4)
+                    .placeholder(img_placeholder)
+                    .error(img_placeholder)
+                    .transition(new DrawableTransitionOptions().crossFade())
+                    .into(guideImageView);
                 descTextView.setText(parseToSpan(str_desc4, str_desc4_bold));
                 break;
         }

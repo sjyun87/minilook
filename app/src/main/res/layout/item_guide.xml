@@ -17,7 +17,8 @@
         android:id="@+id/layout_bottom_panel"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_104"
-        android:background="@color/color_FFFFFFFF"
+        android:background="@color/color_FFF5F6F9"
+        android:elevation="@dimen/dp_10"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent">
 
