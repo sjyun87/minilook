@@ -25,6 +25,6 @@ public interface PromotionDetailPresenter extends LifecycleObserver {
 
         void setupPromotionRecyclerView();
 
-        void promotionRefresh();
+        void promotionRefresh(int start, int rows);
     }
 }

@@ -11,9 +11,10 @@ import butterknife.BindView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.event.EventDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 
-public class EventItemVH extends BaseViewHolder<String> {
+public class EventItemVH extends BaseViewHolder<EventDataModel> {
 
     @BindView(R.id.img_thumb) ImageView thumbImageView;
 
@@ -24,11 +25,11 @@ public class EventItemVH extends BaseViewHolder<String> {
             .inflate(R.layout.item_event, (ViewGroup) itemView, false));
     }
 
-    @Override public void bind(String $data) {
+    @Override public void bind(EventDataModel $data) {
         super.bind($data);
 
         Glide.with(itemView)
-            .load(data)
+            .load(data.getThumb_url())
             .placeholder(img_placeholder_wide)
             .error(img_placeholder_wide)
             .transition(new DrawableTransitionOptions().crossFade())

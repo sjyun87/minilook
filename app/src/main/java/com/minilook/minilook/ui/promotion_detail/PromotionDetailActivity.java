@@ -105,8 +105,8 @@ public class PromotionDetailActivity extends BaseActivity implements PromotionDe
         promotionRecyclerView.addOnScrollListener(scrollListener);
     }
 
-    @Override public void promotionRefresh() {
-        promotionAdapterView.refresh();
+    @Override public void promotionRefresh(int start, int rows) {
+        promotionAdapterView.refresh(start, rows);
     }
 
     @Override public void setupThumb(String url) {
@@ -121,8 +121,6 @@ public class PromotionDetailActivity extends BaseActivity implements PromotionDe
     @Override public void setupEventImage(String url) {
         Glide.with(this)
             .load(url)
-            .placeholder(img_placeholder)
-            .error(img_placeholder)
             .transition(new DrawableTransitionOptions().crossFade())
             .into(eventImageView);
     }

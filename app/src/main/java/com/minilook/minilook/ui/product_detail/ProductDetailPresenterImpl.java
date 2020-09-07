@@ -6,6 +6,7 @@ import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.product.ProductColorDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.product.ProductStockModel;
+import com.minilook.minilook.data.model.review.ReviewDataModel;
 import com.minilook.minilook.data.network.product.ProductRequest;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.data.type.DisplayCode;
@@ -26,6 +27,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     private final View view;
     private final int id;
     private final BaseAdapterDataModel<String> productImageAdapter;
+    private final BaseAdapterDataModel<ReviewDataModel> reviewAdapter;
     private final BaseAdapterDataModel<ProductDataModel> relatedProductsAdapter;
     private final ProductRequest productRequest;
 
@@ -37,6 +39,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         view = args.getView();
         id = args.getId();
         productImageAdapter = args.getProductImageAdapter();
+        reviewAdapter = args.getReviewAdapter();
         relatedProductsAdapter = args.getRelatedProductAdapter();
         productRequest = new ProductRequest();
     }
@@ -45,6 +48,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         view.setupProductImageViewPager();
         view.setupTabLayout();
         view.setupWebView();
+        view.setupReviewRecyclerView();
         view.setupRelatedProductRecyclerView();
 
         reqProductDetail();
@@ -151,7 +155,13 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         view.setupInfoServiceCenter(data.getInfo_service_center());
 
         view.setupReviewCount(StringUtil.toDigit(data.getReview_cnt()));
-        // 리뷰 화면 들어가야함
+
+        List<ReviewDataModel> reviews = data.getReviews();
+        if (reviews != null) {
+            reviewAdapter.set(data.getReviews());
+            view.reviewRefresh();
+            view.showReviewContentsPanel();
+        }
 
         view.setupQuestionCount(StringUtil.toDigit(data.getQuestion_cnt()));
 

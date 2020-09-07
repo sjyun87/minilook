@@ -13,16 +13,15 @@ public class PromotionRequest extends BaseRequest<PromotionService> {
         return PromotionService.class;
     }
 
-    public Single<BaseDataModel> getPromotionDetail(int promotion_id, String sortCode) {
+    public Single<BaseDataModel> getPromotionDetail(int promotion_id) {
         return getApi().getPromotionDetail(promotion_id,
-            createRequestBody(parseToPromotionJson(promotion_id, sortCode)));
+            createRequestBody(parseToPromotionJson(promotion_id)));
     }
 
-    private Map<String, Object> parseToPromotionJson(int promotion_id, String sortCode) {
+    private Map<String, Object> parseToPromotionJson(int promotion_id) {
         Map<String, Object> jsonMap = new HashMap<>();
         if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getUserId());
         jsonMap.put("pageSize", 0);
-        jsonMap.put("productOrderByCode", sortCode);
         jsonMap.put("promotionNo", promotion_id);
         return jsonMap;
     }

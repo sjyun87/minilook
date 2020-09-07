@@ -52,12 +52,11 @@ public class PromotionDetailPresenterImpl extends BasePresenterImpl implements P
     }
 
     private void reqPromotionDetail() {
-        addDisposable(
-            promotionRequest.getPromotionDetail(promotionId, App.getInstance().getSortCodes().get(0).getCode())
-                .compose(Transformer.applySchedulers())
-                .filter(data -> data.getCode().equals(HttpCode.OK))
-                .map(data -> gson.fromJson(data.getData(), PromotionDataModel.class))
-                .subscribe(this::resPromotion, Timber::e)
+        addDisposable(promotionRequest.getPromotionDetail(promotionId)
+            .compose(Transformer.applySchedulers())
+            .filter(data -> data.getCode().equals(HttpCode.OK))
+            .map(data -> gson.fromJson(data.getData(), PromotionDataModel.class))
+            .subscribe(this::resPromotion, Timber::e)
         );
     }
 
@@ -81,7 +80,8 @@ public class PromotionDetailPresenterImpl extends BasePresenterImpl implements P
 
     private void resTogetherPromotion(List<PromotionDataModel> data) {
         latestPromotionId = data.get(data.size() - 1).getPromotion_id();
-        promotionAdapter.set(data);
-        view.promotionRefresh();
+        int start = promotionAdapter.getSize();
+        promotionAdapter.addAll(data);
+        view.promotionRefresh(start, data.size());
     }
 }

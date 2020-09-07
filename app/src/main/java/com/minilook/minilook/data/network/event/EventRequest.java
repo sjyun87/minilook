@@ -3,6 +3,8 @@ package com.minilook.minilook.data.network.event;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EventRequest extends BaseRequest<EventService> {
 
@@ -11,18 +13,17 @@ public class EventRequest extends BaseRequest<EventService> {
     }
 
     public Single<BaseDataModel> getEventDetail(int event_id) {
-        return getApi().getEventDetail(event_id);
+        return getApi().getEventDetail(event_id, createRequestBody(new HashMap<>()));
     }
 
-    //public Single<BaseDataModel> getPromotions(int promotion_id, int rows, int latestPromotionId) {
-    //    return getApi().getPromotions(createRequestBody(parseToTogetherJson(promotion_id, rows, latestPromotionId)));
-    //}
-    //
-    //private Map<String, Object> parseToTogetherJson(int promotion_id, int rows, int latest_id) {
-    //    Map<String, Object> jsonMap = new HashMap<>();
-    //    if (latest_id != -1) jsonMap.put("pagePromotionNo", latest_id);
-    //    jsonMap.put("pageSize", rows);
-    //    jsonMap.put("promotionNo", promotion_id);
-    //    return jsonMap;
-    //}
+    public Single<BaseDataModel> getEvents(int latest_id, int rows) {
+        return getApi().getEvents(createRequestBody(parseToJson(latest_id, rows)));
+    }
+
+    private Map<String, Object> parseToJson(int latest_id, int rows) {
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("pageSize", rows);
+        jsonMap.put("pageEventNo", latest_id);
+        return jsonMap;
+    }
 }

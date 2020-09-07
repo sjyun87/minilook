@@ -34,6 +34,10 @@ public interface ProductDetailPresenter extends LifecycleObserver {
 
         void relatedProductRefresh();
 
+        void setupReviewRecyclerView();
+
+        void reviewRefresh();
+
         void showRelatedPanel();
 
         void hideRelatedPanel();
@@ -81,6 +85,8 @@ public interface ProductDetailPresenter extends LifecycleObserver {
         void setupProductDetail(String htmlText);
 
         void setupReviewCount(String text);
+
+        void showReviewContentsPanel();
 
         void setupQuestionCount(String text);
 

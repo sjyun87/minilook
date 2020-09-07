@@ -24,11 +24,13 @@ import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
+import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.android.material.tabs.TabLayout;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductColorDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.product.ProductStockModel;
+import com.minilook.minilook.data.model.review.ReviewDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.widget.ColorView;
@@ -39,6 +41,8 @@ import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.product_detail.adapter.ProductDetailImageAdapter;
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
 import com.minilook.minilook.ui.product_detail.widget.ProductTabView;
+import com.minilook.minilook.ui.review.adapter.ReviewAdapter;
+import com.minilook.minilook.util.DimenUtil;
 import com.minilook.minilook.util.SpannableUtil;
 import com.minilook.minilook.util.StringUtil;
 import com.nex3z.flowlayout.FlowLayout;
@@ -72,6 +76,9 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     @BindView(R.id.txt_shipping_add) TextView shippingAddTextView;
     @BindView(R.id.layout_tab_panel) TabLayout tabLayout;
     @BindView(R.id.web_product_detail) WebView productDetailWebView;
+    @BindView(R.id.layout_review_contents_panel) LinearLayout reviewContentsPanel;
+    @BindView(R.id.txt_review_more) TextView reviewMoreTextView;
+    @BindView(R.id.rcv_review) RecyclerView reviewRecyclerView;
     @BindView(R.id.txt_info_style_no) TextView infoStyleNoTextView;
     @BindView(R.id.txt_info_kc_auth) TextView infoKcAuthTextView;
     @BindView(R.id.txt_info_weight) TextView infoWeightTextView;
@@ -106,6 +113,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     @BindString(R.string.base_price_percent) String format_percent;
     @BindString(R.string.product_detail_point) String format_point;
     @BindString(R.string.product_detail_point_save) String format_point_save;
+    @BindString(R.string.product_detail_review_more) String format_review_more;
     @BindArray(R.array.tab_product_detail) String[] tabNames;
 
     @BindString(R.string.product_detail_shipping_free) String str_shipping_free;
@@ -127,6 +135,8 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     private BaseAdapterDataView<String> productImageAdapterView = productImageAdapter;
     private ProductAdapter relatedProductAdapter = new ProductAdapter();
     private BaseAdapterDataView<ProductDataModel> relatedProductAdapterView = relatedProductAdapter;
+    private ReviewAdapter reviewAdapter = new ReviewAdapter();
+    private BaseAdapterDataView<ReviewDataModel> reviewAdapterView = reviewAdapter;
 
     @Override protected int getLayoutID() {
         return R.layout.activity_product_detail;
@@ -142,6 +152,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
             .view(this)
             .id(getIntent().getIntExtra("product_id", -1))
             .productImageAdapter(productImageAdapter)
+            .reviewAdapter(reviewAdapter)
             .relatedProductAdapter(relatedProductAdapter)
             .build();
     }
@@ -213,6 +224,21 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 
     @Override public void relatedProductRefresh() {
         relatedProductAdapterView.refresh();
+    }
+
+    @Override public void setupReviewRecyclerView() {
+        reviewRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        reviewRecyclerView.setAdapter(reviewAdapter);
+        DividerDecoration.builder(this)
+            .size(DimenUtil.dpToPx(this, 1))
+            .color(color_FFDBDBDB)
+            .showFirstDivider()
+            .build()
+            .addTo(reviewRecyclerView);
+    }
+
+    @Override public void reviewRefresh() {
+        reviewAdapterView.refresh();
     }
 
     @Override public void showRelatedPanel() {
@@ -327,6 +353,11 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     @Override public void setupReviewCount(String text) {
         reviewCountTextView.setText(text);
         getTabView(1).setupCount(text);
+        reviewMoreTextView.setText(String.format(format_review_more, text));
+    }
+
+    @Override public void showReviewContentsPanel() {
+        reviewContentsPanel.setVisibility(View.VISIBLE);
     }
 
     @Override public void setupQuestionCount(String text) {

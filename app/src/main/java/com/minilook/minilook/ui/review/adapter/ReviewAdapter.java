@@ -1,25 +1,25 @@
-package com.minilook.minilook.ui.event_detail.adapter;
+package com.minilook.minilook.ui.review.adapter;
 
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.minilook.minilook.data.model.event.EventDataModel;
+import com.minilook.minilook.data.model.review.ReviewDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.event_detail.viewholder.EventItemVH;
+import com.minilook.minilook.ui.review.viewholder.ReviewItemVH;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventAdapter extends RecyclerView.Adapter<EventItemVH>
-    implements BaseAdapterDataModel<EventDataModel>, BaseAdapterDataView<EventDataModel> {
+public class ReviewAdapter extends RecyclerView.Adapter<ReviewItemVH>
+    implements BaseAdapterDataModel<ReviewDataModel>, BaseAdapterDataView<ReviewDataModel> {
 
-    private List<EventDataModel> items = new ArrayList<>();
+    private List<ReviewDataModel> items = new ArrayList<>();
 
-    @NonNull @Override public EventItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new EventItemVH(parent);
+    @NonNull @Override public ReviewItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ReviewItemVH(parent);
     }
 
-    @Override public void onBindViewHolder(@NonNull EventItemVH holder, int position) {
+    @Override public void onBindViewHolder(@NonNull ReviewItemVH holder, int position) {
         holder.bind(items.get(position));
     }
 
@@ -27,36 +27,36 @@ public class EventAdapter extends RecyclerView.Adapter<EventItemVH>
         return getSize();
     }
 
-    @Override public void add(EventDataModel $item) {
+    @Override public void add(ReviewDataModel $item) {
         this.items.add($item);
     }
 
-    @Override public void add(int $index, EventDataModel $item) {
+    @Override public void add(int $index, ReviewDataModel $item) {
         this.items.add($index, $item);
     }
 
-    @Override public void addAll(List<EventDataModel> $items) {
+    @Override public void addAll(List<ReviewDataModel> $items) {
         this.items.addAll($items);
     }
 
-    @Override public void set(int $index, EventDataModel $item) {
+    @Override public void set(int $index, ReviewDataModel $item) {
         this.items.set($index, $item);
     }
 
-    @Override public void set(List<EventDataModel> $items) {
+    @Override public void set(List<ReviewDataModel> $items) {
         this.items.clear();
         this.items.addAll($items);
     }
 
-    @Override public EventDataModel get(int $index) {
+    @Override public ReviewDataModel get(int $index) {
         return this.items.get($index);
     }
 
-    @Override public List<EventDataModel> get() {
+    @Override public List<ReviewDataModel> get() {
         return this.items;
     }
 
-    @Override public int get(EventDataModel $item) {
+    @Override public int get(ReviewDataModel $item) {
         return items.indexOf($item);
     }
 
@@ -64,7 +64,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventItemVH>
         this.items.remove($index);
     }
 
-    @Override public void remove(EventDataModel $item) {
+    @Override public void remove(ReviewDataModel $item) {
         this.remove($item);
     }
 

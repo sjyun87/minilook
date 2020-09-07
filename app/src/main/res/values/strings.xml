@@ -262,6 +262,7 @@
     <string name="product_detail_shipping_conditional">해당 브랜드에서 %s원 이상 구매 시 무료배송</string>
     <string name="product_detail_shipping_add">제주도 포함 도서/산간지역은 추가배송비가 발생할 수 있습니다.</string>
     <string name="product_detail_review_title">상품리뷰</string>
+    <string name="product_detail_review_more">상품리뷰 전체보기(%s)</string>
     <string name="product_detail_question_title">상품문의</string>
     <string name="product_detail_shipping_n_refund_title">배송/환불/교환 안내</string>
     <string name="product_detail_related_products_title">함께 구매하면 좋은 상품</string>
@@ -298,6 +299,10 @@
     <string name="option_selector_selected_color">색상 - %s</string>
 
     <!--Review-->
+    <string name="review_title">상품리뷰</string>
+    <string name="review_help_button">도움 돼요</string>
+    <string name="review_help_count">%s명에게 도움이 되었습니다.</string>
+    <string name="review_help_count_b">%s명</string>
 
     <!--Review Write-->
     <string name="review_write_title">리뷰 작성</string>

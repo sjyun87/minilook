@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.event.EventDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
@@ -39,7 +40,7 @@ public class EventDetailActivity extends BaseActivity implements EventDetailPres
 
     private EventDetailPresenter presenter;
     private EventAdapter adapter = new EventAdapter();
-    private BaseAdapterDataView<String> adapterView = adapter;
+    private BaseAdapterDataView<EventDataModel> adapterView = adapter;
 
     @Override protected int getLayoutID() {
         return R.layout.activity_event_detail;
@@ -75,15 +76,13 @@ public class EventDetailActivity extends BaseActivity implements EventDetailPres
         eventRecyclerView.addOnScrollListener(scrollListener);
     }
 
-    @Override public void refresh() {
-        adapterView.refresh();
+    @Override public void refresh(int start, int rows) {
+        adapterView.refresh(start, rows);
     }
 
     @Override public void setupEventImage(String url) {
         Glide.with(this)
             .load(url)
-            .placeholder(img_placeholder)
-            .error(img_placeholder)
             .transition(new DrawableTransitionOptions().crossFade())
             .into(eventImageView);
     }

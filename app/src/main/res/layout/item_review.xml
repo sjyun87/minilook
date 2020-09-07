@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/dp_10"
+    android:paddingTop="@dimen/dp_8"
+    android:paddingEnd="@dimen/dp_10"
+    android:paddingBottom="@dimen/dp_10">
+
+    <ImageView
+        android:id="@+id/img_profile"
+        android:layout_width="@dimen/dp_20"
+        android:layout_height="@dimen/dp_20"
+        android:src="@drawable/img_default_profile"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/txt_nick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_8"
+        android:fontFamily="@font/nanum_square_b"
+        android:textColor="@color/color_FF616161"
+        android:textSize="@dimen/sp_6"
+        app:layout_constraintBottom_toTopOf="@+id/txt_regist_date"
+        app:layout_constraintLeft_toRightOf="@+id/img_profile"
+        app:layout_constraintTop_toTopOf="@+id/img_profile"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="윤성중" />
+
+    <TextView
+        android:id="@+id/txt_regist_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_6"
+        android:fontFamily="@font/nanum_square_r"
+        android:textColor="@color/color_FF616161"
+        android:textSize="@dimen/sp_6"
+        app:layout_constraintBottom_toBottomOf="@+id/img_profile"
+        app:layout_constraintLeft_toRightOf="@+id/img_profile"
+        app:layout_constraintTop_toBottomOf="@+id/txt_nick"
+        tools:text="2020.07.10" />
+
+    <TextView
+        android:id="@+id/txt_contents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:ellipsize="end"
+        android:fontFamily="@font/nanum_square_r"
+        android:lineSpacingMultiplier="1.5"
+        android:maxLines="3"
+        android:textColor="@color/color_FF000000"
+        android:textSize="@dimen/sp_7"
+        app:layout_constraintTop_toBottomOf="@+id/img_profile"
+        tools:text="우리 아이에게 딱 맞는 옷이에요. 너무 예쁘고 잘 어울리네요. 주변에서 어디서 샀냐고 많이 물어봐서 뿌듯해요." />
+
+    <LinearLayout
+        android:id="@+id/layout_help_panel"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@drawable/bg_button_border_lightgray"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_contents">
+
+        <ImageView
+            android:id="@+id/img_smile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_3"
+            android:src="@drawable/ic_smile_gray"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/txt_help"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_1"
+            android:layout_marginEnd="@dimen/dp_5"
+            android:fontFamily="@font/nanum_square_r"
+            android:lineSpacingMultiplier="1.5"
+            android:text="@string/review_help_button"
+            android:textColor="@color/color_FF616161"
+            android:textSize="@dimen/sp_6"
+            app:layout_constraintTop_toBottomOf="@+id/img_profile" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txt_help_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_6"
+        android:bufferType="spannable"
+        android:fontFamily="@font/nanum_square_r"
+        android:textColor="@color/color_FF616161"
+        android:textSize="@dimen/sp_6"
+        app:layout_constraintBottom_toBottomOf="@+id/layout_help_panel"
+        app:layout_constraintLeft_toRightOf="@+id/layout_help_panel"
+        app:layout_constraintTop_toTopOf="@+id/layout_help_panel"
+        tools:text="@string/review_help_count" />
+</androidx.constraintlayout.widget.ConstraintLayout>

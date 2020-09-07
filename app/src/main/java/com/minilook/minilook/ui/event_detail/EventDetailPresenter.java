@@ -17,6 +17,6 @@ public interface EventDetailPresenter extends LifecycleObserver {
 
         void setupRecyclerView();
 
-        void refresh();
+        void refresh(int start, int rows);
     }
 }
