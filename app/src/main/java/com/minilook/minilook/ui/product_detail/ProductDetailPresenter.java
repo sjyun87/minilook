@@ -120,6 +120,18 @@ public interface ProductDetailPresenter extends LifecycleObserver {
 
         void collapseInfoMorePanel();
 
+        void showDisplayLabel(String label);
+
+        void disableBuyButton(String label);
+
+        void setupPriceOriginNoDisplayColor();
+
+        void setupDiscountPercentNoDisplayColor();
+
+        void setupPriceNoDisplayColor();
+
+        void hideScrap();
+
         void navigateToBrandDetail(int brand_id);
     }
 }

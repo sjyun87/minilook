@@ -164,6 +164,24 @@
                 tools:text="52,000" />
 
             <TextView
+                android:id="@+id/txt_display_label"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_9"
+                android:layout_marginStart="@dimen/dp_6"
+                android:background="@drawable/bg_button_border_lightgray"
+                android:fontFamily="@font/nanum_square_r"
+                android:gravity="center"
+                android:paddingStart="@dimen/dp_4"
+                android:paddingEnd="@dimen/dp_4"
+                android:textColor="@color/color_FFA9A9A9"
+                android:textSize="@dimen/sp_6"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_price"
+                app:layout_constraintLeft_toRightOf="@+id/txt_price"
+                app:layout_constraintTop_toTopOf="@+id/txt_price"
+                tools:text="품절" />
+
+            <TextView
                 android:id="@+id/txt_point_caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -730,6 +748,7 @@
             android:background="@color/color_FFF5F6F9"
             android:paddingStart="@dimen/dp_8"
             android:paddingEnd="@dimen/dp_8"
+            android:visibility="gone"
             android:src="@drawable/ic_share"
             tools:ignore="ContentDescription" />
 

@@ -8,6 +8,7 @@ import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.product.ProductStockModel;
 import com.minilook.minilook.data.network.product.ProductRequest;
 import com.minilook.minilook.data.rx.Transformer;
+import com.minilook.minilook.data.type.DisplayCode;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
@@ -161,6 +162,16 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
             view.showRelatedPanel();
         } else {
             view.hideRelatedPanel();
+        }
+
+        int displayCode = data.getDisplay_code();
+        if (displayCode != DisplayCode.DISPLAY.getValue()) {
+            view.showDisplayLabel(data.getDisplay_label());
+            view.disableBuyButton(data.getDisplay_label());
+            view.setupPriceOriginNoDisplayColor();
+            view.setupDiscountPercentNoDisplayColor();
+            view.setupPriceNoDisplayColor();
+            if (displayCode == DisplayCode.STOP_SELLING.getValue()) view.hideScrap();
         }
     }
 

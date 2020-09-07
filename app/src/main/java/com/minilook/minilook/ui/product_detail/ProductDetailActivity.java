@@ -27,26 +27,24 @@ import butterknife.OnClick;
 import com.google.android.material.tabs.TabLayout;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductColorDataModel;
-import com.minilook.minilook.data.model.product.ProductSizeDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.product.ProductStockModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.widget.ColorView;
+import com.minilook.minilook.ui.base.widget.SizeView;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.option_selector.OptionSelector;
-import com.minilook.minilook.ui.product_detail.widget.ProductTabView;
-import com.minilook.minilook.ui.base.widget.SizeView;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.product_detail.adapter.ProductDetailImageAdapter;
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
+import com.minilook.minilook.ui.product_detail.widget.ProductTabView;
 import com.minilook.minilook.util.SpannableUtil;
 import com.minilook.minilook.util.StringUtil;
 import com.nex3z.flowlayout.FlowLayout;
 import java.util.List;
 import java.util.Objects;
 import me.didik.component.StickyNestedScrollView;
-import timber.log.Timber;
 
 public class ProductDetailActivity extends BaseActivity implements ProductDetailPresenter.View {
 
@@ -67,6 +65,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     @BindView(R.id.txt_price_origin) TextView priceOriginTextView;
     @BindView(R.id.txt_discount_percent) TextView discountPercentTextView;
     @BindView(R.id.txt_price) TextView priceTextView;
+    @BindView(R.id.txt_display_label) TextView displayLabelTextView;
     @BindView(R.id.txt_point_save) TextView pointTextView;
     @BindView(R.id.txt_shipping) TextView shippingTextView;
     @BindView(R.id.txt_shipping_conditional) TextView shippingConditionalTextView;
@@ -99,6 +98,9 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     @BindView(R.id.layout_related_panel) LinearLayout relatedPanel;
     @BindView(R.id.rcv_related_product) RecyclerView relatedProductRecyclerView;
 
+    @BindView(R.id.img_scrap) ImageView scrapImageView;
+    @BindView(R.id.txt_buy) TextView buyTextView;
+
     @BindView(R.id.option_selector) OptionSelector optionSelector;
 
     @BindString(R.string.base_price_percent) String format_percent;
@@ -117,6 +119,8 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     @BindDrawable(R.drawable.ic_arrow_up_xs) Drawable img_arrow_up;
 
     @BindColor(R.color.color_FF8140E5) int color_FF8140E5;
+    @BindColor(R.color.color_FFA9A9A9) int color_FFA9A9A9;
+    @BindColor(R.color.color_FFDBDBDB) int color_FFDBDBDB;
 
     private ProductDetailPresenter presenter;
     private ProductDetailImageAdapter productImageAdapter = new ProductDetailImageAdapter();
@@ -404,6 +408,33 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         infoMorePanel.setVisibility(View.GONE);
         expandTextView.setText(str_expand);
         expandImageView.setImageDrawable(img_arrow_down);
+    }
+
+    @Override public void showDisplayLabel(String label) {
+        displayLabelTextView.setText(label);
+        displayLabelTextView.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void disableBuyButton(String label) {
+        buyTextView.setText(label);
+        buyTextView.setBackgroundColor(color_FFDBDBDB);
+        buyTextView.setEnabled(false);
+    }
+
+    @Override public void setupPriceOriginNoDisplayColor() {
+        priceOriginTextView.setTextColor(color_FFA9A9A9);
+    }
+
+    @Override public void setupDiscountPercentNoDisplayColor() {
+        discountPercentTextView.setTextColor(color_FFA9A9A9);
+    }
+
+    @Override public void setupPriceNoDisplayColor() {
+        priceTextView.setTextColor(color_FFA9A9A9);
+    }
+
+    @Override public void hideScrap() {
+        scrapImageView.setVisibility(View.GONE);
     }
 
     @Override public void navigateToBrandDetail(int brand_id) {

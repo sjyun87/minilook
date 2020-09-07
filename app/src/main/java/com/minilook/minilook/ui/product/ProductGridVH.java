@@ -18,7 +18,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.RxBusEvent;
-import com.minilook.minilook.data.type.DisplayType;
+import com.minilook.minilook.data.type.DisplayCode;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
@@ -75,7 +75,7 @@ public class ProductGridVH extends BaseViewHolder<ProductDataModel> {
         productNameTextView.setText(data.getProduct_name());
 
         if (data.getDisplay_code() != 0) {
-            if (data.getDisplay_code() == DisplayType.DISPLAY.getValue()) {
+            if (data.getDisplay_code() == DisplayCode.DISPLAY.getValue()) {
                 hideCurtain();
                 hideDisplayLabel();
             } else {
