@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindColor;
@@ -22,7 +23,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.order.ShoppingBagDataModel;
+import com.minilook.minilook.data.model.order.OrderBrandDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.shoppingbag.adapter.ShoppingBagProductAdapter;
 import com.minilook.minilook.util.DimenUtil;
@@ -30,11 +31,12 @@ import com.minilook.minilook.util.SpannableUtil;
 import com.minilook.minilook.util.StringUtil;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
 
-public class ShoppingBagItemVH extends BaseViewHolder<ShoppingBagDataModel> {
+public class ShoppingBagItemVH extends BaseViewHolder<OrderBrandDataModel> {
 
     @BindView(R.id.img_brand_logo) ImageView logoImageView;
     @BindView(R.id.txt_brand_name) TextView nameTextView;
     @BindView(R.id.rcv_product) RecyclerView recyclerView;
+    @BindView(R.id.layout_billing_panel) ConstraintLayout billingPanel;
     @BindView(R.id.txt_shipping_price) TextView shippingPriceTextView;
     @BindView(R.id.txt_shipping_limit) TextView shippingLimitTextView;
     @BindView(R.id.txt_remain_shipping_free) TextView remainShippingFreeTextView;
@@ -77,7 +79,7 @@ public class ShoppingBagItemVH extends BaseViewHolder<ShoppingBagDataModel> {
             .addTo(recyclerView);
     }
 
-    @Override public void bind(ShoppingBagDataModel $data) {
+    @Override public void bind(OrderBrandDataModel $data) {
         super.bind($data);
 
         Glide.with(context)
@@ -94,23 +96,31 @@ public class ShoppingBagItemVH extends BaseViewHolder<ShoppingBagDataModel> {
         productAdapter.set(data.getProducts());
         productAdapter.refresh();
 
-        shippingLimitTextView.setText(String.format(format_shipping_limit, (data.getShipping_limit() / 10000)));
-        String shippingPrice = data.isShippingFree() ? str_shipping_free : StringUtil.toDigit(data.getShipping_price());
-        shippingPriceTextView.setText(shippingPrice);
+        if (data.isBillDisplay()) {
+            billingPanel.setVisibility(View.VISIBLE);
+            shippingLimitTextView.setText(
+                String.format(format_shipping_limit, (data.getFree_shipping_conditions() / 10000)));
+            String shippingPrice =
+                data.isShippingFree() ? str_shipping_free : StringUtil.toDigit(data.getShipping_price());
+            shippingPriceTextView.setText(shippingPrice);
 
-        if (data.isShippingFree()) {
-            remainShippingFreeTextView.setVisibility(View.GONE);
+            if (data.isShippingFree()) {
+                remainShippingFreeTextView.setVisibility(View.GONE);
+            } else {
+                remainShippingFreeTextView.setText(getSpanText(data.getFree_shipping_left()));
+                remainShippingFreeTextView.setVisibility(View.VISIBLE);
+            }
+
+            productPriceTextView.setText(StringUtil.toDigit(data.getTotal_products_price()));
+
+            int finalShippingPrice = data.isShippingFree() ? 0 : data.getShipping_price();
+            finalShippingPriceTextView.setText(
+                String.format(format_final_shipping_price, StringUtil.toDigit(finalShippingPrice)));
+
+            totalPriceTextView.setText(StringUtil.toDigit(data.getTotal_products_price() + finalShippingPrice));
         } else {
-            remainShippingFreeTextView.setText(getSpanText(data.getRemainShippingFree()));
-            remainShippingFreeTextView.setVisibility(View.VISIBLE);
+            billingPanel.setVisibility(View.GONE);
         }
-
-        productPriceTextView.setText(StringUtil.toDigit(data.getProductsPrice()));
-
-        int finalShippingPrice = data.isShippingFree() ? 0 : data.getShipping_price();
-        finalShippingPriceTextView.setText(String.format(format_final_shipping_price, StringUtil.toDigit(finalShippingPrice)));
-
-        totalPriceTextView.setText(StringUtil.toDigit(data.getProductsPrice() + finalShippingPrice));
     }
 
     private SpannableString getSpanText(int remainShippingFree) {
@@ -118,7 +128,8 @@ public class ShoppingBagItemVH extends BaseViewHolder<ShoppingBagDataModel> {
         String price = String.format(str_remain_shipping_free_bold, StringUtil.toDigit(remainShippingFree));
 
         SpannableString fontSpan = SpannableUtil.fontSpan(total, price, font_bold);
-        SpannableString colorSpan = SpannableUtil.foregroundColorSpan(fontSpan, str_remain_shipping_free_purple, color_FF6200EA);
+        SpannableString colorSpan =
+            SpannableUtil.foregroundColorSpan(fontSpan, str_remain_shipping_free_purple, color_FF6200EA);
         return colorSpan;
     }
 }

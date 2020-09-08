@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
-import com.minilook.minilook.data.model.product.GoodsDataModel;
+import com.minilook.minilook.data.model.order.OrderOptionDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.product.ProductOptionDataModel;
 import com.minilook.minilook.data.model.product.ProductStockModel;
@@ -18,7 +18,6 @@ import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
 import com.minilook.minilook.util.StringUtil;
 import io.reactivex.rxjava3.functions.Function;
-import io.reactivex.rxjava3.functions.Predicate;
 import java.util.ArrayList;
 import java.util.List;
 import timber.log.Timber;
@@ -94,12 +93,12 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         isInfoPanelExpanded = !isInfoPanelExpanded;
     }
 
-    @Override public void onShoppingBagClick(List<GoodsDataModel> goodsData) {
+    @Override public void onShoppingBagClick(List<OrderOptionDataModel> goodsData) {
         reqAddShoppingBag(goodsData);
         view.hideOptionSelector();
     }
 
-    private void reqAddShoppingBag(List<GoodsDataModel> goodsData) {
+    private void reqAddShoppingBag(List<OrderOptionDataModel> goodsData) {
         addDisposable(orderRequest.addShoppingBag(goodsData)
             .compose(Transformer.applySchedulers())
             .subscribe(this::resAddShoppingBag, Timber::e));

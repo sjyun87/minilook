@@ -3,7 +3,7 @@ package com.minilook.minilook.ui.shoppingbag.adapter;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.minilook.minilook.data.model.product.GoodsDataModel;
+import com.minilook.minilook.data.model.order.OrderOptionDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.shoppingbag.viewholder.ShoppingBagGoodsItemVH;
@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingBagGoodsAdapter extends RecyclerView.Adapter<ShoppingBagGoodsItemVH>
-    implements BaseAdapterDataModel<GoodsDataModel>, BaseAdapterDataView<GoodsDataModel> {
+    implements BaseAdapterDataModel<OrderOptionDataModel>, BaseAdapterDataView<OrderOptionDataModel> {
 
-    private List<GoodsDataModel> items = new ArrayList<>();
+    private List<OrderOptionDataModel> items = new ArrayList<>();
 
     @NonNull @Override public ShoppingBagGoodsItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ShoppingBagGoodsItemVH(parent);
@@ -27,36 +27,36 @@ public class ShoppingBagGoodsAdapter extends RecyclerView.Adapter<ShoppingBagGoo
         return getSize();
     }
 
-    @Override public void add(GoodsDataModel $item) {
+    @Override public void add(OrderOptionDataModel $item) {
         this.items.add($item);
     }
 
-    @Override public void add(int $index, GoodsDataModel $item) {
+    @Override public void add(int $index, OrderOptionDataModel $item) {
         this.items.add($index, $item);
     }
 
-    @Override public void addAll(List<GoodsDataModel> $items) {
+    @Override public void addAll(List<OrderOptionDataModel> $items) {
         this.items.addAll($items);
     }
 
-    @Override public void set(int $index, GoodsDataModel $item) {
+    @Override public void set(int $index, OrderOptionDataModel $item) {
         this.items.set($index, $item);
     }
 
-    @Override public void set(List<GoodsDataModel> $items) {
+    @Override public void set(List<OrderOptionDataModel> $items) {
         this.items.clear();
         this.items.addAll($items);
     }
 
-    @Override public GoodsDataModel get(int $index) {
+    @Override public OrderOptionDataModel get(int $index) {
         return this.items.get($index);
     }
 
-    @Override public List<GoodsDataModel> get() {
+    @Override public List<OrderOptionDataModel> get() {
         return this.items;
     }
 
-    @Override public int get(GoodsDataModel $item) {
+    @Override public int get(OrderOptionDataModel $item) {
         return items.indexOf($item);
     }
 
@@ -64,7 +64,7 @@ public class ShoppingBagGoodsAdapter extends RecyclerView.Adapter<ShoppingBagGoo
         this.items.remove($index);
     }
 
-    @Override public void remove(GoodsDataModel $item) {
+    @Override public void remove(OrderOptionDataModel $item) {
         this.items.remove($item);
     }
 

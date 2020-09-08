@@ -3,7 +3,7 @@ package com.minilook.minilook.data.network.order;
 import com.google.gson.JsonObject;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.model.base.BaseDataModel;
-import com.minilook.minilook.data.model.product.GoodsDataModel;
+import com.minilook.minilook.data.model.order.OrderOptionDataModel;
 import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
 import java.util.ArrayList;
@@ -22,25 +22,47 @@ public class OrderRequest extends BaseRequest<OrderService> {
         return getApi().getShoppingBag(user_id);
     }
 
-    public Single<BaseDataModel> addShoppingBag(List<GoodsDataModel> goodsData) {
+    public Single<BaseDataModel> addShoppingBag(List<OrderOptionDataModel> goodsData) {
         int user_id = App.getInstance().getUserId();
         return getApi().addShoppingBag(user_id, createRequestBody(parseToAddJson(goodsData)));
     }
 
-    private Map<String, Object> parseToAddJson(List<GoodsDataModel> goodsData) {
+    private Map<String, Object> parseToAddJson(List<OrderOptionDataModel> goodsData) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("options", getOptions(goodsData));
         return jsonMap;
     }
 
-    private Object getOptions(List<GoodsDataModel> goodsData) {
+    private Object getOptions(List<OrderOptionDataModel> goodsData) {
         List<JsonObject> options = new ArrayList<>();
-        for (GoodsDataModel model : goodsData) {
+        for (OrderOptionDataModel model : goodsData) {
             JsonObject json = new JsonObject();
-            json.addProperty("optionNo", model.getGoods_id());
-            json.addProperty("quantity", model.getSelected_quantity());
+            json.addProperty("optionNo", model.getOption_id());
+            json.addProperty("quantity", model.getQuantity());
             options.add(json);
         }
         return options;
+    }
+
+    public Single<BaseDataModel> updateGoodsQuantity(int shoppingbag_id, int quantity) {
+        int user_id = App.getInstance().getUserId();
+        return getApi().updateGoodsQuantity(user_id, shoppingbag_id, createRequestBody(parseToUpdateJson(quantity)));
+    }
+
+    private Map<String, Object> parseToUpdateJson(int quantity) {
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("quantity", quantity);
+        return jsonMap;
+    }
+
+    public Single<BaseDataModel> deleteShoppingBag(List<Integer> deleteItem) {
+        int user_id = App.getInstance().getUserId();
+        return getApi().deleteShoppingBag(user_id, createRequestBody(parseToDeleteJson(deleteItem)));
+    }
+
+    private Map<String, Object> parseToDeleteJson(List<Integer> deleteItem) {
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("carts", deleteItem);
+        return jsonMap;
     }
 }

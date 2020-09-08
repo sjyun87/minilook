@@ -10,6 +10,7 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.kakao.sdk.common.KakaoSdk;
 import com.minilook.minilook.data.common.PrefsKey;
 import com.minilook.minilook.data.model.common.SortDataModel;
+import com.minilook.minilook.data.model.order.OrderBrandDataModel;
 import com.minilook.minilook.data.model.user.UserDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.RxBusEvent;
@@ -28,6 +29,7 @@ public class App extends Application {
     private String snsType;
     private String pushToken;
     @Getter @Setter private List<SortDataModel> sortCodes;
+    @Getter @Setter private List<OrderBrandDataModel> orderItems;
 
     @Override public void onCreate() {
         super.onCreate();
