@@ -20,7 +20,7 @@ public class BrandRequest extends BaseRequest<BrandService> {
 
     private Map<String, Object> parseToJson(List<String> styles) {
         Map<String, Object> jsonMap = new HashMap<>();
-        if (App.getInstance().isLogin()) jsonMap.put("memberNp", App.getInstance().getUserId());
+        if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getUserId());
         jsonMap.put("styleCode", styles);
         return jsonMap;
     }

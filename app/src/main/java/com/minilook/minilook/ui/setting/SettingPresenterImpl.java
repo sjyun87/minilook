@@ -67,6 +67,10 @@ public class SettingPresenterImpl extends BasePresenterImpl implements SettingPr
         view.navigateToWebView(URLKeys.URL_PRIVACY_POLICY);
     }
 
+    @Override public void onAppQuestionClick() {
+        view.navigateToSendEmail();
+    }
+
     private void setupUser() {
         view.showOrderInfoPanel();
         view.hideLoginButton();

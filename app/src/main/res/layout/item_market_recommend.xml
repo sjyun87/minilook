@@ -41,6 +41,7 @@
         android:paddingTop="@dimen/dp_8"
         android:paddingEnd="@dimen/dp_8"
         android:src="@drawable/ic_arrow_more"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/txt_title"
         app:layout_constraintRight_toRightOf="parent"
         tools:ignore="ContentDescription" />

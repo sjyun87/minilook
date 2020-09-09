@@ -2,6 +2,8 @@ package com.minilook.minilook.ui.setting;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.view.View;
 import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -19,6 +21,11 @@ import com.minilook.minilook.ui.main.MainActivity;
 import com.minilook.minilook.ui.setting.di.SettingArguments;
 import com.minilook.minilook.ui.webview.WebViewActivity;
 import com.suke.widget.SwitchButton;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import timber.log.Timber;
 
 public class SettingActivity extends BaseActivity implements SettingPresenter.View {
 
@@ -41,6 +48,8 @@ public class SettingActivity extends BaseActivity implements SettingPresenter.Vi
     @BindString(R.string.base_toast_marketing_info_disagree) String str_toast_marketing_disagree;
     @BindString(R.string.base_toast_order_info_agree) String str_toast_order_agree;
     @BindString(R.string.base_toast_order_info_disagree) String str_toast_order_disagree;
+    @BindString(R.string.support_email) String support_email;
+    @BindString(R.string.support_subject) String support_email_title;
 
     private SettingPresenter presenter;
 
@@ -143,6 +152,40 @@ public class SettingActivity extends BaseActivity implements SettingPresenter.Vi
         MainActivity.start(this, BottomBar.POSITION_LOOKBOOK);
     }
 
+    @Override public void navigateToSendEmail() {
+        Intent emailSelectorIntent = new Intent(Intent.ACTION_SENDTO);
+        emailSelectorIntent.setData(Uri.parse("mailto:"));
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { support_email });
+        intent.putExtra(Intent.EXTRA_SUBJECT, support_email_title);
+        intent.putExtra(Intent.EXTRA_TEXT,
+            String.format(getEmailContent(), Build.VERSION.SDK_INT, BuildConfig.VERSION_NAME, Build.DEVICE));
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        intent.setSelector(emailSelectorIntent);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+
+    private String getEmailContent() {
+        InputStream inputStream = getResources().openRawResource(R.raw.support_email_contents);
+        InputStreamReader stream = new InputStreamReader(inputStream);
+        BufferedReader br = new BufferedReader(stream);
+        String line;
+        StringBuilder sb = new StringBuilder();
+        try {
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+                sb.append("\n");
+            }
+            return sb.toString();
+        } catch (IOException e) {
+            Timber.e(e);
+            return "";
+        }
+    }
+
     @OnClick(R.id.txt_terms_of_use)
     void onTermsOfUseClick() {
         presenter.onTermsOfUseClick();
@@ -151,6 +194,11 @@ public class SettingActivity extends BaseActivity implements SettingPresenter.Vi
     @OnClick(R.id.txt_privacy_policy)
     void onPrivacyPolicyClick() {
         presenter.onPrivacyPolicyClick();
+    }
+
+    @OnClick(R.id.txt_app_question)
+    void onAppQuestionClick() {
+        presenter.onAppQuestionClick();
     }
 
     @OnClick(R.id.txt_login)

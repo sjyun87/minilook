@@ -4,8 +4,11 @@ import android.view.View;
 import android.widget.LinearLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindColor;
+import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.OnClick;
+import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
@@ -22,6 +25,10 @@ public class ScrapbookBrandFragment extends BaseFragment implements ScrapbookBra
 
     @BindView(R.id.rcv_brand) RecyclerView recyclerView;
     @BindView(R.id.layout_empty_panel) LinearLayout emptyPanel;
+
+    @BindDimen(R.dimen.dp_6) int dp_6;
+
+    @BindColor(R.color.color_FFF5F5F5) int color_FFF5F5F5;
 
     private ScrapbookBrandPresenter presenter;
     private ScrapbookBrandAdapter adapter = new ScrapbookBrandAdapter();
@@ -51,6 +58,11 @@ public class ScrapbookBrandFragment extends BaseFragment implements ScrapbookBra
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+        DividerDecoration.builder(requireContext())
+            .size(dp_6)
+            .color(color_FFF5F5F5)
+            .build()
+            .addTo(recyclerView);
         EndlessOnScrollListener scrollListener =
             EndlessOnScrollListener.builder()
                 .layoutManager(layoutManager)

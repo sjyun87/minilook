@@ -27,6 +27,8 @@ public interface SettingPresenter extends LifecycleObserver {
 
     void onPrivacyPolicyClick();
 
+    void onAppQuestionClick();
+
     interface View {
 
         void setupInfoSwitchButton();
@@ -58,5 +60,7 @@ public interface SettingPresenter extends LifecycleObserver {
         void navigateToWebView(String url);
 
         void navigateToMain();
+
+        void navigateToSendEmail();
     }
 }
