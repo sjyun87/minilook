@@ -15,4 +15,14 @@ public class IpageRequest extends BaseRequest<IpageService> {
         int user_id = App.getInstance().getUserId();
         return getApi().getIpage(user_id);
     }
+
+    public Single<BaseDataModel> getPointDetail() {
+        int user_id = App.getInstance().getUserId();
+        return getApi().getPointDetail(user_id);
+    }
+
+    public Single<BaseDataModel> getCoupons() {
+        int user_id = App.getInstance().getUserId();
+        return getApi().getCoupons(user_id);
+    }
 }

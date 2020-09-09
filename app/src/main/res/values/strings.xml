@@ -149,10 +149,15 @@
     <!--Point-->
     <string name="point_title">포인트</string>
     <string name="point_caption">포인트</string>
+    <string name="point_empty">포인트 내역이 없습니다.</string>
 
     <!--Coupon-->
     <string name="coupon_title">쿠폰</string>
     <string name="coupon_info">쿠폰 사용 시 유의사항</string>
+    <string name="coupon_empty">보유한 쿠폰이 없습니다.</string>
+    <string name="coupon_use_condition">%s원 이상 구매시 사용가능</string>
+    <string name="coupon_expiration_date">%s 만료예정</string>
+    <string name="coupon_expiration">사용만료</string>
 
     <!--ShoppingBag-->
     <string name="shoppingbag_title">장바구니</string>

@@ -2,12 +2,16 @@ package com.minilook.minilook.ui.point;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
+import android.widget.LinearLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.point.di.PointArguments;
+import com.minilook.minilook.ui.webview.WebViewActivity;
 
 public class PointActivity extends BaseActivity implements PointPresenter.View {
 
@@ -19,6 +23,7 @@ public class PointActivity extends BaseActivity implements PointPresenter.View {
     }
 
     @BindView(R.id.rcv_point_history) RecyclerView recyclerView;
+    @BindView(R.id.layout_empty_panel) LinearLayout emptyPanel;
 
     private PointPresenter presenter;
 
@@ -39,5 +44,18 @@ public class PointActivity extends BaseActivity implements PointPresenter.View {
 
     @Override public void setupRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override public void emptyPanel() {
+        emptyPanel.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void navigateToWebView(String url) {
+        WebViewActivity.start(this, url);
+    }
+
+    @OnClick(R.id.layout_point_info_panel)
+    void onPointInfoClick() {
+        presenter.onPointInfoClick();
     }
 }

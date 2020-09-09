@@ -28,7 +28,7 @@ public class MemberRequest extends BaseRequest<MemberService> {
             jsonMap.put("snsAccount", App.getInstance().getSnsId());
             jsonMap.put("snsTypeCode", App.getInstance().getSnsType());
         }
-        jsonMap.put("token", App.getInstance().getPushToken());
+        jsonMap.put("pushToken", App.getInstance().getPushToken());
         return jsonMap;
     }
 
@@ -83,7 +83,7 @@ public class MemberRequest extends BaseRequest<MemberService> {
     private Map<String, Object> parseToMarketingInfoJson(boolean enable) {
         Map<String, Object> jsonMap = new HashMap<>();
         if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getUserId());
-        jsonMap.put("token", App.getInstance().getPushToken());
+        jsonMap.put("pushToken", App.getInstance().getPushToken());
         jsonMap.put("isMarketingAgree", enable);
         return jsonMap;
     }

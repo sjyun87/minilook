@@ -10,4 +10,12 @@ public interface IpageService {
     @GET("/api/members/{user_id}") Single<BaseDataModel> getIpage(
         @Path("user_id") int userId
     );
+
+    @GET("/api/members/{user_id}/points/histories") Single<BaseDataModel> getPointDetail(
+        @Path("user_id") int userId
+    );
+
+    @GET("/api/members/{user_id}/coupons\n") Single<BaseDataModel> getCoupons(
+        @Path("user_id") int userId
+    );
 }

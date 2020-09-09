@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/color_FFF5F5F5">
 
     <com.minilook.minilook.ui.base.widget.TitleBar
         android:id="@+id/titlebar"
@@ -14,11 +15,65 @@
         app:showBack="true"
         app:showTitle="true" />
 
+    <LinearLayout
+        android:id="@+id/layout_coupon_info_panel"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_20"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/dp_10"
+        android:paddingEnd="@dimen/dp_10"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titlebar"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_info"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/txt_point_caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_2"
+            android:fontFamily="@font/nanum_square_r"
+            android:text="@string/coupon_info"
+            android:textColor="@color/color_FF232323"
+            android:textSize="@dimen/sp_6" />
+    </LinearLayout>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcv_coupon"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/color_FFF5F5F5"
+        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:clipToPadding="false"
+        android:paddingTop="@dimen/dp_2"
+        android:paddingBottom="@dimen/dp_50"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titlebar" />
+        app:layout_constraintTop_toBottomOf="@+id/layout_coupon_info_panel" />
+
+    <LinearLayout
+        android:id="@+id/layout_empty_panel"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/color_FFF5F5F5"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_coupon_info_panel">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nanum_square_r"
+            android:text="@string/coupon_empty"
+            android:textColor="@color/color_FF616161"
+            android:textSize="@dimen/sp_7" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

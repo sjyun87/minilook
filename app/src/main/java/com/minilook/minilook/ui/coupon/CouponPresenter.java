@@ -9,8 +9,16 @@ public interface CouponPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
+    void onCouponInfoClick();
+
     interface View {
 
         void setupRecyclerView();
+
+        void refresh();
+
+        void emptyPanel();
+
+        void navigateToWebView(String url);
     }
 }
