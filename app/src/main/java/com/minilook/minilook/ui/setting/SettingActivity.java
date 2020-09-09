@@ -25,6 +25,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 import timber.log.Timber;
 
 public class SettingActivity extends BaseActivity implements SettingPresenter.View {
@@ -49,7 +51,6 @@ public class SettingActivity extends BaseActivity implements SettingPresenter.Vi
     @BindString(R.string.base_toast_order_info_agree) String str_toast_order_agree;
     @BindString(R.string.base_toast_order_info_disagree) String str_toast_order_disagree;
     @BindString(R.string.support_email) String support_email;
-    @BindString(R.string.support_subject) String support_email_title;
 
     private SettingPresenter presenter;
 
@@ -157,32 +158,14 @@ public class SettingActivity extends BaseActivity implements SettingPresenter.Vi
         emailSelectorIntent.setData(Uri.parse("mailto:"));
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.putExtra(Intent.EXTRA_EMAIL, new String[] { support_email });
-        intent.putExtra(Intent.EXTRA_SUBJECT, support_email_title);
-        intent.putExtra(Intent.EXTRA_TEXT,
-            String.format(getEmailContent(), Build.VERSION.SDK_INT, BuildConfig.VERSION_NAME, Build.DEVICE));
+        Map<String, String> mailData = getMailData();
+        intent.putExtra(Intent.EXTRA_SUBJECT, mailData.get("title"));
+        intent.putExtra(Intent.EXTRA_TEXT, mailData.get("contents"));
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         intent.setSelector(emailSelectorIntent);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
-        }
-    }
-
-    private String getEmailContent() {
-        InputStream inputStream = getResources().openRawResource(R.raw.support_email_contents);
-        InputStreamReader stream = new InputStreamReader(inputStream);
-        BufferedReader br = new BufferedReader(stream);
-        String line;
-        StringBuilder sb = new StringBuilder();
-        try {
-            while ((line = br.readLine()) != null) {
-                sb.append(line);
-                sb.append("\n");
-            }
-            return sb.toString();
-        } catch (IOException e) {
-            Timber.e(e);
-            return "";
         }
     }
 
@@ -214,5 +197,31 @@ public class SettingActivity extends BaseActivity implements SettingPresenter.Vi
     @OnClick(R.id.txt_leave)
     void onLeaveClick() {
         presenter.onLeaveClick();
+    }
+
+    private Map<String, String> getMailData() {
+        Map<String, String> mailData = new HashMap<>();
+        InputStream inputStream = getResources().openRawResource(R.raw.support_email);
+        InputStreamReader stream = new InputStreamReader(inputStream);
+        BufferedReader br = new BufferedReader(stream);
+        StringBuilder sb = new StringBuilder();
+        String line;
+        try {
+            int index = 0;
+            while ((line = br.readLine()) != null) {
+                if (index == 0) {
+                    mailData.put("title", line);
+                } else {
+                    sb.append(line);
+                    sb.append("\n");
+                }
+                index++;
+            }
+            mailData.put("contents",
+                String.format(sb.toString(), Build.VERSION.SDK_INT, BuildConfig.VERSION_NAME, Build.DEVICE));
+        } catch (IOException e) {
+            Timber.e(e);
+        }
+        return mailData;
     }
 }
