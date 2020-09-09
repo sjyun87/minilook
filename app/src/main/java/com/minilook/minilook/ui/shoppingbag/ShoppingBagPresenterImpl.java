@@ -65,8 +65,9 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
     }
 
     @Override public void onOrderClick() {
-        view.navigateToOrder(getSelectedData());
-        view.finish();
+        view.showTrialVersionDialog();
+        //view.navigateToOrder(getSelectedData());
+        //view.finish();
     }
 
     private void reqDeleteShoppingBag(List<Integer> deleteItem) {

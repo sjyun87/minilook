@@ -40,5 +40,7 @@ public interface ShoppingBagPresenter extends LifecycleObserver {
         void navigateToOrder(List<OrderBrandDataModel> items);
 
         void finish();
+
+        void showTrialVersionDialog();
     }
 }

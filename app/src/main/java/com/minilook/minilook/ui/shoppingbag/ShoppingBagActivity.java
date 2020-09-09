@@ -18,6 +18,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.order.OrderBrandDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.order.OrderActivity;
 import com.minilook.minilook.ui.shoppingbag.adapter.ShoppingBagAdapter;
 import com.minilook.minilook.ui.shoppingbag.di.ShoppingBagArguments;
@@ -114,6 +115,10 @@ public class ShoppingBagActivity extends BaseActivity implements ShoppingBagPres
     @Override public void navigateToOrder(List<OrderBrandDataModel> items) {
         App.getInstance().setOrderItems(items);
         OrderActivity.start(this);
+    }
+
+    @Override public void showTrialVersionDialog() {
+        DialogManager.showTrialVersionDialog(this);
     }
 
     @OnClick(R.id.img_checkbox)
