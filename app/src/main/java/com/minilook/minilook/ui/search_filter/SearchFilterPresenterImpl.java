@@ -23,7 +23,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
     private static final int PRICE_STEP = 5000;
     private static final String SIZE_TYPE_BABY = "베이비";
     private static final String SIZE_TYPE_SHOES = "신발";
-    private static final String SIZE_TYPE_ACCESSORIES = "악세사리";
+    private static final String SIZE_TYPE_ACCESSORIES = "가방/잡화";
 
     private final View view;
     private final BaseAdapterDataModel<GenderDataModel> genderAdapter;
@@ -40,7 +40,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
     private int selectedMaxStep;
 
     private String genderCode = null;
-    private int ageCode = 0;
+    private int ageCode = -1;
     private boolean isShowDiscount = false;
     private boolean isShowStock = false;
     private String categoryCode = null;

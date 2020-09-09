@@ -37,7 +37,7 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
 
     private int totalPage;
 
-    private boolean isCategoryDepth1;
+    private boolean isVisibleCategoryDepth1;
     private List<CategoryDataModel> categoryOptions = new ArrayList<>();
     private String selectedSortCode;
     private boolean isSortVisible = false;
@@ -66,7 +66,7 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
 
     @Override public void onTabClick(int position) {
         String categoryCode = categoryOptions.get(position).getCode();
-        if (isCategoryDepth1) {
+        if (isVisibleCategoryDepth1) {
             options.setCategory_code(categoryCode);
         } else {
             options.setCategory_derail_code(categoryCode);
@@ -86,6 +86,7 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
     @Override public void onSortSelected(SortDataModel data) {
         if (!selectedSortCode.equals(data.getCode())) {
             selectedSortCode = data.getCode();
+            options.setOrder(selectedSortCode);
             view.setupSortText(data.getName());
 
             productAdapter.clear();
@@ -102,10 +103,10 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
     }
 
     private void initData() {
-        isCategoryDepth1 = options.getCategory_code() == null;
-        if (!isCategoryDepth1) view.setupTitle(options.getCategory_name());
+        isVisibleCategoryDepth1 = options.getCategory_code() == null;
+        if (!isVisibleCategoryDepth1) view.setupTitle(options.getCategory_name());
 
-        String categoryCode = isCategoryDepth1 ? "" : options.getCategory_code();
+        String categoryCode = isVisibleCategoryDepth1 ? "" : options.getCategory_code();
         reqFilters(categoryCode);
 
         options.setOrder(sortCodes.get(0).getCode());
@@ -126,10 +127,7 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
     private void reqFilters(String category_code) {
         addDisposable(searchRequest.getFilterOptions(category_code)
             .compose(Transformer.applySchedulers())
-            .filter(data -> {
-                Timber.e(data.toString());
-                return data.getCode().equals(HttpCode.OK);
-            })
+            .filter(data -> data.getCode().equals(HttpCode.OK))
             .map(data -> gson.fromJson(data.getData(), FilterDataModel.class))
             .subscribe(this::resFilterOptions, Timber::e));
     }

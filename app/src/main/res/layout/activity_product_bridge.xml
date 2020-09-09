@@ -29,7 +29,6 @@
         app:tabPaddingStart="@dimen/dp_10"
         app:tabRippleColor="@android:color/transparent" />
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_control_panel"
         android:layout_width="match_parent"
@@ -138,20 +137,6 @@
             android:fontFamily="@font/nanum_square_r"
             android:text="@string/search_filter_empty"
             android:textColor="@color/color_FF616161"
-            android:textSize="@dimen/sp_7" />
-
-        <TextView
-            android:id="@+id/txt_empty"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_20"
-            android:layout_marginTop="@dimen/dp_36"
-            android:background="@drawable/bg_button_border_dark"
-            android:fontFamily="@font/nanum_square_b"
-            android:gravity="center"
-            android:paddingStart="@dimen/dp_30"
-            android:paddingEnd="@dimen/dp_30"
-            android:text="@string/search_filter_empty_button"
-            android:textColor="@color/color_FF232323"
             android:textSize="@dimen/sp_7" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
