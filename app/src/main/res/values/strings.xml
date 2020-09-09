@@ -103,6 +103,7 @@
     <string name="profile_nick_save">저장</string>
     <string name="profile_nick_check_already">이미 사용 중인 닉네임입니다.</string>
     <string name="profile_nick_check_available">사용 가능한 닉네임입니다.</string>
+    <string name="profile_nick_check_unavailable">사용할 수 없는 닉네임입니다.</string>
     <string name="profile_phone_caption">연락처</string>
     <string name="profile_email_caption">이메일</string>
     <string name="profile_shipping_caption">기본배송지 정보</string>

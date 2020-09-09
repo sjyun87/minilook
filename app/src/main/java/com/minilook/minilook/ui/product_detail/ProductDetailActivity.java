@@ -28,8 +28,8 @@ import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.android.material.tabs.TabLayout;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.order.OrderOptionDataModel;
-import com.minilook.minilook.data.model.product.ProductOptionDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
+import com.minilook.minilook.data.model.product.ProductOptionDataModel;
 import com.minilook.minilook.data.model.product.ProductStockModel;
 import com.minilook.minilook.data.model.review.ReviewDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
@@ -312,23 +312,23 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         pointTextView.setText(span);
     }
 
-    @Override public void setupShipping(int price) {
-        if (price == 0) {
-            shippingTextView.setText(str_shipping_free);
-        } else {
-            shippingTextView.setText(String.format(format_shipping, StringUtil.toDigit(price)));
-        }
+    @Override public void setupShippingFree() {
+        shippingTextView.setText(str_shipping_free);
     }
 
-    @Override public void setupShippingConditional(int price) {
+    @Override public void setupShippingPrice(int price) {
+        shippingTextView.setText(String.format(format_shipping, StringUtil.toDigit(price)));
+    }
+
+    @Override public void setupShippingCondition(int price) {
         shippingConditionalTextView.setText(String.format(format_shipping_conditional, StringUtil.toDigit(price)));
     }
 
-    @Override public void showShippingConditional() {
+    @Override public void showShippingCondition() {
         shippingConditionalTextView.setVisibility(View.VISIBLE);
     }
 
-    @Override public void hideShippingConditional() {
+    @Override public void hideShippingCondition() {
         shippingConditionalTextView.setVisibility(View.GONE);
     }
 

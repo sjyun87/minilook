@@ -27,6 +27,8 @@ public interface ProfilePresenter extends LifecycleObserver {
 
         void showCheckMessage(String message);
 
+        void showCheckErrorMessage();
+
         void hideCheckMessage();
 
         void setupPhone(String text);

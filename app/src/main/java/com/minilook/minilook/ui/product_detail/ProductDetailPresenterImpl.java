@@ -13,6 +13,7 @@ import com.minilook.minilook.data.network.order.OrderRequest;
 import com.minilook.minilook.data.network.product.ProductRequest;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.data.type.DisplayCode;
+import com.minilook.minilook.data.type.ShippingType;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
@@ -129,11 +130,13 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         view.setupBrandName(data.getBrand_name());
         view.setupProductName(data.getProduct_name());
 
-        for (ProductStockModel model : data.getProductStocks()) {
-            if (model.getType().equals(STOCK_TYPE_COLOR)) {
-                view.addColorView(model);
-            } else if (model.getType().equals(STOCK_TYPE_SIZE)) {
-                view.addSizeView(model);
+        if (data.getProductStocks() != null) {
+            for (ProductStockModel model : data.getProductStocks()) {
+                if (model.getType().equals(STOCK_TYPE_COLOR)) {
+                    view.addColorView(model);
+                } else if (model.getType().equals(STOCK_TYPE_SIZE)) {
+                    view.addSizeView(model);
+                }
             }
         }
 
@@ -148,13 +151,19 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         }
         view.setupPrice(StringUtil.toDigit(data.getPrice()));
 
-        view.setupPoint(data.getPrice() / data.getPoint());
-        view.setupShipping(data.getPrice_shipping());
-        if (data.getPrice_shipping_conditional() > 0) {
-            view.setupShippingConditional(data.getPrice_shipping_conditional());
-            view.showShippingConditional();
-        } else {
-            view.hideShippingConditional();
+        view.setupPoint((int) (data.getPrice() * (data.getPoint() / 100f)));
+
+        int shippingType = data.getShipping_type();
+        if (shippingType == ShippingType.FREE.getValue()){
+            view.setupShippingFree();
+            view.hideShippingCondition();
+        } else if (shippingType == ShippingType.PAID.getValue()) {
+            view.setupShippingPrice(data.getShipping_price());
+            view.hideShippingCondition();
+        } else if (shippingType == ShippingType.CONDITIONAL.getValue()) {
+            view.setupShippingPrice(data.getBasic_shipping_price());
+            view.setupShippingCondition(data.getFree_shipping_condition());
+            view.showShippingCondition();
         }
 
         view.setupProductDetail(data.getDetail_url());

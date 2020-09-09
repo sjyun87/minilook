@@ -101,6 +101,8 @@ public class ProfilePresenterImpl extends BasePresenterImpl implements ProfilePr
                 String code = data.getCode();
                 if (code.equals(HttpCode.ALREADY_USED)) {
                     view.showCheckMessage(data.getMessage());
+                } else if (code.equals(HttpCode.INTERNAL_SERVER_ERROR)) {
+                    view.showCheckErrorMessage();
                 }
                 return code.equals(HttpCode.OK);
             })

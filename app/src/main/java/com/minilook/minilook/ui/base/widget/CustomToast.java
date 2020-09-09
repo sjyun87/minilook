@@ -6,7 +6,6 @@ import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import com.minilook.minilook.R;
@@ -49,10 +48,13 @@ public class CustomToast {
     }
 
     public void show() {
+        // TODO Bad Token Exception..
         popup.showAtLocation(root, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-        root.postDelayed(() -> {
-            if (popup.isShowing()) popup.dismiss();
-        }, 3000);
+        root.postDelayed(this::hide, 3000);
+    }
+
+    public void hide() {
+        if (popup.isShowing()) popup.dismiss();
     }
 
     @SuppressLint("InflateParams")
@@ -73,18 +75,16 @@ public class CustomToast {
         buttonTextView.setOnClickListener(listener);
     }
 
-    private PopupWindow setupPopup(View layout) {
+    private void setupPopup(View layout) {
         int startMargin = activity.getResources().getDimensionPixelSize(R.dimen.dp_10);
         int endMargin = activity.getResources().getDimensionPixelSize(R.dimen.dp_10);
         int height = activity.getResources().getDimensionPixelSize(R.dimen.dp_44);
 
         popup = new PopupWindow(layout);
         popup.setWidth(root.getWidth() - (startMargin + endMargin));
-        popup.setWindowLayoutType(WindowManager.LayoutParams.TYPE_TOAST);
         popup.setHeight(height);
         popup.setAnimationStyle(R.style.ToastStyle);
         popup.setTouchable(false);
         popup.setFocusable(false);
-        return popup;
     }
 }

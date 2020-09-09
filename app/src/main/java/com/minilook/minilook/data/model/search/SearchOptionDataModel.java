@@ -16,7 +16,7 @@ import lombok.Data;
     @Expose @SerializedName("genderCode")
     private String gender_code = null;
     @Expose @SerializedName("age")
-    private int age = 0;
+    private int age = -1;
     @Expose @SerializedName("categoryName")
     private String category_name = null;
     @Expose @SerializedName("categoryCode")

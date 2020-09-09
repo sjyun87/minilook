@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.BindView;
@@ -45,6 +46,7 @@ public class ProfileActivity extends BaseActivity implements ProfilePresenter.Vi
     @BindView(R.id.txt_shipping_empty) TextView emptyShippingTextView;
 
     @BindString(R.string.base_toast_update_completed) String str_toast_update_completed;
+    @BindString(R.string.profile_nick_check_unavailable) String str_nick_update_error;
     @BindString(R.string.profile_shipping_address) String format_address;
     @BindString(R.string.base_pattern) String pattern;
 
@@ -92,6 +94,11 @@ public class ProfileActivity extends BaseActivity implements ProfilePresenter.Vi
 
     @Override public void showCheckMessage(String message) {
         nickCheckMsgTextView.setText(message);
+        nickCheckMsgTextView.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void showCheckErrorMessage() {
+        nickCheckMsgTextView.setText(str_nick_update_error);
         nickCheckMsgTextView.setVisibility(View.VISIBLE);
     }
 

@@ -2,7 +2,6 @@ package com.minilook.minilook.ui.promotion_detail;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
@@ -63,9 +62,11 @@ public class PromotionDetailPresenterImpl extends BasePresenterImpl implements P
     private void resPromotion(PromotionDataModel data) {
         view.setupThumb(data.getThumb_url());
         view.setupEventImage(data.getEvent_url());
-        productAdapter.set(data.getProducts());
-        view.productRefresh();
-        view.setupTotal(productAdapter.getSize());
+        if (data.getProducts() != null && data.getProducts().size() > 0) {
+            productAdapter.set(data.getProducts());
+            view.productRefresh();
+            view.setupTotal(productAdapter.getSize());
+        }
     }
 
     private void reqTogetherPromotion() {

@@ -57,10 +57,14 @@ import lombok.Data;
     private List<ProductStockModel> productStocks;
     @Expose @SerializedName("point")
     private int point;
-    @Expose @SerializedName("freeShipping")
-    private int price_shipping_conditional;
-    @Expose @SerializedName("shippingFee")
-    private int price_shipping;
+    @Expose @SerializedName("shippingType")
+    private int shipping_type;
+    @Expose @SerializedName("basicShippingFee")
+    private int shipping_price;
+    @Expose @SerializedName("conditinShippingFee")
+    private int basic_shipping_price;
+    @Expose @SerializedName("freeShippingCondition")
+    private int free_shipping_condition;
     @Expose @SerializedName("relationProducts")
     private List<ProductDataModel> related_products;
     @Expose @SerializedName("recentNo")
