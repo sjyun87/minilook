@@ -304,6 +304,9 @@
     <string name="product_detail_info_collapse">상품필수정보 접기</string>
     <string name="product_detail_info_desc">* 해당 내용은 전자상거래 등에서의 상품정보제공 고시에 따라 작성되었습니다.</string>
 
+    <!--Product Info-->
+    <string name="product_info_title">배송/교환/환불 안내</string>
+
     <!--Option Selector-->
     <string name="option_selector_select_box_hint">옵션을 선택해주세요</string>
     <string name="option_selector_total_count">총 %d개 상품</string>

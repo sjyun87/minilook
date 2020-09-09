@@ -23,6 +23,8 @@ public interface ProductDetailPresenter extends LifecycleObserver {
 
     void onExpandClick();
 
+    void onShippingNRefundClick();
+
     void onOptionSelectorShoppingBagClick(List<OrderOptionDataModel> goodsData);
 
     void onOptionSelectorBuyClick(List<OrderOptionDataModel> goodsData);
@@ -150,6 +152,8 @@ public interface ProductDetailPresenter extends LifecycleObserver {
         void uncheckScrap();
 
         void hideScrap();
+
+        void navigateToProductInfo(int brand_id);
 
         void navigateToBrandDetail(int brand_id);
 

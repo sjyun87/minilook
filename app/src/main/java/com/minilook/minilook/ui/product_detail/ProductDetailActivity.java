@@ -43,6 +43,7 @@ import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.product_detail.adapter.ProductDetailImageAdapter;
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
 import com.minilook.minilook.ui.product_detail.widget.ProductTabView;
+import com.minilook.minilook.ui.product_info.ProductInfoActivity;
 import com.minilook.minilook.ui.review.adapter.ReviewAdapter;
 import com.minilook.minilook.ui.shoppingbag.ShoppingBagActivity;
 import com.minilook.minilook.util.DimenUtil;
@@ -490,6 +491,10 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         scrapImageView.setVisibility(View.GONE);
     }
 
+    @Override public void navigateToProductInfo(int brand_id) {
+        ProductInfoActivity.start(this, brand_id);
+    }
+
     @Override public void navigateToBrandDetail(int brand_id) {
         BrandDetailActivity.start(this, brand_id);
     }
@@ -510,6 +515,11 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     @OnClick(R.id.layout_brand_panel)
     void onBrandClick() {
         presenter.onBrandClick();
+    }
+
+    @OnClick(R.id.layout_shipping_n_refund_panel)
+    void onShippingNRefundClick() {
+        presenter.onShippingNRefundClick();
     }
 
     @OnClick(R.id.img_scrap)

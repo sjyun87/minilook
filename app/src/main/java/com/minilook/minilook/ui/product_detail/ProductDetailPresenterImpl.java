@@ -109,6 +109,10 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         isInfoPanelExpanded = !isInfoPanelExpanded;
     }
 
+    @Override public void onShippingNRefundClick() {
+        view.navigateToProductInfo(data.getBrand_id());
+    }
+
     @Override public void onOptionSelectorShoppingBagClick(List<OrderOptionDataModel> goodsData) {
         reqAddShoppingBag(goodsData);
         view.hideOptionSelector();

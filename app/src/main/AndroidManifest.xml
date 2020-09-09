@@ -89,6 +89,11 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
+            android:name=".ui.product_info.ProductInfoActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
             android:name=".ui.profile.ProfileActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
