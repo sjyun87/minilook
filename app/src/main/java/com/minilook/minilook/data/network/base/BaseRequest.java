@@ -1,6 +1,7 @@
 package com.minilook.minilook.data.network.base;
 
 import android.content.res.Resources;
+import android.os.Build;
 import androidx.core.os.ConfigurationCompat;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -73,11 +74,8 @@ public abstract class BaseRequest<T> {
     private Map<String, String> createHeaders() {
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
-        //headers.put("x-api-key", "OLbxaJ2C6BadAsa9fBe9Ja4WUegvpDnB17urafki");
-        //headers.put("country", getCountry());
-        //headers.put("language", getLanguage());
-        //headers.put("os", "aos");
-        //headers.put("token", getToken());
+        headers.put("deviceType", "AOS");
+        headers.put("os", "SDK " + Build.VERSION.SDK_INT);
         return headers;
     }
 
