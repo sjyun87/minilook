@@ -136,7 +136,7 @@ public class App extends Application {
     }
 
     public String getPushToken() {
-        pushToken = Prefs.getString("PushToken", "");
+        pushToken = Prefs.getString("pushToken", "");
         return pushToken;
     }
 }

@@ -49,8 +49,8 @@ public class CustomToast {
 
     public void show() {
         // TODO Bad Token Exception..
-        popup.showAtLocation(root, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-        root.postDelayed(this::hide, 3000);
+        //popup.showAtLocation(root, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        //root.postDelayed(this::hide, 3000);
     }
 
     public void hide() {

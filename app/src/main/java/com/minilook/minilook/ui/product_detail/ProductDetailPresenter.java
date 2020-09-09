@@ -15,13 +15,17 @@ public interface ProductDetailPresenter extends LifecycleObserver {
 
     void onTabClick(int position);
 
+    void onScrapClick();
+
     void onBuyClick();
 
     void onBrandClick();
 
     void onExpandClick();
 
-    void onShoppingBagClick(List<OrderOptionDataModel> goodsData);
+    void onOptionSelectorShoppingBagClick(List<OrderOptionDataModel> goodsData);
+
+    void onOptionSelectorBuyClick(List<OrderOptionDataModel> goodsData);
 
     interface View {
 
@@ -141,10 +145,16 @@ public interface ProductDetailPresenter extends LifecycleObserver {
 
         void setupPriceNoDisplayColor();
 
+        void checkScrap();
+
+        void uncheckScrap();
+
         void hideScrap();
 
         void navigateToBrandDetail(int brand_id);
 
         void navigateToShoppingBag();
+
+        void showTrialVersionDialog();
     }
 }

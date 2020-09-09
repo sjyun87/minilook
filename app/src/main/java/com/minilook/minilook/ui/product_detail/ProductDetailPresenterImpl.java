@@ -11,6 +11,7 @@ import com.minilook.minilook.data.model.product.ProductStockModel;
 import com.minilook.minilook.data.model.review.ReviewDataModel;
 import com.minilook.minilook.data.network.order.OrderRequest;
 import com.minilook.minilook.data.network.product.ProductRequest;
+import com.minilook.minilook.data.network.scrap.ScrapRequest;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.data.type.DisplayCode;
 import com.minilook.minilook.data.type.ShippingType;
@@ -35,6 +36,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     private final BaseAdapterDataModel<ProductDataModel> relatedProductsAdapter;
     private final ProductRequest productRequest;
     private final OrderRequest orderRequest;
+    private final ScrapRequest scrapRequest;
 
     private Gson gson = new Gson();
     private ProductDataModel data;
@@ -48,6 +50,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         relatedProductsAdapter = args.getRelatedProductAdapter();
         productRequest = new ProductRequest();
         orderRequest = new OrderRequest();
+        scrapRequest = new ScrapRequest();
     }
 
     @Override public void onCreate() {
@@ -77,8 +80,20 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         }
     }
 
+    @Override public void onScrapClick() {
+        data.setScrap(!data.isScrap());
+        setupScrap();
+        reqScrap();
+    }
+
+    private void reqScrap() {
+        addDisposable(scrapRequest.updateProductScrap(data.isScrap(), id)
+            .subscribe());
+    }
+
     @Override public void onBuyClick() {
         view.showOptionSelector();
+        reqProductOptions();
     }
 
     @Override public void onBrandClick() {
@@ -94,9 +109,14 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         isInfoPanelExpanded = !isInfoPanelExpanded;
     }
 
-    @Override public void onShoppingBagClick(List<OrderOptionDataModel> goodsData) {
+    @Override public void onOptionSelectorShoppingBagClick(List<OrderOptionDataModel> goodsData) {
         reqAddShoppingBag(goodsData);
         view.hideOptionSelector();
+    }
+
+    @Override public void onOptionSelectorBuyClick(List<OrderOptionDataModel> goodsData) {
+        // TODO 주문서로 이동
+        view.showTrialVersionDialog();
     }
 
     private void reqAddShoppingBag(List<OrderOptionDataModel> goodsData) {
@@ -113,16 +133,13 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     private void reqProductDetail() {
         addDisposable(productRequest.getProductDetail(id)
             .compose(Transformer.applySchedulers())
-            .filter(data -> {
-                return data.getCode().equals(HttpCode.OK);
-            })
+            .filter(data -> data.getCode().equals(HttpCode.OK))
             .map(data -> gson.fromJson(data.getData(), ProductDataModel.class))
             .subscribe(this::resProductDetail, Timber::e));
     }
 
     private void resProductDetail(ProductDataModel data) {
         this.data = data;
-        reqProductOptions();
 
         productImageAdapter.set(checkValid(data.getProduct_images()));
         view.productImageRefresh();
@@ -154,7 +171,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         view.setupPoint((int) (data.getPrice() * (data.getPoint() / 100f)));
 
         int shippingType = data.getShipping_type();
-        if (shippingType == ShippingType.FREE.getValue()){
+        if (shippingType == ShippingType.FREE.getValue()) {
             view.setupShippingFree();
             view.hideShippingCondition();
         } else if (shippingType == ShippingType.PAID.getValue()) {
@@ -210,6 +227,16 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
             view.setupDiscountPercentNoDisplayColor();
             view.setupPriceNoDisplayColor();
             if (displayCode == DisplayCode.STOP_SELLING.getValue()) view.hideScrap();
+        }
+
+        setupScrap();
+    }
+
+    private void setupScrap() {
+        if (data.isScrap()) {
+            view.checkScrap();
+        } else {
+            view.uncheckScrap();
         }
     }
 

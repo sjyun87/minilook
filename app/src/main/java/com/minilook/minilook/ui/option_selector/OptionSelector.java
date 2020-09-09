@@ -325,23 +325,35 @@ public class OptionSelector extends FrameLayout implements OptionSelectorGoodsIt
                 }
             }
         }
-
-        setupTotalCount(goodsAdapter.getSize());
-        setupTotalPrice(calPrice());
+        setupTotal();
     }
 
-    private int calPrice() {
+    private void setupTotal() {
         int totalPrice = 0;
+        int totalCount = 0;
         for (OrderOptionDataModel model : goodsAdapter.get()) {
             int count = model.getQuantity();
+            totalCount += count;
             int price = model.getPrice();
             totalPrice += (price * count);
         }
-        return totalPrice;
+        setupTotalCount(totalCount);
+        setupTotalPrice(totalPrice);
+    }
+
+    private void reset() {
+        isColorSelectBoxOpened = false;
+        isSizeSelectBoxOpened = false;
+        selectedColorData = null;
+        selectedSizeData = null;
+        goodsAdapter.clear();
+        goodsAdapter.refresh();
+        selectedData.clear();
     }
 
     @OnClick(R.id.curtain)
     void onCurtainClick() {
+        reset();
         hide();
     }
 
@@ -351,7 +363,6 @@ public class OptionSelector extends FrameLayout implements OptionSelectorGoodsIt
         showSelectPanel();
     }
 
-
     @OnClick(R.id.txt_shopping_bag)
     void onShoppingBagClick() {
         onButtonClickListener.onShoppingBagClick(goodsAdapter.get());
@@ -359,7 +370,7 @@ public class OptionSelector extends FrameLayout implements OptionSelectorGoodsIt
 
     @OnClick(R.id.txt_buy_now)
     void onBuyNowClick() {
-        // TODO 바로 구매
+        onButtonClickListener.onBuyClick(goodsAdapter.get());
     }
 
     // Select Panel ----------------------------------------------------------------------------------------------------
@@ -380,17 +391,17 @@ public class OptionSelector extends FrameLayout implements OptionSelectorGoodsIt
         goodsAdapter.remove(data);
         goodsAdapter.refresh();
         selectedData.remove(data.getOption_id());
-        totalPriceTextView.setText(StringUtil.toDigit(calPrice()));
+        setupTotal();
     }
 
     @Override public void onMinusClick() {
         goodsAdapter.refresh();
-        totalPriceTextView.setText(StringUtil.toDigit(calPrice()));
+        setupTotal();
     }
 
     @Override public void onPlusClick() {
         goodsAdapter.refresh();
-        totalPriceTextView.setText(StringUtil.toDigit(calPrice()));
+        setupTotal();
     }
 
     public interface OnButtonClickListener {

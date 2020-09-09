@@ -7,6 +7,7 @@ import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
 import java.util.HashMap;
 import java.util.Map;
+import timber.log.Timber;
 
 public class LoginRequest extends BaseRequest<LoginService> {
 
@@ -22,6 +23,8 @@ public class LoginRequest extends BaseRequest<LoginService> {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("snsAccount", model.getSns_id());
         jsonMap.put("snsTypeCode", model.getType());
+        jsonMap.put("pushToken", App.getInstance().getPushToken());
+        Timber.e(jsonMap.toString());
         return jsonMap;
     }
 

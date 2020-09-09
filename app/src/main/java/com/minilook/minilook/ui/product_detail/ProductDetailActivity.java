@@ -37,6 +37,7 @@ import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.widget.ColorView;
 import com.minilook.minilook.ui.base.widget.SizeView;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
+import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.option_selector.OptionSelector;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.product_detail.adapter.ProductDetailImageAdapter;
@@ -127,6 +128,8 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 
     @BindDrawable(R.drawable.ic_arrow_down_xs) Drawable img_arrow_down;
     @BindDrawable(R.drawable.ic_arrow_up_xs) Drawable img_arrow_up;
+    @BindDrawable(R.drawable.ic_scrap_off) Drawable img_scrap_off;
+    @BindDrawable(R.drawable.ic_scrap_on) Drawable img_scrap_on;
 
     @BindColor(R.color.color_FF8140E5) int color_FF8140E5;
     @BindColor(R.color.color_FFA9A9A9) int color_FFA9A9A9;
@@ -371,11 +374,11 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         optionSelector.setupData(price, options);
         optionSelector.setOnButtonClickListener(new OptionSelector.OnButtonClickListener() {
             @Override public void onShoppingBagClick(List<OrderOptionDataModel> goodsData) {
-                presenter.onShoppingBagClick(goodsData);
+                presenter.onOptionSelectorShoppingBagClick(goodsData);
             }
 
             @Override public void onBuyClick(List<OrderOptionDataModel> goodsData) {
-
+                presenter.onOptionSelectorBuyClick(goodsData);
             }
         });
     }
@@ -475,6 +478,14 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         priceTextView.setTextColor(color_FFA9A9A9);
     }
 
+    @Override public void checkScrap() {
+        scrapImageView.setImageDrawable(img_scrap_on);
+    }
+
+    @Override public void uncheckScrap() {
+        scrapImageView.setImageDrawable(img_scrap_off);
+    }
+
     @Override public void hideScrap() {
         scrapImageView.setVisibility(View.GONE);
     }
@@ -487,6 +498,10 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         ShoppingBagActivity.start(this);
     }
 
+    @Override public void showTrialVersionDialog() {
+        DialogManager.showTrialVersionDialog(this);
+    }
+
     @OnClick(R.id.layout_expand_panel)
     void onExpandClick() {
         presenter.onExpandClick();
@@ -495,6 +510,11 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     @OnClick(R.id.layout_brand_panel)
     void onBrandClick() {
         presenter.onBrandClick();
+    }
+
+    @OnClick(R.id.img_scrap)
+    void onScrapClick() {
+        presenter.onScrapClick();
     }
 
     @OnClick(R.id.txt_buy)

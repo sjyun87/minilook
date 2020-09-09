@@ -8,6 +8,7 @@ import com.minilook.minilook.ui.dialog.JoinLimitedDialog;
 import com.minilook.minilook.ui.dialog.LeaveDialog;
 import com.minilook.minilook.ui.dialog.MarketingInfoDialog;
 import com.minilook.minilook.ui.dialog.NoEmailDialog;
+import com.minilook.minilook.ui.dialog.TrialVersionDialog;
 import com.minilook.minilook.ui.dialog.UpdateDialog;
 import com.minilook.minilook.ui.dialog.listener.OnCloseClickListener;
 import com.minilook.minilook.ui.dialog.listener.OnNegativeClickListener;
@@ -69,6 +70,12 @@ public final class DialogManager {
         UpdateDialog dialog = new UpdateDialog(activity);
         dialog.setOnPositiveClickListener(onPositiveListener);
         dialog.setOnNegativeClickListener(onNegativeClickListener);
+        dialog.show();
+    }
+
+    @Builder
+    public static void showTrialVersionDialog(Activity activity) {
+        TrialVersionDialog dialog = new TrialVersionDialog(activity);
         dialog.show();
     }
 }
