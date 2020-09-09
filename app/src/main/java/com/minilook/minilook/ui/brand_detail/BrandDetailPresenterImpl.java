@@ -9,12 +9,12 @@ import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.search.SearchDataModel;
 import com.minilook.minilook.data.model.search.SearchOptionDataModel;
 import com.minilook.minilook.data.network.brand.BrandRequest;
+import com.minilook.minilook.data.network.scrap.ScrapRequest;
 import com.minilook.minilook.data.network.search.SearchRequest;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.brand_detail.di.BrandDetailArguments;
-import com.minilook.minilook.util.StringUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -29,11 +29,14 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     private final BaseAdapterDataModel<ProductDataModel> productAdapter;
     private final BrandRequest brandRequest;
     private final SearchRequest searchRequest;
+    private final ScrapRequest scrapRequest;
 
     private static final int ROWS = 30;
 
     private AtomicInteger page = new AtomicInteger(0);
     private Gson gson = new Gson();
+    private boolean isScrap;
+    private int scrapCount = 0;
     private boolean isSortVisible = false;
     private String sortCode;
     private int totalPageSize;
@@ -46,6 +49,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         productAdapter = args.getProductAdapter();
         brandRequest = new BrandRequest();
         searchRequest = new SearchRequest();
+        scrapRequest = new ScrapRequest();
     }
 
     @Override public void onCreate() {
@@ -55,6 +59,22 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         view.setupProductRecyclerView();
         reqBrandDetail();
         setupSortData();
+    }
+
+    @Override public void onScrapClick() {
+        if (App.getInstance().isLogin()) {
+            if (isScrap) {
+                isScrap = false;
+                scrapCount -= 1;
+            } else {
+                isScrap = true;
+                scrapCount += 1;
+            }
+            setupScrap();
+            reqBrandScrap(isScrap);
+        } else {
+            view.navigateToLogin();
+        }
     }
 
     @Override public void onSortClick() {
@@ -100,7 +120,10 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     private void resBrandDetail(BrandDataModel data) {
         view.setupThumb(data.getImage_url());
         view.setupLogo(data.getBrand_logo());
-        view.setupScrapCount(StringUtil.toDigit(data.getScrap_cnt()));
+        isScrap = data.isScrap();
+        setupScrap();
+        scrapCount = data.getScrap_cnt();
+        view.setupScrapCount(scrapCount);
         view.setupName(data.getBrand_name());
         if (data.getBrand_tag() != null && !data.getBrand_tag().equals("")) {
             view.setupTag(data.getBrand_tag().replace(",", " "));
@@ -116,6 +139,20 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
             if (url != null && !url.equals("")) items.add(url);
         }
         return items;
+    }
+
+    private void setupScrap() {
+        if (isScrap) {
+            view.checkScrap();
+        } else {
+            view.uncheckScrap();
+        }
+        view.setupScrapCount(scrapCount);
+    }
+
+    private void reqBrandScrap(boolean isScrap) {
+        addDisposable(scrapRequest.updateBrandScrap(isScrap, brand_id)
+            .subscribe());
     }
 
     private void setupSortData() {

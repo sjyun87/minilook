@@ -23,8 +23,11 @@ public class LookBookPresenterImpl extends BasePresenterImpl implements LookBook
         view.setupViewPager();
     }
 
+    @Override public void onPrePageSelected(int position) {
+        RxBus.send(new MainPresenterImpl.RxEventLookBookPrePageChanged(position));
+    }
+
     @Override public void onPageSelected(int position) {
-        RxBus.send(new MainPresenterImpl.RxEventLookBookPageChanged(position));
         if (position == 0) RxBus.send(new LookBookDetailPresenterImpl.RxEventLookBookDetailScrollToTop());
     }
 

@@ -82,7 +82,6 @@ public class ShippingPresenterImpl extends BasePresenterImpl implements Shipping
     private void removeShipping(ShippingDataModel data) {
         adapter.remove(data);
         view.refresh();
-
         if (adapter.getSize() == 0) view.showEmptyPanel();
     }
 

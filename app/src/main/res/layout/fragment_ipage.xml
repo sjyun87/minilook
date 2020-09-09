@@ -261,6 +261,7 @@
                 android:id="@+id/layout_order_panel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginStart="@dimen/dp_4"
                 android:layout_marginTop="@dimen/dp_6"
                 android:layout_marginEnd="@dimen/dp_4"
@@ -449,6 +450,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/dp_26"
                 android:gravity="center_vertical"
+                android:visibility="gone"
                 android:orientation="horizontal"
                 app:layout_constraintLeft_toLeftOf="@+id/line_question_top"
                 app:layout_constraintRight_toRightOf="@+id/line_question_top"
@@ -476,7 +478,7 @@
             <View
                 android:id="@+id/line_question_bottom"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="0dp"
                 android:layout_marginStart="@dimen/dp_6"
                 android:layout_marginEnd="@dimen/dp_6"
                 android:background="@color/color_FFDBDBDB"
@@ -522,6 +524,7 @@
                 android:layout_height="0dp"
                 android:clickable="true"
                 android:focusable="true"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/txt_service_notice"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>

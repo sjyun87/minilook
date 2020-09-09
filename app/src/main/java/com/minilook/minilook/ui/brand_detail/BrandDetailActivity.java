@@ -7,14 +7,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import butterknife.BindColor;
+import butterknife.BindDimen;
 import butterknife.BindDrawable;
+import butterknife.BindView;
+import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
@@ -29,13 +31,10 @@ import com.minilook.minilook.ui.brand_detail.adapter.BrandDetailSortAdapter;
 import com.minilook.minilook.ui.brand_detail.adapter.BrandDetailStyleAdapter;
 import com.minilook.minilook.ui.brand_detail.di.BrandDetailArguments;
 import com.minilook.minilook.ui.brand_info.BrandInfoActivity;
+import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.util.DimenUtil;
-
-import butterknife.BindColor;
-import butterknife.BindDimen;
-import butterknife.BindView;
-import butterknife.OnClick;
+import com.minilook.minilook.util.StringUtil;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
 
 public class BrandDetailActivity extends BaseActivity implements BrandDetailPresenter.View {
@@ -51,6 +50,7 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
     @BindView(R.id.nsv_contents) NestedScrollView rootScrollView;
     @BindView(R.id.img_thumb) ImageView thumbImageView;
     @BindView(R.id.img_logo) ImageView logoImageView;
+    @BindView(R.id.img_scrap) ImageView scrapImageView;
     @BindView(R.id.txt_scrap) TextView scrapCountTextView;
     @BindView(R.id.txt_name) TextView nameTextView;
     @BindView(R.id.txt_tag) TextView tagTextView;
@@ -68,6 +68,9 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
     @BindColor(R.color.color_FFDBDBDB) int color_FFDBDBDB;
     @BindColor(R.color.color_FFF5F5F5) int color_FFF5F5F5;
 
+    @BindDrawable(R.drawable.ic_scrap_off) Drawable img_scrap_off;
+    @BindDrawable(R.drawable.ic_scrap_on) Drawable img_scrap_on;
+    ;
     @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
     @BindDrawable(R.drawable.placeholder_image_wide) Drawable img_placeholder_wide;
     @BindDrawable(R.drawable.placeholder_logo) Drawable img_placeholder_logo;
@@ -233,8 +236,8 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
             .into(logoImageView);
     }
 
-    @Override public void setupScrapCount(String text) {
-        scrapCountTextView.setText(text);
+    @Override public void setupScrapCount(int count) {
+        scrapCountTextView.setText(StringUtil.toDigit(count));
     }
 
     @Override public void setupName(String text) {
@@ -249,12 +252,29 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
         descTextView.setText(text);
     }
 
+    @Override public void checkScrap() {
+        scrapImageView.setImageDrawable(img_scrap_on);
+    }
+
+    @Override public void uncheckScrap() {
+        scrapImageView.setImageDrawable(img_scrap_off);
+    }
+
     @Override public void scrollToTop() {
         if (rootScrollView.getScrollY() > productPanel.getY()) rootScrollView.setScrollY((int) productPanel.getY());
     }
 
     @Override public void navigateToBrandInfo(int brand_id) {
         BrandInfoActivity.start(this, brand_id);
+    }
+
+    @Override public void navigateToLogin() {
+        LoginActivity.start(this);
+    }
+
+    @OnClick({ R.id.img_scrap, R.id.txt_scrap })
+    void onScrapClick() {
+        presenter.onScrapClick();
     }
 
     @OnClick(R.id.layout_brand_info_panel)

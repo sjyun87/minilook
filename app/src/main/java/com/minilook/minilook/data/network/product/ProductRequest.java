@@ -1,5 +1,6 @@
 package com.minilook.minilook.data.network.product;
 
+import com.minilook.minilook.App;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
@@ -11,7 +12,12 @@ public class ProductRequest extends BaseRequest<ProductService> {
     }
 
     public Single<BaseDataModel> getProductDetail(int product_id) {
-        return getApi().getProductDetail(product_id);
+        if (App.getInstance().isLogin()) {
+            int user_id = App.getInstance().getUserId();
+            return getApi().getProductDetail(product_id, user_id);
+        } else {
+            return getApi().getProductDetail(product_id);
+        }
     }
 
     public Single<BaseDataModel> getProductOptions(int id) {

@@ -53,6 +53,7 @@ public class RecentPresenterImpl extends BasePresenterImpl implements RecentPres
     @Override public void onDeleteClick(ProductDataModel data) {
         adapter.remove(data);
         view.refresh();
+        if (adapter.getSize() == 0) view.showEmptyPanel();
         reqDeleteRecent(data.getRecent_id());
     }
 

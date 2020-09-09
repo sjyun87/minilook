@@ -76,7 +76,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
     }
 
     @Override public void onLogout() {
-        CustomToast.make(this, str_toast_login).show();
+        CustomToast.make(this, str_toast_logout).show();
     }
 
     @Override public void onProductScrap(boolean isScrap, ProductDataModel product) {

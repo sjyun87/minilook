@@ -73,22 +73,22 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
             .into(thumbImageView);
 
         reviewTextView.setText(StringUtil.toDigit(data.getReview_cnt()));
-        scrapTextView.setText(StringUtil.toDigit(data.getScrap_cnt()));
         categoryTextView.setText(data.getCategory());
         nameTextView.setText(data.getProduct_name());
         descTextView.setText(data.getProduct_desc());
 
-        setupScrapImage();
+        setupScrap();
 
         itemView.setOnClickListener(this::onItemClick);
     }
 
-    private void setupScrapImage() {
+    private void setupScrap() {
         if (data.isScrap()) {
             scrapImageView.setImageDrawable(img_scrap_on);
         } else {
             scrapImageView.setImageDrawable(img_scrap_off);
         }
+        scrapTextView.setText(StringUtil.toDigit(data.getScrap_cnt()));
     }
 
     void onItemClick(View view) {
@@ -102,14 +102,19 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
 
     @OnClick(R.id.layout_review_panel)
     void onReviewClick() {
-
+        // TODO Review Page 연결
     }
 
     @OnClick(R.id.layout_scrap_panel)
     void onScrapClick() {
         if (App.getInstance().isLogin()) {
             data.setScrap(!data.isScrap());
-            setupScrapImage();
+            if (data.isScrap()) {
+                data.setScrap_cnt(data.getScrap_cnt() + 1);
+            } else {
+                data.setScrap_cnt(data.getScrap_cnt() - 1);
+            }
+            setupScrap();
             RxBus.send(new RxBusEvent.RxBusEventProductScrap(data.isScrap(), data));
         } else {
             LoginActivity.start(context);

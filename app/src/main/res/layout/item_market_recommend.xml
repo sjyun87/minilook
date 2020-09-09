@@ -23,7 +23,7 @@
         android:layout_marginStart="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_22"
         android:bufferType="spannable"
-        android:fontFamily="@font/nanum_square_b"
+        android:fontFamily="@font/nanum_square_r"
         android:letterSpacing="-0.02"
         android:lineSpacingMultiplier="1.3"
         android:textColor="@color/color_FF232323"

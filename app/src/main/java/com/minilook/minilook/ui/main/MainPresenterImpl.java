@@ -100,8 +100,8 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
 
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
-            if (o instanceof RxEventLookBookPageChanged) {
-                int position = ((RxEventLookBookPageChanged) o).getPosition();
+            if (o instanceof RxEventLookBookPrePageChanged) {
+                int position = ((RxEventLookBookPrePageChanged) o).getPosition();
                 view.setupBottomBarTheme(position != 0);
             } else if (o instanceof RxEventNavigateToPage) {
                 int position = ((RxEventNavigateToPage) o).getPosition();
@@ -110,7 +110,7 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
         }, Timber::e));
     }
 
-    @AllArgsConstructor @Getter public final static class RxEventLookBookPageChanged {
+    @AllArgsConstructor @Getter public final static class RxEventLookBookPrePageChanged {
         private int position;
     }
 

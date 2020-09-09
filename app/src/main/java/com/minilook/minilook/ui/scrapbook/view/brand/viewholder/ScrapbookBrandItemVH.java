@@ -24,7 +24,6 @@ import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.util.DimenUtil;
-import com.minilook.minilook.util.StringUtil;
 import java.util.List;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
 
@@ -35,7 +34,6 @@ public class ScrapbookBrandItemVH extends BaseViewHolder<BrandDataModel> {
     @BindView(R.id.txt_name) TextView nameTextView;
     @BindView(R.id.txt_tag) TextView tagTextView;
     @BindView(R.id.img_scrap) ImageView scrapImageView;
-    @BindView(R.id.txt_scrap_count) TextView scrapCountTextView;
 
     @BindColor(R.color.color_FFDBDBDB) int color_FFDBDBDB;
 
@@ -79,7 +77,6 @@ public class ScrapbookBrandItemVH extends BaseViewHolder<BrandDataModel> {
 
         nameTextView.setText(data.getBrand_name());
         tagTextView.setText(data.getBrand_tag());
-        scrapCountTextView.setText(StringUtil.toDigit(data.getScrap_cnt()));
 
         itemView.setOnClickListener(this::onItemClick);
     }
@@ -88,7 +85,7 @@ public class ScrapbookBrandItemVH extends BaseViewHolder<BrandDataModel> {
         BrandDetailActivity.start(context, data.getId());
     }
 
-    @OnClick({ R.id.img_scrap, R.id.txt_scrap_count })
+    @OnClick(R.id.img_scrap)
     void onScrapClick() {
         if (App.getInstance().isLogin()) {
             data.setScrap(!data.isScrap());

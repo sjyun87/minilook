@@ -11,6 +11,8 @@ public interface BrandDetailPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
+    void onScrapClick();
+
     void onSortClick();
 
     void onSortSelected(SortDataModel data);
@@ -47,7 +49,7 @@ public interface BrandDetailPresenter extends LifecycleObserver {
 
         void setupLogo(String url);
 
-        void setupScrapCount(String text);
+        void setupScrapCount(int count);
 
         void setupName(String text);
 
@@ -55,8 +57,14 @@ public interface BrandDetailPresenter extends LifecycleObserver {
 
         void setupDesc(String text);
 
+        void checkScrap();
+
+        void uncheckScrap();
+
         void scrollToTop();
 
         void navigateToBrandInfo(int brand_id);
+
+        void navigateToLogin();
     }
 }

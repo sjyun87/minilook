@@ -25,8 +25,13 @@ public class BrandRequest extends BaseRequest<BrandService> {
         return jsonMap;
     }
 
-    public Single<BaseDataModel> getBrandDetail(int id) {
-        return getApi().getBrandDetail(id);
+    public Single<BaseDataModel> getBrandDetail(int brand_id) {
+        if (App.getInstance().isLogin()) {
+            int user_id = App.getInstance().getUserId();
+            return getApi().getBrandDetail(brand_id, user_id);
+        } else {
+            return getApi().getBrandDetail(brand_id);
+        }
     }
 
     public Single<BaseDataModel> getBrandInfo(int id) {

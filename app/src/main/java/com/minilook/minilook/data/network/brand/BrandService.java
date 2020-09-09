@@ -7,6 +7,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface BrandService {
 
@@ -15,7 +16,12 @@ public interface BrandService {
     );
 
     @GET("api/brands/{brand_id}") Single<BaseDataModel> getBrandDetail(
-        @Path("brand_id") int id
+        @Path("brand_id") int brand_id
+    );
+
+    @GET("api/brands/{brand_id}") Single<BaseDataModel> getBrandDetail(
+        @Path("brand_id") int brand_id,
+        @Query("memberNo") int user_id
     );
 
     @GET("api/brands/{brand_id}/sellers") Single<BaseDataModel> getBrandInfo(

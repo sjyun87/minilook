@@ -66,7 +66,7 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
 
     @BindDimen(R.dimen.dp_6) int dp_6;
 
-    @BindFont(R.font.nanum_square_eb) Typeface font_extrabold;
+    @BindFont(R.font.nanum_square_b) Typeface font_bold;
 
     @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
     @BindDrawable(R.drawable.placeholder_image_wide) Drawable img_placeholder_wide;
@@ -118,7 +118,7 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
         SpannableString title = new SpannableString(data.getTitle());
         StringTokenizer tokenizer = new StringTokenizer(data.getBold_text(), ",");
         while (tokenizer.hasMoreTokens()) {
-            SpannableUtil.fontSpan(title, tokenizer.nextToken(), font_extrabold);
+            SpannableUtil.fontSpan(title, tokenizer.nextToken(), font_bold);
         }
         return title;
     }
