@@ -14,7 +14,7 @@ import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.util.StringUtil;
 import lombok.Setter;
 
-public class OptionSelectorGoodsItemVH extends BaseViewHolder<PickOptionDataModel> {
+public class OptionSelectorOptionVH extends BaseViewHolder<PickOptionDataModel> {
 
     @BindView(R.id.txt_title) TextView titleTextView;
     @BindView(R.id.txt_count) TextView countTextView;
@@ -24,9 +24,9 @@ public class OptionSelectorGoodsItemVH extends BaseViewHolder<PickOptionDataMode
 
     @Setter private OnButtonClickListener onButtonClickListener;
 
-    public OptionSelectorGoodsItemVH(@NonNull View itemView) {
+    public OptionSelectorOptionVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_option_selector_goods, (ViewGroup) itemView, false));
+            .inflate(R.layout.item_option_selector_option, (ViewGroup) itemView, false));
     }
 
     @Override public void bind(PickOptionDataModel $data) {

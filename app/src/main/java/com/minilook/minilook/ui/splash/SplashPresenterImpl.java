@@ -127,7 +127,6 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
         if (token.isEmpty()) {
             getCurrentToken();
         } else {
-            Timber.e("token success");
             isTokenChecked = true;
             checkToDo();
         }

@@ -91,8 +91,8 @@ public class SettingActivity extends BaseActivity implements SettingPresenter.Vi
             });
     }
 
-    @Override public void checkOrderInfoSwitch(boolean isChecked) {
-        orderInfoSwitchButton.setChecked(isChecked);
+    @Override public void initOrderInfoSwitch() {
+        orderInfoSwitchButton.toggle(false);
     }
 
     @Override public void setupMarketingSwitchButton() {
@@ -109,8 +109,8 @@ public class SettingActivity extends BaseActivity implements SettingPresenter.Vi
             });
     }
 
-    @Override public void checkMarketingInfoSwitch(boolean isChecked) {
-        marketingInfoSwitchButton.setChecked(isChecked);
+    @Override public void initMarketingInfoSwitch() {
+        marketingInfoSwitchButton.toggle(false);
     }
 
     @Override public void showOrderInfoPanel() {

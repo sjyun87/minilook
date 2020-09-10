@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data public class ProductStockDataModel {
     @Expose @SerializedName("optionNo")
-    private int goods_id;
+    private int option_id;
     @Expose @SerializedName("sizeName")
     private String size_name;
     @Expose @SerializedName("sizeCode")

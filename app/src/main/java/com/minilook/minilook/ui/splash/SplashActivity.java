@@ -26,7 +26,7 @@ public class SplashActivity extends BaseActivity implements SplashPresenter.View
     }
 
     @Override protected void createPresenter() {
-        HashKeyUtil.getHashKey(this);
+        //HashKeyUtil.getHashKey(this);
         presenter = new SplashPresenterImpl(provideArguments());
         getLifecycle().addObserver(presenter);
     }

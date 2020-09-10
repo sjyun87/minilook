@@ -29,6 +29,7 @@ public class SettingPresenterImpl extends BasePresenterImpl implements SettingPr
 
     @Override public void onCreate() {
         view.setupCurrentVersion();
+
         reqInfoStatus();
         if (App.getInstance().isLogin()) {
             setupUser();
@@ -105,8 +106,8 @@ public class SettingPresenterImpl extends BasePresenterImpl implements SettingPr
     }
 
     private void resInfoStatus(InfoStatusDataModel data) {
-        view.checkOrderInfoSwitch(data.isOrderInfo());
-        view.checkMarketingInfoSwitch(data.isMarketingInfo());
+        if (data.isOrderInfo()) view.initOrderInfoSwitch();
+        if (data.isMarketingInfo()) view.initMarketingInfoSwitch();
 
         view.setupOrderInfoSwitchButton();
         view.setupMarketingSwitchButton();

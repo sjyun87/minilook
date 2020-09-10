@@ -6,22 +6,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.minilook.minilook.data.model.pick.PickOptionDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.option_selector.viewholder.OptionSelectorGoodsItemVH;
+import com.minilook.minilook.ui.option_selector.viewholder.OptionSelectorOptionVH;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Setter;
 
-public class OptionSelectorGoodsAdapter extends RecyclerView.Adapter<OptionSelectorGoodsItemVH>
+public class OptionSelectorGoodsAdapter extends RecyclerView.Adapter<OptionSelectorOptionVH>
     implements BaseAdapterDataModel<PickOptionDataModel>, BaseAdapterDataView<PickOptionDataModel> {
 
     private List<PickOptionDataModel> items = new ArrayList<>();
-    @Setter private OptionSelectorGoodsItemVH.OnButtonClickListener OnButtonClickListener;
+    @Setter private OptionSelectorOptionVH.OnButtonClickListener OnButtonClickListener;
 
-    @NonNull @Override public OptionSelectorGoodsItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new OptionSelectorGoodsItemVH(parent);
+    @NonNull @Override public OptionSelectorOptionVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new OptionSelectorOptionVH(parent);
     }
 
-    @Override public void onBindViewHolder(@NonNull OptionSelectorGoodsItemVH holder, int position) {
+    @Override public void onBindViewHolder(@NonNull OptionSelectorOptionVH holder, int position) {
         holder.bind(items.get(position));
         holder.setOnButtonClickListener(OnButtonClickListener);
     }

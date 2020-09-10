@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -28,7 +29,7 @@ import com.minilook.minilook.data.model.product.ProductStockDataModel;
 import com.minilook.minilook.ui.option_selector.adpater.OptionSelectorColorAdapter;
 import com.minilook.minilook.ui.option_selector.adpater.OptionSelectorGoodsAdapter;
 import com.minilook.minilook.ui.option_selector.adpater.OptionSelectorSizeAdapter;
-import com.minilook.minilook.ui.option_selector.viewholder.OptionSelectorGoodsItemVH;
+import com.minilook.minilook.ui.option_selector.viewholder.OptionSelectorOptionVH;
 import com.minilook.minilook.util.DimenUtil;
 import com.minilook.minilook.util.StringUtil;
 import java.util.HashMap;
@@ -36,7 +37,7 @@ import java.util.List;
 import java.util.Map;
 import lombok.Setter;
 
-public class OptionSelector extends FrameLayout implements OptionSelectorGoodsItemVH.OnButtonClickListener {
+public class OptionSelector extends FrameLayout implements OptionSelectorOptionVH.OnButtonClickListener {
 
     @BindView(R.id.curtain) View curtainView;
     @BindView(R.id.layout_option_buy_panel) ConstraintLayout buyPanel;
@@ -58,6 +59,7 @@ public class OptionSelector extends FrameLayout implements OptionSelectorGoodsIt
     @BindString(R.string.option_selector_total_count) String format_total_count;
     @BindString(R.string.option_selector_selected_color) String format_selected_color;
     @BindString(R.string.option_selector_color_box_hint) String str_hint_color;
+    @BindString(R.string.option_selector_available_quantity) String format_available_quantity;
 
     @BindColor(R.color.color_FFA9A9A9) int color_FFA9A9A9;
     @BindColor(R.color.color_FF424242) int color_FF424242;
@@ -308,7 +310,7 @@ public class OptionSelector extends FrameLayout implements OptionSelectorGoodsIt
     }
 
     private void addSelectedData() {
-        int goods_id = selectedSizeData.getGoods_id();
+        int goods_id = selectedSizeData.getOption_id();
         if (!selectedData.containsKey(goods_id)) {
             PickOptionDataModel model = new PickOptionDataModel();
             model.setOption_id(goods_id);
@@ -327,10 +329,16 @@ public class OptionSelector extends FrameLayout implements OptionSelectorGoodsIt
         } else {
             for (PickOptionDataModel model : goodsAdapter.get()) {
                 if (model.getOption_id() == goods_id) {
-                    int currentCount = model.getQuantity();
-                    model.setQuantity(currentCount + 1);
-                    selectedData.put(goods_id, currentCount + 1);
-                    goodsAdapter.refresh();
+                    if (model.getQuantity() >= model.getOrder_available_quantity()) {
+                        Toast.makeText(getContext(),
+                            String.format(format_available_quantity, model.getOrder_available_quantity()),
+                            Toast.LENGTH_SHORT).show();
+                    } else {
+                        int currentCount = model.getQuantity();
+                        model.setQuantity(currentCount + 1);
+                        selectedData.put(goods_id, currentCount + 1);
+                        goodsAdapter.refresh();
+                    }
                     break;
                 }
             }

@@ -329,6 +329,7 @@
     <string name="option_selector_sold_out">품절</string>
     <string name="option_selector_price_add">+ %s</string>
     <string name="option_selector_selected_color">색상 - %s</string>
+    <string name="option_selector_available_quantity">주문가능한 수량은 %s개 입니다.</string>
 
     <!--Review-->
     <string name="review_title">상품리뷰</string>

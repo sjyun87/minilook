@@ -24,7 +24,7 @@ public class TrialVersionDialog extends BaseDialog {
         setCancelable(true);
     }
 
-    @OnClick(R.id.img_close)
+    @OnClick(R.id.txt_ok)
     void onOkClick() {
         this.dismiss();
         onPositiveClickListener.onPositiveClick();
