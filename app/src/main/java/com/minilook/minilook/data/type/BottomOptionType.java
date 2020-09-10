@@ -12,4 +12,6 @@ import lombok.Getter;
 
     private String name;
     private int value;
+
+    // TODO 검색 기능 활성화시 최우선 수정사항
 }

@@ -9,7 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.user.PointDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.ui.point.adapter.PointHistoryAdapter;
 import com.minilook.minilook.ui.point.di.PointArguments;
 import com.minilook.minilook.ui.webview.WebViewActivity;
 
@@ -26,6 +29,8 @@ public class PointActivity extends BaseActivity implements PointPresenter.View {
     @BindView(R.id.layout_empty_panel) LinearLayout emptyPanel;
 
     private PointPresenter presenter;
+    private PointHistoryAdapter adapter = new PointHistoryAdapter();
+    private BaseAdapterDataView<PointDataModel> adapterView = adapter;
 
     @Override protected int getLayoutID() {
         return R.layout.activity_point;
@@ -39,11 +44,16 @@ public class PointActivity extends BaseActivity implements PointPresenter.View {
     private PointArguments provideArguments() {
         return PointArguments.builder()
             .view(this)
+            .adapter(adapter)
             .build();
     }
 
     @Override public void setupRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override public void refresh() {
+        adapterView.refresh();
     }
 
     @Override public void emptyPanel() {

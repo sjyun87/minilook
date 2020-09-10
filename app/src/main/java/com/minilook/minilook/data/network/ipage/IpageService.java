@@ -11,7 +11,7 @@ public interface IpageService {
         @Path("user_id") int userId
     );
 
-    @GET("/api/members/{user_id}/points/histories") Single<BaseDataModel> getPointDetail(
+    @GET("/api/members/{user_id}/points/histories") Single<BaseDataModel> getPointHistory(
         @Path("user_id") int userId
     );
 

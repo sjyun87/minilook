@@ -14,7 +14,7 @@ import com.minilook.minilook.data.network.product.ProductRequest;
 import com.minilook.minilook.data.network.scrap.ScrapRequest;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.data.type.DisplayCode;
-import com.minilook.minilook.data.type.ShippingType;
+import com.minilook.minilook.data.type.ShippingCode;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
@@ -174,13 +174,13 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         view.setupPoint((int) (data.getPrice() * (data.getPoint() / 100f)));
 
         int shippingType = data.getShipping_type();
-        if (shippingType == ShippingType.FREE.getValue()) {
+        if (shippingType == ShippingCode.FREE.getValue()) {
             view.setupShippingFree();
             view.hideShippingCondition();
-        } else if (shippingType == ShippingType.PAID.getValue()) {
+        } else if (shippingType == ShippingCode.PAID.getValue()) {
             view.setupShippingPrice(data.getShipping_price());
             view.hideShippingCondition();
-        } else if (shippingType == ShippingType.CONDITIONAL.getValue()) {
+        } else if (shippingType == ShippingCode.CONDITIONAL.getValue()) {
             view.setupShippingPrice(data.getCondition_shipping_price());
             view.setupShippingCondition(data.getCondition_free_shipping());
             view.showShippingCondition();

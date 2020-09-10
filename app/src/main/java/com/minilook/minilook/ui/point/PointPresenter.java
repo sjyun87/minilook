@@ -15,6 +15,8 @@ public interface PointPresenter extends LifecycleObserver {
 
         void setupRecyclerView();
 
+        void refresh();
+
         void emptyPanel();
 
         void navigateToWebView(String url);

@@ -16,9 +16,9 @@ public class IpageRequest extends BaseRequest<IpageService> {
         return getApi().getIpage(user_id);
     }
 
-    public Single<BaseDataModel> getPointDetail() {
+    public Single<BaseDataModel> getPointHistory() {
         int user_id = App.getInstance().getUserId();
-        return getApi().getPointDetail(user_id);
+        return getApi().getPointHistory(user_id);
     }
 
     public Single<BaseDataModel> getCoupons() {

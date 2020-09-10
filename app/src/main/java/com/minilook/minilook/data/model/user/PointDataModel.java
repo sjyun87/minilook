@@ -5,8 +5,16 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 @Data public class PointDataModel {
-    @Expose @SerializedName("memberNo")
-    private int user_id;
-    @Expose @SerializedName("nickname")
-    private String nick;
+    @Expose @SerializedName("typeCode")
+    private int type;
+    @Expose @SerializedName("typeName")
+    private String type_name;
+    @Expose @SerializedName("title")
+    private String title;
+    @Expose @SerializedName("point")
+    private int point;
+    @Expose @SerializedName("regDate")
+    private String date_regist;
+    @Expose @SerializedName("expireDate")
+    private String date_expire;
 }

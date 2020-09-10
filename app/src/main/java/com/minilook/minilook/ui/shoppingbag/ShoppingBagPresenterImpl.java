@@ -11,7 +11,7 @@ import com.minilook.minilook.data.network.order.OrderRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.data.type.DisplayCode;
-import com.minilook.minilook.data.type.ShippingType;
+import com.minilook.minilook.data.type.ShippingCode;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.shoppingbag.di.ShoppingBagArguments;
@@ -194,10 +194,10 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
             boolean isFreeShipping;
             int finalShippingPrice;
             int shippingCode = brandData.getShipping_type_code();
-            if (shippingCode == ShippingType.FREE.getValue()) {
+            if (shippingCode == ShippingCode.FREE.getValue()) {
                 isFreeShipping = true;
                 finalShippingPrice = 0;
-            } else if (shippingCode == ShippingType.CONDITIONAL.getValue()) {
+            } else if (shippingCode == ShippingCode.CONDITIONAL.getValue()) {
                 isFreeShipping = brandData.getTotal_products_price() >= brandData.getCondition_free_shipping();
                 if (isFreeShipping) {
                     finalShippingPrice = 0;
