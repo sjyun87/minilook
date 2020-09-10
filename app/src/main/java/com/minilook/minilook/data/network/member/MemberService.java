@@ -34,6 +34,15 @@ public interface MemberService {
         @Body RequestBody body
     );
 
+    @POST("/api/members/{user_id}/pushtokens/agreements") Single<BaseDataModel> getInfoStatus(
+        @Path("user_id") int user_id,
+        @Body RequestBody body
+    );
+
+    @POST("/api/nonmembers/pushtokens/agreements") Single<BaseDataModel> getInfoStatus(
+        @Body RequestBody body
+    );
+
     @PUT("/api/members/{user_id}/informationpushes") Single<BaseDataModel> updateOrderInfo(
         @Path("user_id") int user_id,
         @Body RequestBody body

@@ -2,6 +2,7 @@ package com.minilook.minilook.ui.market;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.market.MarketDataModel;
@@ -16,6 +17,7 @@ public class MarketFragment extends BaseFragment implements MarketPresenter.View
         return new MarketFragment();
     }
 
+    @BindView(R.id.layout_swipe_refresh) SwipeRefreshLayout refreshLayout;
     @BindView(R.id.rcv_market) RecyclerView recyclerView;
 
     private MarketPresenter presenter;
@@ -36,6 +38,14 @@ public class MarketFragment extends BaseFragment implements MarketPresenter.View
             .view(this)
             .adapter(adapter)
             .build();
+    }
+
+    @Override public void setupRefreshLayout() {
+        refreshLayout.setOnRefreshListener(presenter::onRefresh);
+    }
+
+    @Override public void setRefreshing() {
+        if (refreshLayout.isRefreshing()) refreshLayout.setRefreshing(false);
     }
 
     @Override public void setupRecyclerView() {

@@ -6,8 +6,8 @@ import java.util.List;
 import lombok.Data;
 
 @Data public class PointHistoryDataModel {
-    @Expose @SerializedName("memberNo")
+    @Expose @SerializedName("totalPoint")
     private int point;
-    @Expose @SerializedName("nickname")
+    @Expose @SerializedName("histories")
     private List<PointDataModel> history;
 }

@@ -35,6 +35,10 @@ public class CategoryPresenterImpl extends BasePresenterImpl implements Category
         reqCategory();
     }
 
+    @Override public void onBannerVideoClick() {
+        view.navigateToYoutube("https://www.youtube.com/watch?v=3iojfKeOz-M");
+    }
+
     private void reqCategory() {
         addDisposable(
             categoryRequest.getCategoryList()

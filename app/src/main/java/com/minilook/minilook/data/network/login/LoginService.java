@@ -25,7 +25,7 @@ public interface LoginService {
         @Body RequestBody body
     );
 
-    @HTTP(method = "DELETE", path = "/api/members/{user_id}/pushtokens\n", hasBody = true)
+    @HTTP(method = "DELETE", path = "/api/members/{user_id}/pushtokens", hasBody = true)
     Single<BaseDataModel> logout(
         @Path("user_id") int user_id,
         @Body RequestBody body

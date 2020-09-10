@@ -39,20 +39,18 @@ public class PointPresenterImpl extends BasePresenterImpl implements PointPresen
     private void reqPointDetail() {
         addDisposable(ipageRequest.getPointHistory()
             .compose(Transformer.applySchedulers())
-            .filter(data -> {
-                String code = data.getCode();
-                if (code.equals(HttpCode.NO_DATA)) {
-                    view.emptyPanel();
-                }
-                return code.equals(HttpCode.OK);
-            })
+            .filter(data -> data.getCode().equals(HttpCode.OK))
             .map(data -> gson.fromJson(data.getData(), PointHistoryDataModel.class))
             .subscribe(this::resPointDetail, Timber::e));
     }
 
     private void resPointDetail(PointHistoryDataModel data) {
-
-        adapter.set(data.getHistory());
-        view.refresh();
+        view.setupPoint(data.getPoint());
+        if (data.getHistory().size() > 0) {
+            adapter.set(data.getHistory());
+            view.refresh();
+        } else {
+            view.emptyPanel();
+        }
     }
 }

@@ -31,9 +31,13 @@ public interface SettingPresenter extends LifecycleObserver {
 
     interface View {
 
-        void setupInfoSwitchButton();
+        void setupOrderInfoSwitchButton();
+
+        void checkOrderInfoSwitch(boolean isChecked);
 
         void setupMarketingSwitchButton();
+
+        void checkMarketingInfoSwitch(boolean isChecked);
 
         void showOrderInfoPanel();
 

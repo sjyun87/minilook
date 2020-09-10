@@ -14,6 +14,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.user.PointDataModel;
 import com.minilook.minilook.data.type.PointStatus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import timber.log.Timber;
 
 public class PointHistoryItemVH extends BaseViewHolder<PointDataModel> {
 

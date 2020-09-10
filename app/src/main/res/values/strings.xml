@@ -150,8 +150,9 @@
     <!--Point-->
     <string name="point_title">포인트</string>
     <string name="point_caption">포인트</string>
-    <string name="point_plus">+%sp</string>
-    <string name="point_minus">-%sp</string>
+    <string name="point_unit">%sP</string>
+    <string name="point_plus">+%sP</string>
+    <string name="point_minus">-%sP</string>
     <string name="point_expire">%s 소멸예정</string>
     <string name="point_empty">포인트 내역이 없습니다.</string>
 

@@ -13,6 +13,8 @@ public interface PointPresenter extends LifecycleObserver {
 
     interface View {
 
+        void setupPoint(int point);
+
         void setupRecyclerView();
 
         void refresh();

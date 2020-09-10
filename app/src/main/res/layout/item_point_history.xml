@@ -28,7 +28,7 @@
         android:fontFamily="@font/nanum_square_b"
         android:textColor="@color/color_FF232323"
         android:textSize="@dimen/sp_7"
-        app:layout_constraintBottom_toTopOf="@+id/txt_expire_date"
+        app:layout_constraintBottom_toTopOf="@+id/txt_regist_date"
         app:layout_constraintLeft_toRightOf="@+id/txt_type"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
@@ -73,5 +73,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="@+id/txt_point"
         app:layout_constraintTop_toBottomOf="@+id/txt_point"
-        tools:text="2020.09.01 소멸예정" />
+        tools:text="2020.09.01 소멸예정"
+        tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

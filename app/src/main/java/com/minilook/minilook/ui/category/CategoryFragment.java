@@ -1,8 +1,11 @@
 package com.minilook.minilook.ui.category;
 
+import android.content.Intent;
+import android.net.Uri;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.CategoryDataModel;
@@ -56,5 +59,17 @@ public class CategoryFragment extends BaseFragment implements CategoryPresenter.
 
     @Override public void refresh() {
         adapterView.refresh();
+    }
+
+    @Override public void navigateToYoutube(String url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        intent.setPackage("com.google.android.youtube");
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.img_banner_video)
+    void onBannerVideoClick() {
+        //presenter.onBannerVideoClick();
     }
 }

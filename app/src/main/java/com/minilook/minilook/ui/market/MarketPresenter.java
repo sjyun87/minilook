@@ -9,7 +9,13 @@ public interface MarketPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
+    void onRefresh();
+
     interface View {
+
+        void setupRefreshLayout();
+
+        void setRefreshing();
 
         void setupRecyclerView();
 

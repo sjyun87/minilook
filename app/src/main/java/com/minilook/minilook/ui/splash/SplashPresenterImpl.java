@@ -116,9 +116,7 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
 
     private void checkToken() {
         String token = App.getInstance().getPushToken();
-        Timber.e("token :: " + token);
         if (token.isEmpty()) {
-            Timber.e("token is empty");
             getCurrentToken();
         } else {
             Timber.e("token success");

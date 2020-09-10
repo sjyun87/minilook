@@ -3,7 +3,11 @@ package com.minilook.minilook.ui.webview;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -49,11 +53,17 @@ public class WebViewActivity extends BaseActivity implements WebViewPresenter.Vi
         webSettings.setJavaScriptCanOpenWindowsAutomatically(false);
         webSettings.setUseWideViewPort(true);
         webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
-        webView.setWebViewClient(new WebViewClient());
+        webView.setWebViewClient(customWebClient);
         webView.setWebChromeClient(new WebChromeClient());
     }
 
     @Override public void loadUrl(String url) {
         webView.loadUrl(url);
     }
+
+    WebViewClient customWebClient = new WebViewClient(){
+        @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+            return false;
+        }
+    };
 }

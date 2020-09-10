@@ -1,9 +1,11 @@
 package com.minilook.minilook.ui.setting;
 
+import com.google.gson.Gson;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.common.URLKeys;
 import com.minilook.minilook.data.model.base.BaseDataModel;
+import com.minilook.minilook.data.model.user.InfoStatusDataModel;
 import com.minilook.minilook.data.network.login.LoginRequest;
 import com.minilook.minilook.data.network.member.MemberRequest;
 import com.minilook.minilook.data.rx.Transformer;
@@ -17,6 +19,8 @@ public class SettingPresenterImpl extends BasePresenterImpl implements SettingPr
     private final MemberRequest memberRequest;
     private final LoginRequest loginRequest;
 
+    private Gson gson = new Gson();
+
     public SettingPresenterImpl(SettingArguments args) {
         view = args.getView();
         memberRequest = new MemberRequest();
@@ -24,10 +28,8 @@ public class SettingPresenterImpl extends BasePresenterImpl implements SettingPr
     }
 
     @Override public void onCreate() {
-        view.setupInfoSwitchButton();
-        view.setupMarketingSwitchButton();
         view.setupCurrentVersion();
-
+        reqInfoStatus();
         if (App.getInstance().isLogin()) {
             setupUser();
         } else {
@@ -89,6 +91,25 @@ public class SettingPresenterImpl extends BasePresenterImpl implements SettingPr
         view.showLoginButton();
         view.hideLogoutButton();
         view.hideLeaveButton();
+    }
+
+    private void reqInfoStatus() {
+        addDisposable(memberRequest.getInfoStatus()
+            .compose(Transformer.applySchedulers())
+            .filter(data -> {
+                Timber.e(data.toString());
+                return data.getCode().equals(HttpCode.OK);
+            })
+            .map(data -> gson.fromJson(data.getData(), InfoStatusDataModel.class))
+            .subscribe(this::resInfoStatus, Timber::e));
+    }
+
+    private void resInfoStatus(InfoStatusDataModel data) {
+        view.checkOrderInfoSwitch(data.isOrderInfo());
+        view.checkMarketingInfoSwitch(data.isMarketingInfo());
+
+        view.setupOrderInfoSwitchButton();
+        view.setupMarketingSwitchButton();
     }
 
     private void reqLogout() {

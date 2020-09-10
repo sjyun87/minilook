@@ -60,6 +60,21 @@ public class MemberRequest extends BaseRequest<MemberService> {
         return jsonMap;
     }
 
+    public Single<BaseDataModel> getInfoStatus() {
+        if (App.getInstance().isLogin()) {
+            int user_id = App.getInstance().getUserId();
+            return getApi().getInfoStatus(user_id, createRequestBody(parseToInfoJson()));
+        } else {
+            return getApi().getInfoStatus(createRequestBody(parseToInfoJson()));
+        }
+    }
+
+    private Map<String, Object> parseToInfoJson() {
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("pushToken", App.getInstance().getPushToken());
+        return jsonMap;
+    }
+
     public Single<BaseDataModel> updateOrderInfo(boolean enable) {
         int user_id = App.getInstance().getUserId();
         return getApi().updateOrderInfo(user_id, createRequestBody(parseToOrderInfoJson(enable)));

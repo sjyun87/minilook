@@ -15,7 +15,6 @@ import com.minilook.minilook.BuildConfig;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.widget.BottomBar;
-import com.minilook.minilook.ui.base.widget.CustomToast;
 import com.minilook.minilook.ui.leave.LeaveActivity;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.main.MainActivity;
@@ -78,7 +77,7 @@ public class SettingActivity extends BaseActivity implements SettingPresenter.Vi
         presenter.onLogout();
     }
 
-    @Override public void setupInfoSwitchButton() {
+    @Override public void setupOrderInfoSwitchButton() {
         orderInfoSwitchButton.setOnCheckedChangeListener(
             (view, isChecked) -> {
                 presenter.onOrderInfoChecked(isChecked);
@@ -90,6 +89,10 @@ public class SettingActivity extends BaseActivity implements SettingPresenter.Vi
                     Toast.makeText(this, str_toast_order_disagree, Toast.LENGTH_SHORT).show();
                 }
             });
+    }
+
+    @Override public void checkOrderInfoSwitch(boolean isChecked) {
+        orderInfoSwitchButton.setChecked(isChecked);
     }
 
     @Override public void setupMarketingSwitchButton() {
@@ -104,6 +107,10 @@ public class SettingActivity extends BaseActivity implements SettingPresenter.Vi
                     Toast.makeText(this, str_toast_marketing_disagree, Toast.LENGTH_SHORT).show();
                 }
             });
+    }
+
+    @Override public void checkMarketingInfoSwitch(boolean isChecked) {
+        marketingInfoSwitchButton.setChecked(isChecked);
     }
 
     @Override public void showOrderInfoPanel() {

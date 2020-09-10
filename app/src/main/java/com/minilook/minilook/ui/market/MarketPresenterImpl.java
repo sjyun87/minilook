@@ -33,7 +33,12 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
     }
 
     @Override public void onCreate() {
+        view.setupRefreshLayout();
         view.setupRecyclerView();
+        reqMarketModule();
+    }
+
+    @Override public void onRefresh() {
         reqMarketModule();
     }
 
@@ -50,6 +55,7 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
     private void resMarketModules(@NonNull List<MarketDataModel> data) {
         adapter.set(parseToModuleType(data));
         view.refresh();
+        view.setRefreshing();
     }
 
     private List<MarketDataModel> parseToModuleType(List<MarketDataModel> data) {
