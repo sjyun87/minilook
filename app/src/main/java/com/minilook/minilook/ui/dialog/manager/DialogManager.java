@@ -74,8 +74,9 @@ public final class DialogManager {
     }
 
     @Builder
-    public static void showTrialVersionDialog(Activity activity) {
+    public static void showTrialVersionDialog(Activity activity, OnPositiveClickListener onPositiveClickListener) {
         TrialVersionDialog dialog = new TrialVersionDialog(activity);
+        dialog.setOnPositiveClickListener(onPositiveClickListener);
         dialog.show();
     }
 }

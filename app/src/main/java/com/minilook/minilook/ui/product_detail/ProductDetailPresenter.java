@@ -29,6 +29,8 @@ public interface ProductDetailPresenter extends LifecycleObserver {
 
     void onOptionSelectorBuyClick(List<PickOptionDataModel> goodsData);
 
+    void onTrialVersionDialogGoClick();
+
     interface View {
 
         void setupProductImageViewPager();
@@ -162,5 +164,7 @@ public interface ProductDetailPresenter extends LifecycleObserver {
         void showTrialVersionDialog();
 
         void showAddShoppingBagToast();
+
+        void navigateToEventDetail();
     }
 }

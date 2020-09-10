@@ -57,6 +57,13 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
         view.finish();
     }
 
+    @Override public void onPermissionGranted() {
+        reqSortCode();
+        checkAnimation();
+        checkLogin();
+        checkToken();
+    }
+
     private void checkAppVersion() {
         reqCheckAppVersion();
     }
@@ -81,10 +88,11 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
     }
 
     private void startApp() {
-        reqSortCode();
-        checkAnimation();
-        checkLogin();
-        checkToken();
+        reqPermission();
+    }
+
+    private void reqPermission() {
+        view.checkPermission();
     }
 
     private void reqSortCode() {

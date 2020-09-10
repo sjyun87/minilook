@@ -79,6 +79,10 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
         view.navigateToMain();
     }
 
+    @Override public void onTrialVersionDialogGoClick() {
+        view.navigateToEventDetail();
+    }
+
     private void setupAllCheck() {
         for (PickBrandDataModel brandData : adapter.get()) {
             for (PickProductDataModel productData : brandData.getProducts()) {

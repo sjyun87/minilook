@@ -10,9 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindDimen;
 import butterknife.BindFont;
 import butterknife.BindView;
 import butterknife.OnClick;
+import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.R;
@@ -31,6 +33,8 @@ public class MarketRecommendVH extends BaseViewHolder<MarketDataModel> {
     @BindView(R.id.rcv_product) RecyclerView productRecyclerView;
 
     @BindFont(R.font.nanum_square_b) Typeface font_bold;
+
+    @BindDimen(R.dimen.dp_2) int dp_2;
 
     private final int view_count;
 
@@ -62,6 +66,11 @@ public class MarketRecommendVH extends BaseViewHolder<MarketDataModel> {
                 }
             }
         });
+        DividerDecoration.builder(context)
+            .size(dp_2)
+            .asSpace()
+            .build()
+            .addTo(productRecyclerView);
         ViewCompat.setNestedScrollingEnabled(productRecyclerView, false);
     }
 

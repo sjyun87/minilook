@@ -145,4 +145,7 @@ dependencies {
 
   // Material
   implementation "com.google.android.material:material:$material_version"
+
+  // Permission
+  implementation "gun0912.ted:tedpermission:$permission_version"
 }

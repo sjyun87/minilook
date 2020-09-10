@@ -24,6 +24,7 @@ import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.widget.BottomBar;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
+import com.minilook.minilook.ui.event_detail.EventDetailActivity;
 import com.minilook.minilook.ui.main.MainActivity;
 import com.minilook.minilook.ui.order.OrderActivity;
 import com.minilook.minilook.ui.shoppingbag.adapter.ShoppingBagAdapter;
@@ -36,7 +37,6 @@ public class ShoppingBagActivity extends BaseActivity implements ShoppingBagPres
     public static void start(Context context) {
         Intent intent = new Intent(context, ShoppingBagActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         context.startActivity(intent);
     }
 
@@ -144,8 +144,12 @@ public class ShoppingBagActivity extends BaseActivity implements ShoppingBagPres
         OrderActivity.start(this);
     }
 
+    @Override public void navigateToEventDetail() {
+        EventDetailActivity.start(this, 6);
+    }
+
     @Override public void showTrialVersionDialog() {
-        DialogManager.showTrialVersionDialog(this);
+        DialogManager.showTrialVersionDialog(this, presenter::onTrialVersionDialogGoClick);
     }
 
     @Override public void navigateToMain() {

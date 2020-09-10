@@ -96,4 +96,7 @@ ext {
 
   // Material
   material_version = '1.2.1'
+
+  // Permission
+  permission_version = '2.2.3'
 }

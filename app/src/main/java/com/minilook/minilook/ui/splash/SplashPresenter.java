@@ -13,7 +13,11 @@ public interface SplashPresenter extends LifecycleObserver {
 
     void onUpdateDialogCancelClick();
 
+    void onPermissionGranted();
+
     interface View {
+
+        void checkPermission();
 
         void showUpdateDialog();
 

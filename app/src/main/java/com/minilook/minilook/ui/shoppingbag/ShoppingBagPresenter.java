@@ -19,6 +19,8 @@ public interface ShoppingBagPresenter extends LifecycleObserver {
 
     void onEmptyClick();
 
+    void onTrialVersionDialogGoClick();
+
     interface View {
 
         void setupRecyclerView();
@@ -50,6 +52,8 @@ public interface ShoppingBagPresenter extends LifecycleObserver {
         void navigateToMain();
 
         void navigateToOrder(List<PickBrandDataModel> items);
+
+        void navigateToEventDetail();
 
         void finish();
     }

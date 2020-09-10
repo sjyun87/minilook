@@ -122,6 +122,10 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         view.showTrialVersionDialog();
     }
 
+    @Override public void onTrialVersionDialogGoClick() {
+        view.navigateToEventDetail();
+    }
+
     private void reqAddShoppingBag(List<PickOptionDataModel> goodsData) {
         addDisposable(orderRequest.addShoppingBag(goodsData)
             .compose(Transformer.applySchedulers())

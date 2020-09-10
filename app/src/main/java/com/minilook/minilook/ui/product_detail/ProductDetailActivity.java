@@ -39,6 +39,7 @@ import com.minilook.minilook.ui.base.widget.ColorView;
 import com.minilook.minilook.ui.base.widget.SizeView;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
+import com.minilook.minilook.ui.event_detail.EventDetailActivity;
 import com.minilook.minilook.ui.option_selector.OptionSelector;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.product_detail.adapter.ProductDetailImageAdapter;
@@ -506,11 +507,15 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     }
 
     @Override public void showTrialVersionDialog() {
-        DialogManager.showTrialVersionDialog(this);
+        DialogManager.showTrialVersionDialog(this, presenter::onTrialVersionDialogGoClick);
     }
 
     @Override public void showAddShoppingBagToast() {
         Toast.makeText(this, str_add_shoppingbag, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override public void navigateToEventDetail() {
+        EventDetailActivity.start(this, 6);
     }
 
     @OnClick(R.id.layout_expand_panel)

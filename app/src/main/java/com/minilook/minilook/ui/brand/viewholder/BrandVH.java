@@ -53,7 +53,7 @@ public class BrandVH extends BaseViewHolder<BrandDataModel> {
             .into(logoImageView);
 
         nameTextView.setText(data.getBrand_name());
-        tagTextView.setText(data.getBrand_tag());
+        tagTextView.setText(data.getBrand_tag().replace(",", " "));
 
         setupScrapImage(data.isScrap());
 
