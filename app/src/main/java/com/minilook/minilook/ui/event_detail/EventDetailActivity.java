@@ -25,7 +25,6 @@ public class EventDetailActivity extends BaseActivity implements EventDetailPres
     public static void start(Context context, int event_id) {
         Intent intent = new Intent(context, EventDetailActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("event_id", event_id);
         context.startActivity(intent);
     }

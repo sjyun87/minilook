@@ -33,7 +33,6 @@ public class PromotionDetailActivity extends BaseActivity implements PromotionDe
     public static void start(Context context, int id) {
         Intent intent = new Intent(context, PromotionDetailActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("promotion_id", id);
         context.startActivity(intent);
     }

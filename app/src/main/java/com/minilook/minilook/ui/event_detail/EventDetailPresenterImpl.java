@@ -58,7 +58,7 @@ public class EventDetailPresenterImpl extends BasePresenterImpl implements Event
     }
 
     private void reqEvents() {
-        addDisposable(eventRequest.getEvents(latestEventId, ROWS)
+        addDisposable(eventRequest.getEvents(event_id, latestEventId, ROWS)
             .compose(Transformer.applySchedulers())
             .filter(data -> data.getCode().equals(HttpCode.OK))
             .map((Function<BaseDataModel, List<EventDataModel>>)

@@ -13,6 +13,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.event.EventDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.event_detail.EventDetailActivity;
 
 public class EventItemVH extends BaseViewHolder<EventDataModel> {
 
@@ -39,6 +40,6 @@ public class EventItemVH extends BaseViewHolder<EventDataModel> {
     }
 
     private void onItemClick(View view) {
-
+        EventDetailActivity.start(context, data.getEvent_id());
     }
 }

@@ -16,14 +16,15 @@ public class EventRequest extends BaseRequest<EventService> {
         return getApi().getEventDetail(event_id, createRequestBody(new HashMap<>()));
     }
 
-    public Single<BaseDataModel> getEvents(int latest_id, int rows) {
-        return getApi().getEvents(createRequestBody(parseToJson(latest_id, rows)));
+    public Single<BaseDataModel> getEvents(int event_id, int latest_id, int rows) {
+        return getApi().getEvents(createRequestBody(parseToJson(event_id, latest_id, rows)));
     }
 
-    private Map<String, Object> parseToJson(int latest_id, int rows) {
+    private Map<String, Object> parseToJson(int event_id, int latest_id, int rows) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("pageSize", rows);
         jsonMap.put("pageEventNo", latest_id);
+        jsonMap.put("eventNo", event_id);
         return jsonMap;
     }
 }

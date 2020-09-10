@@ -13,6 +13,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.promotion.PromotionDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.promotion_detail.PromotionDetailActivity;
 
 public class PromotionItemVH extends BaseViewHolder<PromotionDataModel> {
 
@@ -39,6 +40,6 @@ public class PromotionItemVH extends BaseViewHolder<PromotionDataModel> {
     }
 
     private void onItemClick(View view) {
-
+        PromotionDetailActivity.start(context, data.getPromotion_id());
     }
 }
