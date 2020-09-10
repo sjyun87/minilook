@@ -18,6 +18,7 @@ import butterknife.BindDrawable;
 import butterknife.BindFont;
 import butterknife.BindString;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
@@ -26,6 +27,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.pick.PickBrandDataModel;
 import com.minilook.minilook.data.type.ShippingCode;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.shoppingbag.adapter.ShoppingBagProductAdapter;
 import com.minilook.minilook.util.DimenUtil;
 import com.minilook.minilook.util.SpannableUtil;
@@ -142,5 +144,10 @@ public class ShoppingBagItemVH extends BaseViewHolder<PickBrandDataModel> {
         SpannableString colorSpan =
             SpannableUtil.foregroundColorSpan(fontSpan, str_remain_shipping_free_purple, color_FF6200EA);
         return colorSpan;
+    }
+
+    @OnClick(R.id.layout_brand_panel)
+    void onBrandClick(){
+        BrandDetailActivity.start(context, data.getBrand_id());
     }
 }

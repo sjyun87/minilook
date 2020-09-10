@@ -99,6 +99,7 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
         addDisposable(orderRequest.getShoppingBag()
             .compose(Transformer.applySchedulers())
             .filter(data -> {
+                Timber.e(data.toString());
                 String code = data.getCode();
                 if (code.equals(HttpCode.NO_DATA)) {
                     view.showEmptyPanel();
@@ -140,12 +141,18 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
         view.setupTotalPrice(totalProductPrice + totalShippingPrice);
 
         view.setupCheckCount(totalProductCount, totalSelectedProductCount);
-        if (totalSelectedProductCount == 0) {
-            view.uncheckImageView();
-            view.disableOrderButton();
-        } else {
-            view.checkImageView();
+        if (totalSelectedProductCount != 0) {
             view.enableOrderButton();
+        } else {
+            view.disableOrderButton();
+        }
+
+        if (totalProductCount > totalSelectedProductCount) {
+            isAllChecked = false;
+            view.uncheckImageView();
+        } else {
+            isAllChecked = true;
+            view.checkImageView();
         }
     }
 

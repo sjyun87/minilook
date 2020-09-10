@@ -37,6 +37,9 @@ public class TrialVersionDialog extends BaseDialog {
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setCanceledOnTouchOutside(true);
+        setCancelable(true);
+
         setupDesc();
     }
 

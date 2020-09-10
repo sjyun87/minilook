@@ -34,7 +34,7 @@ public class OptionSelectorGoodsItemVH extends BaseViewHolder<PickOptionDataMode
 
         titleTextView.setText(String.format(format_options, data.getColor_name(), data.getSize_name()));
         countTextView.setText(String.valueOf(data.getQuantity()));
-        priceTextView.setText(StringUtil.toDigit(data.getPrice_sum()));
+        priceTextView.setText(StringUtil.toDigit(data.getPrice_sum() * data.getQuantity()));
     }
 
     @OnClick(R.id.img_minus)

@@ -35,7 +35,7 @@ public class ShoppingBagOptionItemVH extends BaseViewHolder<PickOptionDataModel>
 
         titleTextView.setText(String.format(format_options, data.getColor_name(), data.getSize_name()));
         countTextView.setText(String.valueOf(data.getQuantity()));
-        priceTextView.setText(StringUtil.toDigit(data.getPrice_sum()));
+        priceTextView.setText(StringUtil.toDigit(data.getPrice_sum() * data.getQuantity()));
 
         if (data.getQuantity() > 0) {
             orderAvailableTextView.setText(String.format(format_order_available, StringUtil.toDigit(data.getOrder_available_quantity())));

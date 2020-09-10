@@ -22,6 +22,7 @@ import com.minilook.minilook.data.model.pick.PickProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.type.DisplayCode;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.ui.shoppingbag.ShoppingBagPresenterImpl;
 import com.minilook.minilook.ui.shoppingbag.adapter.ShoppingBagGoodsAdapter;
 
@@ -104,5 +105,10 @@ public class ShoppingBagProductItemVH extends BaseViewHolder<PickProductDataMode
     void onCheckBox() {
         data.setSelected(!data.isSelected());
         RxBus.send(new ShoppingBagPresenterImpl.RxBusEventProductCheckedChanged(data.getBrand_id()));
+    }
+
+    @OnClick(R.id.layout_product_panel)
+    void onProductClick(){
+        ProductDetailActivity.start(context, data.getProduct_id());
     }
 }
