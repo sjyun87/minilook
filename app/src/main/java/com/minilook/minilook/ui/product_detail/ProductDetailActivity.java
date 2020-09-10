@@ -127,6 +127,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 
     @BindString(R.string.product_detail_info_expand) String str_expand;
     @BindString(R.string.product_detail_info_collapse) String str_collapse;
+    @BindString(R.string.base_toast_add_shoppingbag) String str_add_shoppingbag;
 
     @BindDrawable(R.drawable.ic_arrow_down_xs) Drawable img_arrow_down;
     @BindDrawable(R.drawable.ic_arrow_up_xs) Drawable img_arrow_up;
@@ -509,7 +510,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     }
 
     @Override public void showAddShoppingBagToast() {
-        Toast.makeText(this, "장바구니에 담았습니다.", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, str_add_shoppingbag, Toast.LENGTH_SHORT).show();
     }
 
     @OnClick(R.id.layout_expand_panel)

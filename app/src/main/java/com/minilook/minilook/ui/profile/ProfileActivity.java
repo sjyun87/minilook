@@ -166,7 +166,8 @@ public class ProfileActivity extends BaseActivity implements ProfilePresenter.Vi
     }
 
     @Override public void showUpdateCompletedToast() {
-        CustomToast.make(this, str_toast_update_completed).show();
+        //CustomToast.make(this, str_toast_update_completed).show();
+        Toast.makeText(this, str_toast_update_completed, Toast.LENGTH_SHORT).show();
     }
 
     @Override public void navigateToWebView(String url) {

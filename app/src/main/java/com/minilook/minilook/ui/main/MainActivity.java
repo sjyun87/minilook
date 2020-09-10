@@ -2,6 +2,7 @@ package com.minilook.minilook.ui.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.widget.Toast;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager2.widget.ViewPager2;
 import butterknife.BindColor;
@@ -72,11 +73,13 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
     }
 
     @Override public void onLogin() {
-        CustomToast.make(this, str_toast_login).show();
+        //CustomToast.make(this, str_toast_login).show();
+        Toast.makeText(this, str_toast_login, Toast.LENGTH_SHORT).show();
     }
 
     @Override public void onLogout() {
-        CustomToast.make(this, str_toast_logout).show();
+        //CustomToast.make(this, str_toast_logout).show();
+        Toast.makeText(this, str_toast_logout, Toast.LENGTH_SHORT).show();
     }
 
     @Override public void onProductScrap(boolean isScrap, ProductDataModel product) {
@@ -114,7 +117,8 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
     @Override public void showMarketingDialog() {
         DialogManager.showMarketingDialog(this, () -> {
             presenter.onMarketingAgree();
-            CustomToast.make(this, str_toast_marketing_agree).show();
+            //CustomToast.make(this, str_toast_marketing_agree).show();
+            Toast.makeText(this, str_toast_marketing_agree, Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -125,7 +129,8 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
     @Override public void onBackPressed() {
         if (System.currentTimeMillis() > backPressedTime + 2000) {
             backPressedTime = System.currentTimeMillis();
-            CustomToast.make(this, str_toast_app_finish).show();
+            //CustomToast.make(this, str_toast_app_finish).show();
+            Toast.makeText(this, str_toast_app_finish, Toast.LENGTH_SHORT).show();
         } else {
             finishAffinity();
         }

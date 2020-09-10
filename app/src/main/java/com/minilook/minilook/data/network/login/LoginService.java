@@ -15,12 +15,18 @@ public interface LoginService {
         @Body RequestBody body
     );
 
+    @HTTP(method = "DELETE", path = "/api/members/{user_id}", hasBody = true)
+    Single<BaseDataModel> leave(
+        @Path("user_id") int user_id,
+        @Body RequestBody body
+    );
+
     @POST("/api/members/existing") Single<BaseDataModel> login(
         @Body RequestBody body
     );
 
-    @HTTP(method = "DELETE", path = "/api/members/{user_id}", hasBody = true)
-    Single<BaseDataModel> leave(
+    @HTTP(method = "DELETE", path = "/api/members/{user_id}/pushtokens\n", hasBody = true)
+    Single<BaseDataModel> logout(
         @Path("user_id") int user_id,
         @Body RequestBody body
     );

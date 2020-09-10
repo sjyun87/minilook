@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import butterknife.BindString;
 import butterknife.BindView;
@@ -82,9 +83,11 @@ public class SettingActivity extends BaseActivity implements SettingPresenter.Vi
             (view, isChecked) -> {
                 presenter.onOrderInfoChecked(isChecked);
                 if (isChecked) {
-                    CustomToast.make(this, str_toast_order_agree).show();
+                    //CustomToast.make(this, str_toast_order_agree).show();
+                    Toast.makeText(this, str_toast_order_agree, Toast.LENGTH_SHORT).show();
                 } else {
-                    CustomToast.make(this, str_toast_order_disagree).show();
+                    //CustomToast.make(this, str_toast_order_disagree).show();
+                    Toast.makeText(this, str_toast_order_disagree, Toast.LENGTH_SHORT).show();
                 }
             });
     }
@@ -94,9 +97,11 @@ public class SettingActivity extends BaseActivity implements SettingPresenter.Vi
             (view, isChecked) -> {
                 presenter.onMarketingInfoChecked(isChecked);
                 if (isChecked) {
-                    CustomToast.make(this, str_toast_marketing_agree).show();
+                    //CustomToast.make(this, str_toast_marketing_agree).show();
+                    Toast.makeText(this, str_toast_marketing_agree, Toast.LENGTH_SHORT).show();
                 } else {
-                    CustomToast.make(this, str_toast_marketing_disagree).show();
+                    //CustomToast.make(this, str_toast_marketing_disagree).show();
+                    Toast.makeText(this, str_toast_marketing_disagree, Toast.LENGTH_SHORT).show();
                 }
             });
     }

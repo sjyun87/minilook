@@ -28,6 +28,19 @@ public class LoginRequest extends BaseRequest<LoginService> {
         return jsonMap;
     }
 
+    public Single<BaseDataModel> logout() {
+        int user_id = App.getInstance().getUserId();
+        return getApi().logout(user_id , createRequestBody(parseToLogoutJson()));
+    }
+
+    private Map<String, Object> parseToLogoutJson() {
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("pushToken", App.getInstance().getPushToken());
+        Timber.e(jsonMap.toString());
+        return jsonMap;
+    }
+
+
     public Single<BaseDataModel> join(UserDataModel model) {
         return getApi().join(createRequestBody(parseToJoinJson(model)));
     }

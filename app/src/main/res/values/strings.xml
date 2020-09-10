@@ -18,6 +18,7 @@
     <string name="base_toast_login">로그인 되었습니다</string>
     <string name="base_toast_logout">로그아웃 되었습니다</string>
     <string name="base_toast_update_completed">닉네임이 변경되었습니다</string>
+    <string name="base_toast_add_shoppingbag">장바구니에 담았습니다</string>
 
     <!--Bottom Bar-->
     <string name="bottombar_lookbook">룩북</string>

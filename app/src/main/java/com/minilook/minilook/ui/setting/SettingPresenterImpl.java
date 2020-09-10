@@ -1,19 +1,26 @@
 package com.minilook.minilook.ui.setting;
 
 import com.minilook.minilook.App;
+import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.common.URLKeys;
+import com.minilook.minilook.data.model.base.BaseDataModel;
+import com.minilook.minilook.data.network.login.LoginRequest;
 import com.minilook.minilook.data.network.member.MemberRequest;
+import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.setting.di.SettingArguments;
+import timber.log.Timber;
 
 public class SettingPresenterImpl extends BasePresenterImpl implements SettingPresenter {
 
     private final View view;
     private final MemberRequest memberRequest;
+    private final LoginRequest loginRequest;
 
     public SettingPresenterImpl(SettingArguments args) {
         view = args.getView();
         memberRequest = new MemberRequest();
+        loginRequest = new LoginRequest();
     }
 
     @Override public void onCreate() {
@@ -41,8 +48,7 @@ public class SettingPresenterImpl extends BasePresenterImpl implements SettingPr
     }
 
     @Override public void onLogoutClick() {
-        App.getInstance().setupLogout();
-        view.navigateToMain();
+        reqLogout();
     }
 
     @Override public void onLeaveClick() {
@@ -83,5 +89,17 @@ public class SettingPresenterImpl extends BasePresenterImpl implements SettingPr
         view.showLoginButton();
         view.hideLogoutButton();
         view.hideLeaveButton();
+    }
+
+    private void reqLogout() {
+        addDisposable(loginRequest.logout()
+            .compose(Transformer.applySchedulers())
+            .filter(data -> data.getCode().equals(HttpCode.OK))
+            .subscribe(this::resLogout, Timber::e));
+    }
+
+    private void resLogout(BaseDataModel dataModel) {
+        App.getInstance().setupLogout();
+        view.navigateToMain();
     }
 }
