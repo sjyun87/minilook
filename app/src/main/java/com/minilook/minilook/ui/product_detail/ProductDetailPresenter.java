@@ -160,5 +160,7 @@ public interface ProductDetailPresenter extends LifecycleObserver {
         void navigateToShoppingBag();
 
         void showTrialVersionDialog();
+
+        void showAddShoppingBagToast();
     }
 }

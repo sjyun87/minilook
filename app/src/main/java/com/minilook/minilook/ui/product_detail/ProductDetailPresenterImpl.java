@@ -115,7 +115,6 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
 
     @Override public void onOptionSelectorShoppingBagClick(List<PickOptionDataModel> goodsData) {
         reqAddShoppingBag(goodsData);
-        view.hideOptionSelector();
     }
 
     @Override public void onOptionSelectorBuyClick(List<PickOptionDataModel> goodsData) {
@@ -131,7 +130,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
 
     private void resAddShoppingBag(BaseDataModel data) {
         Timber.e(data.toString());
-        view.navigateToShoppingBag();
+        view.showAddShoppingBagToast();
     }
 
     private void reqProductDetail() {

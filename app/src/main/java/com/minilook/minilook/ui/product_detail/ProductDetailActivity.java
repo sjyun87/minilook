@@ -15,6 +15,7 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
@@ -505,6 +506,10 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 
     @Override public void showTrialVersionDialog() {
         DialogManager.showTrialVersionDialog(this);
+    }
+
+    @Override public void showAddShoppingBagToast() {
+        Toast.makeText(this, "장바구니에 담았습니다.", Toast.LENGTH_LONG).show();
     }
 
     @OnClick(R.id.layout_expand_panel)

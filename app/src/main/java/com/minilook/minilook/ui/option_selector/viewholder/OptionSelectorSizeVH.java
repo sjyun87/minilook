@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import butterknife.BindColor;
 import butterknife.BindFont;
+import butterknife.BindString;
 import butterknife.BindView;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductStockDataModel;
@@ -28,6 +29,8 @@ public class OptionSelectorSizeVH extends BaseViewHolder<ProductStockDataModel> 
     @BindFont(R.font.nanum_square_b) Typeface font_bold;
     @BindFont(R.font.nanum_square_r) Typeface font_regular;
 
+    @BindString(R.string.option_selector_price_add) String format_price_add;
+
     @Setter private OnSizeSelectedListener onSizeSelectedListener;
 
     public OptionSelectorSizeVH(@NonNull View itemView) {
@@ -42,7 +45,7 @@ public class OptionSelectorSizeVH extends BaseViewHolder<ProductStockDataModel> 
         if (data.getPrice_add() == 0) {
             addPriceTextView.setVisibility(View.GONE);
         } else {
-            addPriceTextView.setText(StringUtil.toDigit(data.getPrice_add()));
+            addPriceTextView.setText(String.format(format_price_add, StringUtil.toDigit(data.getPrice_add())));
             addPriceTextView.setVisibility(View.VISIBLE);
         }
 

@@ -151,6 +151,16 @@ public class OptionSelector extends FrameLayout implements OptionSelectorGoodsIt
         showColorSelectBox();
     }
 
+    private void resetData() {
+        isColorSelectBoxOpened = false;
+        isSizeSelectBoxOpened = false;
+        selectedColorData = null;
+        selectedSizeData = null;
+        goodsAdapter.clear();
+        goodsAdapter.refresh();
+        selectedData.clear();
+    }
+
     public void show() {
         showSelectPanel();
         showBuyPanel();
@@ -341,19 +351,9 @@ public class OptionSelector extends FrameLayout implements OptionSelectorGoodsIt
         setupTotalPrice(totalPrice);
     }
 
-    private void reset() {
-        isColorSelectBoxOpened = false;
-        isSizeSelectBoxOpened = false;
-        selectedColorData = null;
-        selectedSizeData = null;
-        goodsAdapter.clear();
-        goodsAdapter.refresh();
-        selectedData.clear();
-    }
-
     @OnClick(R.id.curtain)
     void onCurtainClick() {
-        reset();
+        resetData();
         hide();
     }
 
@@ -366,6 +366,8 @@ public class OptionSelector extends FrameLayout implements OptionSelectorGoodsIt
     @OnClick(R.id.txt_shopping_bag)
     void onShoppingBagClick() {
         onButtonClickListener.onShoppingBagClick(goodsAdapter.get());
+        resetData();
+        hide();
     }
 
     @OnClick(R.id.txt_buy_now)

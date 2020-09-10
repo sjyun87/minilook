@@ -321,6 +321,7 @@
     <string name="option_selector_color_box_hint">색상을 선택해주세요</string>
     <string name="option_selector_size_box_hint">사이즈를 선택해주세요</string>
     <string name="option_selector_sold_out">품절</string>
+    <string name="option_selector_price_add">+ %s</string>
     <string name="option_selector_selected_color">색상 - %s</string>
 
     <!--Review-->

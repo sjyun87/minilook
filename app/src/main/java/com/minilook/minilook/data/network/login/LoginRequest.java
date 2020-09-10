@@ -57,4 +57,9 @@ public class LoginRequest extends BaseRequest<LoginService> {
         jsonMap.put("snsTypeCode", App.getInstance().getSnsType());
         return jsonMap;
     }
+
+    public Single<BaseDataModel> getPointNCoupon() {
+        int user_id = App.getInstance().getUserId();
+        return getApi().getPointNCoupon(user_id);
+    }
 }

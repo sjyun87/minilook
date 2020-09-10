@@ -1,8 +1,10 @@
 package com.minilook.minilook.ui.leave;
 
+import com.google.gson.Gson;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
+import com.minilook.minilook.data.model.user.PointNCouponModel;
 import com.minilook.minilook.data.network.login.LoginRequest;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
@@ -14,15 +16,19 @@ public class LeavePresenterImpl extends BasePresenterImpl implements LeavePresen
     private final View view;
     private final LoginRequest loginRequest;
 
+    private Gson gson = new Gson();
+
     public LeavePresenterImpl(LeaveArguments args) {
         view = args.getView();
         loginRequest = new LoginRequest();
     }
 
     @Override public void onCreate() {
-        view.setupPoint(2000);
-        view.setupCoupon(3);
         view.setupChainSNS(App.getInstance().getSnsType());
+        view.setupCoupon(0);
+        view.setupPoint(0);
+
+        reqPointNCoupon();
     }
 
     @Override public void onLeaveClick() {
@@ -31,6 +37,20 @@ public class LeavePresenterImpl extends BasePresenterImpl implements LeavePresen
 
     @Override public void onLeaveDialogOkClick() {
         reqLeave();
+    }
+
+    private void reqPointNCoupon() {
+        addDisposable(loginRequest.getPointNCoupon()
+            .compose(Transformer.applySchedulers())
+            .filter(data -> data.getCode().equals(HttpCode.OK))
+            .map(data -> gson.fromJson(data.getData(), PointNCouponModel.class))
+            .subscribe(this::resPointNCoupon, Timber::e));
+    }
+
+    private void resPointNCoupon(PointNCouponModel data) {
+        Timber.e(data.toString());
+        view.setupCoupon(data.getCoupon());
+        view.setupPoint(data.getPoint());
     }
 
     private void reqLeave() {
