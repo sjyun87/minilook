@@ -27,7 +27,7 @@ import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.android.material.tabs.TabLayout;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.order.OrderOptionDataModel;
+import com.minilook.minilook.data.model.pick.PickOptionDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.product.ProductOptionDataModel;
 import com.minilook.minilook.data.model.product.ProductStockModel;
@@ -374,11 +374,11 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     @Override public void setupOptionSelector(int price, List<ProductOptionDataModel> options) {
         optionSelector.setupData(price, options);
         optionSelector.setOnButtonClickListener(new OptionSelector.OnButtonClickListener() {
-            @Override public void onShoppingBagClick(List<OrderOptionDataModel> goodsData) {
+            @Override public void onShoppingBagClick(List<PickOptionDataModel> goodsData) {
                 presenter.onOptionSelectorShoppingBagClick(goodsData);
             }
 
-            @Override public void onBuyClick(List<OrderOptionDataModel> goodsData) {
+            @Override public void onBuyClick(List<PickOptionDataModel> goodsData) {
                 presenter.onOptionSelectorBuyClick(goodsData);
             }
         });

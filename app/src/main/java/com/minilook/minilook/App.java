@@ -2,15 +2,10 @@ package com.minilook.minilook;
 
 import android.app.Application;
 import android.content.ContextWrapper;
-import androidx.annotation.NonNull;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 import com.kakao.sdk.common.KakaoSdk;
 import com.minilook.minilook.data.common.PrefsKey;
 import com.minilook.minilook.data.model.common.SortDataModel;
-import com.minilook.minilook.data.model.order.OrderBrandDataModel;
+import com.minilook.minilook.data.model.pick.PickBrandDataModel;
 import com.minilook.minilook.data.model.user.UserDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.RxBusEvent;
@@ -29,7 +24,7 @@ public class App extends Application {
     private String snsType;
     private String pushToken;
     @Getter @Setter private List<SortDataModel> sortCodes;
-    @Getter @Setter private List<OrderBrandDataModel> orderItems;
+    @Getter @Setter private List<PickBrandDataModel> orderItems;
 
     @Override public void onCreate() {
         super.onCreate();

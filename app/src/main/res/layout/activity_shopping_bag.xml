@@ -71,7 +71,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/color_FFFFFFFF"
-        android:elevation="@dimen/dp_5"
         android:paddingTop="@dimen/dp_10"
         android:paddingBottom="@dimen/dp_11"
         app:layout_constraintBottom_toTopOf="@+id/txt_order">
@@ -105,8 +104,8 @@
             android:id="@+id/txt_total_count_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/nanum_square_r"
             android:layout_marginEnd="@dimen/dp_12"
+            android:fontFamily="@font/nanum_square_r"
             android:text="@string/shoppingbag_total_count_unit"
             android:textColor="@color/color_FF424242"
             android:textSize="@dimen/sp_7"
@@ -191,11 +190,44 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_30"
         android:background="@color/color_FF8140E5"
-        android:elevation="@dimen/dp_5"
         android:fontFamily="@font/nanum_square_eb"
         android:gravity="center"
         android:textColor="@color/color_FFFFFFFF"
         android:textSize="@dimen/sp_10"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:text="총 39,000원 구매하기" />
+
+    <LinearLayout
+        android:id="@+id/layout_empty_panel"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/color_FFFFFFFF"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titlebar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nanum_square_r"
+            android:text="@string/shoppingbag_empty"
+            android:textColor="@color/color_FF616161"
+            android:textSize="@dimen/sp_7" />
+
+        <TextView
+            android:id="@+id/txt_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_36"
+            android:background="@drawable/bg_button_border_dark"
+            android:fontFamily="@font/nanum_square_b"
+            android:gravity="center"
+            android:paddingStart="@dimen/dp_30"
+            android:paddingEnd="@dimen/dp_30"
+            android:text="@string/shoppingbag_empty_button"
+            android:textColor="@color/color_FF232323"
+            android:textSize="@dimen/sp_7" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

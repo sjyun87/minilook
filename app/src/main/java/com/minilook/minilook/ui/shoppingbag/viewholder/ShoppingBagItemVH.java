@@ -23,7 +23,8 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.order.OrderBrandDataModel;
+import com.minilook.minilook.data.model.pick.PickBrandDataModel;
+import com.minilook.minilook.data.type.ShippingType;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.shoppingbag.adapter.ShoppingBagProductAdapter;
 import com.minilook.minilook.util.DimenUtil;
@@ -31,15 +32,15 @@ import com.minilook.minilook.util.SpannableUtil;
 import com.minilook.minilook.util.StringUtil;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
 
-public class ShoppingBagItemVH extends BaseViewHolder<OrderBrandDataModel> {
+public class ShoppingBagItemVH extends BaseViewHolder<PickBrandDataModel> {
 
     @BindView(R.id.img_brand_logo) ImageView logoImageView;
     @BindView(R.id.txt_brand_name) TextView nameTextView;
     @BindView(R.id.rcv_product) RecyclerView recyclerView;
     @BindView(R.id.layout_billing_panel) ConstraintLayout billingPanel;
     @BindView(R.id.txt_shipping_price) TextView shippingPriceTextView;
-    @BindView(R.id.txt_shipping_limit) TextView shippingLimitTextView;
-    @BindView(R.id.txt_remain_shipping_free) TextView remainShippingFreeTextView;
+    @BindView(R.id.txt_free_shipping_condition) TextView freeShippingConditionTextView;
+    @BindView(R.id.txt_free_shipping_remain) TextView freeShippingRemainTextView;
     @BindView(R.id.txt_product_price) TextView productPriceTextView;
     @BindView(R.id.txt_final_shipping_price) TextView finalShippingPriceTextView;
     @BindView(R.id.txt_total_price) TextView totalPriceTextView;
@@ -54,7 +55,7 @@ public class ShoppingBagItemVH extends BaseViewHolder<OrderBrandDataModel> {
     @BindDimen(R.dimen.dp_2) int dp_2;
 
     @BindString(R.string.shoppingbag_shipping_free) String str_shipping_free;
-    @BindString(R.string.shoppingbag_shipping_free_condition) String format_shipping_limit;
+    @BindString(R.string.shoppingbag_shipping_free_condition) String format_free_shipping_condition;
     @BindString(R.string.shoppingbag_remain_shipping_free) String format_remain_shipping_free;
     @BindString(R.string.shoppingbag_remain_shipping_free_bold) String str_remain_shipping_free_bold;
     @BindString(R.string.shoppingbag_remain_shipping_free_purple) String str_remain_shipping_free_purple;
@@ -79,7 +80,7 @@ public class ShoppingBagItemVH extends BaseViewHolder<OrderBrandDataModel> {
             .addTo(recyclerView);
     }
 
-    @Override public void bind(OrderBrandDataModel $data) {
+    @Override public void bind(PickBrandDataModel $data) {
         super.bind($data);
 
         Glide.with(context)
@@ -96,28 +97,38 @@ public class ShoppingBagItemVH extends BaseViewHolder<OrderBrandDataModel> {
         productAdapter.set(data.getProducts());
         productAdapter.refresh();
 
-        if (data.isBillDisplay()) {
+        if (data.isBillVisible()) {
             billingPanel.setVisibility(View.VISIBLE);
-            shippingLimitTextView.setText(
-                String.format(format_shipping_limit, (data.getFree_shipping_conditions() / 10000)));
-            String shippingPrice =
-                data.isShippingFree() ? str_shipping_free : StringUtil.toDigit(data.getShipping_price());
-            shippingPriceTextView.setText(shippingPrice);
 
-            if (data.isShippingFree()) {
-                remainShippingFreeTextView.setVisibility(View.GONE);
+            if (data.getShipping_type_code() == ShippingType.CONDITIONAL.getValue()) {
+                int freeShippingCondition = data.getCondition_free_shipping() / 10000;
+                freeShippingConditionTextView.setText(
+                    String.format(format_free_shipping_condition, freeShippingCondition));
+                freeShippingConditionTextView.setVisibility(View.VISIBLE);
             } else {
-                remainShippingFreeTextView.setText(getSpanText(data.getFree_shipping_left()));
-                remainShippingFreeTextView.setVisibility(View.VISIBLE);
+                freeShippingConditionTextView.setVisibility(View.GONE);
+            }
+
+            if (data.isFreeShipping()) {
+                freeShippingRemainTextView.setVisibility(View.GONE);
+                shippingPriceTextView.setText(str_shipping_free);
+            } else {
+                if (data.getShipping_type_code() == ShippingType.CONDITIONAL.getValue()) {
+                    int remainPrice = data.getCondition_free_shipping() - data.getTotal_products_price();
+                    freeShippingRemainTextView.setText(getSpanText(remainPrice));
+                    freeShippingRemainTextView.setVisibility(View.VISIBLE);
+                } else {
+                    freeShippingRemainTextView.setVisibility(View.GONE);
+                }
+                shippingPriceTextView.setText(StringUtil.toDigit(data.getFinal_shipping_price()));
             }
 
             productPriceTextView.setText(StringUtil.toDigit(data.getTotal_products_price()));
-
-            int finalShippingPrice = data.isShippingFree() ? 0 : data.getShipping_price();
             finalShippingPriceTextView.setText(
-                String.format(format_final_shipping_price, StringUtil.toDigit(finalShippingPrice)));
+                String.format(format_final_shipping_price, StringUtil.toDigit(data.getFinal_shipping_price())));
 
-            totalPriceTextView.setText(StringUtil.toDigit(data.getTotal_products_price() + finalShippingPrice));
+            totalPriceTextView.setText(
+                StringUtil.toDigit(data.getTotal_products_price() + data.getFinal_shipping_price()));
         } else {
             billingPanel.setVisibility(View.GONE);
         }

@@ -4,17 +4,18 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
-import com.minilook.minilook.data.model.order.OrderBrandDataModel;
-import com.minilook.minilook.data.model.order.OrderGoodsDataModel;
-import com.minilook.minilook.data.model.order.OrderOptionDataModel;
-import com.minilook.minilook.data.model.order.OrderProductDataModel;
+import com.minilook.minilook.data.model.pick.PickBrandDataModel;
+import com.minilook.minilook.data.model.pick.PickOptionDataModel;
+import com.minilook.minilook.data.model.pick.PickProductDataModel;
 import com.minilook.minilook.data.network.order.OrderRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.data.type.DisplayCode;
+import com.minilook.minilook.data.type.ShippingType;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.shoppingbag.di.ShoppingBagArguments;
+import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.functions.Function;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +26,11 @@ import timber.log.Timber;
 public class ShoppingBagPresenterImpl extends BasePresenterImpl implements ShoppingBagPresenter {
 
     private final View view;
-    private final BaseAdapterDataModel<OrderBrandDataModel> adapter;
+    private final BaseAdapterDataModel<PickBrandDataModel> adapter;
     private final OrderRequest orderRequest;
 
     private Gson gson = new Gson();
-    private List<OrderBrandDataModel> shoppingDatas;
+    private List<PickBrandDataModel> shoppingbagItems;
 
     private boolean isAllChecked = true;
 
@@ -46,7 +47,7 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
         reqShoppingBag();
     }
 
-    @Override public void onCheckClick() {
+    @Override public void onAllCheckClick() {
         isAllChecked = !isAllChecked;
         if (isAllChecked) {
             setupAllCheck();
@@ -56,11 +57,15 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
             view.uncheckImageView();
         }
         view.refresh();
-        setupCheckCount();
+        for (PickBrandDataModel brandData : adapter.get()) {
+            calBrandPrice(brandData);
+        }
+        setupTotalPrice();
     }
 
     @Override public void onDeleteClick() {
-        reqDeleteShoppingBag(getDeleteData());
+        reqDeleteShoppingBag(getDeleteOptions());
+        deleteProduct();
         view.refresh();
     }
 
@@ -70,71 +75,21 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
         //view.finish();
     }
 
-    private void reqDeleteShoppingBag(List<Integer> deleteItem) {
-        addDisposable(orderRequest.deleteShoppingBag(deleteItem)
-            .subscribe());
-    }
-
-    private List<OrderBrandDataModel> getSelectedData() {
-        List<OrderBrandDataModel> brandItems = new ArrayList<>();
-        List<OrderGoodsDataModel> goodsItems = new ArrayList<>();
-
-        for (OrderBrandDataModel brandData : shoppingDatas) {
-            for (OrderProductDataModel productData : brandData.getProducts()) {
-                if (productData.isSelected()) {
-                    for (OrderOptionDataModel optionData : productData.getOptions()) {
-                        OrderGoodsDataModel goodsModel = new OrderGoodsDataModel();
-                        goodsModel.setProduct_id(productData.getProduct_id());
-                        goodsModel.setProduct_name(productData.getProduct_name());
-                        goodsModel.setPrice(productData.getPrice());
-                        goodsModel.setPrice_add(optionData.getPrice_add());
-                        goodsModel.setSize_code(optionData.getSize_code());
-                        goodsModel.setSize_name(optionData.getSize_name());
-                        goodsModel.setColor_code(optionData.getColor_code());
-                        goodsModel.setColor_name(optionData.getColor_name());
-                        goodsModel.setQuantity(optionData.getQuantity());
-                        goodsItems.add(goodsModel);
-                    }
-                }
-            }
-            brandData.setGoods(goodsItems);
-            brandItems.add(brandData);
-        }
-        return brandItems;
-    }
-
-    private List<Integer> getDeleteData() {
-        List<OrderBrandDataModel> tempData = new ArrayList<>(shoppingDatas);
-        List<Integer> items = new ArrayList<>();
-        for (OrderBrandDataModel brandData : tempData) {
-            for (OrderProductDataModel productData : brandData.getProducts()) {
-                if (productData.isSelected()) {
-                    if (brandData.getProducts().size() == 1) {
-                        shoppingDatas.remove(brandData);
-                    } else {
-                        shoppingDatas.get(shoppingDatas.indexOf(brandData)).getProducts().remove(productData);
-                    }
-
-                    for (OrderOptionDataModel goodsData : productData.getOptions()) {
-                        items.add(goodsData.getShoppingbag_id());
-                    }
-                }
-            }
-        }
-        return items;
+    @Override public void onEmptyClick() {
+        view.navigateToMain();
     }
 
     private void setupAllCheck() {
-        for (OrderBrandDataModel brandData : adapter.get()) {
-            for (OrderProductDataModel productData : brandData.getProducts()) {
+        for (PickBrandDataModel brandData : adapter.get()) {
+            for (PickProductDataModel productData : brandData.getProducts()) {
                 productData.setSelected(true);
             }
         }
     }
 
     private void setupAllUncheck() {
-        for (OrderBrandDataModel brandData : adapter.get()) {
-            for (OrderProductDataModel productData : brandData.getProducts()) {
+        for (PickBrandDataModel brandData : adapter.get()) {
+            for (PickProductDataModel productData : brandData.getProducts()) {
                 productData.setSelected(false);
             }
         }
@@ -146,147 +101,229 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
             .filter(data -> {
                 String code = data.getCode();
                 if (code.equals(HttpCode.NO_DATA)) {
-                    // TODO empty panel 노출
+                    view.showEmptyPanel();
                 }
                 return code.equals(HttpCode.OK);
             })
-            .map((Function<BaseDataModel, List<OrderBrandDataModel>>)
-                data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<OrderBrandDataModel>>() {
+            .map((Function<BaseDataModel, List<PickBrandDataModel>>)
+                data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<PickBrandDataModel>>() {
                 }.getType()))
             .subscribe(this::resShoppingBag, Timber::e));
     }
 
-    private void resShoppingBag(List<OrderBrandDataModel> data) {
-        shoppingDatas = data;
-        adapter.set(calPrice(shoppingDatas));
+    private void resShoppingBag(List<PickBrandDataModel> data) {
+        shoppingbagItems = data;
+        for (PickBrandDataModel brandData : data) {
+            adapter.add(calBrandPrice(brandData));
+        }
         view.refresh();
-        setupCheckCount();
+        setupTotalPrice();
     }
 
-    private List<OrderBrandDataModel> calPrice(List<OrderBrandDataModel> data) {
+    private void setupTotalPrice() {
         int totalProductPrice = 0;
         int totalShippingPrice = 0;
-        int orderCount = 0;
-        for (OrderBrandDataModel brandData : data) {
-            int brandTotalPrice = 0;
-            boolean isBillDisplay = false;
-            for (OrderProductDataModel productData : brandData.getProducts()) {
-                int displayCode = productData.getDisplay_code();
-                if (displayCode != DisplayCode.DISPLAY.getValue()) continue;
-                isBillDisplay = true;
-                orderCount++;
-                int productPrice = productData.getPrice();
-                for (OrderOptionDataModel goodsData : productData.getOptions()) {
-                    int goodsPrice = productPrice + goodsData.getPrice_add();
-                    goodsData.setPrice(goodsPrice);
-                    brandTotalPrice += (goodsPrice * goodsData.getQuantity());
-                    brandData.setTotal_products_price(brandTotalPrice);
-                    goodsData.setOrder_available_quantity(
-                        Math.min(productData.getQuantity_limit(), goodsData.getStock()));
-                }
-                if (brandTotalPrice >= brandData.getFree_shipping_conditions()) {
-                    brandData.setShippingFree(true);
-                } else {
-                    brandData.setShippingFree(false);
-                    brandData.setFree_shipping_left(brandData.getFree_shipping_conditions() - brandTotalPrice);
-                }
-            }
-            brandData.setTotal_products_price(brandTotalPrice);
-            brandData.setBillDisplay(isBillDisplay);
-
-            boolean isShippingFree = brandTotalPrice > brandData.getFree_shipping_conditions();
-            brandData.setShippingFree(isShippingFree);
-            totalProductPrice += brandTotalPrice;
-            totalShippingPrice += isShippingFree ? 0 : brandData.getShipping_price();
+        int totalOptionCount = 0;
+        int totalProductCount = 0;
+        int totalSelectedProductCount = 0;
+        for (PickBrandDataModel brandData : adapter.get()) {
+            totalProductCount += brandData.getProducts().size();
+            totalSelectedProductCount += brandData.getTotal_selected_product();
+            totalProductPrice += brandData.getTotal_products_price();
+            totalShippingPrice += brandData.getFinal_shipping_price();
+            totalOptionCount += brandData.getTotal_option_count();
         }
 
-        view.setupTotalCount(orderCount);
+        view.setupTotalCount(totalOptionCount);
         view.setupTotalProductPrice(totalProductPrice);
         view.setupTotalShippingPrice(totalShippingPrice);
         view.setupTotalPrice(totalProductPrice + totalShippingPrice);
-        return data;
+
+        view.setupCheckCount(totalProductCount, totalSelectedProductCount);
+        if (totalSelectedProductCount == 0) {
+            view.uncheckImageView();
+            view.disableOrderButton();
+        } else {
+            view.checkImageView();
+            view.enableOrderButton();
+        }
     }
 
-    private void deleteData(OrderOptionDataModel targetGoodsData) {
-        List<OrderBrandDataModel> brandDatas = adapter.get();
-        List<OrderProductDataModel> productDatas = null;
-        List<OrderOptionDataModel> goodsDatas = null;
-        OrderBrandDataModel targetBrandData = null;
-        OrderProductDataModel targetProductData = null;
+    private PickBrandDataModel calBrandPrice(PickBrandDataModel brandData) {
+        int totalSelectedProductCount = 0;
+        int totalProductsPrice = 0;
+        int totalOptionCount = 0;
 
-        for (OrderBrandDataModel brandData : brandDatas) {
-            for (OrderProductDataModel productData : brandData.getProducts()) {
-                if (productData.getDisplay_code() != DisplayCode.DISPLAY.getValue()) continue;
-                for (OrderOptionDataModel goodsData : productData.getOptions()) {
-                    if (goodsData == targetGoodsData) {
-                        productDatas = brandData.getProducts();
-                        goodsDatas = productData.getOptions();
-                        targetBrandData = brandData;
-                        targetProductData = productData;
-                        break;
+        for (PickProductDataModel productData : brandData.getProducts()) {
+            productData.setBrand_id(brandData.getBrand_id());
+
+            if (!productData.isSelected()) {
+                brandData.setBillVisible(false);
+                continue;
+            }
+            totalSelectedProductCount++;
+
+            int displayCode = productData.getDisplay_code();
+            if (displayCode != DisplayCode.DISPLAY.getValue()) {
+                brandData.setBillVisible(false);
+                continue;
+            }
+            brandData.setBillVisible(true);
+
+            int price_basic = productData.getPrice();
+
+            for (PickOptionDataModel optionData : productData.getOptions()) {
+                optionData.setBrand_id(brandData.getBrand_id());
+
+                int price = price_basic + optionData.getPrice_add();
+                optionData.setPrice_sum(price);
+                int quantity = optionData.getQuantity();
+                totalOptionCount += quantity;
+                totalProductsPrice += (price * quantity);
+
+                optionData.setOrder_available_quantity(
+                    Math.min(productData.getQuantity_limit(), optionData.getStock()));
+            }
+        }
+
+        brandData.setTotal_products_price(totalProductsPrice);
+        brandData.setTotal_option_count(totalOptionCount);
+        brandData.setTotal_selected_product(totalSelectedProductCount);
+
+        if (totalOptionCount > 0) {
+            boolean isFreeShipping;
+            int finalShippingPrice;
+            int shippingCode = brandData.getShipping_type_code();
+            if (shippingCode == ShippingType.FREE.getValue()) {
+                isFreeShipping = true;
+                finalShippingPrice = 0;
+            } else if (shippingCode == ShippingType.CONDITIONAL.getValue()) {
+                isFreeShipping = brandData.getTotal_products_price() >= brandData.getCondition_free_shipping();
+                if (isFreeShipping) {
+                    finalShippingPrice = 0;
+                } else {
+                    finalShippingPrice = brandData.getCondition_shipping_price();
+                }
+            } else {
+                isFreeShipping = false;
+                finalShippingPrice = brandData.getShipping_price();
+            }
+
+            brandData.setFreeShipping(isFreeShipping);
+            brandData.setFinal_shipping_price(finalShippingPrice);
+        } else {
+            brandData.setFreeShipping(false);
+            brandData.setFinal_shipping_price(0);
+        }
+        return brandData;
+    }
+
+    private PickBrandDataModel getBrandModel(int brand_id) {
+        return Observable.fromIterable(shoppingbagItems)
+            .filter(data -> data.getBrand_id() == brand_id)
+            .blockingFirst();
+    }
+
+    private void deleteProduct() {
+        List<PickBrandDataModel> tempBrandData = new ArrayList<>(adapter.get());
+        for (PickBrandDataModel brandData : tempBrandData) {
+            for (PickProductDataModel productData : brandData.getProducts()) {
+                if (productData.isSelected()) {
+                    brandData.getProducts().remove(productData);
+                    if (brandData.getProducts().size() == 0) adapter.remove(brandData);
+                    break;
+                }
+            }
+        }
+        view.refresh();
+        if (adapter.getSize() > 0) {
+            for (PickBrandDataModel brandData : adapter.get()) {
+                calBrandPrice(brandData);
+            }
+            setupTotalPrice();
+        } else {
+            view.showEmptyPanel();
+        }
+    }
+
+    private void deleteOption(PickOptionDataModel target) {
+        PickBrandDataModel brandData = getBrandModel(target.getBrand_id());
+        PickBrandDataModel tempBrandData = brandData;
+        for (PickProductDataModel productData : tempBrandData.getProducts()) {
+            if (productData.getOptions().remove(target)) {
+                if (productData.getOptions().size() == 0) brandData.getProducts().remove(productData);
+                if (brandData.getProducts().size() == 0) adapter.remove(brandData);
+            }
+        }
+        view.refresh();
+        if (adapter.getSize() > 0) {
+            calBrandPrice(brandData);
+            setupTotalPrice();
+        } else {
+            view.showEmptyPanel();
+        }
+    }
+
+    private List<Integer> getDeleteOptions() {
+        List<Integer> items = new ArrayList<>();
+        for (PickBrandDataModel brandData : adapter.get()) {
+            for (PickProductDataModel productData : brandData.getProducts()) {
+                if (productData.isSelected()) {
+                    for (PickOptionDataModel optionData : productData.getOptions()) {
+                        items.add(optionData.getShoppingbag_id());
                     }
                 }
             }
         }
-        if (goodsDatas != null) {
-            if (goodsDatas.size() == 1) {
-                if (productDatas.size() == 1) {
-                    brandDatas.remove(targetBrandData);
-                } else {
-                    productDatas.remove(targetProductData);
-                }
-            } else {
-                goodsDatas.remove(targetGoodsData);
-            }
-
-            calPrice(brandDatas);
-            view.refresh();
-            // TODO 삭제
-        }
+        return items;
     }
 
-    private void reqUpdateQuantity(OrderOptionDataModel data) {
+    private void reqUpdateQuantity(PickOptionDataModel data) {
         addDisposable(orderRequest.updateGoodsQuantity(data.getShoppingbag_id(), data.getQuantity())
             .subscribe());
     }
 
-    private void setupCheckCount() {
-        int total = 0;
-        int count = 0;
-        for (OrderBrandDataModel brandData : adapter.get()) {
-            total += brandData.getProducts().size();
-            for (OrderProductDataModel productData : brandData.getProducts()) {
-                if (productData.isSelected()) count++;
-            }
-        }
-        view.setupCheckCount(total, count);
+    private void reqDeleteShoppingBag(int shoppingbag_id) {
+        List<Integer> deleteItems = new ArrayList<>();
+        deleteItems.add(shoppingbag_id);
+        reqDeleteShoppingBag(deleteItems);
+    }
+
+    private void reqDeleteShoppingBag(List<Integer> deleteItem) {
+        addDisposable(orderRequest.deleteShoppingBag(deleteItem)
+            .subscribe());
     }
 
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
-            if (o instanceof RxBusEventSelectedGoodsCount) {
-                OrderOptionDataModel data = ((RxBusEventSelectedGoodsCount) o).getGoodsData();
+            if (o instanceof RxBusEventOptionCountChanged) {
+                PickOptionDataModel data = ((RxBusEventOptionCountChanged) o).getOptionData();
+                view.refresh();
                 reqUpdateQuantity(data);
-                calPrice(adapter.get());
+                calBrandPrice(getBrandModel(data.getBrand_id()));
+                setupTotalPrice();
+            } else if (o instanceof RxBusEventProductCheckedChanged) {
+                int brand_id = ((RxBusEventProductCheckedChanged) o).getBrand_id();
+                calBrandPrice(getBrandModel(brand_id));
                 view.refresh();
-            } else if (o instanceof RxBusEventSelectedGoodsDelete) {
-                OrderOptionDataModel data = ((RxBusEventSelectedGoodsDelete) o).getGoodsData();
-                deleteData(data);
-            } else if (o instanceof RxBusEventSelectedChanged) {
-                view.refresh();
-                setupCheckCount();
+                setupTotalPrice();
+            } else if (o instanceof RxBusEventOptionDeleted) {
+                PickOptionDataModel data = ((RxBusEventOptionDeleted) o).getOptionData();
+                reqDeleteShoppingBag(data.getShoppingbag_id());
+                deleteOption(data);
             }
         }, Timber::e));
     }
 
-    @AllArgsConstructor @Getter public final static class RxBusEventSelectedGoodsCount {
-        private OrderOptionDataModel goodsData;
+    @AllArgsConstructor @Getter public final static class RxBusEventOptionCountChanged {
+        private PickOptionDataModel optionData;
     }
 
-    @AllArgsConstructor @Getter public final static class RxBusEventSelectedGoodsDelete {
-        private OrderOptionDataModel goodsData;
+    @AllArgsConstructor @Getter public final static class RxBusEventOptionDeleted {
+        private PickOptionDataModel optionData;
     }
 
-    @AllArgsConstructor @Getter public final static class RxBusEventSelectedChanged {
+    @AllArgsConstructor @Getter public final static class RxBusEventProductCheckedChanged {
+        private int brand_id;
     }
 }

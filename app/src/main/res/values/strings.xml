@@ -186,6 +186,9 @@
     <string name="shoppingbag_total_price_caption">총 금액</string>
     <string name="shoppingbag_product_price_caption">상품금액</string>
 
+    <string name="shoppingbag_empty">장바구니에 담긴 상품이 없습니다.</string>
+    <string name="shoppingbag_empty_button">상품 보러가기</string>
+
     <!--Recent-->
     <string name="recent_title">최근 본 상품</string>
     <string name="recent_empty">최근 본 상품이 없습니다.</string>

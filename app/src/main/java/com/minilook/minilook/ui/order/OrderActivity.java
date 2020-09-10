@@ -5,10 +5,8 @@ import android.content.Intent;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import butterknife.BindView;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.order.OrderBrandDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.order.di.OrderArguments;
-import java.util.List;
 
 public class OrderActivity extends BaseActivity implements OrderPresenter.View {
 

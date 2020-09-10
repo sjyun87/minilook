@@ -9,12 +9,12 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.order.OrderOptionDataModel;
+import com.minilook.minilook.data.model.pick.PickOptionDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.util.StringUtil;
 import lombok.Setter;
 
-public class OptionSelectorGoodsItemVH extends BaseViewHolder<OrderOptionDataModel> {
+public class OptionSelectorGoodsItemVH extends BaseViewHolder<PickOptionDataModel> {
 
     @BindView(R.id.txt_title) TextView titleTextView;
     @BindView(R.id.txt_count) TextView countTextView;
@@ -29,12 +29,12 @@ public class OptionSelectorGoodsItemVH extends BaseViewHolder<OrderOptionDataMod
             .inflate(R.layout.item_option_selector_goods, (ViewGroup) itemView, false));
     }
 
-    @Override public void bind(OrderOptionDataModel $data) {
+    @Override public void bind(PickOptionDataModel $data) {
         super.bind($data);
 
         titleTextView.setText(String.format(format_options, data.getColor_name(), data.getSize_name()));
         countTextView.setText(String.valueOf(data.getQuantity()));
-        priceTextView.setText(StringUtil.toDigit(data.getPrice()));
+        priceTextView.setText(StringUtil.toDigit(data.getPrice_sum()));
     }
 
     @OnClick(R.id.img_minus)
@@ -57,7 +57,7 @@ public class OptionSelectorGoodsItemVH extends BaseViewHolder<OrderOptionDataMod
     }
 
     public interface OnButtonClickListener {
-        void onDeleteClick(OrderOptionDataModel data);
+        void onDeleteClick(PickOptionDataModel data);
 
         void onMinusClick();
 

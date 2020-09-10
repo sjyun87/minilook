@@ -95,5 +95,5 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_product_panel"
         tools:itemCount="2"
-        tools:listitem="@layout/item_shoppingbag_goods" />
+        tools:listitem="@layout/item_shoppingbag_option" />
 </androidx.constraintlayout.widget.ConstraintLayout>

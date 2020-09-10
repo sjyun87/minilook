@@ -3,7 +3,7 @@ package com.minilook.minilook.ui.product_detail;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
-import com.minilook.minilook.data.model.order.OrderOptionDataModel;
+import com.minilook.minilook.data.model.pick.PickOptionDataModel;
 import com.minilook.minilook.data.model.product.ProductOptionDataModel;
 import com.minilook.minilook.data.model.product.ProductStockModel;
 import java.util.List;
@@ -25,9 +25,9 @@ public interface ProductDetailPresenter extends LifecycleObserver {
 
     void onShippingNRefundClick();
 
-    void onOptionSelectorShoppingBagClick(List<OrderOptionDataModel> goodsData);
+    void onOptionSelectorShoppingBagClick(List<PickOptionDataModel> goodsData);
 
-    void onOptionSelectorBuyClick(List<OrderOptionDataModel> goodsData);
+    void onOptionSelectorBuyClick(List<PickOptionDataModel> goodsData);
 
     interface View {
 

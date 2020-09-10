@@ -18,14 +18,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.order.OrderProductDataModel;
+import com.minilook.minilook.data.model.pick.PickProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.type.DisplayCode;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.shoppingbag.ShoppingBagPresenterImpl;
 import com.minilook.minilook.ui.shoppingbag.adapter.ShoppingBagGoodsAdapter;
 
-public class ShoppingBagProductItemVH extends BaseViewHolder<OrderProductDataModel> {
+public class ShoppingBagProductItemVH extends BaseViewHolder<PickProductDataModel> {
 
     @BindView(R.id.img_checkbox) ImageView checkImageView;
     @BindView(R.id.img_product_thumb) ImageView thumbImageView;
@@ -61,7 +61,7 @@ public class ShoppingBagProductItemVH extends BaseViewHolder<OrderProductDataMod
             .addTo(recyclerView);
     }
 
-    @Override public void bind(OrderProductDataModel $data) {
+    @Override public void bind(PickProductDataModel $data) {
         super.bind($data);
 
         Glide.with(context)
@@ -103,6 +103,6 @@ public class ShoppingBagProductItemVH extends BaseViewHolder<OrderProductDataMod
     @OnClick(R.id.img_checkbox)
     void onCheckBox() {
         data.setSelected(!data.isSelected());
-        RxBus.send(new ShoppingBagPresenterImpl.RxBusEventSelectedChanged());
+        RxBus.send(new ShoppingBagPresenterImpl.RxBusEventProductCheckedChanged(data.getBrand_id()));
     }
 }

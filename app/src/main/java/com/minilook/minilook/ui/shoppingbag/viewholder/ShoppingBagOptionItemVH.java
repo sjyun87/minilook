@@ -9,13 +9,13 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.order.OrderOptionDataModel;
+import com.minilook.minilook.data.model.pick.PickOptionDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.shoppingbag.ShoppingBagPresenterImpl;
 import com.minilook.minilook.util.StringUtil;
 
-public class ShoppingBagGoodsItemVH extends BaseViewHolder<OrderOptionDataModel> {
+public class ShoppingBagOptionItemVH extends BaseViewHolder<PickOptionDataModel> {
 
     @BindView(R.id.txt_title) TextView titleTextView;
     @BindView(R.id.txt_count) TextView countTextView;
@@ -25,17 +25,17 @@ public class ShoppingBagGoodsItemVH extends BaseViewHolder<OrderOptionDataModel>
     @BindString(R.string.shoppingbag_goods_option) String format_options;
     @BindString(R.string.shoppingbag_order_available) String format_order_available;
 
-    public ShoppingBagGoodsItemVH(@NonNull View itemView) {
+    public ShoppingBagOptionItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_shoppingbag_goods, (ViewGroup) itemView, false));
+            .inflate(R.layout.item_shoppingbag_option, (ViewGroup) itemView, false));
     }
 
-    @Override public void bind(OrderOptionDataModel $data) {
+    @Override public void bind(PickOptionDataModel $data) {
         super.bind($data);
 
         titleTextView.setText(String.format(format_options, data.getColor_name(), data.getSize_name()));
         countTextView.setText(String.valueOf(data.getQuantity()));
-        priceTextView.setText(StringUtil.toDigit(data.getPrice()));
+        priceTextView.setText(StringUtil.toDigit(data.getPrice_sum()));
 
         if (data.getQuantity() > 0) {
             orderAvailableTextView.setText(String.format(format_order_available, StringUtil.toDigit(data.getOrder_available_quantity())));
@@ -49,18 +49,18 @@ public class ShoppingBagGoodsItemVH extends BaseViewHolder<OrderOptionDataModel>
     void onMinusClick() {
         if (data.getQuantity() == 1) return;
         data.setQuantity(data.getQuantity() - 1);
-        RxBus.send(new ShoppingBagPresenterImpl.RxBusEventSelectedGoodsCount(data));
+        RxBus.send(new ShoppingBagPresenterImpl.RxBusEventOptionCountChanged(data));
     }
 
     @OnClick(R.id.img_plus)
     void onPlusClick() {
         if (data.getQuantity() >= data.getOrder_available_quantity()) return;
         data.setQuantity(data.getQuantity() + 1);
-        RxBus.send(new ShoppingBagPresenterImpl.RxBusEventSelectedGoodsCount(data));
+        RxBus.send(new ShoppingBagPresenterImpl.RxBusEventOptionCountChanged(data));
     }
 
     @OnClick(R.id.img_delete)
     void onDeleteClick() {
-        RxBus.send(new ShoppingBagPresenterImpl.RxBusEventSelectedGoodsDelete(data));
+        RxBus.send(new ShoppingBagPresenterImpl.RxBusEventOptionDeleted(data));
     }
 }

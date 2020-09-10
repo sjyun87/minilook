@@ -22,7 +22,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.order.OrderOptionDataModel;
+import com.minilook.minilook.data.model.pick.PickOptionDataModel;
 import com.minilook.minilook.data.model.product.ProductOptionDataModel;
 import com.minilook.minilook.data.model.product.ProductStockDataModel;
 import com.minilook.minilook.ui.option_selector.adpater.OptionSelectorColorAdapter;
@@ -300,10 +300,10 @@ public class OptionSelector extends FrameLayout implements OptionSelectorGoodsIt
     private void addSelectedData() {
         int goods_id = selectedSizeData.getGoods_id();
         if (!selectedData.containsKey(goods_id)) {
-            OrderOptionDataModel model = new OrderOptionDataModel();
+            PickOptionDataModel model = new PickOptionDataModel();
             model.setOption_id(goods_id);
             int price = product_price + selectedSizeData.getPrice_add();
-            model.setPrice(price);
+            model.setPrice_sum(price);
             model.setColor_name(selectedColorData.getColor_name());
             model.setSize_name(selectedSizeData.getSize_name());
             int order_limit = selectedSizeData.getOrder_limit();
@@ -315,7 +315,7 @@ public class OptionSelector extends FrameLayout implements OptionSelectorGoodsIt
             goodsAdapter.add(model);
             goodsAdapter.refresh();
         } else {
-            for (OrderOptionDataModel model : goodsAdapter.get()) {
+            for (PickOptionDataModel model : goodsAdapter.get()) {
                 if (model.getOption_id() == goods_id) {
                     int currentCount = model.getQuantity();
                     model.setQuantity(currentCount + 1);
@@ -331,10 +331,10 @@ public class OptionSelector extends FrameLayout implements OptionSelectorGoodsIt
     private void setupTotal() {
         int totalPrice = 0;
         int totalCount = 0;
-        for (OrderOptionDataModel model : goodsAdapter.get()) {
+        for (PickOptionDataModel model : goodsAdapter.get()) {
             int count = model.getQuantity();
             totalCount += count;
-            int price = model.getPrice();
+            int price = model.getPrice_sum();
             totalPrice += (price * count);
         }
         setupTotalCount(totalCount);
@@ -387,7 +387,7 @@ public class OptionSelector extends FrameLayout implements OptionSelectorGoodsIt
     }
 
     // Goods Adapter
-    @Override public void onDeleteClick(OrderOptionDataModel data) {
+    @Override public void onDeleteClick(PickOptionDataModel data) {
         goodsAdapter.remove(data);
         goodsAdapter.refresh();
         selectedData.remove(data.getOption_id());
@@ -405,8 +405,8 @@ public class OptionSelector extends FrameLayout implements OptionSelectorGoodsIt
     }
 
     public interface OnButtonClickListener {
-        void onShoppingBagClick(List<OrderOptionDataModel> goodsData);
+        void onShoppingBagClick(List<PickOptionDataModel> goodsData);
 
-        void onBuyClick(List<OrderOptionDataModel> goodsData);
+        void onBuyClick(List<PickOptionDataModel> goodsData);
     }
 }

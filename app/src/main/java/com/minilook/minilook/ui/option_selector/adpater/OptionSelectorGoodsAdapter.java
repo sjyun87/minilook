@@ -3,7 +3,7 @@ package com.minilook.minilook.ui.option_selector.adpater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.minilook.minilook.data.model.order.OrderOptionDataModel;
+import com.minilook.minilook.data.model.pick.PickOptionDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.option_selector.viewholder.OptionSelectorGoodsItemVH;
@@ -12,9 +12,9 @@ import java.util.List;
 import lombok.Setter;
 
 public class OptionSelectorGoodsAdapter extends RecyclerView.Adapter<OptionSelectorGoodsItemVH>
-    implements BaseAdapterDataModel<OrderOptionDataModel>, BaseAdapterDataView<OrderOptionDataModel> {
+    implements BaseAdapterDataModel<PickOptionDataModel>, BaseAdapterDataView<PickOptionDataModel> {
 
-    private List<OrderOptionDataModel> items = new ArrayList<>();
+    private List<PickOptionDataModel> items = new ArrayList<>();
     @Setter private OptionSelectorGoodsItemVH.OnButtonClickListener OnButtonClickListener;
 
     @NonNull @Override public OptionSelectorGoodsItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -30,36 +30,36 @@ public class OptionSelectorGoodsAdapter extends RecyclerView.Adapter<OptionSelec
         return getSize();
     }
 
-    @Override public void add(OrderOptionDataModel $item) {
+    @Override public void add(PickOptionDataModel $item) {
         this.items.add($item);
     }
 
-    @Override public void add(int $index, OrderOptionDataModel $item) {
+    @Override public void add(int $index, PickOptionDataModel $item) {
         this.items.add($index, $item);
     }
 
-    @Override public void addAll(List<OrderOptionDataModel> $items) {
+    @Override public void addAll(List<PickOptionDataModel> $items) {
         this.items.addAll($items);
     }
 
-    @Override public void set(int $index, OrderOptionDataModel $item) {
+    @Override public void set(int $index, PickOptionDataModel $item) {
         this.items.set($index, $item);
     }
 
-    @Override public void set(List<OrderOptionDataModel> $items) {
+    @Override public void set(List<PickOptionDataModel> $items) {
         this.items.clear();
         this.items.addAll($items);
     }
 
-    @Override public OrderOptionDataModel get(int $index) {
+    @Override public PickOptionDataModel get(int $index) {
         return this.items.get($index);
     }
 
-    @Override public List<OrderOptionDataModel> get() {
+    @Override public List<PickOptionDataModel> get() {
         return this.items;
     }
 
-    @Override public int get(OrderOptionDataModel $item) {
+    @Override public int get(PickOptionDataModel $item) {
         return items.indexOf($item);
     }
 
@@ -67,7 +67,7 @@ public class OptionSelectorGoodsAdapter extends RecyclerView.Adapter<OptionSelec
         this.items.remove($index);
     }
 
-    @Override public void remove(OrderOptionDataModel $item) {
+    @Override public void remove(PickOptionDataModel $item) {
         items.remove($item);
     }
 

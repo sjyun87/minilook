@@ -3,7 +3,7 @@ package com.minilook.minilook.ui.shoppingbag;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
-import com.minilook.minilook.data.model.order.OrderBrandDataModel;
+import com.minilook.minilook.data.model.pick.PickBrandDataModel;
 import java.util.List;
 
 public interface ShoppingBagPresenter extends LifecycleObserver {
@@ -11,11 +11,13 @@ public interface ShoppingBagPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
-    void onCheckClick();
+    void onAllCheckClick();
 
     void onDeleteClick();
 
     void onOrderClick();
+
+    void onEmptyClick();
 
     interface View {
 
@@ -37,10 +39,18 @@ public interface ShoppingBagPresenter extends LifecycleObserver {
 
         void uncheckImageView();
 
-        void navigateToOrder(List<OrderBrandDataModel> items);
+        void enableOrderButton();
 
-        void finish();
+        void disableOrderButton();
+
+        void showEmptyPanel();
 
         void showTrialVersionDialog();
+
+        void navigateToMain();
+
+        void navigateToOrder(List<PickBrandDataModel> items);
+
+        void finish();
     }
 }

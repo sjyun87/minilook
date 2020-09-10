@@ -3,10 +3,14 @@ package com.minilook.minilook.ui.shoppingbag;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindColor;
 import butterknife.BindDimen;
 import butterknife.BindDrawable;
 import butterknife.BindString;
@@ -15,10 +19,12 @@ import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.App;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.order.OrderBrandDataModel;
+import com.minilook.minilook.data.model.pick.PickBrandDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.ui.base.widget.BottomBar;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
+import com.minilook.minilook.ui.main.MainActivity;
 import com.minilook.minilook.ui.order.OrderActivity;
 import com.minilook.minilook.ui.shoppingbag.adapter.ShoppingBagAdapter;
 import com.minilook.minilook.ui.shoppingbag.di.ShoppingBagArguments;
@@ -37,10 +43,12 @@ public class ShoppingBagActivity extends BaseActivity implements ShoppingBagPres
     @BindView(R.id.img_checkbox) ImageView checkImageView;
     @BindView(R.id.txt_selected_count) TextView checkCountTextView;
     @BindView(R.id.rcv_product) RecyclerView recyclerView;
+    @BindView(R.id.layout_total_panel) ConstraintLayout totalPanel;
     @BindView(R.id.txt_total_count) TextView countTextView;
     @BindView(R.id.txt_total_product_price) TextView totalProductPriceTextView;
     @BindView(R.id.txt_total_shipping_price) TextView totalShippingPriceTextView;
     @BindView(R.id.txt_order) TextView orderTextView;
+    @BindView(R.id.layout_empty_panel) LinearLayout emptyPanel;
 
     @BindDimen(R.dimen.dp_8) int dp_8;
 
@@ -50,9 +58,12 @@ public class ShoppingBagActivity extends BaseActivity implements ShoppingBagPres
     @BindDrawable(R.drawable.ic_checkbox2_off) Drawable img_check_off;
     @BindDrawable(R.drawable.ic_checkbox2_on) Drawable img_check_on;
 
+    @BindColor(R.color.color_FF8140E5) int color_FF8140E5;
+    @BindColor(R.color.color_FFA9A9A9) int color_FFA9A9A9;
+
     private ShoppingBagPresenter presenter;
     private ShoppingBagAdapter adapter = new ShoppingBagAdapter();
-    private BaseAdapterDataView<OrderBrandDataModel> adapterView = adapter;
+    private BaseAdapterDataView<PickBrandDataModel> adapterView = adapter;
 
     @Override protected int getLayoutID() {
         return R.layout.activity_shopping_bag;
@@ -112,7 +123,23 @@ public class ShoppingBagActivity extends BaseActivity implements ShoppingBagPres
         checkImageView.setImageDrawable(img_check_off);
     }
 
-    @Override public void navigateToOrder(List<OrderBrandDataModel> items) {
+    @Override public void enableOrderButton() {
+        totalPanel.setVisibility(View.VISIBLE);
+        orderTextView.setEnabled(true);
+        orderTextView.setBackgroundColor(color_FF8140E5);
+    }
+
+    @Override public void disableOrderButton() {
+        totalPanel.setVisibility(View.GONE);
+        orderTextView.setEnabled(false);
+        orderTextView.setBackgroundColor(color_FFA9A9A9);
+    }
+
+    @Override public void showEmptyPanel() {
+        emptyPanel.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void navigateToOrder(List<PickBrandDataModel> items) {
         App.getInstance().setOrderItems(items);
         OrderActivity.start(this);
     }
@@ -121,9 +148,13 @@ public class ShoppingBagActivity extends BaseActivity implements ShoppingBagPres
         DialogManager.showTrialVersionDialog(this);
     }
 
+    @Override public void navigateToMain() {
+        MainActivity.start(this, BottomBar.POSITION_MARKET);
+    }
+
     @OnClick(R.id.img_checkbox)
-    void onCheckClick() {
-        presenter.onCheckClick();
+    void onAllCheckClick() {
+        presenter.onAllCheckClick();
     }
 
     @OnClick(R.id.txt_delete)
@@ -134,5 +165,10 @@ public class ShoppingBagActivity extends BaseActivity implements ShoppingBagPres
     @OnClick(R.id.txt_order)
     void onOrderClick() {
         presenter.onOrderClick();
+    }
+
+    @OnClick(R.id.txt_empty)
+    void onEmptyClick() {
+        presenter.onEmptyClick();
     }
 }

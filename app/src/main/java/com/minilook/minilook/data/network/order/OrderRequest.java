@@ -3,13 +3,14 @@ package com.minilook.minilook.data.network.order;
 import com.google.gson.JsonObject;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.model.base.BaseDataModel;
-import com.minilook.minilook.data.model.order.OrderOptionDataModel;
+import com.minilook.minilook.data.model.pick.PickOptionDataModel;
 import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import timber.log.Timber;
 
 public class OrderRequest extends BaseRequest<OrderService> {
 
@@ -22,20 +23,20 @@ public class OrderRequest extends BaseRequest<OrderService> {
         return getApi().getShoppingBag(user_id);
     }
 
-    public Single<BaseDataModel> addShoppingBag(List<OrderOptionDataModel> goodsData) {
+    public Single<BaseDataModel> addShoppingBag(List<PickOptionDataModel> goodsData) {
         int user_id = App.getInstance().getUserId();
         return getApi().addShoppingBag(user_id, createRequestBody(parseToAddJson(goodsData)));
     }
 
-    private Map<String, Object> parseToAddJson(List<OrderOptionDataModel> goodsData) {
+    private Map<String, Object> parseToAddJson(List<PickOptionDataModel> goodsData) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("options", getOptions(goodsData));
         return jsonMap;
     }
 
-    private Object getOptions(List<OrderOptionDataModel> goodsData) {
+    private Object getOptions(List<PickOptionDataModel> goodsData) {
         List<JsonObject> options = new ArrayList<>();
-        for (OrderOptionDataModel model : goodsData) {
+        for (PickOptionDataModel model : goodsData) {
             JsonObject json = new JsonObject();
             json.addProperty("optionNo", model.getOption_id());
             json.addProperty("quantity", model.getQuantity());

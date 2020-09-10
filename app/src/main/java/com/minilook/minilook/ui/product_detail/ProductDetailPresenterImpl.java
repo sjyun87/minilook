@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
-import com.minilook.minilook.data.model.order.OrderOptionDataModel;
+import com.minilook.minilook.data.model.pick.PickOptionDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.product.ProductOptionDataModel;
 import com.minilook.minilook.data.model.product.ProductStockModel;
@@ -113,17 +113,17 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         view.navigateToProductInfo(data.getBrand_id());
     }
 
-    @Override public void onOptionSelectorShoppingBagClick(List<OrderOptionDataModel> goodsData) {
+    @Override public void onOptionSelectorShoppingBagClick(List<PickOptionDataModel> goodsData) {
         reqAddShoppingBag(goodsData);
         view.hideOptionSelector();
     }
 
-    @Override public void onOptionSelectorBuyClick(List<OrderOptionDataModel> goodsData) {
+    @Override public void onOptionSelectorBuyClick(List<PickOptionDataModel> goodsData) {
         // TODO 주문서로 이동
         view.showTrialVersionDialog();
     }
 
-    private void reqAddShoppingBag(List<OrderOptionDataModel> goodsData) {
+    private void reqAddShoppingBag(List<PickOptionDataModel> goodsData) {
         addDisposable(orderRequest.addShoppingBag(goodsData)
             .compose(Transformer.applySchedulers())
             .subscribe(this::resAddShoppingBag, Timber::e));
@@ -182,8 +182,8 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
             view.setupShippingPrice(data.getShipping_price());
             view.hideShippingCondition();
         } else if (shippingType == ShippingType.CONDITIONAL.getValue()) {
-            view.setupShippingPrice(data.getBasic_shipping_price());
-            view.setupShippingCondition(data.getFree_shipping_condition());
+            view.setupShippingPrice(data.getCondition_shipping_price());
+            view.setupShippingCondition(data.getCondition_free_shipping());
             view.showShippingCondition();
         }
 
