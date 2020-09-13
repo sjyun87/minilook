@@ -12,8 +12,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:setTitle="@string/promotion_detail_title"
         app:showBack="true"
-        app:showHome="true"
-        app:showShoppingBag="true"
         app:showTitle="true" />
 
     <androidx.core.widget.NestedScrollView

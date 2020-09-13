@@ -148,4 +148,7 @@ dependencies {
 
   // Permission
   implementation "gun0912.ted:tedpermission:$permission_version"
+
+  // Shadow
+  implementation "com.sdsmdg.harjot:materialshadows:$shadow_version"
 }
