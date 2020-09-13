@@ -98,6 +98,7 @@
     <string name="ipage_service_question_desc">상품/주문/배송·교환·환불</string>
     <string name="ipage_service_notice">공지사항</string>
     <string name="ipage_service_faq">FAQ</string>
+    <string name="ipage_app_info">미니룩은 통신판매중개자로서 통신판매 당사자가 아니며, 판매자가 등록한 상품정보 및 거래에 미니룩은 책임을 지지 않습니다.</string>
 
     <!--Profile-->
     <string name="profile_title">정보 관리</string>

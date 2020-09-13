@@ -39,6 +39,21 @@
                 tools:listitem="@layout/item_product_detail_image"
                 tools:orientation="horizontal" />
 
+            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                android:id="@+id/indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:layout_marginBottom="@dimen/dp_16"
+                app:dotsColor="@color/color_FFEEEFF5"
+                app:dotsCornerRadius="0dp"
+                app:dotsSize="@dimen/dp_4"
+                app:dotsSpacing="@dimen/dp_2"
+                app:dotsWidthFactor="1"
+                app:layout_constraintBottom_toBottomOf="@+id/vp_product_image"
+                app:layout_constraintRight_toRightOf="@+id/vp_product_image"
+                app:selectedDotColor="@color/color_FF8140E5" />
+
             <LinearLayout
                 android:id="@+id/layout_brand_panel"
                 android:layout_width="match_parent"

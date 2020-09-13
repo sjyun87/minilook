@@ -44,7 +44,6 @@ public class BrandVH extends BaseViewHolder<BrandDataModel> {
 
     @Override public void bind(BrandDataModel $data) {
         super.bind($data);
-        Timber.e(data.toString());
         Glide.with(context)
             .load(data.getBrand_logo())
             .placeholder(new ColorDrawable(color_FFEEEFF5))

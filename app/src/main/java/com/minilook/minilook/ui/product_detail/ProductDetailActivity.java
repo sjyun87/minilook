@@ -52,6 +52,7 @@ import com.minilook.minilook.util.DimenUtil;
 import com.minilook.minilook.util.SpannableUtil;
 import com.minilook.minilook.util.StringUtil;
 import com.nex3z.flowlayout.FlowLayout;
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 import java.util.List;
 import java.util.Objects;
 import me.didik.component.StickyNestedScrollView;
@@ -68,6 +69,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 
     @BindView(R.id.nsv_root) StickyNestedScrollView scrollView;
     @BindView(R.id.vp_product_image) ViewPager2 productImageViewPager;
+    @BindView(R.id.indicator) DotsIndicator indicator;
     @BindView(R.id.txt_brand_name) TextView brandNameTextView;
     @BindView(R.id.txt_product_name) TextView productNameTextView;
     @BindView(R.id.layout_option_color_panel) FlowLayout colorPanel;
@@ -168,6 +170,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 
     @Override public void setupProductImageViewPager() {
         productImageViewPager.setAdapter(productImageAdapter);
+        indicator.setViewPager2(productImageViewPager);
     }
 
     @Override public void productImageRefresh() {

@@ -177,6 +177,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     }
 
     private void resProducts(SearchDataModel data) {
+        Timber.e(data.toString());
         totalPageSize = data.getTotal();
         int start = productAdapter.getSize();
         int row = data.getProducts().size();

@@ -14,6 +14,7 @@ import com.minilook.minilook.ui.base.BaseFragment;
 import com.minilook.minilook.ui.lookbook.view.detail.adapter.LookBookStyleAdapter;
 import com.minilook.minilook.ui.lookbook.view.detail.di.LookBookDetailArguments;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 public class LookBookDetailFragment extends BaseFragment implements LookBookDetailPresenter.View {
 

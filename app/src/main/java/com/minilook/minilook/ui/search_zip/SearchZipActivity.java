@@ -92,12 +92,12 @@ public class SearchZipActivity extends BaseActivity implements SearchZipPresente
         @JavascriptInterface
         public void addressResult(String json) {
             Timber.e(json);
-            //RxBus.send(new RxEventIdentityVerificationComplete(json));
-            //finish();
+            RxBus.send(new RxEventSearchAddressComplete(json));
+            finish();
         }
     }
 
-    @AllArgsConstructor @Getter public final static class RxEventIdentityVerificationComplete {
+    @AllArgsConstructor @Getter public final static class RxEventSearchAddressComplete {
         private String json;
     }
 }

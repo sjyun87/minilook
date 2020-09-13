@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
-import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -47,7 +46,6 @@ public class ShippingUpdateActivity extends BaseActivity implements ShippingUpda
     @BindView(R.id.img_checkbox) ImageView checkImageView;
     @BindView(R.id.txt_save) TextView saveTextView;
 
-    @BindString(R.string.base_pattern) String pattern;
     @BindString(R.string.shipping_edit_title) String str_shipping_edit_title;
 
     @BindDrawable(R.drawable.ic_checkbox1_off) Drawable img_check_off;
@@ -79,10 +77,6 @@ public class ShippingUpdateActivity extends BaseActivity implements ShippingUpda
     }
 
     @Override public void setupNameEditText() {
-        InputFilter[] filters = new InputFilter[] {
-            (source, start, end, dest, dstart, dend) -> source.toString().matches(pattern) ? source : ""
-        };
-        nameEditText.setFilters(filters);
         nameEditText.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }

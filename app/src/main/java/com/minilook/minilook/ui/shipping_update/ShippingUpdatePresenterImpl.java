@@ -1,13 +1,18 @@
 package com.minilook.minilook.ui.shipping_update;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.shipping.ShippingDataModel;
 import com.minilook.minilook.data.network.shipping.ShippingRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
+import com.minilook.minilook.ui.profile.ProfilePresenterImpl;
+import com.minilook.minilook.ui.search_zip.SearchZipActivity;
 import com.minilook.minilook.ui.shipping.ShippingPresenterImpl;
 import com.minilook.minilook.ui.shipping_update.di.ShippingUpdateArguments;
+import com.minilook.minilook.ui.verify.VerifyActivity;
 import timber.log.Timber;
 
 public class ShippingUpdatePresenterImpl extends BasePresenterImpl implements ShippingUpdatePresenter {
@@ -16,6 +21,8 @@ public class ShippingUpdatePresenterImpl extends BasePresenterImpl implements Sh
     private final ShippingDataModel shippingData;
     private final ShippingRequest shippingRequest;
     private final boolean isAddPage;
+
+    private Gson gson = new Gson();
 
     private String name;
     private String phone;
@@ -32,6 +39,7 @@ public class ShippingUpdatePresenterImpl extends BasePresenterImpl implements Sh
     }
 
     @Override public void onCreate() {
+        toRxObservable();
         view.setupNameEditText();
         view.setupPhoneEditText();
         view.setupAddressDetailEditText();
@@ -109,14 +117,13 @@ public class ShippingUpdatePresenterImpl extends BasePresenterImpl implements Sh
     }
 
     private void resUpdateShipping(BaseDataModel data) {
-        Timber.e(data.toString());
         RxBus.send(new ShippingPresenterImpl.RxEventShippingUpdated());
         view.finish();
     }
 
     private ShippingDataModel getShippingModel() {
         ShippingDataModel model = new ShippingDataModel();
-        model.setAddress_id(shippingData.getAddress_id());
+        if (!isAddPage) model.setAddress_id(shippingData.getAddress_id());
         model.setName(name);
         model.setPhone(phone);
         model.setZipcode(zip);
@@ -129,10 +136,31 @@ public class ShippingUpdatePresenterImpl extends BasePresenterImpl implements Sh
     private void checkButtonEnable() {
         if (name != null && !name.equals("")
             && phone != null && !phone.equals("")
+            && zip != null && !zip.equals("")
+            && address != null && !address.equals("")
             && address_detail != null && !address_detail.equals("")) {
             view.enableSaveButton();
         } else {
             view.disableSaveButton();
         }
+    }
+
+    private void updateZip(String json) {
+        JsonObject data = gson.fromJson(json, JsonObject.class);
+        zip = data.get("zonecode").getAsString();
+        address = data.get("address").getAsString();
+
+        view.setupZip(zip);
+        view.setupAddress(address);
+        checkButtonEnable();
+    }
+
+    private void toRxObservable() {
+        addDisposable(RxBus.toObservable().subscribe(o -> {
+            if (o instanceof SearchZipActivity.RxEventSearchAddressComplete) {
+                String json = ((SearchZipActivity.RxEventSearchAddressComplete) o).getJson();
+                updateZip(json);
+            }
+        }, Timber::e));
     }
 }

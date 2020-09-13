@@ -3,7 +3,6 @@ package com.minilook.minilook.ui.profile;
 import android.content.Context;
 import android.content.Intent;
 import android.text.Editable;
-import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -17,10 +16,9 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
-import com.minilook.minilook.ui.base.widget.CustomToast;
 import com.minilook.minilook.ui.profile.di.ProfileArguments;
-import com.minilook.minilook.ui.verify.VerifyActivity;
 import com.minilook.minilook.ui.shipping.ShippingActivity;
+import com.minilook.minilook.ui.verify.VerifyActivity;
 import com.minilook.minilook.util.KeyboardUtil;
 
 public class ProfileActivity extends BaseActivity implements ProfilePresenter.View {
@@ -48,7 +46,6 @@ public class ProfileActivity extends BaseActivity implements ProfilePresenter.Vi
     @BindString(R.string.base_toast_update_completed) String str_toast_update_completed;
     @BindString(R.string.profile_nick_check_unavailable) String str_nick_update_error;
     @BindString(R.string.profile_shipping_address) String format_address;
-    @BindString(R.string.base_pattern) String pattern;
 
     @BindColor(R.color.color_FF8140E5) int color_FF8140E5;
     @BindColor(R.color.color_FFEEEFF5) int color_FFEEEFF5;
@@ -71,10 +68,6 @@ public class ProfileActivity extends BaseActivity implements ProfilePresenter.Vi
     }
 
     @Override public void setupEditText() {
-        InputFilter[] filters = new InputFilter[] {
-            (source, start, end, dest, dstart, dend) -> source.toString().matches(pattern) ? source : ""
-        };
-        nickEditText.setFilters(filters);
         nickEditText.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
