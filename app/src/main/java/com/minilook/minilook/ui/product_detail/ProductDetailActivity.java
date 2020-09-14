@@ -64,8 +64,6 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 
     public static void start(Context context, int product_id) {
         Intent intent = new Intent(context, ProductDetailActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("product_id", product_id);
         context.startActivity(intent);
     }

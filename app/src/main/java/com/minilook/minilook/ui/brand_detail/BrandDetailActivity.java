@@ -41,8 +41,6 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
 
     public static void start(Context context, int brand_id) {
         Intent intent = new Intent(context, BrandDetailActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("brand_id", brand_id);
         context.startActivity(intent);
     }
