@@ -18,12 +18,13 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/img_banner_video"
         app:layout_constraintTop_toBottomOf="@+id/titlebar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/dp_50">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcv_category"
@@ -38,17 +39,17 @@
                 tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 tools:listitem="@layout/item_category"
                 tools:spanCount="2" />
-
-            <ImageView
-                android:id="@+id/img_banner_video"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/dp_32"
-                android:src="@drawable/img_banner_video"
-                android:visibility="gone"
-                app:layout_constraintDimensionRatio="H,360:90"
-                app:layout_constraintTop_toBottomOf="@+id/rcv_category"
-                tools:ignore="ContentDescription" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <ImageView
+        android:id="@+id/img_banner_video"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/dp_32"
+        android:layout_marginBottom="@dimen/dp_30"
+        android:src="@drawable/img_banner_video"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="H,360:90"
+        tools:ignore="ContentDescription" />
 </androidx.constraintlayout.widget.ConstraintLayout>

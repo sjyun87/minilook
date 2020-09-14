@@ -70,6 +70,6 @@ public class CategoryFragment extends BaseFragment implements CategoryPresenter.
 
     @OnClick(R.id.img_banner_video)
     void onBannerVideoClick() {
-        //presenter.onBannerVideoClick();
+        presenter.onBannerVideoClick();
     }
 }

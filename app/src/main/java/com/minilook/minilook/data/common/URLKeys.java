@@ -10,4 +10,6 @@ public class URLKeys {
     public static final String URL_PRIVACY_POLICY = "https://minilook.co.kr/privacy_app/";
     public static final String URL_POINT = "https://minilook.co.kr/pointguide-app/";
     public static final String URL_COUPON = "https://minilook.co.kr/couponguide-app/";
+
+    public static final String URL_YOUTUBE = "https://youtu.be/3kMNSBKQwRw";
 }

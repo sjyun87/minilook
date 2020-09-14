@@ -3,6 +3,7 @@ package com.minilook.minilook.ui.category;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.data.common.HttpCode;
+import com.minilook.minilook.data.common.URLKeys;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.data.network.category.CategoryRequest;
@@ -36,7 +37,7 @@ public class CategoryPresenterImpl extends BasePresenterImpl implements Category
     }
 
     @Override public void onBannerVideoClick() {
-        view.navigateToYoutube("https://www.youtube.com/watch?v=3iojfKeOz-M");
+        view.navigateToYoutube(URLKeys.URL_YOUTUBE);
     }
 
     private void reqCategory() {
