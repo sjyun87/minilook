@@ -4,11 +4,13 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
-import com.minilook.minilook.data.model.pick.PickOptionDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.product.ProductOptionDataModel;
 import com.minilook.minilook.data.model.product.ProductStockModel;
 import com.minilook.minilook.data.model.review.ReviewDataModel;
+import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
+import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
+import com.minilook.minilook.data.model.shopping.ShoppingProductDataModel;
 import com.minilook.minilook.data.network.order.OrderRequest;
 import com.minilook.minilook.data.network.product.ProductRequest;
 import com.minilook.minilook.data.network.scrap.ScrapRequest;
@@ -113,27 +115,54 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         view.navigateToProductInfo(data.getBrand_id());
     }
 
-    @Override public void onOptionSelectorShoppingBagClick(List<PickOptionDataModel> goodsData) {
-        reqAddShoppingBag(goodsData);
+    @Override public void onOptionSelectorShoppingBagClick(List<ShoppingOptionDataModel> optionData) {
+        reqAddShoppingBag(optionData);
     }
 
-    @Override public void onOptionSelectorBuyClick(List<PickOptionDataModel> goodsData) {
-        // TODO 주문서로 이동
-        view.showTrialVersionDialog();
+    @Override public void onOptionSelectorBuyClick(List<ShoppingOptionDataModel> optionData) {
+        List<ShoppingBrandDataModel> brandData = parseToData(optionData);
+        view.navigateToOrder(brandData);
+    }
+
+    private List<ShoppingBrandDataModel> parseToData(List<ShoppingOptionDataModel> optionData) {
+        List<ShoppingBrandDataModel> brandData = new ArrayList<>();
+        ShoppingBrandDataModel brandModel = new ShoppingBrandDataModel();
+        brandModel.setBrand_id(data.getBrand_id());
+        brandModel.setBrand_name(data.getBrand_name());
+        brandModel.setBrand_logo(data.getBrand_logo());
+        brandModel.setShipping_type(data.getShipping_type());
+        brandModel.setShipping_price(data.getShipping_price());
+        brandModel.setCondition_shipping_price(data.getCondition_shipping_price());
+        brandModel.setCondition_free_shipping(data.getCondition_free_shipping());
+
+        List<ShoppingProductDataModel> productData = new ArrayList<>();
+        ShoppingProductDataModel productModel = new ShoppingProductDataModel();
+        productModel.setDisplay_code(data.getDisplay_code());
+        productModel.setProduct_id(data.getProduct_id());
+        productModel.setProduct_name(data.getProduct_name());
+        productModel.setThumb_url(data.getProduct_images().get(0));
+        productModel.setDiscount(data.isDiscount());
+        productModel.setDiscount_percent(data.getDiscount_percent());
+        productModel.setPrice(data.getPrice());
+        productModel.setPoint_percent(data.getPoint());
+        productModel.setOptions(optionData);
+        productData.add(productModel);
+        brandModel.setProducts(productData);
+        brandData.add(brandModel);
+        return brandData;
     }
 
     @Override public void onTrialVersionDialogGoClick() {
         view.navigateToEventDetail();
     }
 
-    private void reqAddShoppingBag(List<PickOptionDataModel> goodsData) {
-        addDisposable(orderRequest.addShoppingBag(goodsData)
+    private void reqAddShoppingBag(List<ShoppingOptionDataModel> optionData) {
+        addDisposable(orderRequest.addShoppingBag(optionData)
             .compose(Transformer.applySchedulers())
             .subscribe(this::resAddShoppingBag, Timber::e));
     }
 
     private void resAddShoppingBag(BaseDataModel data) {
-        Timber.e(data.toString());
         view.showAddShoppingBagToast();
     }
 

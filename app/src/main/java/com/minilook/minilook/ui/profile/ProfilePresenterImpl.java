@@ -118,13 +118,14 @@ public class ProfilePresenterImpl extends BasePresenterImpl implements ProfilePr
     private void updatePhone(String json) {
         JsonObject data = gson.fromJson(json, JsonObject.class);
         String phone = data.get("phoneNumber").getAsString();
+        String name = data.get("name").getAsString();
         String ci = data.get("ci").getAsString();
         view.setupPhone(phone);
-        reqUpdatePhone(phone, ci);
+        reqUpdatePhone(phone, name, ci);
     }
 
-    private void reqUpdatePhone(String phone, String ci) {
-        addDisposable(memberRequest.updatePhone(phone, ci)
+    private void reqUpdatePhone(String phone, String name, String ci) {
+        addDisposable(memberRequest.updatePhone(phone, name, ci)
             .compose(Transformer.applySchedulers())
             .filter(data -> data.getCode().equals(HttpCode.OK))
             .subscribe());

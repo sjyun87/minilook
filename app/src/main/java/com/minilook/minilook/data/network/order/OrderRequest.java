@@ -3,14 +3,13 @@ package com.minilook.minilook.data.network.order;
 import com.google.gson.JsonObject;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.model.base.BaseDataModel;
-import com.minilook.minilook.data.model.pick.PickOptionDataModel;
+import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
 import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import timber.log.Timber;
 
 public class OrderRequest extends BaseRequest<OrderService> {
 
@@ -23,20 +22,20 @@ public class OrderRequest extends BaseRequest<OrderService> {
         return getApi().getShoppingBag(user_id);
     }
 
-    public Single<BaseDataModel> addShoppingBag(List<PickOptionDataModel> goodsData) {
+    public Single<BaseDataModel> addShoppingBag(List<ShoppingOptionDataModel> goodsData) {
         int user_id = App.getInstance().getUserId();
         return getApi().addShoppingBag(user_id, createRequestBody(parseToAddJson(goodsData)));
     }
 
-    private Map<String, Object> parseToAddJson(List<PickOptionDataModel> goodsData) {
+    private Map<String, Object> parseToAddJson(List<ShoppingOptionDataModel> goodsData) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("options", getOptions(goodsData));
         return jsonMap;
     }
 
-    private Object getOptions(List<PickOptionDataModel> goodsData) {
+    private Object getOptions(List<ShoppingOptionDataModel> goodsData) {
         List<JsonObject> options = new ArrayList<>();
-        for (PickOptionDataModel model : goodsData) {
+        for (ShoppingOptionDataModel model : goodsData) {
             JsonObject json = new JsonObject();
             json.addProperty("optionNo", model.getOption_id());
             json.addProperty("quantity", model.getQuantity());
@@ -66,4 +65,10 @@ public class OrderRequest extends BaseRequest<OrderService> {
         jsonMap.put("carts", deleteItem);
         return jsonMap;
     }
+
+    public Single<BaseDataModel> getOrderSheet() {
+        int user_id = App.getInstance().getUserId();
+        return getApi().getOrderSheet(user_id);
+    }
+
 }

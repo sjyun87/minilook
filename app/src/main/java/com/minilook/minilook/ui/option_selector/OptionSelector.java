@@ -23,11 +23,11 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.pick.PickOptionDataModel;
+import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
 import com.minilook.minilook.data.model.product.ProductOptionDataModel;
 import com.minilook.minilook.data.model.product.ProductStockDataModel;
 import com.minilook.minilook.ui.option_selector.adpater.OptionSelectorColorAdapter;
-import com.minilook.minilook.ui.option_selector.adpater.OptionSelectorGoodsAdapter;
+import com.minilook.minilook.ui.option_selector.adpater.OptionSelectorOptionAdapter;
 import com.minilook.minilook.ui.option_selector.adpater.OptionSelectorSizeAdapter;
 import com.minilook.minilook.ui.option_selector.viewholder.OptionSelectorOptionVH;
 import com.minilook.minilook.util.DimenUtil;
@@ -72,7 +72,7 @@ public class OptionSelector extends FrameLayout implements OptionSelectorOptionV
 
     private OptionSelectorColorAdapter colorAdapter;
     private OptionSelectorSizeAdapter sizeAdapter;
-    private OptionSelectorGoodsAdapter goodsAdapter;
+    private OptionSelectorOptionAdapter optionAdapter;
 
     private int product_price;
     private List<ProductOptionDataModel> options;
@@ -138,10 +138,10 @@ public class OptionSelector extends FrameLayout implements OptionSelectorOptionV
     }
 
     private void setupGoodsRecyclerView() {
-        goodsAdapter = new OptionSelectorGoodsAdapter();
-        goodsAdapter.setOnButtonClickListener(this);
+        optionAdapter = new OptionSelectorOptionAdapter();
+        optionAdapter.setOnButtonClickListener(this);
         goodsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        goodsRecyclerView.setAdapter(goodsAdapter);
+        goodsRecyclerView.setAdapter(optionAdapter);
     }
 
     public void setupData(int price, List<ProductOptionDataModel> options) {
@@ -158,8 +158,8 @@ public class OptionSelector extends FrameLayout implements OptionSelectorOptionV
         isSizeSelectBoxOpened = false;
         selectedColorData = null;
         selectedSizeData = null;
-        goodsAdapter.clear();
-        goodsAdapter.refresh();
+        optionAdapter.clear();
+        optionAdapter.refresh();
         selectedData.clear();
     }
 
@@ -312,7 +312,7 @@ public class OptionSelector extends FrameLayout implements OptionSelectorOptionV
     private void addSelectedData() {
         int goods_id = selectedSizeData.getOption_id();
         if (!selectedData.containsKey(goods_id)) {
-            PickOptionDataModel model = new PickOptionDataModel();
+            ShoppingOptionDataModel model = new ShoppingOptionDataModel();
             model.setOption_id(goods_id);
             int price = product_price + selectedSizeData.getPrice_add();
             model.setPrice_sum(price);
@@ -324,10 +324,10 @@ public class OptionSelector extends FrameLayout implements OptionSelectorOptionV
             model.setQuantity(1);
 
             selectedData.put(goods_id, 1);
-            goodsAdapter.add(model);
-            goodsAdapter.refresh();
+            optionAdapter.add(model);
+            optionAdapter.refresh();
         } else {
-            for (PickOptionDataModel model : goodsAdapter.get()) {
+            for (ShoppingOptionDataModel model : optionAdapter.get()) {
                 if (model.getOption_id() == goods_id) {
                     if (model.getQuantity() >= model.getOrder_available_quantity()) {
                         Toast.makeText(getContext(),
@@ -337,7 +337,7 @@ public class OptionSelector extends FrameLayout implements OptionSelectorOptionV
                         int currentCount = model.getQuantity();
                         model.setQuantity(currentCount + 1);
                         selectedData.put(goods_id, currentCount + 1);
-                        goodsAdapter.refresh();
+                        optionAdapter.refresh();
                     }
                     break;
                 }
@@ -349,7 +349,7 @@ public class OptionSelector extends FrameLayout implements OptionSelectorOptionV
     private void setupTotal() {
         int totalPrice = 0;
         int totalCount = 0;
-        for (PickOptionDataModel model : goodsAdapter.get()) {
+        for (ShoppingOptionDataModel model : optionAdapter.get()) {
             int count = model.getQuantity();
             totalCount += count;
             int price = model.getPrice_sum();
@@ -373,14 +373,14 @@ public class OptionSelector extends FrameLayout implements OptionSelectorOptionV
 
     @OnClick(R.id.txt_shopping_bag)
     void onShoppingBagClick() {
-        onButtonClickListener.onShoppingBagClick(goodsAdapter.get());
+        onButtonClickListener.onShoppingBagClick(optionAdapter.get());
         resetData();
         hide();
     }
 
     @OnClick(R.id.txt_buy_now)
     void onBuyNowClick() {
-        onButtonClickListener.onBuyClick(goodsAdapter.get());
+        onButtonClickListener.onBuyClick(optionAdapter.get());
     }
 
     // Select Panel ----------------------------------------------------------------------------------------------------
@@ -397,26 +397,26 @@ public class OptionSelector extends FrameLayout implements OptionSelectorOptionV
     }
 
     // Goods Adapter
-    @Override public void onDeleteClick(PickOptionDataModel data) {
-        goodsAdapter.remove(data);
-        goodsAdapter.refresh();
+    @Override public void onDeleteClick(ShoppingOptionDataModel data) {
+        optionAdapter.remove(data);
+        optionAdapter.refresh();
         selectedData.remove(data.getOption_id());
         setupTotal();
     }
 
     @Override public void onMinusClick() {
-        goodsAdapter.refresh();
+        optionAdapter.refresh();
         setupTotal();
     }
 
     @Override public void onPlusClick() {
-        goodsAdapter.refresh();
+        optionAdapter.refresh();
         setupTotal();
     }
 
     public interface OnButtonClickListener {
-        void onShoppingBagClick(List<PickOptionDataModel> goodsData);
+        void onShoppingBagClick(List<ShoppingOptionDataModel> optionData);
 
-        void onBuyClick(List<PickOptionDataModel> goodsData);
+        void onBuyClick(List<ShoppingOptionDataModel> optionData);
     }
 }

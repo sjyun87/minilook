@@ -27,8 +27,10 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.android.material.tabs.TabLayout;
+import com.minilook.minilook.App;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.pick.PickOptionDataModel;
+import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
+import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.product.ProductOptionDataModel;
 import com.minilook.minilook.data.model.product.ProductStockModel;
@@ -41,6 +43,7 @@ import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.event_detail.EventDetailActivity;
 import com.minilook.minilook.ui.option_selector.OptionSelector;
+import com.minilook.minilook.ui.order.OrderActivity;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.product_detail.adapter.ProductDetailImageAdapter;
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
@@ -380,12 +383,12 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     @Override public void setupOptionSelector(int price, List<ProductOptionDataModel> options) {
         optionSelector.setupData(price, options);
         optionSelector.setOnButtonClickListener(new OptionSelector.OnButtonClickListener() {
-            @Override public void onShoppingBagClick(List<PickOptionDataModel> goodsData) {
-                presenter.onOptionSelectorShoppingBagClick(goodsData);
+            @Override public void onShoppingBagClick(List<ShoppingOptionDataModel> optionData) {
+                presenter.onOptionSelectorShoppingBagClick(optionData);
             }
 
-            @Override public void onBuyClick(List<PickOptionDataModel> goodsData) {
-                presenter.onOptionSelectorBuyClick(goodsData);
+            @Override public void onBuyClick(List<ShoppingOptionDataModel> optionData) {
+                presenter.onOptionSelectorBuyClick(optionData);
             }
         });
     }
@@ -519,6 +522,11 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 
     @Override public void navigateToEventDetail() {
         EventDetailActivity.start(this, 6);
+    }
+
+    @Override public void navigateToOrder(List<ShoppingBrandDataModel> items) {
+        App.getInstance().setOrderItem(items);
+        OrderActivity.start(this);
     }
 
     @OnClick(R.id.layout_expand_panel)

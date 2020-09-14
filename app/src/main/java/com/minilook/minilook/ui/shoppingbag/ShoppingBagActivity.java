@@ -19,7 +19,7 @@ import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.App;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.pick.PickBrandDataModel;
+import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.widget.BottomBar;
@@ -63,7 +63,7 @@ public class ShoppingBagActivity extends BaseActivity implements ShoppingBagPres
 
     private ShoppingBagPresenter presenter;
     private ShoppingBagAdapter adapter = new ShoppingBagAdapter();
-    private BaseAdapterDataView<PickBrandDataModel> adapterView = adapter;
+    private BaseAdapterDataView<ShoppingBrandDataModel> adapterView = adapter;
 
     @Override protected int getLayoutID() {
         return R.layout.activity_shopping_bag;
@@ -139,8 +139,8 @@ public class ShoppingBagActivity extends BaseActivity implements ShoppingBagPres
         emptyPanel.setVisibility(View.VISIBLE);
     }
 
-    @Override public void navigateToOrder(List<PickBrandDataModel> items) {
-        App.getInstance().setOrderItems(items);
+    @Override public void navigateToOrder(List<ShoppingBrandDataModel> items) {
+        App.getInstance().setOrderItem(items);
         OrderActivity.start(this);
     }
 

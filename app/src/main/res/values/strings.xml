@@ -225,8 +225,49 @@
 
     <!--Order-->
     <string name="order_title">주문서</string>
-    <string name="order_shipping_info">배송지 정보</string>
+    <string name="order_shipping_info_title">배송지 정보</string>
     <string name="order_shipping_add">배송지를 추가해주세요.</string>
+    <string name="order_product_info_title">주문상품</string>
+    <string name="order_product_option">%s / %s</string>
+    <string name="order_product_option_count">%s개</string>
+    <string name="order_product_shipping_price_caption">배송비</string>
+    <string name="order_product_shipping_free">무료배송</string>
+    <string name="order_product_island_shipping_price">도서/산간지역 추가배송비 +%s</string>
+    <string name="order_product_total_price_caption">총 금액</string>
+    <string name="order_coupon_n_point_title">쿠폰/포인트 적용</string>
+    <string name="order_coupon_caption">쿠폰</string>
+    <string name="order_coupon_empty">보유한 쿠폰이 없습니다</string>
+    <string name="order_coupon_no_available">사용가능한 쿠폰이 없습니다</string>
+    <string name="order_coupon_available">사용 가능한 쿠폰 %d개</string>
+    <string name="order_coupon_select">쿠폰을 선택해주세요</string>
+    <string name="order_coupon">%s / %s</string>
+    <string name="order_coupon_cancel">선택 안함</string>
+    <string name="order_point_caption">포인트</string>
+    <string name="order_have_point_caption">보유 포인트</string>
+    <string name="order_point_use_condition">(최소 1,000P 부터 사용 가능)</string>
+    <string name="order_have_point">%sP</string>
+    <string name="order_point_hint">0</string>
+    <string name="order_point_unit">P</string>
+    <string name="order_point_all">모두 사용</string>
+    <string name="order_point_over_use_toast">보유 포인트 이상으 사용할 수 없습니다</string>
+    <string name="order_point_over_total_price_toast">총 결제금액 이상으로 사용할 수 없습니다</string>
+    <string name="order_point_use_condition_toast">최소 1,000P 부터 사용 가능합니다</string>
+    <string name="order_total_price_title">총 결제금액</string>
+    <string name="order_total_product_price_caption">총 상품금액</string>
+    <string name="order_total_shipping_price_caption">배송비</string>
+    <string name="order_total_shipping_price">+ %s</string>
+    <string name="order_total_coupon_caption">쿠폰적용</string>
+    <string name="order_total_coupon">- %s</string>
+    <string name="order_total_point_caption">포인트적용</string>
+    <string name="order_total_point">- %s</string>
+    <string name="order_payment_title">결제방법</string>
+    <string name="order_payment_card">신용/체크 카드</string>
+    <string name="order_payment_bank">실시간 계좌이체</string>
+    <string name="order_point_earned_title">최대 적립 예정 포인트</string>
+    <string name="order_point_confirm_caption">구매확정</string>
+    <string name="order_point_review_caption">리뷰작성</string>
+    <string name="order_info_check">주문하신 상품 및 결제, 주문정보를 확인하였으며, 이에 동의합니다.(필수)</string>
+    <string name="order_confirm">결제하기</string>
 
     <!--Order History-->
     <string name="order_history_title">주문/배송</string>

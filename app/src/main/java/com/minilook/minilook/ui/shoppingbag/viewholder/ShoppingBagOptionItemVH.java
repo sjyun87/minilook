@@ -9,13 +9,13 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.pick.PickOptionDataModel;
+import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.shoppingbag.ShoppingBagPresenterImpl;
 import com.minilook.minilook.util.StringUtil;
 
-public class ShoppingBagOptionItemVH extends BaseViewHolder<PickOptionDataModel> {
+public class ShoppingBagOptionItemVH extends BaseViewHolder<ShoppingOptionDataModel> {
 
     @BindView(R.id.txt_title) TextView titleTextView;
     @BindView(R.id.txt_count) TextView countTextView;
@@ -30,7 +30,7 @@ public class ShoppingBagOptionItemVH extends BaseViewHolder<PickOptionDataModel>
             .inflate(R.layout.item_shoppingbag_option, (ViewGroup) itemView, false));
     }
 
-    @Override public void bind(PickOptionDataModel $data) {
+    @Override public void bind(ShoppingOptionDataModel $data) {
         super.bind($data);
 
         titleTextView.setText(String.format(format_options, data.getColor_name(), data.getSize_name()));

@@ -1,12 +1,11 @@
-package com.minilook.minilook.data.model.pick;
+package com.minilook.minilook.data.model.shopping;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import java.io.Serializable;
 import java.util.List;
 import lombok.Data;
 
-@Data public class PickBrandDataModel implements Serializable {
+@Data public class ShoppingBrandDataModel {
     @Expose @SerializedName("brandNo")
     private int brand_id;                               // 브랜드 아이디
     @Expose @SerializedName("brandName")
@@ -14,7 +13,7 @@ import lombok.Data;
     @Expose @SerializedName("logo")
     private String brand_logo;                          // 브랜드 로고
     @Expose @SerializedName("shippingType")
-    private int shipping_type_code;                     // 배송타입 코드
+    private int shipping_type;                           // 배송타입 코드
     @Expose @SerializedName("basicShippingFee")
     private int shipping_price;                         // 기본 배송비
     @Expose @SerializedName("conditinShippingFee")
@@ -22,7 +21,7 @@ import lombok.Data;
     @Expose @SerializedName("freeShippingCondition")
     private int condition_free_shipping;                // 무료배송 조건
     @Expose @SerializedName("products")
-    private List<PickProductDataModel> products;        // 상품
+    private List<ShoppingProductDataModel> products;    // 상품
 
     // -- Control Data
     private boolean isFreeShipping;                     // 무료배송 여부
@@ -31,4 +30,6 @@ import lombok.Data;
     private int total_option_count;                     // 총 옵션 수
     private int total_selected_product;
     private boolean isBillVisible = false;              // 계산서 노출 여부
+    private boolean isIsland;                           // 도서산간지역 여부
+    private int island_shipping_price;                  // 도서산간지역 추가배송비
 }

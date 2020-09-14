@@ -10,6 +10,7 @@ import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
+import com.minilook.minilook.ui.order.OrderPresenterImpl;
 import com.minilook.minilook.ui.profile.ProfileActivity;
 import com.minilook.minilook.ui.profile.ProfilePresenterImpl;
 import com.minilook.minilook.ui.shipping.di.ShippingArguments;
@@ -94,7 +95,8 @@ public class ShippingPresenterImpl extends BasePresenterImpl implements Shipping
                 view.showDefaultShippingDialog();
             }
         } else {
-                // TODO 주문서에서 들어올때
+            RxBus.send(new OrderPresenterImpl.RxEventShippingSelected(data));
+            view.finish();
         }
     }
 

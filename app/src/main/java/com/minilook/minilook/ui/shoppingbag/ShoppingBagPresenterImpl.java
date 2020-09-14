@@ -4,9 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
-import com.minilook.minilook.data.model.pick.PickBrandDataModel;
-import com.minilook.minilook.data.model.pick.PickOptionDataModel;
-import com.minilook.minilook.data.model.pick.PickProductDataModel;
+import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
+import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
+import com.minilook.minilook.data.model.shopping.ShoppingProductDataModel;
 import com.minilook.minilook.data.network.order.OrderRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
@@ -26,11 +26,11 @@ import timber.log.Timber;
 public class ShoppingBagPresenterImpl extends BasePresenterImpl implements ShoppingBagPresenter {
 
     private final View view;
-    private final BaseAdapterDataModel<PickBrandDataModel> adapter;
+    private final BaseAdapterDataModel<ShoppingBrandDataModel> adapter;
     private final OrderRequest orderRequest;
 
     private Gson gson = new Gson();
-    private List<PickBrandDataModel> shoppingbagItems;
+    private List<ShoppingBrandDataModel> shoppingbagItems;
 
     private boolean isAllChecked = true;
 
@@ -57,7 +57,7 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
             view.uncheckImageView();
         }
         view.refresh();
-        for (PickBrandDataModel brandData : adapter.get()) {
+        for (ShoppingBrandDataModel brandData : adapter.get()) {
             calBrandPrice(brandData);
         }
         setupTotalPrice();
@@ -70,9 +70,23 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
     }
 
     @Override public void onOrderClick() {
-        view.showTrialVersionDialog();
-        //view.navigateToOrder(getSelectedData());
-        //view.finish();
+        //view.showTrialVersionDialog();
+        view.navigateToOrder(getSelectedData());
+        view.finish();
+    }
+
+    private List<ShoppingBrandDataModel> getSelectedData() {
+        List<ShoppingBrandDataModel> brandItems = new ArrayList<>();
+        for (ShoppingBrandDataModel brandData : adapter.get()) {
+            ShoppingBrandDataModel brandItem = brandData;
+            List<ShoppingProductDataModel> productItems = new ArrayList<>();
+            for (ShoppingProductDataModel productData : brandData.getProducts()) {
+                if (productData.isSelected()) productItems.add(productData);
+            }
+            brandItem.setProducts(productItems);
+            if (productItems.size() > 0) brandItems.add(brandItem);
+        }
+        return brandItems;
     }
 
     @Override public void onEmptyClick() {
@@ -84,16 +98,16 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
     }
 
     private void setupAllCheck() {
-        for (PickBrandDataModel brandData : adapter.get()) {
-            for (PickProductDataModel productData : brandData.getProducts()) {
+        for (ShoppingBrandDataModel brandData : adapter.get()) {
+            for (ShoppingProductDataModel productData : brandData.getProducts()) {
                 productData.setSelected(true);
             }
         }
     }
 
     private void setupAllUncheck() {
-        for (PickBrandDataModel brandData : adapter.get()) {
-            for (PickProductDataModel productData : brandData.getProducts()) {
+        for (ShoppingBrandDataModel brandData : adapter.get()) {
+            for (ShoppingProductDataModel productData : brandData.getProducts()) {
                 productData.setSelected(false);
             }
         }
@@ -109,15 +123,15 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
                 }
                 return code.equals(HttpCode.OK);
             })
-            .map((Function<BaseDataModel, List<PickBrandDataModel>>)
-                data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<PickBrandDataModel>>() {
+            .map((Function<BaseDataModel, List<ShoppingBrandDataModel>>)
+                data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<ShoppingBrandDataModel>>() {
                 }.getType()))
             .subscribe(this::resShoppingBag, Timber::e));
     }
 
-    private void resShoppingBag(List<PickBrandDataModel> data) {
+    private void resShoppingBag(List<ShoppingBrandDataModel> data) {
         shoppingbagItems = data;
-        for (PickBrandDataModel brandData : data) {
+        for (ShoppingBrandDataModel brandData : data) {
             adapter.add(calBrandPrice(brandData));
         }
         view.refresh();
@@ -130,7 +144,7 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
         int totalOptionCount = 0;
         int totalProductCount = 0;
         int totalSelectedProductCount = 0;
-        for (PickBrandDataModel brandData : adapter.get()) {
+        for (ShoppingBrandDataModel brandData : adapter.get()) {
             totalProductCount += brandData.getProducts().size();
             totalSelectedProductCount += brandData.getTotal_selected_product();
             totalProductPrice += brandData.getTotal_products_price();
@@ -159,12 +173,12 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
         }
     }
 
-    private PickBrandDataModel calBrandPrice(PickBrandDataModel brandData) {
+    private ShoppingBrandDataModel calBrandPrice(ShoppingBrandDataModel brandData) {
         int totalSelectedProductCount = 0;
         int totalProductsPrice = 0;
         int totalOptionCount = 0;
 
-        for (PickProductDataModel productData : brandData.getProducts()) {
+        for (ShoppingProductDataModel productData : brandData.getProducts()) {
             productData.setBrand_id(brandData.getBrand_id());
 
             if (!productData.isSelected()) {
@@ -182,7 +196,7 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
 
             int price_basic = productData.getPrice();
 
-            for (PickOptionDataModel optionData : productData.getOptions()) {
+            for (ShoppingOptionDataModel optionData : productData.getOptions()) {
                 optionData.setBrand_id(brandData.getBrand_id());
 
                 int price = price_basic + optionData.getPrice_add();
@@ -203,7 +217,7 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
         if (totalOptionCount > 0) {
             boolean isFreeShipping;
             int finalShippingPrice;
-            int shippingCode = brandData.getShipping_type_code();
+            int shippingCode = brandData.getShipping_type();
             if (shippingCode == ShippingCode.FREE.getValue()) {
                 isFreeShipping = true;
                 finalShippingPrice = 0;
@@ -228,16 +242,16 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
         return brandData;
     }
 
-    private PickBrandDataModel getBrandModel(int brand_id) {
+    private ShoppingBrandDataModel getBrandModel(int brand_id) {
         return Observable.fromIterable(shoppingbagItems)
             .filter(data -> data.getBrand_id() == brand_id)
             .blockingFirst();
     }
 
     private void deleteProduct() {
-        List<PickBrandDataModel> tempBrandData = new ArrayList<>(adapter.get());
-        for (PickBrandDataModel brandData : tempBrandData) {
-            for (PickProductDataModel productData : brandData.getProducts()) {
+        List<ShoppingBrandDataModel> tempBrandData = new ArrayList<>(adapter.get());
+        for (ShoppingBrandDataModel brandData : tempBrandData) {
+            for (ShoppingProductDataModel productData : brandData.getProducts()) {
                 if (productData.isSelected()) {
                     brandData.getProducts().remove(productData);
                     if (brandData.getProducts().size() == 0) adapter.remove(brandData);
@@ -247,7 +261,7 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
         }
         view.refresh();
         if (adapter.getSize() > 0) {
-            for (PickBrandDataModel brandData : adapter.get()) {
+            for (ShoppingBrandDataModel brandData : adapter.get()) {
                 calBrandPrice(brandData);
             }
             setupTotalPrice();
@@ -256,10 +270,10 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
         }
     }
 
-    private void deleteOption(PickOptionDataModel target) {
-        PickBrandDataModel brandData = getBrandModel(target.getBrand_id());
-        PickBrandDataModel tempBrandData = brandData;
-        for (PickProductDataModel productData : tempBrandData.getProducts()) {
+    private void deleteOption(ShoppingOptionDataModel target) {
+        ShoppingBrandDataModel brandData = getBrandModel(target.getBrand_id());
+        ShoppingBrandDataModel tempBrandData = brandData;
+        for (ShoppingProductDataModel productData : tempBrandData.getProducts()) {
             if (productData.getOptions().remove(target)) {
                 if (productData.getOptions().size() == 0) brandData.getProducts().remove(productData);
                 if (brandData.getProducts().size() == 0) adapter.remove(brandData);
@@ -276,10 +290,10 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
 
     private List<Integer> getDeleteOptions() {
         List<Integer> items = new ArrayList<>();
-        for (PickBrandDataModel brandData : adapter.get()) {
-            for (PickProductDataModel productData : brandData.getProducts()) {
+        for (ShoppingBrandDataModel brandData : adapter.get()) {
+            for (ShoppingProductDataModel productData : brandData.getProducts()) {
                 if (productData.isSelected()) {
-                    for (PickOptionDataModel optionData : productData.getOptions()) {
+                    for (ShoppingOptionDataModel optionData : productData.getOptions()) {
                         items.add(optionData.getShoppingbag_id());
                     }
                 }
@@ -288,7 +302,7 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
         return items;
     }
 
-    private void reqUpdateQuantity(PickOptionDataModel data) {
+    private void reqUpdateQuantity(ShoppingOptionDataModel data) {
         addDisposable(orderRequest.updateGoodsQuantity(data.getShoppingbag_id(), data.getQuantity())
             .subscribe());
     }
@@ -307,7 +321,7 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
             if (o instanceof RxBusEventOptionCountChanged) {
-                PickOptionDataModel data = ((RxBusEventOptionCountChanged) o).getOptionData();
+                ShoppingOptionDataModel data = ((RxBusEventOptionCountChanged) o).getOptionData();
                 view.refresh();
                 reqUpdateQuantity(data);
                 calBrandPrice(getBrandModel(data.getBrand_id()));
@@ -318,7 +332,7 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
                 view.refresh();
                 setupTotalPrice();
             } else if (o instanceof RxBusEventOptionDeleted) {
-                PickOptionDataModel data = ((RxBusEventOptionDeleted) o).getOptionData();
+                ShoppingOptionDataModel data = ((RxBusEventOptionDeleted) o).getOptionData();
                 reqDeleteShoppingBag(data.getShoppingbag_id());
                 deleteOption(data);
             }
@@ -326,11 +340,11 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
     }
 
     @AllArgsConstructor @Getter public final static class RxBusEventOptionCountChanged {
-        private PickOptionDataModel optionData;
+        private ShoppingOptionDataModel optionData;
     }
 
     @AllArgsConstructor @Getter public final static class RxBusEventOptionDeleted {
-        private PickOptionDataModel optionData;
+        private ShoppingOptionDataModel optionData;
     }
 
     @AllArgsConstructor @Getter public final static class RxBusEventProductCheckedChanged {

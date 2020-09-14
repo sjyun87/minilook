@@ -24,7 +24,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.pick.PickBrandDataModel;
+import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.data.type.ShippingCode;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
@@ -34,7 +34,7 @@ import com.minilook.minilook.util.SpannableUtil;
 import com.minilook.minilook.util.StringUtil;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
 
-public class ShoppingBagItemVH extends BaseViewHolder<PickBrandDataModel> {
+public class ShoppingBagItemVH extends BaseViewHolder<ShoppingBrandDataModel> {
 
     @BindView(R.id.img_brand_logo) ImageView logoImageView;
     @BindView(R.id.txt_brand_name) TextView nameTextView;
@@ -82,7 +82,7 @@ public class ShoppingBagItemVH extends BaseViewHolder<PickBrandDataModel> {
             .addTo(recyclerView);
     }
 
-    @Override public void bind(PickBrandDataModel $data) {
+    @Override public void bind(ShoppingBrandDataModel $data) {
         super.bind($data);
 
         Glide.with(context)
@@ -102,7 +102,7 @@ public class ShoppingBagItemVH extends BaseViewHolder<PickBrandDataModel> {
         if (data.isBillVisible()) {
             billingPanel.setVisibility(View.VISIBLE);
 
-            if (data.getShipping_type_code() == ShippingCode.CONDITIONAL.getValue()) {
+            if (data.getShipping_type() == ShippingCode.CONDITIONAL.getValue()) {
                 int freeShippingCondition = data.getCondition_free_shipping() / 10000;
                 freeShippingConditionTextView.setText(
                     String.format(format_free_shipping_condition, freeShippingCondition));
@@ -115,7 +115,7 @@ public class ShoppingBagItemVH extends BaseViewHolder<PickBrandDataModel> {
                 freeShippingRemainTextView.setVisibility(View.GONE);
                 shippingPriceTextView.setText(str_shipping_free);
             } else {
-                if (data.getShipping_type_code() == ShippingCode.CONDITIONAL.getValue()) {
+                if (data.getShipping_type() == ShippingCode.CONDITIONAL.getValue()) {
                     int remainPrice = data.getCondition_free_shipping() - data.getTotal_products_price();
                     freeShippingRemainTextView.setText(getSpanText(remainPrice));
                     freeShippingRemainTextView.setVisibility(View.VISIBLE);

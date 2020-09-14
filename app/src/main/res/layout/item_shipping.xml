@@ -84,7 +84,7 @@
         android:layout_marginTop="@dimen/dp_10"
         android:layout_marginEnd="@dimen/dp_8"
         android:layout_marginBottom="@dimen/dp_8"
-        android:background="@drawable/bg_button_border_gray"
+        android:background="@drawable/bg_button_border_lightgray"
         android:fontFamily="@font/nanum_square_b"
         android:gravity="center"
         android:text="@string/shipping_edit"

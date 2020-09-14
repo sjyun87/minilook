@@ -1,14 +1,13 @@
-package com.minilook.minilook.data.model.pick;
+package com.minilook.minilook.data.model.shopping;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.minilook.minilook.data.model.base.BooleanDeserializer;
-import java.io.Serializable;
 import java.util.List;
 import lombok.Data;
 
-@Data public class PickProductDataModel implements Serializable {
+@Data public class ShoppingProductDataModel {
     @Expose @SerializedName("stockCode")
     private int display_code;                   // 진열상태 코드
     @Expose @SerializedName("productNo")
@@ -27,7 +26,9 @@ import lombok.Data;
     @Expose @SerializedName("maxQuantity")
     private int quantity_limit;                 // 한번에 주문 가능한 수량
     @Expose @SerializedName("options")
-    private List<PickOptionDataModel> options; // 옵션
+    private List<ShoppingOptionDataModel> options; // 옵션
+    @Expose @SerializedName("point")
+    private int point_percent;                  // 적립 포인트 퍼센트
 
     // Control Data
     private boolean isSelected = true;          // 선택여부

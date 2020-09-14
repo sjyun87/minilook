@@ -150,6 +150,11 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
+            android:name=".ui.order.OrderActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
             android:name=".ui.order_history.OrderHistoryActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />

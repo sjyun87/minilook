@@ -9,6 +9,7 @@ import retrofit2.http.HTTP;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface OrderService {
 
@@ -16,7 +17,7 @@ public interface OrderService {
         @Path("user_id") int user_id
     );
 
-    @POST("/api/members/{user_id}/carts")Single<BaseDataModel> addShoppingBag(
+    @POST("/api/members/{user_id}/carts") Single<BaseDataModel> addShoppingBag(
         @Path("user_id") int user_id,
         @Body RequestBody requestBody
     );
@@ -30,4 +31,8 @@ public interface OrderService {
     Single<BaseDataModel> deleteShoppingBag(
         @Path("user_id") int user_id,
         @Body RequestBody requestBody);
+
+    @GET("/api/orders/sheet") Single<BaseDataModel> getOrderSheet(
+        @Query("memberNo") int user_id
+    );
 }

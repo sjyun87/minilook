@@ -1,11 +1,10 @@
-package com.minilook.minilook.data.model.pick;
+package com.minilook.minilook.data.model.shopping;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import java.io.Serializable;
 import lombok.Data;
 
-@Data public class PickOptionDataModel implements Serializable {
+@Data public class ShoppingOptionDataModel {
     @Expose @SerializedName("optionNo")
     private int option_id;                      // 옵션 아아디
     @Expose @SerializedName("cartNo")

@@ -6,7 +6,7 @@ import java.io.Serializable;
 import lombok.Data;
 
 @Data public class ShippingDataModel implements Serializable {
-    @Expose @SerializedName("addressNo")
+    @Expose @SerializedName(value = "addressNo", alternate = "address_no")
     private int address_id;
     @Expose @SerializedName("name")
     private String name;

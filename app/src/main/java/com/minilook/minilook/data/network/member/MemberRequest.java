@@ -48,15 +48,16 @@ public class MemberRequest extends BaseRequest<MemberService> {
         return jsonMap;
     }
 
-    public Single<BaseDataModel> updatePhone(String phone, String ci) {
+    public Single<BaseDataModel> updatePhone(String phone, String name, String ci) {
         int user_id = App.getInstance().getUserId();
-        return getApi().updatePhone(user_id, createRequestBody(parseToUpdatePhoneJson(phone, ci)));
+        return getApi().updatePhone(user_id, createRequestBody(parseToUpdatePhoneJson(phone, name, ci)));
     }
 
-    private Map<String, Object> parseToUpdatePhoneJson(String phone, String ci) {
+    private Map<String, Object> parseToUpdatePhoneJson(String phone, String name, String ci) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("ci", ci);
         jsonMap.put("phone", phone);
+        jsonMap.put("name", name);
         return jsonMap;
     }
 

@@ -44,4 +44,8 @@ public class ShippingRequest extends BaseRequest<ShippingService> {
         jsonMap.put("address2", model.getAddress_detail());
         return jsonMap;
     }
+
+    public Single<BaseDataModel> checkIsland(int address_id) {
+        return getApi().checkIsland(address_id);
+    }
 }

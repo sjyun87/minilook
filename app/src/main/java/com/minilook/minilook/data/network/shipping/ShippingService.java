@@ -31,4 +31,8 @@ public interface ShippingService {
         @Path("user_id") int user_id,
         @Body RequestBody body
     );
+
+    @GET("/api/shipping/addresses/{address_id}/islands") Single<BaseDataModel> checkIsland(
+        @Path("address_id") int address_id
+    );
 }
