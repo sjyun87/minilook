@@ -272,6 +272,12 @@
     <string name="order_info_check">주문하신 상품 및 결제, 주문정보를 확인하였으며, 이에 동의합니다.(필수)</string>
     <string name="order_confirm">결제하기</string>
 
+    <!--Order Complete-->
+    <string name="order_complete_title">주문 완료</string>
+    <string name="order_complete_desc">주문이 완료되었습니다.</string>
+    <string name="order_complete_order_history">주문목록 보기</string>
+    <string name="order_complete_shipping">계속 쇼핑하기</string>
+
     <!--Order History-->
     <string name="order_history_title">주문/배송</string>
     <string name="order_history_more_detail">주문상세보기</string>
