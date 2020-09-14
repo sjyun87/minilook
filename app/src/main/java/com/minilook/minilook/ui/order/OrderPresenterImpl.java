@@ -396,7 +396,14 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
     private void reqSafetyStock(String orderId, String message) {
         addDisposable(orderRequest.setSafetyStock(orderId, orderItem)
             .compose(Transformer.applySchedulers())
-            .filter(data -> data.getCode().equals(HttpCode.OK))
+            .filter(data -> {
+                String code = data.getCode();
+                if (code.equals(HttpCode.NO_DATA)) {
+                    view.setBootPayCancel();
+                    view.showOutOfStockDialog();
+                }
+                return code.equals(HttpCode.OK);
+            })
             .subscribe(data -> resSafetyStock(data, message), Timber::e));
     }
 

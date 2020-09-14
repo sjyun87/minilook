@@ -53,4 +53,7 @@ public class OrderCompleteActivity extends BaseActivity implements OrderComplete
     @Override public void navigateToMain() {
         MainActivity.start(this, BottomBar.POSITION_MARKET);
     }
+
+    @Override public void onBackPressed() {
+    }
 }

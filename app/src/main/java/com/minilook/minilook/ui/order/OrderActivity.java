@@ -31,6 +31,7 @@ import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.data.model.user.CouponDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.order.adapter.CouponAdapter;
 import com.minilook.minilook.ui.order.adapter.MemoAdapter;
 import com.minilook.minilook.ui.order.adapter.OrderAdapter;
@@ -449,6 +450,14 @@ public class OrderActivity extends BaseActivity implements OrderPresenter.View {
 
     @Override public void setBootPayConfirm(String message) {
         Bootpay.confirm(message);
+    }
+
+    @Override public void setBootPayCancel() {
+        Bootpay.removePaymentWindow();
+    }
+
+    @Override public void showOutOfStockDialog() {
+        DialogManager.showOutOfStockDialog(this);
     }
 
     @OnClick({ R.id.layout_shipping_panel, R.id.layout_shipping_add_panel })

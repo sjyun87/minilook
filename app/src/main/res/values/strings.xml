@@ -501,6 +501,7 @@
     <string name="dialog_marketing_info_desc">마케팅 수신동의 여부는 아이페이지>설정에서 변경 가능합니다.</string>
     <string name="dialog_marketing_info_desc_b">아이페이지>설정</string>
     <string name="dialog_trial_version_button">장바구니 이벤트 보러가기</string>
+    <string name="dialog_out_of_stock_contents">주문하신 상품 중 품절된 상품이 있습니다.\n다시 주문해주시기 바랍니다.</string>
 
     <!--Support Email-->
     <string name="support_email">support@minilook.co.kr</string>

@@ -143,5 +143,9 @@ public interface OrderPresenter extends LifecycleObserver {
         void showBootPay(BootPayDataModel bootPayData);
 
         void setBootPayConfirm(String message);
+
+        void setBootPayCancel();
+
+        void showOutOfStockDialog();
     }
 }
