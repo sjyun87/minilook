@@ -16,23 +16,34 @@ import android.widget.Toast;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindArray;
 import butterknife.BindColor;
 import butterknife.BindDrawable;
 import butterknife.BindFont;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
+import com.minilook.minilook.BuildConfig;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.bootpay.BootPayDataModel;
+import com.minilook.minilook.data.model.bootpay.BootPayItemDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.data.model.user.CouponDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.order.adapter.CouponAdapter;
+import com.minilook.minilook.ui.order.adapter.MemoAdapter;
 import com.minilook.minilook.ui.order.adapter.OrderAdapter;
 import com.minilook.minilook.ui.order.di.OrderArguments;
 import com.minilook.minilook.ui.shipping.ShippingActivity;
 import com.minilook.minilook.util.SpannableUtil;
 import com.minilook.minilook.util.StringUtil;
+import java.util.Arrays;
+import kr.co.bootpay.Bootpay;
+import kr.co.bootpay.BootpayBuilder;
+import kr.co.bootpay.enums.PG;
+import kr.co.bootpay.enums.UX;
+import timber.log.Timber;
 
 public class OrderActivity extends BaseActivity implements OrderPresenter.View {
 
@@ -49,6 +60,12 @@ public class OrderActivity extends BaseActivity implements OrderPresenter.View {
     @BindView(R.id.txt_phone) TextView phoneTextView;
     @BindView(R.id.txt_address) TextView addressTextView;
     @BindView(R.id.layout_shipping_add_panel) ConstraintLayout shippingAddPanel;
+    @BindView(R.id.layout_memo_box) LinearLayout memoBox;
+    @BindView(R.id.txt_memo_box) TextView memoBoxTextView;
+    @BindView(R.id.img_memo_box) ImageView memoBoxArrowImageView;
+    @BindView(R.id.edit_memo) EditText memoEditText;
+    @BindView(R.id.rcv_memo) RecyclerView memoRecyclerView;
+
     @BindView(R.id.rcv_product) RecyclerView productRecyclerView;
 
     @BindView(R.id.layout_coupon_box) LinearLayout couponBox;
@@ -78,6 +95,8 @@ public class OrderActivity extends BaseActivity implements OrderPresenter.View {
 
     @BindString(R.string.shipping_address) String format_address;
     @BindString(R.string.order_total_shipping_price) String format_shipping_price;
+    @BindString(R.string.order_shipping_memo_direct_input) String str_memo_direct_input;
+    @BindString(R.string.order_shipping_memo_select) String str_memo_select;
     @BindString(R.string.order_coupon_empty) String str_coupon_empty;
     @BindString(R.string.order_coupon_no_available) String str_coupon_no_available;
     @BindString(R.string.order_coupon_select) String str_coupon_select;
@@ -106,7 +125,10 @@ public class OrderActivity extends BaseActivity implements OrderPresenter.View {
 
     @BindFont(R.font.nanum_square_b) Typeface font_bold;
 
+    @BindArray(R.array.shipping_memo) String[] shippingMemos;
+
     private OrderPresenter presenter;
+    private MemoAdapter memoAdapter = new MemoAdapter();
     private OrderAdapter orderAdapter = new OrderAdapter();
     private BaseAdapterDataView<ShoppingBrandDataModel> orderAdapterView = orderAdapter;
     private CouponAdapter couponAdapter = new CouponAdapter();
@@ -129,6 +151,13 @@ public class OrderActivity extends BaseActivity implements OrderPresenter.View {
             .build();
     }
 
+    @Override public void setupMemoRecyclerView() {
+        memoRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        memoRecyclerView.setAdapter(memoAdapter);
+        memoAdapter.set(Arrays.asList(shippingMemos));
+        memoAdapter.refresh();
+    }
+
     @Override public void showShippingPanel() {
         shippingPanel.setVisibility(View.VISIBLE);
     }
@@ -142,7 +171,7 @@ public class OrderActivity extends BaseActivity implements OrderPresenter.View {
     }
 
     @Override public void hideShippingAddPanel() {
-        shippingAddPanel.setVisibility(View.GONE);
+        shippingAddPanel.setVisibility(View.INVISIBLE);
     }
 
     @Override public void setupName(String name) {
@@ -163,6 +192,45 @@ public class OrderActivity extends BaseActivity implements OrderPresenter.View {
 
     @Override public void hideDefaultLabel() {
         defaultTextView.setVisibility(View.GONE);
+    }
+
+    @Override public void showMemoBox() {
+        memoBox.setVisibility(View.VISIBLE);
+        memoEditText.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void openMemoBox() {
+        memoRecyclerView.setVisibility(View.VISIBLE);
+        memoBoxArrowImageView.setImageDrawable(img_arrow_up_black);
+    }
+
+    @Override public void closeMemoBox() {
+        memoRecyclerView.setVisibility(View.GONE);
+        memoBoxArrowImageView.setImageDrawable(img_arrow_down_black);
+    }
+
+    @Override public void setupOpenMemoBoxText() {
+        memoBoxTextView.setText(str_memo_select);
+        memoBoxTextView.setTextColor(color_FFA9A9A9);
+    }
+
+    @Override public void setupDirectInputMemoBoxText() {
+        memoBoxTextView.setText(str_memo_direct_input);
+        memoBoxTextView.setTextColor(color_FF232323);
+    }
+
+    @Override public void setupMemoBoxText(String memo) {
+        memoBoxTextView.setText(memo);
+        memoBoxTextView.setTextColor(color_FF232323);
+    }
+
+    @Override public void showDirectMemoEditText() {
+        memoEditText.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void hideDirectMemoEditText() {
+        memoEditText.setText("");
+        memoEditText.setVisibility(View.GONE);
     }
 
     @Override public void setupProductRecyclerView() {
@@ -232,17 +300,11 @@ public class OrderActivity extends BaseActivity implements OrderPresenter.View {
 
     @Override public void openCouponBox() {
         couponRecyclerView.setVisibility(View.VISIBLE);
+        couponBoxArrowImageView.setImageDrawable(img_arrow_up_black);
     }
 
     @Override public void closeCouponBox() {
         couponRecyclerView.setVisibility(View.GONE);
-    }
-
-    @Override public void setupArrowUp() {
-        couponBoxArrowImageView.setImageDrawable(img_arrow_up_black);
-    }
-
-    @Override public void setupArrowDown() {
         couponBoxArrowImageView.setImageDrawable(img_arrow_down_black);
     }
 
@@ -351,9 +413,52 @@ public class OrderActivity extends BaseActivity implements OrderPresenter.View {
         ShippingActivity.start(this, OrderActivity.class.getSimpleName());
     }
 
+    @Override public void showBootPay(BootPayDataModel bootPayData) {
+        BootpayBuilder bootpayBuilder = Bootpay.init(getFragmentManager())
+            .setApplicationId(
+                BuildConfig.DEBUG ? getString(R.string.bootpay_key_debug) : getString(R.string.bootpay_key_release))
+            .setPG(PG.INICIS)
+            .setMethod(bootPayData.getMethod())
+            .setContext(this)
+            .setBootUser(bootPayData.getBootUser())
+            .setBootExtra(bootPayData.getBootExtra())
+            .setUX(UX.PG_DIALOG)
+            .setName(bootPayData.getName())
+            .setOrderId(bootPayData.getOrderId())
+            .setPrice(bootPayData.getPrice());
+        for (BootPayItemDataModel bootpayModel : bootPayData.getItems()) {
+            bootpayBuilder.addItem(
+                bootpayModel.getName(),
+                bootpayModel.getQuantity(),
+                bootpayModel.getId(),
+                bootPayData.getPrice());
+        }
+        bootpayBuilder.onConfirm(message -> {
+            Timber.e("onConfirm :: %s", message);
+            presenter.onBootPayConfirm(bootPayData.getOrderId(), message);
+        });
+        bootpayBuilder.onDone(message -> {
+            Timber.e("onDone :: %s", message);
+            presenter.onBootPayDone(bootPayData, message);
+        });
+        bootpayBuilder.onCancel(message -> Timber.e("onCancel :: %s", message));
+        bootpayBuilder.onError(message -> Timber.e("onError :: %s", message));
+        bootpayBuilder.onClose(message -> Timber.e("onClose :: %s", message));
+        bootpayBuilder.request();
+    }
+
+    @Override public void setBootPayConfirm(String message) {
+        Bootpay.confirm(message);
+    }
+
     @OnClick({ R.id.layout_shipping_panel, R.id.layout_shipping_add_panel })
     void onShippingClick() {
         presenter.onShippingClick();
+    }
+
+    @OnClick(R.id.layout_memo_box)
+    void onMemoBoxClick() {
+        presenter.onMemoBoxClick();
     }
 
     @OnClick(R.id.layout_coupon_box)
@@ -383,6 +488,6 @@ public class OrderActivity extends BaseActivity implements OrderPresenter.View {
 
     @OnClick(R.id.txt_order_confirm)
     void onOrderConfirmClick() {
-        Toast.makeText(this, "결제 클릭!!", Toast.LENGTH_SHORT).show();
+        presenter.onOrderConfirmClick();
     }
 }

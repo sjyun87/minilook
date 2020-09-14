@@ -35,4 +35,12 @@ public interface OrderService {
     @GET("/api/orders/sheet") Single<BaseDataModel> getOrderSheet(
         @Query("memberNo") int user_id
     );
+
+    @POST("/api/orders/safetystocks") Single<BaseDataModel> setSafetyStock(
+        @Body RequestBody requestBody
+    );
+
+    @PUT("/api/orders/bootpays") Single<BaseDataModel> orderComplete(
+        @Body RequestBody requestBody
+    );
 }

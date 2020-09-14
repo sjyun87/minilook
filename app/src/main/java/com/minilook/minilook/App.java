@@ -12,6 +12,7 @@ import com.minilook.minilook.data.rx.RxBusEvent;
 import com.pixplicity.easyprefs.library.Prefs;
 import java.util.ArrayList;
 import java.util.List;
+import kr.co.bootpay.BootpayAnalytics;
 import lombok.Getter;
 import lombok.Setter;
 import timber.log.Timber;
@@ -37,6 +38,7 @@ public class App extends Application {
         setupTimber();
         setupKakao();
         setupPreference();
+        setupBootPay();
     }
 
     private void setupTimber() {
@@ -53,6 +55,11 @@ public class App extends Application {
             .setPrefsName(getPackageName())
             .setUseDefaultSharedPreference(true)
             .build();
+    }
+
+    private void setupBootPay() {
+        BootpayAnalytics.init(this,
+            BuildConfig.DEBUG ? getString(R.string.bootpay_key_debug) : getString(R.string.bootpay_key_release));
     }
 
     public void setupLogin(UserDataModel data) {

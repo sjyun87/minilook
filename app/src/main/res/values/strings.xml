@@ -227,6 +227,9 @@
     <string name="order_title">주문서</string>
     <string name="order_shipping_info_title">배송지 정보</string>
     <string name="order_shipping_add">배송지를 추가해주세요.</string>
+    <string name="order_shipping_memo_hint">배송메모 입력</string>
+    <string name="order_shipping_memo_direct_input">직접 입력</string>
+    <string name="order_shipping_memo_select">배송시 요청사항 선택</string>
     <string name="order_product_info_title">주문상품</string>
     <string name="order_product_option">%s / %s</string>
     <string name="order_product_option_count">%s개</string>

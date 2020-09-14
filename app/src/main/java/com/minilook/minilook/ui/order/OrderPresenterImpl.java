@@ -1,8 +1,14 @@
 package com.minilook.minilook.ui.order;
 
+import android.annotation.SuppressLint;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
+import com.minilook.minilook.data.model.base.BaseDataModel;
+import com.minilook.minilook.data.model.bootpay.BootPayDataModel;
+import com.minilook.minilook.data.model.bootpay.BootPayItemDataModel;
+import com.minilook.minilook.data.model.order.OrderCompleteDataModel;
 import com.minilook.minilook.data.model.order.OrderSheetDataModel;
 import com.minilook.minilook.data.model.shipping.IslandDataModel;
 import com.minilook.minilook.data.model.shipping.ShippingDataModel;
@@ -11,6 +17,7 @@ import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingProductDataModel;
 import com.minilook.minilook.data.model.user.CouponDataModel;
 import com.minilook.minilook.data.model.user.PointDataModel;
+import com.minilook.minilook.data.model.user.UserDataModel;
 import com.minilook.minilook.data.network.order.OrderRequest;
 import com.minilook.minilook.data.network.shipping.ShippingRequest;
 import com.minilook.minilook.data.rx.RxBus;
@@ -19,8 +26,13 @@ import com.minilook.minilook.data.type.ShippingCode;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.order.di.OrderArguments;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import kr.co.bootpay.enums.Method;
+import kr.co.bootpay.model.BootExtra;
+import kr.co.bootpay.model.BootUser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import timber.log.Timber;
@@ -37,11 +49,15 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
     private Gson gson = new Gson();
 
     private int availableCouponCount = -1;
+    private boolean isMemoBoxOpen = false;
     private boolean isCouponBoxOpen = false;
     private int havePoint;
 
+    private String selectedMemo = "";
+    private int totalPrice = 0;
     private int totalProductPrice = 0;
     private int totalProductCount = 0;
+    private int totalOptionCount = 0;
     private int totalShippingPrice = 0;
     private int applyCouponPrice = 0;
     private CouponDataModel selectedCoupon;
@@ -49,7 +65,9 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
     private int selectedPoint = 0;
     private int totalPointEarned = 0;
 
-    private Method payment = Method.BANK;
+    private Method payment = Method.CARD;
+    private UserDataModel userData;
+    private ShippingDataModel selectedShippingData;
 
     private boolean isSelectedShipping = false;
     private boolean isCheckOrderInfo = false;
@@ -66,16 +84,21 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
 
     @Override public void onCreate() {
         toRxObservable();
+        view.setupMemoRecyclerView();
         view.setupProductRecyclerView();
         view.setupCouponRecyclerView();
         view.setupPointEditText();
 
         calPrice();
-        reqOrder();
+        reqOrderSheet();
     }
 
     @Override public void onShippingClick() {
         view.navigateToShipping();
+    }
+
+    @Override public void onMemoBoxClick() {
+        handleMemoBox();
     }
 
     @Override public void onCouponBoxClick() {
@@ -131,10 +154,24 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         checkOrderConfirmButton();
     }
 
+    @Override public void onOrderConfirmClick() {
+        reqBootPay();
+    }
+
+    @Override public void onBootPayConfirm(String orderId, String message) {
+        reqSafetyStock(orderId, message);
+    }
+
+    @Override public void onBootPayDone(BootPayDataModel bootPayData, String message) {
+        JsonObject data = gson.fromJson(message, JsonObject.class);
+        String receipt_id = data.get("receipt_id").getAsString();
+        reqOrderComplete(receipt_id, bootPayData);
+    }
+
     private void calPrice() {
         for (ShoppingBrandDataModel brandData : orderItem) {
             int totalProductsPrice = 0;
-            int totalOptionCount = 0;
+            int brandOptionCount = 0;
             for (ShoppingProductDataModel productData : brandData.getProducts()) {
                 totalProductCount++;
                 int price_basic = productData.getPrice();
@@ -143,7 +180,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
                     int price = price_basic + optionData.getPrice_add();
                     optionData.setPrice_sum(price);
                     int quantity = optionData.getQuantity();
-                    totalOptionCount += quantity;
+                    brandOptionCount += quantity;
                     int orderPrice = price * quantity;
                     totalProductsPrice += orderPrice;
                     int pointEarned = (int) (orderPrice * (pointEarnedPercent / 100f));
@@ -153,7 +190,8 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
 
             totalProductPrice += totalProductsPrice;
             brandData.setTotal_products_price(totalProductsPrice);
-            brandData.setTotal_option_count(totalOptionCount);
+            totalOptionCount += brandOptionCount;
+            brandData.setTotal_option_count(brandOptionCount);
 
             boolean isFreeShipping;
             int finalShippingPrice;
@@ -182,7 +220,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         view.setupTotalPointEarned(totalPointEarned + (100 * totalProductCount));
     }
 
-    private void reqOrder() {
+    private void reqOrderSheet() {
         addDisposable(orderRequest.getOrderSheet()
             .compose(Transformer.applySchedulers())
             .filter(data -> data.getCode().equals(HttpCode.OK))
@@ -194,11 +232,13 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         setupShippingData(data.getShipping());
         setupCouponData(data.getCoupons());
         setupPointData(data.getPoint());
+        userData = data.getUser();
     }
 
     private void setupShippingData(ShippingDataModel shippingData) {
         if (shippingData != null) {
             isSelectedShipping = true;
+            selectedShippingData = shippingData;
             view.setupName(shippingData.getName());
             view.setupPhone(shippingData.getPhone());
             view.setupAddress(shippingData.getZipcode(), shippingData.getAddress(), shippingData.getAddress_detail());
@@ -211,6 +251,8 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
 
             view.showShippingPanel();
             view.hideShippingAddPanel();
+
+            view.showMemoBox();
 
             reqCheckIsland(shippingData.getAddress_id());
         } else {
@@ -309,19 +351,32 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         view.setupPoint(selectedPoint);
 
         applyCouponPrice = totalProductPrice + totalShippingPrice - selectedCouponPrice;
-        int totalPrice = applyCouponPrice - selectedPoint;
+        totalPrice = applyCouponPrice - selectedPoint;
         view.setupTotalPrice(totalPrice);
+    }
+
+    private void handleMemoBox() {
+        isMemoBoxOpen = !isMemoBoxOpen;
+        if (isMemoBoxOpen) {
+            view.openMemoBox();
+            view.setupOpenMemoBoxText();
+        } else {
+            view.closeMemoBox();
+            if (selectedMemo.isEmpty()) {
+                view.setupDirectInputMemoBoxText();
+            } else {
+                view.setupMemoBoxText(selectedMemo);
+            }
+        }
     }
 
     private void handleCouponBox() {
         isCouponBoxOpen = !isCouponBoxOpen;
         if (isCouponBoxOpen) {
             view.openCouponBox();
-            view.setupArrowUp();
             view.setupOpenCouponBoxText();
         } else {
             view.closeCouponBox();
-            view.setupArrowDown();
             if (selectedCoupon != null) {
                 view.setupSelectedCouponBoxText(selectedCoupon.getCoupon(), selectedCoupon.getName());
             } else {
@@ -338,6 +393,127 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         }
     }
 
+    private void reqSafetyStock(String orderId, String message) {
+        addDisposable(orderRequest.setSafetyStock(orderId, orderItem)
+            .compose(Transformer.applySchedulers())
+            .filter(data -> data.getCode().equals(HttpCode.OK))
+            .subscribe(data -> resSafetyStock(data, message), Timber::e));
+    }
+
+    private void resSafetyStock(BaseDataModel dataModel, String message) {
+        view.setBootPayConfirm(message);
+    }
+
+    private void reqOrderComplete(String receipt_id, BootPayDataModel bootPayData) {
+        OrderCompleteDataModel orderCompleteDataModel = getOrderCompleteData(receipt_id, bootPayData);
+    }
+
+    private OrderCompleteDataModel getOrderCompleteData(String receipt_id, BootPayDataModel bootPayData) {
+        OrderCompleteDataModel completeData = new OrderCompleteDataModel();
+        completeData.setUser_id(App.getInstance().getUserId());
+        completeData.setOrder_id(bootPayData.getOrderId());
+        completeData.setPayment_price(bootPayData.getPrice());
+        completeData.setUse_point_value(selectedPoint);
+        if (selectedCoupon != null) completeData.setCoupon_id(selectedCoupon.getCoupon_id());
+        if (selectedCoupon != null) completeData.setUse_coupon_value(selectedCoupon.getCoupon());
+        completeData.setTotal_product_price(totalProductPrice);
+        //completeData.setTotal_discount_price();         // TODO
+        completeData.setTotal_shipping_price(totalShippingPrice);
+        completeData.setReceipt_id(receipt_id);
+        completeData.setReceipt_name(bootPayData.getBootUser().getUsername());
+        completeData.setReceipt_phone(bootPayData.getBootUser().getPhone());
+        completeData.setAddress_id(selectedShippingData.getAddress_id());
+        completeData.setZip(selectedShippingData.getZipcode());
+        completeData.setAddress(selectedShippingData.getAddress());
+        completeData.setAddress_detail(selectedShippingData.getAddress_detail());
+        //completeData.setShipping_memo();                // TODO
+        //completeData.setBrand_shipping();
+        //completeData.setComplete_option();
+        //completeData.setDirectOrder();
+        return completeData;
+    }
+
+    private void reqBootPay() {
+        BootPayDataModel bootPayData = new BootPayDataModel();
+        bootPayData.setBootUser(getBootUser());
+        bootPayData.setBootExtra(getBootExtra());
+        bootPayData.setMethod(payment);
+        bootPayData.setOrderId(getOrderId());
+        bootPayData.setName(getProductName());
+        bootPayData.setPrice(totalPrice);
+        bootPayData.setItems(getItems());
+        view.showBootPay(bootPayData);
+    }
+
+    private List<BootPayItemDataModel> getItems() {
+        List<BootPayItemDataModel> bootPayItems = new ArrayList<>();
+        for (ShoppingBrandDataModel brandData : orderItem) {
+            for (ShoppingProductDataModel productData : brandData.getProducts()) {
+                for (ShoppingOptionDataModel optionData : productData.getOptions()) {
+                    BootPayItemDataModel bootPayModel = new BootPayItemDataModel();
+                    bootPayModel.setId(String.valueOf(productData.getProduct_id()));
+                    bootPayModel.setName(productData.getProduct_name());
+                    bootPayModel.setPrice(optionData.getPrice_sum());
+                    bootPayModel.setQuantity(optionData.getQuantity());
+                    bootPayItems.add(bootPayModel);
+                }
+            }
+        }
+        return bootPayItems;
+    }
+
+    private String getProductName() {
+        String productName = orderItem.get(0).getProducts().get(0).getProduct_name();
+        if (totalOptionCount > 1) productName = productName + " 외 " + (totalOptionCount - 1) + "건";
+        return productName;
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private String getOrderId() {
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat format = new SimpleDateFormat("yyMMddHHmmss");
+        String orderTime = format.format(date);
+
+        int sumBrandId = 0;
+        int sumProductId = 0;
+        for (ShoppingBrandDataModel brandData : orderItem) {
+            sumBrandId += brandData.getBrand_id();
+            for (ShoppingProductDataModel productData : brandData.getProducts()) {
+                sumProductId += productData.getProduct_id();
+            }
+        }
+
+        String sumBrandNum = String.valueOf(sumBrandId);
+        String orderBrandNum = sumBrandNum.substring(sumBrandNum.length() - 1);
+        String sumProductNum = String.valueOf(sumProductId);
+        String orderProductNum = sumProductNum.substring(sumProductNum.length() - 1);
+        String userNum = String.valueOf(App.getInstance().getUserId());
+        String orderUserNum = userNum.substring(userNum.length() - 1);
+        String randomNum = String.valueOf((int) (Math.random() * 10));
+
+        String orderId = orderTime + orderBrandNum + orderProductNum + orderUserNum + randomNum;
+        return orderId;
+    }
+
+    private BootUser getBootUser() {
+        BootUser bootUser = new BootUser();
+        bootUser.setUsername(userData.getName() + "(" + userData.getUser_id() + ")");
+        bootUser.setEmail(userData.getEmail());
+        bootUser.setPhone(userData.getPhone());
+        bootUser.setAddr("(" + selectedShippingData.getZipcode() + ") "
+            + selectedShippingData.getAddress() + " "
+            + selectedShippingData.getAddress_detail());
+        return bootUser;
+    }
+
+    private BootExtra getBootExtra() {
+        BootExtra bootExtra = new BootExtra();
+        bootExtra.setQuotas(new int[] { 1, 2, 3, 4, 5, 6 });
+        bootExtra.setDisp_cash_result("Y");
+        return bootExtra;
+    }
+
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
             if (o instanceof RxEventShippingSelected) {
@@ -345,7 +521,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
                 setupShippingData(shippingData);
             } else if (o instanceof RxEventCouponSelected) {
                 CouponDataModel couponData = ((RxEventCouponSelected) o).getCoupon();
-                if (couponData.getCoupon_id() != -1) {
+                if (couponData.getCoupon_id() != 0) {
                     selectedCoupon = couponData;
                 } else {
                     selectedCoupon = null;
@@ -353,6 +529,17 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
                 handleCouponBox();
                 initPoint();
                 setupTotalPrice();
+            } else if (o instanceof RxEventMemoSelected) {
+                int position = ((RxEventMemoSelected) o).getPosition();
+                String memo = ((RxEventMemoSelected) o).getMemo();
+                if (position == 0) {
+                    selectedMemo = "";
+                    view.showDirectMemoEditText();
+                } else {
+                    selectedMemo = memo;
+                    view.hideDirectMemoEditText();
+                }
+                handleMemoBox();
             }
         }, Timber::e));
     }
@@ -363,5 +550,10 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
 
     @AllArgsConstructor @Getter public final static class RxEventCouponSelected {
         private CouponDataModel coupon;
+    }
+
+    @AllArgsConstructor @Getter public final static class RxEventMemoSelected {
+        private int position;
+        private String memo;
     }
 }

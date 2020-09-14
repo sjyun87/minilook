@@ -16,4 +16,11 @@
         <item>상품</item>
         <item>브랜드</item>
     </string-array>
+
+    <string-array name="shipping_memo">
+        <item>직접 입력</item>
+        <item>배송 전에 미리 연락 바랍니다.</item>
+        <item>부재시 경비실에 맡겨주세요.</item>
+        <item>부재시 전화 주시거나 문자 남겨주세요.</item>
+    </string-array>
 </resources>

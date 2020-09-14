@@ -3,6 +3,7 @@ package com.minilook.minilook.ui.order;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
+import com.minilook.minilook.data.model.bootpay.BootPayDataModel;
 
 public interface OrderPresenter extends LifecycleObserver {
 
@@ -10,6 +11,8 @@ public interface OrderPresenter extends LifecycleObserver {
     void onCreate();
 
     void onShippingClick();
+
+    void onMemoBoxClick();
 
     void onCouponBoxClick();
 
@@ -25,7 +28,15 @@ public interface OrderPresenter extends LifecycleObserver {
 
     void onOrderInfoCheck();
 
+    void onOrderConfirmClick();
+
+    void onBootPayConfirm(String orderId, String message);
+
+    void onBootPayDone(BootPayDataModel bootPayData, String message);
+
     interface View {
+
+        void setupMemoRecyclerView();
 
         void showShippingPanel();
 
@@ -46,6 +57,22 @@ public interface OrderPresenter extends LifecycleObserver {
         void hideDefaultLabel();
 
         void navigateToShipping();
+
+        void showMemoBox();
+
+        void openMemoBox();
+
+        void closeMemoBox();
+
+        void setupOpenMemoBoxText();
+
+        void setupDirectInputMemoBoxText();
+
+        void setupMemoBoxText(String memo);
+
+        void showDirectMemoEditText();
+
+        void hideDirectMemoEditText();
 
         void setupProductRecyclerView();
 
@@ -78,10 +105,6 @@ public interface OrderPresenter extends LifecycleObserver {
         void openCouponBox();
 
         void closeCouponBox();
-
-        void setupArrowUp();
-
-        void setupArrowDown();
 
         void setupTotalCoupon(int coupon);
 
@@ -116,5 +139,9 @@ public interface OrderPresenter extends LifecycleObserver {
         void enableOrderConfirmButton();
 
         void disableOrderConfirmButton();
+
+        void showBootPay(BootPayDataModel bootPayData);
+
+        void setBootPayConfirm(String message);
     }
 }

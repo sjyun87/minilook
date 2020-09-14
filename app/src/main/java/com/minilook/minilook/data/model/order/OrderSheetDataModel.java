@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import com.minilook.minilook.data.model.shipping.ShippingDataModel;
 import com.minilook.minilook.data.model.user.CouponDataModel;
 import com.minilook.minilook.data.model.user.PointDataModel;
+import com.minilook.minilook.data.model.user.UserDataModel;
 import java.util.List;
 import lombok.Data;
 
@@ -15,4 +16,6 @@ import lombok.Data;
     private List<CouponDataModel> coupons;
     @Expose @SerializedName("point")
     private PointDataModel point;
+    @Expose @SerializedName("member")
+    private UserDataModel user;
 }
