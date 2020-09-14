@@ -41,9 +41,11 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
     private int havePoint;
 
     private int totalProductPrice = 0;
+    private int totalProductCount = 0;
     private int totalShippingPrice = 0;
     private int applyCouponPrice = 0;
     private CouponDataModel selectedCoupon;
+    private int inputPoint = 0;
     private int selectedPoint = 0;
     private int totalPointEarned = 0;
 
@@ -86,11 +88,25 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         setupTotalPrice();
     }
 
+    @Override public void onPointEditTextChanged(int point) {
+        if (point > havePoint) {
+            view.showOverPointToast();
+            view.setupPoint(inputPoint);
+            return;
+        } else if (point > applyCouponPrice) {
+            view.showOverTotalPriceToast();
+            view.setupPoint(inputPoint);
+            return;
+        }
+        inputPoint = point;
+    }
+
     @Override public void onPointEditTextEnter() {
-        if (selectedPoint < 1000) {
-            selectedPoint = 0;
+        if (inputPoint < 1000) {
+            inputPoint = 0;
             view.showUseMinPointToast();
         }
+        selectedPoint = inputPoint;
         view.setupPoint(selectedPoint);
         setupTotalPrice();
     }
@@ -115,24 +131,12 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         checkOrderConfirmButton();
     }
 
-    @Override public void onPointEditTextChanged(int point) {
-        if (point > havePoint) {
-            view.showOverPointToast();
-            view.setupPoint(selectedPoint);
-            return;
-        } else if (point > applyCouponPrice) {
-            view.showOverTotalPriceToast();
-            view.setupPoint(selectedPoint);
-            return;
-        }
-        selectedPoint = point;
-    }
-
     private void calPrice() {
         for (ShoppingBrandDataModel brandData : orderItem) {
             int totalProductsPrice = 0;
             int totalOptionCount = 0;
             for (ShoppingProductDataModel productData : brandData.getProducts()) {
+                totalProductCount++;
                 int price_basic = productData.getPrice();
                 int pointEarnedPercent = productData.getPoint_percent();
                 for (ShoppingOptionDataModel optionData : productData.getOptions()) {
@@ -174,8 +178,8 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         }
         view.setupTotalProductPrice(totalProductPrice);
         view.setupConfirmPointEarned(totalPointEarned);
-        view.setupReviewPointEarned(100);
-        view.setupTotalPointEarned(totalPointEarned + 100);
+        view.setupReviewPointEarned(100 * totalProductCount);
+        view.setupTotalPointEarned(totalPointEarned + (100 * totalProductCount));
     }
 
     private void reqOrder() {
@@ -294,6 +298,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
     }
 
     private void initPoint() {
+        inputPoint = 0;
         selectedPoint = 0;
         view.setupPoint(selectedPoint);
     }
