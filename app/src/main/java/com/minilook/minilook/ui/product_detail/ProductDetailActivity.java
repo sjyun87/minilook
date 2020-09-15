@@ -524,7 +524,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 
     @Override public void navigateToOrder(List<ShoppingBrandDataModel> items) {
         App.getInstance().setOrderItem(items);
-        OrderActivity.start(this);
+        OrderActivity.start(this, ProductDetailActivity.class.getSimpleName());
     }
 
     @OnClick(R.id.layout_expand_panel)

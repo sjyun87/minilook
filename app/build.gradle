@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 def keystorePropertiesFile = rootProject.file("keystore.properties")
 def keystoreProperties = new Properties()
@@ -51,10 +52,13 @@ dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
 
   // Test
-  implementation 'androidx.legacy:legacy-support-v4:1.0.0'
   testImplementation "junit:junit:$junit_version"
   androidTestImplementation "com.android.support.test:runner:$runner_version"
   androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_version"
+
+  // Firebase
+  implementation "com.google.firebase:firebase-analytics:$firebase_analytics_version"
+  implementation "com.google.firebase:firebase-crashlytics:$firebase_crashlytics_version"
 
   // AndroidX
   implementation "androidx.appcompat:appcompat:$appcompat_version"
@@ -73,6 +77,7 @@ dependencies {
   annotationProcessor "com.jakewharton:butterknife-compiler:$butterknife_version"
 
   // Lombok
+  //noinspection AnnotationProcessorOnCompilePath
   compileOnly "org.projectlombok:lombok:$lombok_version"
   annotationProcessor "org.projectlombok:lombok:$lombok_version"
 

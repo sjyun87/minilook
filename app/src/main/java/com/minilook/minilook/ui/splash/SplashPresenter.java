@@ -15,7 +15,11 @@ public interface SplashPresenter extends LifecycleObserver {
 
     void onPermissionGranted();
 
+    void onAnimationEnd();
+
     interface View {
+
+        void setupLottieView();
 
         void checkPermission();
 

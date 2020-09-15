@@ -14,4 +14,5 @@ import lombok.Getter;
     public static final String NO_DATA = "512";
     public static final String REJOIN_LIMITED = "513";
     public static final String ALREADY_USED = "525";
+    public static final String NO_STOCK = "526";
 }

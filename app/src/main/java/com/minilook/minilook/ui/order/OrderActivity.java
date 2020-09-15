@@ -36,6 +36,7 @@ import com.minilook.minilook.ui.order.adapter.CouponAdapter;
 import com.minilook.minilook.ui.order.adapter.MemoAdapter;
 import com.minilook.minilook.ui.order.adapter.OrderAdapter;
 import com.minilook.minilook.ui.order.di.OrderArguments;
+import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.ui.shipping.ShippingActivity;
 import com.minilook.minilook.util.SpannableUtil;
 import com.minilook.minilook.util.StringUtil;
@@ -48,10 +49,11 @@ import timber.log.Timber;
 
 public class OrderActivity extends BaseActivity implements OrderPresenter.View {
 
-    public static void start(Context context) {
+    public static void start(Context context, String route) {
         Intent intent = new Intent(context, OrderActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.putExtra("route", route);
         context.startActivity(intent);
     }
 
@@ -145,8 +147,11 @@ public class OrderActivity extends BaseActivity implements OrderPresenter.View {
     }
 
     private OrderArguments provideArguments() {
+        String route = getIntent().getStringExtra("route");
+        boolean isDirect = route.equals(ProductDetailActivity.class.getSimpleName());
         return OrderArguments.builder()
             .view(this)
+            .isDirect(isDirect)
             .orderAdapter(orderAdapter)
             .couponAdapter(couponAdapter)
             .build();

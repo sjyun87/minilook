@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import timber.log.Timber;
 
 public class OrderRequest extends BaseRequest<OrderService> {
 
@@ -98,13 +99,36 @@ public class OrderRequest extends BaseRequest<OrderService> {
     }
 
     public Single<BaseDataModel> orderComplete(OrderCompleteDataModel orderCompleteDataModel) {
-        return getApi().orderComplete(createRequestBody(parseToOrderCompleteJson(orderCompleteDataModel)));
+        parseToOrderCompleteJson(orderCompleteDataModel);
+        return null;
+        //return getApi().orderComplete(createRequestBody(parseToOrderCompleteJson(orderCompleteDataModel)));
     }
 
-    private Map<String, Object> parseToOrderCompleteJson(OrderCompleteDataModel orderCompleteDataModel) {
+    private Map<String, Object> parseToOrderCompleteJson(OrderCompleteDataModel data) {
         Map<String, Object> jsonMap = new HashMap<>();
-        //jsonMap.put("addressNo", )
-
+        jsonMap.put("address1", data.getAddress());
+        jsonMap.put("address2", data.getAddress_detail());
+        jsonMap.put("addressNo", data.getAddress_id());
+        jsonMap.put("brandShippings", data.getBrand_shipping());
+        jsonMap.put("completedOrderOptions", data.getComplete_option());
+        if (data.getUse_coupon_value() != 0) {
+            jsonMap.put("couponNo", data.getCoupon_id());
+            jsonMap.put("couponValue", data.getUse_coupon_value());
+        }
+        jsonMap.put("isDirectOrder", data.isDirectOrder());
+        jsonMap.put("memberNo", data.getUser_id());
+        jsonMap.put("mid", data.getOrder_id());
+        jsonMap.put("paymentPrice", data.getPayment_price());
+        if (data.getUse_coupon_value() != 0) jsonMap.put("point", data.getUse_point_value());
+        jsonMap.put("productDiscountPrice", data.getTotal_discount_price());
+        jsonMap.put("productTotalPrice", data.getTotal_product_price());
+        jsonMap.put("receiptId", data.getReceipt_id());
+        jsonMap.put("recipientName", data.getReceipt_name());
+        jsonMap.put("recipientPhone", data.getReceipt_phone());
+        jsonMap.put("shippingMemo", data.getShipping_memo());
+        jsonMap.put("shippingTotalFee", data.getTotal_shipping_price());
+        jsonMap.put("zipcode", data.getZip());
+        Timber.e(jsonMap.toString());
         return jsonMap;
     }
 }

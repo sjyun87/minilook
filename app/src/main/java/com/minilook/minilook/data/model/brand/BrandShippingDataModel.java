@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data public class BrandShippingDataModel {
     private int id;
-    private int hipping_price;
+    private int shipping_price;
 }

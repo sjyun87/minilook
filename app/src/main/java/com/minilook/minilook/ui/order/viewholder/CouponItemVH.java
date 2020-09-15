@@ -49,10 +49,10 @@ public class CouponItemVH extends BaseViewHolder<CouponDataModel> {
 
         if (data.isAvailable()) {
             couponTextView.setTextColor(color_FF424242);
-            couponTextView.setEnabled(true);
+            itemView.setEnabled(true);
         } else {
             couponTextView.setTextColor(color_FFDBDBDB);
-            couponTextView.setEnabled(false);
+            itemView.setEnabled(false);
         }
 
         itemView.setOnClickListener(this::onItemClick);

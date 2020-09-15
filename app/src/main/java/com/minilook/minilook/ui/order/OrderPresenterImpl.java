@@ -8,7 +8,9 @@ import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.bootpay.BootPayDataModel;
 import com.minilook.minilook.data.model.bootpay.BootPayItemDataModel;
+import com.minilook.minilook.data.model.brand.BrandShippingDataModel;
 import com.minilook.minilook.data.model.order.OrderCompleteDataModel;
+import com.minilook.minilook.data.model.order.OrderCompleteOptionDataModel;
 import com.minilook.minilook.data.model.order.OrderSheetDataModel;
 import com.minilook.minilook.data.model.shipping.IslandDataModel;
 import com.minilook.minilook.data.model.shipping.ShippingDataModel;
@@ -40,6 +42,7 @@ import timber.log.Timber;
 public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresenter {
 
     private final View view;
+    private final boolean isDirect;
     private final List<ShoppingBrandDataModel> orderItem;
     private final BaseAdapterDataModel<ShoppingBrandDataModel> orderAdapter;
     private final BaseAdapterDataModel<CouponDataModel> couponAdapter;
@@ -74,6 +77,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
 
     public OrderPresenterImpl(OrderArguments args) {
         view = args.getView();
+        isDirect = args.isDirect();
         orderItem = App.getInstance().getOrderItems();
         App.getInstance().getOrderItems().clear();
         orderAdapter = args.getOrderAdapter();
@@ -397,8 +401,9 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         addDisposable(orderRequest.setSafetyStock(orderId, orderItem)
             .compose(Transformer.applySchedulers())
             .filter(data -> {
+                Timber.e(data.toString());
                 String code = data.getCode();
-                if (code.equals(HttpCode.NO_DATA)) {
+                if (code.equals(HttpCode.NO_STOCK)) {
                     view.setBootPayCancel();
                     view.showOutOfStockDialog();
                 }
@@ -413,6 +418,18 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
 
     private void reqOrderComplete(String receipt_id, BootPayDataModel bootPayData) {
         OrderCompleteDataModel orderCompleteDataModel = getOrderCompleteData(receipt_id, bootPayData);
+        addDisposable(orderRequest.orderComplete(orderCompleteDataModel)
+            .compose(Transformer.applySchedulers())
+            .filter(data -> {
+                String code = data.getCode();
+
+                return code.equals(HttpCode.OK);
+            })
+            .subscribe(this::resOrderComplete, Timber::e));
+    }
+
+    private void resOrderComplete(BaseDataModel dataModel) {
+
     }
 
     private OrderCompleteDataModel getOrderCompleteData(String receipt_id, BootPayDataModel bootPayData) {
@@ -421,22 +438,80 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         completeData.setOrder_id(bootPayData.getOrderId());
         completeData.setPayment_price(bootPayData.getPrice());
         completeData.setUse_point_value(selectedPoint);
-        if (selectedCoupon != null) completeData.setCoupon_id(selectedCoupon.getCoupon_id());
-        if (selectedCoupon != null) completeData.setUse_coupon_value(selectedCoupon.getCoupon());
+        int totalDiscount = 0;
+        if (selectedCoupon != null) {
+            completeData.setCoupon_id(selectedCoupon.getCoupon_id());
+            completeData.setUse_coupon_value(selectedCoupon.getCoupon());
+            totalDiscount += selectedCoupon.getCoupon();
+        }
+        totalDiscount += selectedPoint;
         completeData.setTotal_product_price(totalProductPrice);
-        //completeData.setTotal_discount_price();         // TODO
+        completeData.setTotal_discount_price(totalDiscount);
         completeData.setTotal_shipping_price(totalShippingPrice);
         completeData.setReceipt_id(receipt_id);
-        completeData.setReceipt_name(bootPayData.getBootUser().getUsername());
-        completeData.setReceipt_phone(bootPayData.getBootUser().getPhone());
+        completeData.setReceipt_name(selectedShippingData.getName());
+        completeData.setReceipt_phone(selectedShippingData.getPhone());
         completeData.setAddress_id(selectedShippingData.getAddress_id());
         completeData.setZip(selectedShippingData.getZipcode());
         completeData.setAddress(selectedShippingData.getAddress());
         completeData.setAddress_detail(selectedShippingData.getAddress_detail());
-        //completeData.setShipping_memo();                // TODO
-        //completeData.setBrand_shipping();
-        //completeData.setComplete_option();
-        //completeData.setDirectOrder();
+        completeData.setShipping_memo(selectedMemo);
+        List<BrandShippingDataModel> brandShippingData = new ArrayList<>();
+        for (ShoppingBrandDataModel brandData : orderItem) {
+            BrandShippingDataModel brandShippingModel = new BrandShippingDataModel();
+            brandShippingModel.setId(brandData.getBrand_id());
+            brandShippingModel.setShipping_price(
+                brandData.getFinal_shipping_price() + brandData.getIsland_shipping_price());
+            brandShippingData.add(brandShippingModel);
+        }
+        completeData.setBrand_shipping(brandShippingData);
+
+        int totalCouponValue = completeData.getUse_coupon_value();
+        int totalPointValue = completeData.getUse_point_value();
+        int totalPerCouponValue = 0;
+        int totalPerPointValue = 0;
+        List<OrderCompleteOptionDataModel> completeOptionData = new ArrayList<>();
+        for (int brandIndex = 0; brandIndex < orderItem.size(); brandIndex++) {
+            ShoppingBrandDataModel brandData = orderItem.get(brandIndex);
+            for (int productIndex = 0; productIndex < brandData.getProducts().size(); productIndex++) {
+                ShoppingProductDataModel productData = brandData.getProducts().get(productIndex);
+                for (int optionIndex = 0; optionIndex < productData.getOptions().size(); optionIndex++) {
+                    ShoppingOptionDataModel optionData = productData.getOptions().get(optionIndex);
+
+                    float per = (float) optionData.getPrice_sum() / totalProductPrice;
+                    for (int optionQuantityIndex = 0; optionQuantityIndex < optionData.getQuantity(); optionQuantityIndex++) {
+                        OrderCompleteOptionDataModel completeOptionModel = new OrderCompleteOptionDataModel();
+                        completeOptionModel.setOption_id(optionData.getOption_id());
+                        completeOptionModel.setShoppingbag_id(optionData.getShoppingbag_id());
+
+                        if (brandIndex == (orderItem.size() - 1)
+                            && productIndex == (brandData.getProducts().size() - 1)
+                            && optionIndex == (productData.getOptions().size() - 1)
+                            && optionQuantityIndex == (optionData.getQuantity() - 1)) {
+                            int lastPerCouponValue = totalCouponValue - totalPerCouponValue;
+                            int lastPerPointValue = totalPointValue - totalPerPointValue;
+                            completeOptionModel.setPer_point_value(lastPerPointValue);
+                            completeOptionModel.setPer_coupon_value(lastPerCouponValue);
+                            completeOptionModel.setPer_payment_price(
+                                optionData.getPrice_sum() - lastPerCouponValue - lastPerPointValue);
+                        } else {
+                            int perCouponValue = (int) (totalCouponValue * per);
+                            int perPointValue = (int) (totalPointValue * per);
+                            totalPerCouponValue += perCouponValue;
+                            totalPerPointValue += perPointValue;
+
+                            completeOptionModel.setPer_point_value(perPointValue);
+                            completeOptionModel.setPer_coupon_value(perCouponValue);
+                            completeOptionModel.setPer_payment_price(
+                                optionData.getPrice_sum() - perCouponValue - perPointValue);
+                        }
+                        completeOptionData.add(completeOptionModel);
+                    }
+                }
+            }
+        }
+        completeData.setComplete_option(completeOptionData);
+        completeData.setDirectOrder(isDirect);
         return completeData;
     }
 

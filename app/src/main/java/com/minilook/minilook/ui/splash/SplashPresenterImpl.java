@@ -1,6 +1,7 @@
 package com.minilook.minilook.ui.splash;
 
 import android.os.Handler;
+import android.os.Looper;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -42,11 +43,8 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
     }
 
     @Override public void onCreate() {
-        if (BuildConfig.DEBUG) {
-            startApp();
-        } else {
-            checkAppVersion();
-        }
+        view.setupLottieView();
+        reqCheckAppVersion();
     }
 
     @Override public void onUpdateDialogOkClick() {
@@ -58,14 +56,12 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
     }
 
     @Override public void onPermissionGranted() {
-        reqSortCode();
-        checkAnimation();
-        checkLogin();
-        checkToken();
+        startApp();
     }
 
-    private void checkAppVersion() {
-        reqCheckAppVersion();
+    @Override public void onAnimationEnd() {
+        isAnimationEnd = true;
+        checkToDo();
     }
 
     private void reqCheckAppVersion() {
@@ -83,20 +79,23 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
         if (data.getStatus() == VersionStatus.FORCE.getValue()) {
             view.showUpdateDialog();
         } else {
-            startApp();
+            reqPermission();
         }
-    }
-
-    private void startApp() {
-        reqPermission();
     }
 
     private void reqPermission() {
         view.checkPermission();
     }
 
+    private void startApp() {
+        reqSortCode();
+        checkLogin();
+        checkToken();
+    }
+
     private void reqSortCode() {
         addDisposable(commonRequest.getSortCode()
+            .compose(Transformer.applySchedulers())
             .map((Function<BaseDataModel, List<SortDataModel>>)
                 data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<SortDataModel>>() {
                 }.getType()))
@@ -107,13 +106,6 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
         App.getInstance().setSortCodes(data);
         isCommonDataGet = true;
         checkToDo();
-    }
-
-    private void checkAnimation() {
-        new Handler().postDelayed(() -> {
-            isAnimationEnd = true;
-            checkToDo();
-        }, TIME_ANIMATION);
     }
 
     private void checkLogin() {
@@ -139,7 +131,7 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
                 if (!pushToken.isEmpty()) {
                     App.getInstance().setPushToken(pushToken);
                     isTokenChecked = true;
-                    checkToDo();
+                    new Handler(Looper.getMainLooper()).post(this::checkToDo);
                 }
             }
         });

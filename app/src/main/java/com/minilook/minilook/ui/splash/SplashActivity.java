@@ -1,9 +1,13 @@
 package com.minilook.minilook.ui.splash;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.net.Uri;
 import butterknife.BindString;
+import butterknife.BindView;
+import com.airbnb.lottie.LottieAnimationView;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.minilook.minilook.R;
@@ -16,6 +20,8 @@ import com.minilook.minilook.util.HashKeyUtil;
 import java.util.List;
 
 public class SplashActivity extends BaseActivity implements SplashPresenter.View {
+
+    @BindView(R.id.img_logo_symbol) LottieAnimationView lottieView;
 
     @BindString(R.string.base_permission) String str_permission;
 
@@ -35,6 +41,14 @@ public class SplashActivity extends BaseActivity implements SplashPresenter.View
         return SplashArguments.builder()
             .view(this)
             .build();
+    }
+
+    @Override public void setupLottieView() {
+        lottieView.addAnimatorListener(new AnimatorListenerAdapter() {
+            @Override public void onAnimationEnd(Animator animation) {
+                presenter.onAnimationEnd();
+            }
+        });
     }
 
     @Override public void checkPermission() {

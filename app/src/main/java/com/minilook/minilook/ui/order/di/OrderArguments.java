@@ -11,6 +11,7 @@ import lombok.Getter;
 @Getter @Builder
 public class OrderArguments {
     private final OrderPresenter.View view;
+    private final boolean isDirect;
     private final List<ShoppingBrandDataModel> items;
     private final BaseAdapterDataModel<ShoppingBrandDataModel> orderAdapter;
     private final BaseAdapterDataModel<CouponDataModel> couponAdapter;

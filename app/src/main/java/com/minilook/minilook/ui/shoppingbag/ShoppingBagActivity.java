@@ -141,7 +141,7 @@ public class ShoppingBagActivity extends BaseActivity implements ShoppingBagPres
 
     @Override public void navigateToOrder(List<ShoppingBrandDataModel> items) {
         App.getInstance().setOrderItem(items);
-        OrderActivity.start(this);
+        OrderActivity.start(this, ShoppingBagActivity.class.getSimpleName());
     }
 
     @Override public void navigateToEventDetail() {
