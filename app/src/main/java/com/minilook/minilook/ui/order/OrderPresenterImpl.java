@@ -434,7 +434,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
 
     private OrderCompleteDataModel getOrderCompleteData(String receipt_id, BootPayDataModel bootPayData) {
         OrderCompleteDataModel completeData = new OrderCompleteDataModel();
-        completeData.setUser_id(App.getInstance().getUserId());
+        completeData.setUser_id(App.getInstance().getMemberId());
         completeData.setOrder_id(bootPayData.getOrderId());
         completeData.setPayment_price(bootPayData.getPrice());
         completeData.setUse_point_value(selectedPoint);
@@ -570,7 +570,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         String orderBrandNum = sumBrandNum.substring(sumBrandNum.length() - 1);
         String sumProductNum = String.valueOf(sumProductId);
         String orderProductNum = sumProductNum.substring(sumProductNum.length() - 1);
-        String userNum = String.valueOf(App.getInstance().getUserId());
+        String userNum = String.valueOf(App.getInstance().getMemberId());
         String orderUserNum = userNum.substring(userNum.length() - 1);
         String randomNum = String.valueOf((int) (Math.random() * 10));
 

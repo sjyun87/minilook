@@ -22,12 +22,12 @@ public class OrderRequest extends BaseRequest<OrderService> {
     }
 
     public Single<BaseDataModel> getShoppingBag() {
-        int user_id = App.getInstance().getUserId();
+        int user_id = App.getInstance().getMemberId();
         return getApi().getShoppingBag(user_id);
     }
 
     public Single<BaseDataModel> addShoppingBag(List<ShoppingOptionDataModel> goodsData) {
-        int user_id = App.getInstance().getUserId();
+        int user_id = App.getInstance().getMemberId();
         return getApi().addShoppingBag(user_id, createRequestBody(parseToAddJson(goodsData)));
     }
 
@@ -49,7 +49,7 @@ public class OrderRequest extends BaseRequest<OrderService> {
     }
 
     public Single<BaseDataModel> updateGoodsQuantity(int shoppingbag_id, int quantity) {
-        int user_id = App.getInstance().getUserId();
+        int user_id = App.getInstance().getMemberId();
         return getApi().updateGoodsQuantity(user_id, shoppingbag_id, createRequestBody(parseToUpdateJson(quantity)));
     }
 
@@ -60,7 +60,7 @@ public class OrderRequest extends BaseRequest<OrderService> {
     }
 
     public Single<BaseDataModel> deleteShoppingBag(List<Integer> deleteItem) {
-        int user_id = App.getInstance().getUserId();
+        int user_id = App.getInstance().getMemberId();
         return getApi().deleteShoppingBag(user_id, createRequestBody(parseToDeleteJson(deleteItem)));
     }
 
@@ -71,7 +71,7 @@ public class OrderRequest extends BaseRequest<OrderService> {
     }
 
     public Single<BaseDataModel> getOrderSheet() {
-        int user_id = App.getInstance().getUserId();
+        int user_id = App.getInstance().getMemberId();
         return getApi().getOrderSheet(user_id);
     }
 
@@ -81,7 +81,7 @@ public class OrderRequest extends BaseRequest<OrderService> {
 
     private Map<String, Object> parseToSafetyStockJson(String orderId, List<ShoppingBrandDataModel> items) {
         Map<String, Object> jsonMap = new HashMap<>();
-        jsonMap.put("memberNo", App.getInstance().getUserId());
+        jsonMap.put("memberNo", App.getInstance().getMemberId());
         jsonMap.put("mid", orderId);
         List<JsonObject> options = new ArrayList<>();
         for (ShoppingBrandDataModel brandData : items) {

@@ -14,7 +14,7 @@ public class RecentRequest extends BaseRequest<RecentService> {
     }
 
     public Single<BaseDataModel> getRecentProducts(int recent_id, int rows) {
-        int user_id = App.getInstance().getUserId();
+        int user_id = App.getInstance().getMemberId();
         return getApi().getRecentProducts(user_id, createRequestBody(parseToJson(recent_id, rows)));
     }
 
@@ -26,7 +26,7 @@ public class RecentRequest extends BaseRequest<RecentService> {
     }
 
     public Single<BaseDataModel> deleteRecent(int recent_id) {
-        int user_id = App.getInstance().getUserId();
+        int user_id = App.getInstance().getMemberId();
         return getApi().deleteRecent(user_id, recent_id);
     }
 }

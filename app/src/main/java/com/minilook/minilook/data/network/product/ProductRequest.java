@@ -13,7 +13,7 @@ public class ProductRequest extends BaseRequest<ProductService> {
 
     public Single<BaseDataModel> getProductDetail(int product_id) {
         if (App.getInstance().isLogin()) {
-            int user_id = App.getInstance().getUserId();
+            int user_id = App.getInstance().getMemberId();
             return getApi().getProductDetail(product_id, user_id);
         } else {
             return getApi().getProductDetail(product_id);

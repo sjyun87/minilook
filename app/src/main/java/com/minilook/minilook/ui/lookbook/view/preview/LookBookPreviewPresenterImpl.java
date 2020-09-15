@@ -5,12 +5,14 @@ import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.lookbook.LookBookDataModel;
 import com.minilook.minilook.data.model.lookbook.LookBookModuleDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
+import com.minilook.minilook.data.model.shipping.ShippingDataModel;
 import com.minilook.minilook.data.network.lookbook.LookBookRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.lookbook.view.preview.di.LookBookPreviewArguments;
+import com.minilook.minilook.ui.shipping.ShippingPresenterImpl;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -38,6 +40,7 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
     }
 
     @Override public void onCreate() {
+        toRxObservable();
         view.setupViewPager();
         reqLookBookModules();
     }
@@ -114,7 +117,18 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
     //    }
     //}
 
+    private void toRxObservable() {
+        addDisposable(RxBus.toObservable().subscribe(o -> {
+            if (o instanceof RxEventLookBookCoachMark1) {
+                view.scrollToStep();
+            }
+        }, Timber::e));
+    }
+
     @AllArgsConstructor @Getter public final static class RxEventLookBookModuleChanged {
         private LookBookModuleDataModel data;
+    }
+
+    @AllArgsConstructor @Getter public final static class RxEventLookBookCoachMark1 {
     }
 }

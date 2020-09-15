@@ -2,22 +2,28 @@ package com.minilook.minilook.ui.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
 import android.widget.Toast;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager2.widget.ViewPager2;
 import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.common.PrefsKey;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.widget.BottomBar;
-import com.minilook.minilook.ui.base.widget.CustomToast;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.login.LoginActivity;
+import com.minilook.minilook.ui.lookbook.LookBookPresenterImpl;
+import com.minilook.minilook.ui.lookbook.view.preview.LookBookPreviewPresenterImpl;
 import com.minilook.minilook.ui.main.adapter.MainPagerAdapter;
 import com.minilook.minilook.ui.main.di.MainArguments;
+import com.pixplicity.easyprefs.library.Prefs;
 
 public class MainActivity extends BaseActivity implements MainPresenter.View {
 
@@ -38,6 +44,10 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
     @BindView(R.id.root) ConstraintLayout root;
     @BindView(R.id.viewpager) ViewPager2 viewPager;
     @BindView(R.id.bottombar) BottomBar bottomBar;
+
+    @BindView(R.id.layout_coach_lookbook1) ConstraintLayout coachLookbook1;
+    @BindView(R.id.layout_coach_lookbook2) ConstraintLayout coachLookbook2;
+    @BindView(R.id.layout_coach_lookbook3) ConstraintLayout coachLookbook3;
 
     @BindString(R.string.base_toast_app_finish) String str_toast_app_finish;
     @BindString(R.string.base_toast_marketing_info_agree) String str_toast_marketing_agree;
@@ -118,12 +128,16 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
         DialogManager.showMarketingDialog(this, () -> {
             presenter.onMarketingAgree();
             //CustomToast.make(this, str_toast_marketing_agree).show();
-            Toast.makeText(this, str_toast_marketing_agree, Toast.LENGTH_SHORT).show();
-        });
+            Toast.makeText(MainActivity.this, str_toast_marketing_agree, Toast.LENGTH_SHORT).show();
+        }, dialogInterface -> presenter.onMarketingDismiss());
     }
 
     @Override public void navigateToLogin() {
         LoginActivity.start(this);
+    }
+
+    @Override public void showLookBookCoachMark() {
+        coachLookbook1.setVisibility(View.VISIBLE);
     }
 
     @Override public void onBackPressed() {
@@ -134,5 +148,26 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
         } else {
             finishAffinity();
         }
+    }
+
+    @OnClick(R.id.layout_coach_lookbook1)
+    void onCoachLookBook1Click() {
+        RxBus.send(new LookBookPreviewPresenterImpl.RxEventLookBookCoachMark1());
+        coachLookbook1.setVisibility(View.GONE);
+        coachLookbook2.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.layout_coach_lookbook2)
+    void onCoachLookBook2Click() {
+        RxBus.send(new LookBookPresenterImpl.RxEventNavigateToDetail(true));
+        coachLookbook2.setVisibility(View.GONE);
+        coachLookbook3.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.layout_coach_lookbook3)
+    void onCoachLookBook3Click() {
+        RxBus.send(new LookBookPresenterImpl.RxEventNavigateToPreview(true));
+        coachLookbook3.setVisibility(View.GONE);
+        Prefs.putBoolean(PrefsKey.KEY_LOOKBOOK_COACH_VISIBLE, true);
     }
 }

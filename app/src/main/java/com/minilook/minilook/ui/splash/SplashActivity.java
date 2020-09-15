@@ -52,18 +52,18 @@ public class SplashActivity extends BaseActivity implements SplashPresenter.View
     }
 
     @Override public void checkPermission() {
-        TedPermission.with(this)
-            .setPermissionListener(new PermissionListener() {
-                @Override public void onPermissionGranted() {
-                    presenter.onPermissionGranted();
-                }
-
-                @Override public void onPermissionDenied(List<String> deniedPermissions) {
-                }
-            })
-            .setDeniedMessage(str_permission)
-            .setPermissions(Manifest.permission.READ_PHONE_STATE)
-            .check();
+        //TedPermission.with(this)
+        //    .setPermissionListener(new PermissionListener() {
+        //        @Override public void onPermissionGranted() {
+        //            presenter.onPermissionGranted();
+        //        }
+        //
+        //        @Override public void onPermissionDenied(List<String> deniedPermissions) {
+        //        }
+        //    })
+        //    .setDeniedMessage(str_permission)
+        //    .setPermissions(Manifest.permission.READ_PHONE_STATE)
+        //    .check();
     }
 
     @Override public void showUpdateDialog() {

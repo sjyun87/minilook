@@ -20,14 +20,14 @@ public class BrandRequest extends BaseRequest<BrandService> {
 
     private Map<String, Object> parseToJson(List<String> styles) {
         Map<String, Object> jsonMap = new HashMap<>();
-        if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getUserId());
+        if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getMemberId());
         jsonMap.put("styleCode", styles);
         return jsonMap;
     }
 
     public Single<BaseDataModel> getBrandDetail(int brand_id) {
         if (App.getInstance().isLogin()) {
-            int user_id = App.getInstance().getUserId();
+            int user_id = App.getInstance().getMemberId();
             return getApi().getBrandDetail(brand_id, user_id);
         } else {
             return getApi().getBrandDetail(brand_id);

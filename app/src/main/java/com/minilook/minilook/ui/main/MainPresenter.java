@@ -19,6 +19,8 @@ public interface MainPresenter extends LifecycleObserver {
 
     void onBrandScrap(boolean isScrap, BrandDataModel brand);
 
+    void onMarketingDismiss();
+
     interface View {
 
         void setupViewPager();
@@ -32,5 +34,7 @@ public interface MainPresenter extends LifecycleObserver {
         void showMarketingDialog();
 
         void navigateToLogin();
+
+        void showLookBookCoachMark();
     }
 }

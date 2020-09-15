@@ -3,7 +3,7 @@ ext {
   // Versioning
   versionMajor = 1
   versionMinor = 0
-  versionPatch = 1
+  versionPatch = 2
 
   // Android
   compile_sdk_version = 29
@@ -96,7 +96,7 @@ ext {
   preference_version = '1.9.0'
 
   // BootPay
-  bootpay_version = '3.2.71'
+  bootpay_version = '3.3.0'
 
   // Material
   material_version = '1.2.1'

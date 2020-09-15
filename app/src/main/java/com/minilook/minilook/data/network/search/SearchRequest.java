@@ -25,7 +25,7 @@ public class SearchRequest extends BaseRequest<SearchService> {
 
     private Map<String, Object> parseToJson(int page, int rows, SearchOptionDataModel options) {
         Map<String, Object> jsonMap = new HashMap<>();
-        if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getUserId());
+        if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getMemberId());
         jsonMap.put("current", page);
         jsonMap.put("pageSize", rows);
         jsonMap.put("productOrderByCode", options.getOrder());

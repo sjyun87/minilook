@@ -20,7 +20,7 @@ public class PromotionRequest extends BaseRequest<PromotionService> {
 
     private Map<String, Object> parseToPromotionJson(int promotion_id) {
         Map<String, Object> jsonMap = new HashMap<>();
-        if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getUserId());
+        if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getMemberId());
         jsonMap.put("pageSize", 0);
         jsonMap.put("promotionNo", promotion_id);
         return jsonMap;

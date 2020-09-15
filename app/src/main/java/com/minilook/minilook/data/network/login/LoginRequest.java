@@ -29,7 +29,7 @@ public class LoginRequest extends BaseRequest<LoginService> {
     }
 
     public Single<BaseDataModel> logout() {
-        int user_id = App.getInstance().getUserId();
+        int user_id = App.getInstance().getMemberId();
         return getApi().logout(user_id , createRequestBody(parseToLogoutJson()));
     }
 
@@ -60,7 +60,7 @@ public class LoginRequest extends BaseRequest<LoginService> {
     }
 
     public Single<BaseDataModel> leave() {
-        int user_id = App.getInstance().getUserId();
+        int user_id = App.getInstance().getMemberId();
         return getApi().leave(user_id, createRequestBody(parseToLeaveJson()));
     }
 
@@ -72,7 +72,7 @@ public class LoginRequest extends BaseRequest<LoginService> {
     }
 
     public Single<BaseDataModel> getPointNCoupon() {
-        int user_id = App.getInstance().getUserId();
+        int user_id = App.getInstance().getMemberId();
         return getApi().getPointNCoupon(user_id);
     }
 }

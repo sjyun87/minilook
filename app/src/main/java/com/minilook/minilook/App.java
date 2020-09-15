@@ -2,6 +2,7 @@ package com.minilook.minilook;
 
 import android.app.Application;
 import android.content.ContextWrapper;
+import android.text.TextUtils;
 import com.kakao.sdk.common.KakaoSdk;
 import com.minilook.minilook.data.common.PrefsKey;
 import com.minilook.minilook.data.model.common.SortDataModel;
@@ -64,7 +65,7 @@ public class App extends Application {
 
     public void setupLogin(UserDataModel data) {
         this.isLogin = true;
-        setUserId(data.getUser_id());
+        setMemberId(data.getUser_id());
         setSnsId(data.getSns_id());
         setSnsType(data.getType());
         Prefs.putInt(PrefsKey.KEY_LOGIN_VISIBLE_COUNT, 3);
@@ -73,31 +74,31 @@ public class App extends Application {
 
     public void setupLogout() {
         this.isLogin = false;
-        clearUserId();
+        clearMemberId();
         clearSnsId();
         clearSnsType();
         RxBus.send(new RxBusEvent.RxBusEventLogout());
     }
 
     public void checkLogin() {
-        if (getUserId() != -1) {
+        if (getMemberId() != -1) {
             isLogin = true;
         } else {
             isLogin = false;
         }
     }
 
-    public void setUserId(int id) {
+    public void setMemberId(int id) {
         userId = id;
         Prefs.putInt("userId", id);
     }
 
-    public int getUserId() {
+    public int getMemberId() {
         userId = Prefs.getInt("userId", -1);
         return userId;
     }
 
-    public void clearUserId() {
+    public void clearMemberId() {
         userId = -1;
         Prefs.remove("userId");
     }

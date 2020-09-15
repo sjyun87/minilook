@@ -1,6 +1,7 @@
 package com.minilook.minilook.ui.dialog.manager;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import com.minilook.minilook.ui.dialog.DefaultShippingDialog;
 import com.minilook.minilook.ui.dialog.JoinCancelDialog;
 import com.minilook.minilook.ui.dialog.JoinCompletedDialog;
@@ -45,9 +46,10 @@ public final class DialogManager {
     }
 
     @Builder
-    public static void showMarketingDialog(Activity activity, OnPositiveClickListener listener) {
+    public static void showMarketingDialog(Activity activity, OnPositiveClickListener listener, DialogInterface.OnDismissListener dismissListener) {
         MarketingInfoDialog dialog = new MarketingInfoDialog(activity);
         dialog.setOnPositiveClickListener(listener);
+        dialog.setOnDismissListener(dismissListener);
         dialog.show();
     }
 

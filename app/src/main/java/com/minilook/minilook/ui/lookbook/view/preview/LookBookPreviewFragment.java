@@ -60,6 +60,10 @@ public class LookBookPreviewFragment extends BaseFragment implements LookBookPre
         viewPager.post(() -> adapterView.refresh(start, rows));
     }
 
+    @Override public void scrollToStep() {
+        viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+    }
+
     private ViewPager2.OnPageChangeCallback OnPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
         @Override public void onPageSelected(int position) {
             presenter.onPageSelected(position);

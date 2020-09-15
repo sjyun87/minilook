@@ -14,12 +14,12 @@ public class ScrapRequest extends BaseRequest<ScrapService> {
     }
 
     public Single<BaseDataModel> getScrapProducts(int page, int rows) {
-        int user_id = App.getInstance().getUserId();
+        int user_id = App.getInstance().getMemberId();
         return getApi().getScrapProducts(user_id, createRequestBody(parseToScrapbookJson(page, rows)));
     }
 
     public Single<BaseDataModel> getScrapBrands(int page, int rows) {
-        int user_id = App.getInstance().getUserId();
+        int user_id = App.getInstance().getMemberId();
         return getApi().getScrapBrands(user_id, createRequestBody(parseToScrapbookJson(page, rows)));
     }
 
@@ -40,7 +40,7 @@ public class ScrapRequest extends BaseRequest<ScrapService> {
 
     private Map<String, Object> parseToProductScrapJson(int product_id) {
         Map<String, Object> jsonMap = new HashMap<>();
-        jsonMap.put("memberNo", App.getInstance().getUserId());
+        jsonMap.put("memberNo", App.getInstance().getMemberId());
         jsonMap.put("productNo", product_id);
         return jsonMap;
     }
@@ -55,7 +55,7 @@ public class ScrapRequest extends BaseRequest<ScrapService> {
 
     private Map<String, Object> parseToBrandScrapJson(int brand_id) {
         Map<String, Object> jsonMap = new HashMap<>();
-        jsonMap.put("memberNo", App.getInstance().getUserId());
+        jsonMap.put("memberNo", App.getInstance().getMemberId());
         jsonMap.put("brandNo", brand_id);
         return jsonMap;
     }

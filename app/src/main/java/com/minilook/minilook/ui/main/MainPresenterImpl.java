@@ -58,6 +58,10 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
         reqBrandScrap(isScrap, brand);
     }
 
+    @Override public void onMarketingDismiss() {
+        checkCoachMark();
+    }
+
     private void reqUpdateToken() {
         addDisposable(memberRequest.updateToken()
             .subscribe());
@@ -79,7 +83,16 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
             if (!isVisible) {
                 view.showMarketingDialog();
                 Prefs.putBoolean(PrefsKey.KEY_MAIN_MARKETING_VISIBLE, true);
+            } else {
+                checkCoachMark();
             }
+        }
+    }
+
+    private void checkCoachMark() {
+        boolean isVisible = Prefs.getBoolean(PrefsKey.KEY_LOOKBOOK_COACH_VISIBLE, false);
+        if (!isVisible) {
+            view.showLookBookCoachMark();
         }
     }
 

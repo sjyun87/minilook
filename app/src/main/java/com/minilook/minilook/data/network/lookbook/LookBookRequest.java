@@ -20,7 +20,7 @@ public class LookBookRequest extends BaseRequest<LookBookService> {
 
     private Map<String, Object> parseToJson(int row, List<Integer> usedItems) {
         Map<String, Object> jsonMap = new HashMap<>();
-        if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getUserId());
+        if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getMemberId());
         jsonMap.put("pageSize", row);
         jsonMap.put("usedLookbooks", usedItems);
         return jsonMap;

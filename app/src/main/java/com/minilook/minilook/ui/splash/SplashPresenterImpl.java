@@ -44,7 +44,12 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
 
     @Override public void onCreate() {
         view.setupLottieView();
-        reqCheckAppVersion();
+
+        if (!BuildConfig.DEBUG) {
+            reqCheckAppVersion();
+        } else {
+            startApp();
+        }
     }
 
     @Override public void onUpdateDialogOkClick() {
@@ -84,7 +89,8 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
     }
 
     private void reqPermission() {
-        view.checkPermission();
+        //view.checkPermission();
+        startApp();
     }
 
     private void startApp() {
@@ -131,7 +137,7 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
                 if (!pushToken.isEmpty()) {
                     App.getInstance().setPushToken(pushToken);
                     isTokenChecked = true;
-                    new Handler(Looper.getMainLooper()).post(this::checkToDo);
+                    checkToDo();
                 }
             }
         });
