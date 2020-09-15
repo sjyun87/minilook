@@ -87,8 +87,9 @@
                         android:layout_weight="1"
                         android:background="@color/color_FFFFFFFF"
                         android:fontFamily="@font/nanum_square_b"
-                        android:importantForAutofill="no"
+                        android:hint="@string/profile_nick_hint"
                         android:inputType="text"
+                        android:maxLength="10"
                         android:maxLines="1"
                         android:textColor="@color/color_FF232323"
                         android:textSize="@dimen/sp_7"
@@ -96,7 +97,7 @@
                         app:layout_constraintLeft_toRightOf="@+id/txt_nick_caption"
                         app:layout_constraintRight_toLeftOf="@+id/txt_nick_save"
                         app:layout_constraintTop_toTopOf="@+id/txt_nick_caption"
-                        tools:ignore="LabelFor" />
+                        tools:ignore="Autofill" />
 
                     <ImageView
                         android:id="@+id/img_nick_clear"
