@@ -36,6 +36,7 @@ import com.minilook.minilook.ui.order.adapter.CouponAdapter;
 import com.minilook.minilook.ui.order.adapter.MemoAdapter;
 import com.minilook.minilook.ui.order.adapter.OrderAdapter;
 import com.minilook.minilook.ui.order.di.OrderArguments;
+import com.minilook.minilook.ui.order_complete.OrderCompleteActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.ui.shipping.ShippingActivity;
 import com.minilook.minilook.util.SpannableUtil;
@@ -441,7 +442,7 @@ public class OrderActivity extends BaseActivity implements OrderPresenter.View {
         }
         bootpayBuilder.onConfirm(message -> {
             Timber.e("onConfirm :: %s", message);
-            presenter.onBootPayConfirm(bootPayData.getOrderId(), message);
+            Bootpay.confirm(message);
         });
         bootpayBuilder.onDone(message -> {
             Timber.e("onDone :: %s", message);
@@ -453,16 +454,20 @@ public class OrderActivity extends BaseActivity implements OrderPresenter.View {
         bootpayBuilder.request();
     }
 
-    @Override public void setBootPayConfirm(String message) {
-        Bootpay.confirm(message);
-    }
-
     @Override public void setBootPayCancel() {
         Bootpay.removePaymentWindow();
     }
 
     @Override public void showOutOfStockDialog() {
         DialogManager.showOutOfStockDialog(this);
+    }
+
+    @Override public void showErrorToast() {
+        Toast.makeText(this, "주문요청에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override public void navigateToOrderComplete() {
+        OrderCompleteActivity.start(this);
     }
 
     @OnClick({ R.id.layout_shipping_panel, R.id.layout_shipping_add_panel })

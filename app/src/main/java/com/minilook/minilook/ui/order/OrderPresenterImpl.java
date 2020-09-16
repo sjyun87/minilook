@@ -1,6 +1,7 @@
 package com.minilook.minilook.ui.order;
 
 import android.annotation.SuppressLint;
+import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.minilook.minilook.App;
@@ -74,6 +75,8 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
 
     private boolean isSelectedShipping = false;
     private boolean isCheckOrderInfo = false;
+
+    private String orderId;
 
     public OrderPresenterImpl(OrderArguments args) {
         view = args.getView();
@@ -159,11 +162,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
     }
 
     @Override public void onOrderConfirmClick() {
-        reqBootPay();
-    }
-
-    @Override public void onBootPayConfirm(String orderId, String message) {
-        reqSafetyStock(orderId, message);
+        reqSafetyStock(getOrderId());
     }
 
     @Override public void onBootPayDone(BootPayDataModel bootPayData, String message) {
@@ -397,7 +396,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         }
     }
 
-    private void reqSafetyStock(String orderId, String message) {
+    private void reqSafetyStock(String orderId) {
         addDisposable(orderRequest.setSafetyStock(orderId, orderItem)
             .compose(Transformer.applySchedulers())
             .filter(data -> {
@@ -409,11 +408,11 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
                 }
                 return code.equals(HttpCode.OK);
             })
-            .subscribe(data -> resSafetyStock(data, message), Timber::e));
+            .subscribe(this::resSafetyStock, Timber::e));
     }
 
-    private void resSafetyStock(BaseDataModel dataModel, String message) {
-        view.setBootPayConfirm(message);
+    private void resSafetyStock(BaseDataModel dataModel) {
+        reqBootPay();
     }
 
     private void reqOrderComplete(String receipt_id, BootPayDataModel bootPayData) {
@@ -422,14 +421,17 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
             .compose(Transformer.applySchedulers())
             .filter(data -> {
                 String code = data.getCode();
-
+                if (!code.equals(HttpCode.OK)) {
+                    view.showErrorToast();
+                }
                 return code.equals(HttpCode.OK);
             })
             .subscribe(this::resOrderComplete, Timber::e));
     }
 
     private void resOrderComplete(BaseDataModel dataModel) {
-
+        view.navigateToOrderComplete();
+        view.finish();
     }
 
     private OrderCompleteDataModel getOrderCompleteData(String receipt_id, BootPayDataModel bootPayData) {
@@ -520,7 +522,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         bootPayData.setBootUser(getBootUser());
         bootPayData.setBootExtra(getBootExtra());
         bootPayData.setMethod(payment);
-        bootPayData.setOrderId(getOrderId());
+        bootPayData.setOrderId(orderId);
         bootPayData.setName(getProductName());
         bootPayData.setPrice(totalPrice);
         bootPayData.setItems(getItems());
@@ -574,13 +576,17 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         String orderUserNum = userNum.substring(userNum.length() - 1);
         String randomNum = String.valueOf((int) (Math.random() * 10));
 
-        String orderId = orderTime + orderBrandNum + orderProductNum + orderUserNum + randomNum;
+        orderId = orderTime + orderBrandNum + orderProductNum + orderUserNum + randomNum;
         return orderId;
     }
 
     private BootUser getBootUser() {
         BootUser bootUser = new BootUser();
-        bootUser.setUsername(userData.getName() + "(" + userData.getUser_id() + ")");
+        if (userData.getName() != null && !TextUtils.isEmpty(userData.getName())) {
+            bootUser.setUsername(userData.getName() + "(" + userData.getUser_id() + ")");
+        } else {
+            bootUser.setUsername("(" + userData.getUser_id() + ")");
+        }
         bootUser.setEmail(userData.getEmail());
         bootUser.setPhone(userData.getPhone());
         bootUser.setAddr("(" + selectedShippingData.getZipcode() + ") "

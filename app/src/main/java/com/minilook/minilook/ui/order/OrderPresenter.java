@@ -30,8 +30,6 @@ public interface OrderPresenter extends LifecycleObserver {
 
     void onOrderConfirmClick();
 
-    void onBootPayConfirm(String orderId, String message);
-
     void onBootPayDone(BootPayDataModel bootPayData, String message);
 
     interface View {
@@ -142,10 +140,14 @@ public interface OrderPresenter extends LifecycleObserver {
 
         void showBootPay(BootPayDataModel bootPayData);
 
-        void setBootPayConfirm(String message);
-
         void setBootPayCancel();
 
         void showOutOfStockDialog();
+
+        void showErrorToast();
+
+        void navigateToOrderComplete();
+
+        void finish();
     }
 }

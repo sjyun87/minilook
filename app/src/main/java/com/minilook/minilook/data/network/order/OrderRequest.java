@@ -100,8 +100,7 @@ public class OrderRequest extends BaseRequest<OrderService> {
 
     public Single<BaseDataModel> orderComplete(OrderCompleteDataModel orderCompleteDataModel) {
         parseToOrderCompleteJson(orderCompleteDataModel);
-        return null;
-        //return getApi().orderComplete(createRequestBody(parseToOrderCompleteJson(orderCompleteDataModel)));
+        return getApi().orderComplete(createRequestBody(parseToOrderCompleteJson(orderCompleteDataModel)));
     }
 
     private Map<String, Object> parseToOrderCompleteJson(OrderCompleteDataModel data) {
