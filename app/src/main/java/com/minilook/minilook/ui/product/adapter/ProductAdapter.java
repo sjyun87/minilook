@@ -12,6 +12,7 @@ import com.minilook.minilook.ui.product.ProductFullVH;
 import com.minilook.minilook.ui.product.ProductGridVH;
 import com.minilook.minilook.ui.product.ProductImageVH;
 import com.minilook.minilook.ui.product.ProductSize84VH;
+import com.minilook.minilook.ui.product.ProductWide32VH;
 import com.minilook.minilook.ui.product.ProductWideVH;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +30,7 @@ public class ProductAdapter extends RecyclerView.Adapter<BaseViewHolder<ProductD
     public static final int VIEW_TYPE_SIZE_84 = 3;
     public static final int VIEW_TYPE_IMAGE = 4;
     public static final int VIEW_TYPE_WIDE = 5;
+    public static final int VIEW_TYPE_WIDE_32 = 6;
 
     @Setter private int viewType = 0;
     @Setter private boolean isShowScrap = true;
@@ -61,6 +63,8 @@ public class ProductAdapter extends RecyclerView.Adapter<BaseViewHolder<ProductD
                 ProductWideVH productWideVH = new ProductWideVH(parent);
                 productWideVH.setListener(onDeleteClickListener);
                 return productWideVH;
+            case VIEW_TYPE_WIDE_32:
+                return new ProductWide32VH(parent);
             default:
                 Timber.e("Product view type is null..");
                 return new BaseViewHolder<>(parent);

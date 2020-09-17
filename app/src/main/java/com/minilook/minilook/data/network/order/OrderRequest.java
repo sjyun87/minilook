@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.order.OrderCompleteDataModel;
+import com.minilook.minilook.data.model.order.OrderDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingProductDataModel;
@@ -99,7 +100,7 @@ public class OrderRequest extends BaseRequest<OrderService> {
     }
 
     public Single<BaseDataModel> orderComplete(OrderCompleteDataModel orderCompleteDataModel) {
-        parseToOrderCompleteJson(orderCompleteDataModel);
+        //parseToOrderCompleteJson(orderCompleteDataModel);
         return getApi().orderComplete(createRequestBody(parseToOrderCompleteJson(orderCompleteDataModel)));
     }
 
@@ -128,6 +129,66 @@ public class OrderRequest extends BaseRequest<OrderService> {
         jsonMap.put("shippingTotalFee", data.getTotal_shipping_price());
         jsonMap.put("zipcode", data.getZip());
         Timber.e(jsonMap.toString());
+        return jsonMap;
+    }
+
+    public Single<BaseDataModel> getOrderHistory(long lastOrderTime, int ROWS) {
+        return getApi().getOrderHistory(createRequestBody(parseToOrderHistoryJson(lastOrderTime, ROWS)));
+    }
+
+    private Map<String, Object> parseToOrderHistoryJson(long lastOrderTime, int rows) {
+        Map<String, Object> jsonMap = new HashMap<>();
+        if (lastOrderTime != 0) jsonMap.put("lastItemOrderTime", lastOrderTime);
+        jsonMap.put("memberNo", App.getInstance().getMemberId());
+        jsonMap.put("pageSize", rows);
+        return jsonMap;
+    }
+
+    public Single<BaseDataModel> getOrderDetail(String order_id, String receipt_id) {
+        return getApi().getOrderDetail(order_id, createRequestBody(parseToOrderDetailJson(order_id, receipt_id)));
+    }
+
+    private Map<String, Object> parseToOrderDetailJson(String order_id, String receipt_id) {
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("memberNo", App.getInstance().getMemberId());
+        jsonMap.put("mid", order_id);
+        jsonMap.put("receiptId", receipt_id);
+        return jsonMap;
+    }
+
+    public Single<BaseDataModel> setPurchaseConfirm(int orderOptionNo) {
+        return getApi().setPurchaseConfirm(orderOptionNo);
+    }
+
+    public Single<BaseDataModel> orderAllCancel(OrderDataModel orderData) {
+        return getApi().orderAllCancel(orderData.getOrderNo(), createRequestBody(parseToAllCancelJson(orderData)));
+    }
+
+    private Map<String, Object> parseToAllCancelJson(OrderDataModel orderData) {
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("memberNo", App.getInstance().getMemberId());
+        jsonMap.put("mid", orderData.getOrderNo());
+        jsonMap.put("receiptId", orderData.getReceiptId());
+        return jsonMap;
+    }
+
+    public Single<BaseDataModel> getExchangeNReturnCode() {
+        return getApi().getExchangeNReturnCode();
+    }
+
+    public Single<BaseDataModel> exchangeNReturn(int orderOptionNo, String typeCode, String reasonCode,
+        String reasonDetail) {
+        return getApi().exchangeNReturn(
+            createRequestBody(parseToExchangeNReturnJson(orderOptionNo, typeCode, reasonCode, reasonDetail)));
+    }
+
+    private Map<String, Object> parseToExchangeNReturnJson(int orderOptionNo, String typeCode, String reasonCode,
+        String reasonDetail) {
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("orderNo", orderOptionNo);
+        jsonMap.put("refundTypeCode", typeCode);
+        jsonMap.put("refundResonCode", reasonCode);
+        jsonMap.put("memo", reasonDetail);
         return jsonMap;
     }
 }

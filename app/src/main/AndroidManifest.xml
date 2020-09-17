@@ -180,6 +180,11 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
+            android:name=".ui.order_exchange_n_return.OrderExchangeNReturnActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
             android:name=".ui.setting.SettingActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />

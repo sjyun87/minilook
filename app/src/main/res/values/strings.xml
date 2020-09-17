@@ -20,6 +20,7 @@
     <string name="base_toast_logout">로그아웃 되었습니다</string>
     <string name="base_toast_update_completed">닉네임이 변경되었습니다</string>
     <string name="base_toast_add_shoppingbag">장바구니에 담았습니다</string>
+    <string name="base_toast_receipt_completed">접수 되었습니다.</string>
 
     <!--Bottom Bar-->
     <string name="bottombar_lookbook">룩북</string>
@@ -281,16 +282,25 @@
 
     <!--Order History-->
     <string name="order_history_title">주문/배송</string>
-    <string name="order_history_more_detail">주문상세보기</string>
+    <string name="order_history_number">주문번호</string>
+    <string name="order_history_date">주문일자</string>
+    <string name="order_history_empty">주문 내역이 없습니다.</string>
+    <string name="order_history_empty_button">상품 보러가기</string>
 
     <!--Order Detail-->
     <string name="order_detail_title">주문/배송상세</string>
     <string name="order_detail_info_caption">주문 정보</string>
     <string name="order_detail_info_number_caption">주문번호</string>
     <string name="order_detail_info_date_caption">주문일자</string>
+    <string name="order_detail_option">%s / %s</string>
+    <string name="order_detail_free_shipping">무료배송</string>
     <string name="order_detail_order_cancel">전체 주문취소</string>
     <string name="order_detail_order_cancel_desc">모든 상품이 발송 전일 경우 전체 주문취소만 가능합니다.</string>
     <string name="order_detail_shipping_title">배송지 정보</string>
+    <string name="order_detail_shipping_address">(%s) %s, %s</string>
+    <string name="order_detail_shipping_price">+ %s</string>
+    <string name="order_detail_coupon_price">- %s</string>
+    <string name="order_detail_point">- %s</string>
     <string name="order_detail_payment_title">결제 정보</string>
     <string name="order_detail_payment_how_caption">결제방법</string>
     <string name="order_detail_total_price_caption">총 결제금액</string>
@@ -299,15 +309,15 @@
     <string name="order_detail_total_coupon_caption">쿠폰적용</string>
     <string name="order_detail_total_point_caption">포인트사용</string>
     <string name="order_detail_cancel">주문취소</string>
+    <string name="order_detail_reason_caption">불가사유</string>
     <string name="order_detail_question">문의</string>
     <string name="order_detail_tracking">배송조회</string>
     <string name="order_detail_exchange_n_return">교환/반품접수</string>
-    <string name="order_detail_confirm">구매확정</string>
+    <string name="order_detail_purchase_confirm">구매확정</string>
     <string name="order_detail_resell">재구매</string>
     <string name="order_detail_review">리뷰작성</string>
     <string name="order_detail_exchange_cancel">교환철회</string>
     <string name="order_detail_return_cancel">반품철회</string>
-    <string name="order_detail_refund_detail">취소상세</string>
 
     <!--Order Cancel-->
     <string name="order_cancel_title">주문취소</string>
@@ -331,6 +341,16 @@
     <string name="order_cancel_detail_total_payment_caption">총 결제금액</string>
     <string name="order_cancel_detail_payment_caption">결제</string>
     <string name="order_cancel_detail_point_caption">포인트</string>
+
+    <!--Order Exchange and Return-->
+    <string name="order_exchange_n_return_title">교환/반품 접수</string>
+    <string name="order_exchange_n_return_option">%s / %s</string>
+    <string name="order_exchange_n_return_type">접수유형</string>
+    <string name="order_exchange_n_return_type_hint">접수유형을 선택해주세요.</string>
+    <string name="order_exchange_n_return_reason">접수사유</string>
+    <string name="order_exchange_n_return_reason_hint">접수사유를 선택해주세요.</string>
+    <string name="order_exchange_n_return_detail_reason_hint">상세 사유를 작성해주세요.</string>
+    <string name="order_exchange_n_return_apply">접수하기</string>
 
     <!--Product Detail-->
     <string name="product_detail_point_caption">포인트</string>
@@ -503,6 +523,12 @@
     <string name="dialog_marketing_info_desc_b">아이페이지>설정</string>
     <string name="dialog_trial_version_button">장바구니 이벤트 보러가기</string>
     <string name="dialog_out_of_stock_contents">주문하신 상품 중 품절된 상품이 있습니다.\n다시 주문해주시기 바랍니다.</string>
+    <string name="dialog_purchase_confirm_title">구매확정</string>
+    <string name="dialog_purchase_confirm_subtitle">구매확정 하시겠습니까?</string>
+    <string name="dialog_purchase_confirm_desc">구매확정 이후에는 온라인에서 교환/반품이 불가하오니 상품수령 후 구매결정을 해주시기 바랍니다.</string>
+    <string name="dialog_purchase_confirm_info">구매확정 후 리뷰를 남기시면 100포인트를 지급해 드립니다.</string>
+    <string name="dialog_purchase_confirm_info_b">100포인트</string>
+    <string name="dialog_purchase_confirm_ok">구매확정</string>
 
     <!--Support Email-->
     <string name="support_email">support@minilook.co.kr</string>

@@ -218,4 +218,9 @@ public class IpageFragment extends BaseFragment implements IpagePresenter.View {
     void onFAQClick() {
         presenter.onFAQClick();
     }
+
+    @OnClick(R.id.layout_order_panel)
+    void onOrderPanelClick() {
+        OrderHistoryActivity.start(getContext());
+    }
 }

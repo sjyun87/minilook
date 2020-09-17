@@ -10,6 +10,7 @@ import com.minilook.minilook.ui.dialog.LeaveDialog;
 import com.minilook.minilook.ui.dialog.MarketingInfoDialog;
 import com.minilook.minilook.ui.dialog.NoEmailDialog;
 import com.minilook.minilook.ui.dialog.OutOfStockDialog;
+import com.minilook.minilook.ui.dialog.PurchaseConfirmDialog;
 import com.minilook.minilook.ui.dialog.TrialVersionDialog;
 import com.minilook.minilook.ui.dialog.UpdateDialog;
 import com.minilook.minilook.ui.dialog.listener.OnCloseClickListener;
@@ -86,6 +87,13 @@ public final class DialogManager {
     @Builder
     public static void showOutOfStockDialog(Activity activity) {
         OutOfStockDialog dialog = new OutOfStockDialog(activity);
+        dialog.show();
+    }
+
+    @Builder
+    public static void showPurchaseConfirmDialog(Activity activity, OnPositiveClickListener onPositiveClickListener) {
+        PurchaseConfirmDialog dialog = new PurchaseConfirmDialog(activity);
+        dialog.setOnPositiveClickListener(onPositiveClickListener);
         dialog.show();
     }
 }

@@ -43,4 +43,29 @@ public interface OrderService {
     @PUT("/api/orders/bootpays") Single<BaseDataModel> orderComplete(
         @Body RequestBody requestBody
     );
+
+    @POST("/api/orders") Single<BaseDataModel> getOrderHistory(
+        @Body RequestBody requestBody
+    );
+
+    @POST("/api/orders/{orderNo}") Single<BaseDataModel> getOrderDetail(
+        @Path("orderNo") String orderNo,
+        @Body RequestBody requestBody
+    );
+
+    @PUT("/api/orders/{orderOptionNo}") Single<BaseDataModel> setPurchaseConfirm(
+        @Path("orderOptionNo") int orderOptionNo
+    );
+
+    @HTTP(method = "DELETE", path = "/api/orders/{orderNo}", hasBody = true)
+    Single<BaseDataModel> orderAllCancel(
+        @Path("orderNo") String orderNo,
+        @Body RequestBody body
+    );
+
+    @GET("/api/orders/refunds") Single<BaseDataModel> getExchangeNReturnCode();
+
+    @POST("/api/orders/refunds") Single<BaseDataModel> exchangeNReturn(
+        @Body RequestBody body
+    );
 }

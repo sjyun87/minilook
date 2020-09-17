@@ -12,5 +12,13 @@ public interface OrderHistoryPresenter extends LifecycleObserver {
     interface View {
 
         void setupRecyclerView();
+
+        void refresh();
+
+        void refresh(int start, int rows);
+
+        void showEmptyPanel();
+
+        void navigateToOrderDetail(String order_id, String receipt_id);
     }
 }

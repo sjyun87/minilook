@@ -86,6 +86,8 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
             } else {
                 checkCoachMark();
             }
+        } else {
+            checkCoachMark();
         }
     }
 

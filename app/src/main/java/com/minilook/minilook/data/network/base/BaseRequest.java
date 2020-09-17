@@ -1,14 +1,11 @@
 package com.minilook.minilook.data.network.base;
 
-import android.content.res.Resources;
 import android.os.Build;
-import androidx.core.os.ConfigurationCompat;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.minilook.minilook.BuildConfig;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import lombok.AllArgsConstructor;
@@ -83,19 +80,6 @@ public abstract class BaseRequest<T> {
         for (Map.Entry<String, String> headerEntry : headers.entrySet()) {
             requestBuilder.addHeader(headerEntry.getKey(), headerEntry.getValue());
         }
-    }
-
-    private String getLanguage() {
-        //return getLocale().getLanguage();
-        return "ko";
-    }
-
-    private String getCountry() {
-        return getLocale().getCountry();
-    }
-
-    private Locale getLocale() {
-        return ConfigurationCompat.getLocales(Resources.getSystem().getConfiguration()).get(0);
     }
 
     protected boolean isInterceptor() {
