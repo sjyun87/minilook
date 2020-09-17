@@ -133,6 +133,7 @@ public class ShippingPresenterImpl extends BasePresenterImpl implements Shipping
                 view.navigateToShippingEdit(data);
             } else if (o instanceof RxEventShippingUpdated) {
                 reqShippings();
+                view.hideEmptyPanel();
             }
         }, Timber::e));
     }

@@ -3,36 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_30">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/txt_type"
         android:layout_width="@dimen/dp_20"
         android:layout_height="@dimen/dp_10"
         android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_10"
         android:background="@drawable/bg_round_border_purple"
         android:fontFamily="@font/nanum_square_r"
         android:gravity="center"
         android:textColor="@color/color_FF8140E5"
         android:textSize="@dimen/sp_6"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="적립" />
 
     <TextView
         android:id="@+id/txt_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_6"
+        android:layout_marginTop="@dimen/dp_7"
+        android:layout_marginEnd="@dimen/dp_6"
         android:fontFamily="@font/nanum_square_b"
         android:textColor="@color/color_FF232323"
         android:textSize="@dimen/sp_7"
         app:layout_constraintBottom_toTopOf="@+id/txt_regist_date"
         app:layout_constraintLeft_toRightOf="@+id/txt_type"
+        app:layout_constraintRight_toLeftOf="@+id/txt_point"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
-        tools:text="포토리뷰 작성" />
+        tools:text="포토리뷰 작성\테스트테스트테스" />
 
     <TextView
         android:id="@+id/txt_regist_date"
@@ -51,28 +54,28 @@
         android:id="@+id/txt_point"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_7"
         android:layout_marginEnd="@dimen/dp_8"
         android:fontFamily="@font/nanum_square_eb"
         android:textColor="@color/color_FF8140E5"
         android:textSize="@dimen/sp_7"
-        app:layout_constraintBottom_toTopOf="@+id/txt_expire_date"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
+        app:layout_goneMarginTop="@dimen/dp_7"
         tools:text="+1,000P" />
 
     <TextView
         android:id="@+id/txt_expire_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_3"
         android:fontFamily="@font/nanum_square_r"
         android:textColor="@color/color_FFA9A9A9"
         android:textSize="@dimen/sp_6"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_regist_date"
         app:layout_constraintRight_toRightOf="@+id/txt_point"
-        app:layout_constraintTop_toBottomOf="@+id/txt_point"
+        app:layout_constraintTop_toTopOf="@+id/txt_regist_date"
         tools:text="2020.09.01 소멸예정"
         tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,7 @@ import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.ipage.IpagePresenterImpl;
 import com.minilook.minilook.ui.profile.di.ProfileArguments;
+import com.minilook.minilook.ui.shipping.ShippingPresenterImpl;
 import com.minilook.minilook.ui.verify.VerifyActivity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -147,6 +148,8 @@ public class ProfilePresenterImpl extends BasePresenterImpl implements ProfilePr
                 String json = ((VerifyActivity.RxEventIdentityVerificationComplete) o).getJson();
                 updatePhone(json);
             } else if (o instanceof RxEventShippingUpdated) {
+                reqProfile();
+            } else if (o instanceof ShippingPresenterImpl.RxEventShippingDeleteClick) {
                 reqProfile();
             }
         }, Timber::e));

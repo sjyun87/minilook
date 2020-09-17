@@ -20,6 +20,8 @@ public interface ShippingPresenter extends LifecycleObserver {
 
         void showEmptyPanel();
 
+        void hideEmptyPanel();
+
         void refresh();
 
         void showDefaultShippingDialog();

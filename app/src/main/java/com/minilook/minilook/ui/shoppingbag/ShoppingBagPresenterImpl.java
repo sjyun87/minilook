@@ -333,8 +333,8 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
                 setupTotalPrice();
             } else if (o instanceof RxBusEventOptionDeleted) {
                 ShoppingOptionDataModel data = ((RxBusEventOptionDeleted) o).getOptionData();
-                reqDeleteShoppingBag(data.getShoppingbag_id());
                 deleteOption(data);
+                reqDeleteShoppingBag(data.getShoppingbag_id());
             }
         }, Timber::e));
     }

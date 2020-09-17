@@ -69,6 +69,10 @@ public class ShippingActivity extends BaseActivity implements ShippingPresenter.
         emptyPanel.setVisibility(View.VISIBLE);
     }
 
+    @Override public void hideEmptyPanel() {
+        emptyPanel.setVisibility(View.GONE);
+    }
+
     @Override public void refresh() {
         adapterView.refresh();
     }
