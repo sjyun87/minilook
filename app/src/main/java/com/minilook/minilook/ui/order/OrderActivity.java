@@ -449,7 +449,10 @@ public class OrderActivity extends BaseActivity implements OrderPresenter.View {
             presenter.onBootPayDone(bootPayData, message);
         });
         bootpayBuilder.onCancel(message -> Timber.e("onCancel :: %s", message));
-        bootpayBuilder.onError(message -> Timber.e("onError :: %s", message));
+        bootpayBuilder.onError(message -> {
+            Timber.e("onError :: %s", message);
+            presenter.onBootPayError(message);
+        });
         bootpayBuilder.onClose(message -> Timber.e("onClose :: %s", message));
         bootpayBuilder.request();
     }
@@ -464,6 +467,10 @@ public class OrderActivity extends BaseActivity implements OrderPresenter.View {
 
     @Override public void showErrorToast() {
         Toast.makeText(this, "주문요청에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override public void showBootPayErrorToast() {
+        Toast.makeText(this, "결제 요청에 실패하였습니다", Toast.LENGTH_SHORT).show();
     }
 
     @Override public void navigateToOrderComplete() {

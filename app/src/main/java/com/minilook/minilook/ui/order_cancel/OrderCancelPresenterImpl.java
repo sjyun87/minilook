@@ -46,7 +46,7 @@ public class OrderCancelPresenterImpl extends BasePresenterImpl implements Order
             .compose(Transformer.applySchedulers())
             .filter(data -> {
                 String code = data.getCode();
-                if (code.equals(HttpCode.NO_CANCEL)) {
+                if (!code.equals(HttpCode.OK)) {
                     view.showErrorToast(data.getMessage());
                 }
                 return code.equals(HttpCode.OK);

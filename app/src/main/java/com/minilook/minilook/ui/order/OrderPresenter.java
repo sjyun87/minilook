@@ -32,6 +32,8 @@ public interface OrderPresenter extends LifecycleObserver {
 
     void onBootPayDone(BootPayDataModel bootPayData, String message);
 
+    void onBootPayError(String message);
+
     interface View {
 
         void setupMemoRecyclerView();
@@ -145,6 +147,8 @@ public interface OrderPresenter extends LifecycleObserver {
         void showOutOfStockDialog();
 
         void showErrorToast();
+
+        void showBootPayErrorToast();
 
         void navigateToOrderComplete();
 

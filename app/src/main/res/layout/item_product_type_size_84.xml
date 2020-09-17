@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/dp_150"
     android:paddingBottom="@dimen/dp_10">
 
     <ImageView
@@ -58,7 +58,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_brand_name"
-        app:layout_goneMarginTop="@dimen/dp_8"
         tools:text="데일리 로우게이지 니트 풀오버 세트" />
 
     <TextView

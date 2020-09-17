@@ -42,6 +42,7 @@ import com.minilook.minilook.ui.base.widget.SizeView;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.event_detail.EventDetailActivity;
+import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.option_selector.OptionSelector;
 import com.minilook.minilook.ui.order.OrderActivity;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
@@ -225,6 +226,8 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         productDetailWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         productDetailWebView.getSettings().setDomStorageEnabled(true);
         productDetailWebView.getSettings().setSupportMultipleWindows(false);
+        productDetailWebView.getSettings().setSupportZoom(true);
+        productDetailWebView.getSettings().setBuiltInZoomControls(true);
         productDetailWebView.setWebViewClient(new WebViewClient());
         productDetailWebView.setWebChromeClient(new WebChromeClient());
     }
@@ -525,6 +528,10 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     @Override public void navigateToOrder(List<ShoppingBrandDataModel> items) {
         App.getInstance().setOrderItem(items);
         OrderActivity.start(this, ProductDetailActivity.class.getSimpleName());
+    }
+
+    @Override public void navigateToLogin() {
+        LoginActivity.start(this);
     }
 
     @OnClick(R.id.layout_expand_panel)

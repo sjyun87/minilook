@@ -169,5 +169,7 @@ public interface ProductDetailPresenter extends LifecycleObserver {
         void navigateToEventDetail();
 
         void navigateToOrder(List<ShoppingBrandDataModel> items);
+
+        void navigateToLogin();
     }
 }

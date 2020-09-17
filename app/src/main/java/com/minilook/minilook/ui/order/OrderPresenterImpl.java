@@ -171,6 +171,10 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         reqOrderComplete(receipt_id, bootPayData);
     }
 
+    @Override public void onBootPayError(String message) {
+        view.showBootPayErrorToast();
+    }
+
     private void calPrice() {
         for (ShoppingBrandDataModel brandData : orderItem) {
             int totalProductsPrice = 0;

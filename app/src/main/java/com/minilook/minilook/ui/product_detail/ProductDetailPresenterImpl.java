@@ -2,6 +2,7 @@ package com.minilook.minilook.ui.product_detail;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
@@ -83,9 +84,13 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     }
 
     @Override public void onScrapClick() {
-        data.setScrap(!data.isScrap());
-        setupScrap();
-        reqScrap();
+        if (App.getInstance().isLogin()) {
+            data.setScrap(!data.isScrap());
+            setupScrap();
+            reqScrap();
+        } else {
+            view.navigateToLogin();
+        }
     }
 
     private void reqScrap() {
@@ -94,8 +99,12 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     }
 
     @Override public void onBuyClick() {
-        view.showOptionSelector();
-        reqProductOptions();
+        if (App.getInstance().isLogin()) {
+            view.showOptionSelector();
+            reqProductOptions();
+        } else {
+            view.navigateToLogin();
+        }
     }
 
     @Override public void onBrandClick() {

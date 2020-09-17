@@ -68,7 +68,7 @@
             android:id="@+id/img_thumb"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:scaleType="centerCrop"
+            android:scaleType="matrix"
             app:layout_constraintDimensionRatio="H,180:90"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
