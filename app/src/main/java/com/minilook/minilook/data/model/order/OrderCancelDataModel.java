@@ -10,4 +10,5 @@ import lombok.Data;
     private String receiptId;
     private String brandName;
     private List<OrderGoodsDataModel> goods;
+    private boolean isAllCancel;
 }

@@ -112,6 +112,7 @@ public class OrderDetailPresenterImpl extends BasePresenterImpl implements Order
             items.addAll(brandData.getGoods());
         }
         cancelData.setGoods(items);
+        cancelData.setAllCancel(true);
         return cancelData;
     }
 
@@ -127,6 +128,7 @@ public class OrderDetailPresenterImpl extends BasePresenterImpl implements Order
                 ArrayList<OrderGoodsDataModel> items = new ArrayList<>();
                 items.add(data);
                 cancelData.setGoods(items);
+                cancelData.setAllCancel(false);
                 view.navigateToOrderCancel(cancelData);
 
             } else if (o instanceof RxBusEventQuestionClick) {
@@ -145,6 +147,8 @@ public class OrderDetailPresenterImpl extends BasePresenterImpl implements Order
                 view.showComingSoonToast();
             } else if (o instanceof RxBusEventStatusRefresh) {
                 reqOrderDetail();
+            } else if (o instanceof RxBusEventCancelQuestionClick) {
+                view.navigateToMinilookTalk();
             }
         }, Timber::e));
     }
@@ -170,6 +174,9 @@ public class OrderDetailPresenterImpl extends BasePresenterImpl implements Order
     }
 
     @AllArgsConstructor @Getter public final static class RxBusEventWriteReviewClick {
+    }
+
+    @AllArgsConstructor @Getter public final static class RxBusEventCancelQuestionClick {
     }
 
     @AllArgsConstructor @Getter public final static class RxBusEventStatusRefresh {

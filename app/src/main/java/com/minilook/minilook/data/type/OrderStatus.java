@@ -16,6 +16,7 @@ import lombok.Getter;
     CANNOT_RETURN(12, "반품불가"),
     CANNOT_EXCHANGE(13, "교환불가"),
     PURCHASE_CONFIRM(14, "구매확정"),
+    CANCEL(15, "취소접수"),
     ERROR(-1, "");
 
     private int code;

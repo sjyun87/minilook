@@ -9,6 +9,7 @@ import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.order_detail.viewholder.status.CancelCompletedVH;
+import com.minilook.minilook.ui.order_detail.viewholder.status.CancelVH;
 import com.minilook.minilook.ui.order_detail.viewholder.status.CannotExchangeVH;
 import com.minilook.minilook.ui.order_detail.viewholder.status.CannotReturnVH;
 import com.minilook.minilook.ui.order_detail.viewholder.status.DeliveryCompletedVH;
@@ -55,6 +56,8 @@ public class OrderDetailGoodsAdapter extends RecyclerView.Adapter<BaseViewHolder
                 return new CannotExchangeVH(parent);
             case PURCHASE_CONFIRM:
                 return new PurchaseConfirmVH(parent);
+            case CANCEL:
+                return new CancelVH(parent);
             default:
                 return new BaseViewHolder<>(parent);
         }

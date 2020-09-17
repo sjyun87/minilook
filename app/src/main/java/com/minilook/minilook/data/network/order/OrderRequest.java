@@ -119,7 +119,7 @@ public class OrderRequest extends BaseRequest<OrderService> {
         jsonMap.put("memberNo", data.getUser_id());
         jsonMap.put("mid", data.getOrder_id());
         jsonMap.put("paymentPrice", data.getPayment_price());
-        if (data.getUse_coupon_value() != 0) jsonMap.put("point", data.getUse_point_value());
+        if (data.getUse_point_value() != 0) jsonMap.put("point", data.getUse_point_value());
         jsonMap.put("productDiscountPrice", data.getTotal_discount_price());
         jsonMap.put("productTotalPrice", data.getTotal_product_price());
         jsonMap.put("receiptId", data.getReceipt_id());
@@ -161,12 +161,12 @@ public class OrderRequest extends BaseRequest<OrderService> {
     }
 
     public Single<BaseDataModel> orderCancel(OrderCancelDataModel orderData) {
-        if (orderData.getOrderNo() != null) {
+        if (orderData.isAllCancel()) {
             return getApi().orderAllCancel(orderData.getOrderNo(), createRequestBody(parseToAllCancelJson(orderData)));
         } else {
             int orderOptionNo = orderData.getGoods().get(0).getOrderOptionNo();
             return getApi().orderCancel(orderData.getOrderNo(), orderOptionNo,
-                createRequestBody(parseToAllCancelJson(orderData)));
+                createRequestBody(parseToCancelJson(orderData)));
         }
     }
 

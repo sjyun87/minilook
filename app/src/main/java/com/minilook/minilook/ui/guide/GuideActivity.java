@@ -75,4 +75,7 @@ public class GuideActivity extends BaseActivity implements GuidePresenter.View {
     void onGuideEndClick() {
         presenter.onGuideEndClick();
     }
+
+    @Override public void onBackPressed() {
+    }
 }

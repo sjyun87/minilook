@@ -154,6 +154,11 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailPres
         OrderCancelActivity.start(this, items);
     }
 
+    @Override public void navigateToMinilookTalk() {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://pf.kakao.com/_xmHqdK"));
+        startActivity(intent);
+    }
+
     @OnClick(R.id.txt_order_cancel)
     void onOrderAllCancelClick() {
         presenter.onOrderAllCancelClick();

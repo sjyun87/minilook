@@ -23,7 +23,7 @@
         android:textSize="@dimen/sp_6"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/line"
-        tools:text="교환진행" />
+        tools:text="취소접수" />
 
     <ImageView
         android:id="@+id/img_thumb"

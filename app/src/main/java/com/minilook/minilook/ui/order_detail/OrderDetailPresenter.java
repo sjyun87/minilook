@@ -55,5 +55,7 @@ public interface OrderDetailPresenter extends LifecycleObserver {
         void navigateToOrderExchangeNReturn(OrderGoodsDataModel data);
 
         void navigateToOrderCancel(OrderCancelDataModel items);
+
+        void navigateToMinilookTalk();
     }
 }
