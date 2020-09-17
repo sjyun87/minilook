@@ -12,14 +12,17 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.order.OrderBrandDataModel;
+import com.minilook.minilook.data.model.order.OrderCancelDataModel;
 import com.minilook.minilook.data.model.order.OrderGoodsDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
+import com.minilook.minilook.ui.order_cancel.OrderCancelActivity;
 import com.minilook.minilook.ui.order_detail.adapter.OrderDetailAdapter;
 import com.minilook.minilook.ui.order_detail.di.OrderDetailArguments;
 import com.minilook.minilook.ui.order_exchange_n_return.OrderExchangeNReturnActivity;
 import com.minilook.minilook.util.StringUtil;
+import java.util.ArrayList;
 
 public class OrderDetailActivity extends BaseActivity implements OrderDetailPresenter.View {
 
@@ -129,6 +132,10 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailPres
         DialogManager.showPurchaseConfirmDialog(this, () -> presenter.onPurchaseConfirmDialogOkClick(orderOptionNo));
     }
 
+    @Override public void showComingSoonToast() {
+        Toast.makeText(this, "현재 서비스 준비중입니다.\n빠른 시일내에 업데이트 하겠습니다. 감사합니다.", Toast.LENGTH_SHORT).show();
+    }
+
     @Override public void navigateToOutlink(String url) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(intent);
@@ -143,8 +150,8 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailPres
         OrderExchangeNReturnActivity.start(this, data);
     }
 
-    @Override public void showComingSoonToast() {
-        Toast.makeText(this, "현재 서비스 준비중입니다.\n빠른 시일내에 업데이트 하겠습니다. 감사합니다.", Toast.LENGTH_SHORT).show();
+    @Override public void navigateToOrderCancel(OrderCancelDataModel items) {
+        OrderCancelActivity.start(this, items);
     }
 
     @OnClick(R.id.txt_order_cancel)

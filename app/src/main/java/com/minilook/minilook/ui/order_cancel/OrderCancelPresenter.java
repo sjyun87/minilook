@@ -9,8 +9,22 @@ public interface OrderCancelPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
+    void onApplyClick();
+
     interface View {
 
         void setupRecyclerView();
+
+        void refresh();
+
+        void setOrderNo(String no);
+
+        void setOrderDate(String date);
+
+        void showReceiptCompletedToast();
+
+        void finish();
+
+        void showErrorToast(String message);
     }
 }

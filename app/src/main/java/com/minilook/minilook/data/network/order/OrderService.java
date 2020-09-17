@@ -63,6 +63,13 @@ public interface OrderService {
         @Body RequestBody body
     );
 
+    @HTTP(method = "DELETE", path = "/api/orders/{orderNo}/orders/{orderOptionNo}", hasBody = true)
+    Single<BaseDataModel> orderCancel(
+        @Path("orderNo") String orderNo,
+        @Path("orderOptionNo") int orderOptionNo,
+        @Body RequestBody body
+    );
+
     @GET("/api/orders/refunds") Single<BaseDataModel> getExchangeNReturnCode();
 
     @POST("/api/orders/refunds") Single<BaseDataModel> exchangeNReturn(

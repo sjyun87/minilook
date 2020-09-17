@@ -30,4 +30,6 @@ import lombok.Data;
     private String trackingUrl;
     @Expose @SerializedName("infoTelephone")
     private String csPhone;
+
+    private String brandName;
 }

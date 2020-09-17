@@ -3,7 +3,9 @@ package com.minilook.minilook.ui.order_detail;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
+import com.minilook.minilook.data.model.order.OrderCancelDataModel;
 import com.minilook.minilook.data.model.order.OrderGoodsDataModel;
+import java.util.ArrayList;
 
 public interface OrderDetailPresenter extends LifecycleObserver {
 
@@ -44,12 +46,14 @@ public interface OrderDetailPresenter extends LifecycleObserver {
 
         void showPurchaseConfirmDialog(int orderOptionNo);
 
+        void showComingSoonToast();
+
         void navigateToOutlink(String url);
 
         void navigateToDial(String csPhone);
 
         void navigateToOrderExchangeNReturn(OrderGoodsDataModel data);
 
-        void showComingSoonToast();
+        void navigateToOrderCancel(OrderCancelDataModel items);
     }
 }

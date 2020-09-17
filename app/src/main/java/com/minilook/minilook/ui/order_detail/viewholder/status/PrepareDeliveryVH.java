@@ -57,7 +57,7 @@ public class PrepareDeliveryVH extends BaseViewHolder<OrderGoodsDataModel> {
 
     @OnClick(R.id.txt_order_cancel)
     void onOrderCancelClick() {
-
+        RxBus.send(new OrderDetailPresenterImpl.RxBusEventOrderCancelClick(data));
     }
 
     @OnClick(R.id.txt_question)

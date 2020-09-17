@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.order_detail.viewholder.status;
+package com.minilook.minilook.ui.order_cancel.viewholder;
 
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -10,18 +10,15 @@ import androidx.annotation.NonNull;
 import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
-import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.order.OrderGoodsDataModel;
-import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.type.OrderStatus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
-import com.minilook.minilook.ui.order_detail.OrderDetailPresenterImpl;
 import com.minilook.minilook.util.StringUtil;
 
-public class OrderCompletedVH extends BaseViewHolder<OrderGoodsDataModel> {
+public class OrderCancelItemVH extends BaseViewHolder<OrderGoodsDataModel> {
 
     @BindView(R.id.txt_state) TextView stateTextView;
     @BindView(R.id.img_thumb) ImageView thumbImageView;
@@ -33,9 +30,9 @@ public class OrderCompletedVH extends BaseViewHolder<OrderGoodsDataModel> {
 
     @BindDrawable(R.drawable.placeholder_image) Drawable placeholder_image;
 
-    public OrderCompletedVH(@NonNull View itemView) {
+    public OrderCancelItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_order_type_order_completed, (ViewGroup) itemView, false));
+            .inflate(R.layout.item_order_cancel, (ViewGroup) itemView, false));
     }
 
     @Override public void bind(OrderGoodsDataModel $data) {
@@ -53,15 +50,5 @@ public class OrderCompletedVH extends BaseViewHolder<OrderGoodsDataModel> {
         nameTextView.setText(data.getName());
         optionTextView.setText(String.format(format_option, data.getColorName(), data.getSizeName()));
         priceTextView.setText(StringUtil.toDigit(data.getProductPrice()));
-    }
-
-    @OnClick(R.id.txt_order_cancel)
-    void onOrderCancelClick() {
-        RxBus.send(new OrderDetailPresenterImpl.RxBusEventOrderCancelClick(data));
-    }
-
-    @OnClick(R.id.txt_question)
-    void onQuestionClick() {
-        RxBus.send(new OrderDetailPresenterImpl.RxBusEventQuestionClick(data.getCsPhone()));
     }
 }

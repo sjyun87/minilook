@@ -3,8 +3,8 @@ package com.minilook.minilook.data.network.order;
 import com.google.gson.JsonObject;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.model.base.BaseDataModel;
+import com.minilook.minilook.data.model.order.OrderCancelDataModel;
 import com.minilook.minilook.data.model.order.OrderCompleteDataModel;
-import com.minilook.minilook.data.model.order.OrderDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingProductDataModel;
@@ -160,15 +160,30 @@ public class OrderRequest extends BaseRequest<OrderService> {
         return getApi().setPurchaseConfirm(orderOptionNo);
     }
 
-    public Single<BaseDataModel> orderAllCancel(OrderDataModel orderData) {
-        return getApi().orderAllCancel(orderData.getOrderNo(), createRequestBody(parseToAllCancelJson(orderData)));
+    public Single<BaseDataModel> orderCancel(OrderCancelDataModel orderData) {
+        if (orderData.getOrderNo() != null) {
+            return getApi().orderAllCancel(orderData.getOrderNo(), createRequestBody(parseToAllCancelJson(orderData)));
+        } else {
+            int orderOptionNo = orderData.getGoods().get(0).getOrderOptionNo();
+            return getApi().orderCancel(orderData.getOrderNo(), orderOptionNo,
+                createRequestBody(parseToAllCancelJson(orderData)));
+        }
     }
 
-    private Map<String, Object> parseToAllCancelJson(OrderDataModel orderData) {
+    private Map<String, Object> parseToAllCancelJson(OrderCancelDataModel orderData) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("memberNo", App.getInstance().getMemberId());
         jsonMap.put("mid", orderData.getOrderNo());
         jsonMap.put("receiptId", orderData.getReceiptId());
+        return jsonMap;
+    }
+
+    private Map<String, Object> parseToCancelJson(OrderCancelDataModel orderData) {
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("memberNo", App.getInstance().getMemberId());
+        jsonMap.put("mid", orderData.getOrderNo());
+        jsonMap.put("receiptId", orderData.getReceiptId());
+        jsonMap.put("orderNo", orderData.getGoods().get(0).getOrderOptionNo());
         return jsonMap;
     }
 

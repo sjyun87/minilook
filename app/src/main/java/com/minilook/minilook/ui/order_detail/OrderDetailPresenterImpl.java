@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.order.OrderBrandDataModel;
+import com.minilook.minilook.data.model.order.OrderCancelDataModel;
 import com.minilook.minilook.data.model.order.OrderDataModel;
 import com.minilook.minilook.data.model.order.OrderDetailDataModel;
 import com.minilook.minilook.data.model.order.OrderGoodsDataModel;
@@ -14,6 +15,8 @@ import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.order_detail.di.OrderDetailArguments;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import timber.log.Timber;
@@ -46,7 +49,7 @@ public class OrderDetailPresenterImpl extends BasePresenterImpl implements Order
     }
 
     @Override public void onOrderAllCancelClick() {
-
+        view.navigateToOrderCancel(getItems());
     }
 
     @Override public void onPurchaseConfirmDialogOkClick(int orderOptionNo) {
@@ -94,25 +97,38 @@ public class OrderDetailPresenterImpl extends BasePresenterImpl implements Order
             .subscribe(this::resPurchaseConfirm, Timber::e));
     }
 
-    //private void reqOrderAllCancel() {
-    //    addDisposable(orderRequest.orderAllCancel(orderData)
-    //        .compose(Transformer.applySchedulers())
-    //        .subscribe(this::resOrderAllCancel, Timber::e)
-    //    );
-    //}
-    //
-    //private void resOrderAllCancel(BaseDataModel dataModel) {
-    //    Timber.e(dataModel.toString());
-    //}
-
     private void resPurchaseConfirm(BaseDataModel data) {
         reqOrderDetail();
+    }
+
+    private OrderCancelDataModel getItems() {
+        OrderCancelDataModel cancelData = new OrderCancelDataModel();
+        cancelData.setOrderNo(orderData.getOrderNo());
+        cancelData.setOrderDate(orderData.getOrderDate());
+        cancelData.setReceiptId(orderData.getReceiptId());
+        ArrayList<OrderGoodsDataModel> items = new ArrayList<>();
+        for (OrderBrandDataModel brandData : orderData.getBrands()) {
+            cancelData.setBrandName(brandData.getBrandName());
+            items.addAll(brandData.getGoods());
+        }
+        cancelData.setGoods(items);
+        return cancelData;
     }
 
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
             if (o instanceof RxBusEventOrderCancelClick) {
-                // 취소 페이지 이동
+                OrderGoodsDataModel data = ((RxBusEventOrderCancelClick) o).getData();
+
+                OrderCancelDataModel cancelData = new OrderCancelDataModel();
+                cancelData.setOrderNo(orderData.getOrderNo());
+                cancelData.setOrderDate(orderData.getOrderDate());
+                cancelData.setReceiptId(orderData.getReceiptId());
+                ArrayList<OrderGoodsDataModel> items = new ArrayList<>();
+                items.add(data);
+                cancelData.setGoods(items);
+                view.navigateToOrderCancel(cancelData);
+
             } else if (o instanceof RxBusEventQuestionClick) {
                 String csPhone = ((RxBusEventQuestionClick) o).getCsPhone();
                 view.navigateToDial(csPhone);
