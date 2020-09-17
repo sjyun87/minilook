@@ -465,7 +465,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         List<BrandShippingDataModel> brandShippingData = new ArrayList<>();
         for (ShoppingBrandDataModel brandData : orderItem) {
             BrandShippingDataModel brandShippingModel = new BrandShippingDataModel();
-            brandShippingModel.setId(brandData.getBrand_id());
+            brandShippingModel.setBrandNo(brandData.getBrand_id());
             brandShippingModel.setShipping_price(
                 brandData.getFinal_shipping_price() + brandData.getIsland_shipping_price());
             brandShippingData.add(brandShippingModel);
