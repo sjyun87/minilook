@@ -10,13 +10,13 @@ import lombok.Data;
 
 @Data public class ProductDataModel {
     @Expose @SerializedName("productNo")
-    private int product_id;
+    private int product_no;
     @Expose @SerializedName("image")
     private String image_url;
     @Expose @SerializedName("images")
-    private List<String> product_images;
+    private List<String> images;
     @Expose @SerializedName("brandNo")
-    private int brand_id;
+    private int brand_no;
     @Expose @SerializedName(value = "brandName", alternate = "brandNm")
     private String brand_name;
     @Expose @SerializedName("brandLogo")
@@ -54,7 +54,7 @@ import lombok.Data;
     @Expose @SerializedName("qaCount")
     private int question_cnt;
     @Expose @SerializedName("optionStocks")
-    private List<ProductStockModel> productStocks;
+    private List<ProductStockModel> product_stocks;
     @Expose @SerializedName("point")
     private int point;
     @Expose @SerializedName("shippingType")
@@ -68,7 +68,7 @@ import lombok.Data;
     @Expose @SerializedName("relationProducts")
     private List<ProductDataModel> related_products;
     @Expose @SerializedName("recentNo")
-    private int recent_id;
+    private int recent_no;
     @Expose @SerializedName("productStyleNo")
     private String info_style_no;
     @Expose @SerializedName("kcAuthInfo")

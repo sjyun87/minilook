@@ -40,6 +40,6 @@ public class LookBookImageModuleVH extends BaseViewHolder<String> {
     }
 
     void onItemClick(View view) {
-        RxBus.send(new LookBookPresenterImpl.RxEventNavigateToDetail(true));
+        RxBus.send(new LookBookPresenterImpl.RxEventScrollToDetail(true));
     }
 }

@@ -96,7 +96,7 @@ public class ProductSize84VH extends BaseViewHolder<ProductDataModel> {
     }
 
     void onItemClick(View view) {
-        ProductDetailActivity.start(context, data.getProduct_id());
+        ProductDetailActivity.start(context, data.getProduct_no());
     }
 
     @OnClick(R.id.img_scrap)

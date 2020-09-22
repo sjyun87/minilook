@@ -4,15 +4,12 @@ import com.google.gson.Gson;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.lookbook.LookBookDataModel;
 import com.minilook.minilook.data.model.lookbook.LookBookModuleDataModel;
-import com.minilook.minilook.data.model.product.ProductDataModel;
-import com.minilook.minilook.data.model.shipping.ShippingDataModel;
 import com.minilook.minilook.data.network.lookbook.LookBookRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.lookbook.view.preview.di.LookBookPreviewArguments;
-import com.minilook.minilook.ui.shipping.ShippingPresenterImpl;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -28,7 +25,7 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
     private Gson gson = new Gson();
 
     private static final int DATA_POOL_SIZE = 30;
-    private static final int DATA_ROW = 10;
+    private static final int ROWS = 10;
     private List<LookBookModuleDataModel> dataPool;
 
     private List<Integer> usedLookbooks = new ArrayList<>();
@@ -51,7 +48,7 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
     }
 
     private void setupLoadMoreData() {
-        int dataSize = Math.min(dataPool.size(), DATA_ROW);
+        int dataSize = Math.min(dataPool.size(), ROWS);
         int start = adapter.getSize();
         adapter.addAll(dataPool.subList(0, dataSize));
         view.refresh(start, dataSize);
@@ -61,7 +58,7 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
 
     private void reqLookBookModules() {
         addDisposable(
-            lookBookRequest.getLookbookModules(DATA_ROW, usedLookbooks)
+            lookBookRequest.getLookbookModules(ROWS, usedLookbooks)
                 .compose(Transformer.applySchedulers())
                 .filter(data -> data.getCode().equals(HttpCode.OK))
                 .map(data -> gson.fromJson(data.getData(), LookBookDataModel.class))
@@ -80,7 +77,7 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
 
     private void reqLoadMoreLookBookModules() {
         addDisposable(
-            lookBookRequest.getLookbookModules(DATA_ROW, usedLookbooks)
+            lookBookRequest.getLookbookModules(ROWS, usedLookbooks)
                 .filter(data -> data.getCode().equals(HttpCode.OK))
                 .map(data -> gson.fromJson(data.getData(), LookBookDataModel.class))
                 .subscribe(this::resLoadMoreLookBookModules, Timber::e)
@@ -99,28 +96,14 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
 
     private void usedData(List<LookBookModuleDataModel> lookbooks) {
         for (LookBookModuleDataModel model : lookbooks) {
-            usedLookbooks.add(model.getId());
+            usedLookbooks.add(model.getLookbook_no());
         }
     }
-
-    //private void checkProductScrap(boolean isScrap, int product_id) {
-    //    List<LookBookModuleDataModel> lookbooks = adapter.get();
-    //    for (int i = 0; i < lookbooks.size(); i++) {
-    //        List<ProductDataModel> products = lookbooks.get(i).getProducts();
-    //        for (int j = 0; j < products.size(); j++) {
-    //            if (product_id == products.get(j).getProduct_id()
-    //                && isScrap != products.get(i).isScrap()) {
-    //                products.get(j).setScrap(isScrap);
-    //                return;
-    //            }
-    //        }
-    //    }
-    //}
 
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
             if (o instanceof RxEventLookBookCoachMark1) {
-                view.scrollToStep();
+                view.scrollToNextPage();
             }
         }, Timber::e));
     }

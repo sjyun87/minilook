@@ -10,16 +10,16 @@
     <string name="base_pattern">^[ㄱ-ㅣ가-힣]*$</string>
 
     <!--Toast-->
-    <string name="base_toast_app_finish">뒤로 가기 버튼을 한 번 더 누르면 종료됩니다</string>
-    <string name="base_toast_marketing_info_agree">마케팅 알림이 수신동의 되었습니다</string>
-    <string name="base_toast_marketing_info_disagree">마케팅 알림이 수신거부 되었습니다</string>
-    <string name="base_toast_order_info_agree">정보성 알림이 수신동의 되었습니다</string>
-    <string name="base_toast_order_info_disagree">정보성 알림이 수신거부 되었습니다</string>
-    <string name="base_toast_login">로그인 되었습니다</string>
-    <string name="base_toast_logout">로그아웃 되었습니다</string>
-    <string name="base_toast_update_completed">닉네임이 변경되었습니다</string>
-    <string name="base_toast_add_shoppingbag">장바구니에 담았습니다</string>
-    <string name="base_toast_receipt_completed">접수 되었습니다.</string>
+    <string name="toast_app_finish">뒤로 가기 버튼을 한 번 더 누르면 종료됩니다</string>
+    <string name="toast_marketing_info_agree">마케팅 알림이 수신동의 되었습니다</string>
+    <string name="toast_marketing_info_disagree">마케팅 알림이 수신거부 되었습니다</string>
+    <string name="toast_order_info_agree">정보성 알림이 수신동의 되었습니다</string>
+    <string name="toast_order_info_disagree">정보성 알림이 수신거부 되었습니다</string>
+    <string name="toast_login">로그인 되었습니다</string>
+    <string name="toast_logout">로그아웃 되었습니다</string>
+    <string name="toast_nick_update_completed">닉네임이 변경되었습니다</string>
+    <string name="toast_add_shoppingbag">장바구니에 담았습니다</string>
+    <string name="toast_receipt_completed">접수 되었습니다.</string>
 
     <!--Bottom Bar-->
     <string name="bottombar_lookbook">룩북</string>

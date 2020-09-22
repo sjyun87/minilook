@@ -13,11 +13,11 @@ public interface MainPresenter extends LifecycleObserver {
 
     void onTabChanged(int position);
 
-    void onMarketingAgree();
-
     void onProductScrap(boolean isScrap, ProductDataModel product);
 
     void onBrandScrap(boolean isScrap, BrandDataModel brand);
+
+    void onMarketingAgree();
 
     void onMarketingDismiss();
 
@@ -32,8 +32,6 @@ public interface MainPresenter extends LifecycleObserver {
         void setupBottomBarTheme(boolean flag);
 
         void showMarketingDialog();
-
-        void navigateToLogin();
 
         void showLookBookCoachMark();
     }

@@ -108,7 +108,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     }
 
     @Override public void onBrandClick() {
-        view.navigateToBrandDetail(data.getBrand_id());
+        view.navigateToBrandDetail(data.getBrand_no());
     }
 
     @Override public void onExpandClick() {
@@ -121,7 +121,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     }
 
     @Override public void onShippingNRefundClick() {
-        view.navigateToProductInfo(data.getBrand_id());
+        view.navigateToProductInfo(data.getBrand_no());
     }
 
     @Override public void onOptionSelectorShoppingBagClick(List<ShoppingOptionDataModel> optionData) {
@@ -136,7 +136,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     private List<ShoppingBrandDataModel> parseToData(List<ShoppingOptionDataModel> optionData) {
         List<ShoppingBrandDataModel> brandData = new ArrayList<>();
         ShoppingBrandDataModel brandModel = new ShoppingBrandDataModel();
-        brandModel.setBrand_id(data.getBrand_id());
+        brandModel.setBrand_id(data.getBrand_no());
         brandModel.setBrand_name(data.getBrand_name());
         brandModel.setBrand_logo(data.getBrand_logo());
         brandModel.setShipping_type(data.getShipping_type());
@@ -147,9 +147,9 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         List<ShoppingProductDataModel> productData = new ArrayList<>();
         ShoppingProductDataModel productModel = new ShoppingProductDataModel();
         productModel.setDisplay_code(data.getDisplay_code());
-        productModel.setProduct_id(data.getProduct_id());
+        productModel.setProduct_id(data.getProduct_no());
         productModel.setProduct_name(data.getProduct_name());
-        productModel.setThumb_url(data.getProduct_images().get(0));
+        productModel.setThumb_url(data.getImages().get(0));
         productModel.setDiscount(data.isDiscount());
         productModel.setDiscount_percent(data.getDiscount_percent());
         productModel.setPrice(data.getPrice());
@@ -186,14 +186,14 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     private void resProductDetail(ProductDataModel data) {
         this.data = data;
 
-        productImageAdapter.set(checkValid(data.getProduct_images()));
+        productImageAdapter.set(checkValid(data.getImages()));
         view.productImageRefresh();
 
         view.setupBrandName(data.getBrand_name());
         view.setupProductName(data.getProduct_name());
 
-        if (data.getProductStocks() != null) {
-            for (ProductStockModel model : data.getProductStocks()) {
+        if (data.getProduct_stocks() != null) {
+            for (ProductStockModel model : data.getProduct_stocks()) {
                 if (model.getType().equals(STOCK_TYPE_COLOR)) {
                     view.addColorView(model);
                 } else if (model.getType().equals(STOCK_TYPE_SIZE)) {

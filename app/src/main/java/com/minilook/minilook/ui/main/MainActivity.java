@@ -18,7 +18,6 @@ import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.widget.BottomBar;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
-import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.lookbook.LookBookPresenterImpl;
 import com.minilook.minilook.ui.lookbook.view.preview.LookBookPreviewPresenterImpl;
 import com.minilook.minilook.ui.main.adapter.MainPagerAdapter;
@@ -41,7 +40,6 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
         context.startActivity(intent);
     }
 
-    @BindView(R.id.root) ConstraintLayout root;
     @BindView(R.id.viewpager) ViewPager2 viewPager;
     @BindView(R.id.bottombar) BottomBar bottomBar;
 
@@ -49,10 +47,8 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
     @BindView(R.id.layout_coach_lookbook2) ConstraintLayout coachLookbook2;
     @BindView(R.id.layout_coach_lookbook3) ConstraintLayout coachLookbook3;
 
-    @BindString(R.string.base_toast_app_finish) String str_toast_app_finish;
-    @BindString(R.string.base_toast_marketing_info_agree) String str_toast_marketing_agree;
-    @BindString(R.string.base_toast_login) String str_toast_login;
-    @BindString(R.string.base_toast_logout) String str_toast_logout;
+    @BindString(R.string.toast_app_finish) String toast_app_finish;
+    @BindString(R.string.toast_marketing_info_agree) String toast_marketing_agree;
 
     @BindColor(R.color.color_FF616161) int color_FF616161;
 
@@ -83,13 +79,9 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
     }
 
     @Override public void onLogin() {
-        //CustomToast.make(this, str_toast_login).show();
-        Toast.makeText(this, str_toast_login, Toast.LENGTH_SHORT).show();
     }
 
     @Override public void onLogout() {
-        //CustomToast.make(this, str_toast_logout).show();
-        Toast.makeText(this, str_toast_logout, Toast.LENGTH_SHORT).show();
     }
 
     @Override public void onProductScrap(boolean isScrap, ProductDataModel product) {
@@ -127,13 +119,8 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
     @Override public void showMarketingDialog() {
         DialogManager.showMarketingDialog(this, () -> {
             presenter.onMarketingAgree();
-            //CustomToast.make(this, str_toast_marketing_agree).show();
-            Toast.makeText(MainActivity.this, str_toast_marketing_agree, Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, toast_marketing_agree, Toast.LENGTH_SHORT).show();
         }, dialogInterface -> presenter.onMarketingDismiss());
-    }
-
-    @Override public void navigateToLogin() {
-        LoginActivity.start(this);
     }
 
     @Override public void showLookBookCoachMark() {
@@ -143,8 +130,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
     @Override public void onBackPressed() {
         if (System.currentTimeMillis() > backPressedTime + 2000) {
             backPressedTime = System.currentTimeMillis();
-            //CustomToast.make(this, str_toast_app_finish).show();
-            Toast.makeText(this, str_toast_app_finish, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, toast_app_finish, Toast.LENGTH_SHORT).show();
         } else {
             finishAffinity();
         }
@@ -159,14 +145,14 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
 
     @OnClick(R.id.layout_coach_lookbook2)
     void onCoachLookBook2Click() {
-        RxBus.send(new LookBookPresenterImpl.RxEventNavigateToDetail(true));
+        RxBus.send(new LookBookPresenterImpl.RxEventScrollToDetail(true));
         coachLookbook2.setVisibility(View.GONE);
         coachLookbook3.setVisibility(View.VISIBLE);
     }
 
     @OnClick(R.id.layout_coach_lookbook3)
     void onCoachLookBook3Click() {
-        RxBus.send(new LookBookPresenterImpl.RxEventNavigateToPreview(true));
+        RxBus.send(new LookBookPresenterImpl.RxEventScrollToPreview(true));
         coachLookbook3.setVisibility(View.GONE);
         Prefs.putBoolean(PrefsKey.KEY_LOOKBOOK_COACH_VISIBLE, true);
     }

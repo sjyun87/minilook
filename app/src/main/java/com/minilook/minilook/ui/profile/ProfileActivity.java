@@ -43,7 +43,7 @@ public class ProfileActivity extends BaseActivity implements ProfilePresenter.Vi
     @BindView(R.id.txt_shipping_address) TextView shippingAddressTextView;
     @BindView(R.id.txt_shipping_empty) TextView emptyShippingTextView;
 
-    @BindString(R.string.base_toast_update_completed) String str_toast_update_completed;
+    @BindString(R.string.toast_nick_update_completed) String str_toast_update_completed;
     @BindString(R.string.profile_nick_check_unavailable) String str_nick_update_error;
     @BindString(R.string.profile_shipping_address) String format_address;
 

@@ -15,22 +15,22 @@ public class ShippingRequest extends BaseRequest<ShippingService> {
     }
 
     public Single<BaseDataModel> getShippings() {
-        int user_id = App.getInstance().getMemberId();
+        int user_id = App.getInstance().getMemberNo();
         return getApi().getShippings(user_id);
     }
 
     public Single<BaseDataModel> deleteShipping(int address_id) {
-        int user_id = App.getInstance().getMemberId();
+        int user_id = App.getInstance().getMemberNo();
         return getApi().deleteShipping(user_id, address_id);
     }
 
     public Single<BaseDataModel> updateShipping(ShippingDataModel model) {
-        int user_id = App.getInstance().getMemberId();
+        int user_id = App.getInstance().getMemberNo();
         return getApi().updateShipping(user_id, model.getAddress_id(), createRequestBody(parseToJson(model)));
     }
 
     public Single<BaseDataModel> addShipping(ShippingDataModel model) {
-        int user_id = App.getInstance().getMemberId();
+        int user_id = App.getInstance().getMemberNo();
         return getApi().addShipping(user_id, createRequestBody(parseToJson(model)));
     }
 

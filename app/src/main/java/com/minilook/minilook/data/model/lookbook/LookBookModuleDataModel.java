@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data public class LookBookModuleDataModel {
     @Expose @SerializedName("lookbookNo")
-    private int id;
+    private int lookbook_no;
     @Expose @SerializedName("label")
     private String label;
     @Expose @SerializedName("title")

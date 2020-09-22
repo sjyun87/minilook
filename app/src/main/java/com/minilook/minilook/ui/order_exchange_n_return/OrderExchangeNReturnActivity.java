@@ -57,7 +57,7 @@ public class OrderExchangeNReturnActivity extends BaseActivity implements OrderE
     @BindString(R.string.order_exchange_n_return_option) String format_option;
     @BindString(R.string.order_exchange_n_return_type_hint) String str_type_hint;
     @BindString(R.string.order_exchange_n_return_reason_hint) String str_reason_hint;
-    @BindString(R.string.base_toast_receipt_completed) String toast_receipt_complete;
+    @BindString(R.string.toast_receipt_completed) String toast_receipt_complete;
 
     @BindColor(R.color.color_FF232323) int color_FF232323;
     @BindColor(R.color.color_FFA9A9A9) int color_FFA9A9A9;

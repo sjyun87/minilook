@@ -14,14 +14,14 @@ public class LookBookRequest extends BaseRequest<LookBookService> {
         return LookBookService.class;
     }
 
-    public Single<BaseDataModel> getLookbookModules(int row, List<Integer> usedItems) {
-        return getApi().getLookBookModule(createRequestBody(parseToJson(row, usedItems)));
+    public Single<BaseDataModel> getLookbookModules(int rows, List<Integer> usedItems) {
+        return getApi().getLookBookModule(createRequestBody(parseToJson(rows, usedItems)));
     }
 
-    private Map<String, Object> parseToJson(int row, List<Integer> usedItems) {
+    private Map<String, Object> parseToJson(int rows, List<Integer> usedItems) {
         Map<String, Object> jsonMap = new HashMap<>();
-        if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getMemberId());
-        jsonMap.put("pageSize", row);
+        if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getMemberNo());
+        jsonMap.put("pageSize", rows);
         jsonMap.put("usedLookbooks", usedItems);
         return jsonMap;
     }

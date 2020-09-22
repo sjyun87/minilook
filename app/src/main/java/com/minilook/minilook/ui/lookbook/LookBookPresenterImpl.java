@@ -3,7 +3,6 @@ package com.minilook.minilook.ui.lookbook;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.lookbook.di.LookBookArguments;
-import com.minilook.minilook.ui.lookbook.view.detail.LookBookDetailPresenterImpl;
 import com.minilook.minilook.ui.main.MainPresenterImpl;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,31 +22,27 @@ public class LookBookPresenterImpl extends BasePresenterImpl implements LookBook
         view.setupViewPager();
     }
 
-    @Override public void onPrePageSelected(int position) {
-        RxBus.send(new MainPresenterImpl.RxEventLookBookPrePageChanged(position));
-    }
-
     @Override public void onPageSelected(int position) {
-        if (position == 0) RxBus.send(new LookBookDetailPresenterImpl.RxEventLookBookDetailScrollToTop());
+        RxBus.send(new MainPresenterImpl.RxEventLookBookPrePageChanged(position));
     }
 
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
-            if (o instanceof RxEventNavigateToPreview) {
-                boolean smoothScroll = ((RxEventNavigateToPreview) o).isSmoothScroll();
-                view.navigateToPreviewPage(smoothScroll);
-            } else if (o instanceof RxEventNavigateToDetail) {
-                boolean smoothScroll = ((RxEventNavigateToDetail) o).isSmoothScroll();
-                view.navigateToDetailPage(smoothScroll);
+            if (o instanceof RxEventScrollToPreview) {
+                boolean smoothScroll = ((RxEventScrollToPreview) o).isSmoothScroll();
+                view.scrollToPreviewPage(smoothScroll);
+            } else if (o instanceof RxEventScrollToDetail) {
+                boolean smoothScroll = ((RxEventScrollToDetail) o).isSmoothScroll();
+                view.scrollToDetailPage(smoothScroll);
             }
         }, Timber::e));
     }
 
-    @AllArgsConstructor @Getter public final static class RxEventNavigateToPreview {
+    @AllArgsConstructor @Getter public final static class RxEventScrollToPreview {
         boolean smoothScroll;
     }
 
-    @AllArgsConstructor @Getter public final static class RxEventNavigateToDetail {
+    @AllArgsConstructor @Getter public final static class RxEventScrollToDetail {
         boolean smoothScroll;
     }
 }

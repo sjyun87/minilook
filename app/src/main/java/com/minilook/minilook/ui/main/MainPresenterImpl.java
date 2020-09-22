@@ -33,21 +33,15 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
         view.setupViewPager();
         view.setupBottomBar();
 
-        reqUpdateToken();
-        checkVisibleLogin();
-        checkMarketingInfo();
+        checkMarketingInfoDialog();
     }
 
     @Override public void onTabChanged(int position) {
         if (position != 0) {
-            RxBus.send(new LookBookPresenterImpl.RxEventNavigateToPreview(false));
+            RxBus.send(new LookBookPresenterImpl.RxEventScrollToPreview(false));
             RxBus.send(new LookBookDetailPresenterImpl.RxEventLookBookDetailScrollToTop());
         }
         view.setupCurrentPage(position);
-    }
-
-    @Override public void onMarketingAgree() {
-        reqUpdateNonUserMarketingAgree();
     }
 
     @Override public void onProductScrap(boolean isScrap, ProductDataModel product) {
@@ -58,34 +52,19 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
         reqBrandScrap(isScrap, brand);
     }
 
+    @Override public void onMarketingAgree() {
+        reqUpdateMarketingInfo();
+    }
+
     @Override public void onMarketingDismiss() {
         checkCoachMark();
     }
 
-    private void reqUpdateToken() {
-        addDisposable(memberRequest.updateToken()
-            .subscribe());
-    }
-
-    private void checkVisibleLogin() {
-        if (!App.getInstance().isLogin()) {
-            int visibleCount = Prefs.getInt(PrefsKey.KEY_LOGIN_VISIBLE_COUNT, 0);
-            if (visibleCount < 3) {
-                view.navigateToLogin();
-                Prefs.putInt(PrefsKey.KEY_LOGIN_VISIBLE_COUNT, ++visibleCount);
-            }
-        }
-    }
-
-    private void checkMarketingInfo() {
-        if (!App.getInstance().isLogin()) {
-            boolean isVisible = Prefs.getBoolean(PrefsKey.KEY_MAIN_MARKETING_VISIBLE, false);
-            if (!isVisible) {
-                view.showMarketingDialog();
-                Prefs.putBoolean(PrefsKey.KEY_MAIN_MARKETING_VISIBLE, true);
-            } else {
-                checkCoachMark();
-            }
+    private void checkMarketingInfoDialog() {
+        boolean isVisible = Prefs.getBoolean(PrefsKey.KEY_MARKETING_DIALOG_VISIBLE, false);
+        Prefs.putBoolean(PrefsKey.KEY_MARKETING_DIALOG_VISIBLE, true);
+        if (!App.getInstance().isLogin() && !isVisible) {
+            view.showMarketingDialog();
         } else {
             checkCoachMark();
         }
@@ -98,13 +77,13 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
         }
     }
 
-    private void reqUpdateNonUserMarketingAgree() {
+    private void reqUpdateMarketingInfo() {
         addDisposable(memberRequest.updateMarketingInfo(true)
             .subscribe());
     }
 
     private void reqProductScrap(boolean isScrap, ProductDataModel product) {
-        addDisposable(scrapRequest.updateProductScrap(isScrap, product.getProduct_id())
+        addDisposable(scrapRequest.updateProductScrap(isScrap, product.getProduct_no())
             .subscribe());
     }
 
@@ -127,10 +106,6 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
 
     @AllArgsConstructor @Getter public final static class RxEventLookBookPrePageChanged {
         private int position;
-    }
-
-    @AllArgsConstructor @Getter public final static class RxEventNavigateToBrandDetail {
-        private int brandId;
     }
 
     @AllArgsConstructor @Getter public final static class RxEventNavigateToPage {

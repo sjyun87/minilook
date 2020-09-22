@@ -14,9 +14,6 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
-import com.minilook.minilook.ui.order_detail.OrderDetailActivity;
-import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
-import lombok.Setter;
 
 public class ProductWide32VH extends BaseViewHolder<ProductDataModel> {
 

@@ -34,7 +34,7 @@ public class LookBookDetailPresenterImpl extends BasePresenterImpl implements Lo
     }
 
     @Override public void onBackClick() {
-        RxBus.send(new LookBookPresenterImpl.RxEventNavigateToPreview(true));
+        RxBus.send(new LookBookPresenterImpl.RxEventScrollToPreview(true));
     }
 
     private void setupData(LookBookModuleDataModel data) {
@@ -49,11 +49,7 @@ public class LookBookDetailPresenterImpl extends BasePresenterImpl implements Lo
 
         view.setupProductInfo(data.getProduct_info());
 
-        if (data.getProducts() != null && data.getProducts().size() > 0) {
-            productAdapter.set(data.getProducts());
-        } else {
-            productAdapter.clear();
-        }
+        productAdapter.set(data.getProducts());
         view.productRefresh();
     }
 

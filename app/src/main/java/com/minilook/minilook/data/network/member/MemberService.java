@@ -11,15 +11,6 @@ import retrofit2.http.Path;
 
 public interface MemberService {
 
-    @PUT("/api/members/{user_id}") Single<BaseDataModel> updateToken(
-        @Path("user_id") int user_id,
-        @Body RequestBody body
-    );
-
-    @POST("/api/nonmembers/pushtokens") Single<BaseDataModel> updateToken(
-        @Body RequestBody body
-    );
-
     @GET("/api/members/{user_id}/details") Single<BaseDataModel> getProfile(
         @Path("user_id") int user_id
     );

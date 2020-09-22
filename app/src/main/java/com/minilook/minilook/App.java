@@ -23,7 +23,7 @@ public class App extends Application {
     @Getter @Setter private boolean isLogin = false;
     @Getter @Setter private List<CodeDataModel> sortCodes;
 
-    private int userId;
+    private int memberNo;
     private String snsId;
     private String snsType;
     private String pushToken;
@@ -40,7 +40,7 @@ public class App extends Application {
         setupKakao();
         setupPreference();
         setupBootPay();
-        isLogin = getMemberId() != -1;
+        isLogin = getMemberNo() != -1;
     }
 
     private void setupTimber() {
@@ -72,36 +72,38 @@ public class App extends Application {
 
 
 
+
+
+
     public void setupLogin(UserDataModel data) {
         this.isLogin = true;
-        setMemberId(data.getUser_id());
+        setMemberNo(data.getUser_id());
         setSnsId(data.getSns_id());
         setSnsType(data.getType());
-        Prefs.putInt(PrefsKey.KEY_LOGIN_VISIBLE_COUNT, 3);
         RxBus.send(new RxBusEvent.RxBusEventLogin());
     }
 
     public void setupLogout() {
         this.isLogin = false;
-        clearMemberId();
+        clearMemberNo();
         clearSnsId();
         clearSnsType();
         RxBus.send(new RxBusEvent.RxBusEventLogout());
     }
 
-    public void setMemberId(int id) {
-        userId = id;
-        Prefs.putInt("userId", id);
+    public void setMemberNo(int $memberNo) {
+        memberNo = $memberNo;
+        Prefs.putInt("memberNo", memberNo);
     }
 
-    public int getMemberId() {
-        userId = Prefs.getInt("userId", -1);
-        return userId;
+    public int getMemberNo() {
+        memberNo = Prefs.getInt("memberNo", -1);
+        return memberNo;
     }
 
-    public void clearMemberId() {
-        userId = -1;
-        Prefs.remove("userId");
+    public void clearMemberNo() {
+        memberNo = -1;
+        Prefs.remove("memberNo");
     }
 
     public void setSnsId(String id) {

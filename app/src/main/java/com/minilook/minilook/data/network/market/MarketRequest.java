@@ -12,7 +12,7 @@ public class MarketRequest extends BaseRequest<MarketService> {
     }
 
     public Single<BaseDataModel> getMarketModules() {
-        int user_id = App.getInstance().getMemberId();
+        int user_id = App.getInstance().getMemberNo();
         return getApi().getMarketModules(user_id);
     }
 }

@@ -16,7 +16,6 @@ import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.order_cancel.adapter.OrderCancelAdapter;
 import com.minilook.minilook.ui.order_cancel.di.OrderCancelArguments;
-import com.minilook.minilook.ui.order_detail.adapter.OrderDetailGoodsAdapter;
 
 public class OrderCancelActivity extends BaseActivity implements OrderCancelPresenter.View {
 
@@ -32,7 +31,7 @@ public class OrderCancelActivity extends BaseActivity implements OrderCancelPres
     @BindView(R.id.txt_info_date) TextView orderDateTextView;
     @BindView(R.id.rcv_goods) RecyclerView recyclerView;
 
-    @BindString(R.string.base_toast_receipt_completed) String toast_receipt_complete;
+    @BindString(R.string.toast_receipt_completed) String toast_receipt_complete;
 
     private OrderCancelPresenter presenter;
     private OrderCancelAdapter adapter = new OrderCancelAdapter();

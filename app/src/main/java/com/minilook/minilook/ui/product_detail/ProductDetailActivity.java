@@ -132,7 +132,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 
     @BindString(R.string.product_detail_info_expand) String str_expand;
     @BindString(R.string.product_detail_info_collapse) String str_collapse;
-    @BindString(R.string.base_toast_add_shoppingbag) String str_add_shoppingbag;
+    @BindString(R.string.toast_add_shoppingbag) String str_add_shoppingbag;
 
     @BindDrawable(R.drawable.ic_arrow_down_xs) Drawable img_arrow_down;
     @BindDrawable(R.drawable.ic_arrow_up_xs) Drawable img_arrow_up;

@@ -13,32 +13,13 @@ public class MemberRequest extends BaseRequest<MemberService> {
         return MemberService.class;
     }
 
-    public Single<BaseDataModel> updateToken() {
-        if (App.getInstance().isLogin()) {
-            int user_id = App.getInstance().getMemberId();
-            return getApi().updateToken(user_id, createRequestBody(parseUpdateTokenJson(true)));
-        } else {
-            return getApi().updateToken(createRequestBody(parseUpdateTokenJson(false)));
-        }
-    }
-
-    private Map<String, Object> parseUpdateTokenJson(boolean isLogin) {
-        Map<String, Object> jsonMap = new HashMap<>();
-        if (isLogin) {
-            jsonMap.put("snsAccount", App.getInstance().getSnsId());
-            jsonMap.put("snsTypeCode", App.getInstance().getSnsType());
-        }
-        jsonMap.put("pushToken", App.getInstance().getPushToken());
-        return jsonMap;
-    }
-
     public Single<BaseDataModel> getProfile() {
-        int user_id = App.getInstance().getMemberId();
+        int user_id = App.getInstance().getMemberNo();
         return getApi().getProfile(user_id);
     }
 
     public Single<BaseDataModel> updateNick(String nick) {
-        int user_id = App.getInstance().getMemberId();
+        int user_id = App.getInstance().getMemberNo();
         return getApi().updateNick(user_id, createRequestBody(parseToUpdateNick(nick)));
     }
 
@@ -49,7 +30,7 @@ public class MemberRequest extends BaseRequest<MemberService> {
     }
 
     public Single<BaseDataModel> updatePhone(String phone, String name, String ci) {
-        int user_id = App.getInstance().getMemberId();
+        int user_id = App.getInstance().getMemberNo();
         return getApi().updatePhone(user_id, createRequestBody(parseToUpdatePhoneJson(phone, name, ci)));
     }
 
@@ -63,7 +44,7 @@ public class MemberRequest extends BaseRequest<MemberService> {
 
     public Single<BaseDataModel> getInfoStatus() {
         if (App.getInstance().isLogin()) {
-            int user_id = App.getInstance().getMemberId();
+            int user_id = App.getInstance().getMemberNo();
             return getApi().getInfoStatus(user_id, createRequestBody(parseToInfoJson()));
         } else {
             return getApi().getInfoStatus(createRequestBody(parseToInfoJson()));
@@ -77,7 +58,7 @@ public class MemberRequest extends BaseRequest<MemberService> {
     }
 
     public Single<BaseDataModel> updateOrderInfo(boolean enable) {
-        int user_id = App.getInstance().getMemberId();
+        int user_id = App.getInstance().getMemberNo();
         return getApi().updateOrderInfo(user_id, createRequestBody(parseToOrderInfoJson(enable)));
     }
 
@@ -89,8 +70,8 @@ public class MemberRequest extends BaseRequest<MemberService> {
 
     public Single<BaseDataModel> updateMarketingInfo(boolean enable) {
         if (App.getInstance().isLogin()) {
-            int user_id = App.getInstance().getMemberId();
-            return getApi().updateMarketingInfo(user_id, createRequestBody(parseToMarketingInfoJson(enable)));
+            int memberNo = App.getInstance().getMemberNo();
+            return getApi().updateMarketingInfo(memberNo, createRequestBody(parseToMarketingInfoJson(enable)));
         } else {
             return getApi().updateMarketingInfo(createRequestBody(parseToMarketingInfoJson(enable)));
         }
@@ -98,7 +79,7 @@ public class MemberRequest extends BaseRequest<MemberService> {
 
     private Map<String, Object> parseToMarketingInfoJson(boolean enable) {
         Map<String, Object> jsonMap = new HashMap<>();
-        if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getMemberId());
+        if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("pushToken", App.getInstance().getPushToken());
         jsonMap.put("isMarketingAgree", enable);
         return jsonMap;

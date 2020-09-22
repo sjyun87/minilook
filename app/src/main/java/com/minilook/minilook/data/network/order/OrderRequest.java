@@ -23,12 +23,12 @@ public class OrderRequest extends BaseRequest<OrderService> {
     }
 
     public Single<BaseDataModel> getShoppingBag() {
-        int user_id = App.getInstance().getMemberId();
+        int user_id = App.getInstance().getMemberNo();
         return getApi().getShoppingBag(user_id);
     }
 
     public Single<BaseDataModel> addShoppingBag(List<ShoppingOptionDataModel> goodsData) {
-        int user_id = App.getInstance().getMemberId();
+        int user_id = App.getInstance().getMemberNo();
         return getApi().addShoppingBag(user_id, createRequestBody(parseToAddJson(goodsData)));
     }
 
@@ -50,7 +50,7 @@ public class OrderRequest extends BaseRequest<OrderService> {
     }
 
     public Single<BaseDataModel> updateGoodsQuantity(int shoppingbag_id, int quantity) {
-        int user_id = App.getInstance().getMemberId();
+        int user_id = App.getInstance().getMemberNo();
         return getApi().updateGoodsQuantity(user_id, shoppingbag_id, createRequestBody(parseToUpdateJson(quantity)));
     }
 
@@ -61,7 +61,7 @@ public class OrderRequest extends BaseRequest<OrderService> {
     }
 
     public Single<BaseDataModel> deleteShoppingBag(List<Integer> deleteItem) {
-        int user_id = App.getInstance().getMemberId();
+        int user_id = App.getInstance().getMemberNo();
         return getApi().deleteShoppingBag(user_id, createRequestBody(parseToDeleteJson(deleteItem)));
     }
 
@@ -72,7 +72,7 @@ public class OrderRequest extends BaseRequest<OrderService> {
     }
 
     public Single<BaseDataModel> getOrderSheet() {
-        int user_id = App.getInstance().getMemberId();
+        int user_id = App.getInstance().getMemberNo();
         return getApi().getOrderSheet(user_id);
     }
 
@@ -82,7 +82,7 @@ public class OrderRequest extends BaseRequest<OrderService> {
 
     private Map<String, Object> parseToSafetyStockJson(String orderId, List<ShoppingBrandDataModel> items) {
         Map<String, Object> jsonMap = new HashMap<>();
-        jsonMap.put("memberNo", App.getInstance().getMemberId());
+        jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("mid", orderId);
         List<JsonObject> options = new ArrayList<>();
         for (ShoppingBrandDataModel brandData : items) {
@@ -139,7 +139,7 @@ public class OrderRequest extends BaseRequest<OrderService> {
     private Map<String, Object> parseToOrderHistoryJson(long lastOrderTime, int rows) {
         Map<String, Object> jsonMap = new HashMap<>();
         if (lastOrderTime != 0) jsonMap.put("lastItemOrderTime", lastOrderTime);
-        jsonMap.put("memberNo", App.getInstance().getMemberId());
+        jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("pageSize", rows);
         return jsonMap;
     }
@@ -150,7 +150,7 @@ public class OrderRequest extends BaseRequest<OrderService> {
 
     private Map<String, Object> parseToOrderDetailJson(String order_id, String receipt_id) {
         Map<String, Object> jsonMap = new HashMap<>();
-        jsonMap.put("memberNo", App.getInstance().getMemberId());
+        jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("mid", order_id);
         jsonMap.put("receiptId", receipt_id);
         return jsonMap;
@@ -172,7 +172,7 @@ public class OrderRequest extends BaseRequest<OrderService> {
 
     private Map<String, Object> parseToAllCancelJson(OrderCancelDataModel orderData) {
         Map<String, Object> jsonMap = new HashMap<>();
-        jsonMap.put("memberNo", App.getInstance().getMemberId());
+        jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("mid", orderData.getOrderNo());
         jsonMap.put("receiptId", orderData.getReceiptId());
         return jsonMap;
@@ -180,7 +180,7 @@ public class OrderRequest extends BaseRequest<OrderService> {
 
     private Map<String, Object> parseToCancelJson(OrderCancelDataModel orderData) {
         Map<String, Object> jsonMap = new HashMap<>();
-        jsonMap.put("memberNo", App.getInstance().getMemberId());
+        jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("mid", orderData.getOrderNo());
         jsonMap.put("receiptId", orderData.getReceiptId());
         jsonMap.put("orderNo", orderData.getGoods().get(0).getOrderOptionNo());

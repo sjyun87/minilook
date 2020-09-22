@@ -43,25 +43,21 @@ public class LookBookFragment extends BaseFragment implements LookBookPresenter.
         viewPager.registerOnPageChangeCallback(OnPageChangeCallback);
     }
 
-    @Override public void navigateToPreviewPage(boolean smoothScroll) {
+    @Override public void scrollToPreviewPage(boolean smoothScroll) {
         viewPager.setCurrentItem(0, smoothScroll);
     }
 
-    @Override public void navigateToDetailPage(boolean smoothScroll) {
+    @Override public void scrollToDetailPage(boolean smoothScroll) {
         viewPager.setCurrentItem(1, smoothScroll);
     }
 
     private ViewPager2.OnPageChangeCallback OnPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
         @Override public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             if (positionOffset > 0.75) {
-                presenter.onPrePageSelected(position + 1);
+                presenter.onPageSelected(position + 1);
             } else {
-                presenter.onPrePageSelected(position);
+                presenter.onPageSelected(position);
             }
-        }
-
-        @Override public void onPageSelected(int position) {
-            presenter.onPageSelected(position);
         }
     };
 }

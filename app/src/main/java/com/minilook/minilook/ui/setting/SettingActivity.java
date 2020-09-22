@@ -46,10 +46,10 @@ public class SettingActivity extends BaseActivity implements SettingPresenter.Vi
     @BindView(R.id.txt_logout) TextView logoutTextView;
     @BindView(R.id.txt_leave) TextView leaveTextView;
 
-    @BindString(R.string.base_toast_marketing_info_agree) String str_toast_marketing_agree;
-    @BindString(R.string.base_toast_marketing_info_disagree) String str_toast_marketing_disagree;
-    @BindString(R.string.base_toast_order_info_agree) String str_toast_order_agree;
-    @BindString(R.string.base_toast_order_info_disagree) String str_toast_order_disagree;
+    @BindString(R.string.toast_marketing_info_agree) String str_toast_marketing_agree;
+    @BindString(R.string.toast_marketing_info_disagree) String str_toast_marketing_disagree;
+    @BindString(R.string.toast_order_info_agree) String str_toast_order_agree;
+    @BindString(R.string.toast_order_info_disagree) String str_toast_order_disagree;
     @BindString(R.string.support_email) String support_email;
 
     private SettingPresenter presenter;
