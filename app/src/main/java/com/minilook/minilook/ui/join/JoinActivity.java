@@ -14,7 +14,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.user.UserDataModel;
-import com.minilook.minilook.data.type.LoginType;
+import com.minilook.minilook.data.code.LoginType;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.widget.BottomBar;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;

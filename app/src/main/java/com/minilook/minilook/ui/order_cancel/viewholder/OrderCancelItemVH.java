@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.order.OrderGoodsDataModel;
-import com.minilook.minilook.data.type.OrderStatus;
+import com.minilook.minilook.data.code.OrderStatus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.util.StringUtil;
 

@@ -9,23 +9,23 @@ public interface SplashPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
+    void onAnimationEnd();
+
     void onUpdateDialogOkClick();
 
     void onUpdateDialogCancelClick();
 
-    void onPermissionGranted();
-
-    void onAnimationEnd();
+    void onErrorDialogOkClick();
 
     interface View {
 
         void setupLottieView();
 
-        void checkPermission();
-
         void showUpdateDialog();
 
-        void navigateToPlatStore();
+        void showErrorDialog();
+
+        void navigateToPlayStore();
 
         void navigateToGuide();
 

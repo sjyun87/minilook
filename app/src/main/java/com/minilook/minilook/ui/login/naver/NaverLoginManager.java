@@ -5,7 +5,7 @@ import android.app.Activity;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.type.LoginType;
+import com.minilook.minilook.data.code.LoginType;
 import com.minilook.minilook.ui.login.listener.OnSNSLoginListener;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;

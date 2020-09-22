@@ -25,7 +25,7 @@ public class GuidePresenterImpl extends BasePresenterImpl implements GuidePresen
         }
     }
 
-    @Override public void onGuideEndClick() {
+    @Override public void onGuideEnd() {
         Prefs.putInt(PrefsKey.KEY_GUIDE_VISIBLE_COUNT, 3);
         view.navigateToMain();
     }

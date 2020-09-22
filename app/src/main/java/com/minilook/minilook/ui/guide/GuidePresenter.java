@@ -11,7 +11,7 @@ public interface GuidePresenter extends LifecycleObserver {
 
     void onPageSelected(int position);
 
-    void onGuideEndClick();
+    void onGuideEnd();
 
     interface View {
 

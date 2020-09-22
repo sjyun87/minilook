@@ -71,9 +71,14 @@ public class GuideActivity extends BaseActivity implements GuidePresenter.View {
         MainActivity.start(this);
     }
 
-    @OnClick({ R.id.txt_skip, R.id.txt_start })
-    void onGuideEndClick() {
-        presenter.onGuideEndClick();
+    @OnClick(R.id.txt_skip)
+    void onSkipClick() {
+        presenter.onGuideEnd();
+    }
+
+    @OnClick(R.id.txt_start)
+    void onStartClick() {
+        presenter.onGuideEnd();
     }
 
     @Override public void onBackPressed() {

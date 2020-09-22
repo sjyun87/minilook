@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.minilook.minilook.data.model.market.MarketDataModel;
-import com.minilook.minilook.data.type.MarketModuleType;
+import com.minilook.minilook.data.code.MarketModuleType;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseViewHolder;

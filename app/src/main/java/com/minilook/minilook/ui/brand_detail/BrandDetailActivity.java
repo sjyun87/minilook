@@ -23,6 +23,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.fondesa.recyclerviewdivider.BaseDividerItemDecoration;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.common.SortDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
@@ -81,7 +82,7 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
     private BrandDetailStyleAdapter styleAdapter = new BrandDetailStyleAdapter();
     private BaseAdapterDataView<String> styleAdapterView = styleAdapter;
     private BrandDetailSortAdapter sortAdapter = new BrandDetailSortAdapter();
-    private BaseAdapterDataView<SortDataModel> sortAdapterView = sortAdapter;
+    private BaseAdapterDataView<CodeDataModel> sortAdapterView = sortAdapter;
     private ProductAdapter productAdapter = new ProductAdapter();
     private BaseAdapterDataView<ProductDataModel> productAdapterView = productAdapter;
 

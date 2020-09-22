@@ -8,13 +8,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.common.SortDataModel;
+import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 
 import butterknife.BindView;
 import lombok.Setter;
 
-public class BrandDetailSortItemVH extends BaseViewHolder<SortDataModel> {
+public class BrandDetailSortItemVH extends BaseViewHolder<CodeDataModel> {
 
     @BindView(R.id.txt_sort) TextView sortTextView;
 
@@ -25,10 +25,10 @@ public class BrandDetailSortItemVH extends BaseViewHolder<SortDataModel> {
             .inflate(R.layout.item_brand_detail_sort, (ViewGroup) itemView, false));
     }
 
-    @Override public void bind(SortDataModel $data) {
+    @Override public void bind(CodeDataModel $data) {
         super.bind($data);
 
-        sortTextView.setText(data.getName());
+        sortTextView.setText(data.getCodeName());
 
         itemView.setOnClickListener(this::onItemClick);
     }
@@ -38,6 +38,6 @@ public class BrandDetailSortItemVH extends BaseViewHolder<SortDataModel> {
     }
 
     public interface OnSortSelectListener {
-        void onSortSelected(SortDataModel data);
+        void onSortSelected(CodeDataModel data);
     }
 }

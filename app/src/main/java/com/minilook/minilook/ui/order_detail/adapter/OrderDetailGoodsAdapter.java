@@ -4,7 +4,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.minilook.minilook.data.model.order.OrderGoodsDataModel;
-import com.minilook.minilook.data.type.OrderStatus;
+import com.minilook.minilook.data.code.OrderStatus;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseViewHolder;

@@ -1,4 +1,4 @@
-package com.minilook.minilook.data.type;
+package com.minilook.minilook.data.code;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

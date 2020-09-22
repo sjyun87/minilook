@@ -3,7 +3,7 @@ package com.minilook.minilook.ui.order_exchange_n_return;
 import com.google.gson.Gson;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
-import com.minilook.minilook.data.model.order.CodeDataModel;
+import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.order.ExchangeNReturnDataModel;
 import com.minilook.minilook.data.model.order.OrderGoodsDataModel;
 import com.minilook.minilook.data.network.order.OrderRequest;

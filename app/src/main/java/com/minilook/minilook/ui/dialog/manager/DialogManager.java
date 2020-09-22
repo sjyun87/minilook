@@ -3,6 +3,7 @@ package com.minilook.minilook.ui.dialog.manager;
 import android.app.Activity;
 import android.content.DialogInterface;
 import com.minilook.minilook.ui.dialog.DefaultShippingDialog;
+import com.minilook.minilook.ui.dialog.ErrorDialog;
 import com.minilook.minilook.ui.dialog.JoinCancelDialog;
 import com.minilook.minilook.ui.dialog.JoinCompletedDialog;
 import com.minilook.minilook.ui.dialog.JoinLimitedDialog;
@@ -47,7 +48,8 @@ public final class DialogManager {
     }
 
     @Builder
-    public static void showMarketingDialog(Activity activity, OnPositiveClickListener listener, DialogInterface.OnDismissListener dismissListener) {
+    public static void showMarketingDialog(Activity activity, OnPositiveClickListener listener,
+        DialogInterface.OnDismissListener dismissListener) {
         MarketingInfoDialog dialog = new MarketingInfoDialog(activity);
         dialog.setOnPositiveClickListener(listener);
         dialog.setOnDismissListener(dismissListener);
@@ -93,6 +95,13 @@ public final class DialogManager {
     @Builder
     public static void showPurchaseConfirmDialog(Activity activity, OnPositiveClickListener onPositiveClickListener) {
         PurchaseConfirmDialog dialog = new PurchaseConfirmDialog(activity);
+        dialog.setOnPositiveClickListener(onPositiveClickListener);
+        dialog.show();
+    }
+
+    @Builder
+    public static void showErrorDialog(Activity activity, OnPositiveClickListener onPositiveClickListener) {
+        ErrorDialog dialog = new ErrorDialog(activity);
         dialog.setOnPositiveClickListener(onPositiveClickListener);
         dialog.show();
     }

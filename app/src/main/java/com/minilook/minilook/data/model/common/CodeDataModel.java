@@ -1,4 +1,4 @@
-package com.minilook.minilook.data.model.order;
+package com.minilook.minilook.data.model.common;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -4,7 +4,7 @@ import android.content.Context;
 import com.kakao.sdk.auth.LoginClient;
 import com.kakao.sdk.auth.model.OAuthToken;
 import com.kakao.sdk.user.UserApiClient;
-import com.minilook.minilook.data.type.LoginType;
+import com.minilook.minilook.data.code.LoginType;
 import com.minilook.minilook.ui.login.listener.OnSNSLoginListener;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function2;

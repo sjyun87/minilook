@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.commercial.CommercialDataModel;
-import com.minilook.minilook.data.type.CommercialType;
+import com.minilook.minilook.data.code.CommercialType;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.event_detail.EventDetailActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;

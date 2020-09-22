@@ -2,10 +2,9 @@ package com.minilook.minilook;
 
 import android.app.Application;
 import android.content.ContextWrapper;
-import android.text.TextUtils;
 import com.kakao.sdk.common.KakaoSdk;
 import com.minilook.minilook.data.common.PrefsKey;
-import com.minilook.minilook.data.model.common.SortDataModel;
+import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.data.model.user.UserDataModel;
 import com.minilook.minilook.data.rx.RxBus;
@@ -22,11 +21,12 @@ public class App extends Application {
 
     @Getter private static App instance;
     @Getter @Setter private boolean isLogin = false;
+    @Getter @Setter private List<CodeDataModel> sortCodes;
+
     private int userId;
     private String snsId;
     private String snsType;
     private String pushToken;
-    @Getter @Setter private List<SortDataModel> sortCodes;
 
     @Override public void onCreate() {
         super.onCreate();
@@ -40,6 +40,7 @@ public class App extends Application {
         setupKakao();
         setupPreference();
         setupBootPay();
+        isLogin = getMemberId() != -1;
     }
 
     private void setupTimber() {
@@ -63,6 +64,14 @@ public class App extends Application {
             BuildConfig.DEBUG ? getString(R.string.bootpay_key_debug) : getString(R.string.bootpay_key_release));
     }
 
+
+
+
+
+
+
+
+
     public void setupLogin(UserDataModel data) {
         this.isLogin = true;
         setMemberId(data.getUser_id());
@@ -78,14 +87,6 @@ public class App extends Application {
         clearSnsId();
         clearSnsType();
         RxBus.send(new RxBusEvent.RxBusEventLogout());
-    }
-
-    public void checkLogin() {
-        if (getMemberId() != -1) {
-            isLogin = true;
-        } else {
-            isLogin = false;
-        }
     }
 
     public void setMemberId(int id) {

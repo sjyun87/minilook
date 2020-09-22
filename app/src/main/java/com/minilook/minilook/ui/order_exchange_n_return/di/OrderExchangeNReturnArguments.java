@@ -1,11 +1,9 @@
 package com.minilook.minilook.ui.order_exchange_n_return.di;
 
-import com.minilook.minilook.data.model.order.CodeDataModel;
+import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.order.OrderGoodsDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
-import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.order_exchange_n_return.OrderExchangeNReturnPresenter;
-import com.minilook.minilook.ui.order_exchange_n_return.adapter.ExchangeNReturnReasonAdapter;
 import lombok.Builder;
 import lombok.Getter;
 

@@ -4,6 +4,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
+import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.common.SortDataModel;
 
 public interface BrandDetailPresenter extends LifecycleObserver {
@@ -15,7 +16,7 @@ public interface BrandDetailPresenter extends LifecycleObserver {
 
     void onSortClick();
 
-    void onSortSelected(SortDataModel data);
+    void onSortSelected(CodeDataModel data);
 
     void onLoadMore();
 

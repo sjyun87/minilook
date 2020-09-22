@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
+import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.common.SortDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.search.SearchDataModel;
@@ -25,7 +26,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     private final View view;
     private final int brand_id;
     private final BaseAdapterDataModel<String> styleAdapter;
-    private final BaseAdapterDataModel<SortDataModel> sortAdapter;
+    private final BaseAdapterDataModel<CodeDataModel> sortAdapter;
     private final BaseAdapterDataModel<ProductDataModel> productAdapter;
     private final BrandRequest brandRequest;
     private final SearchRequest searchRequest;
@@ -86,10 +87,10 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         isSortVisible = !isSortVisible;
     }
 
-    @Override public void onSortSelected(SortDataModel data) {
+    @Override public void onSortSelected(CodeDataModel data) {
         if (!sortCode.equals(data.getCode())) {
             sortCode = data.getCode();
-            view.setupSortText(data.getName());
+            view.setupSortText(data.getCodeName());
 
             productAdapter.clear();
             page = new AtomicInteger(0);
@@ -156,11 +157,11 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     }
 
     private void setupSortData() {
-        List<SortDataModel> sortItems = App.getInstance().getSortCodes();
+        List<CodeDataModel> sortItems = App.getInstance().getSortCodes();
         sortAdapter.set(sortItems);
         view.sortRefresh();
         sortCode = sortItems.get(0).getCode();
-        view.setupSortText(sortItems.get(0).getName());
+        view.setupSortText(sortItems.get(0).getCodeName());
 
         reqProducts();
     }

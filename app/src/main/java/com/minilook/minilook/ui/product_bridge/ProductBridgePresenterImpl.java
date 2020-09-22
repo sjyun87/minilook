@@ -5,6 +5,7 @@ import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.common.CategoryDataModel;
+import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.common.SortDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.search.FilterDataModel;
@@ -27,10 +28,10 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
 
     private final View view;
     private SearchOptionDataModel options;
-    private final BaseAdapterDataModel<SortDataModel> sortAdapter;
+    private final BaseAdapterDataModel<CodeDataModel> sortAdapter;
     private final BaseAdapterDataModel<ProductDataModel> productAdapter;
     private final SearchRequest searchRequest;
-    private final List<SortDataModel> sortCodes;
+    private final List<CodeDataModel> sortCodes;
 
     private Gson gson = new Gson();
     private AtomicInteger page = new AtomicInteger(0);
@@ -83,11 +84,11 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
         isSortVisible = !isSortVisible;
     }
 
-    @Override public void onSortSelected(SortDataModel data) {
+    @Override public void onSortSelected(CodeDataModel data) {
         if (!selectedSortCode.equals(data.getCode())) {
             selectedSortCode = data.getCode();
             options.setOrder(selectedSortCode);
-            view.setupSortText(data.getName());
+            view.setupSortText(data.getCodeName());
 
             productAdapter.clear();
             page = new AtomicInteger(0);
@@ -114,10 +115,10 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
     }
 
     private void setupSortData() {
-        List<SortDataModel> sortItems = App.getInstance().getSortCodes();
+        List<CodeDataModel> sortItems = App.getInstance().getSortCodes();
         sortAdapter.set(sortItems);
         view.sortRefresh();
-        view.setupSortText(sortItems.get(0).getName());
+        view.setupSortText(sortItems.get(0).getCodeName());
         selectedSortCode = sortItems.get(0).getCode();
 
         options.setOrder(sortItems.get(0).getCode());

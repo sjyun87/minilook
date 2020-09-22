@@ -12,7 +12,7 @@ import butterknife.BindString;
 import butterknife.BindView;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.user.PointHistoryDataModel;
-import com.minilook.minilook.data.type.PointStatus;
+import com.minilook.minilook.data.code.PointStatus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 
 public class PointHistoryItemVH extends BaseViewHolder<PointHistoryDataModel> {

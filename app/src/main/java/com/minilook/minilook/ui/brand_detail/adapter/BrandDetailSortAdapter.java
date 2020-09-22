@@ -5,7 +5,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.minilook.minilook.data.model.common.SortDataModel;
+import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.brand_detail.viewholder.BrandDetailSortItemVH;
@@ -16,9 +16,9 @@ import java.util.List;
 import lombok.Setter;
 
 public class BrandDetailSortAdapter extends RecyclerView.Adapter<BrandDetailSortItemVH> implements
-    BaseAdapterDataModel<SortDataModel>, BaseAdapterDataView<SortDataModel> {
+    BaseAdapterDataModel<CodeDataModel>, BaseAdapterDataView<CodeDataModel> {
 
-    private List<SortDataModel> items = new ArrayList<>();
+    private List<CodeDataModel> items = new ArrayList<>();
     @Setter private BrandDetailSortItemVH.OnSortSelectListener onSortSelectListener;
 
     @NonNull @Override public BrandDetailSortItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -34,36 +34,36 @@ public class BrandDetailSortAdapter extends RecyclerView.Adapter<BrandDetailSort
         return getSize();
     }
 
-    @Override public void add(SortDataModel $item) {
+    @Override public void add(CodeDataModel $item) {
         this.items.add($item);
     }
 
-    @Override public void add(int $index, SortDataModel $item) {
+    @Override public void add(int $index, CodeDataModel $item) {
         this.items.add($index, $item);
     }
 
-    @Override public void addAll(List<SortDataModel> $items) {
+    @Override public void addAll(List<CodeDataModel> $items) {
         this.items.addAll($items);
     }
 
-    @Override public void set(int $index, SortDataModel $item) {
+    @Override public void set(int $index, CodeDataModel $item) {
         this.items.set($index, $item);
     }
 
-    @Override public void set(List<SortDataModel> $items) {
+    @Override public void set(List<CodeDataModel> $items) {
         this.items.clear();
         this.items.addAll($items);
     }
 
-    @Override public SortDataModel get(int $index) {
+    @Override public CodeDataModel get(int $index) {
         return this.items.get($index);
     }
 
-    @Override public List<SortDataModel> get() {
+    @Override public List<CodeDataModel> get() {
         return this.items;
     }
 
-    @Override public int get(SortDataModel $item) {
+    @Override public int get(CodeDataModel $item) {
         return items.indexOf($item);
     }
 
@@ -71,7 +71,7 @@ public class BrandDetailSortAdapter extends RecyclerView.Adapter<BrandDetailSort
         this.items.remove($index);
     }
 
-    @Override public void remove(SortDataModel $item) {
+    @Override public void remove(CodeDataModel $item) {
         this.items.remove($item);
     }
 

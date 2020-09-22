@@ -20,7 +20,7 @@ import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.shopping.ShoppingProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.data.type.DisplayCode;
+import com.minilook.minilook.data.code.DisplayCode;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.ui.shoppingbag.ShoppingBagPresenterImpl;

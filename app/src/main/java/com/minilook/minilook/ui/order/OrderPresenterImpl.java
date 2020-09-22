@@ -25,7 +25,7 @@ import com.minilook.minilook.data.network.order.OrderRequest;
 import com.minilook.minilook.data.network.shipping.ShippingRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
-import com.minilook.minilook.data.type.ShippingCode;
+import com.minilook.minilook.data.code.ShippingCode;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.order.di.OrderArguments;

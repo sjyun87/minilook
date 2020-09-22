@@ -34,10 +34,15 @@ public class GuideVH extends BaseViewHolder<Integer> {
     @BindString(R.string.guide_desc4) String str_desc4;
     @BindString(R.string.guide_desc4_b) String str_desc4_bold;
 
+    @BindDrawable(R.drawable.img_guide1) Drawable img_guide1;
+    @BindDrawable(R.drawable.img_guide2) Drawable img_guide2;
+    @BindDrawable(R.drawable.img_guide3) Drawable img_guide3;
+    @BindDrawable(R.drawable.img_guide4) Drawable img_guide4;
+    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+
     @BindFont(R.font.nanum_square_b) Typeface font_bold;
 
     @BindColor(R.color.color_FF8140E5) int color_FF8140E5;
-    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
 
     public GuideVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
@@ -49,7 +54,7 @@ public class GuideVH extends BaseViewHolder<Integer> {
         switch (data) {
             case 0:
                 Glide.with(context)
-                    .load(R.drawable.img_guide1)
+                    .load(img_guide1)
                     .placeholder(img_placeholder)
                     .error(img_placeholder)
                     .transition(new DrawableTransitionOptions().crossFade())
@@ -58,7 +63,7 @@ public class GuideVH extends BaseViewHolder<Integer> {
                 break;
             case 1:
                 Glide.with(context)
-                    .load(R.drawable.img_guide2)
+                    .load(img_guide2)
                     .placeholder(img_placeholder)
                     .error(img_placeholder)
                     .transition(new DrawableTransitionOptions().crossFade())
@@ -67,7 +72,7 @@ public class GuideVH extends BaseViewHolder<Integer> {
                 break;
             case 2:
                 Glide.with(context)
-                    .load(R.drawable.img_guide3)
+                    .load(img_guide3)
                     .placeholder(img_placeholder)
                     .error(img_placeholder)
                     .transition(new DrawableTransitionOptions().crossFade())
@@ -76,7 +81,7 @@ public class GuideVH extends BaseViewHolder<Integer> {
                 break;
             case 3:
                 Glide.with(context)
-                    .load(R.drawable.img_guide4)
+                    .load(img_guide4)
                     .placeholder(img_placeholder)
                     .error(img_placeholder)
                     .transition(new DrawableTransitionOptions().crossFade())
@@ -88,6 +93,7 @@ public class GuideVH extends BaseViewHolder<Integer> {
 
     private SpannableString parseToSpan(String text, String target) {
         SpannableString fontSpan = SpannableUtil.fontSpan(text, target, font_bold);
-        return SpannableUtil.foregroundColorSpan(fontSpan, target, color_FF8140E5);
+        SpannableString colorSpan = SpannableUtil.foregroundColorSpan(fontSpan, target, color_FF8140E5);
+        return colorSpan;
     }
 }
