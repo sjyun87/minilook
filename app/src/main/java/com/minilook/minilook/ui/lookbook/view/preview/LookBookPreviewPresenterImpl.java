@@ -39,6 +39,7 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
     @Override public void onCreate() {
         toRxObservable();
         view.setupViewPager();
+
         reqLookBookModules();
     }
 

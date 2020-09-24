@@ -8,8 +8,6 @@ import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.lookbook.LookBookPresenterImpl;
 import com.minilook.minilook.ui.lookbook.view.detail.di.LookBookDetailArguments;
 import com.minilook.minilook.ui.lookbook.view.preview.LookBookPreviewPresenterImpl;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import timber.log.Timber;
@@ -28,7 +26,6 @@ public class LookBookDetailPresenterImpl extends BasePresenterImpl implements Lo
 
     @Override public void onCreate() {
         toRxObservable();
-
         view.setupStyleRecyclerView();
         view.setupProductRecyclerView();
     }
@@ -44,21 +41,13 @@ public class LookBookDetailPresenterImpl extends BasePresenterImpl implements Lo
         view.setupTag(data.getTag());
         view.setupDesc(data.getDesc());
 
-        styleAdapter.set(checkValid(data.getStyles()));
+        styleAdapter.set(data.getStyles());
         view.styleRefresh();
 
-        view.setupProductInfo(data.getProduct_info());
+        view.setupSimpleInfo(data.getSimple_info());
 
         productAdapter.set(data.getProducts());
         view.productRefresh();
-    }
-
-    private List<String> checkValid(List<String> images) {
-        List<String> items = new ArrayList<>();
-        for (String url : images) {
-            if (url != null && !url.equals("")) items.add(url);
-        }
-        return items;
     }
 
     private void toRxObservable() {

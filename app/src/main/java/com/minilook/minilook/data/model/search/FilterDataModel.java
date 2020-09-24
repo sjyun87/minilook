@@ -6,7 +6,6 @@ import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.data.model.common.ColorDataModel;
 import com.minilook.minilook.data.model.common.GenderDataModel;
 import com.minilook.minilook.data.model.common.StyleDataModel;
-import com.minilook.minilook.data.model.product.ProductDataModel;
 import java.util.List;
 import lombok.Data;
 

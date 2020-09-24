@@ -2,7 +2,6 @@ package com.minilook.minilook.data.model.lookbook;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.minilook.minilook.data.model.common.ImageDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import java.util.List;
 import lombok.Data;
@@ -19,7 +18,7 @@ import lombok.Data;
     @Expose @SerializedName("style_tag_description")
     private String tag;
     @Expose @SerializedName("productsTitle")
-    private String product_info;
+    private String simple_info;
     @Expose @SerializedName("main_image")
     private String background_url;
     @Expose @SerializedName("detailImages")

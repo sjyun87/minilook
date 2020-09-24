@@ -15,7 +15,11 @@ public interface LookBookDetailPresenter extends LifecycleObserver {
 
         void setupStyleRecyclerView();
 
+        void styleRefresh();
+
         void setupProductRecyclerView();
+
+        void productRefresh();
 
         void setupLabel(String text);
 
@@ -25,11 +29,7 @@ public interface LookBookDetailPresenter extends LifecycleObserver {
 
         void setupDesc(String text);
 
-        void setupProductInfo(String text);
-
-        void styleRefresh();
-
-        void productRefresh();
+        void setupSimpleInfo(String text);
 
         void scrollToTop();
     }

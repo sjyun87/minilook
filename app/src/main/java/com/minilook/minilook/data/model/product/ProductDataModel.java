@@ -11,6 +11,12 @@ import lombok.Data;
 @Data public class ProductDataModel {
     @Expose @SerializedName("productNo")
     private int product_no;
+    @Expose @SerializedName("productName")
+    private String product_name;
+    @Expose @SerializedName("lookbookProductDescription")
+    private String product_desc;
+    @Expose @SerializedName("categoryName")
+    private String category;
     @Expose @SerializedName("image")
     private String image_url;
     @Expose @SerializedName("images")
@@ -21,10 +27,6 @@ import lombok.Data;
     private String brand_name;
     @Expose @SerializedName("brandLogo")
     private String brand_logo;
-    @Expose @SerializedName("productName")
-    private String product_name;
-    @Expose @SerializedName("lookbookProductDescription")
-    private String product_desc;
     @Expose @SerializedName("isdiscount")
     @JsonAdapter(BooleanDeserializer.class)
     private boolean isDiscount;
@@ -40,8 +42,6 @@ import lombok.Data;
     private int display_code;
     @Expose @SerializedName("detailUrl")
     private String detail_url;
-    @Expose @SerializedName("categoryName")
-    private String category;
     @Expose @SerializedName("reviewCount")
     private int review_cnt;
     @Expose @SerializedName("reviews")

@@ -132,6 +132,7 @@
         android:background="@drawable/bg_category"
         android:fontFamily="@font/nanum_square_r"
         android:gravity="center"
+        android:includeFontPadding="false"
         android:textColor="@color/color_FF616161"
         android:textSize="@dimen/sp_6"
         app:layout_constraintLeft_toLeftOf="parent"

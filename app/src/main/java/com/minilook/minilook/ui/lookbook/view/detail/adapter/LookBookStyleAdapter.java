@@ -1,9 +1,9 @@
 package com.minilook.minilook.ui.lookbook.view.detail.adapter;
 
+import android.text.TextUtils;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import java.lang.String;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.lookbook.view.detail.viewholder.LookBookStyleVH;
@@ -28,24 +28,24 @@ public class LookBookStyleAdapter extends RecyclerView.Adapter<LookBookStyleVH>
     }
 
     @Override public void add(String $item) {
-        this.items.add($item);
+        if (!TextUtils.isEmpty($item)) items.add($item);
     }
 
     @Override public void add(int $index, String $item) {
-        this.items.add($index, $item);
+        if (!TextUtils.isEmpty($item)) items.add($index, $item);
     }
 
     @Override public void addAll(List<String> $items) {
-        this.items.addAll($items);
+        for (String item : $items) add(item);
     }
 
     @Override public void set(int $index, String $item) {
-        this.items.set($index, $item);
+        if (!TextUtils.isEmpty($item)) items.set($index, $item);
     }
 
     @Override public void set(List<String> $items) {
-        this.items.clear();
-        this.items.addAll($items);
+        items.clear();
+        for (String item : $items) add(item);
     }
 
     @Override public String get(int $index) {

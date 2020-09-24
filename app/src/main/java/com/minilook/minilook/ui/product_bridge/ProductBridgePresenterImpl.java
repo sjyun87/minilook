@@ -6,7 +6,6 @@ import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.data.model.common.CodeDataModel;
-import com.minilook.minilook.data.model.common.SortDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.search.FilterDataModel;
 import com.minilook.minilook.data.model.search.SearchOptionDataModel;

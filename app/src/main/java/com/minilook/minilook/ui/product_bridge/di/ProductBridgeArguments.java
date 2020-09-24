@@ -1,7 +1,6 @@
 package com.minilook.minilook.ui.product_bridge.di;
 
 import com.minilook.minilook.data.model.common.CodeDataModel;
-import com.minilook.minilook.data.model.common.SortDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.search.SearchOptionDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;

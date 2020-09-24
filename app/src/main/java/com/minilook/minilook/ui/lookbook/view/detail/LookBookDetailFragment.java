@@ -14,7 +14,6 @@ import com.minilook.minilook.ui.base.BaseFragment;
 import com.minilook.minilook.ui.lookbook.view.detail.adapter.LookBookStyleAdapter;
 import com.minilook.minilook.ui.lookbook.view.detail.di.LookBookDetailArguments;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
-import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 public class LookBookDetailFragment extends BaseFragment implements LookBookDetailPresenter.View {
 
@@ -62,11 +61,19 @@ public class LookBookDetailFragment extends BaseFragment implements LookBookDeta
         ViewCompat.setNestedScrollingEnabled(styleRecyclerView, false);
     }
 
+    @Override public void styleRefresh() {
+        styleAdapterDataView.refresh();
+    }
+
     @Override public void setupProductRecyclerView() {
         productRecyclerView.setHasFixedSize(true);
         productRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         productRecyclerView.setAdapter(productAdapter);
         ViewCompat.setNestedScrollingEnabled(productRecyclerView, false);
+    }
+
+    @Override public void productRefresh() {
+        productAdapterDataView.refresh();
     }
 
     @Override public void setupLabel(String text) {
@@ -85,16 +92,8 @@ public class LookBookDetailFragment extends BaseFragment implements LookBookDeta
         descTextView.setText(text);
     }
 
-    @Override public void setupProductInfo(String text) {
+    @Override public void setupSimpleInfo(String text) {
         productInfoTextView.setText(text);
-    }
-
-    @Override public void styleRefresh() {
-        styleAdapterDataView.refresh();
-    }
-
-    @Override public void productRefresh() {
-        productAdapterDataView.refresh();
     }
 
     @Override public void scrollToTop() {

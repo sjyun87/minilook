@@ -18,7 +18,6 @@ public class LookBookPresenterImpl extends BasePresenterImpl implements LookBook
 
     @Override public void onCreate() {
         toRxObservable();
-
         view.setupViewPager();
     }
 
