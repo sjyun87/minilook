@@ -8,33 +8,31 @@ import lombok.Data;
 
 @Data public class SearchOptionDataModel implements Serializable {
     @Expose @SerializedName("productOrderByCode")
-    private String order;
-    @Expose @SerializedName("memberNo")
-    private int user_id;
+    private String sort_code;
     @Expose @SerializedName("brandNo")
-    private int brand_id = 0;
+    private int brand_no;
     @Expose @SerializedName("genderCode")
-    private String gender_code = null;
+    private String gender_code;
     @Expose @SerializedName("age")
-    private int age = -1;
+    private int age;
     @Expose @SerializedName("categoryName")
-    private String category_name = null;
+    private String category_name;
     @Expose @SerializedName("categoryCode")
-    private String category_code = null;
+    private String category_code;
     @Expose @SerializedName("categoryDetailCode")
-    private String category_derail_code = null;
+    private String category_derail_code;
     @Expose @SerializedName("colorCode")
-    private List<String> color_codes = null;
+    private List<String> color_codes;
     @Expose @SerializedName("discount")
-    private boolean isDiscount = false;
+    private boolean isDiscount;
     @Expose @SerializedName("startPrice")
-    private int price_min = -1;
+    private int price_min;
     @Expose @SerializedName("endPrice")
-    private int price_max = -1;
+    private int price_max;
     @Expose @SerializedName("outOfStock")
-    private boolean isStock = false;
+    private boolean isStock;
     @Expose @SerializedName("sizeType")
-    private int type = -1;
+    private int type;
     @Expose @SerializedName("styleCode")
-    private List<String> style_codes = null;
+    private List<String> style_codes;
 }

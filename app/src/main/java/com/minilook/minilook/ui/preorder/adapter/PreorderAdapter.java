@@ -42,32 +42,32 @@ public class PreorderAdapter extends RecyclerView.Adapter<BaseViewHolder<Preorde
     }
 
     @Override public void add(PreorderDataModel $item) {
-        this.items.add($item);
+        items.add($item);
     }
 
     @Override public void add(int $index, PreorderDataModel $item) {
-        this.items.add($index, $item);
+        items.add($index, $item);
     }
 
     @Override public void addAll(List<PreorderDataModel> $items) {
-        this.items.addAll($items);
+        items.addAll($items);
     }
 
     @Override public void set(int $index, PreorderDataModel $item) {
-        this.items.set($index, $item);
+        items.set($index, $item);
     }
 
     @Override public void set(List<PreorderDataModel> $items) {
-        this.items.clear();
-        this.items.addAll($items);
+        items.clear();
+        items.addAll($items);
     }
 
     @Override public PreorderDataModel get(int $index) {
-        return this.items.get($index);
+        return items.get($index);
     }
 
     @Override public List<PreorderDataModel> get() {
-        return this.items;
+        return items;
     }
 
     @Override public int get(PreorderDataModel $item) {
@@ -75,23 +75,23 @@ public class PreorderAdapter extends RecyclerView.Adapter<BaseViewHolder<Preorde
     }
 
     @Override public void remove(int $index) {
-        this.items.remove($index);
+        items.remove($index);
     }
 
     @Override public void remove(PreorderDataModel $item) {
-        this.items.remove($item);
+        items.remove($item);
     }
 
     @Override public void removeAll() {
-        this.items.clear();
+        items.clear();
     }
 
     @Override public void clear() {
-        this.items.clear();
+        items.clear();
     }
 
     @Override public int getSize() {
-        return this.items.size();
+        return items.size();
     }
 
     @Override public void refresh() {

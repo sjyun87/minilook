@@ -4,6 +4,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import com.minilook.minilook.data.model.common.CategoryDataModel;
+import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.common.ColorDataModel;
 import com.minilook.minilook.data.model.common.GenderDataModel;
 import com.minilook.minilook.data.model.common.StyleDataModel;
@@ -31,7 +32,7 @@ public interface SearchFilterPresenter extends LifecycleObserver {
 
     void onColorSelected(ColorDataModel data);
 
-    void onStyleSelected(StyleDataModel data);
+    void onStyleSelected(CodeDataModel data);
 
     void onResetClick();
 
@@ -85,7 +86,7 @@ public interface SearchFilterPresenter extends LifecycleObserver {
 
         void colorRefresh();
 
-        void addStyleItem(StyleDataModel model);
+        void addStyleItem(CodeDataModel model);
 
         void selectedStyleView(int position);
 

@@ -5,7 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
-import com.minilook.minilook.data.model.common.StyleDataModel;
+import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.search.FilterDataModel;
 import com.minilook.minilook.data.network.brand.BrandRequest;
 import com.minilook.minilook.data.network.search.SearchRequest;
@@ -21,7 +21,7 @@ import timber.log.Timber;
 public class BrandPresenterImpl extends BasePresenterImpl implements BrandPresenter {
 
     private final View view;
-    private final BaseAdapterDataModel<StyleDataModel> styleAdapter;
+    private final BaseAdapterDataModel<CodeDataModel> styleAdapter;
     private final BaseAdapterDataModel<BrandDataModel> brandAdapter;
     private final SearchRequest searchRequest;
     private final BrandRequest brandRequest;
@@ -48,17 +48,16 @@ public class BrandPresenterImpl extends BasePresenterImpl implements BrandPresen
 
     @Override public void onResetClick() {
         selectedStyles.clear();
-        for (StyleDataModel model : styleAdapter.get()) {
+        for (CodeDataModel model : styleAdapter.get()) {
             model.setSelected(false);
         }
         view.styleRefresh();
-        view.setupSelectedStyleCount(0, styleAdapter.getSize());
 
         reqBrands();
     }
 
     @Override public void onStyleClick(int position) {
-        StyleDataModel model = styleAdapter.get(position);
+        CodeDataModel model = styleAdapter.get(position);
         if (model.isSelected()) {
             model.setSelected(false);
             selectedStyles.remove(model.getCode());
@@ -68,6 +67,7 @@ public class BrandPresenterImpl extends BasePresenterImpl implements BrandPresen
         }
         view.styleRefresh();
         view.setupSelectedStyleCount(selectedStyles.size(), styleAdapter.getSize());
+
         reqBrands();
     }
 
@@ -79,19 +79,14 @@ public class BrandPresenterImpl extends BasePresenterImpl implements BrandPresen
             .subscribe(this::resStyle, Timber::e));
     }
 
-    private void resStyle(List<StyleDataModel> data) {
-        styleAdapter.set(parseToDefault(data));
-        view.styleRefresh();
-
-        view.setupSelectedStyleCount(0, styleAdapter.getSize());
-    }
-
-    private List<StyleDataModel> parseToDefault(List<StyleDataModel> styles) {
-        for (int i = 0; i < styles.size(); i++) {
-            styles.get(i).setPosition(i);
-            styles.get(i).setSelected(false);
+    private void resStyle(List<CodeDataModel> data) {
+        for (int i = 0; i < data.size(); i++) {
+            data.get(i).setPosition(i);
+            data.get(i).setSelected(false);
         }
-        return styles;
+        styleAdapter.set(data);
+        view.styleRefresh();
+        view.setupSelectedStyleCount(0, styleAdapter.getSize());
     }
 
     private void reqBrands() {

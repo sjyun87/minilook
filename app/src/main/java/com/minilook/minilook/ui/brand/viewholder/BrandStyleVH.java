@@ -13,11 +13,11 @@ import butterknife.BindFont;
 import butterknife.BindString;
 import butterknife.BindView;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.common.StyleDataModel;
+import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import lombok.Setter;
 
-public class BrandStyleVH extends BaseViewHolder<StyleDataModel> {
+public class BrandStyleVH extends BaseViewHolder<CodeDataModel> {
 
     @BindView(R.id.txt_style) TextView styleTextView;
 
@@ -39,7 +39,7 @@ public class BrandStyleVH extends BaseViewHolder<StyleDataModel> {
             .inflate(R.layout.item_brand_style, (ViewGroup) itemView, false));
     }
 
-    @Override public void bind(StyleDataModel $data) {
+    @Override public void bind(CodeDataModel $data) {
         super.bind($data);
 
         styleTextView.setText(String.format(format_tag, data.getName()));

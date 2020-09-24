@@ -1,5 +1,6 @@
 package com.minilook.minilook.ui.brand_detail;
 
+import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
@@ -15,15 +16,13 @@ import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.brand_detail.di.BrandDetailArguments;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import timber.log.Timber;
 
 public class BrandDetailPresenterImpl extends BasePresenterImpl implements BrandDetailPresenter {
 
     private final View view;
-    private final int brand_id;
+    private final int brandNo;
     private final BaseAdapterDataModel<String> styleAdapter;
     private final BaseAdapterDataModel<CodeDataModel> sortAdapter;
     private final BaseAdapterDataModel<ProductDataModel> productAdapter;
@@ -37,13 +36,13 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     private Gson gson = new Gson();
     private boolean isScrap;
     private int scrapCount = 0;
-    private boolean isSortVisible = false;
+    private boolean isSortPanelVisible = false;
     private String sortCode;
     private int totalPageSize;
 
     public BrandDetailPresenterImpl(BrandDetailArguments args) {
         view = args.getView();
-        brand_id = args.getBrand_id();
+        brandNo = args.getBrandNo();
         styleAdapter = args.getStyleAdapter();
         sortAdapter = args.getSortAdapter();
         productAdapter = args.getProductAdapter();
@@ -57,46 +56,43 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         view.setupStyleRecyclerView();
         view.setupSortRecyclerView();
         view.setupProductRecyclerView();
-        reqBrandDetail();
+
         setupSortData();
+        reqBrandDetail();
     }
 
     @Override public void onScrapClick() {
-        if (App.getInstance().isLogin()) {
-            if (isScrap) {
-                isScrap = false;
-                scrapCount -= 1;
-            } else {
-                isScrap = true;
-                scrapCount += 1;
-            }
-            setupScrap();
-            reqBrandScrap(isScrap);
-        } else {
+        if (!App.getInstance().isLogin()) {
             view.navigateToLogin();
+            return;
         }
+
+        isScrap = !isScrap;
+        scrapCount = isScrap ? ++scrapCount : --scrapCount;
+        setupScrap();
+        reqBrandScrap(isScrap);
     }
 
     @Override public void onSortClick() {
-        if (isSortVisible) {
-            view.hideSortPanel();
-        } else {
+        isSortPanelVisible = !isSortPanelVisible;
+        if (isSortPanelVisible) {
             view.showSortPanel();
+        } else {
+            view.hideSortPanel();
         }
-        isSortVisible = !isSortVisible;
     }
 
     @Override public void onSortSelected(CodeDataModel data) {
         if (!sortCode.equals(data.getCode())) {
             sortCode = data.getCode();
-            view.setupSortText(data.getCodeName());
+            view.setupSortText(data.getName());
 
             productAdapter.clear();
             page = new AtomicInteger(0);
             reqProducts();
         }
         view.hideSortPanel();
-        isSortVisible = false;
+        isSortPanelVisible = false;
     }
 
     @Override public void onLoadMore() {
@@ -104,12 +100,12 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     }
 
     @Override public void onBrandInfoClick() {
-        view.navigateToBrandInfo(brand_id);
+        view.navigateToBrandInfo(brandNo);
     }
 
     private void reqBrandDetail() {
         addDisposable(
-            brandRequest.getBrandDetail(brand_id)
+            brandRequest.getBrandDetail(brandNo)
                 .compose(Transformer.applySchedulers())
                 .filter(data -> data.getCode().equals(HttpCode.OK))
                 .map(data -> gson.fromJson(data.getData(), BrandDataModel.class))
@@ -125,42 +121,31 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         scrapCount = data.getScrap_cnt();
         view.setupScrapCount(scrapCount);
         view.setupName(data.getBrand_name());
-        if (data.getBrand_tag() != null && !data.getBrand_tag().equals("")) {
-            view.setupTag(data.getBrand_tag().replace(",", " "));
-        }
+        if (!TextUtils.isEmpty(data.getBrand_tag())) view.setupTag(data.getBrand_tag());
         view.setupDesc(data.getBrand_desc());
-        styleAdapter.set(checkValid(data.getStyle_images()));
+        styleAdapter.set(data.getStyle_images());
         view.styleRefresh();
-    }
-
-    private List<String> checkValid(List<String> images) {
-        List<String> items = new ArrayList<>();
-        for (String url : images) {
-            if (url != null && !url.equals("")) items.add(url);
-        }
-        return items;
     }
 
     private void setupScrap() {
         if (isScrap) {
-            view.checkScrap();
+            view.scrapOn();
         } else {
-            view.uncheckScrap();
+            view.scrapOff();
         }
         view.setupScrapCount(scrapCount);
     }
 
     private void reqBrandScrap(boolean isScrap) {
-        addDisposable(scrapRequest.updateBrandScrap(isScrap, brand_id)
+        addDisposable(scrapRequest.updateBrandScrap(isScrap, brandNo)
             .subscribe());
     }
 
     private void setupSortData() {
-        List<CodeDataModel> sortItems = App.getInstance().getSortCodes();
-        sortAdapter.set(sortItems);
+        sortAdapter.set(App.getInstance().getSortCodes());
         view.sortRefresh();
-        sortCode = sortItems.get(0).getCode();
-        view.setupSortText(sortItems.get(0).getCodeName());
+        sortCode = sortAdapter.get(0).getCode();
+        view.setupSortText(sortAdapter.get(0).getName());
 
         reqProducts();
     }
@@ -177,11 +162,9 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     }
 
     private void resProducts(SearchDataModel data) {
-        Timber.e(data.toString());
         totalPageSize = data.getTotal();
         int start = productAdapter.getSize();
         int row = data.getProducts().size();
-
         productAdapter.addAll(data.getProducts());
         view.productRefresh(start, row);
 
@@ -190,8 +173,8 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
 
     private SearchOptionDataModel parseToModel() {
         SearchOptionDataModel options = new SearchOptionDataModel();
-        options.setBrand_id(brand_id);
-        options.setOrder(sortCode);
+        options.setBrand_no(brandNo);
+        options.setSort_code(sortCode);
         return options;
     }
 }

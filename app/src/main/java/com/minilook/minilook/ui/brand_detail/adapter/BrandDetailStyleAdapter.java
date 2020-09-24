@@ -1,5 +1,6 @@
 package com.minilook.minilook.ui.brand_detail.adapter;
 
+import android.text.TextUtils;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -30,32 +31,32 @@ public class BrandDetailStyleAdapter extends RecyclerView.Adapter<BrandDetailSty
     }
 
     @Override public void add(String $item) {
-        this.items.add($item);
+        if (!TextUtils.isEmpty($item)) items.add($item);
     }
 
     @Override public void add(int $index, String $item) {
-        this.items.add($index, $item);
+        if (!TextUtils.isEmpty($item)) items.add($index, $item);
     }
 
     @Override public void addAll(List<String> $items) {
-        this.items.addAll($items);
+        for (String item : $items) add(item);
     }
 
     @Override public void set(int $index, String $item) {
-        this.items.set($index, $item);
+        if (!TextUtils.isEmpty($item)) items.set($index, $item);
     }
 
     @Override public void set(List<String> $items) {
-        this.items.clear();
-        this.items.addAll($items);
+        items.clear();
+        for (String item : $items) add(item);
     }
 
     @Override public String get(int $index) {
-        return this.items.get($index);
+        return items.get($index);
     }
 
     @Override public List<String> get() {
-        return this.items;
+        return items;
     }
 
     @Override public int get(String $item) {
@@ -63,23 +64,23 @@ public class BrandDetailStyleAdapter extends RecyclerView.Adapter<BrandDetailSty
     }
 
     @Override public void remove(int $index) {
-        this.items.remove($index);
+        items.remove($index);
     }
 
     @Override public void remove(String $item) {
-        this.items.remove($item);
+        items.remove($item);
     }
 
     @Override public void removeAll() {
-        this.items.clear();
+        items.clear();
     }
 
     @Override public void clear() {
-        this.items.clear();
+        items.clear();
     }
 
     @Override public int getSize() {
-        return this.items.size();
+        return items.size();
     }
 
     @Override public void refresh() {

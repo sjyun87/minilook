@@ -32,32 +32,32 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryVH> implements
     }
 
     @Override public void add(CategoryDataModel $item) {
-        this.items.add($item);
+        items.add($item);
     }
 
     @Override public void add(int $index, CategoryDataModel $item) {
-        this.items.add($index, $item);
+        items.add($index, $item);
     }
 
     @Override public void addAll(List<CategoryDataModel> $items) {
-        this.items.addAll($items);
+        items.addAll($items);
     }
 
     @Override public void set(int $index, CategoryDataModel $item) {
-        this.items.set($index, $item);
+        items.set($index, $item);
     }
 
     @Override public void set(List<CategoryDataModel> $items) {
-        this.items.clear();
-        this.items.addAll($items);
+        items.clear();
+        items.addAll($items);
     }
 
     @Override public CategoryDataModel get(int $index) {
-        return this.items.get($index);
+        return items.get($index);
     }
 
     @Override public List<CategoryDataModel> get() {
-        return this.items;
+        return items;
     }
 
     @Override public int get(CategoryDataModel $item) {
@@ -65,23 +65,23 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryVH> implements
     }
 
     @Override public void remove(int $index) {
-        this.items.remove($index);
+        items.remove($index);
     }
 
     @Override public void remove(CategoryDataModel $item) {
-        this.items.remove($item);
+        items.remove($item);
     }
 
     @Override public void removeAll() {
-        this.items.clear();
+        items.clear();
     }
 
     @Override public void clear() {
-        this.items.clear();
+        items.clear();
     }
 
     @Override public int getSize() {
-        return this.items.size();
+        return items.size();
     }
 
     @Override public void refresh() {

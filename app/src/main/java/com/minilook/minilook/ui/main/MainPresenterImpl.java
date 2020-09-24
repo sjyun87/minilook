@@ -88,7 +88,7 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
     }
 
     private void reqBrandScrap(boolean isScrap, BrandDataModel brand) {
-        addDisposable(scrapRequest.updateBrandScrap(isScrap, brand.getId())
+        addDisposable(scrapRequest.updateBrandScrap(isScrap, brand.getBrand_no())
             .subscribe());
     }
 

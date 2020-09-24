@@ -85,32 +85,32 @@ public class ProductAdapter extends RecyclerView.Adapter<BaseViewHolder<ProductD
     }
 
     @Override public void add(ProductDataModel $item) {
-        this.items.add($item);
+        items.add($item);
     }
 
     @Override public void add(int $index, ProductDataModel $item) {
-        this.items.add($index, $item);
+        items.add($index, $item);
     }
 
     @Override public void addAll(List<ProductDataModel> $items) {
-        this.items.addAll($items);
+        items.addAll($items);
     }
 
     @Override public void set(int $index, ProductDataModel $item) {
-        this.items.set($index, $item);
+        items.set($index, $item);
     }
 
     @Override public void set(List<ProductDataModel> $items) {
-        this.items.clear();
-        this.items.addAll($items);
+        items.clear();
+        items.addAll($items);
     }
 
     @Override public ProductDataModel get(int $index) {
-        return this.items.get($index);
+        return items.get($index);
     }
 
     @Override public List<ProductDataModel> get() {
-        return this.items;
+        return items;
     }
 
     @Override public int get(ProductDataModel $item) {
@@ -118,23 +118,23 @@ public class ProductAdapter extends RecyclerView.Adapter<BaseViewHolder<ProductD
     }
 
     @Override public void remove(int $index) {
-        this.items.remove($index);
+        items.remove($index);
     }
 
     @Override public void remove(ProductDataModel $item) {
-        this.items.remove($item);
+        items.remove($item);
     }
 
     @Override public void removeAll() {
-        this.items.clear();
+        items.clear();
     }
 
     @Override public void clear() {
-        this.items.clear();
+        items.clear();
     }
 
     @Override public int getSize() {
-        return this.items.size();
+        return items.size();
     }
 
     @Override public void refresh() {

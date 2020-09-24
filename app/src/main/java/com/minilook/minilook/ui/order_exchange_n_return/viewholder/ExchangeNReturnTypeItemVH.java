@@ -24,7 +24,7 @@ public class ExchangeNReturnTypeItemVH extends BaseViewHolder<CodeDataModel> {
     @Override public void bind(CodeDataModel $data) {
         super.bind($data);
 
-        nameTextView.setText(data.getCodeName());
+        nameTextView.setText(data.getName());
 
         itemView.setOnClickListener(this::onItemClick);
     }

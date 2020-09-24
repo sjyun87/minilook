@@ -3,9 +3,7 @@ package com.minilook.minilook.ui.brand_detail;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
-
 import com.minilook.minilook.data.model.common.CodeDataModel;
-import com.minilook.minilook.data.model.common.SortDataModel;
 
 public interface BrandDetailPresenter extends LifecycleObserver {
 
@@ -34,7 +32,11 @@ public interface BrandDetailPresenter extends LifecycleObserver {
 
         void sortRefresh();
 
-        void setupSortText(String text);
+        void setupSortText(String name);
+
+        void showSortPanel();
+
+        void hideSortPanel();
 
         void setupProductRecyclerView();
 
@@ -42,29 +44,25 @@ public interface BrandDetailPresenter extends LifecycleObserver {
 
         void productRefresh(int start, int row);
 
-        void showSortPanel();
-
-        void hideSortPanel();
-
         void setupThumb(String url);
 
         void setupLogo(String url);
 
         void setupScrapCount(int count);
 
-        void setupName(String text);
+        void setupName(String name);
 
-        void setupTag(String text);
+        void setupTag(String tag);
 
-        void setupDesc(String text);
+        void setupDesc(String desc);
 
-        void checkScrap();
+        void scrapOn();
 
-        void uncheckScrap();
+        void scrapOff();
 
         void scrollToTop();
 
-        void navigateToBrandInfo(int brand_id);
+        void navigateToBrandInfo(int brandNo);
 
         void navigateToLogin();
     }

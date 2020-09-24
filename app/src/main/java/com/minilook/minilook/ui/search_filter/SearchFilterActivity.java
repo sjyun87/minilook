@@ -24,6 +24,7 @@ import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.slider.Slider;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.CategoryDataModel;
+import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.common.ColorDataModel;
 import com.minilook.minilook.data.model.common.GenderDataModel;
 import com.minilook.minilook.data.model.common.StyleDataModel;
@@ -246,7 +247,7 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
         colorAdapterView.refresh();
     }
 
-    @Override public void addStyleItem(StyleDataModel model) {
+    @Override public void addStyleItem(CodeDataModel model) {
         StyleView styleView = StyleView.builder()
             .context(this)
             .model(model)

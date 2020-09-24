@@ -49,11 +49,11 @@ public class LookBookStyleAdapter extends RecyclerView.Adapter<LookBookStyleVH>
     }
 
     @Override public String get(int $index) {
-        return this.items.get($index);
+        return items.get($index);
     }
 
     @Override public List<String> get() {
-        return this.items;
+        return items;
     }
 
     @Override public int get(String $item) {
@@ -61,23 +61,23 @@ public class LookBookStyleAdapter extends RecyclerView.Adapter<LookBookStyleVH>
     }
 
     @Override public void remove(int $index) {
-        this.items.remove($index);
+        items.remove($index);
     }
 
     @Override public void remove(String $item) {
-        this.items.remove($item);
+        items.remove($item);
     }
 
     @Override public void removeAll() {
-        this.items.clear();
+        items.clear();
     }
 
     @Override public void clear() {
-        this.items.clear();
+        items.clear();
     }
 
     @Override public int getSize() {
-        return this.items.size();
+        return items.size();
     }
 
     @Override public void refresh() {

@@ -5,20 +5,18 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import butterknife.BindView;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.brand_info.di.BrandInfoArguments;
 
-import butterknife.BindView;
-
 public class BrandInfoActivity extends BaseActivity implements BrandInfoPresenter.View {
 
-    public static void start(Context context, int brand_id) {
+    public static void start(Context context, int brandNo) {
         Intent intent = new Intent(context, BrandInfoActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        intent.putExtra("brand_id", brand_id);
+        intent.putExtra("brandNo", brandNo);
         context.startActivity(intent);
     }
 
@@ -43,31 +41,31 @@ public class BrandInfoActivity extends BaseActivity implements BrandInfoPresente
     private BrandInfoArguments provideArguments() {
         return BrandInfoArguments.builder()
             .view(this)
-            .brand_id(getIntent().getIntExtra("brand_id", -1))
+            .brandNo(getIntent().getIntExtra("brandNo", -1))
             .build();
     }
 
-    @Override public void setupCStime(String text) {
-        csTimeTextView.setText(text);
+    @Override public void setupCStime(String time) {
+        csTimeTextView.setText(time);
     }
 
-    @Override public void setupCStel(String text) {
-        csTelTextView.setText(text);
+    @Override public void setupCStel(String tel) {
+        csTelTextView.setText(tel);
     }
 
     @Override public void hideCSsnsPanel() {
         csSnsPanel.setVisibility(View.GONE);
     }
 
-    @Override public void setupCSsns(String text) {
-        csSnsTextView.setText(text);
+    @Override public void setupCSsns(String sns) {
+        csSnsTextView.setText(sns);
     }
 
-    @Override public void setupCSemail(String text) {
-        csEmailTextView.setText(text);
+    @Override public void setupCSemail(String email) {
+        csEmailTextView.setText(email);
     }
 
-    @Override public void setupGuide(String text) {
-        guideTextView.setText(text);
+    @Override public void setupGuide(String guide) {
+        guideTextView.setText(guide);
     }
 }

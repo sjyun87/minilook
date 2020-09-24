@@ -86,8 +86,8 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
     @Override public void onSortSelected(CodeDataModel data) {
         if (!selectedSortCode.equals(data.getCode())) {
             selectedSortCode = data.getCode();
-            options.setOrder(selectedSortCode);
-            view.setupSortText(data.getCodeName());
+            options.setSort_code(selectedSortCode);
+            view.setupSortText(data.getName());
 
             productAdapter.clear();
             page = new AtomicInteger(0);
@@ -109,7 +109,7 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
         String categoryCode = isVisibleCategoryDepth1 ? "" : options.getCategory_code();
         reqFilters(categoryCode);
 
-        options.setOrder(sortCodes.get(0).getCode());
+        options.setSort_code(sortCodes.get(0).getCode());
         setupSortData();
     }
 
@@ -117,10 +117,10 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
         List<CodeDataModel> sortItems = App.getInstance().getSortCodes();
         sortAdapter.set(sortItems);
         view.sortRefresh();
-        view.setupSortText(sortItems.get(0).getCodeName());
+        view.setupSortText(sortItems.get(0).getName());
         selectedSortCode = sortItems.get(0).getCode();
 
-        options.setOrder(sortItems.get(0).getCode());
+        options.setSort_code(sortItems.get(0).getCode());
         reqProducts();
     }
 

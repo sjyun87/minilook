@@ -28,7 +28,7 @@ public class BrandDetailSortItemVH extends BaseViewHolder<CodeDataModel> {
     @Override public void bind(CodeDataModel $data) {
         super.bind($data);
 
-        sortTextView.setText(data.getCodeName());
+        sortTextView.setText(data.getName());
 
         itemView.setOnClickListener(this::onItemClick);
     }

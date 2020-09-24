@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.minilook.minilook.data.model.base.BooleanDeserializer;
+import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.common.SortDataModel;
 import com.minilook.minilook.data.model.common.StyleDataModel;
 import java.util.List;
@@ -11,7 +12,7 @@ import lombok.Data;
 
 @Data public class BrandDataModel {
     @Expose @SerializedName("brandNo")
-    private int id;
+    private int brand_no;
     @Expose @SerializedName(value = "name", alternate = "brandName")
     private String brand_name;
     @Expose @SerializedName("logo")
@@ -28,11 +29,9 @@ import lombok.Data;
     @JsonAdapter(BooleanDeserializer.class)
     private boolean isScrap;
     @Expose @SerializedName("styles")
-    private List<StyleDataModel> styles;
+    private List<CodeDataModel> styles;
     @Expose @SerializedName("styleImages")
     private List<String> style_images;
-    @Expose @SerializedName("productOrderbyCodes")
-    private List<SortDataModel> sorts;
 
     // -- Controller
     private int position;

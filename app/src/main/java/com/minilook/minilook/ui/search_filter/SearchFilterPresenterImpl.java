@@ -3,6 +3,7 @@ package com.minilook.minilook.ui.search_filter;
 import com.google.gson.Gson;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.common.CategoryDataModel;
+import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.common.ColorDataModel;
 import com.minilook.minilook.data.model.common.GenderDataModel;
 import com.minilook.minilook.data.model.common.StyleDataModel;
@@ -192,7 +193,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         view.colorRefresh();
     }
 
-    @Override public void onStyleSelected(StyleDataModel data) {
+    @Override public void onStyleSelected(CodeDataModel data) {
         if (styleCodes.contains(data.getCode())) {
             styleCodes.remove(data.getCode());
             view.unselectedStyleView(data.getPosition());
@@ -343,9 +344,9 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         colorCodes = new ArrayList<>();
     }
 
-    private void setupStyleInit(List<StyleDataModel> styles) {
+    private void setupStyleInit(List<CodeDataModel> styles) {
         for (int i = 0; i < styles.size(); i++) {
-            StyleDataModel model = styles.get(i);
+            CodeDataModel model = styles.get(i);
             model.setPosition(i);
             model.setSelected(false);
             view.addStyleItem(model);

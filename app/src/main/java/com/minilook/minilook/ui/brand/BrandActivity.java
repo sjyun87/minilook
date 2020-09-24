@@ -14,7 +14,7 @@ import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
-import com.minilook.minilook.data.model.common.StyleDataModel;
+import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.brand.adapter.BrandAdapter;
@@ -43,7 +43,7 @@ public class BrandActivity extends BaseActivity implements BrandPresenter.View {
     private BrandAdapter brandAdapter = new BrandAdapter();
     private BaseAdapterDataView<BrandDataModel> brandAdapterView = brandAdapter;
     private BrandStyleAdapter styleAdapter = new BrandStyleAdapter();
-    private BaseAdapterDataView<StyleDataModel> styleAdapterView = styleAdapter;
+    private BaseAdapterDataView<CodeDataModel> styleAdapterView = styleAdapter;
 
     @Override protected int getLayoutID() {
         return R.layout.activity_brand;

@@ -82,7 +82,7 @@ public class ScrapbookBrandItemVH extends BaseViewHolder<BrandDataModel> {
     }
 
     void onItemClick(View view) {
-        BrandDetailActivity.start(context, data.getId());
+        BrandDetailActivity.start(context, data.getBrand_no());
     }
 
     @OnClick(R.id.img_scrap)

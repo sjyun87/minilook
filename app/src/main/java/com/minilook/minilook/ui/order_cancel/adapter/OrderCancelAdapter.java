@@ -28,32 +28,32 @@ public class OrderCancelAdapter extends RecyclerView.Adapter<OrderCancelItemVH>
     }
 
     @Override public void add(OrderGoodsDataModel $item) {
-        this.items.add($item);
+        items.add($item);
     }
 
     @Override public void add(int $index, OrderGoodsDataModel $item) {
-        this.items.add($index, $item);
+        items.add($index, $item);
     }
 
     @Override public void addAll(List<OrderGoodsDataModel> $items) {
-        this.items.addAll($items);
+        items.addAll($items);
     }
 
     @Override public void set(int $index, OrderGoodsDataModel $item) {
-        this.items.set($index, $item);
+        items.set($index, $item);
     }
 
     @Override public void set(List<OrderGoodsDataModel> $items) {
-        this.items.clear();
-        this.items.addAll($items);
+        items.clear();
+        items.addAll($items);
     }
 
     @Override public OrderGoodsDataModel get(int $index) {
-        return this.items.get($index);
+        return items.get($index);
     }
 
     @Override public List<OrderGoodsDataModel> get() {
-        return this.items;
+        return items;
     }
 
     @Override public int get(OrderGoodsDataModel $item) {
@@ -61,23 +61,23 @@ public class OrderCancelAdapter extends RecyclerView.Adapter<OrderCancelItemVH>
     }
 
     @Override public void remove(int $index) {
-        this.items.remove($index);
+        items.remove($index);
     }
 
     @Override public void remove(OrderGoodsDataModel $item) {
-        this.items.remove($item);
+        items.remove($item);
     }
 
     @Override public void removeAll() {
-        this.items.clear();
+        items.clear();
     }
 
     @Override public void clear() {
-        this.items.clear();
+        items.clear();
     }
 
     @Override public int getSize() {
-        return this.items.size();
+        return items.size();
     }
 
     @Override public void refresh() {

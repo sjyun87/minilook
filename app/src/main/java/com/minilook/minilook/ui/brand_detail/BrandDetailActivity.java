@@ -39,9 +39,9 @@ import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
 
 public class BrandDetailActivity extends BaseActivity implements BrandDetailPresenter.View {
 
-    public static void start(Context context, int brand_id) {
+    public static void start(Context context, int brandNo) {
         Intent intent = new Intent(context, BrandDetailActivity.class);
-        intent.putExtra("brand_id", brand_id);
+        intent.putExtra("brandNo", brandNo);
         context.startActivity(intent);
     }
 
@@ -54,14 +54,14 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
     @BindView(R.id.txt_tag) TextView tagTextView;
     @BindView(R.id.txt_desc) TextView descTextView;
     @BindView(R.id.rcv_style) RecyclerView styleRecyclerView;
-    @BindView(R.id.layout_product_panel) LinearLayout productPanel;
     @BindView(R.id.rcv_product) RecyclerView productRecyclerView;
 
+    @BindView(R.id.layout_header_panel) LinearLayout headerPanel;
     @BindView(R.id.txt_sort) TextView sortTextView;
     @BindView(R.id.rcv_sort) RecyclerView sortRecyclerView;
-    @BindView(R.id.layout_header_panel) LinearLayout headerPanel;
-    @BindView(R.id.txt_header_sort) TextView headerSortTextView;
-    @BindView(R.id.rcv_header_sort) RecyclerView headerSortRecyclerView;
+    @BindView(R.id.layout_sticky_panel) LinearLayout stickyPanel;
+    @BindView(R.id.txt_sticky_sort) TextView stickySortTextView;
+    @BindView(R.id.rcv_sticky_sort) RecyclerView stickySortRecyclerView;
 
     @BindColor(R.color.color_FFDBDBDB) int color_FFDBDBDB;
     @BindColor(R.color.color_FFF5F5F5) int color_FFF5F5F5;
@@ -99,7 +99,7 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
     private BrandDetailArguments provideArguments() {
         return BrandDetailArguments.builder()
             .view(this)
-            .brand_id(getIntent().getIntExtra("brand_id", -1))
+            .brandNo(getIntent().getIntExtra("brandNo", -1))
             .styleAdapter(styleAdapter)
             .sortAdapter(sortAdapter)
             .productAdapter(productAdapter)
@@ -109,7 +109,7 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
     @Override public void setupScrollView() {
         rootScrollView.setOnScrollChangeListener(
             (NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
-                if (scrollY > productPanel.getY()) {
+                if (scrollY > headerPanel.getY()) {
                     handleHeaderPanel(true);
                 } else {
                     handleHeaderPanel(false);
@@ -126,16 +126,16 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
 
     private void handleHeaderPanel(boolean isHeaderVisible) {
         if (isHeaderVisible) {
-            headerPanel.setVisibility(View.VISIBLE);
+            stickyPanel.setVisibility(View.VISIBLE);
             if (sortRecyclerView.getVisibility() == View.VISIBLE) {
                 sortRecyclerView.setVisibility(View.GONE);
-                headerSortRecyclerView.setVisibility(View.VISIBLE);
+                stickySortRecyclerView.setVisibility(View.VISIBLE);
             }
         } else {
-            headerPanel.setVisibility(View.GONE);
-            if (headerSortRecyclerView.getVisibility() == View.VISIBLE) {
+            stickyPanel.setVisibility(View.GONE);
+            if (stickySortRecyclerView.getVisibility() == View.VISIBLE) {
                 sortRecyclerView.setVisibility(View.VISIBLE);
-                headerSortRecyclerView.setVisibility(View.GONE);
+                stickySortRecyclerView.setVisibility(View.GONE);
             }
         }
     }
@@ -165,19 +165,35 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
 
         sortRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         sortRecyclerView.setAdapter(sortAdapter);
-        headerSortRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        headerSortRecyclerView.setAdapter(sortAdapter);
+        stickySortRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        stickySortRecyclerView.setAdapter(sortAdapter);
         itemDecoration.addTo(sortRecyclerView);
-        itemDecoration.addTo(headerSortRecyclerView);
+        itemDecoration.addTo(stickySortRecyclerView);
     }
 
     @Override public void sortRefresh() {
         sortAdapterView.refresh();
     }
 
-    @Override public void setupSortText(String text) {
-        sortTextView.setText(text);
-        headerSortTextView.setText(text);
+    @Override public void setupSortText(String name) {
+        sortTextView.setText(name);
+        stickySortTextView.setText(name);
+    }
+
+    @Override public void showSortPanel() {
+        if (stickyPanel.getVisibility() == View.VISIBLE) {
+            stickySortRecyclerView.setVisibility(View.VISIBLE);
+        } else {
+            sortRecyclerView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override public void hideSortPanel() {
+        if (stickyPanel.getVisibility() == View.VISIBLE) {
+            stickySortRecyclerView.setVisibility(View.GONE);
+        } else {
+            sortRecyclerView.setVisibility(View.GONE);
+        }
     }
 
     @Override public void setupProductRecyclerView() {
@@ -196,22 +212,6 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
     @Override public void productRefresh(int start, int row) {
         productAdapterView.refresh(start, row);
         isLoading = false;
-    }
-
-    @Override public void showSortPanel() {
-        if (headerPanel.getVisibility() == View.VISIBLE) {
-            headerSortRecyclerView.setVisibility(View.VISIBLE);
-        } else {
-            sortRecyclerView.setVisibility(View.VISIBLE);
-        }
-    }
-
-    @Override public void hideSortPanel() {
-        if (headerPanel.getVisibility() == View.VISIBLE) {
-            headerSortRecyclerView.setVisibility(View.GONE);
-        } else {
-            sortRecyclerView.setVisibility(View.GONE);
-        }
     }
 
     @Override public void setupThumb(String url) {
@@ -238,32 +238,32 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
         scrapCountTextView.setText(StringUtil.toDigit(count));
     }
 
-    @Override public void setupName(String text) {
-        nameTextView.setText(text);
+    @Override public void setupName(String name) {
+        nameTextView.setText(name);
     }
 
-    @Override public void setupTag(String text) {
-        tagTextView.setText(text);
+    @Override public void setupTag(String tag) {
+        tagTextView.setText(tag.replace(",", " "));
     }
 
-    @Override public void setupDesc(String text) {
-        descTextView.setText(text);
+    @Override public void setupDesc(String desc) {
+        descTextView.setText(desc);
     }
 
-    @Override public void checkScrap() {
+    @Override public void scrapOn() {
         scrapImageView.setImageDrawable(img_scrap_on);
     }
 
-    @Override public void uncheckScrap() {
+    @Override public void scrapOff() {
         scrapImageView.setImageDrawable(img_scrap_off);
     }
 
     @Override public void scrollToTop() {
-        if (rootScrollView.getScrollY() > productPanel.getY()) rootScrollView.setScrollY((int) productPanel.getY());
+        if (rootScrollView.getScrollY() > headerPanel.getY()) rootScrollView.setScrollY((int) headerPanel.getY());
     }
 
-    @Override public void navigateToBrandInfo(int brand_id) {
-        BrandInfoActivity.start(this, brand_id);
+    @Override public void navigateToBrandInfo(int brandNo) {
+        BrandInfoActivity.start(this, brandNo);
     }
 
     @Override public void navigateToLogin() {
@@ -280,7 +280,7 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
         presenter.onBrandInfoClick();
     }
 
-    @OnClick({ R.id.layout_sort_panel, R.id.layout_header_sort_panel })
+    @OnClick({ R.id.layout_sort_panel, R.id.layout_sticky_sort_panel })
     void onSortClick() {
         presenter.onSortClick();
     }

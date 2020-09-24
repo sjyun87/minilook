@@ -31,32 +31,32 @@ public class OptionSelectorSizeAdapter extends RecyclerView.Adapter<OptionSelect
     }
 
     @Override public void add(ProductStockDataModel $item) {
-        this.items.add($item);
+        items.add($item);
     }
 
     @Override public void add(int $index, ProductStockDataModel $item) {
-        this.items.add($index, $item);
+        items.add($index, $item);
     }
 
     @Override public void addAll(List<ProductStockDataModel> $items) {
-        this.items.addAll($items);
+        items.addAll($items);
     }
 
     @Override public void set(int $index, ProductStockDataModel $item) {
-        this.items.set($index, $item);
+        items.set($index, $item);
     }
 
     @Override public void set(List<ProductStockDataModel> $items) {
-        this.items.clear();
-        this.items.addAll($items);
+        items.clear();
+        items.addAll($items);
     }
 
     @Override public ProductStockDataModel get(int $index) {
-        return this.items.get($index);
+        return items.get($index);
     }
 
     @Override public List<ProductStockDataModel> get() {
-        return this.items;
+        return items;
     }
 
     @Override public int get(ProductStockDataModel $item) {
@@ -64,23 +64,23 @@ public class OptionSelectorSizeAdapter extends RecyclerView.Adapter<OptionSelect
     }
 
     @Override public void remove(int $index) {
-        this.items.remove($index);
+        items.remove($index);
     }
 
     @Override public void remove(ProductStockDataModel $item) {
-        this.remove($item);
+        remove($item);
     }
 
     @Override public void removeAll() {
-        this.items.clear();
+        items.clear();
     }
 
     @Override public void clear() {
-        this.items.clear();
+        items.clear();
     }
 
     @Override public int getSize() {
-        return this.items.size();
+        return items.size();
     }
 
     @Override public void refresh() {

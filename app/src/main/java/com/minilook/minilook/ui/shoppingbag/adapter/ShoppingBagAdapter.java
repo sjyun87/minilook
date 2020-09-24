@@ -28,32 +28,32 @@ public class ShoppingBagAdapter extends RecyclerView.Adapter<ShoppingBagItemVH>
     }
 
     @Override public void add(ShoppingBrandDataModel $item) {
-        this.items.add($item);
+        items.add($item);
     }
 
     @Override public void add(int $index, ShoppingBrandDataModel $item) {
-        this.items.add($index, $item);
+        items.add($index, $item);
     }
 
     @Override public void addAll(List<ShoppingBrandDataModel> $items) {
-        this.items.addAll($items);
+        items.addAll($items);
     }
 
     @Override public void set(int $index, ShoppingBrandDataModel $item) {
-        this.items.set($index, $item);
+        items.set($index, $item);
     }
 
     @Override public void set(List<ShoppingBrandDataModel> $items) {
-        this.items.clear();
-        this.items.addAll($items);
+        items.clear();
+        items.addAll($items);
     }
 
     @Override public ShoppingBrandDataModel get(int $index) {
-        return this.items.get($index);
+        return items.get($index);
     }
 
     @Override public List<ShoppingBrandDataModel> get() {
-        return this.items;
+        return items;
     }
 
     @Override public int get(ShoppingBrandDataModel $item) {
@@ -61,23 +61,23 @@ public class ShoppingBagAdapter extends RecyclerView.Adapter<ShoppingBagItemVH>
     }
 
     @Override public void remove(int $index) {
-        this.items.remove($index);
+        items.remove($index);
     }
 
     @Override public void remove(ShoppingBrandDataModel $item) {
-        this.items.remove($item);
+        items.remove($item);
     }
 
     @Override public void removeAll() {
-        this.items.clear();
+        items.clear();
     }
 
     @Override public void clear() {
-        this.items.clear();
+        items.clear();
     }
 
     @Override public int getSize() {
-        return this.items.size();
+        return items.size();
     }
 
     @Override public void refresh() {

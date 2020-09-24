@@ -42,32 +42,32 @@ public class LookBookModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<S
     }
 
     @Override public void add(LookBookModuleDataModel $item) {
-        this.items.add($item);
+        items.add($item);
     }
 
     @Override public void add(int $index, LookBookModuleDataModel $item) {
-        this.items.add($index, $item);
+        items.add($index, $item);
     }
 
     @Override public void addAll(List<LookBookModuleDataModel> $items) {
-        this.items.addAll($items);
+        items.addAll($items);
     }
 
     @Override public void set(int $index, LookBookModuleDataModel $item) {
-        this.items.set($index, $item);
+        items.set($index, $item);
     }
 
     @Override public void set(List<LookBookModuleDataModel> $items) {
-        this.items.clear();
-        this.items.addAll($items);
+        items.clear();
+        items.addAll($items);
     }
 
     @Override public LookBookModuleDataModel get(int $index) {
-        return this.items.get($index);
+        return items.get($index);
     }
 
     @Override public List<LookBookModuleDataModel> get() {
-        return this.items;
+        return items;
     }
 
     @Override public int get(LookBookModuleDataModel $item) {
@@ -75,23 +75,23 @@ public class LookBookModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<S
     }
 
     @Override public void remove(int $index) {
-        this.items.remove($index);
+        items.remove($index);
     }
 
     @Override public void remove(LookBookModuleDataModel $item) {
-        this.items.remove($item);
+        items.remove($item);
     }
 
     @Override public void removeAll() {
-        this.items.clear();
+        items.clear();
     }
 
     @Override public void clear() {
-        this.items.clear();
+        items.clear();
     }
 
     @Override public int getSize() {
-        return this.items.size();
+        return items.size();
     }
 
     @Override public void refresh() {

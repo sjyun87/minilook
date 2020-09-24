@@ -94,7 +94,7 @@ public class OrderExchangeNReturnPresenterImpl extends BasePresenterImpl impleme
         } else {
             view.hideTypeBox();
             if (selectedType != null) {
-                view.setSelectedType(selectedType.getCodeName());
+                view.setSelectedType(selectedType.getName());
             } else {
                 view.setTypeHint();
             }
@@ -108,7 +108,7 @@ public class OrderExchangeNReturnPresenterImpl extends BasePresenterImpl impleme
         } else {
             view.hideReasonBox();
             if (selectedReason != null) {
-                view.selectedReason(selectedReason.getCodeName());
+                view.selectedReason(selectedReason.getName());
             } else {
                 view.setReasonHint();
             }

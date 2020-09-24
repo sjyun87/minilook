@@ -29,6 +29,7 @@ import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.App;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
+import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.common.StyleDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.rx.RxBus;
@@ -165,7 +166,7 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
         }
     }
 
-    private String getStyleTag(List<StyleDataModel> styles) {
+    private String getStyleTag(List<CodeDataModel> styles) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < styles.size(); i++) {
             if (i != 0) sb.append(" ");
@@ -212,7 +213,7 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
 
     @OnClick(R.id.layout_brand_panel)
     void onBrandMoreClick() {
-        int brand_id = brandItems.get(selectedPosition).getId();
+        int brand_id = brandItems.get(selectedPosition).getBrand_no();
         BrandDetailActivity.start(context, brand_id);
     }
 }

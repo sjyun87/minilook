@@ -36,7 +36,6 @@ public class ShoppingBagActivity extends BaseActivity implements ShoppingBagPres
 
     public static void start(Context context) {
         Intent intent = new Intent(context, ShoppingBagActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
     }
 
@@ -66,7 +65,7 @@ public class ShoppingBagActivity extends BaseActivity implements ShoppingBagPres
     private BaseAdapterDataView<ShoppingBrandDataModel> adapterView = adapter;
 
     @Override protected int getLayoutID() {
-        return R.layout.activity_shopping_bag;
+        return R.layout.activity_shoppingbag;
     }
 
     @Override protected void createPresenter() {

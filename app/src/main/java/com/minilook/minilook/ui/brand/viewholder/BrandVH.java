@@ -22,7 +22,6 @@ import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.util.DimenUtil;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
-import timber.log.Timber;
 
 public class BrandVH extends BaseViewHolder<BrandDataModel> {
 
@@ -68,7 +67,7 @@ public class BrandVH extends BaseViewHolder<BrandDataModel> {
     }
 
     void onItemClick(View view) {
-        BrandDetailActivity.start(context, data.getId());
+        BrandDetailActivity.start(context, data.getBrand_no());
     }
 
     @OnClick(R.id.img_scrap)

@@ -11,16 +11,16 @@ public interface BrandInfoPresenter extends LifecycleObserver {
 
     interface View {
 
-        void setupCStime(String text);
+        void setupCStime(String time);
 
-        void setupCStel(String text);
+        void setupCStel(String tel);
 
         void hideCSsnsPanel();
 
-        void setupCSsns(String text);
+        void setupCSsns(String sns);
 
-        void setupCSemail(String text);
+        void setupCSemail(String email);
 
-        void setupGuide(String text);
+        void setupGuide(String guide);
     }
 }
