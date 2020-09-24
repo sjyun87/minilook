@@ -357,7 +357,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         view.setupTotalCoupon(selectedCouponPrice);
         view.setupPoint(selectedPoint);
 
-        applyCouponPrice = totalProductPrice + totalShippingPrice - selectedCouponPrice;
+        applyCouponPrice = totalProductPrice - selectedCouponPrice;
         totalPrice = applyCouponPrice - selectedPoint;
         view.setupTotalPrice(totalPrice);
     }
@@ -530,7 +530,12 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         bootPayData.setName(getProductName());
         bootPayData.setPrice(totalPrice);
         bootPayData.setItems(getItems());
-        view.showBootPay(bootPayData);
+
+        if (totalPrice == 0) {
+            reqOrderComplete("", bootPayData);
+        } else {
+            view.showBootPay(bootPayData);
+        }
     }
 
     private List<BootPayItemDataModel> getItems() {

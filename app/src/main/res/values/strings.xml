@@ -266,7 +266,7 @@
     <string name="order_point_unit">P</string>
     <string name="order_point_all">모두 사용</string>
     <string name="order_point_over_use_toast">보유 포인트 이상으 사용할 수 없습니다</string>
-    <string name="order_point_over_total_price_toast">총 결제금액 이상으로 사용할 수 없습니다</string>
+    <string name="order_point_over_total_price_toast">총 상품금액 이상으로 사용할 수 없습니다</string>
     <string name="order_point_use_condition_toast">최소 1,000P 부터 사용 가능합니다</string>
     <string name="order_total_price_title">총 결제금액</string>
     <string name="order_total_product_price_caption">총 상품금액</string>
