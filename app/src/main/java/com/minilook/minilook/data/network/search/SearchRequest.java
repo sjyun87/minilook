@@ -28,16 +28,16 @@ public class SearchRequest extends BaseRequest<SearchService> {
         jsonMap.put("current", page);
         jsonMap.put("pageSize", rows);
         jsonMap.put("productOrderByCode", options.getSort_code());
-        if (options.getBrand_no() != 0) jsonMap.put("brandNo", options.getBrand_no());
+        if (options.getBrand_no() > 0) jsonMap.put("brandNo", options.getBrand_no());
         if (options.getGender_code() != null) jsonMap.put("genderCode", options.getGender_code());
-        if (options.getAge() != 0) jsonMap.put("age", options.getAge());
+        if (options.getAge() > 0) jsonMap.put("age", options.getAge());
         if (options.getCategory_code() != null) jsonMap.put("categoryCode", options.getCategory_code());
         if (options.getCategory_derail_code() != null) {
             jsonMap.put("categoryDetailCode", options.getCategory_derail_code());
         }
-        if (options.getType() != 0) jsonMap.put("sizeType", options.getType());
-        if (options.getPrice_min() != 0) jsonMap.put("startPrice", options.getPrice_min());
-        if (options.getPrice_max() != 0) jsonMap.put("endPrice", options.getPrice_max());
+        if (options.getType() > 0) jsonMap.put("sizeType", options.getType());
+        if (options.getPrice_min() > 0) jsonMap.put("startPrice", options.getPrice_min());
+        if (options.getPrice_max() > 0) jsonMap.put("endPrice", options.getPrice_max());
         if (options.getColor_codes() != null && options.getColor_codes().size() > 0) {
             jsonMap.put("colorCode", options.getColor_codes());
         }

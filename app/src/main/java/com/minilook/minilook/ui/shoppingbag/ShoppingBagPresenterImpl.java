@@ -253,9 +253,11 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
         for (ShoppingBrandDataModel brandData : tempBrandData) {
             for (ShoppingProductDataModel productData : brandData.getProducts()) {
                 if (productData.isSelected()) {
-                    brandData.getProducts().remove(productData);
-                    if (brandData.getProducts().size() == 0) adapter.remove(brandData);
-                    break;
+                    adapter.get(adapter.get(brandData)).getProducts().remove(productData);
+                    if (adapter.get(adapter.get(brandData)).getProducts().size() == 0) {
+                        adapter.remove(brandData);
+                        break;
+                    }
                 }
             }
         }
@@ -273,9 +275,10 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
     private void deleteOption(ShoppingOptionDataModel target) {
         ShoppingBrandDataModel brandData = getBrandModel(target.getBrand_id());
         ShoppingBrandDataModel tempBrandData = brandData;
-        for (ShoppingProductDataModel productData : tempBrandData.getProducts()) {
-            if (productData.getOptions().remove(target)) {
-                if (productData.getOptions().size() == 0) brandData.getProducts().remove(productData);
+        for (int i = 0; i < tempBrandData.getProducts().size(); i++) {
+            ShoppingProductDataModel productData = tempBrandData.getProducts().get(i);
+            if (adapter.get(adapter.get(brandData)).getProducts().get(i).getOptions().remove(target)) {
+                if (productData.getOptions().size() == 0) adapter.get(adapter.get(brandData)).getProducts().remove(productData);
                 if (brandData.getProducts().size() == 0) adapter.remove(brandData);
             }
         }

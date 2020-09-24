@@ -89,7 +89,7 @@ public class ShippingActivity extends BaseActivity implements ShippingPresenter.
         ShippingUpdateActivity.start(this, data);
     }
 
-    @OnClick(R.id.txt_add)
+    @OnClick({R.id.txt_add, R.id.txt_empty})
     void onAddClick() {
         presenter.onAddClick();
     }

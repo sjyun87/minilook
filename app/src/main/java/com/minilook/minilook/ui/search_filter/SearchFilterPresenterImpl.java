@@ -151,6 +151,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
             categorySelectedPosition = -1;
             categoryCode = null;
             categoryName = null;
+            sizeType = -1;
             view.categoryRefresh();
         }
     }

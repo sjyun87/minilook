@@ -30,7 +30,7 @@ public class LoginRequest extends BaseRequest<LoginService> {
 
     public Single<BaseDataModel> logout() {
         int user_id = App.getInstance().getMemberNo();
-        return getApi().logout(user_id , createRequestBody(parseToLogoutJson()));
+        return getApi().logout(user_id, createRequestBody(parseToLogoutJson()));
     }
 
     private Map<String, Object> parseToLogoutJson() {
@@ -39,7 +39,6 @@ public class LoginRequest extends BaseRequest<LoginService> {
         Timber.e(jsonMap.toString());
         return jsonMap;
     }
-
 
     public Single<BaseDataModel> join(UserDataModel model) {
         return getApi().join(createRequestBody(parseToJoinJson(model)));
@@ -68,6 +67,7 @@ public class LoginRequest extends BaseRequest<LoginService> {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("snsAccount", App.getInstance().getSnsId());
         jsonMap.put("snsTypeCode", App.getInstance().getSnsType());
+        jsonMap.put("pushToken", App.getInstance().getPushToken());
         return jsonMap;
     }
 
