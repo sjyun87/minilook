@@ -2,13 +2,11 @@ package com.minilook.minilook.ui.login;
 
 import android.content.Context;
 import android.content.Intent;
-import butterknife.BindString;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.user.UserDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.widget.BottomBar;
-import com.minilook.minilook.ui.base.widget.CustomToast;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.join.JoinActivity;
 import com.minilook.minilook.ui.login.di.LoginArguments;

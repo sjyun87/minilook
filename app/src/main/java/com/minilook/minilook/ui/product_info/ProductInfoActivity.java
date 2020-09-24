@@ -2,7 +2,6 @@ package com.minilook.minilook.ui.product_info;
 
 import android.content.Context;
 import android.content.Intent;
-import android.view.View;
 import android.widget.TextView;
 import butterknife.BindView;
 import com.minilook.minilook.R;

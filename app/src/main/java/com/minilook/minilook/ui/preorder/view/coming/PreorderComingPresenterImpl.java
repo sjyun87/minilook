@@ -1,14 +1,11 @@
 package com.minilook.minilook.ui.preorder.view.coming;
 
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
-import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
-import com.minilook.minilook.ui.preorder.PreorderPresenterImpl;
 import com.minilook.minilook.ui.preorder.view.coming.di.PreorderComingArguments;
 import java.util.ArrayList;
 import java.util.List;
-import timber.log.Timber;
 
 public class PreorderComingPresenterImpl extends BasePresenterImpl implements PreorderComingPresenter {
 

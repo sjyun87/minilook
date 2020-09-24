@@ -8,11 +8,9 @@ import com.minilook.minilook.data.model.shipping.ShippingDataModel;
 import com.minilook.minilook.data.network.shipping.ShippingRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
-import com.minilook.minilook.ui.profile.ProfilePresenterImpl;
 import com.minilook.minilook.ui.search_zip.SearchZipActivity;
 import com.minilook.minilook.ui.shipping.ShippingPresenterImpl;
 import com.minilook.minilook.ui.shipping_update.di.ShippingUpdateArguments;
-import com.minilook.minilook.ui.verify.VerifyActivity;
 import timber.log.Timber;
 
 public class ShippingUpdatePresenterImpl extends BasePresenterImpl implements ShippingUpdatePresenter {

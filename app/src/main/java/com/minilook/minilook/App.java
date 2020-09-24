@@ -3,7 +3,6 @@ package com.minilook.minilook;
 import android.app.Application;
 import android.content.ContextWrapper;
 import com.kakao.sdk.common.KakaoSdk;
-import com.minilook.minilook.data.common.PrefsKey;
 import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.data.model.user.UserDataModel;

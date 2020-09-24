@@ -17,10 +17,6 @@
         <!--        <item name="android:windowBackground">@drawable/img_cold</item>-->
     </style>
 
-    <style name="DialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog">
-        <item name="colorAccent">@color/color_FF8140E5</item>
-    </style>
-
     <style name="ToastStyle">
         <item name="android:windowEnterAnimation">@anim/toast_enter</item>
         <item name="android:windowExitAnimation">@anim/toast_exit</item>

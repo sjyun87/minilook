@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
-import com.minilook.minilook.ui.product_bridge.ProductBridgeActivity;
 import com.minilook.minilook.ui.search_keyword.di.SearchKeywordArguments;
 import com.nex3z.flowlayout.FlowLayout;
 

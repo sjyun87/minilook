@@ -5,7 +5,6 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import com.minilook.minilook.data.model.order.OrderCancelDataModel;
 import com.minilook.minilook.data.model.order.OrderGoodsDataModel;
-import java.util.ArrayList;
 
 public interface OrderDetailPresenter extends LifecycleObserver {
 

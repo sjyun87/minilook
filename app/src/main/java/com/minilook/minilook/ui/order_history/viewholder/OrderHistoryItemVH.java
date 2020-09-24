@@ -1,7 +1,6 @@
 package com.minilook.minilook.ui.order_history.viewholder;
 
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;

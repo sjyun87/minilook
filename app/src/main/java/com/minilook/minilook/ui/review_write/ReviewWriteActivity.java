@@ -2,12 +2,8 @@ package com.minilook.minilook.ui.review_write;
 
 import android.content.Context;
 import android.content.Intent;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
-import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.review_write.di.ReviewWriteArguments;
 
 public class ReviewWriteActivity extends BaseActivity implements ReviewWritePresenter.View {

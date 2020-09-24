@@ -1,19 +1,9 @@
 package com.minilook.minilook.ui.preorder;
 
-import android.view.View;
-import android.view.ViewGroup;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
-import butterknife.BindArray;
-import butterknife.BindView;
-import com.google.android.material.tabs.TabLayout;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseFragment;
 import com.minilook.minilook.ui.preorder.adapter.PreorderPagerAdapter;
 import com.minilook.minilook.ui.preorder.di.PreorderArguments;
-import com.minilook.minilook.ui.base.widget.TabView;
-import java.util.Objects;
-import me.didik.component.StickyNestedScrollView;
 
 public class PreorderFragment extends BaseFragment implements PreorderPresenter.View {
 

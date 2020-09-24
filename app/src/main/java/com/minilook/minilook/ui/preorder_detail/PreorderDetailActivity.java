@@ -19,7 +19,7 @@ public class PreorderDetailActivity extends BaseActivity implements PreorderDeta
     //private RecentKeywordDB recentKeywordDB;
 
     @Override protected int getLayoutID() {
-        return R.layout.activity_search_filter;
+        return R.layout.activity_preorder_detail;
     }
 
     @Override protected void createPresenter() {

@@ -5,11 +5,9 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.MetricAffectingSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 public class SpannableUtil {
 

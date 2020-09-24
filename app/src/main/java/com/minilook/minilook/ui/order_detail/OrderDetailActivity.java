@@ -22,7 +22,6 @@ import com.minilook.minilook.ui.order_detail.adapter.OrderDetailAdapter;
 import com.minilook.minilook.ui.order_detail.di.OrderDetailArguments;
 import com.minilook.minilook.ui.order_exchange_n_return.OrderExchangeNReturnActivity;
 import com.minilook.minilook.util.StringUtil;
-import java.util.ArrayList;
 
 public class OrderDetailActivity extends BaseActivity implements OrderDetailPresenter.View {
 
