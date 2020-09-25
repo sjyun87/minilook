@@ -1,15 +1,15 @@
-package com.minilook.minilook.data.model.user;
+package com.minilook.minilook.data.model.member;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import lombok.Data;
 
-@Data public class UserDataModel implements Serializable {
+@Data public class MemberDataModel implements Serializable {
     @Expose @SerializedName("memberNo")
-    private int user_id;
+    private int memberNo;
     @Expose @SerializedName("snsAccount")
-    private String sns_id;
+    private String snsId;
     @Expose @SerializedName("email")
     private String email;
     @Expose @SerializedName("name")
@@ -27,15 +27,15 @@ import lombok.Data;
     @Expose @SerializedName("ci")
     private String ci;
     @Expose @SerializedName("addressNo")
-    private int address_id;
+    private int addressNo;
     @Expose @SerializedName("shippingName")
-    private String shipping_name;
+    private String shippingName;
     @Expose @SerializedName("shippingPhone")
-    private String shipping_phone;
+    private String shippingPhone;
     @Expose @SerializedName("zipcode")
-    private String shipping_zipcode;
+    private String shippingZipcode;
     @Expose @SerializedName("shippingAddress1")
-    private String shipping_address;
+    private String shippingAddress;
     @Expose @SerializedName("shippingAddress2")
-    private String shipping_address_detail;
+    private String shippingAddressDetail;
 }

@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.common.URLKeys;
 import com.minilook.minilook.data.model.base.BaseDataModel;
-import com.minilook.minilook.data.model.user.UserDataModel;
+import com.minilook.minilook.data.model.member.MemberDataModel;
 import com.minilook.minilook.data.network.member.MemberRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
@@ -71,23 +71,23 @@ public class ProfilePresenterImpl extends BasePresenterImpl implements ProfilePr
         addDisposable(memberRequest.getProfile()
             .compose(Transformer.applySchedulers())
             .filter(data -> data.getCode().equals(HttpCode.OK))
-            .map(data -> gson.fromJson(data.getData(), UserDataModel.class))
+            .map(data -> gson.fromJson(data.getData(), MemberDataModel.class))
             .subscribe(this::resProfile, Timber::e));
     }
 
-    private void resProfile(UserDataModel data) {
+    private void resProfile(MemberDataModel data) {
         view.setupNick(data.getNick());
         view.disableNickSaveButton();
         view.setupPhone(data.getPhone());
         view.setupEmail(data.getEmail());
 
-        if (data.getAddress_id() != 0) {
-            view.setupShippingName(data.getShipping_name());
-            view.setupShippingPhone(data.getShipping_phone());
+        if (data.getAddressNo() != 0) {
+            view.setupShippingName(data.getShippingName());
+            view.setupShippingPhone(data.getShippingPhone());
             view.setupShippingAddress(
-                data.getShipping_zipcode(),
-                data.getShipping_address(),
-                data.getShipping_address_detail());
+                data.getShippingZipcode(),
+                data.getShippingAddress(),
+                data.getShippingAddressDetail());
 
             showShippingPanel();
         } else {

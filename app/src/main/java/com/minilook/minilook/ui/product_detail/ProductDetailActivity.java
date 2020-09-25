@@ -32,8 +32,8 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
-import com.minilook.minilook.data.model.product.ProductOptionDataModel;
-import com.minilook.minilook.data.model.product.ProductStockModel;
+import com.minilook.minilook.data.model.product.ProductColorDataModel;
+import com.minilook.minilook.data.model.product.ProductStockDataModel;
 import com.minilook.minilook.data.model.review.ReviewDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
@@ -273,7 +273,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         productNameTextView.setText(text);
     }
 
-    @Override public void addColorView(ProductStockModel model) {
+    @Override public void addColorView(ProductStockDataModel model) {
         ColorView colorView = ColorView.builder()
             .context(this)
             .model(model)
@@ -281,7 +281,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         colorPanel.addView(colorView);
     }
 
-    @Override public void addSizeView(ProductStockModel model) {
+    @Override public void addSizeView(ProductStockDataModel model) {
         SizeView sizeView = SizeView.builder()
             .context(this)
             .model(model)
@@ -381,7 +381,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         getTabView(2).setupCount(text);
     }
 
-    @Override public void setupOptionSelector(int price, List<ProductOptionDataModel> options) {
+    @Override public void setupOptionSelector(int price, List<ProductColorDataModel> options) {
         optionSelector.setupData(price, options);
         optionSelector.setOnButtonClickListener(new OptionSelector.OnButtonClickListener() {
             @Override public void onShoppingBagClick(List<ShoppingOptionDataModel> optionData) {

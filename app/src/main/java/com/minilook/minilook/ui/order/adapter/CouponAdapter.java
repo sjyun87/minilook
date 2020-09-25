@@ -3,7 +3,7 @@ package com.minilook.minilook.ui.order.adapter;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.minilook.minilook.data.model.user.CouponDataModel;
+import com.minilook.minilook.data.model.member.CouponDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.order.viewholder.CouponItemVH;

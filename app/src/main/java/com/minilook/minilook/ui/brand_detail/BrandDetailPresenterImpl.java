@@ -114,16 +114,16 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     }
 
     private void resBrandDetail(BrandDataModel data) {
-        view.setupThumb(data.getImage_url());
-        view.setupLogo(data.getBrand_logo());
+        view.setupThumb(data.getImageUrl());
+        view.setupLogo(data.getBrandLogo());
         isScrap = data.isScrap();
         setupScrap();
-        scrapCount = data.getScrap_cnt();
+        scrapCount = data.getScrapCount();
         view.setupScrapCount(scrapCount);
-        view.setupName(data.getBrand_name());
-        if (!TextUtils.isEmpty(data.getBrand_tag())) view.setupTag(data.getBrand_tag());
-        view.setupDesc(data.getBrand_desc());
-        styleAdapter.set(data.getStyle_images());
+        view.setupName(data.getBrandName());
+        if (!TextUtils.isEmpty(data.getBrandTag())) view.setupTag(data.getBrandTag());
+        view.setupDesc(data.getBrandDesc());
+        styleAdapter.set(data.getStyleImages());
         view.styleRefresh();
     }
 

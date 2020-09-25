@@ -97,7 +97,7 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
 
     private void usedData(List<LookBookModuleDataModel> lookbooks) {
         for (LookBookModuleDataModel model : lookbooks) {
-            usedLookbooks.add(model.getLookbook_no());
+            usedLookbooks.add(model.getLookbookNo());
         }
     }
 

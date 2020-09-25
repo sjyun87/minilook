@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.user.UserDataModel;
+import com.minilook.minilook.data.model.member.MemberDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.widget.BottomBar;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
@@ -58,8 +58,8 @@ public class LoginActivity extends BaseActivity implements LoginPresenter.View {
     }
 
     private OnSNSLoginListener snsLoginListener = new OnSNSLoginListener() {
-        @Override public void onSNSLogin(String sns_id, String email, String type) {
-            presenter.onSNSLogin(sns_id, email, type);
+        @Override public void onSNSLogin(String snsId, String email, String type) {
+            presenter.onSNSLogin(snsId, email, type);
         }
 
         @Override public void onSNSLogout() {
@@ -74,7 +74,7 @@ public class LoginActivity extends BaseActivity implements LoginPresenter.View {
         DialogManager.showNoEmailDialog(this);
     }
 
-    @Override public void navigateToJoin(UserDataModel userData) {
+    @Override public void navigateToJoin(MemberDataModel userData) {
         JoinActivity.start(this, userData);
     }
 

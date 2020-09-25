@@ -36,7 +36,7 @@ public class MarketFilterItemVH extends BaseViewHolder<CategoryDataModel> {
         super.bind($data);
 
         Glide.with(context)
-            .load(data.getImage_url())
+            .load(data.getIconUrl())
             .transition(new DrawableTransitionOptions().crossFade())
             .into(iconImageView);
 

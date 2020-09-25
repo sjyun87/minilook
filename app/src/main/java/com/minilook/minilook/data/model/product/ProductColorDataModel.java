@@ -5,15 +5,13 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 import lombok.Data;
 
-@Data public class ProductOptionDataModel {
+@Data public class ProductColorDataModel {
     @Expose @SerializedName("colorName")
-    private String color_name;
+    private String colorName;
     @Expose @SerializedName("colorCode")
-    private String color_code;
+    private String colorCode;
     @Expose @SerializedName("colorStocks")
-    private int color_stock;
+    private int colorStock;
     @Expose @SerializedName("stocks")
-    private List<ProductStockDataModel> stocks;
-    @Expose @SerializedName("extraAmount")
-    private int price_add;
+    private List<ProductSizeDataModel> sizes;
 }

@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data public class LookBookModuleDataModel {
     @Expose @SerializedName("lookbookNo")
-    private int lookbook_no;
+    private int lookbookNo;
     @Expose @SerializedName("label")
     private String label;
     @Expose @SerializedName("title")
@@ -18,9 +18,9 @@ import lombok.Data;
     @Expose @SerializedName("style_tag_description")
     private String tag;
     @Expose @SerializedName("productsTitle")
-    private String simple_info;
+    private String simpleInfo;
     @Expose @SerializedName("main_image")
-    private String background_url;
+    private String backgroundUrl;
     @Expose @SerializedName("detailImages")
     private List<String> styles;
     @Expose @SerializedName("products")

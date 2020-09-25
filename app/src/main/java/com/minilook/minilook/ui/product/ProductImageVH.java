@@ -30,7 +30,7 @@ public class ProductImageVH extends BaseViewHolder<ProductDataModel> {
         super.bind($data);
 
         Glide.with(context)
-            .load(data.getImage_url())
+            .load(data.getImageUrl())
             .placeholder(img_placeholder)
             .error(img_placeholder)
             .transition(new DrawableTransitionOptions().crossFade())
@@ -40,6 +40,6 @@ public class ProductImageVH extends BaseViewHolder<ProductDataModel> {
     }
 
     void onItemClick(View view) {
-        ProductDetailActivity.start(context, data.getProduct_no());
+        ProductDetailActivity.start(context, data.getProductNo());
     }
 }

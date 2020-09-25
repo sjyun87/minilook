@@ -1,6 +1,6 @@
 package com.minilook.minilook.ui.point.di;
 
-import com.minilook.minilook.data.model.user.PointHistoryDataModel;
+import com.minilook.minilook.data.model.member.PointHistoryDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.point.PointPresenter;
 import lombok.Builder;

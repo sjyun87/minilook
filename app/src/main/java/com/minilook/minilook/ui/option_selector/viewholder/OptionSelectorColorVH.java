@@ -11,12 +11,12 @@ import butterknife.BindColor;
 import butterknife.BindFont;
 import butterknife.BindView;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.product.ProductOptionDataModel;
+import com.minilook.minilook.data.model.product.ProductColorDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.base.widget.ColorView;
 import lombok.Setter;
 
-public class OptionSelectorColorVH extends BaseViewHolder<ProductOptionDataModel> {
+public class OptionSelectorColorVH extends BaseViewHolder<ProductColorDataModel> {
 
     @BindView(R.id.view_color) ColorView colorView;
     @BindView(R.id.txt_color) TextView colorTextView;
@@ -35,13 +35,13 @@ public class OptionSelectorColorVH extends BaseViewHolder<ProductOptionDataModel
             .inflate(R.layout.item_option_selector_color, (ViewGroup) itemView, false));
     }
 
-    @Override public void bind(ProductOptionDataModel $data) {
+    @Override public void bind(ProductColorDataModel $data) {
         super.bind($data);
 
-        colorView.setupColor(data.getColor_code());
-        colorTextView.setText(data.getColor_name());
+        colorView.setupColor(data.getColorCode());
+        colorTextView.setText(data.getColorName());
 
-        if (data.getColor_stock() == 0) {
+        if (data.getColorStock() == 0) {
             soldOutTextView.setVisibility(View.VISIBLE);
             colorTextView.setPaintFlags(colorTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             colorTextView.setTypeface(font_regular);
@@ -63,6 +63,6 @@ public class OptionSelectorColorVH extends BaseViewHolder<ProductOptionDataModel
     }
 
     public interface OnColorSelectedListener {
-        void onColorSelected(ProductOptionDataModel data);
+        void onColorSelected(ProductColorDataModel data);
     }
 }

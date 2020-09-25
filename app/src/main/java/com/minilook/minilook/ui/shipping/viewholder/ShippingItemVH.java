@@ -39,7 +39,7 @@ public class ShippingItemVH extends BaseViewHolder<ShippingDataModel> {
         }
         phoneTextView.setText(data.getPhone());
         addressTextView.setText(
-            String.format(format_address, data.getZipcode(), data.getAddress(), data.getAddress_detail()));
+            String.format(format_address, data.getZipcode(), data.getAddress(), data.getAddressDetail()));
 
         itemView.setOnClickListener(this::onItemClick);
     }

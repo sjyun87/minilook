@@ -60,8 +60,8 @@ public class PromotionDetailPresenterImpl extends BasePresenterImpl implements P
     }
 
     private void resPromotion(PromotionDataModel data) {
-        view.setupThumb(data.getThumb_url());
-        view.setupEventImage(data.getEvent_url());
+        view.setupThumb(data.getThumbUrl());
+        view.setupEventImage(data.getEventUrl());
         if (data.getProducts() != null && data.getProducts().size() > 0) {
             productAdapter.set(data.getProducts());
             view.productRefresh();
@@ -80,7 +80,7 @@ public class PromotionDetailPresenterImpl extends BasePresenterImpl implements P
     }
 
     private void resTogetherPromotion(List<PromotionDataModel> data) {
-        latestPromotionId = data.get(data.size() - 1).getPromotion_id();
+        latestPromotionId = data.get(data.size() - 1).getPromotionNo();
         int start = promotionAdapter.getSize();
         promotionAdapter.addAll(data);
         view.promotionRefresh(start, data.size());

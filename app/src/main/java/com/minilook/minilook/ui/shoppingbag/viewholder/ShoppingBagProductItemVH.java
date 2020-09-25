@@ -66,17 +66,17 @@ public class ShoppingBagProductItemVH extends BaseViewHolder<ShoppingProductData
         super.bind($data);
 
         Glide.with(context)
-            .load(data.getThumb_url())
+            .load(data.getThumbUrl())
             .placeholder(img_placeholder)
             .error(img_placeholder)
             .transition(new DrawableTransitionOptions().crossFade())
             .into(thumbImageView);
 
-        nameTextView.setText(data.getProduct_name());
+        nameTextView.setText(data.getProductName());
 
         setupCheckBox();
 
-        int displayCode = data.getDisplay_code();
+        int displayCode = data.getDisplayCode();
         if (displayCode == DisplayCode.DISPLAY.getValue()) {
             displayLabelTextView.setVisibility(View.GONE);
             adapter.set(data.getOptions());
@@ -104,11 +104,11 @@ public class ShoppingBagProductItemVH extends BaseViewHolder<ShoppingProductData
     @OnClick(R.id.img_checkbox)
     void onCheckBox() {
         data.setSelected(!data.isSelected());
-        RxBus.send(new ShoppingBagPresenterImpl.RxBusEventProductCheckedChanged(data.getBrand_id()));
+        RxBus.send(new ShoppingBagPresenterImpl.RxBusEventProductCheckedChanged(data.getBrandNo()));
     }
 
     @OnClick(R.id.layout_product_panel)
     void onProductClick(){
-        ProductDetailActivity.start(context, data.getProduct_id());
+        ProductDetailActivity.start(context, data.getProductNo());
     }
 }

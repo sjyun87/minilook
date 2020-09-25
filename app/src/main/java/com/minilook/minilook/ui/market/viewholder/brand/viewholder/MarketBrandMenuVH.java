@@ -39,7 +39,7 @@ public class MarketBrandMenuVH extends BaseViewHolder<BrandDataModel> {
         super.bind($data);
 
         Glide.with(context)
-            .load(data.getBrand_logo())
+            .load(data.getBrandLogo())
             .placeholder(img_placeholder_logo)
             .error(img_placeholder_logo)
             .apply(RequestOptions.bitmapTransform(

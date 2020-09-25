@@ -43,7 +43,7 @@ public class OrderItemVH extends BaseViewHolder<ShoppingBrandDataModel> {
     @Override public void bind(ShoppingBrandDataModel $data) {
         super.bind($data);
 
-        nameTextView.setText(data.getBrand_name());
+        nameTextView.setText(data.getBrandName());
 
         productAdapter.set(data.getProducts());
         productAdapter.refresh();
@@ -51,16 +51,16 @@ public class OrderItemVH extends BaseViewHolder<ShoppingBrandDataModel> {
         if (data.isFreeShipping()) {
             shippingPriceTextView.setText(str_shipping_free);
         } else {
-            shippingPriceTextView.setText(StringUtil.toDigit(data.getFinal_shipping_price()));
+            shippingPriceTextView.setText(StringUtil.toDigit(data.getFinalShippingPrice()));
         }
         if (data.isIsland()) {
             islandShippingPriceTextView.setText(
-                String.format(format_island_shipping_price, StringUtil.toDigit(data.getIsland_shipping_price())));
+                String.format(format_island_shipping_price, StringUtil.toDigit(data.getIslandShippingPrice())));
             islandShippingPriceTextView.setVisibility(View.VISIBLE);
         } else {
             islandShippingPriceTextView.setVisibility(View.GONE);
         }
         totalPriceTextView.setText(StringUtil.toDigit(
-            data.getTotal_products_price() + data.getFinal_shipping_price() + data.getIsland_shipping_price()));
+            data.getTotalProductsPrice() + data.getFinalShippingPrice() + data.getIslandShippingPrice()));
     }
 }

@@ -11,7 +11,7 @@ import butterknife.BindFont;
 import butterknife.BindString;
 import butterknife.BindView;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.user.CouponDataModel;
+import com.minilook.minilook.data.model.member.CouponDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.order.OrderPresenterImpl;
@@ -38,8 +38,8 @@ public class CouponItemVH extends BaseViewHolder<CouponDataModel> {
     @Override public void bind(CouponDataModel $data) {
         super.bind($data);
 
-        if (data.getCoupon_id() != 0) {
-            String couponPrice = StringUtil.toDigit(data.getCoupon());
+        if (data.getNo() != 0) {
+            String couponPrice = StringUtil.toDigit(data.getValue());
             String name = data.getName();
             String formatText = String.format(format_coupon, couponPrice, name);
             couponTextView.setText(SpannableUtil.fontSpan(formatText, couponPrice, font_bold));

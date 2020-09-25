@@ -32,13 +32,13 @@ public class ProductWide32VH extends BaseViewHolder<ProductDataModel> {
         super.bind($data);
 
         Glide.with(context)
-            .load(data.getImage_url())
+            .load(data.getImageUrl())
             .placeholder(img_placeholder)
             .error(img_placeholder)
             .transition(new DrawableTransitionOptions().crossFade())
             .into(thumbImageView);
 
-        brandNameTextView.setText(data.getBrand_name());
-        productNameTextView.setText(data.getProduct_name());
+        brandNameTextView.setText(data.getBrandName());
+        productNameTextView.setText(data.getProductName());
     }
 }

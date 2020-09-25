@@ -12,12 +12,12 @@ import butterknife.BindFont;
 import butterknife.BindString;
 import butterknife.BindView;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.product.ProductStockDataModel;
+import com.minilook.minilook.data.model.product.ProductSizeDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.util.StringUtil;
 import lombok.Setter;
 
-public class OptionSelectorSizeVH extends BaseViewHolder<ProductStockDataModel> {
+public class OptionSelectorSizeVH extends BaseViewHolder<ProductSizeDataModel> {
 
     @BindView(R.id.txt_size) TextView sizeTextView;
     @BindView(R.id.txt_price_add) TextView addPriceTextView;
@@ -38,18 +38,18 @@ public class OptionSelectorSizeVH extends BaseViewHolder<ProductStockDataModel> 
             .inflate(R.layout.item_option_selector_size, (ViewGroup) itemView, false));
     }
 
-    @Override public void bind(ProductStockDataModel $data) {
+    @Override public void bind(ProductSizeDataModel $data) {
         super.bind($data);
 
-        sizeTextView.setText(data.getSize_name());
-        if (data.getPrice_add() == 0) {
+        sizeTextView.setText(data.getSizeName());
+        if (data.getPriceAdd() == 0) {
             addPriceTextView.setVisibility(View.GONE);
         } else {
-            addPriceTextView.setText(String.format(format_price_add, StringUtil.toDigit(data.getPrice_add())));
+            addPriceTextView.setText(String.format(format_price_add, StringUtil.toDigit(data.getPriceAdd())));
             addPriceTextView.setVisibility(View.VISIBLE);
         }
 
-        if (data.getSize_stock() == 0) {
+        if (data.getSizeStock() == 0) {
             soldOutTextView.setVisibility(View.VISIBLE);
             sizeTextView.setPaintFlags(sizeTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             sizeTextView.setTypeface(font_regular);
@@ -69,6 +69,6 @@ public class OptionSelectorSizeVH extends BaseViewHolder<ProductStockDataModel> 
     }
 
     public interface OnSizeSelectedListener {
-        void onSizeSelected(ProductStockDataModel data);
+        void onSizeSelected(ProductSizeDataModel data);
     }
 }

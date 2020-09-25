@@ -33,7 +33,7 @@ public class CategoryVH extends BaseViewHolder<CategoryDataModel> {
         nameTextView.setText(data.getName());
 
         Glide.with(context)
-            .load(data.getImage_url())
+            .load(data.getIconUrl())
             .into(iconImageView);
 
         itemView.setOnClickListener(this::onItemClick);

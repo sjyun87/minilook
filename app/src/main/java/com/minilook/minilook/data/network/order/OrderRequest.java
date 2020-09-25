@@ -43,7 +43,7 @@ public class OrderRequest extends BaseRequest<OrderService> {
         List<JsonObject> options = new ArrayList<>();
         for (ShoppingOptionDataModel model : goodsData) {
             JsonObject json = new JsonObject();
-            json.addProperty("optionNo", model.getOption_id());
+            json.addProperty("optionNo", model.getOptionNo());
             json.addProperty("quantity", model.getQuantity());
             options.add(json);
         }
@@ -90,7 +90,7 @@ public class OrderRequest extends BaseRequest<OrderService> {
             for (ShoppingProductDataModel productData : brandData.getProducts()) {
                 for (ShoppingOptionDataModel optionData : productData.getOptions()) {
                     JsonObject json = new JsonObject();
-                    json.addProperty("optionNo", optionData.getOption_id());
+                    json.addProperty("optionNo", optionData.getOptionNo());
                     json.addProperty("quantity", optionData.getQuantity());
                     options.add(json);
                 }

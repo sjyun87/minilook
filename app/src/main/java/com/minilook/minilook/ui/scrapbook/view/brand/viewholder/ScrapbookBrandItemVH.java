@@ -49,9 +49,9 @@ public class ScrapbookBrandItemVH extends BaseViewHolder<BrandDataModel> {
         super.bind($data);
 
         for (int i = 0; i < styleImageViews.size(); i++) {
-            if (data.getStyle_images() != null && data.getStyle_images().size() > 0) {
+            if (data.getStyleImages() != null && data.getStyleImages().size() > 0) {
                 Glide.with(context)
-                    .load(data.getStyle_images().get(i))
+                    .load(data.getStyleImages().get(i))
                     .placeholder(img_placeholder)
                     .error(img_placeholder)
                     .transition(new DrawableTransitionOptions().crossFade())
@@ -67,7 +67,7 @@ public class ScrapbookBrandItemVH extends BaseViewHolder<BrandDataModel> {
         }
 
         Glide.with(context)
-            .load(data.getBrand_logo())
+            .load(data.getBrandLogo())
             .placeholder(img_placeholder_logo)
             .error(img_placeholder_logo)
             .transition(new DrawableTransitionOptions().crossFade())
@@ -75,14 +75,14 @@ public class ScrapbookBrandItemVH extends BaseViewHolder<BrandDataModel> {
                 new CropCircleWithBorderTransformation(DimenUtil.dpToPx(context, 1), color_FFDBDBDB)))
             .into(logoImageView);
 
-        nameTextView.setText(data.getBrand_name());
-        tagTextView.setText(data.getBrand_tag());
+        nameTextView.setText(data.getBrandName());
+        tagTextView.setText(data.getBrandTag());
 
         itemView.setOnClickListener(this::onItemClick);
     }
 
     void onItemClick(View view) {
-        BrandDetailActivity.start(context, data.getBrand_no());
+        BrandDetailActivity.start(context, data.getBrandNo());
     }
 
     @OnClick(R.id.img_scrap)

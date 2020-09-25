@@ -32,9 +32,9 @@ public class OptionSelectorOptionVH extends BaseViewHolder<ShoppingOptionDataMod
     @Override public void bind(ShoppingOptionDataModel $data) {
         super.bind($data);
 
-        titleTextView.setText(String.format(format_options, data.getColor_name(), data.getSize_name()));
+        titleTextView.setText(String.format(format_options, data.getColorName(), data.getSizeName()));
         countTextView.setText(String.valueOf(data.getQuantity()));
-        priceTextView.setText(StringUtil.toDigit(data.getPrice_sum() * data.getQuantity()));
+        priceTextView.setText(StringUtil.toDigit(data.getPriceSum() * data.getQuantity()));
     }
 
     @OnClick(R.id.img_minus)
@@ -46,7 +46,7 @@ public class OptionSelectorOptionVH extends BaseViewHolder<ShoppingOptionDataMod
 
     @OnClick(R.id.img_plus)
     void onPlusClick() {
-        if (data.getQuantity() >= data.getOrder_available_quantity()) return;
+        if (data.getQuantity() >= data.getLimitQuantity()) return;
         data.setQuantity(data.getQuantity() + 1);
         onButtonClickListener.onPlusClick();
     }

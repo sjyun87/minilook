@@ -30,7 +30,7 @@ public class PromotionItemVH extends BaseViewHolder<PromotionDataModel> {
         super.bind($data);
 
         Glide.with(itemView)
-            .load(data.getThumb_url())
+            .load(data.getThumbUrl())
             .placeholder(img_placeholder_wide)
             .error(img_placeholder_wide)
             .transition(new DrawableTransitionOptions().crossFade())
@@ -40,6 +40,6 @@ public class PromotionItemVH extends BaseViewHolder<PromotionDataModel> {
     }
 
     private void onItemClick(View view) {
-        PromotionDetailActivity.start(context, data.getPromotion_id());
+        PromotionDetailActivity.start(context, data.getPromotionNo());
     }
 }

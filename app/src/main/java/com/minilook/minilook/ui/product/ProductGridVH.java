@@ -54,7 +54,7 @@ public class ProductGridVH extends BaseViewHolder<ProductDataModel> {
         super.bind($data);
 
         Glide.with(context)
-            .load(data.getImage_url())
+            .load(data.getImageUrl())
             .placeholder(img_placeholder)
             .error(img_placeholder)
             .transition(new DrawableTransitionOptions().crossFade())
@@ -68,25 +68,25 @@ public class ProductGridVH extends BaseViewHolder<ProductDataModel> {
 
         if (isShowBrand) {
             showBrand();
-            brandNameTextView.setText(data.getBrand_name());
+            brandNameTextView.setText(data.getBrandName());
         } else {
             hideBrand();
         }
-        productNameTextView.setText(data.getProduct_name());
+        productNameTextView.setText(data.getProductName());
 
-        if (data.getDisplay_code() != 0) {
-            if (data.getDisplay_code() == DisplayCode.DISPLAY.getValue()) {
+        if (data.getDisplayCode() != 0) {
+            if (data.getDisplayCode() == DisplayCode.DISPLAY.getValue()) {
                 hideCurtain();
                 hideDisplayLabel();
             } else {
                 showCurtain();
                 showDisplayLabel();
-                displayLabelTextView.setText(data.getDisplay_label());
+                displayLabelTextView.setText(data.getDisplayLabel());
             }
         }
 
         if (data.isDiscount()) {
-            discountPercentTextView.setText(String.format(format_percent, data.getDiscount_percent()));
+            discountPercentTextView.setText(String.format(format_percent, data.getDiscountPercent()));
             discountPercentTextView.setVisibility(View.VISIBLE);
         } else {
             discountPercentTextView.setVisibility(View.GONE);
@@ -139,7 +139,7 @@ public class ProductGridVH extends BaseViewHolder<ProductDataModel> {
     }
 
     void onItemClick(View view) {
-        ProductDetailActivity.start(context, data.getProduct_no());
+        ProductDetailActivity.start(context, data.getProductNo());
     }
 
     @OnClick(R.id.img_scrap)

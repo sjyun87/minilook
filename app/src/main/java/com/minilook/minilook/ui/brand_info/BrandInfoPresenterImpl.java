@@ -39,15 +39,15 @@ public class BrandInfoPresenterImpl extends BasePresenterImpl implements BrandIn
     }
 
     private void resBrandInfo(BrandInfoDataModel data) {
-        view.setupCStime(data.getCs_time());
-        view.setupCStel(data.getCs_tel());
-        String csSNS = data.getCs_sns();
+        view.setupCStime(data.getCsTime());
+        view.setupCStel(data.getCsTel());
+        String csSNS = data.getCsSNS();
         if (TextUtils.isEmpty(csSNS)) {
             view.hideCSsnsPanel();
         } else {
             view.setupCSsns(csSNS);
         }
-        view.setupCSemail(data.getCs_email());
+        view.setupCSemail(data.getCsEmail());
         view.setupGuide(data.getGuide());
     }
 }

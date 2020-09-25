@@ -29,8 +29,8 @@ public class OrderOptionItemVH extends BaseViewHolder<ShoppingOptionDataModel> {
     @Override public void bind(ShoppingOptionDataModel $data) {
         super.bind($data);
 
-        titleTextView.setText(String.format(format_options, data.getColor_name(), data.getSize_name()));
+        titleTextView.setText(String.format(format_options, data.getColorName(), data.getSizeName()));
         countTextView.setText(String.format(format_options_count, StringUtil.toDigit(data.getQuantity())));
-        priceTextView.setText(StringUtil.toDigit(data.getPrice_sum() * data.getQuantity()));
+        priceTextView.setText(StringUtil.toDigit(data.getPriceSum() * data.getQuantity()));
     }
 }

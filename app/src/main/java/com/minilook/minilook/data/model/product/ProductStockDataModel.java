@@ -1,20 +1,19 @@
 package com.minilook.minilook.data.model.product;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.minilook.minilook.data.model.base.StockDeserializer;
 import lombok.Data;
 
 @Data public class ProductStockDataModel {
-    @Expose @SerializedName("optionNo")
-    private int option_id;
-    @Expose @SerializedName("sizeName")
-    private String size_name;
-    @Expose @SerializedName("sizeCode")
-    private int size_code;
+    @Expose @SerializedName("type")
+    private String type;
+    @Expose @SerializedName("code")
+    private String code;
+    @Expose @SerializedName("name")
+    private String name;
     @Expose @SerializedName("stockQty")
-    private int size_stock;
-    @Expose @SerializedName("extraAmount")
-    private int price_add;
-    @Expose @SerializedName("maxOrderQuantity")
-    private int order_limit;
+    @JsonAdapter(StockDeserializer.class)
+    private boolean isStock;
 }

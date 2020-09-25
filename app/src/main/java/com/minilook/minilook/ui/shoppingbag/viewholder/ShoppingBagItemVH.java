@@ -86,7 +86,7 @@ public class ShoppingBagItemVH extends BaseViewHolder<ShoppingBrandDataModel> {
         super.bind($data);
 
         Glide.with(context)
-            .load(data.getBrand_logo())
+            .load(data.getBrandLogo())
             .placeholder(img_placeholder_logo)
             .error(img_placeholder_logo)
             .apply(RequestOptions.bitmapTransform(
@@ -94,7 +94,7 @@ public class ShoppingBagItemVH extends BaseViewHolder<ShoppingBrandDataModel> {
             .transition(new DrawableTransitionOptions().crossFade())
             .into(logoImageView);
 
-        nameTextView.setText(data.getBrand_name());
+        nameTextView.setText(data.getBrandName());
 
         productAdapter.set(data.getProducts());
         productAdapter.refresh();
@@ -102,8 +102,8 @@ public class ShoppingBagItemVH extends BaseViewHolder<ShoppingBrandDataModel> {
         if (data.isBillVisible()) {
             billingPanel.setVisibility(View.VISIBLE);
 
-            if (data.getShipping_type() == ShippingCode.CONDITIONAL.getValue()) {
-                int freeShippingCondition = data.getCondition_free_shipping() / 10000;
+            if (data.getShippingType() == ShippingCode.CONDITIONAL.getValue()) {
+                int freeShippingCondition = data.getConditionFreeShipping() / 10000;
                 freeShippingConditionTextView.setText(
                     String.format(format_free_shipping_condition, freeShippingCondition));
                 freeShippingConditionTextView.setVisibility(View.VISIBLE);
@@ -115,22 +115,22 @@ public class ShoppingBagItemVH extends BaseViewHolder<ShoppingBrandDataModel> {
                 freeShippingRemainTextView.setVisibility(View.GONE);
                 shippingPriceTextView.setText(str_shipping_free);
             } else {
-                if (data.getShipping_type() == ShippingCode.CONDITIONAL.getValue()) {
-                    int remainPrice = data.getCondition_free_shipping() - data.getTotal_products_price();
+                if (data.getShippingType() == ShippingCode.CONDITIONAL.getValue()) {
+                    int remainPrice = data.getConditionFreeShipping() - data.getTotalProductsPrice();
                     freeShippingRemainTextView.setText(getSpanText(remainPrice));
                     freeShippingRemainTextView.setVisibility(View.VISIBLE);
                 } else {
                     freeShippingRemainTextView.setVisibility(View.GONE);
                 }
-                shippingPriceTextView.setText(StringUtil.toDigit(data.getFinal_shipping_price()));
+                shippingPriceTextView.setText(StringUtil.toDigit(data.getFinalShippingPrice()));
             }
 
-            productPriceTextView.setText(StringUtil.toDigit(data.getTotal_products_price()));
+            productPriceTextView.setText(StringUtil.toDigit(data.getTotalProductsPrice()));
             finalShippingPriceTextView.setText(
-                String.format(format_final_shipping_price, StringUtil.toDigit(data.getFinal_shipping_price())));
+                String.format(format_final_shipping_price, StringUtil.toDigit(data.getFinalShippingPrice())));
 
             totalPriceTextView.setText(
-                StringUtil.toDigit(data.getTotal_products_price() + data.getFinal_shipping_price()));
+                StringUtil.toDigit(data.getTotalProductsPrice() + data.getFinalShippingPrice()));
         } else {
             billingPanel.setVisibility(View.GONE);
         }
@@ -148,6 +148,6 @@ public class ShoppingBagItemVH extends BaseViewHolder<ShoppingBrandDataModel> {
 
     @OnClick(R.id.layout_brand_panel)
     void onBrandClick(){
-        BrandDetailActivity.start(context, data.getBrand_id());
+        BrandDetailActivity.start(context, data.getBrandNo());
     }
 }

@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import butterknife.BindString;
 import butterknife.BindView;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.user.CouponDataModel;
+import com.minilook.minilook.data.model.member.CouponDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.util.StringUtil;
 
@@ -32,15 +32,15 @@ public class CouponItemVH extends BaseViewHolder<CouponDataModel> {
     @Override public void bind(CouponDataModel $data) {
         super.bind($data);
 
-        couponTextView.setText(StringUtil.toDigit(data.getCoupon()));
+        couponTextView.setText(StringUtil.toDigit(data.getValue()));
         nameTextView.setText(data.getName());
-        useConditionTextView.setText(String.format(format_use_condition, data.getUse_condition()));
-        if (data.isEnd()) {
+        useConditionTextView.setText(String.format(format_use_condition, data.getCondition()));
+        if (data.isExpired()) {
             curtainView.setVisibility(View.VISIBLE);
             endDateTextView.setText(str_end);
         } else {
-            if (data.getDate_end() != null) {
-                endDateTextView.setText(String.format(format_date_end, data.getDate_end()));
+            if (data.getExpireDate() != null) {
+                endDateTextView.setText(String.format(format_date_end, data.getExpireDate()));
             }
             curtainView.setVisibility(View.GONE);
         }

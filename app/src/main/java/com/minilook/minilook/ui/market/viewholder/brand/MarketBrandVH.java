@@ -125,14 +125,14 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
 
     private void setupBrandData(BrandDataModel model) {
         Glide.with(context)
-            .load(model.getImage_url())
+            .load(model.getImageUrl())
             .placeholder(img_placeholder_wide)
             .error(img_placeholder_wide)
             .transition(new DrawableTransitionOptions().crossFade())
             .into(thumbImageView);
 
         Glide.with(context)
-            .load(model.getBrand_logo())
+            .load(model.getBrandLogo())
             .placeholder(img_placeholder_logo)
             .error(img_placeholder_logo)
             .apply(RequestOptions.bitmapTransform(
@@ -141,12 +141,12 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
             .into(logoImageView);
 
         setupScrapImage(model.isScrap());
-        scrapCountTextView.setText(StringUtil.toDigit(model.getScrap_cnt()));
-        nameTextView.setText(model.getBrand_name());
+        scrapCountTextView.setText(StringUtil.toDigit(model.getScrapCount()));
+        nameTextView.setText(model.getBrandName());
         tagTextView.setText(getStyleTag(model.getStyles()));
-        descTextView.setText(model.getBrand_desc());
+        descTextView.setText(model.getBrandDesc());
 
-        List<String> styleImages = model.getStyle_images();
+        List<String> styleImages = model.getStyleImages();
         for (int i = 0; i < styleImageViews.size(); i++) {
             Glide.with(context)
                 .load(styleImages.get(i))
@@ -212,7 +212,7 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> implements Ma
 
     @OnClick(R.id.layout_brand_panel)
     void onBrandMoreClick() {
-        int brand_id = brandItems.get(selectedPosition).getBrand_no();
+        int brand_id = brandItems.get(selectedPosition).getBrandNo();
         BrandDetailActivity.start(context, brand_id);
     }
 }

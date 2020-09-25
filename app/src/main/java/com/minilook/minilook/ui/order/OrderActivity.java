@@ -28,7 +28,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.bootpay.BootPayDataModel;
 import com.minilook.minilook.data.model.bootpay.BootPayItemDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
-import com.minilook.minilook.data.model.user.CouponDataModel;
+import com.minilook.minilook.data.model.member.CouponDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;

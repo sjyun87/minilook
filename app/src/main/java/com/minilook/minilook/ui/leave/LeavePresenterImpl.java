@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
-import com.minilook.minilook.data.model.user.PointNCouponModel;
+import com.minilook.minilook.data.model.member.PointNCouponModel;
 import com.minilook.minilook.data.network.login.LoginRequest;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BasePresenterImpl;

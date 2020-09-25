@@ -13,7 +13,7 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.user.UserDataModel;
+import com.minilook.minilook.data.model.member.MemberDataModel;
 import com.minilook.minilook.data.code.LoginType;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.widget.BottomBar;
@@ -25,7 +25,7 @@ import com.minilook.minilook.ui.webview.WebViewActivity;
 
 public class JoinActivity extends BaseActivity implements JoinPresenter.View {
 
-    public static void start(Context context, UserDataModel userData) {
+    public static void start(Context context, MemberDataModel userData) {
         Intent intent = new Intent(context, JoinActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -69,7 +69,7 @@ public class JoinActivity extends BaseActivity implements JoinPresenter.View {
     private JoinArguments provideArguments() {
         return JoinArguments.builder()
             .view(this)
-            .userData((UserDataModel) getIntent().getSerializableExtra("userData"))
+            .userData((MemberDataModel) getIntent().getSerializableExtra("userData"))
             .build();
     }
 

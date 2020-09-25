@@ -11,7 +11,7 @@ import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.user.PointHistoryDataModel;
+import com.minilook.minilook.data.model.member.PointHistoryDataModel;
 import com.minilook.minilook.data.code.PointStatus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 
@@ -41,12 +41,12 @@ public class PointHistoryItemVH extends BaseViewHolder<PointHistoryDataModel> {
 
     @Override public void bind(PointHistoryDataModel $data) {
         super.bind($data);
-        if (data.getType() == PointStatus.PLUS.getValue()) {
+        if (data.getCode() == PointStatus.PLUS.getValue()) {
             typeTextView.setBackground(bg_plus);
             typeTextView.setTextColor(color_FF8140E5);
             pointTextView.setTextColor(color_FF8140E5);
             pointTextView.setText(String.format(format_plus, data.getPoint()));
-            expireDateTextView.setText(String.format(format_expire, data.getDate_expire()));
+            expireDateTextView.setText(String.format(format_expire, data.getExpireDate()));
             expireDateTextView.setVisibility(View.VISIBLE);
         } else {
             typeTextView.setBackground(bg_minus);
@@ -55,8 +55,8 @@ public class PointHistoryItemVH extends BaseViewHolder<PointHistoryDataModel> {
             pointTextView.setText(String.format(format_minus, data.getPoint()));
             expireDateTextView.setVisibility(View.GONE);
         }
-        typeTextView.setText(data.getType_name());
+        typeTextView.setText(data.getType());
         titleTextView.setText(data.getTitle());
-        registDateTextView.setText(data.getDate_regist());
+        registDateTextView.setText(data.getRegistDate());
     }
 }

@@ -5,8 +5,8 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
-import com.minilook.minilook.data.model.product.ProductOptionDataModel;
-import com.minilook.minilook.data.model.product.ProductStockModel;
+import com.minilook.minilook.data.model.product.ProductColorDataModel;
+import com.minilook.minilook.data.model.product.ProductStockDataModel;
 import java.util.List;
 
 public interface ProductDetailPresenter extends LifecycleObserver {
@@ -58,9 +58,9 @@ public interface ProductDetailPresenter extends LifecycleObserver {
 
         void setupProductName(String text);
 
-        void addColorView(ProductStockModel model);
+        void addColorView(ProductStockDataModel model);
 
-        void addSizeView(ProductStockModel model);
+        void addSizeView(ProductStockDataModel model);
 
         void setupPriceOrigin(String text);
 
@@ -104,7 +104,7 @@ public interface ProductDetailPresenter extends LifecycleObserver {
 
         void setupQuestionCount(String text);
 
-        void setupOptionSelector(int price, List<ProductOptionDataModel> options);
+        void setupOptionSelector(int price, List<ProductColorDataModel> options);
 
         void showOptionSelector();
 

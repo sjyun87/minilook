@@ -33,12 +33,12 @@ public class ShoppingBagOptionItemVH extends BaseViewHolder<ShoppingOptionDataMo
     @Override public void bind(ShoppingOptionDataModel $data) {
         super.bind($data);
 
-        titleTextView.setText(String.format(format_options, data.getColor_name(), data.getSize_name()));
+        titleTextView.setText(String.format(format_options, data.getColorName(), data.getSizeName()));
         countTextView.setText(String.valueOf(data.getQuantity()));
-        priceTextView.setText(StringUtil.toDigit(data.getPrice_sum() * data.getQuantity()));
+        priceTextView.setText(StringUtil.toDigit(data.getPriceSum() * data.getQuantity()));
 
         if (data.getQuantity() > 0) {
-            orderAvailableTextView.setText(String.format(format_order_available, StringUtil.toDigit(data.getOrder_available_quantity())));
+            orderAvailableTextView.setText(String.format(format_order_available, StringUtil.toDigit(data.getLimitQuantity())));
             orderAvailableTextView.setVisibility(View.VISIBLE);
         } else {
             orderAvailableTextView.setVisibility(View.GONE);
@@ -54,7 +54,7 @@ public class ShoppingBagOptionItemVH extends BaseViewHolder<ShoppingOptionDataMo
 
     @OnClick(R.id.img_plus)
     void onPlusClick() {
-        if (data.getQuantity() >= data.getOrder_available_quantity()) return;
+        if (data.getQuantity() >= data.getLimitQuantity()) return;
         data.setQuantity(data.getQuantity() + 1);
         RxBus.send(new ShoppingBagPresenterImpl.RxBusEventOptionCountChanged(data));
     }

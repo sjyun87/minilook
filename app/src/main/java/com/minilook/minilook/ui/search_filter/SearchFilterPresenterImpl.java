@@ -251,8 +251,8 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         categoryAdapter.set(setupCategoryDataInit(data.getCategories()));
         view.categoryRefresh();
 
-        int minPriceLimit = data.getPrice_min();
-        int maxPriceLimit = data.getPrice_max();
+        int minPriceLimit = data.getMinPrice();
+        int maxPriceLimit = data.getMaxPrice();
         priceMaxStep = (maxPriceLimit / PRICE_STEP) + 1;
         view.initPriceSlider(minPriceLimit, maxPriceLimit, priceMaxStep);
 

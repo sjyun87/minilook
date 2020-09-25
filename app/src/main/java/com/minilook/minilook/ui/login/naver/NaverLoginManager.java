@@ -2,6 +2,7 @@ package com.minilook.minilook.ui.login.naver;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.minilook.minilook.R;
@@ -11,7 +12,6 @@ import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
 import com.nhn.android.naverlogin.data.OAuthLoginState;
 import lombok.Setter;
-import timber.log.Timber;
 
 public class NaverLoginManager {
 
@@ -42,18 +42,12 @@ public class NaverLoginManager {
 
     @SuppressLint("HandlerLeak")
     public void login() {
-        if (oAuthLogin.getState(activity).equals(OAuthLoginState.NEED_INIT)) {
-            init();
-        }
-
+        if (oAuthLogin.getState(activity).equals(OAuthLoginState.NEED_INIT)) init();
         oAuthLogin.startOauthLoginActivity(activity, new OAuthLoginHandler() {
             @Override public void run(boolean success) {
                 if (success) {
                     getUserData(oAuthLogin.getAccessToken(activity));
-                    Timber.e("Naver Login :: Access Token :: %s", oAuthLogin.getAccessToken(activity));
                 } else {
-                    Timber.e("Naver Login :: error code = %s / error message = %s",
-                        oAuthLogin.getLastErrorCode(activity).getCode(), oAuthLogin.getLastErrorDesc(activity));
                     if (listener != null) listener.onSNSError(ERROR_LOGIN, oAuthLogin.getLastErrorDesc(activity));
                 }
             }
@@ -69,7 +63,7 @@ public class NaverLoginManager {
                 JsonObject response = json.getAsJsonObject("response");
                 String id = response.get("id").getAsString();
                 String email = response.get("email").getAsString();
-                if (email != null) {
+                if (!TextUtils.isEmpty(email)) {
                     if (listener != null) listener.onSNSLogin(id, email, LoginType.NAVER.getValue());
                 } else {
                     if (listener != null) listener.onSNSError(ERROR_NO_EMAIL, message);

@@ -57,17 +57,17 @@ public class ProductSize84VH extends BaseViewHolder<ProductDataModel> {
         }
 
         Glide.with(context)
-            .load(data.getImage_url())
+            .load(data.getImageUrl())
             .placeholder(img_placeholder)
             .error(img_placeholder)
             .transition(new DrawableTransitionOptions().crossFade())
             .into(thumbImageView);
 
-        brandNameTextView.setText(data.getBrand_name());
-        productNameTextView.setText(data.getProduct_name());
+        brandNameTextView.setText(data.getBrandName());
+        productNameTextView.setText(data.getProductName());
 
         if (data.isDiscount()) {
-            discountPercentTextView.setText(String.format(format_percent, data.getDiscount_percent()));
+            discountPercentTextView.setText(String.format(format_percent, data.getDiscountPercent()));
             discountPercentTextView.setVisibility(View.VISIBLE);
         } else {
             discountPercentTextView.setVisibility(View.GONE);
@@ -96,7 +96,7 @@ public class ProductSize84VH extends BaseViewHolder<ProductDataModel> {
     }
 
     void onItemClick(View view) {
-        ProductDetailActivity.start(context, data.getProduct_no());
+        ProductDetailActivity.start(context, data.getProductNo());
     }
 
     @OnClick(R.id.img_scrap)

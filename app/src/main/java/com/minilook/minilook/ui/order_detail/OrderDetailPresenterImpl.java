@@ -83,7 +83,7 @@ public class OrderDetailPresenterImpl extends BasePresenterImpl implements Order
         ShippingDataModel shippingData = data.getShippingData();
         view.setShippingName(shippingData.getName());
         view.setShippingPhone(shippingData.getPhone());
-        view.setShippingAddress(shippingData.getZipcode(), shippingData.getAddress(), shippingData.getAddress_detail());
+        view.setShippingAddress(shippingData.getZipcode(), shippingData.getAddress(), shippingData.getAddressDetail());
     }
 
     private void reqPurchaseConfirm(int orderOptionNo) {

@@ -30,7 +30,7 @@ public class EventItemVH extends BaseViewHolder<EventDataModel> {
         super.bind($data);
 
         Glide.with(itemView)
-            .load(data.getThumb_url())
+            .load(data.getThumbUrl())
             .placeholder(img_placeholder_wide)
             .error(img_placeholder_wide)
             .transition(new DrawableTransitionOptions().crossFade())
@@ -40,6 +40,6 @@ public class EventItemVH extends BaseViewHolder<EventDataModel> {
     }
 
     private void onItemClick(View view) {
-        EventDetailActivity.start(context, data.getEvent_id());
+        EventDetailActivity.start(context, data.getEventNo());
     }
 }

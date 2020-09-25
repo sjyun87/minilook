@@ -14,7 +14,7 @@ import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.product.ProductStockModel;
+import com.minilook.minilook.data.model.product.ProductStockDataModel;
 import lombok.Builder;
 
 public class ColorView extends FrameLayout {
@@ -30,10 +30,10 @@ public class ColorView extends FrameLayout {
     @BindDrawable(R.drawable.color_gold_circle) Drawable color_gold;
     @BindDrawable(R.drawable.color_multi_circle) Drawable color_multi;
 
-    private ProductStockModel model;
+    private ProductStockDataModel model;
 
     @Builder
-    public ColorView(@NonNull Context context, @NonNull ProductStockModel model) {
+    public ColorView(@NonNull Context context, @NonNull ProductStockDataModel model) {
         super(context);
         this.model = model;
 

@@ -10,7 +10,7 @@ import lombok.Data;
     @Expose @SerializedName("catename")
     private String name;
     @Expose @SerializedName("icon")
-    private String image_url;
+    private String iconUrl;
 
     // -- Controller
     private int position;

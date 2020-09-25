@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.product.ProductStockModel;
+import com.minilook.minilook.data.model.product.ProductStockDataModel;
 import lombok.Builder;
 
 public class SizeView extends FrameLayout {
@@ -16,10 +16,10 @@ public class SizeView extends FrameLayout {
     @BindView(R.id.txt_size) TextView sizeTextView;
     @BindView(R.id.img_slash) ImageView slashImageView;
 
-    private ProductStockModel model;
+    private ProductStockDataModel model;
 
     @Builder
-    public SizeView(@NonNull Context context, @NonNull ProductStockModel model) {
+    public SizeView(@NonNull Context context, @NonNull ProductStockDataModel model) {
         this(context);
         this.model = model;
 

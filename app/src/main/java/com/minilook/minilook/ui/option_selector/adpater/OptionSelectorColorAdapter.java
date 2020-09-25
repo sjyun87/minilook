@@ -3,7 +3,7 @@ package com.minilook.minilook.ui.option_selector.adpater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.minilook.minilook.data.model.product.ProductOptionDataModel;
+import com.minilook.minilook.data.model.product.ProductColorDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.option_selector.viewholder.OptionSelectorColorVH;
@@ -12,9 +12,9 @@ import java.util.List;
 import lombok.Setter;
 
 public class OptionSelectorColorAdapter extends RecyclerView.Adapter<OptionSelectorColorVH>
-    implements BaseAdapterDataModel<ProductOptionDataModel>, BaseAdapterDataView<ProductOptionDataModel> {
+    implements BaseAdapterDataModel<ProductColorDataModel>, BaseAdapterDataView<ProductColorDataModel> {
 
-    private List<ProductOptionDataModel> items = new ArrayList<>();
+    private List<ProductColorDataModel> items = new ArrayList<>();
     @Setter private OptionSelectorColorVH.OnColorSelectedListener onColorSelectedListener;
 
     @NonNull @Override public OptionSelectorColorVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -30,36 +30,36 @@ public class OptionSelectorColorAdapter extends RecyclerView.Adapter<OptionSelec
         return getSize();
     }
 
-    @Override public void add(ProductOptionDataModel $item) {
+    @Override public void add(ProductColorDataModel $item) {
         items.add($item);
     }
 
-    @Override public void add(int $index, ProductOptionDataModel $item) {
+    @Override public void add(int $index, ProductColorDataModel $item) {
         items.add($index, $item);
     }
 
-    @Override public void addAll(List<ProductOptionDataModel> $items) {
+    @Override public void addAll(List<ProductColorDataModel> $items) {
         items.addAll($items);
     }
 
-    @Override public void set(int $index, ProductOptionDataModel $item) {
+    @Override public void set(int $index, ProductColorDataModel $item) {
         items.set($index, $item);
     }
 
-    @Override public void set(List<ProductOptionDataModel> $items) {
+    @Override public void set(List<ProductColorDataModel> $items) {
         items.clear();
         items.addAll($items);
     }
 
-    @Override public ProductOptionDataModel get(int $index) {
+    @Override public ProductColorDataModel get(int $index) {
         return items.get($index);
     }
 
-    @Override public List<ProductOptionDataModel> get() {
+    @Override public List<ProductColorDataModel> get() {
         return items;
     }
 
-    @Override public int get(ProductOptionDataModel $item) {
+    @Override public int get(ProductColorDataModel $item) {
         return items.indexOf($item);
     }
 
@@ -67,7 +67,7 @@ public class OptionSelectorColorAdapter extends RecyclerView.Adapter<OptionSelec
         items.remove($index);
     }
 
-    @Override public void remove(ProductOptionDataModel $item) {
+    @Override public void remove(ProductColorDataModel $item) {
         items.remove($item);
     }
 

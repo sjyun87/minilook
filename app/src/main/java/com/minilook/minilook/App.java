@@ -5,7 +5,7 @@ import android.content.ContextWrapper;
 import com.kakao.sdk.common.KakaoSdk;
 import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
-import com.minilook.minilook.data.model.user.UserDataModel;
+import com.minilook.minilook.data.model.member.MemberDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.RxBusEvent;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -74,10 +74,10 @@ public class App extends Application {
 
 
 
-    public void setupLogin(UserDataModel data) {
+    public void setupLogin(MemberDataModel data) {
         this.isLogin = true;
-        setMemberNo(data.getUser_id());
-        setSnsId(data.getSns_id());
+        setMemberNo(data.getMemberNo());
+        setSnsId(data.getSnsId());
         setSnsType(data.getType());
         RxBus.send(new RxBusEvent.RxBusEventLogin());
     }

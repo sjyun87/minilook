@@ -8,17 +8,17 @@ import lombok.Data;
 
 @Data public class PromotionDataModel {
     @Expose @SerializedName("promotionNo")
-    private int promotion_id;
-    @Expose @SerializedName("image")
-    private String image_url;
-    @Expose @SerializedName("sumNameUrl")
-    private String thumb_url;
+    private int promotionNo;
     @Expose @SerializedName("title")
     private String title;
     @Expose @SerializedName("description")
     private String desc;
+    @Expose @SerializedName("image")
+    private String imageUrl;
+    @Expose @SerializedName("sumNameUrl")
+    private String thumbUrl;
     @Expose @SerializedName("url")
-    private String event_url;
+    private String eventUrl;
     @Expose @SerializedName("products")
     private List<ProductDataModel> products;
 }

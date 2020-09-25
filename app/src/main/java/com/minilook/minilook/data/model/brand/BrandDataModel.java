@@ -10,26 +10,26 @@ import lombok.Data;
 
 @Data public class BrandDataModel {
     @Expose @SerializedName("brandNo")
-    private int brand_no;
+    private int brandNo;
     @Expose @SerializedName(value = "name", alternate = "brandName")
-    private String brand_name;
+    private String brandName;
     @Expose @SerializedName("logo")
-    private String brand_logo;
+    private String brandLogo;
     @Expose @SerializedName("description")
-    private String brand_desc;
+    private String brandDesc;
     @Expose @SerializedName("styleTags")
-    private String brand_tag;
+    private String brandTag;
     @Expose @SerializedName("image")
-    private String image_url;
+    private String imageUrl;
     @Expose @SerializedName("scrapCount")
-    private int scrap_cnt;
+    private int scrapCount;
     @Expose @SerializedName("isScrap")
     @JsonAdapter(BooleanDeserializer.class)
     private boolean isScrap;
     @Expose @SerializedName("styles")
     private List<CodeDataModel> styles;
     @Expose @SerializedName("styleImages")
-    private List<String> style_images;
+    private List<String> styleImages;
 
     // -- Controller
     private int position;

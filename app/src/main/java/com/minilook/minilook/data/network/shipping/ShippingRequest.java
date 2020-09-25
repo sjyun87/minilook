@@ -26,7 +26,7 @@ public class ShippingRequest extends BaseRequest<ShippingService> {
 
     public Single<BaseDataModel> updateShipping(ShippingDataModel model) {
         int user_id = App.getInstance().getMemberNo();
-        return getApi().updateShipping(user_id, model.getAddress_id(), createRequestBody(parseToJson(model)));
+        return getApi().updateShipping(user_id, model.getAddressNo(), createRequestBody(parseToJson(model)));
     }
 
     public Single<BaseDataModel> addShipping(ShippingDataModel model) {
@@ -41,7 +41,7 @@ public class ShippingRequest extends BaseRequest<ShippingService> {
         jsonMap.put("phone", model.getPhone());
         jsonMap.put("zipcode", model.getZipcode());
         jsonMap.put("address1", model.getAddress());
-        jsonMap.put("address2", model.getAddress_detail());
+        jsonMap.put("address2", model.getAddressDetail());
         return jsonMap;
     }
 

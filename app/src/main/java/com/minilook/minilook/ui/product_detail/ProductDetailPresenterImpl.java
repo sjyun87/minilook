@@ -6,8 +6,8 @@ import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
-import com.minilook.minilook.data.model.product.ProductOptionDataModel;
-import com.minilook.minilook.data.model.product.ProductStockModel;
+import com.minilook.minilook.data.model.product.ProductColorDataModel;
+import com.minilook.minilook.data.model.product.ProductStockDataModel;
 import com.minilook.minilook.data.model.review.ReviewDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
@@ -108,7 +108,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     }
 
     @Override public void onBrandClick() {
-        view.navigateToBrandDetail(data.getBrand_no());
+        view.navigateToBrandDetail(data.getBrandNo());
     }
 
     @Override public void onExpandClick() {
@@ -121,7 +121,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     }
 
     @Override public void onShippingNRefundClick() {
-        view.navigateToProductInfo(data.getBrand_no());
+        view.navigateToProductInfo(data.getBrandNo());
     }
 
     @Override public void onOptionSelectorShoppingBagClick(List<ShoppingOptionDataModel> optionData) {
@@ -136,24 +136,24 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     private List<ShoppingBrandDataModel> parseToData(List<ShoppingOptionDataModel> optionData) {
         List<ShoppingBrandDataModel> brandData = new ArrayList<>();
         ShoppingBrandDataModel brandModel = new ShoppingBrandDataModel();
-        brandModel.setBrand_id(data.getBrand_no());
-        brandModel.setBrand_name(data.getBrand_name());
-        brandModel.setBrand_logo(data.getBrand_logo());
-        brandModel.setShipping_type(data.getShipping_type());
-        brandModel.setShipping_price(data.getShipping_price());
-        brandModel.setCondition_shipping_price(data.getCondition_shipping_price());
-        brandModel.setCondition_free_shipping(data.getCondition_free_shipping());
+        brandModel.setBrandNo(data.getBrandNo());
+        brandModel.setBrandName(data.getBrandName());
+        brandModel.setBrandLogo(data.getBrandLogo());
+        brandModel.setShippingType(data.getShippingType());
+        brandModel.setShippingPrice(data.getShippingPrice());
+        brandModel.setConditionShippingPrice(data.getConditionShippingPrice());
+        brandModel.setConditionFreeShipping(data.getConditionFreeShipping());
 
         List<ShoppingProductDataModel> productData = new ArrayList<>();
         ShoppingProductDataModel productModel = new ShoppingProductDataModel();
-        productModel.setDisplay_code(data.getDisplay_code());
-        productModel.setProduct_id(data.getProduct_no());
-        productModel.setProduct_name(data.getProduct_name());
-        productModel.setThumb_url(data.getImages().get(0));
+        productModel.setDisplayCode(data.getDisplayCode());
+        productModel.setProductNo(data.getProductNo());
+        productModel.setProductName(data.getProductName());
+        productModel.setThumbUrl(data.getImages().get(0));
         productModel.setDiscount(data.isDiscount());
-        productModel.setDiscount_percent(data.getDiscount_percent());
+        productModel.setDiscountPercent(data.getDiscountPercent());
         productModel.setPrice(data.getPrice());
-        productModel.setPoint_percent(data.getPoint());
+        productModel.setAddPointPercent(data.getPoint());
         productModel.setOptions(optionData);
         productData.add(productModel);
         brandModel.setProducts(productData);
@@ -189,11 +189,11 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         productImageAdapter.set(checkValid(data.getImages()));
         view.productImageRefresh();
 
-        view.setupBrandName(data.getBrand_name());
-        view.setupProductName(data.getProduct_name());
+        view.setupBrandName(data.getBrandName());
+        view.setupProductName(data.getProductName());
 
-        if (data.getProduct_stocks() != null) {
-            for (ProductStockModel model : data.getProduct_stocks()) {
+        if (data.getStocks() != null) {
+            for (ProductStockDataModel model : data.getStocks()) {
                 if (model.getType().equals(STOCK_TYPE_COLOR)) {
                     view.addColorView(model);
                 } else if (model.getType().equals(STOCK_TYPE_SIZE)) {
@@ -203,9 +203,9 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         }
 
         if (data.isDiscount()) {
-            view.setupPriceOrigin(StringUtil.toDigit(data.getPrice_origin()));
+            view.setupPriceOrigin(StringUtil.toDigit(data.getPriceOrigin()));
             view.showPriceOrigin();
-            view.setupDiscountPercent(data.getDiscount_percent());
+            view.setupDiscountPercent(data.getDiscountPercent());
             view.showDiscountPercent();
         } else {
             view.hidePriceOrigin();
@@ -215,36 +215,36 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
 
         view.setupPoint((int) (data.getPrice() * (data.getPoint() / 100f)));
 
-        int shippingType = data.getShipping_type();
+        int shippingType = data.getShippingType();
         if (shippingType == ShippingCode.FREE.getValue()) {
             view.setupShippingFree();
             view.hideShippingCondition();
         } else if (shippingType == ShippingCode.PAID.getValue()) {
-            view.setupShippingPrice(data.getShipping_price());
+            view.setupShippingPrice(data.getShippingPrice());
             view.hideShippingCondition();
         } else if (shippingType == ShippingCode.CONDITIONAL.getValue()) {
-            view.setupShippingPrice(data.getCondition_shipping_price());
-            view.setupShippingCondition(data.getCondition_free_shipping());
+            view.setupShippingPrice(data.getConditionShippingPrice());
+            view.setupShippingCondition(data.getConditionFreeShipping());
             view.showShippingCondition();
         }
 
-        view.setupProductDetail(data.getDetail_url());
+        view.setupProductDetail(data.getDetailUrl());
 
-        view.setupInfoStyleNo(data.getInfo_style_no());
-        view.setupInfoKcAuth(data.getInfo_kc_auth());
-        view.setupInfoWeight(data.getInfo_weight());
-        view.setupInfoColor(data.getInfo_color());
-        view.setupInfoMaterial(data.getInfo_material());
-        view.setupInfoAge(data.getInfo_age());
-        view.setupInfoReleaseDate(data.getInfo_release_date());
-        view.setupInfoManufacturer(data.getInfo_manufacturer());
-        view.setupInfoCountry(data.getInfo_country());
-        view.setupInfoCaution(data.getInfo_caution());
-        view.setupInfoWarranty(data.getInfo_warranty());
-        view.setupInfoDamage(data.getInfo_damage());
-        view.setupInfoServiceCenter(data.getInfo_service_center());
+        view.setupInfoStyleNo(data.getInfoStyleNo());
+        view.setupInfoKcAuth(data.getInfoKCAuth());
+        view.setupInfoWeight(data.getInfoWeight());
+        view.setupInfoColor(data.getInfoColor());
+        view.setupInfoMaterial(data.getInfoMaterial());
+        view.setupInfoAge(data.getInfoAge());
+        view.setupInfoReleaseDate(data.getInfoReleaseDate());
+        view.setupInfoManufacturer(data.getInfoManufacturer());
+        view.setupInfoCountry(data.getInfoCountry());
+        view.setupInfoCaution(data.getInfoCaution());
+        view.setupInfoWarranty(data.getInfoWarranty());
+        view.setupInfoDamage(data.getInfoDamage());
+        view.setupInfoServiceCenter(data.getInfoServiceCenter());
 
-        view.setupReviewCount(StringUtil.toDigit(data.getReview_cnt()));
+        view.setupReviewCount(StringUtil.toDigit(data.getReviewCount()));
 
         List<ReviewDataModel> reviews = data.getReviews();
         if (reviews != null) {
@@ -253,21 +253,21 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
             view.showReviewContentsPanel();
         }
 
-        view.setupQuestionCount(StringUtil.toDigit(data.getQuestion_cnt()));
+        view.setupQuestionCount(StringUtil.toDigit(data.getQuestionCount()));
 
-        List<ProductDataModel> relatedProducts = data.getRelated_products();
+        List<ProductDataModel> relatedProducts = data.getRelatedProducts();
         if (relatedProducts != null) {
-            relatedProductsAdapter.set(data.getRelated_products());
+            relatedProductsAdapter.set(data.getRelatedProducts());
             view.relatedProductRefresh();
             view.showRelatedPanel();
         } else {
             view.hideRelatedPanel();
         }
 
-        int displayCode = data.getDisplay_code();
+        int displayCode = data.getDisplayCode();
         if (displayCode != DisplayCode.DISPLAY.getValue()) {
-            view.showDisplayLabel(data.getDisplay_label());
-            view.disableBuyButton(data.getDisplay_label());
+            view.showDisplayLabel(data.getDisplayLabel());
+            view.disableBuyButton(data.getDisplayLabel());
             view.setupPriceOriginNoDisplayColor();
             view.setupDiscountPercentNoDisplayColor();
             view.setupPriceNoDisplayColor();
@@ -297,13 +297,13 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         addDisposable(productRequest.getProductOptions(id)
             .compose(Transformer.applySchedulers())
             .filter(data -> data.getCode().equals(HttpCode.OK))
-            .map((Function<BaseDataModel, List<ProductOptionDataModel>>)
-                data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<ProductOptionDataModel>>() {
+            .map((Function<BaseDataModel, List<ProductColorDataModel>>)
+                data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<ProductColorDataModel>>() {
                 }.getType()))
             .subscribe(this::resProductOptions, Timber::e));
     }
 
-    private void resProductOptions(List<ProductOptionDataModel> options) {
+    private void resProductOptions(List<ProductColorDataModel> options) {
         view.setupOptionSelector(data.getPrice(), options);
     }
 }

@@ -44,13 +44,13 @@ public class OrderProductItemVH extends BaseViewHolder<ShoppingProductDataModel>
         super.bind($data);
 
         Glide.with(context)
-            .load(data.getThumb_url())
+            .load(data.getThumbUrl())
             .placeholder(img_placeholder)
             .error(img_placeholder)
             .transition(new DrawableTransitionOptions().crossFade())
             .into(thumbImageView);
 
-        nameTextView.setText(data.getProduct_name());
+        nameTextView.setText(data.getProductName());
 
         adapter.set(data.getOptions());
         adapter.refresh();

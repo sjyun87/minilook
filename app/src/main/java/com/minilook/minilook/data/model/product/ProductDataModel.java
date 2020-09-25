@@ -10,89 +10,89 @@ import lombok.Data;
 
 @Data public class ProductDataModel {
     @Expose @SerializedName("productNo")
-    private int product_no;
+    private int productNo;
     @Expose @SerializedName("productName")
-    private String product_name;
+    private String productName;
     @Expose @SerializedName("lookbookProductDescription")
-    private String product_desc;
+    private String productDesc;
     @Expose @SerializedName("categoryName")
     private String category;
     @Expose @SerializedName("image")
-    private String image_url;
+    private String imageUrl;
     @Expose @SerializedName("images")
     private List<String> images;
     @Expose @SerializedName("brandNo")
-    private int brand_no;
+    private int brandNo;
     @Expose @SerializedName(value = "brandName", alternate = "brandNm")
-    private String brand_name;
+    private String brandName;
     @Expose @SerializedName("brandLogo")
-    private String brand_logo;
+    private String brandLogo;
     @Expose @SerializedName("isdiscount")
     @JsonAdapter(BooleanDeserializer.class)
     private boolean isDiscount;
     @Expose @SerializedName("discountPercent")
-    private int discount_percent;
+    private int discountPercent;
     @Expose @SerializedName(value = "productPrice", alternate = "price")
     private int price;
     @Expose @SerializedName("supplyPrice")
-    private int price_origin;
+    private int priceOrigin;
     @Expose @SerializedName("stockName")
-    private String display_label;
+    private String displayLabel;
     @Expose @SerializedName("stockCode")
-    private int display_code;
+    private int displayCode;
     @Expose @SerializedName("detailUrl")
-    private String detail_url;
+    private String detailUrl;
     @Expose @SerializedName("reviewCount")
-    private int review_cnt;
+    private int reviewCount;
     @Expose @SerializedName("reviews")
     private List<ReviewDataModel> reviews;
     @Expose @SerializedName("scrapCount")
-    private int scrap_cnt;
+    private int scrapCount;
     @Expose @SerializedName("isScrap")
     @JsonAdapter(BooleanDeserializer.class)
     private boolean isScrap;
     @Expose @SerializedName("qaCount")
-    private int question_cnt;
+    private int questionCount;
     @Expose @SerializedName("optionStocks")
-    private List<ProductStockModel> product_stocks;
+    private List<ProductStockDataModel> stocks;
     @Expose @SerializedName("point")
     private int point;
     @Expose @SerializedName("shippingType")
-    private int shipping_type;
+    private int shippingType;
     @Expose @SerializedName("basicShippingFee")
-    private int shipping_price;
+    private int shippingPrice;
     @Expose @SerializedName("conditinShippingFee")
-    private int condition_shipping_price;
+    private int conditionShippingPrice;
     @Expose @SerializedName("freeShippingCondition")
-    private int condition_free_shipping;
+    private int conditionFreeShipping;
     @Expose @SerializedName("relationProducts")
-    private List<ProductDataModel> related_products;
+    private List<ProductDataModel> relatedProducts;
     @Expose @SerializedName("recentNo")
-    private int recent_no;
+    private int recentNo;
     @Expose @SerializedName("productStyleNo")
-    private String info_style_no;
+    private String infoStyleNo;
     @Expose @SerializedName("kcAuthInfo")
-    private String info_kc_auth;
+    private String infoKCAuth;
     @Expose @SerializedName("weight")
-    private String info_weight;
+    private String infoWeight;
     @Expose @SerializedName("color")
-    private String info_color;
+    private String infoColor;
     @Expose @SerializedName("material")
-    private String info_material;
+    private String infoMaterial;
     @Expose @SerializedName("age")
-    private String info_age;
+    private String infoAge;
     @Expose @SerializedName("releaseDate")
-    private String info_release_date;
+    private String infoReleaseDate;
     @Expose @SerializedName("manufacturer")
-    private String info_manufacturer;
+    private String infoManufacturer;
     @Expose @SerializedName("country")
-    private String info_country;
+    private String infoCountry;
     @Expose @SerializedName("caution")
-    private String info_caution;
+    private String infoCaution;
     @Expose @SerializedName("warranty")
-    private String info_warranty;
+    private String infoWarranty;
     @Expose @SerializedName("damageCompensation")
-    private String info_damage;
+    private String infoDamage;
     @Expose @SerializedName("serviceCenter")
-    private String info_service_center;
+    private String infoServiceCenter;
 }

@@ -50,7 +50,7 @@ public class EventDetailPresenterImpl extends BasePresenterImpl implements Event
     }
 
     private void resEventDetail(EventDataModel data) {
-        view.setupEventImage(data.getEvent_url());
+        view.setupEventImage(data.getEventUrl());
     }
 
     @Override public void onLoadMore() {
@@ -68,7 +68,7 @@ public class EventDetailPresenterImpl extends BasePresenterImpl implements Event
     }
 
     private void resTogetherPromotion(List<EventDataModel> data) {
-        latestEventId = data.get(data.size() - 1).getEvent_id();
+        latestEventId = data.get(data.size() - 1).getEventNo();
         int start = eventAdapter.getSize();
         eventAdapter.addAll(data);
         view.refresh(start, data.size());

@@ -6,9 +6,9 @@ import lombok.Data;
 
 @Data public class EventDataModel {
     @Expose @SerializedName("eventNo")
-    private int event_id;
+    private int eventNo;
     @Expose @SerializedName("sumNameUrl")
-    private String thumb_url;
+    private String thumbUrl;
     @Expose @SerializedName("url")
-    private String event_url;
+    private String eventUrl;
 }

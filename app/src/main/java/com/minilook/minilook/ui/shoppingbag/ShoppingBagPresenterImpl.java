@@ -146,10 +146,10 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
         int totalSelectedProductCount = 0;
         for (ShoppingBrandDataModel brandData : adapter.get()) {
             totalProductCount += brandData.getProducts().size();
-            totalSelectedProductCount += brandData.getTotal_selected_product();
-            totalProductPrice += brandData.getTotal_products_price();
-            totalShippingPrice += brandData.getFinal_shipping_price();
-            totalOptionCount += brandData.getTotal_option_count();
+            totalSelectedProductCount += brandData.getTotalSelectedProduct();
+            totalProductPrice += brandData.getTotalProductsPrice();
+            totalShippingPrice += brandData.getFinalShippingPrice();
+            totalOptionCount += brandData.getTotalOptionCount();
         }
 
         view.setupTotalCount(totalOptionCount);
@@ -179,7 +179,7 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
         int totalOptionCount = 0;
 
         for (ShoppingProductDataModel productData : brandData.getProducts()) {
-            productData.setBrand_id(brandData.getBrand_id());
+            productData.setBrandNo(brandData.getBrandNo());
 
             if (!productData.isSelected()) {
                 brandData.setBillVisible(false);
@@ -187,7 +187,7 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
             }
             totalSelectedProductCount++;
 
-            int displayCode = productData.getDisplay_code();
+            int displayCode = productData.getDisplayCode();
             if (displayCode != DisplayCode.DISPLAY.getValue()) {
                 brandData.setBillVisible(false);
                 continue;
@@ -197,54 +197,54 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
             int price_basic = productData.getPrice();
 
             for (ShoppingOptionDataModel optionData : productData.getOptions()) {
-                optionData.setBrand_id(brandData.getBrand_id());
+                optionData.setBrandNo(brandData.getBrandNo());
 
-                int price = price_basic + optionData.getPrice_add();
-                optionData.setPrice_sum(price);
+                int price = price_basic + optionData.getPriceAdd();
+                optionData.setPriceSum(price);
                 int quantity = optionData.getQuantity();
                 totalOptionCount += quantity;
                 totalProductsPrice += (price * quantity);
 
-                optionData.setOrder_available_quantity(
-                    Math.min(productData.getQuantity_limit(), optionData.getStock()));
+                optionData.setLimitQuantity(
+                    Math.min(productData.getLimitQuantity(), optionData.getStock()));
             }
         }
 
-        brandData.setTotal_products_price(totalProductsPrice);
-        brandData.setTotal_option_count(totalOptionCount);
-        brandData.setTotal_selected_product(totalSelectedProductCount);
+        brandData.setTotalProductsPrice(totalProductsPrice);
+        brandData.setTotalOptionCount(totalOptionCount);
+        brandData.setTotalSelectedProduct(totalSelectedProductCount);
 
         if (totalOptionCount > 0) {
             boolean isFreeShipping;
             int finalShippingPrice;
-            int shippingCode = brandData.getShipping_type();
+            int shippingCode = brandData.getShippingType();
             if (shippingCode == ShippingCode.FREE.getValue()) {
                 isFreeShipping = true;
                 finalShippingPrice = 0;
             } else if (shippingCode == ShippingCode.CONDITIONAL.getValue()) {
-                isFreeShipping = brandData.getTotal_products_price() >= brandData.getCondition_free_shipping();
+                isFreeShipping = brandData.getTotalProductsPrice() >= brandData.getConditionFreeShipping();
                 if (isFreeShipping) {
                     finalShippingPrice = 0;
                 } else {
-                    finalShippingPrice = brandData.getCondition_shipping_price();
+                    finalShippingPrice = brandData.getConditionShippingPrice();
                 }
             } else {
                 isFreeShipping = false;
-                finalShippingPrice = brandData.getShipping_price();
+                finalShippingPrice = brandData.getShippingPrice();
             }
 
             brandData.setFreeShipping(isFreeShipping);
-            brandData.setFinal_shipping_price(finalShippingPrice);
+            brandData.setFinalShippingPrice(finalShippingPrice);
         } else {
             brandData.setFreeShipping(false);
-            brandData.setFinal_shipping_price(0);
+            brandData.setFinalShippingPrice(0);
         }
         return brandData;
     }
 
     private ShoppingBrandDataModel getBrandModel(int brand_id) {
         return Observable.fromIterable(shoppingbagItems)
-            .filter(data -> data.getBrand_id() == brand_id)
+            .filter(data -> data.getBrandNo() == brand_id)
             .blockingFirst();
     }
 
@@ -273,7 +273,7 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
     }
 
     private void deleteOption(ShoppingOptionDataModel target) {
-        ShoppingBrandDataModel brandData = getBrandModel(target.getBrand_id());
+        ShoppingBrandDataModel brandData = getBrandModel(target.getBrandNo());
         ShoppingBrandDataModel tempBrandData = brandData;
         for (int i = 0; i < tempBrandData.getProducts().size(); i++) {
             ShoppingProductDataModel productData = tempBrandData.getProducts().get(i);
@@ -297,7 +297,7 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
             for (ShoppingProductDataModel productData : brandData.getProducts()) {
                 if (productData.isSelected()) {
                     for (ShoppingOptionDataModel optionData : productData.getOptions()) {
-                        items.add(optionData.getShoppingbag_id());
+                        items.add(optionData.getShoppingbagNo());
                     }
                 }
             }
@@ -306,7 +306,7 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
     }
 
     private void reqUpdateQuantity(ShoppingOptionDataModel data) {
-        addDisposable(orderRequest.updateGoodsQuantity(data.getShoppingbag_id(), data.getQuantity())
+        addDisposable(orderRequest.updateGoodsQuantity(data.getShoppingbagNo(), data.getQuantity())
             .subscribe());
     }
 
@@ -327,7 +327,7 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
                 ShoppingOptionDataModel data = ((RxBusEventOptionCountChanged) o).getOptionData();
                 view.refresh();
                 reqUpdateQuantity(data);
-                calBrandPrice(getBrandModel(data.getBrand_id()));
+                calBrandPrice(getBrandModel(data.getBrandNo()));
                 setupTotalPrice();
             } else if (o instanceof RxBusEventProductCheckedChanged) {
                 int brand_id = ((RxBusEventProductCheckedChanged) o).getBrand_id();
@@ -337,7 +337,7 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
             } else if (o instanceof RxBusEventOptionDeleted) {
                 ShoppingOptionDataModel data = ((RxBusEventOptionDeleted) o).getOptionData();
                 deleteOption(data);
-                reqDeleteShoppingBag(data.getShoppingbag_id());
+                reqDeleteShoppingBag(data.getShoppingbagNo());
             }
         }, Timber::e));
     }

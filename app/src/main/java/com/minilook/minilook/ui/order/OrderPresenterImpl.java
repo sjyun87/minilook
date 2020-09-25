@@ -18,9 +18,9 @@ import com.minilook.minilook.data.model.shipping.ShippingDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingProductDataModel;
-import com.minilook.minilook.data.model.user.CouponDataModel;
-import com.minilook.minilook.data.model.user.PointDataModel;
-import com.minilook.minilook.data.model.user.UserDataModel;
+import com.minilook.minilook.data.model.member.CouponDataModel;
+import com.minilook.minilook.data.model.member.PointDataModel;
+import com.minilook.minilook.data.model.member.MemberDataModel;
 import com.minilook.minilook.data.network.order.OrderRequest;
 import com.minilook.minilook.data.network.shipping.ShippingRequest;
 import com.minilook.minilook.data.rx.RxBus;
@@ -71,7 +71,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
     private int totalPointEarned = 0;
 
     private Method payment = Method.CARD;
-    private UserDataModel userData;
+    private MemberDataModel userData;
     private ShippingDataModel selectedShippingData;
 
     private boolean isSelectedShipping = false;
@@ -187,10 +187,10 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
             for (ShoppingProductDataModel productData : brandData.getProducts()) {
                 totalProductCount++;
                 int price_basic = productData.getPrice();
-                int pointEarnedPercent = productData.getPoint_percent();
+                int pointEarnedPercent = productData.getAddPointPercent();
                 for (ShoppingOptionDataModel optionData : productData.getOptions()) {
-                    int price = price_basic + optionData.getPrice_add();
-                    optionData.setPrice_sum(price);
+                    int price = price_basic + optionData.getPriceAdd();
+                    optionData.setPriceSum(price);
                     int quantity = optionData.getQuantity();
                     brandOptionCount += quantity;
                     int orderPrice = price * quantity;
@@ -201,30 +201,30 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
             }
 
             totalProductPrice += totalProductsPrice;
-            brandData.setTotal_products_price(totalProductsPrice);
+            brandData.setTotalProductsPrice(totalProductsPrice);
             totalOptionCount += brandOptionCount;
-            brandData.setTotal_option_count(brandOptionCount);
+            brandData.setTotalOptionCount(brandOptionCount);
 
             boolean isFreeShipping;
             int finalShippingPrice;
-            int shippingCode = brandData.getShipping_type();
+            int shippingCode = brandData.getShippingType();
             if (shippingCode == ShippingCode.FREE.getValue()) {
                 isFreeShipping = true;
                 finalShippingPrice = 0;
             } else if (shippingCode == ShippingCode.CONDITIONAL.getValue()) {
-                isFreeShipping = brandData.getTotal_products_price() >= brandData.getCondition_free_shipping();
+                isFreeShipping = brandData.getTotalProductsPrice() >= brandData.getConditionFreeShipping();
                 if (isFreeShipping) {
                     finalShippingPrice = 0;
                 } else {
-                    finalShippingPrice = brandData.getCondition_shipping_price();
+                    finalShippingPrice = brandData.getConditionShippingPrice();
                 }
             } else {
                 isFreeShipping = false;
-                finalShippingPrice = brandData.getShipping_price();
+                finalShippingPrice = brandData.getShippingPrice();
             }
 
             brandData.setFreeShipping(isFreeShipping);
-            brandData.setFinal_shipping_price(finalShippingPrice);
+            brandData.setFinalShippingPrice(finalShippingPrice);
         }
         view.setupTotalProductPrice(totalProductPrice);
         view.setupConfirmPointEarned(totalPointEarned);
@@ -253,7 +253,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
             selectedShippingData = shippingData;
             view.setupName(shippingData.getName());
             view.setupPhone(shippingData.getPhone());
-            view.setupAddress(shippingData.getZipcode(), shippingData.getAddress(), shippingData.getAddress_detail());
+            view.setupAddress(shippingData.getZipcode(), shippingData.getAddress(), shippingData.getAddressDetail());
 
             if (shippingData.isDefault()) {
                 view.showDefaultLabel();
@@ -266,7 +266,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
 
             view.showMemoBox();
 
-            reqCheckIsland(shippingData.getAddress_id());
+            reqCheckIsland(shippingData.getAddressNo());
         } else {
             isSelectedShipping = false;
             view.hideShippingPanel();
@@ -279,7 +279,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         if (coupons != null && coupons.size() > 0) {
             coupons.add(0, new CouponDataModel());
             for (CouponDataModel couponData : coupons) {
-                if (couponData.getUse_condition() < totalProductPrice) {
+                if (couponData.getCondition() < totalProductPrice) {
                     availableCouponCount++;
                     couponData.setAvailable(true);
                 } else {
@@ -313,7 +313,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
     }
 
     private void resCheckIsland(IslandDataModel data) {
-        setupIslandData(true, data.getIsland_shipping_price());
+        setupIslandData(true, data.getIslandShippingPrice());
         initData();
     }
 
@@ -327,8 +327,8 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         totalShippingPrice = 0;
         for (ShoppingBrandDataModel brandData : orderItem) {
             brandData.setIsland(isIsland);
-            brandData.setIsland_shipping_price(islandShippingPrice);
-            totalShippingPrice += (brandData.getFinal_shipping_price() + islandShippingPrice);
+            brandData.setIslandShippingPrice(islandShippingPrice);
+            totalShippingPrice += (brandData.getFinalShippingPrice() + islandShippingPrice);
         }
         view.setupTotalShippingPrice(totalShippingPrice);
         orderAdapter.set(orderItem);
@@ -358,7 +358,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
     }
 
     private void setupTotalPrice() {
-        int selectedCouponPrice = selectedCoupon != null ? selectedCoupon.getCoupon() : 0;
+        int selectedCouponPrice = selectedCoupon != null ? selectedCoupon.getValue() : 0;
         view.setupTotalCoupon(selectedCouponPrice);
         view.setupPoint(selectedPoint);
 
@@ -390,7 +390,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         } else {
             view.closeCouponBox();
             if (selectedCoupon != null) {
-                view.setupSelectedCouponBoxText(selectedCoupon.getCoupon(), selectedCoupon.getName());
+                view.setupSelectedCouponBoxText(selectedCoupon.getValue(), selectedCoupon.getName());
             } else {
                 view.setupCouponBoxText(availableCouponCount);
             }
@@ -452,9 +452,9 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         completeData.setUse_point_value(selectedPoint);
         int totalDiscount = 0;
         if (selectedCoupon != null) {
-            completeData.setCoupon_id(selectedCoupon.getCoupon_id());
-            completeData.setUse_coupon_value(selectedCoupon.getCoupon());
-            totalDiscount += selectedCoupon.getCoupon();
+            completeData.setCoupon_id(selectedCoupon.getNo());
+            completeData.setUse_coupon_value(selectedCoupon.getValue());
+            totalDiscount += selectedCoupon.getValue();
         }
         totalDiscount += selectedPoint;
         completeData.setTotal_product_price(totalProductPrice);
@@ -463,17 +463,17 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         completeData.setReceipt_id(receipt_id);
         completeData.setReceipt_name(selectedShippingData.getName());
         completeData.setReceipt_phone(selectedShippingData.getPhone());
-        completeData.setAddress_id(selectedShippingData.getAddress_id());
+        completeData.setAddress_id(selectedShippingData.getAddressNo());
         completeData.setZip(selectedShippingData.getZipcode());
         completeData.setAddress(selectedShippingData.getAddress());
-        completeData.setAddress_detail(selectedShippingData.getAddress_detail());
+        completeData.setAddress_detail(selectedShippingData.getAddressDetail());
         completeData.setShipping_memo(selectedMemo);
         List<BrandShippingDataModel> brandShippingData = new ArrayList<>();
         for (ShoppingBrandDataModel brandData : orderItem) {
             BrandShippingDataModel brandShippingModel = new BrandShippingDataModel();
-            brandShippingModel.setBrandNo(brandData.getBrand_id());
+            brandShippingModel.setBrandNo(brandData.getBrandNo());
             brandShippingModel.setShipping_price(
-                brandData.getFinal_shipping_price() + brandData.getIsland_shipping_price());
+                brandData.getFinalShippingPrice() + brandData.getIslandShippingPrice());
             brandShippingData.add(brandShippingModel);
         }
         completeData.setBrand_shipping(brandShippingData);
@@ -490,11 +490,11 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
                 for (int optionIndex = 0; optionIndex < productData.getOptions().size(); optionIndex++) {
                     ShoppingOptionDataModel optionData = productData.getOptions().get(optionIndex);
 
-                    float per = (float) optionData.getPrice_sum() / totalProductPrice;
+                    float per = (float) optionData.getPriceSum() / totalProductPrice;
                     for (int optionQuantityIndex = 0; optionQuantityIndex < optionData.getQuantity(); optionQuantityIndex++) {
                         OrderCompleteOptionDataModel completeOptionModel = new OrderCompleteOptionDataModel();
-                        completeOptionModel.setOption_id(optionData.getOption_id());
-                        completeOptionModel.setShoppingbag_id(optionData.getShoppingbag_id());
+                        completeOptionModel.setOption_id(optionData.getOptionNo());
+                        completeOptionModel.setShoppingbag_id(optionData.getShoppingbagNo());
 
                         if (brandIndex == (orderItem.size() - 1)
                             && productIndex == (brandData.getProducts().size() - 1)
@@ -505,7 +505,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
                             completeOptionModel.setPer_point_value(lastPerPointValue);
                             completeOptionModel.setPer_coupon_value(lastPerCouponValue);
                             completeOptionModel.setPer_payment_price(
-                                optionData.getPrice_sum() - lastPerCouponValue - lastPerPointValue);
+                                optionData.getPriceSum() - lastPerCouponValue - lastPerPointValue);
                         } else {
                             int perCouponValue = (int) (totalCouponValue * per);
                             int perPointValue = (int) (totalPointValue * per);
@@ -515,7 +515,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
                             completeOptionModel.setPer_point_value(perPointValue);
                             completeOptionModel.setPer_coupon_value(perCouponValue);
                             completeOptionModel.setPer_payment_price(
-                                optionData.getPrice_sum() - perCouponValue - perPointValue);
+                                optionData.getPriceSum() - perCouponValue - perPointValue);
                         }
                         completeOptionData.add(completeOptionModel);
                     }
@@ -550,9 +550,9 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
             for (ShoppingProductDataModel productData : brandData.getProducts()) {
                 for (ShoppingOptionDataModel optionData : productData.getOptions()) {
                     BootPayItemDataModel bootPayModel = new BootPayItemDataModel();
-                    bootPayModel.setId(String.valueOf(productData.getProduct_id()));
-                    bootPayModel.setName(productData.getProduct_name());
-                    bootPayModel.setPrice(optionData.getPrice_sum());
+                    bootPayModel.setId(String.valueOf(productData.getProductNo()));
+                    bootPayModel.setName(productData.getProductName());
+                    bootPayModel.setPrice(optionData.getPriceSum());
                     bootPayModel.setQuantity(optionData.getQuantity());
                     bootPayItems.add(bootPayModel);
                 }
@@ -562,7 +562,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
     }
 
     private String getProductName() {
-        String productName = orderItem.get(0).getProducts().get(0).getProduct_name();
+        String productName = orderItem.get(0).getProducts().get(0).getProductName();
         if (totalOptionCount > 1) productName = productName + " 외 " + (totalOptionCount - 1) + "건";
         return productName;
     }
@@ -577,9 +577,9 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         int sumBrandId = 0;
         int sumProductId = 0;
         for (ShoppingBrandDataModel brandData : orderItem) {
-            sumBrandId += brandData.getBrand_id();
+            sumBrandId += brandData.getBrandNo();
             for (ShoppingProductDataModel productData : brandData.getProducts()) {
-                sumProductId += productData.getProduct_id();
+                sumProductId += productData.getProductNo();
             }
         }
 
@@ -598,15 +598,15 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
     private BootUser getBootUser() {
         BootUser bootUser = new BootUser();
         if (userData.getName() != null && !TextUtils.isEmpty(userData.getName())) {
-            bootUser.setUsername(userData.getName() + "(" + userData.getUser_id() + ")");
+            bootUser.setUsername(userData.getName() + "(" + userData.getMemberNo() + ")");
         } else {
-            bootUser.setUsername("(" + userData.getUser_id() + ")");
+            bootUser.setUsername("(" + userData.getMemberNo() + ")");
         }
         bootUser.setEmail(userData.getEmail());
         bootUser.setPhone(userData.getPhone());
         bootUser.setAddr("(" + selectedShippingData.getZipcode() + ") "
             + selectedShippingData.getAddress() + " "
-            + selectedShippingData.getAddress_detail());
+            + selectedShippingData.getAddressDetail());
         return bootUser;
     }
 
@@ -624,7 +624,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
                 setupShippingData(shippingData);
             } else if (o instanceof RxEventCouponSelected) {
                 CouponDataModel couponData = ((RxEventCouponSelected) o).getCoupon();
-                if (couponData.getCoupon_id() != 0) {
+                if (couponData.getNo() != 0) {
                     selectedCoupon = couponData;
                 } else {
                     selectedCoupon = null;

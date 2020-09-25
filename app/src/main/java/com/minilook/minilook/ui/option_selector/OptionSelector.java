@@ -24,8 +24,8 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
-import com.minilook.minilook.data.model.product.ProductOptionDataModel;
-import com.minilook.minilook.data.model.product.ProductStockDataModel;
+import com.minilook.minilook.data.model.product.ProductColorDataModel;
+import com.minilook.minilook.data.model.product.ProductSizeDataModel;
 import com.minilook.minilook.ui.option_selector.adpater.OptionSelectorColorAdapter;
 import com.minilook.minilook.ui.option_selector.adpater.OptionSelectorOptionAdapter;
 import com.minilook.minilook.ui.option_selector.adpater.OptionSelectorSizeAdapter;
@@ -75,13 +75,13 @@ public class OptionSelector extends FrameLayout implements OptionSelectorOptionV
     private OptionSelectorOptionAdapter optionAdapter;
 
     private int product_price;
-    private List<ProductOptionDataModel> options;
+    private List<ProductColorDataModel> options;
 
     private boolean isColorSelectBoxOpened = false;
     private boolean isSizeSelectBoxOpened = false;
 
-    private ProductOptionDataModel selectedColorData;
-    private ProductStockDataModel selectedSizeData;
+    private ProductColorDataModel selectedColorData;
+    private ProductSizeDataModel selectedSizeData;
     private Map<Integer, Integer> selectedData = new HashMap<>();
 
     public OptionSelector(@NonNull Context context) {
@@ -144,7 +144,7 @@ public class OptionSelector extends FrameLayout implements OptionSelectorOptionV
         goodsRecyclerView.setAdapter(optionAdapter);
     }
 
-    public void setupData(int price, List<ProductOptionDataModel> options) {
+    public void setupData(int price, List<ProductColorDataModel> options) {
         this.product_price = price;
         this.options = options;
 
@@ -249,12 +249,12 @@ public class OptionSelector extends FrameLayout implements OptionSelectorOptionV
         colorArrowImageView.animate().rotation(0).setDuration(150).start();
     }
 
-    private void onColorSelected(ProductOptionDataModel data) {
+    private void onColorSelected(ProductColorDataModel data) {
         this.selectedColorData = data;
-        setupSelectedColor(data.getColor_name());
+        setupSelectedColor(data.getColorName());
         hideColorSelectBox();
 
-        sizeAdapter.set(data.getStocks());
+        sizeAdapter.set(data.getSizes());
         sizeAdapter.refresh();
         postDelayed(this::showSizeSelectBox, 150);
     }
@@ -297,7 +297,7 @@ public class OptionSelector extends FrameLayout implements OptionSelectorOptionV
         selectedColorTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, sp_6);
     }
 
-    private void onSizeSelected(ProductStockDataModel data) {
+    private void onSizeSelected(ProductSizeDataModel data) {
         this.selectedSizeData = data;
         addSelectedData();
 
@@ -310,29 +310,29 @@ public class OptionSelector extends FrameLayout implements OptionSelectorOptionV
     }
 
     private void addSelectedData() {
-        int goods_id = selectedSizeData.getOption_id();
+        int goods_id = selectedSizeData.getOptionNo();
         if (!selectedData.containsKey(goods_id)) {
             ShoppingOptionDataModel model = new ShoppingOptionDataModel();
-            model.setOption_id(goods_id);
-            int price = product_price + selectedSizeData.getPrice_add();
-            model.setPrice_sum(price);
-            model.setColor_name(selectedColorData.getColor_name());
-            model.setSize_name(selectedSizeData.getSize_name());
-            int order_limit = selectedSizeData.getOrder_limit();
-            int stock = selectedSizeData.getSize_stock();
-            model.setOrder_available_quantity(Math.min(order_limit, stock));
+            model.setOptionNo(goods_id);
+            int price = product_price + selectedSizeData.getPriceAdd();
+            model.setPriceSum(price);
+            model.setColorName(selectedColorData.getColorName());
+            model.setSizeName(selectedSizeData.getSizeName());
+            int order_limit = selectedSizeData.getOrderLimit();
+            int stock = selectedSizeData.getSizeStock();
+            model.setLimitQuantity(Math.min(order_limit, stock));
             model.setQuantity(1);
-            model.setPrice_add(selectedSizeData.getPrice_add());
+            model.setPriceAdd(selectedSizeData.getPriceAdd());
 
             selectedData.put(goods_id, 1);
             optionAdapter.add(model);
             optionAdapter.refresh();
         } else {
             for (ShoppingOptionDataModel model : optionAdapter.get()) {
-                if (model.getOption_id() == goods_id) {
-                    if (model.getQuantity() >= model.getOrder_available_quantity()) {
+                if (model.getOptionNo() == goods_id) {
+                    if (model.getQuantity() >= model.getLimitQuantity()) {
                         Toast.makeText(getContext(),
-                            String.format(format_available_quantity, model.getOrder_available_quantity()),
+                            String.format(format_available_quantity, model.getLimitQuantity()),
                             Toast.LENGTH_SHORT).show();
                     } else {
                         int currentCount = model.getQuantity();
@@ -353,7 +353,7 @@ public class OptionSelector extends FrameLayout implements OptionSelectorOptionV
         for (ShoppingOptionDataModel model : optionAdapter.get()) {
             int count = model.getQuantity();
             totalCount += count;
-            int price = model.getPrice_sum();
+            int price = model.getPriceSum();
             totalPrice += (price * count);
         }
         setupTotalCount(totalCount);
@@ -401,7 +401,7 @@ public class OptionSelector extends FrameLayout implements OptionSelectorOptionV
     @Override public void onDeleteClick(ShoppingOptionDataModel data) {
         optionAdapter.remove(data);
         optionAdapter.refresh();
-        selectedData.remove(data.getOption_id());
+        selectedData.remove(data.getOptionNo());
         setupTotal();
     }
 

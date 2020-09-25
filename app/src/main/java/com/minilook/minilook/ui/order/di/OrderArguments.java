@@ -1,7 +1,7 @@
 package com.minilook.minilook.ui.order.di;
 
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
-import com.minilook.minilook.data.model.user.CouponDataModel;
+import com.minilook.minilook.data.model.member.CouponDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.order.OrderPresenter;
 import java.util.List;

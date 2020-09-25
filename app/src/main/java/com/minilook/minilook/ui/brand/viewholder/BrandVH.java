@@ -44,14 +44,14 @@ public class BrandVH extends BaseViewHolder<BrandDataModel> {
     @Override public void bind(BrandDataModel $data) {
         super.bind($data);
         Glide.with(context)
-            .load(data.getBrand_logo())
+            .load(data.getBrandLogo())
             .placeholder(new ColorDrawable(color_FFEEEFF5))
             .apply(RequestOptions.bitmapTransform(
                 new CropCircleWithBorderTransformation(DimenUtil.dpToPx(context, 1), color_FFDBDBDB)))
             .into(logoImageView);
 
-        nameTextView.setText(data.getBrand_name());
-        tagTextView.setText(data.getBrand_tag().replace(",", " "));
+        nameTextView.setText(data.getBrandName());
+        tagTextView.setText(data.getBrandTag().replace(",", " "));
 
         setupScrapImage(data.isScrap());
 
@@ -67,7 +67,7 @@ public class BrandVH extends BaseViewHolder<BrandDataModel> {
     }
 
     void onItemClick(View view) {
-        BrandDetailActivity.start(context, data.getBrand_no());
+        BrandDetailActivity.start(context, data.getBrandNo());
     }
 
     @OnClick(R.id.img_scrap)

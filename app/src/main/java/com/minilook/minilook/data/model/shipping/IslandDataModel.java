@@ -6,5 +6,5 @@ import lombok.Data;
 
 @Data public class IslandDataModel {
     @Expose @SerializedName("extraShippingFee")
-    private int island_shipping_price;
+    private int islandShippingPrice;
 }

@@ -33,7 +33,7 @@ public class MarketCommercialItemVH extends BaseViewHolder<CommercialDataModel> 
         super.bind($data);
 
         Glide.with(context)
-            .load(data.getImage_url())
+            .load(data.getThumbUrl())
             .placeholder(img_placeholder)
             .error(img_placeholder)
             .transition(new DrawableTransitionOptions().crossFade())
@@ -44,11 +44,11 @@ public class MarketCommercialItemVH extends BaseViewHolder<CommercialDataModel> 
 
     void onItemClick(View view) {
         if (data.getType().equals(CommercialType.PROMOTION.getValue())) {
-            PromotionDetailActivity.start(context, data.getId());
+            PromotionDetailActivity.start(context, data.getNo());
         } else if (data.getType().equals(CommercialType.EVENT.getValue())) {
-            EventDetailActivity.start(context, data.getId());
+            EventDetailActivity.start(context, data.getNo());
         } else if (data.getType().equals(CommercialType.PRODUCT.getValue())) {
-            ProductDetailActivity.start(context, data.getId());
+            ProductDetailActivity.start(context, data.getNo());
         }
     }
 }

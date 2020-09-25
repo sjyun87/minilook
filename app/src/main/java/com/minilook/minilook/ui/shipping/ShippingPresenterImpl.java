@@ -127,7 +127,7 @@ public class ShippingPresenterImpl extends BasePresenterImpl implements Shipping
             } else if (o instanceof RxEventShippingDeleteClick) {
                 ShippingDataModel data = ((RxEventShippingDeleteClick) o).data;
                 removeShipping(data);
-                reqDeleteShipping(data.getAddress_id());
+                reqDeleteShipping(data.getAddressNo());
             } else if (o instanceof RxEventShippingEditClick) {
                 ShippingDataModel data = ((RxEventShippingEditClick) o).data;
                 view.navigateToShippingEdit(data);

@@ -50,7 +50,7 @@ public class FilterCategoryVH extends BaseViewHolder<CategoryDataModel> {
             nameTextView.setTypeface(font_regular);
         }
         Glide.with(context)
-            .load(data.getImage_url())
+            .load(data.getIconUrl())
             .into(iconImageView);
         nameTextView.setText(data.getName());
 

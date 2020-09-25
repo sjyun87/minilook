@@ -11,7 +11,7 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.user.PointHistoryDataModel;
+import com.minilook.minilook.data.model.member.PointHistoryDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.point.adapter.PointHistoryAdapter;

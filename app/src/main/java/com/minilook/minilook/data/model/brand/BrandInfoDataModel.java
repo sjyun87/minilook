@@ -6,13 +6,13 @@ import lombok.Data;
 
 @Data public class BrandInfoDataModel {
     @Expose @SerializedName("workingTime")
-    private String cs_time;
+    private String csTime;
     @Expose @SerializedName("tel")
-    private String cs_tel;
+    private String csTel;
     @Expose @SerializedName("sns")
-    private String cs_sns;
+    private String csSNS;
     @Expose @SerializedName("email")
-    private String cs_email;
+    private String csEmail;
     @Expose @SerializedName("policy")
     private String guide;
 }

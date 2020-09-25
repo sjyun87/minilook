@@ -55,7 +55,7 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
         super.bind($data);
 
         Glide.with(context)
-            .load(data.getBrand_logo())
+            .load(data.getBrandLogo())
             .placeholder(img_placeholder_logo)
             .error(img_placeholder_logo)
             .apply(RequestOptions.bitmapTransform(
@@ -63,19 +63,19 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
             .transition(new DrawableTransitionOptions().crossFade())
             .into(brandLogoImageView);
 
-        brandNameTextView.setText(data.getBrand_name());
+        brandNameTextView.setText(data.getBrandName());
 
         Glide.with(context)
-            .load(data.getImage_url())
+            .load(data.getImageUrl())
             .placeholder(img_placeholder)
             .error(img_placeholder)
             .transition(new DrawableTransitionOptions().crossFade())
             .into(thumbImageView);
 
-        reviewTextView.setText(StringUtil.toDigit(data.getReview_cnt()));
+        reviewTextView.setText(StringUtil.toDigit(data.getReviewCount()));
         categoryTextView.setText(data.getCategory());
-        nameTextView.setText(data.getProduct_name());
-        descTextView.setText(data.getProduct_desc());
+        nameTextView.setText(data.getProductName());
+        descTextView.setText(data.getProductDesc());
 
         setupScrap();
 
@@ -88,16 +88,16 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
         } else {
             scrapImageView.setImageDrawable(img_scrap_off);
         }
-        scrapTextView.setText(StringUtil.toDigit(data.getScrap_cnt()));
+        scrapTextView.setText(StringUtil.toDigit(data.getScrapCount()));
     }
 
     void onItemClick(View view) {
-        ProductDetailActivity.start(context, data.getProduct_no());
+        ProductDetailActivity.start(context, data.getProductNo());
     }
 
     @OnClick(R.id.layout_brand_panel)
     void onBrandClick() {
-        BrandDetailActivity.start(context, data.getBrand_no());
+        BrandDetailActivity.start(context, data.getBrandNo());
     }
 
     @OnClick(R.id.layout_review_panel)
@@ -110,9 +110,9 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
         if (App.getInstance().isLogin()) {
             data.setScrap(!data.isScrap());
             if (data.isScrap()) {
-                data.setScrap_cnt(data.getScrap_cnt() + 1);
+                data.setScrapCount(data.getScrapCount() + 1);
             } else {
-                data.setScrap_cnt(data.getScrap_cnt() - 1);
+                data.setScrapCount(data.getScrapCount() - 1);
             }
             setupScrap();
             RxBus.send(new RxBusEvent.RxBusEventProductScrap(data.isScrap(), data));

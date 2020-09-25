@@ -1,4 +1,4 @@
-package com.minilook.minilook.data.model.user;
+package com.minilook.minilook.data.model.member;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.JsonAdapter;
@@ -8,18 +8,18 @@ import lombok.Data;
 
 @Data public class CouponDataModel {
     @Expose @SerializedName("couponNo")
-    private int coupon_id;
+    private int no;
     @Expose @SerializedName(value = "subject", alternate = "title")
     private String name;
     @Expose @SerializedName(value = "couponValue", alternate = "price")
-    private int coupon;
+    private int value;
     @Expose @SerializedName(value = "couponConditionValue", alternate = "limitPrice")
-    private int use_condition;
+    private int condition;
     @Expose @SerializedName("isExprired")
     @JsonAdapter(BooleanDeserializer.class)
-    private boolean isEnd;
+    private boolean isExpired;
     @Expose @SerializedName("expireDate")
-    private String date_end;
+    private String expireDate;
 
     // Control data
     private boolean isAvailable;

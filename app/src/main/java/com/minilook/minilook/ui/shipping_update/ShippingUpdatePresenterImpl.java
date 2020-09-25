@@ -48,14 +48,14 @@ public class ShippingUpdatePresenterImpl extends BasePresenterImpl implements Sh
             phone = shippingData.getPhone();
             zip = shippingData.getZipcode();
             address = shippingData.getAddress();
-            address_detail = shippingData.getAddress_detail();
+            address_detail = shippingData.getAddressDetail();
             isDefault = shippingData.isDefault();
 
             view.setupName(shippingData.getName());
             view.setupPhone(shippingData.getPhone());
             view.setupZip(shippingData.getZipcode());
             view.setupAddress(shippingData.getAddress());
-            view.setupAddressDetail(shippingData.getAddress_detail());
+            view.setupAddressDetail(shippingData.getAddressDetail());
             if (shippingData.isDefault()) {
                 view.checkDefault();
             } else {
@@ -121,12 +121,12 @@ public class ShippingUpdatePresenterImpl extends BasePresenterImpl implements Sh
 
     private ShippingDataModel getShippingModel() {
         ShippingDataModel model = new ShippingDataModel();
-        if (!isAddPage) model.setAddress_id(shippingData.getAddress_id());
+        if (!isAddPage) model.setAddressNo(shippingData.getAddressNo());
         model.setName(name);
         model.setPhone(phone);
         model.setZipcode(zip);
         model.setAddress(address);
-        model.setAddress_detail(address_detail);
+        model.setAddressDetail(address_detail);
         model.setDefault(isDefault);
         return model;
     }

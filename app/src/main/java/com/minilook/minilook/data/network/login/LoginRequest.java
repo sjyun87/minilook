@@ -2,7 +2,7 @@ package com.minilook.minilook.data.network.login;
 
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.model.base.BaseDataModel;
-import com.minilook.minilook.data.model.user.UserDataModel;
+import com.minilook.minilook.data.model.member.MemberDataModel;
 import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
 import java.util.HashMap;
@@ -15,13 +15,13 @@ public class LoginRequest extends BaseRequest<LoginService> {
         return LoginService.class;
     }
 
-    public Single<BaseDataModel> login(UserDataModel model) {
+    public Single<BaseDataModel> login(MemberDataModel model) {
         return getApi().login(createRequestBody(parseToLoginJson(model)));
     }
 
-    private Map<String, Object> parseToLoginJson(UserDataModel model) {
+    private Map<String, Object> parseToLoginJson(MemberDataModel model) {
         Map<String, Object> jsonMap = new HashMap<>();
-        jsonMap.put("snsAccount", model.getSns_id());
+        jsonMap.put("snsAccount", model.getSnsId());
         jsonMap.put("snsTypeCode", model.getType());
         jsonMap.put("pushToken", App.getInstance().getPushToken());
         Timber.e(jsonMap.toString());
@@ -40,13 +40,13 @@ public class LoginRequest extends BaseRequest<LoginService> {
         return jsonMap;
     }
 
-    public Single<BaseDataModel> join(UserDataModel model) {
+    public Single<BaseDataModel> join(MemberDataModel model) {
         return getApi().join(createRequestBody(parseToJoinJson(model)));
     }
 
-    private Map<String, Object> parseToJoinJson(UserDataModel model) {
+    private Map<String, Object> parseToJoinJson(MemberDataModel model) {
         Map<String, Object> jsonMap = new HashMap<>();
-        jsonMap.put("snsAccount", model.getSns_id());
+        jsonMap.put("snsAccount", model.getSnsId());
         jsonMap.put("snsTypeCode", model.getType());
         jsonMap.put("email", model.getEmail());
         jsonMap.put("name", model.getName());

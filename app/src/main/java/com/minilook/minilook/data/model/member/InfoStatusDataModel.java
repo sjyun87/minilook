@@ -1,4 +1,4 @@
-package com.minilook.minilook.data.model.user;
+package com.minilook.minilook.data.model.member;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

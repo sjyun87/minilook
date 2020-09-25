@@ -5,7 +5,7 @@ import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.common.URLKeys;
 import com.minilook.minilook.data.model.base.BaseDataModel;
-import com.minilook.minilook.data.model.user.InfoStatusDataModel;
+import com.minilook.minilook.data.model.member.InfoStatusDataModel;
 import com.minilook.minilook.data.network.login.LoginRequest;
 import com.minilook.minilook.data.network.member.MemberRequest;
 import com.minilook.minilook.data.rx.Transformer;

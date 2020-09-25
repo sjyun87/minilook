@@ -3,7 +3,7 @@ package com.minilook.minilook.ui.login;
 import com.google.gson.Gson;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
-import com.minilook.minilook.data.model.user.UserDataModel;
+import com.minilook.minilook.data.model.member.MemberDataModel;
 import com.minilook.minilook.data.network.login.LoginRequest;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
@@ -20,7 +20,7 @@ public class LoginPresenterImpl extends BasePresenterImpl implements LoginPresen
     private final LoginRequest loginRequest;
 
     private Gson gson = new Gson();
-    private UserDataModel userData;
+    private MemberDataModel memberData;
 
     public LoginPresenterImpl(LoginArguments args) {
         view = args.getView();
@@ -47,10 +47,10 @@ public class LoginPresenterImpl extends BasePresenterImpl implements LoginPresen
     }
 
     @Override public void onSNSLogin(String sns_id, String email, String type) {
-        userData = new UserDataModel();
-        userData.setSns_id(sns_id);
-        userData.setEmail(email);
-        userData.setType(type);
+        memberData = new MemberDataModel();
+        memberData.setSnsId(sns_id);
+        memberData.setEmail(email);
+        memberData.setType(type);
 
         reqLogin();
     }
@@ -67,23 +67,22 @@ public class LoginPresenterImpl extends BasePresenterImpl implements LoginPresen
     }
 
     private void reqLogin() {
-        addDisposable(loginRequest.login(userData)
+        addDisposable(loginRequest.login(memberData)
             .compose(Transformer.applySchedulers())
             .filter(data -> {
                 String code = data.getCode();
                 if (code.equals(HttpCode.NO_DATA)) {
-                    view.navigateToJoin(userData);
+                    view.navigateToJoin(memberData);
                 }
                 return code.equals(HttpCode.OK);
             })
-            .map(data -> gson.fromJson(data.getData(), UserDataModel.class))
+            .map(data -> gson.fromJson(data.getData(), MemberDataModel.class))
             .subscribe(this::resLogin, Timber::e));
     }
 
-    private void resLogin(UserDataModel data) {
-        userData = data;
-        App.getInstance().setupLogin(userData);
-        view.navigateToMain();
+    private void resLogin(MemberDataModel data) {
+        memberData = data;
+        App.getInstance().setupLogin(memberData);
         view.finish();
     }
 }

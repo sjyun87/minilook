@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.common.URLKeys;
-import com.minilook.minilook.data.model.user.UserDataModel;
+import com.minilook.minilook.data.model.member.MemberDataModel;
 import com.minilook.minilook.data.network.login.LoginRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
@@ -17,7 +17,7 @@ import timber.log.Timber;
 public class JoinPresenterImpl extends BasePresenterImpl implements JoinPresenter {
 
     private final View view;
-    private final UserDataModel userData;
+    private final MemberDataModel userData;
     private final LoginRequest loginRequest;
 
     private Gson gson = new Gson();
@@ -134,11 +134,11 @@ public class JoinPresenterImpl extends BasePresenterImpl implements JoinPresente
                 }
                 return code.equals(HttpCode.OK);
             })
-            .map(data -> gson.fromJson(data.getData(), UserDataModel.class))
+            .map(data -> gson.fromJson(data.getData(), MemberDataModel.class))
             .subscribe(this::resJoin, Timber::e));
     }
 
-    private void resJoin(UserDataModel data) {
+    private void resJoin(MemberDataModel data) {
         App.getInstance().setupLogin(data);
         view.showJoinCompletedDialog();
     }

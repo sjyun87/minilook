@@ -54,7 +54,7 @@ public class RecentPresenterImpl extends BasePresenterImpl implements RecentPres
         adapter.remove(data);
         view.refresh();
         if (adapter.getSize() == 0) view.showEmptyPanel();
-        reqDeleteRecent(data.getRecent_no());
+        reqDeleteRecent(data.getRecentNo());
     }
 
     private void reqDeleteRecent(int recent_id) {
@@ -79,7 +79,7 @@ public class RecentPresenterImpl extends BasePresenterImpl implements RecentPres
     }
 
     private void resRecentProducts(List<ProductDataModel> data) {
-        lastRecentId = data.get(data.size() - 1).getRecent_no();
+        lastRecentId = data.get(data.size() - 1).getRecentNo();
 
         adapter.set(data);
         view.refresh();
@@ -97,7 +97,7 @@ public class RecentPresenterImpl extends BasePresenterImpl implements RecentPres
 
     private void resLoadMoreRecentProducts(List<ProductDataModel> data) {
         if (data.size() > 0) {
-            lastRecentId = data.get(data.size() - 1).getRecent_no();
+            lastRecentId = data.get(data.size() - 1).getRecentNo();
             int start = adapter.getSize();
             int rows = data.size();
 
