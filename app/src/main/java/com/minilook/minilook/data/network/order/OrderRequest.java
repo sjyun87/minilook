@@ -1,5 +1,6 @@
 package com.minilook.minilook.data.network.order;
 
+import android.text.TextUtils;
 import com.google.gson.JsonObject;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.model.base.BaseDataModel;
@@ -122,7 +123,7 @@ public class OrderRequest extends BaseRequest<OrderService> {
         if (data.getUse_point_value() != 0) jsonMap.put("point", data.getUse_point_value());
         jsonMap.put("productDiscountPrice", data.getTotal_discount_price());
         jsonMap.put("productTotalPrice", data.getTotal_product_price());
-        jsonMap.put("receiptId", data.getReceipt_id());
+        if (!TextUtils.isEmpty(data.getReceipt_id())) jsonMap.put("receiptId", data.getReceipt_id());
         jsonMap.put("recipientName", data.getReceipt_name());
         jsonMap.put("recipientPhone", data.getReceipt_phone());
         jsonMap.put("shippingMemo", data.getShipping_memo());
@@ -174,7 +175,7 @@ public class OrderRequest extends BaseRequest<OrderService> {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("mid", orderData.getOrderNo());
-        jsonMap.put("receiptId", orderData.getReceiptId());
+        if (!TextUtils.isEmpty(orderData.getReceiptId())) jsonMap.put("receiptId", orderData.getReceiptId());
         return jsonMap;
     }
 
@@ -182,8 +183,8 @@ public class OrderRequest extends BaseRequest<OrderService> {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("mid", orderData.getOrderNo());
-        jsonMap.put("receiptId", orderData.getReceiptId());
         jsonMap.put("orderNo", orderData.getGoods().get(0).getOrderOptionNo());
+        if (!TextUtils.isEmpty(orderData.getReceiptId())) jsonMap.put("receiptId", orderData.getReceiptId());
         return jsonMap;
     }
 

@@ -322,6 +322,7 @@ public class OptionSelector extends FrameLayout implements OptionSelectorOptionV
             int stock = selectedSizeData.getSize_stock();
             model.setOrder_available_quantity(Math.min(order_limit, stock));
             model.setQuantity(1);
+            model.setPrice_add(selectedSizeData.getPrice_add());
 
             selectedData.put(goods_id, 1);
             optionAdapter.add(model);

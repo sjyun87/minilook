@@ -28,6 +28,7 @@ import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.data.code.ShippingCode;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
+import com.minilook.minilook.ui.ipage.IpagePresenterImpl;
 import com.minilook.minilook.ui.order.di.OrderArguments;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -113,9 +114,13 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
     }
 
     @Override public void onPointAllUseClick() {
-        selectedPoint = Math.min(applyCouponPrice, havePoint);
-        view.setupPoint(selectedPoint);
-        setupTotalPrice();
+        if (havePoint > 1000) {
+            selectedPoint = Math.min(applyCouponPrice, havePoint);
+            view.setupPoint(selectedPoint);
+            setupTotalPrice();
+        } else  {
+            view.showUseMinPointToast();
+        }
     }
 
     @Override public void onPointEditTextChanged(int point) {
@@ -358,7 +363,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         view.setupPoint(selectedPoint);
 
         applyCouponPrice = totalProductPrice - selectedCouponPrice;
-        totalPrice = applyCouponPrice - selectedPoint;
+        totalPrice = applyCouponPrice - selectedPoint + totalShippingPrice;
         view.setupTotalPrice(totalPrice);
     }
 
@@ -434,6 +439,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
     }
 
     private void resOrderComplete(BaseDataModel dataModel) {
+        RxBus.send(new IpagePresenterImpl.RxBusEventDataChanged());
         view.navigateToOrderComplete();
         view.finish();
     }

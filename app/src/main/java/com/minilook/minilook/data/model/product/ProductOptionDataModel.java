@@ -14,4 +14,6 @@ import lombok.Data;
     private int color_stock;
     @Expose @SerializedName("stocks")
     private List<ProductStockDataModel> stocks;
+    @Expose @SerializedName("extraAmount")
+    private int price_add;
 }

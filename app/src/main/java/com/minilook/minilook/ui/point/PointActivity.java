@@ -59,7 +59,7 @@ public class PointActivity extends BaseActivity implements PointPresenter.View {
     }
 
     @Override public void setupRecyclerView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true));
         recyclerView.setAdapter(adapter);
     }
 

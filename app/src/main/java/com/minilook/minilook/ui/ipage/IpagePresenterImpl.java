@@ -142,11 +142,16 @@ public class IpagePresenterImpl extends BasePresenterImpl implements IpagePresen
             if (o instanceof RxBusEventNickChanged) {
                 String nick = ((RxBusEventNickChanged) o).getNick();
                 view.setupNick(nick);
+            } else if (o instanceof RxBusEventDataChanged) {
+                setupUser();
             }
         }, Timber::e));
     }
 
     @AllArgsConstructor @Getter public final static class RxBusEventNickChanged {
         String nick;
+    }
+
+    @AllArgsConstructor @Getter public final static class RxBusEventDataChanged {
     }
 }

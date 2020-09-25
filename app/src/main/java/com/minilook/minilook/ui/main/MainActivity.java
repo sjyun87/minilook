@@ -35,7 +35,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
 
     public static void start(Context context, int position) {
         Intent intent = new Intent(context, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         intent.putExtra("position", position);
         context.startActivity(intent);
     }
