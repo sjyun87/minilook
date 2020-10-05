@@ -12,6 +12,7 @@ import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.code.LoginType;
 import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base.widget.BottomBar;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.leave.di.LeaveArguments;
 import com.minilook.minilook.ui.main.MainActivity;
@@ -74,7 +75,7 @@ public class LeaveActivity extends BaseActivity implements LeavePresenter.View {
     }
 
     @Override public void navigateToMain() {
-        MainActivity.start(this);
+        MainActivity.start(this, BottomBar.POSITION_LOOKBOOK);
     }
 
     @OnClick(R.id.txt_ok)

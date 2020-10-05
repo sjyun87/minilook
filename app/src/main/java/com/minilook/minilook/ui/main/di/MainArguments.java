@@ -1,7 +1,6 @@
 package com.minilook.minilook.ui.main.di;
 
 import com.minilook.minilook.ui.main.MainPresenter;
-
 import lombok.Builder;
 import lombok.Getter;
 

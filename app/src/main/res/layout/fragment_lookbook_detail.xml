@@ -99,6 +99,11 @@
                     android:id="@+id/rcv_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:fadeScrollbars="false"
+                    android:scrollbarThumbHorizontal="@drawable/img_thumb"
+                    android:scrollbarTrackHorizontal="@drawable/img_track"
+                    android:scrollbars="horizontal"
                     tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/item_lookbook_detail_style"
                     tools:orientation="horizontal" />
