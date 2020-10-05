@@ -17,7 +17,6 @@ import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.android.material.tabs.TabLayout;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.search.SearchOptionDataModel;
@@ -86,8 +85,8 @@ public class ProductBridgeActivity extends BaseActivity implements ProductBridge
         titleBar.setTitle(title);
     }
 
-    @Override public void setupTabItems(List<CategoryDataModel> categories) {
-        for (CategoryDataModel category : categories) {
+    @Override public void setupTabItems(List<CodeDataModel> categories) {
+        for (CodeDataModel category : categories) {
             TabView tabView = TabView.builder()
                 .context(this)
                 .name(category.getName())

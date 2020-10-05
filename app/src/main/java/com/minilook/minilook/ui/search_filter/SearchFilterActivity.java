@@ -23,7 +23,6 @@ import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.slider.Slider;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.common.ColorDataModel;
 import com.minilook.minilook.data.model.common.GenderDataModel;
@@ -84,7 +83,7 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
     private FilterGenderAdapter genderAdapter = new FilterGenderAdapter();
     private BaseAdapterDataView<GenderDataModel> genderAdapterView = genderAdapter;
     private FilterCategoryAdapter categoryAdapter = new FilterCategoryAdapter();
-    private BaseAdapterDataView<CategoryDataModel> categoryAdapterView = categoryAdapter;
+    private BaseAdapterDataView<CodeDataModel> categoryAdapterView = categoryAdapter;
     private FilterColorAdapter colorAdapter = new FilterColorAdapter();
     private BaseAdapterDataView<ColorDataModel> colorAdapterView = colorAdapter;
 

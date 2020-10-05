@@ -5,7 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.common.URLKeys;
 import com.minilook.minilook.data.model.base.BaseDataModel;
-import com.minilook.minilook.data.model.common.CategoryDataModel;
+import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.network.category.CategoryRequest;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
@@ -19,7 +19,7 @@ import timber.log.Timber;
 public class CategoryPresenterImpl extends BasePresenterImpl implements CategoryPresenter {
 
     private final View view;
-    private final BaseAdapterDataModel<CategoryDataModel> adapter;
+    private final BaseAdapterDataModel<CodeDataModel> adapter;
     private final CategoryRequest categoryRequest;
 
     private Gson gson = new Gson();
@@ -45,14 +45,14 @@ public class CategoryPresenterImpl extends BasePresenterImpl implements Category
             categoryRequest.getCategoryList()
                 .compose(Transformer.applySchedulers())
                 .filter(data -> data.getCode().equals(HttpCode.OK))
-                .map((Function<BaseDataModel, List<CategoryDataModel>>)
-                    data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<CategoryDataModel>>() {
+                .map((Function<BaseDataModel, List<CodeDataModel>>)
+                    data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<CodeDataModel>>() {
                     }.getType()))
                 .subscribe(this::resCategory, Timber::e)
         );
     }
 
-    private void resCategory(List<CategoryDataModel> data) {
+    private void resCategory(List<CodeDataModel> data) {
         adapter.set(data);
         view.refresh();
     }

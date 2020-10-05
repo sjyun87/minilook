@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
-import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.search.FilterDataModel;
@@ -38,7 +37,7 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
     private int totalPage;
 
     private boolean isVisibleCategoryDepth1;
-    private List<CategoryDataModel> categoryOptions = new ArrayList<>();
+    private List<CodeDataModel> categoryOptions = new ArrayList<>();
     private String selectedSortCode;
     private boolean isSortVisible = false;
 
@@ -136,11 +135,11 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
         view.setupTabItems(getInitCategoryData(data.getCategories()));
     }
 
-    private List<CategoryDataModel> getInitCategoryData(List<CategoryDataModel> categories) {
+    private List<CodeDataModel> getInitCategoryData(List<CodeDataModel> categories) {
         for (int i = 0; i < categories.size() + 1; i++) {
-            CategoryDataModel model;
+            CodeDataModel model;
             if (i == 0) {
-                model = new CategoryDataModel();
+                model = new CodeDataModel();
                 model.setName("전체");
                 model.setCode("");
                 model.setSelected(true);

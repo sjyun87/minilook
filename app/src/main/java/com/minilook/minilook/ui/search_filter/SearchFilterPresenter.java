@@ -3,7 +3,6 @@ package com.minilook.minilook.ui.search_filter;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
-import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.common.ColorDataModel;
 import com.minilook.minilook.data.model.common.GenderDataModel;
@@ -25,7 +24,7 @@ public interface SearchFilterPresenter extends LifecycleObserver {
 
     void onAttributeStockClick();
 
-    void onCategorySelected(CategoryDataModel data);
+    void onCategorySelected(CodeDataModel data);
 
     void onPriceChanged(List<Float> values);
 

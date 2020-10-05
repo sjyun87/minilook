@@ -6,21 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-
 import butterknife.BindDrawable;
+import butterknife.BindView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.common.CategoryDataModel;
+import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.search.SearchOptionDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
-
-import butterknife.BindView;
 import com.minilook.minilook.ui.product_bridge.ProductBridgeActivity;
 
-public class MarketFilterItemVH extends BaseViewHolder<CategoryDataModel> {
+public class MarketFilterItemVH extends BaseViewHolder<CodeDataModel> {
 
     @BindView(R.id.img_icon) ImageView iconImageView;
     @BindView(R.id.txt_name) TextView nameTextView;
@@ -32,7 +29,7 @@ public class MarketFilterItemVH extends BaseViewHolder<CategoryDataModel> {
             .inflate(R.layout.item_market_filter_item, (ViewGroup) itemView, false));
     }
 
-    @Override public void bind(CategoryDataModel $data) {
+    @Override public void bind(CodeDataModel $data) {
         super.bind($data);
 
         Glide.with(context)

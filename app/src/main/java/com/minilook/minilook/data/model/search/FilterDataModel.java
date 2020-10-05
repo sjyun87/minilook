@@ -2,7 +2,6 @@ package com.minilook.minilook.data.model.search;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.common.ColorDataModel;
 import com.minilook.minilook.data.model.common.GenderDataModel;
@@ -15,7 +14,7 @@ import lombok.Data;
     @Expose @SerializedName("genders")
     private List<GenderDataModel> genders;
     @Expose @SerializedName("categories")
-    private List<CategoryDataModel> categories;
+    private List<CodeDataModel> categories;
     @Expose @SerializedName("colors")
     private List<ColorDataModel> colors;
     @Expose @SerializedName("minPrice")

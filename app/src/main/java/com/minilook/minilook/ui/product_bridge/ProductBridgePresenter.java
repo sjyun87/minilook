@@ -3,7 +3,6 @@ package com.minilook.minilook.ui.product_bridge;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
-import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.data.model.common.CodeDataModel;
 import java.util.List;
 
@@ -26,7 +25,7 @@ public interface ProductBridgePresenter extends LifecycleObserver {
 
         void setupTitle(String title);
 
-        void setupTabItems(List<CategoryDataModel> categories);
+        void setupTabItems(List<CodeDataModel> categories);
 
         void setupSortRecyclerView();
 

@@ -4,18 +4,16 @@ import android.content.Intent;
 import android.net.Uri;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import butterknife.BindDimen;
+import butterknife.BindView;
 import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.common.CategoryDataModel;
+import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseFragment;
 import com.minilook.minilook.ui.category.adapter.CategoryAdapter;
 import com.minilook.minilook.ui.category.di.CategoryArguments;
-
-import butterknife.BindDimen;
-import butterknife.BindView;
 
 public class CategoryFragment extends BaseFragment implements CategoryPresenter.View {
 
@@ -29,7 +27,7 @@ public class CategoryFragment extends BaseFragment implements CategoryPresenter.
 
     private CategoryPresenter presenter;
     private CategoryAdapter adapter = new CategoryAdapter();
-    private BaseAdapterDataView<CategoryDataModel> adapterView = adapter;
+    private BaseAdapterDataView<CodeDataModel> adapterView = adapter;
 
     @Override protected int getLayoutID() {
         return R.layout.fragment_category;

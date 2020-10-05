@@ -2,7 +2,6 @@ package com.minilook.minilook.ui.search_filter;
 
 import com.google.gson.Gson;
 import com.minilook.minilook.data.common.HttpCode;
-import com.minilook.minilook.data.model.common.CategoryDataModel;
 import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.common.ColorDataModel;
 import com.minilook.minilook.data.model.common.GenderDataModel;
@@ -27,7 +26,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
 
     private final View view;
     private final BaseAdapterDataModel<GenderDataModel> genderAdapter;
-    private final BaseAdapterDataModel<CategoryDataModel> categoryAdapter;
+    private final BaseAdapterDataModel<CodeDataModel> categoryAdapter;
     private final BaseAdapterDataModel<ColorDataModel> colorAdapter;
     private final SearchRequest searchRequest;
 
@@ -127,7 +126,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         }
     }
 
-    @Override public void onCategorySelected(CategoryDataModel data) {
+    @Override public void onCategorySelected(CodeDataModel data) {
         if (categorySelectedPosition != data.getPosition()) {
             if (categorySelectedPosition != -1) {
                 categoryAdapter.get(categorySelectedPosition).setSelected(false);
@@ -298,10 +297,10 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         view.setupUnselectedStock();
     }
 
-    private List<CategoryDataModel> setupCategoryDataInit(List<CategoryDataModel> categories) {
-        List<CategoryDataModel> items = new ArrayList<>();
+    private List<CodeDataModel> setupCategoryDataInit(List<CodeDataModel> categories) {
+        List<CodeDataModel> items = new ArrayList<>();
         for (int i = 0; i < categories.size(); i++) {
-            CategoryDataModel model = categories.get(i);
+            CodeDataModel model = categories.get(i);
             model.setPosition(i);
             model.setSelected(false);
             items.add(model);
@@ -310,7 +309,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
     }
 
     private void resetCategoryData() {
-        for (CategoryDataModel model : categoryAdapter.get()) {
+        for (CodeDataModel model : categoryAdapter.get()) {
             model.setSelected(false);
         }
         view.categoryRefresh();
