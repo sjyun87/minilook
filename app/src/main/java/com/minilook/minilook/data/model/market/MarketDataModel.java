@@ -17,6 +17,6 @@ import lombok.Data;
     @Expose @SerializedName(value = "data", alternate = "products")
     private JsonElement data;
 
-    // -- Controller
+    // -- Optional Data
     private int type;
 }

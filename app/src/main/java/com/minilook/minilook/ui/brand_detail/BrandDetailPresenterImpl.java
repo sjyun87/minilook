@@ -12,6 +12,8 @@ import com.minilook.minilook.data.model.search.SearchOptionDataModel;
 import com.minilook.minilook.data.network.brand.BrandRequest;
 import com.minilook.minilook.data.network.scrap.ScrapRequest;
 import com.minilook.minilook.data.network.search.SearchRequest;
+import com.minilook.minilook.data.rx.RxBus;
+import com.minilook.minilook.data.rx.RxBusEvent;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
@@ -70,6 +72,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         isScrap = !isScrap;
         scrapCount = isScrap ? ++scrapCount : --scrapCount;
         setupScrap();
+        //RxBus.send(new RxBusEvent.RxBusEventBrandScrap(isScrap, ));
         reqBrandScrap(isScrap);
     }
 

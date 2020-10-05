@@ -21,6 +21,6 @@ import lombok.Data;
     @Expose @SerializedName("expireDate")
     private String expireDate;
 
-    // Control data
+    // -- Optional Data
     private boolean isAvailable;
 }

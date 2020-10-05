@@ -63,9 +63,9 @@ import me.didik.component.StickyNestedScrollView;
 
 public class ProductDetailActivity extends BaseActivity implements ProductDetailPresenter.View {
 
-    public static void start(Context context, int product_id) {
+    public static void start(Context context, int productNo) {
         Intent intent = new Intent(context, ProductDetailActivity.class);
-        intent.putExtra("product_id", product_id);
+        intent.putExtra("productNo", productNo);
         context.startActivity(intent);
     }
 
@@ -163,7 +163,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     private ProductDetailArguments provideArguments() {
         return ProductDetailArguments.builder()
             .view(this)
-            .id(getIntent().getIntExtra("product_id", -1))
+            .id(getIntent().getIntExtra("productNo", -1))
             .productImageAdapter(productImageAdapter)
             .reviewAdapter(reviewAdapter)
             .relatedProductAdapter(relatedProductAdapter)

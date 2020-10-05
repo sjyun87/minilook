@@ -52,6 +52,7 @@ public class BrandPresenterImpl extends BasePresenterImpl implements BrandPresen
             model.setSelected(false);
         }
         view.styleRefresh();
+        view.setupSelectedStyleCount(0, styleAdapter.getSize());
 
         reqBrands();
     }

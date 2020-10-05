@@ -31,7 +31,7 @@ import lombok.Data;
     @Expose @SerializedName("styleImages")
     private List<String> styleImages;
 
-    // -- Controller
+    // -- Optional Data
     private int position;
     private boolean isSelect;
 }

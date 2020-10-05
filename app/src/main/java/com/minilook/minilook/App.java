@@ -63,17 +63,6 @@ public class App extends Application {
             BuildConfig.DEBUG ? getString(R.string.bootpay_key_debug) : getString(R.string.bootpay_key_release));
     }
 
-
-
-
-
-
-
-
-
-
-
-
     public void setupLogin(MemberDataModel data) {
         this.isLogin = true;
         setMemberNo(data.getMemberNo());

@@ -83,6 +83,5 @@ public class LoginPresenterImpl extends BasePresenterImpl implements LoginPresen
     private void resLogin(MemberDataModel data) {
         memberData = data;
         App.getInstance().setupLogin(memberData);
-        view.finish();
     }
 }

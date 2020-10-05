@@ -37,7 +37,6 @@ public class ProductAdapter extends RecyclerView.Adapter<BaseViewHolder<ProductD
     @Setter private boolean isShowBrand = true;
     @Setter private ProductWideVH.OnDeleteClickListener onDeleteClickListener;
 
-    private Map<Integer, BaseViewHolder<ProductDataModel>> viewHolders = new HashMap<>();
     private List<ProductDataModel> items = new ArrayList<>();
 
     @NonNull @Override
@@ -55,10 +54,7 @@ public class ProductAdapter extends RecyclerView.Adapter<BaseViewHolder<ProductD
             case VIEW_TYPE_FULL:
                 return new ProductFullVH(parent);
             case VIEW_TYPE_SIZE_84:
-                ProductSize84VH productSize84VH = new ProductSize84VH(parent);
-                productSize84VH.setShowScrap(isShowScrap);
-                productSize84VH.setShowBrand(isShowBrand);
-                return productSize84VH;
+                return new ProductSize84VH(parent);
             case VIEW_TYPE_WIDE:
                 ProductWideVH productWideVH = new ProductWideVH(parent);
                 productWideVH.setListener(onDeleteClickListener);
@@ -73,7 +69,6 @@ public class ProductAdapter extends RecyclerView.Adapter<BaseViewHolder<ProductD
 
     @Override public void onBindViewHolder(@NonNull BaseViewHolder<ProductDataModel> holder, int position) {
         holder.bind(items.get(position));
-        viewHolders.put(position, holder);
     }
 
     @Override public int getItemViewType(int position) {

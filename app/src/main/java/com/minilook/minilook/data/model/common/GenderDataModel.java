@@ -10,7 +10,7 @@ import lombok.Data;
     @Expose @SerializedName("code_name")
     private String name;
 
-    // -- Controller
+    // -- Optional Data
     private int position;
     private boolean isSelected;
 }

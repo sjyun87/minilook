@@ -22,7 +22,6 @@ import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.StringUtil;
-import lombok.Setter;
 
 public class ProductSize84VH extends BaseViewHolder<ProductDataModel> {
 
@@ -39,9 +38,6 @@ public class ProductSize84VH extends BaseViewHolder<ProductDataModel> {
     @BindDrawable(R.drawable.ic_scrap_off) Drawable img_scrap_off;
     @BindDrawable(R.drawable.ic_scrap_on) Drawable img_scrap_on;
 
-    @Setter private boolean isShowScrap;
-    @Setter private boolean isShowBrand;
-
     public ProductSize84VH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
             .inflate(R.layout.item_product_type_size_84, (ViewGroup) itemView, false));
@@ -49,12 +45,6 @@ public class ProductSize84VH extends BaseViewHolder<ProductDataModel> {
 
     @Override public void bind(ProductDataModel $data) {
         super.bind($data);
-
-        if (isShowScrap) {
-            showScrap();
-        } else {
-            hideScrap();
-        }
 
         Glide.with(context)
             .load(data.getImageUrl())
@@ -85,14 +75,6 @@ public class ProductSize84VH extends BaseViewHolder<ProductDataModel> {
         } else {
             scrapImageView.setImageDrawable(img_scrap_off);
         }
-    }
-
-    public void showScrap() {
-        scrapImageView.setVisibility(View.VISIBLE);
-    }
-
-    public void hideScrap() {
-        scrapImageView.setVisibility(View.GONE);
     }
 
     void onItemClick(View view) {

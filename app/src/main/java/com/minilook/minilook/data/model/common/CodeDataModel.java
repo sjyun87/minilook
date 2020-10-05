@@ -12,7 +12,7 @@ import lombok.Data;
     @Expose @SerializedName("icon")
     private String iconUrl;
 
-    // -- Controller
+    // -- Optional Data
     private int position;
     private boolean isSelected;
 }

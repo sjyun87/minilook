@@ -23,7 +23,7 @@ import lombok.Data;
     @Expose @SerializedName("products")
     private List<ShoppingProductDataModel> products;    // 상품
 
-    // -- Control Data
+    // -- Optional Data
     private boolean isFreeShipping;                     // 무료배송 여부
     private int finalShippingPrice;                   // 최종 배송비
     private int totalProductsPrice;                   // 브랜드 합산 상품금액
