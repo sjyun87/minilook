@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.review.viewholder;
+package com.minilook.minilook.ui.product_detail.viewholder;
 
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -15,12 +15,17 @@ import butterknife.BindDrawable;
 import butterknife.BindFont;
 import butterknife.BindString;
 import butterknife.BindView;
+import butterknife.OnClick;
+import com.minilook.minilook.App;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.review.ReviewDataModel;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.login.LoginActivity;
+import com.minilook.minilook.ui.product_detail.ProductDetailPresenterImpl;
 import com.minilook.minilook.util.SpannableUtil;
 
-public class ReviewItemVH extends BaseViewHolder<ReviewDataModel> {
+public class ProductDetailReviewItemVH extends BaseViewHolder<ReviewDataModel> {
 
     @BindView(R.id.txt_nick) TextView nickTextView;
     @BindView(R.id.txt_regist_date) TextView registDateTextView;
@@ -45,7 +50,7 @@ public class ReviewItemVH extends BaseViewHolder<ReviewDataModel> {
     @BindFont(R.font.nanum_square_r) Typeface font_regular;
     @BindFont(R.font.nanum_square_b) Typeface font_bold;
 
-    public ReviewItemVH(@NonNull View itemView) {
+    public ProductDetailReviewItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
             .inflate(R.layout.item_review, (ViewGroup) itemView, false));
     }
@@ -57,6 +62,10 @@ public class ReviewItemVH extends BaseViewHolder<ReviewDataModel> {
         registDateTextView.setText(data.getRegistDate());
         contentsTextView.setText(data.getContents());
 
+        handleHelpData();
+    }
+
+    private void handleHelpData() {
         if (data.isHelp()) {
             helpPanel.setBackground(bg_button_on);
             smileImageView.setImageDrawable(bg_smile_on);
@@ -77,5 +86,23 @@ public class ReviewItemVH extends BaseViewHolder<ReviewDataModel> {
         SpannableString fontSpan = SpannableUtil.fontSpan(totalText, boldText, font_bold);
         SpannableString colorSpan = SpannableUtil.foregroundColorSpan(fontSpan, boldText, color_FF424242);
         return colorSpan;
+    }
+
+    @OnClick(R.id.layout_help_panel)
+    void onHelpClick() {
+        if (!App.getInstance().isLogin()) {
+            LoginActivity.start(context);
+            return;
+        }
+
+        if (data.isHelp()) {
+            data.setHelpCount(data.getHelpCount() - 1);
+        } else {
+            data.setHelpCount(data.getHelpCount() + 1);
+        }
+        data.setHelp(!data.isHelp());
+        handleHelpData();
+        RxBus.send(
+            new ProductDetailPresenterImpl.RxEventProductDetailReviewHelpClick(data.isHelp(), data.getReviewNo()));
     }
 }

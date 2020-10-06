@@ -16,7 +16,9 @@ import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingProductDataModel;
 import com.minilook.minilook.data.network.order.OrderRequest;
 import com.minilook.minilook.data.network.product.ProductRequest;
+import com.minilook.minilook.data.network.review.ReviewRequest;
 import com.minilook.minilook.data.network.scrap.ScrapRequest;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
@@ -25,6 +27,8 @@ import com.minilook.minilook.util.StringUtil;
 import io.reactivex.rxjava3.functions.Function;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import timber.log.Timber;
 
 public class ProductDetailPresenterImpl extends BasePresenterImpl implements ProductDetailPresenter {
@@ -40,6 +44,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     private final ProductRequest productRequest;
     private final OrderRequest orderRequest;
     private final ScrapRequest scrapRequest;
+    private final ReviewRequest reviewRequest;
 
     private Gson gson = new Gson();
     private ProductDataModel data;
@@ -54,9 +59,11 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         productRequest = new ProductRequest();
         orderRequest = new OrderRequest();
         scrapRequest = new ScrapRequest();
+        reviewRequest = new ReviewRequest();
     }
 
     @Override public void onCreate() {
+        toRxObservable();
         view.setupProductImageViewPager();
         view.setupTabLayout();
         view.setupWebView();
@@ -305,5 +312,25 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
 
     private void resProductOptions(List<ProductColorDataModel> options) {
         view.setupOptionSelector(data.getPrice(), options);
+    }
+
+    private void reqUpdateHelp(boolean isHelp, int reviewNo) {
+        addDisposable(reviewRequest.updateHelp(isHelp, productNo, reviewNo)
+            .subscribe());
+    }
+
+    private void toRxObservable() {
+        addDisposable(RxBus.toObservable().subscribe(o -> {
+            if (o instanceof RxEventProductDetailReviewHelpClick) {
+                boolean isHelp = ((RxEventProductDetailReviewHelpClick) o).isHelp();
+                int reviewNo = ((RxEventProductDetailReviewHelpClick) o).getReviewNo();
+                reqUpdateHelp(isHelp, reviewNo);
+            }
+        }, Timber::e));
+    }
+
+    @AllArgsConstructor @Getter public final static class RxEventProductDetailReviewHelpClick {
+        boolean isHelp;
+        int reviewNo;
     }
 }

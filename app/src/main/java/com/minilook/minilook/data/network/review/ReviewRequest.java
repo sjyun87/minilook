@@ -24,4 +24,13 @@ public class ReviewRequest extends BaseRequest<ReviewService> {
         jsonMap.put("review", text);
         return jsonMap;
     }
+
+    public Single<BaseDataModel> updateHelp(boolean isHelp, int productNo, int reviewNo) {
+        int memberNo = App.getInstance().getMemberNo();
+        if (isHelp) {
+            return getApi().registHelp(productNo, memberNo, reviewNo);
+        } else {
+            return getApi().cancelHelp(productNo, memberNo, reviewNo);
+        }
+    }
 }

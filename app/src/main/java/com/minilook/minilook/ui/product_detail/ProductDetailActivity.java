@@ -29,12 +29,12 @@ import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.android.material.tabs.TabLayout;
 import com.minilook.minilook.App;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
-import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
-import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.product.ProductColorDataModel;
+import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.product.ProductStockDataModel;
 import com.minilook.minilook.data.model.review.ReviewDataModel;
+import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
+import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.widget.ColorView;
@@ -47,10 +47,10 @@ import com.minilook.minilook.ui.option_selector.OptionSelector;
 import com.minilook.minilook.ui.order.OrderActivity;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.product_detail.adapter.ProductDetailImageAdapter;
+import com.minilook.minilook.ui.product_detail.adapter.ProductDetailReviewAdapter;
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
 import com.minilook.minilook.ui.product_detail.widget.ProductTabView;
 import com.minilook.minilook.ui.product_info.ProductInfoActivity;
-import com.minilook.minilook.ui.review.adapter.ReviewAdapter;
 import com.minilook.minilook.ui.shoppingbag.ShoppingBagActivity;
 import com.minilook.minilook.util.DimenUtil;
 import com.minilook.minilook.util.SpannableUtil;
@@ -148,7 +148,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     private BaseAdapterDataView<String> productImageAdapterView = productImageAdapter;
     private ProductAdapter relatedProductAdapter = new ProductAdapter();
     private BaseAdapterDataView<ProductDataModel> relatedProductAdapterView = relatedProductAdapter;
-    private ReviewAdapter reviewAdapter = new ReviewAdapter();
+    private ProductDetailReviewAdapter reviewAdapter = new ProductDetailReviewAdapter();
     private BaseAdapterDataView<ReviewDataModel> reviewAdapterView = reviewAdapter;
 
     @Override protected int getLayoutID() {

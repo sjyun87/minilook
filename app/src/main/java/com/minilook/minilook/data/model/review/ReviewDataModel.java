@@ -7,18 +7,17 @@ import com.minilook.minilook.data.model.base.BooleanDeserializer;
 import lombok.Data;
 
 @Data public class ReviewDataModel {
-    //@Expose @SerializedName("")
-    private String user_name;
-
-    @Expose @SerializedName("memo")
+    @Expose @SerializedName("reviewNo")
+    private int reviewNo;
+    @Expose @SerializedName("nickname")
+    private String nickname;
+    @Expose @SerializedName("regDate")
+    private String registDate;
+    @Expose @SerializedName("content")
     private String contents;
     @Expose @SerializedName("isHelp")
     @JsonAdapter(BooleanDeserializer.class)
     private boolean isHelp;
     @Expose @SerializedName("helpCount")
-    private int help_cnt;
-
-
-    //@Expose @SerializedName("")
-    private String regist_date;
+    private int helpCount;
 }
