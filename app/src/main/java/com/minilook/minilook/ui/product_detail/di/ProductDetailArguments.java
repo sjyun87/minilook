@@ -11,7 +11,7 @@ import lombok.Getter;
 @Getter @Builder
 public class ProductDetailArguments {
     private final ProductDetailPresenter.View view;
-    private final int id;
+    private final int productNo;
     private final BaseAdapterDataModel<String> productImageAdapter;
     private final BaseAdapterDataModel<ReviewDataModel> reviewAdapter;
     private final BaseAdapterDataModel<ProductDataModel> relatedProductAdapter;

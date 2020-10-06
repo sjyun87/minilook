@@ -5,15 +5,17 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import lombok.Data;
 
-@Data public class OrderGoodsDataModel implements Serializable {
+@Data public class OrderProductDataModel implements Serializable {
     @Expose @SerializedName("orderNo")
     private int orderOptionNo;
     @Expose @SerializedName("productNo")
-    private int goodsNo;
+    private int productNo;
     @Expose @SerializedName("productName")
     private String name;
     @Expose @SerializedName("image")
     private String thumbUrl;
+    @Expose @SerializedName("optionNo")
+    private int optionNo;
     @Expose @SerializedName("colorName")
     private String colorName;
     @Expose @SerializedName("colorCode")
@@ -30,6 +32,8 @@ import lombok.Data;
     private String trackingUrl;
     @Expose @SerializedName("infoTelephone")
     private String csPhone;
+    @Expose @SerializedName("isReviewed")
+    private boolean isReviewed;
 
     private String brandName;
 }

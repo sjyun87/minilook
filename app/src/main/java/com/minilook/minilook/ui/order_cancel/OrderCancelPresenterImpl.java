@@ -3,7 +3,7 @@ package com.minilook.minilook.ui.order_cancel;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.order.OrderCancelDataModel;
-import com.minilook.minilook.data.model.order.OrderGoodsDataModel;
+import com.minilook.minilook.data.model.order.OrderProductDataModel;
 import com.minilook.minilook.data.network.order.OrderRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
@@ -17,7 +17,7 @@ public class OrderCancelPresenterImpl extends BasePresenterImpl implements Order
 
     private final View view;
     private final OrderCancelDataModel orderData;
-    private final BaseAdapterDataModel<OrderGoodsDataModel> adapter;
+    private final BaseAdapterDataModel<OrderProductDataModel> adapter;
     private final OrderRequest orderRequest;
 
     public OrderCancelPresenterImpl(OrderCancelArguments args) {

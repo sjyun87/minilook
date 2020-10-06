@@ -13,12 +13,12 @@ import butterknife.BindView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.order.OrderGoodsDataModel;
+import com.minilook.minilook.data.model.order.OrderProductDataModel;
 import com.minilook.minilook.data.code.OrderStatus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.util.StringUtil;
 
-public class OrderCancelItemVH extends BaseViewHolder<OrderGoodsDataModel> {
+public class OrderCancelItemVH extends BaseViewHolder<OrderProductDataModel> {
 
     @BindView(R.id.txt_state) TextView stateTextView;
     @BindView(R.id.img_thumb) ImageView thumbImageView;
@@ -35,7 +35,7 @@ public class OrderCancelItemVH extends BaseViewHolder<OrderGoodsDataModel> {
             .inflate(R.layout.item_order_cancel, (ViewGroup) itemView, false));
     }
 
-    @Override public void bind(OrderGoodsDataModel $data) {
+    @Override public void bind(OrderProductDataModel $data) {
         super.bind($data);
 
         stateTextView.setText(OrderStatus.toName(data.getStatusCode()));

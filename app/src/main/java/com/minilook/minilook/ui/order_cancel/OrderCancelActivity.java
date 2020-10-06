@@ -11,7 +11,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.order.OrderCancelDataModel;
-import com.minilook.minilook.data.model.order.OrderGoodsDataModel;
+import com.minilook.minilook.data.model.order.OrderProductDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.order_cancel.adapter.OrderCancelAdapter;
@@ -35,7 +35,7 @@ public class OrderCancelActivity extends BaseActivity implements OrderCancelPres
 
     private OrderCancelPresenter presenter;
     private OrderCancelAdapter adapter = new OrderCancelAdapter();
-    private BaseAdapterDataView<OrderGoodsDataModel> adapterView = adapter;
+    private BaseAdapterDataView<OrderProductDataModel> adapterView = adapter;
 
     @Override protected int getLayoutID() {
         return R.layout.activity_order_cancel;

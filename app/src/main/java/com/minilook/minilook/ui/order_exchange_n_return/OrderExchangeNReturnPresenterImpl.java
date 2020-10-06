@@ -5,7 +5,7 @@ import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.order.ExchangeNReturnDataModel;
-import com.minilook.minilook.data.model.order.OrderGoodsDataModel;
+import com.minilook.minilook.data.model.order.OrderProductDataModel;
 import com.minilook.minilook.data.network.order.OrderRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
@@ -20,7 +20,7 @@ import timber.log.Timber;
 public class OrderExchangeNReturnPresenterImpl extends BasePresenterImpl implements OrderExchangeNReturnPresenter {
 
     private final View view;
-    private final OrderGoodsDataModel data;
+    private final OrderProductDataModel data;
     private final BaseAdapterDataModel<CodeDataModel> typeAdapter;
     private final BaseAdapterDataModel<CodeDataModel> reasonAdapter;
     private final OrderRequest orderRequest;

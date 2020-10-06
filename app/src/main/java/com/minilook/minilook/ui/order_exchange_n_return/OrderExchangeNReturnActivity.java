@@ -21,7 +21,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.CodeDataModel;
-import com.minilook.minilook.data.model.order.OrderGoodsDataModel;
+import com.minilook.minilook.data.model.order.OrderProductDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.order_exchange_n_return.adapter.ExchangeNReturnReasonAdapter;
@@ -31,7 +31,7 @@ import com.minilook.minilook.util.StringUtil;
 
 public class OrderExchangeNReturnActivity extends BaseActivity implements OrderExchangeNReturnPresenter.View {
 
-    public static void start(Context context, OrderGoodsDataModel data) {
+    public static void start(Context context, OrderProductDataModel data) {
         Intent intent = new Intent(context, OrderExchangeNReturnActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -85,7 +85,7 @@ public class OrderExchangeNReturnActivity extends BaseActivity implements OrderE
     private OrderExchangeNReturnArguments provideArguments() {
         return OrderExchangeNReturnArguments.builder()
             .view(this)
-            .data((OrderGoodsDataModel) getIntent().getSerializableExtra("data"))
+            .data((OrderProductDataModel) getIntent().getSerializableExtra("data"))
             .typeAdapter(typeAdapter)
             .reasonAdapter(reasonAdapter)
             .build();

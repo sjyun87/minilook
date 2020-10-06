@@ -163,7 +163,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     private ProductDetailArguments provideArguments() {
         return ProductDetailArguments.builder()
             .view(this)
-            .id(getIntent().getIntExtra("productNo", -1))
+            .productNo(getIntent().getIntExtra("productNo", -1))
             .productImageAdapter(productImageAdapter)
             .reviewAdapter(reviewAdapter)
             .relatedProductAdapter(relatedProductAdapter)

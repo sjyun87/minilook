@@ -7,7 +7,7 @@ import com.minilook.minilook.data.model.order.OrderBrandDataModel;
 import com.minilook.minilook.data.model.order.OrderCancelDataModel;
 import com.minilook.minilook.data.model.order.OrderDataModel;
 import com.minilook.minilook.data.model.order.OrderDetailDataModel;
-import com.minilook.minilook.data.model.order.OrderGoodsDataModel;
+import com.minilook.minilook.data.model.order.OrderProductDataModel;
 import com.minilook.minilook.data.model.shipping.ShippingDataModel;
 import com.minilook.minilook.data.network.order.OrderRequest;
 import com.minilook.minilook.data.rx.RxBus;
@@ -15,6 +15,7 @@ import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.order_detail.di.OrderDetailArguments;
+import com.minilook.minilook.ui.review_write.ReviewWritePresenterImpl;
 import java.util.ArrayList;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,8 +24,8 @@ import timber.log.Timber;
 public class OrderDetailPresenterImpl extends BasePresenterImpl implements OrderDetailPresenter {
 
     private final View view;
-    private final String order_id;
-    private final String receipt_id;
+    private final String orderNo;
+    private final String receiptNo;
     private final BaseAdapterDataModel<OrderBrandDataModel> adapter;
     private final OrderRequest orderRequest;
 
@@ -34,8 +35,8 @@ public class OrderDetailPresenterImpl extends BasePresenterImpl implements Order
 
     public OrderDetailPresenterImpl(OrderDetailArguments args) {
         view = args.getView();
-        order_id = args.getOrder_id();
-        receipt_id = args.getReceipt_id();
+        orderNo = args.getOrder_id();
+        receiptNo = args.getReceipt_id();
         adapter = args.getAdapter();
         orderRequest = new OrderRequest();
     }
@@ -56,7 +57,7 @@ public class OrderDetailPresenterImpl extends BasePresenterImpl implements Order
     }
 
     private void reqOrderDetail() {
-        addDisposable(orderRequest.getOrderDetail(order_id, receipt_id)
+        addDisposable(orderRequest.getOrderDetail(orderNo, receiptNo)
             .compose(Transformer.applySchedulers())
             .filter(data -> {
                 String code = data.getCode();
@@ -84,6 +85,20 @@ public class OrderDetailPresenterImpl extends BasePresenterImpl implements Order
         view.setShippingName(shippingData.getName());
         view.setShippingPhone(shippingData.getPhone());
         view.setShippingAddress(shippingData.getZipcode(), shippingData.getAddress(), shippingData.getAddressDetail());
+
+        handleAllCancelButton();
+    }
+
+    private void handleAllCancelButton() {
+        for (OrderBrandDataModel brandData : orderData.getBrands()) {
+            for (OrderProductDataModel productData : brandData.getGoods()) {
+                int statusCode = productData.getStatusCode();
+                if (statusCode > 3) {
+                    view.hideAllCancelButton();
+                    return;
+                }
+            }
+        }
     }
 
     private void reqPurchaseConfirm(int orderOptionNo) {
@@ -105,7 +120,7 @@ public class OrderDetailPresenterImpl extends BasePresenterImpl implements Order
         cancelData.setOrderNo(orderData.getOrderNo());
         cancelData.setOrderDate(orderData.getOrderDate());
         cancelData.setReceiptId(orderData.getReceiptId());
-        ArrayList<OrderGoodsDataModel> items = new ArrayList<>();
+        ArrayList<OrderProductDataModel> items = new ArrayList<>();
         for (OrderBrandDataModel brandData : orderData.getBrands()) {
             cancelData.setBrandName(brandData.getBrandName());
             items.addAll(brandData.getGoods());
@@ -118,23 +133,21 @@ public class OrderDetailPresenterImpl extends BasePresenterImpl implements Order
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
             if (o instanceof RxBusEventOrderCancelClick) {
-                OrderGoodsDataModel data = ((RxBusEventOrderCancelClick) o).getData();
-
+                OrderProductDataModel data = ((RxBusEventOrderCancelClick) o).getData();
                 OrderCancelDataModel cancelData = new OrderCancelDataModel();
                 cancelData.setOrderNo(orderData.getOrderNo());
                 cancelData.setOrderDate(orderData.getOrderDate());
                 cancelData.setReceiptId(orderData.getReceiptId());
-                ArrayList<OrderGoodsDataModel> items = new ArrayList<>();
+                ArrayList<OrderProductDataModel> items = new ArrayList<>();
                 items.add(data);
                 cancelData.setGoods(items);
                 cancelData.setAllCancel(false);
                 view.navigateToOrderCancel(cancelData);
-
             } else if (o instanceof RxBusEventQuestionClick) {
                 String csPhone = ((RxBusEventQuestionClick) o).getCsPhone();
                 view.navigateToDial(csPhone);
             } else if (o instanceof RxBusEventExchangeNReturnClick) {
-                OrderGoodsDataModel data = ((RxBusEventExchangeNReturnClick) o).getData();
+                OrderProductDataModel data = ((RxBusEventExchangeNReturnClick) o).getData();
                 view.navigateToOrderExchangeNReturn(data);
             } else if (o instanceof RxBusEventDeliveryTrackingClick) {
                 String trackingUrl = ((RxBusEventDeliveryTrackingClick) o).getTrackingUrl();
@@ -143,17 +156,20 @@ public class OrderDetailPresenterImpl extends BasePresenterImpl implements Order
                 int orderOptionNo = ((RxBusEventPurchaseConfirmClick) o).getOrderOptionNo();
                 view.showPurchaseConfirmDialog(orderOptionNo);
             } else if (o instanceof RxBusEventWriteReviewClick) {
-                view.showComingSoonToast();
+                OrderProductDataModel data = ((RxBusEventWriteReviewClick) o).getData();
+                view.navigateToReviewWrite(receiptNo, data);
             } else if (o instanceof RxBusEventStatusRefresh) {
                 reqOrderDetail();
             } else if (o instanceof RxBusEventCancelQuestionClick) {
                 view.navigateToMinilookTalk();
+            } else if (o instanceof ReviewWritePresenterImpl.RxEventReviewWrite) {
+                reqOrderDetail();
             }
         }, Timber::e));
     }
 
     @AllArgsConstructor @Getter public final static class RxBusEventOrderCancelClick {
-        private OrderGoodsDataModel data;
+        private OrderProductDataModel data;
     }
 
     @AllArgsConstructor @Getter public final static class RxBusEventQuestionClick {
@@ -161,7 +177,7 @@ public class OrderDetailPresenterImpl extends BasePresenterImpl implements Order
     }
 
     @AllArgsConstructor @Getter public final static class RxBusEventExchangeNReturnClick {
-        private OrderGoodsDataModel data;
+        private OrderProductDataModel data;
     }
 
     @AllArgsConstructor @Getter public final static class RxBusEventDeliveryTrackingClick {
@@ -173,6 +189,7 @@ public class OrderDetailPresenterImpl extends BasePresenterImpl implements Order
     }
 
     @AllArgsConstructor @Getter public final static class RxBusEventWriteReviewClick {
+        private OrderProductDataModel data;
     }
 
     @AllArgsConstructor @Getter public final static class RxBusEventCancelQuestionClick {

@@ -14,20 +14,21 @@ import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.order.OrderGoodsDataModel;
-import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.code.OrderStatus;
+import com.minilook.minilook.data.model.order.OrderProductDataModel;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.order_detail.OrderDetailPresenterImpl;
 import com.minilook.minilook.util.StringUtil;
 
-public class PurchaseConfirmVH extends BaseViewHolder<OrderGoodsDataModel> {
+public class PurchaseConfirmVH extends BaseViewHolder<OrderProductDataModel> {
 
     @BindView(R.id.txt_state) TextView stateTextView;
     @BindView(R.id.img_thumb) ImageView thumbImageView;
     @BindView(R.id.txt_name) TextView nameTextView;
     @BindView(R.id.txt_option) TextView optionTextView;
     @BindView(R.id.txt_price) TextView priceTextView;
+    @BindView(R.id.txt_write_review) TextView reviewWriteTextView;
 
     @BindString(R.string.order_detail_option) String format_option;
 
@@ -38,8 +39,10 @@ public class PurchaseConfirmVH extends BaseViewHolder<OrderGoodsDataModel> {
             .inflate(R.layout.item_order_type_purchase_confirm, (ViewGroup) itemView, false));
     }
 
-    @Override public void bind(OrderGoodsDataModel $data) {
+    @Override public void bind(OrderProductDataModel $data) {
         super.bind($data);
+
+        reviewWriteTextView.setVisibility(data.isReviewed() ? View.GONE : View.VISIBLE);
 
         stateTextView.setText(OrderStatus.toName(data.getStatusCode()));
 
@@ -62,6 +65,6 @@ public class PurchaseConfirmVH extends BaseViewHolder<OrderGoodsDataModel> {
 
     @OnClick(R.id.txt_write_review)
     void onWriteReviewClick() {
-        RxBus.send(new OrderDetailPresenterImpl.RxBusEventWriteReviewClick());
+        RxBus.send(new OrderDetailPresenterImpl.RxBusEventWriteReviewClick(data));
     }
 }

@@ -4,7 +4,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import com.minilook.minilook.data.model.order.OrderCancelDataModel;
-import com.minilook.minilook.data.model.order.OrderGoodsDataModel;
+import com.minilook.minilook.data.model.order.OrderProductDataModel;
 
 public interface OrderDetailPresenter extends LifecycleObserver {
 
@@ -24,6 +24,8 @@ public interface OrderDetailPresenter extends LifecycleObserver {
         void setOrderNo(String no);
 
         void setOrderDate(String date);
+
+        void hideAllCancelButton();
 
         void setShippingName(String name);
 
@@ -51,10 +53,12 @@ public interface OrderDetailPresenter extends LifecycleObserver {
 
         void navigateToDial(String csPhone);
 
-        void navigateToOrderExchangeNReturn(OrderGoodsDataModel data);
+        void navigateToOrderExchangeNReturn(OrderProductDataModel data);
 
         void navigateToOrderCancel(OrderCancelDataModel items);
 
         void navigateToMinilookTalk();
+
+        void navigateToReviewWrite(String receiptNo, OrderProductDataModel data);
     }
 }

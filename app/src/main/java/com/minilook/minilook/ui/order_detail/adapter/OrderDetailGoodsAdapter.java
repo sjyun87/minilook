@@ -3,7 +3,7 @@ package com.minilook.minilook.ui.order_detail.adapter;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.minilook.minilook.data.model.order.OrderGoodsDataModel;
+import com.minilook.minilook.data.model.order.OrderProductDataModel;
 import com.minilook.minilook.data.code.OrderStatus;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
@@ -24,13 +24,13 @@ import com.minilook.minilook.ui.order_detail.viewholder.status.ReturnVH;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderDetailGoodsAdapter extends RecyclerView.Adapter<BaseViewHolder<OrderGoodsDataModel>>
-    implements BaseAdapterDataModel<OrderGoodsDataModel>, BaseAdapterDataView<OrderGoodsDataModel> {
+public class OrderDetailGoodsAdapter extends RecyclerView.Adapter<BaseViewHolder<OrderProductDataModel>>
+    implements BaseAdapterDataModel<OrderProductDataModel>, BaseAdapterDataView<OrderProductDataModel> {
 
-    private List<OrderGoodsDataModel> items = new ArrayList<>();
+    private List<OrderProductDataModel> items = new ArrayList<>();
 
     @NonNull @Override
-    public BaseViewHolder<OrderGoodsDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BaseViewHolder<OrderProductDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (OrderStatus.toStatus(viewType)) {
             case ORDER_COMPLETED:
                 return new OrderCompletedVH(parent);
@@ -63,7 +63,7 @@ public class OrderDetailGoodsAdapter extends RecyclerView.Adapter<BaseViewHolder
         }
     }
 
-    @Override public void onBindViewHolder(@NonNull BaseViewHolder<OrderGoodsDataModel> holder, int position) {
+    @Override public void onBindViewHolder(@NonNull BaseViewHolder<OrderProductDataModel> holder, int position) {
         holder.bind(items.get(position));
     }
 
@@ -75,36 +75,36 @@ public class OrderDetailGoodsAdapter extends RecyclerView.Adapter<BaseViewHolder
         return getSize();
     }
 
-    @Override public void add(OrderGoodsDataModel $item) {
+    @Override public void add(OrderProductDataModel $item) {
         items.add($item);
     }
 
-    @Override public void add(int $index, OrderGoodsDataModel $item) {
+    @Override public void add(int $index, OrderProductDataModel $item) {
         items.add($index, $item);
     }
 
-    @Override public void addAll(List<OrderGoodsDataModel> $items) {
+    @Override public void addAll(List<OrderProductDataModel> $items) {
         items.addAll($items);
     }
 
-    @Override public void set(int $index, OrderGoodsDataModel $item) {
+    @Override public void set(int $index, OrderProductDataModel $item) {
         items.set($index, $item);
     }
 
-    @Override public void set(List<OrderGoodsDataModel> $items) {
+    @Override public void set(List<OrderProductDataModel> $items) {
         items.clear();
         items.addAll($items);
     }
 
-    @Override public OrderGoodsDataModel get(int $index) {
+    @Override public OrderProductDataModel get(int $index) {
         return items.get($index);
     }
 
-    @Override public List<OrderGoodsDataModel> get() {
+    @Override public List<OrderProductDataModel> get() {
         return items;
     }
 
-    @Override public int get(OrderGoodsDataModel $item) {
+    @Override public int get(OrderProductDataModel $item) {
         return items.indexOf($item);
     }
 
@@ -112,7 +112,7 @@ public class OrderDetailGoodsAdapter extends RecyclerView.Adapter<BaseViewHolder
         items.remove($index);
     }
 
-    @Override public void remove(OrderGoodsDataModel $item) {
+    @Override public void remove(OrderProductDataModel $item) {
         items.remove($item);
     }
 

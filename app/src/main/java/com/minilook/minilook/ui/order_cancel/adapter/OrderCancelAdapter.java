@@ -3,7 +3,7 @@ package com.minilook.minilook.ui.order_cancel.adapter;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.minilook.minilook.data.model.order.OrderGoodsDataModel;
+import com.minilook.minilook.data.model.order.OrderProductDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.order_cancel.viewholder.OrderCancelItemVH;
@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderCancelAdapter extends RecyclerView.Adapter<OrderCancelItemVH>
-    implements BaseAdapterDataModel<OrderGoodsDataModel>, BaseAdapterDataView<OrderGoodsDataModel> {
+    implements BaseAdapterDataModel<OrderProductDataModel>, BaseAdapterDataView<OrderProductDataModel> {
 
-    private List<OrderGoodsDataModel> items = new ArrayList<>();
+    private List<OrderProductDataModel> items = new ArrayList<>();
 
     @NonNull @Override public OrderCancelItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new OrderCancelItemVH(parent);
@@ -27,36 +27,36 @@ public class OrderCancelAdapter extends RecyclerView.Adapter<OrderCancelItemVH>
         return getSize();
     }
 
-    @Override public void add(OrderGoodsDataModel $item) {
+    @Override public void add(OrderProductDataModel $item) {
         items.add($item);
     }
 
-    @Override public void add(int $index, OrderGoodsDataModel $item) {
+    @Override public void add(int $index, OrderProductDataModel $item) {
         items.add($index, $item);
     }
 
-    @Override public void addAll(List<OrderGoodsDataModel> $items) {
+    @Override public void addAll(List<OrderProductDataModel> $items) {
         items.addAll($items);
     }
 
-    @Override public void set(int $index, OrderGoodsDataModel $item) {
+    @Override public void set(int $index, OrderProductDataModel $item) {
         items.set($index, $item);
     }
 
-    @Override public void set(List<OrderGoodsDataModel> $items) {
+    @Override public void set(List<OrderProductDataModel> $items) {
         items.clear();
         items.addAll($items);
     }
 
-    @Override public OrderGoodsDataModel get(int $index) {
+    @Override public OrderProductDataModel get(int $index) {
         return items.get($index);
     }
 
-    @Override public List<OrderGoodsDataModel> get() {
+    @Override public List<OrderProductDataModel> get() {
         return items;
     }
 
-    @Override public int get(OrderGoodsDataModel $item) {
+    @Override public int get(OrderProductDataModel $item) {
         return items.indexOf($item);
     }
 
@@ -64,7 +64,7 @@ public class OrderCancelAdapter extends RecyclerView.Adapter<OrderCancelItemVH>
         items.remove($index);
     }
 
-    @Override public void remove(OrderGoodsDataModel $item) {
+    @Override public void remove(OrderProductDataModel $item) {
         items.remove($item);
     }
 

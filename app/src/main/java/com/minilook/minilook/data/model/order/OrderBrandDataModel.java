@@ -15,5 +15,5 @@ import lombok.Data;
     @Expose @SerializedName("shippingPrice")
     private int shippingPrice;
     @Expose @SerializedName("options")
-    private List<OrderGoodsDataModel> goods;
+    private List<OrderProductDataModel> goods;
 }

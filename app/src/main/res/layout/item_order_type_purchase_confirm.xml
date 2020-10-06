@@ -107,5 +107,8 @@
         android:textSize="@dimen/sp_6"
         app:layout_constraintBottom_toBottomOf="@+id/txt_write_review"
         app:layout_constraintRight_toLeftOf="@+id/txt_write_review"
-        app:layout_constraintTop_toTopOf="@+id/txt_write_review" />
+        app:layout_constraintTop_toTopOf="@+id/txt_write_review"
+        app:layout_goneMarginBottom="@dimen/dp_10"
+        app:layout_goneMarginEnd="@dimen/dp_2"
+        app:layout_goneMarginTop="@dimen/dp_10" />
 </androidx.constraintlayout.widget.ConstraintLayout>

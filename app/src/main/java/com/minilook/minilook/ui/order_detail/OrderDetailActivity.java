@@ -3,8 +3,10 @@ package com.minilook.minilook.ui.order_detail;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindString;
@@ -13,7 +15,7 @@ import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.order.OrderBrandDataModel;
 import com.minilook.minilook.data.model.order.OrderCancelDataModel;
-import com.minilook.minilook.data.model.order.OrderGoodsDataModel;
+import com.minilook.minilook.data.model.order.OrderProductDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
@@ -21,6 +23,7 @@ import com.minilook.minilook.ui.order_cancel.OrderCancelActivity;
 import com.minilook.minilook.ui.order_detail.adapter.OrderDetailAdapter;
 import com.minilook.minilook.ui.order_detail.di.OrderDetailArguments;
 import com.minilook.minilook.ui.order_exchange_n_return.OrderExchangeNReturnActivity;
+import com.minilook.minilook.ui.review_write.ReviewWriteActivity;
 import com.minilook.minilook.util.StringUtil;
 
 public class OrderDetailActivity extends BaseActivity implements OrderDetailPresenter.View {
@@ -37,6 +40,7 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailPres
     @BindView(R.id.txt_info_number) TextView orderNoTextView;
     @BindView(R.id.txt_info_date) TextView orderDateTextView;
     @BindView(R.id.rcv_brand_order) RecyclerView recyclerView;
+    @BindView(R.id.layout_order_cancel_panel) ConstraintLayout allCancelPanel;
     @BindView(R.id.txt_shipping_name) TextView shippingNameTextView;
     @BindView(R.id.txt_shipping_phone) TextView shippingPhoneTextView;
     @BindView(R.id.txt_shipping_address) TextView shippingAddressTextView;
@@ -89,6 +93,10 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailPres
 
     @Override public void setOrderDate(String date) {
         orderDateTextView.setText(date);
+    }
+
+    @Override public void hideAllCancelButton() {
+        allCancelPanel.setVisibility(View.GONE);
     }
 
     @Override public void setShippingName(String name) {
@@ -145,7 +153,7 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailPres
         startActivity(intent);
     }
 
-    @Override public void navigateToOrderExchangeNReturn(OrderGoodsDataModel data) {
+    @Override public void navigateToOrderExchangeNReturn(OrderProductDataModel data) {
         OrderExchangeNReturnActivity.start(this, data);
     }
 
@@ -156,6 +164,10 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailPres
     @Override public void navigateToMinilookTalk() {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://pf.kakao.com/_xmHqdK"));
         startActivity(intent);
+    }
+
+    @Override public void navigateToReviewWrite(String receiptNo, OrderProductDataModel data) {
+        ReviewWriteActivity.start(this, receiptNo, data);
     }
 
     @OnClick(R.id.txt_order_cancel)

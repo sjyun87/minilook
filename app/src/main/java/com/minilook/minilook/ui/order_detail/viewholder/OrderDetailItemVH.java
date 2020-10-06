@@ -18,10 +18,12 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.order.OrderBrandDataModel;
+import com.minilook.minilook.data.model.order.OrderProductDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.order_detail.adapter.OrderDetailGoodsAdapter;
 import com.minilook.minilook.util.DimenUtil;
 import com.minilook.minilook.util.StringUtil;
+import java.util.List;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
 
 public class OrderDetailItemVH extends BaseViewHolder<OrderBrandDataModel> {
@@ -66,10 +68,17 @@ public class OrderDetailItemVH extends BaseViewHolder<OrderBrandDataModel> {
 
         brandNameTextView.setText(data.getBrandName());
 
-        adapter.set(data.getGoods());
+        adapter.set(setupBrandDate(data.getGoods()));
         adapter.refresh();
 
         shippingPriceTextView.setText(
             data.getShippingPrice() != 0 ? StringUtil.toDigit(data.getShippingPrice()) : str_free_shipping);
+    }
+
+    private List<OrderProductDataModel> setupBrandDate(List<OrderProductDataModel> goods) {
+        for (OrderProductDataModel item : goods) {
+            item.setBrandName(data.getBrandName());
+        }
+        return goods;
     }
 }

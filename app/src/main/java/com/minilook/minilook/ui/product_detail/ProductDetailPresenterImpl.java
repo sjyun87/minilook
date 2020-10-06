@@ -3,10 +3,12 @@ package com.minilook.minilook.ui.product_detail;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.App;
+import com.minilook.minilook.data.code.DisplayCode;
+import com.minilook.minilook.data.code.ShippingCode;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
-import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.product.ProductColorDataModel;
+import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.product.ProductStockDataModel;
 import com.minilook.minilook.data.model.review.ReviewDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
@@ -16,8 +18,6 @@ import com.minilook.minilook.data.network.order.OrderRequest;
 import com.minilook.minilook.data.network.product.ProductRequest;
 import com.minilook.minilook.data.network.scrap.ScrapRequest;
 import com.minilook.minilook.data.rx.Transformer;
-import com.minilook.minilook.data.code.DisplayCode;
-import com.minilook.minilook.data.code.ShippingCode;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
@@ -33,7 +33,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     private static final String STOCK_TYPE_COLOR = "color";
 
     private final View view;
-    private final int id;
+    private final int productNo;
     private final BaseAdapterDataModel<String> productImageAdapter;
     private final BaseAdapterDataModel<ReviewDataModel> reviewAdapter;
     private final BaseAdapterDataModel<ProductDataModel> relatedProductsAdapter;
@@ -47,7 +47,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
 
     public ProductDetailPresenterImpl(ProductDetailArguments args) {
         view = args.getView();
-        id = args.getId();
+        productNo = args.getProductNo();
         productImageAdapter = args.getProductImageAdapter();
         reviewAdapter = args.getReviewAdapter();
         relatedProductsAdapter = args.getRelatedProductAdapter();
@@ -94,7 +94,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     }
 
     private void reqScrap() {
-        addDisposable(scrapRequest.updateProductScrap(data.isScrap(), id)
+        addDisposable(scrapRequest.updateProductScrap(data.isScrap(), productNo)
             .subscribe());
     }
 
@@ -176,7 +176,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     }
 
     private void reqProductDetail() {
-        addDisposable(productRequest.getProductDetail(id)
+        addDisposable(productRequest.getProductDetail(productNo)
             .compose(Transformer.applySchedulers())
             .filter(data -> data.getCode().equals(HttpCode.OK))
             .map(data -> gson.fromJson(data.getData(), ProductDataModel.class))
@@ -294,7 +294,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     }
 
     private void reqProductOptions() {
-        addDisposable(productRequest.getProductOptions(id)
+        addDisposable(productRequest.getProductOptions(productNo)
             .compose(Transformer.applySchedulers())
             .filter(data -> data.getCode().equals(HttpCode.OK))
             .map((Function<BaseDataModel, List<ProductColorDataModel>>)

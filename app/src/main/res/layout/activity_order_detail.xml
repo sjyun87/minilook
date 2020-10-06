@@ -157,6 +157,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_26"
                 android:layout_marginTop="@dimen/dp_8"
+                app:layout_goneMarginTop="@dimen/dp_6"
                 android:background="@color/color_FFFFFFFF"
                 android:fontFamily="@font/nanum_square_eb"
                 android:gravity="center_vertical"
