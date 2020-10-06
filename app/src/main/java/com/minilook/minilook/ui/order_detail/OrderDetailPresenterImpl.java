@@ -35,8 +35,8 @@ public class OrderDetailPresenterImpl extends BasePresenterImpl implements Order
 
     public OrderDetailPresenterImpl(OrderDetailArguments args) {
         view = args.getView();
-        orderNo = args.getOrder_id();
-        receiptNo = args.getReceipt_id();
+        orderNo = args.getOrderNo();
+        receiptNo = args.getReceiptNo();
         adapter = args.getAdapter();
         orderRequest = new OrderRequest();
     }

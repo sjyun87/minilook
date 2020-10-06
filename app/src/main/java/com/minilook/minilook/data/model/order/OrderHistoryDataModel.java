@@ -8,13 +8,13 @@ import lombok.Data;
 
 @Data public class OrderHistoryDataModel {
     @Expose @SerializedName("registDateName")
-    private String order_date;
+    private String orderDate;
     @Expose @SerializedName("mid")
-    private String order_id;
+    private String orderNo;
     @Expose @SerializedName("receiptId")
-    private String receipt_id;
+    private String receiptNo;
     @Expose @SerializedName("registDate")
-    private long regist_date;
+    private long registDate;
     @Expose @SerializedName("products")
     private List<ProductDataModel> products;
 }

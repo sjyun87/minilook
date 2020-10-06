@@ -9,7 +9,7 @@ import lombok.Getter;
 @Getter @Builder
 public class OrderDetailArguments {
     private final OrderDetailPresenter.View view;
-    private final String order_id;
-    private final String receipt_id;
+    private final String orderNo;
+    private final String receiptNo;
     private final BaseAdapterDataModel<OrderBrandDataModel> adapter;
 }

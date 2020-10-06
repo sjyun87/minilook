@@ -60,7 +60,7 @@ public class OrderHistoryPresenterImpl extends BasePresenterImpl implements Orde
     }
 
     private void resOrderHistory(List<OrderHistoryDataModel> data) {
-        lastOderTime = data.get(data.size() - 1).getRegist_date();
+        lastOderTime = data.get(data.size() - 1).getRegistDate();
 
         adapter.set(data);
         view.refresh();
@@ -70,9 +70,9 @@ public class OrderHistoryPresenterImpl extends BasePresenterImpl implements Orde
         addDisposable(RxBus.toObservable().subscribe(o -> {
             if (o instanceof RxBusEventOrderClick) {
                 OrderHistoryDataModel data = ((RxBusEventOrderClick) o).getData();
-                String order_id = data.getOrder_id();
-                String receipt_id = data.getReceipt_id();
-                view.navigateToOrderDetail(order_id, receipt_id);
+                String orderNo = data.getOrderNo();
+                String receiptNo = data.getReceiptNo();
+                view.navigateToOrderDetail(orderNo, receiptNo);
             }
         }, Timber::e));
     }

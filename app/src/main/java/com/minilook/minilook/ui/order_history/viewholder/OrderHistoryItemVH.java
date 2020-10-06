@@ -41,8 +41,8 @@ public class OrderHistoryItemVH extends BaseViewHolder<OrderHistoryDataModel> {
     @Override public void bind(OrderHistoryDataModel $data) {
         super.bind($data);
 
-        orderNumberTextView.setText(data.getOrder_id());
-        orderDateTextView.setText(data.getOrder_date());
+        orderNumberTextView.setText(data.getOrderNo());
+        orderDateTextView.setText(data.getOrderDate());
 
         adapter.set(data.getProducts());
         adapter.refresh();
@@ -51,7 +51,7 @@ public class OrderHistoryItemVH extends BaseViewHolder<OrderHistoryDataModel> {
     }
 
     void onItemClick(View view) {
-        RxBus.send(new OrderHistoryPresenterImpl.RxBusEventOrderClick(data));
+        //RxBus.send(new OrderHistoryPresenterImpl.RxBusEventOrderClick(data));
     }
 
     @OnClick(R.id.curtain)

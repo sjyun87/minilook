@@ -28,12 +28,12 @@ import com.minilook.minilook.util.StringUtil;
 
 public class OrderDetailActivity extends BaseActivity implements OrderDetailPresenter.View {
 
-    public static void start(Context context, String order_id, String receipt_id) {
+    public static void start(Context context, String orderNo, String receiptNo) {
         Intent intent = new Intent(context, OrderDetailActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        intent.putExtra("order_id", order_id);
-        intent.putExtra("receipt_id", receipt_id);
+        intent.putExtra("orderNo", orderNo);
+        intent.putExtra("receiptNo", receiptNo);
         context.startActivity(intent);
     }
 
@@ -72,8 +72,8 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailPres
     private OrderDetailArguments provideArguments() {
         return OrderDetailArguments.builder()
             .view(this)
-            .order_id(getIntent().getStringExtra("order_id"))
-            .receipt_id(getIntent().getStringExtra("receipt_id"))
+            .orderNo(getIntent().getStringExtra("orderNo"))
+            .receiptNo(getIntent().getStringExtra("receiptNo"))
             .adapter(adapter)
             .build();
     }
