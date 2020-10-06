@@ -15,7 +15,7 @@ import timber.log.Timber;
 public class ReviewWritePresenterImpl extends BasePresenterImpl implements ReviewWritePresenter {
 
     private final View view;
-    private final String receiptNo;
+    private final String orderNo;
     private final OrderProductDataModel data;
     private final ReviewRequest reviewRequest;
 
@@ -23,7 +23,7 @@ public class ReviewWritePresenterImpl extends BasePresenterImpl implements Revie
 
     public ReviewWritePresenterImpl(ReviewWriteArguments args) {
         view = args.getView();
-        receiptNo = args.getReceiptNo();
+        orderNo = args.getOrderNo();
         data = args.getData();
         reviewRequest = new ReviewRequest();
     }
@@ -50,7 +50,7 @@ public class ReviewWritePresenterImpl extends BasePresenterImpl implements Revie
     }
 
     private void reqWriteReview() {
-        addDisposable(reviewRequest.writeReview(receiptNo, data.getProductNo(), data.getOptionNo(), review)
+        addDisposable(reviewRequest.writeReview(orderNo, data.getProductNo(), data.getOptionNo(), review)
             .compose(Transformer.applySchedulers())
             .filter(data -> {
                 String code = data.getCode();

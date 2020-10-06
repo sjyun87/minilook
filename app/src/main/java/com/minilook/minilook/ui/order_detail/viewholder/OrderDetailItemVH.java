@@ -13,6 +13,7 @@ import butterknife.BindColor;
 import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
@@ -20,6 +21,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.order.OrderBrandDataModel;
 import com.minilook.minilook.data.model.order.OrderProductDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.order_detail.adapter.OrderDetailGoodsAdapter;
 import com.minilook.minilook.util.DimenUtil;
 import com.minilook.minilook.util.StringUtil;
@@ -80,5 +82,10 @@ public class OrderDetailItemVH extends BaseViewHolder<OrderBrandDataModel> {
             item.setBrandName(data.getBrandName());
         }
         return goods;
+    }
+
+    @OnClick(R.id.layout_brand_panel)
+    void onBrandClick() {
+        BrandDetailActivity.start(context, data.getBrandNo());
     }
 }

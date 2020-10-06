@@ -19,6 +19,7 @@ import com.minilook.minilook.data.model.order.OrderProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.order_detail.OrderDetailPresenterImpl;
+import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.StringUtil;
 
 public class PurchaseConfirmVH extends BaseViewHolder<OrderProductDataModel> {
@@ -66,5 +67,10 @@ public class PurchaseConfirmVH extends BaseViewHolder<OrderProductDataModel> {
     @OnClick(R.id.txt_write_review)
     void onWriteReviewClick() {
         RxBus.send(new OrderDetailPresenterImpl.RxBusEventWriteReviewClick(data));
+    }
+
+    @OnClick(R.id.img_thumb)
+    void onProductClick() {
+        ProductDetailActivity.start(context, data.getProductNo());
     }
 }

@@ -19,6 +19,7 @@ import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.code.OrderStatus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.order_detail.OrderDetailPresenterImpl;
+import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.StringUtil;
 
 public class DeliveryCompletedVH extends BaseViewHolder<OrderProductDataModel> {
@@ -73,5 +74,10 @@ public class DeliveryCompletedVH extends BaseViewHolder<OrderProductDataModel> {
     @OnClick(R.id.txt_question)
     void onQuestionClick() {
         RxBus.send(new OrderDetailPresenterImpl.RxBusEventQuestionClick(data.getCsPhone()));
+    }
+
+    @OnClick(R.id.img_thumb)
+    void onProductClick() {
+        ProductDetailActivity.start(context, data.getProductNo());
     }
 }

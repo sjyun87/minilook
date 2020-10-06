@@ -23,11 +23,11 @@ import com.minilook.minilook.ui.review_write.di.ReviewWriteArguments;
 
 public class ReviewWriteActivity extends BaseActivity implements ReviewWritePresenter.View {
 
-    public static void start(Context context, String receiptNo, OrderProductDataModel data) {
+    public static void start(Context context, String orderNo, OrderProductDataModel data) {
         Intent intent = new Intent(context, ReviewWriteActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        intent.putExtra("receiptNo", receiptNo);
+        intent.putExtra("orderNo", orderNo);
         intent.putExtra("data", data);
         context.startActivity(intent);
     }
@@ -61,7 +61,7 @@ public class ReviewWriteActivity extends BaseActivity implements ReviewWritePres
     private ReviewWriteArguments provideArguments() {
         return ReviewWriteArguments.builder()
             .view(this)
-            .receiptNo(getIntent().getStringExtra("receiptNo"))
+            .orderNo(getIntent().getStringExtra("orderNo"))
             .data((OrderProductDataModel) getIntent().getSerializableExtra("data"))
             .build();
     }

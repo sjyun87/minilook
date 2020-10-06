@@ -59,6 +59,6 @@ public interface OrderDetailPresenter extends LifecycleObserver {
 
         void navigateToMinilookTalk();
 
-        void navigateToReviewWrite(String receiptNo, OrderProductDataModel data);
+        void navigateToReviewWrite(String orderNo, OrderProductDataModel data);
     }
 }

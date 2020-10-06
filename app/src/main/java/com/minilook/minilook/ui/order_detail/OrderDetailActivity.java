@@ -166,8 +166,8 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailPres
         startActivity(intent);
     }
 
-    @Override public void navigateToReviewWrite(String receiptNo, OrderProductDataModel data) {
-        ReviewWriteActivity.start(this, receiptNo, data);
+    @Override public void navigateToReviewWrite(String orderNo, OrderProductDataModel data) {
+        ReviewWriteActivity.start(this, orderNo, data);
     }
 
     @OnClick(R.id.txt_order_cancel)

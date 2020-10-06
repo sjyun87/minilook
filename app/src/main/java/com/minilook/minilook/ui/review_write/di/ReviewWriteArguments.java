@@ -8,6 +8,6 @@ import lombok.Getter;
 @Getter @Builder
 public class ReviewWriteArguments {
     private final ReviewWritePresenter.View view;
-    private final String receiptNo;
+    private final String orderNo;
     private final OrderProductDataModel data;
 }

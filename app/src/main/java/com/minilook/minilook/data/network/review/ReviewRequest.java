@@ -13,14 +13,14 @@ public class ReviewRequest extends BaseRequest<ReviewService> {
         return ReviewService.class;
     }
 
-    public Single<BaseDataModel> writeReview(String receiptNo, int productNo, int optionNo, String text) {
-        return getApi().writeReview(productNo, optionNo, createRequestBody(parseToWriteJson(receiptNo, text)));
+    public Single<BaseDataModel> writeReview(String orderNo, int productNo, int optionNo, String text) {
+        return getApi().writeReview(productNo, optionNo, createRequestBody(parseToWriteJson(orderNo, text)));
     }
 
-    private Map<String, Object> parseToWriteJson(String receiptNo, String text) {
+    private Map<String, Object> parseToWriteJson(String orderNo, String text) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("memberNo", App.getInstance().getMemberNo());
-        jsonMap.put("receiptId", receiptNo);
+        jsonMap.put("mid", orderNo);
         jsonMap.put("review", text);
         return jsonMap;
     }
