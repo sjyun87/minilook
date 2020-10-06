@@ -14,6 +14,10 @@ import lombok.Data;
     private String brandName;
     @Expose @SerializedName("shippingPrice")
     private int shippingPrice;
+    @Expose @SerializedName("csTimeInfo")
+    private String csTime;
+    @Expose @SerializedName("tel")
+    private String csTel;
     @Expose @SerializedName("options")
     private List<OrderProductDataModel> goods;
 }

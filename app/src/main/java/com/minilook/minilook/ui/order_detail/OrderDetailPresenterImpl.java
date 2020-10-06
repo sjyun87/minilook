@@ -56,6 +56,10 @@ public class OrderDetailPresenterImpl extends BasePresenterImpl implements Order
         reqPurchaseConfirm(orderOptionNo);
     }
 
+    @Override public void onBrandCallDialogOkClick(String csTel) {
+        view.navigateToDial(csTel);
+    }
+
     private void reqOrderDetail() {
         addDisposable(orderRequest.getOrderDetail(orderNo, receiptNo)
             .compose(Transformer.applySchedulers())
@@ -164,6 +168,9 @@ public class OrderDetailPresenterImpl extends BasePresenterImpl implements Order
                 view.navigateToMinilookTalk();
             } else if (o instanceof ReviewWritePresenterImpl.RxEventReviewWrite) {
                 reqOrderDetail();
+            } else if (o instanceof RxBusEventCallClick) {
+                OrderBrandDataModel data = ((RxBusEventCallClick) o).getData();
+                view.showBrandCallDialog(data.getBrandName(), data.getBrandLogo(), data.getCsTime(), data.getCsTel());
             }
         }, Timber::e));
     }
@@ -196,5 +203,9 @@ public class OrderDetailPresenterImpl extends BasePresenterImpl implements Order
     }
 
     @AllArgsConstructor @Getter public final static class RxBusEventStatusRefresh {
+    }
+
+    @AllArgsConstructor @Getter public final static class RxBusEventCallClick {
+        private OrderBrandDataModel data;
     }
 }

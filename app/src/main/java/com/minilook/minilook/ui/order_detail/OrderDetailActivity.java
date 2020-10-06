@@ -139,8 +139,8 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailPres
         DialogManager.showPurchaseConfirmDialog(this, () -> presenter.onPurchaseConfirmDialogOkClick(orderOptionNo));
     }
 
-    @Override public void showComingSoonToast() {
-        Toast.makeText(this, "현재 서비스 준비중입니다.\n빠른 시일내에 업데이트 하겠습니다. 감사합니다.", Toast.LENGTH_SHORT).show();
+    @Override public void showBrandCallDialog(String name, String logo, String csTime, String csTel) {
+        DialogManager.showBrandCallDialog(this, name, logo, csTime, () -> presenter.onBrandCallDialogOkClick(csTel));
     }
 
     @Override public void navigateToOutlink(String url) {

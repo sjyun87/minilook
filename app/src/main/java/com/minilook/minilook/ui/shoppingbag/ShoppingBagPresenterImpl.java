@@ -2,6 +2,8 @@ package com.minilook.minilook.ui.shoppingbag;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.minilook.minilook.data.code.DisplayCode;
+import com.minilook.minilook.data.code.ShippingCode;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
@@ -10,8 +12,6 @@ import com.minilook.minilook.data.model.shopping.ShoppingProductDataModel;
 import com.minilook.minilook.data.network.order.OrderRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
-import com.minilook.minilook.data.code.DisplayCode;
-import com.minilook.minilook.data.code.ShippingCode;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.shoppingbag.di.ShoppingBagArguments;
@@ -251,7 +251,8 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
     private void deleteProduct() {
         List<ShoppingBrandDataModel> tempBrandData = new ArrayList<>(adapter.get());
         for (ShoppingBrandDataModel brandData : tempBrandData) {
-            for (ShoppingProductDataModel productData : brandData.getProducts()) {
+            List<ShoppingProductDataModel> tempProductData = new ArrayList<>(brandData.getProducts());
+            for (ShoppingProductDataModel productData : tempProductData) {
                 if (productData.isSelected()) {
                     adapter.get(adapter.get(brandData)).getProducts().remove(productData);
                     if (adapter.get(adapter.get(brandData)).getProducts().size() == 0) {
@@ -278,7 +279,9 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
         for (int i = 0; i < tempBrandData.getProducts().size(); i++) {
             ShoppingProductDataModel productData = tempBrandData.getProducts().get(i);
             if (adapter.get(adapter.get(brandData)).getProducts().get(i).getOptions().remove(target)) {
-                if (productData.getOptions().size() == 0) adapter.get(adapter.get(brandData)).getProducts().remove(productData);
+                if (productData.getOptions().size() == 0) {
+                    adapter.get(adapter.get(brandData)).getProducts().remove(productData);
+                }
                 if (brandData.getProducts().size() == 0) adapter.remove(brandData);
             }
         }

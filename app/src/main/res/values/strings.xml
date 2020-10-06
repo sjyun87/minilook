@@ -508,6 +508,7 @@
     <string name="dialog_ok">확인</string>
     <string name="dialog_agree">동의</string>
     <string name="dialog_later">나중에</string>
+    <string name="dialog_call">연결</string>
 
     <string name="dialog_update_title">업데이트 알림</string>
     <string name="dialog_update_content">필수 업데이트가 있습니다\n새로운 버전의 미니룩을 만나보세요</string>
@@ -546,6 +547,9 @@
     <string name="dialog_error_title">오류가 발생했습니다\n잠시 후 다시 시도해 주십시오</string>
     <string name="dialog_error_contents">문제가 지속될 경우, 아이페이지>설정\n[앱 문의/건의]로 접수해 주시기 바랍니다</string>
     <string name="dialog_error_contents_b">아이페이지>설정\n[앱 문의/건의]</string>
+
+    <string name="dialog_brand_call_title">%s 고객센터</string>
+    <string name="dialog_brand_call_desc">전화를 연결하시겠습니까?</string>
 
     <!--Support Email-->
     <string name="support_email">support@minilook.co.kr</string>

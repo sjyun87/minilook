@@ -15,6 +15,8 @@ public interface OrderDetailPresenter extends LifecycleObserver {
 
     void onPurchaseConfirmDialogOkClick(int orderOptionNo);
 
+    void onBrandCallDialogOkClick(String csTel);
+
     interface View {
 
         void setupRecyclerView();
@@ -47,7 +49,7 @@ public interface OrderDetailPresenter extends LifecycleObserver {
 
         void showPurchaseConfirmDialog(int orderOptionNo);
 
-        void showComingSoonToast();
+        void showBrandCallDialog(String name, String logo, String csTime, String csTel);
 
         void navigateToOutlink(String url);
 

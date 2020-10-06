@@ -2,6 +2,7 @@ package com.minilook.minilook.ui.dialog.manager;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import com.minilook.minilook.ui.dialog.BrandCallDialog;
 import com.minilook.minilook.ui.dialog.DefaultShippingDialog;
 import com.minilook.minilook.ui.dialog.ErrorDialog;
 import com.minilook.minilook.ui.dialog.JoinCancelDialog;
@@ -102,6 +103,17 @@ public final class DialogManager {
     @Builder
     public static void showErrorDialog(Activity activity, OnPositiveClickListener onPositiveClickListener) {
         ErrorDialog dialog = new ErrorDialog(activity);
+        dialog.setOnPositiveClickListener(onPositiveClickListener);
+        dialog.show();
+    }
+
+    @Builder
+    public static void showBrandCallDialog(Activity activity, String brandName, String brandLogo, String csTime,
+        OnPositiveClickListener onPositiveClickListener) {
+        BrandCallDialog dialog = new BrandCallDialog(activity);
+        dialog.setBrandName(brandName);
+        dialog.setBrandLogo(brandLogo);
+        dialog.setCsTimeInfo(csTime);
         dialog.setOnPositiveClickListener(onPositiveClickListener);
         dialog.show();
     }

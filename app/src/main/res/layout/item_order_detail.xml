@@ -23,13 +23,25 @@
 
         <TextView
             android:id="@+id/txt_brand_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_4"
+            android:layout_weight="1"
             android:fontFamily="@font/nanum_square_b"
             android:textColor="@color/color_FF424242"
             android:textSize="@dimen/sp_7"
             tools:text="아델리" />
+
+        <ImageView
+            android:id="@+id/img_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/dp_8"
+            android:paddingTop="@dimen/dp_5"
+            android:paddingEnd="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_5"
+            android:src="@drawable/ic_call"
+            tools:ignore="ContentDescription" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

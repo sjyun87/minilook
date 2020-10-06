@@ -1,6 +1,7 @@
 package com.minilook.minilook.ui.order_detail.viewholder;
 
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +21,10 @@ import com.bumptech.glide.request.RequestOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.order.OrderBrandDataModel;
 import com.minilook.minilook.data.model.order.OrderProductDataModel;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
+import com.minilook.minilook.ui.order_detail.OrderDetailPresenterImpl;
 import com.minilook.minilook.ui.order_detail.adapter.OrderDetailGoodsAdapter;
 import com.minilook.minilook.util.DimenUtil;
 import com.minilook.minilook.util.StringUtil;
@@ -32,6 +35,7 @@ public class OrderDetailItemVH extends BaseViewHolder<OrderBrandDataModel> {
 
     @BindView(R.id.img_brand_logo) ImageView brandLogoImageView;
     @BindView(R.id.txt_brand_name) TextView brandNameTextView;
+    @BindView(R.id.img_call) ImageView callImageView;
     @BindView(R.id.rcv_goods) RecyclerView recyclerView;
     @BindView(R.id.txt_shipping_price) TextView shippingPriceTextView;
 
@@ -70,6 +74,12 @@ public class OrderDetailItemVH extends BaseViewHolder<OrderBrandDataModel> {
 
         brandNameTextView.setText(data.getBrandName());
 
+        if (TextUtils.isEmpty(data.getCsTel())) {
+            callImageView.setVisibility(View.GONE);
+        } else {
+            callImageView.setVisibility(View.VISIBLE);
+        }
+
         adapter.set(setupBrandDate(data.getGoods()));
         adapter.refresh();
 
@@ -87,5 +97,10 @@ public class OrderDetailItemVH extends BaseViewHolder<OrderBrandDataModel> {
     @OnClick(R.id.layout_brand_panel)
     void onBrandClick() {
         BrandDetailActivity.start(context, data.getBrandNo());
+    }
+
+    @OnClick(R.id.img_call)
+    void onCallClick() {
+        RxBus.send(new OrderDetailPresenterImpl.RxBusEventCallClick(data));
     }
 }
