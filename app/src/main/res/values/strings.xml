@@ -421,6 +421,7 @@
     <string name="review_help_button">도움 돼요</string>
     <string name="review_help_count">%s명에게 도움이 되었습니다.</string>
     <string name="review_help_count_b">%s명</string>
+    <string name="review_empty">등록된 리뷰가 없습니다.</string>
 
     <!--Review Write-->
     <string name="review_write_title">리뷰 작성</string>

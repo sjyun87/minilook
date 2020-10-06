@@ -3,7 +3,7 @@ package com.minilook.minilook.ui.point.adapter;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.minilook.minilook.data.model.member.PointHistoryDataModel;
+import com.minilook.minilook.data.model.member.PointDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.point.viewholder.PointHistoryItemVH;
@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PointHistoryAdapter extends RecyclerView.Adapter<PointHistoryItemVH>
-    implements BaseAdapterDataModel<PointHistoryDataModel>, BaseAdapterDataView<PointHistoryDataModel> {
+    implements BaseAdapterDataModel<PointDataModel>, BaseAdapterDataView<PointDataModel> {
 
-    private List<PointHistoryDataModel> items = new ArrayList<>();
+    private List<PointDataModel> items = new ArrayList<>();
 
     @NonNull @Override public PointHistoryItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new PointHistoryItemVH(parent);
@@ -27,36 +27,36 @@ public class PointHistoryAdapter extends RecyclerView.Adapter<PointHistoryItemVH
         return getSize();
     }
 
-    @Override public void add(PointHistoryDataModel $item) {
+    @Override public void add(PointDataModel $item) {
         items.add($item);
     }
 
-    @Override public void add(int $index, PointHistoryDataModel $item) {
+    @Override public void add(int $index, PointDataModel $item) {
         items.add($index, $item);
     }
 
-    @Override public void addAll(List<PointHistoryDataModel> $items) {
+    @Override public void addAll(List<PointDataModel> $items) {
         items.addAll($items);
     }
 
-    @Override public void set(int $index, PointHistoryDataModel $item) {
+    @Override public void set(int $index, PointDataModel $item) {
         items.set($index, $item);
     }
 
-    @Override public void set(List<PointHistoryDataModel> $items) {
+    @Override public void set(List<PointDataModel> $items) {
         items.clear();
         items.addAll($items);
     }
 
-    @Override public PointHistoryDataModel get(int $index) {
+    @Override public PointDataModel get(int $index) {
         return items.get($index);
     }
 
-    @Override public List<PointHistoryDataModel> get() {
+    @Override public List<PointDataModel> get() {
         return items;
     }
 
-    @Override public int get(PointHistoryDataModel $item) {
+    @Override public int get(PointDataModel $item) {
         return items.indexOf($item);
     }
 
@@ -64,7 +64,7 @@ public class PointHistoryAdapter extends RecyclerView.Adapter<PointHistoryItemVH
         items.remove($index);
     }
 
-    @Override public void remove(PointHistoryDataModel $item) {
+    @Override public void remove(PointDataModel $item) {
         items.remove($item);
     }
 

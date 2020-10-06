@@ -33,4 +33,16 @@ public class ReviewRequest extends BaseRequest<ReviewService> {
             return getApi().cancelHelp(productNo, memberNo, reviewNo);
         }
     }
+
+    public Single<BaseDataModel> getReviews(int productNo, int rows, int lastReviewNo) {
+        return getApi().getReviews(productNo, createRequestBody(parseToHistoryJson(rows, lastReviewNo)));
+    }
+
+    private Map<String, Object> parseToHistoryJson(int rows, int lastReviewNo) {
+        Map<String, Object> jsonMap = new HashMap<>();
+        if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getMemberNo());
+        jsonMap.put("pageSize", rows);
+        if (lastReviewNo != 0) jsonMap.put("lastReviewNo", lastReviewNo);
+        return jsonMap;
+    }
 }

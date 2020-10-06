@@ -19,7 +19,7 @@ import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingProductDataModel;
 import com.minilook.minilook.data.model.member.CouponDataModel;
-import com.minilook.minilook.data.model.member.PointDataModel;
+import com.minilook.minilook.data.model.member.PointHistoryDataModel;
 import com.minilook.minilook.data.model.member.MemberDataModel;
 import com.minilook.minilook.data.network.order.OrderRequest;
 import com.minilook.minilook.data.network.shipping.ShippingRequest;
@@ -291,7 +291,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         }
     }
 
-    private void setupPointData(PointDataModel point) {
+    private void setupPointData(PointHistoryDataModel point) {
         havePoint = point.getPoint();
         view.setupHavePoint(havePoint);
         if (havePoint == 0) view.disablePointBox();

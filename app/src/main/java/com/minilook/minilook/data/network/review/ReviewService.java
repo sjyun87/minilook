@@ -27,4 +27,9 @@ public interface ReviewService {
         @Path("memberNo") int memberNo,
         @Path("reviewNo") int reviewNo
     );
+
+    @POST("/api/products/{productNo}/reviews") Single<BaseDataModel> getReviews(
+        @Path("productNo") int productNo,
+        @Body RequestBody body
+    );
 }

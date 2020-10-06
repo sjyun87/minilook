@@ -90,6 +90,10 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         }
     }
 
+    @Override public void onReviewMoreClick() {
+        view.navigateToReview(productNo);
+    }
+
     @Override public void onScrapClick() {
         if (App.getInstance().isLogin()) {
             data.setScrap(!data.isScrap());

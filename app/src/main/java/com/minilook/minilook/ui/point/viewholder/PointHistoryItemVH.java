@@ -11,11 +11,11 @@ import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.member.PointHistoryDataModel;
+import com.minilook.minilook.data.model.member.PointDataModel;
 import com.minilook.minilook.data.code.PointStatus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 
-public class PointHistoryItemVH extends BaseViewHolder<PointHistoryDataModel> {
+public class PointHistoryItemVH extends BaseViewHolder<PointDataModel> {
 
     @BindView(R.id.txt_type) TextView typeTextView;
     @BindView(R.id.txt_title) TextView titleTextView;
@@ -39,7 +39,7 @@ public class PointHistoryItemVH extends BaseViewHolder<PointHistoryDataModel> {
             .inflate(R.layout.item_point_history, (ViewGroup) itemView, false));
     }
 
-    @Override public void bind(PointHistoryDataModel $data) {
+    @Override public void bind(PointDataModel $data) {
         super.bind($data);
         if (data.getCode() == PointStatus.PLUS.getValue()) {
             typeTextView.setBackground(bg_plus);

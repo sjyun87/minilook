@@ -3,10 +3,10 @@ package com.minilook.minilook.ui.product_detail;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
-import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
-import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
 import com.minilook.minilook.data.model.product.ProductColorDataModel;
 import com.minilook.minilook.data.model.product.ProductStockDataModel;
+import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
+import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
 import java.util.List;
 
 public interface ProductDetailPresenter extends LifecycleObserver {
@@ -15,6 +15,8 @@ public interface ProductDetailPresenter extends LifecycleObserver {
     void onCreate();
 
     void onTabClick(int position);
+
+    void onReviewMoreClick();
 
     void onScrapClick();
 
@@ -171,5 +173,7 @@ public interface ProductDetailPresenter extends LifecycleObserver {
         void navigateToOrder(List<ShoppingBrandDataModel> items);
 
         void navigateToLogin();
+
+        void navigateToReview(int productNo);
     }
 }
