@@ -18,7 +18,7 @@ import timber.log.Timber;
 
 public class ScrapbookBrandPresenterImpl extends BasePresenterImpl implements ScrapbookBrandPresenter {
 
-    private final static int ROWS = 10;
+    private static final int ROWS = 10;
 
     private final View view;
     private final BaseAdapterDataModel<BrandDataModel> adapter;

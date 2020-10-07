@@ -68,11 +68,13 @@ public class ReviewActivity extends BaseActivity implements ReviewPresenter.View
             .asSpace()
             .build()
             .addTo(recyclerView);
-        EndlessOnScrollListener.builder()
-            .layoutManager(recyclerView.getLayoutManager())
-            .onLoadMoreListener(presenter::onLoadMore)
-            .visibleThreshold(10)
-            .build();
+        EndlessOnScrollListener scrollListener =
+            EndlessOnScrollListener.builder()
+                .layoutManager(recyclerView.getLayoutManager())
+                .onLoadMoreListener(presenter::onLoadMore)
+                .visibleThreshold(10)
+                .build();
+        recyclerView.addOnScrollListener(scrollListener);
     }
 
     @Override public void refresh() {

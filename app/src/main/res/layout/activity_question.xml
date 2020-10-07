@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,7 +11,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:setTitle="@string/question_title"
         app:showBack="true"
-        app:showCount="true"
         app:showTitle="true" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -22,6 +20,41 @@
         android:background="@color/color_FFF5F5F5"
         android:clipToPadding="false"
         android:paddingTop="@dimen/dp_4"
+        android:paddingBottom="@dimen/dp_50"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titlebar" />
+
+    <LinearLayout
+        android:id="@+id/layout_empty_panel"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/color_FFF5F5F5"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titlebar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nanum_square_r"
+            android:text="@string/question_empty"
+            android:textColor="@color/color_FF616161"
+            android:textSize="@dimen/sp_7" />
+
+        <TextView
+            android:id="@+id/txt_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_36"
+            android:background="@drawable/bg_button_border_dark"
+            android:fontFamily="@font/nanum_square_b"
+            android:gravity="center"
+            android:paddingStart="@dimen/dp_30"
+            android:paddingEnd="@dimen/dp_30"
+            android:text="@string/question_empty_button"
+            android:textColor="@color/color_FF232323"
+            android:textSize="@dimen/sp_7" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

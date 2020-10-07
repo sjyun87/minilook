@@ -51,6 +51,7 @@ import com.minilook.minilook.ui.product_detail.adapter.ProductDetailReviewAdapte
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
 import com.minilook.minilook.ui.product_detail.widget.ProductTabView;
 import com.minilook.minilook.ui.product_info.ProductInfoActivity;
+import com.minilook.minilook.ui.question.QuestionActivity;
 import com.minilook.minilook.ui.review.ReviewActivity;
 import com.minilook.minilook.ui.shoppingbag.ShoppingBagActivity;
 import com.minilook.minilook.util.DimenUtil;
@@ -164,7 +165,8 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     private ProductDetailArguments provideArguments() {
         return ProductDetailArguments.builder()
             .view(this)
-            .productNo(getIntent().getIntExtra("productNo", -1))
+            //.productNo(getIntent().getIntExtra("productNo", -1))
+            .productNo(374)
             .productImageAdapter(productImageAdapter)
             .reviewAdapter(reviewAdapter)
             .relatedProductAdapter(relatedProductAdapter)
@@ -539,6 +541,10 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         ReviewActivity.start(this, productNo);
     }
 
+    @Override public void navigateToQuestion(int productNo) {
+        QuestionActivity.start(this, productNo);
+    }
+
     @OnClick(R.id.layout_expand_panel)
     void onExpandClick() {
         presenter.onExpandClick();
@@ -552,6 +558,11 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     @OnClick({ R.id.layout_review_panel, R.id.txt_review_more })
     void onReviewMoreClick() {
         presenter.onReviewMoreClick();
+    }
+
+    @OnClick(R.id.layout_question_panel)
+    void onQuestionClick() {
+        presenter.onQuestionClick();
     }
 
     @OnClick(R.id.layout_shipping_n_refund_panel)

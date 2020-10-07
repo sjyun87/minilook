@@ -18,6 +18,8 @@ public interface ProductDetailPresenter extends LifecycleObserver {
 
     void onReviewMoreClick();
 
+    void onQuestionClick();
+
     void onScrapClick();
 
     void onBuyClick();
@@ -175,5 +177,7 @@ public interface ProductDetailPresenter extends LifecycleObserver {
         void navigateToLogin();
 
         void navigateToReview(int productNo);
+
+        void navigateToQuestion(int productNo);
     }
 }

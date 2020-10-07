@@ -137,7 +137,7 @@ public class IpageFragment extends BaseFragment implements IpagePresenter.View {
     }
 
     @Override public void navigateToQuestion() {
-        QuestionActivity.start(getContext());
+        //QuestionActivity.start(getContext());
     }
 
     @Override public void navigateToWebView(String url) {

@@ -162,6 +162,12 @@
     <string name="question_title">문의내역</string>
     <string name="question_caption">Q</string>
     <string name="question_answer_caption">A</string>
+    <string name="question_unanswered">미답변</string>
+    <string name="question_answer_completed">답변완료</string>
+    <string name="question_my_question">내 문의</string>
+    <string name="question_secret">비밀급입니다.</string>
+    <string name="question_empty">등록된 문의가 없습니다.</string>
+    <string name="question_empty_button">문의하기</string>
 
     <!--Point-->
     <string name="point_title">포인트</string>
