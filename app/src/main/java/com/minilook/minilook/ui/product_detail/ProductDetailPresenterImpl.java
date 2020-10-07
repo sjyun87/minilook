@@ -23,7 +23,9 @@ import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
+import com.minilook.minilook.ui.review.ReviewPresenterImpl;
 import com.minilook.minilook.util.StringUtil;
+import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.functions.Function;
 import java.util.ArrayList;
 import java.util.List;
@@ -323,12 +325,28 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
             .subscribe());
     }
 
+    private void syncReviewData(int reviewNo, boolean isHelp) {
+        ReviewDataModel item = Observable.fromIterable(reviewAdapter.get())
+            .filter(data -> data.getReviewNo() == reviewNo)
+            .blockingFirst();
+        if (item != null) {
+            int helpCount = item.getHelpCount();
+            item.setHelpCount(isHelp ? helpCount + 1 : helpCount - 1);
+            item.setHelp(isHelp);
+            view.reviewRefresh();
+        }
+    }
+
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
             if (o instanceof RxEventProductDetailReviewHelpClick) {
                 boolean isHelp = ((RxEventProductDetailReviewHelpClick) o).isHelp();
                 int reviewNo = ((RxEventProductDetailReviewHelpClick) o).getReviewNo();
                 reqUpdateHelp(isHelp, reviewNo);
+            } else if (o instanceof ReviewPresenterImpl.RxEventReviewHelpClick) {
+                int reviewNo = ((ReviewPresenterImpl.RxEventReviewHelpClick) o).getReviewNo();
+                boolean isHelp = ((ReviewPresenterImpl.RxEventReviewHelpClick) o).isHelp();
+                syncReviewData(reviewNo, isHelp);
             }
         }, Timber::e));
     }
