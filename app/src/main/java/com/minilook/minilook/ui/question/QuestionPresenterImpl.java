@@ -1,6 +1,7 @@
 package com.minilook.minilook.ui.question;
 
 import com.google.gson.Gson;
+import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.question.QuestionDataModel;
 import com.minilook.minilook.data.model.question.QuestionHistoryDataModel;
@@ -10,6 +11,7 @@ import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.question.di.QuestionArguments;
+import com.minilook.minilook.ui.question_write.QuestionWritePresenterImpl;
 import timber.log.Timber;
 
 public class QuestionPresenterImpl extends BasePresenterImpl implements QuestionPresenter {
@@ -33,6 +35,7 @@ public class QuestionPresenterImpl extends BasePresenterImpl implements Question
 
     @Override public void onCreate() {
         toRxObservable();
+        view.setupTitleBar(productNo);
         view.setupRecyclerView();
 
         reqQuestions();
@@ -40,6 +43,14 @@ public class QuestionPresenterImpl extends BasePresenterImpl implements Question
 
     @Override public void onLoadMore() {
         reqLoadMoreQuestions();
+    }
+
+    @Override public void onEmptyClick() {
+        if (App.getInstance().isLogin()) {
+            view.navigateToQuestionWrite(productNo);
+        } else {
+            view.navigateToLogin();
+        }
     }
 
     private void reqQuestions() {
@@ -57,6 +68,7 @@ public class QuestionPresenterImpl extends BasePresenterImpl implements Question
     }
 
     private void resQuestions(QuestionHistoryDataModel data) {
+        view.hideEmptyPanel();
         view.setTotalCount(data.getQuestionCount());
 
         adapter.set(data.getQuestions());
@@ -84,9 +96,10 @@ public class QuestionPresenterImpl extends BasePresenterImpl implements Question
 
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
-            //if (o instanceof ReviewPresenterImpl.RxEventReviewHelpClick) {
-            //
-            //}
+            if (o instanceof QuestionWritePresenterImpl.RxEventQuestionWrite) {
+                lastQuestionNo = 0;
+                reqQuestions();
+            }
         }, Timber::e));
     }
 }

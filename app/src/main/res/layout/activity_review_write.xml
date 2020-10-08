@@ -125,7 +125,7 @@
         android:enabled="false"
         android:fontFamily="@font/nanum_square_eb"
         android:gravity="center"
-        android:text="@string/review_write_save"
+        android:text="@string/review_write_apply"
         android:textColor="@color/color_FFFFFFFF"
         android:textSize="@dimen/sp_8"
         app:layout_constraintTop_toBottomOf="@+id/txt_info" />

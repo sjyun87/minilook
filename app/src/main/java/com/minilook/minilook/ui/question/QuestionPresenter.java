@@ -11,7 +11,11 @@ public interface QuestionPresenter extends LifecycleObserver {
 
     void onLoadMore();
 
+    void onEmptyClick();
+
     interface View {
+
+        void setupTitleBar(int productNo);
 
         void setTotalCount(int count);
 
@@ -22,5 +26,11 @@ public interface QuestionPresenter extends LifecycleObserver {
         void refresh(int start, int rows);
 
         void showEmptyPanel();
+
+        void hideEmptyPanel();
+
+        void navigateToQuestionWrite(int productNo);
+
+        void navigateToLogin();
     }
 }

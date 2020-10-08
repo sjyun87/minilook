@@ -18,10 +18,12 @@ import com.minilook.minilook.App;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.main.MainActivity;
+import com.minilook.minilook.ui.question_write.QuestionWriteActivity;
 import com.minilook.minilook.ui.search_filter.SearchFilterActivity;
 import com.minilook.minilook.ui.setting.SettingActivity;
 import com.minilook.minilook.ui.shoppingbag.ShoppingBagActivity;
 import com.minilook.minilook.util.StringUtil;
+import lombok.Setter;
 
 public class TitleBar extends ConstraintLayout {
 
@@ -35,6 +37,7 @@ public class TitleBar extends ConstraintLayout {
     @BindView(R.id.img_titlebar_shoppingbag) ImageView shoppingbagImageView;
     @BindView(R.id.img_titlebar_setting) ImageView settingImageView;
     @BindView(R.id.img_titlebar_close) ImageView closeImageView;
+    @BindView(R.id.img_titlebar_write) ImageView writeImageView;
 
     @BindColor(R.color.color_FFFFFFFF) int color_FFFFFFFF;
 
@@ -50,8 +53,11 @@ public class TitleBar extends ConstraintLayout {
     private boolean isShowShoppingBag;
     private boolean isShowSetting;
     private boolean isShowClose;
+    private boolean isShowWrite;
     private String title;
     private int count;
+
+    @Setter private int productNo;
 
     public TitleBar(@NonNull Context context) {
         this(context, null);
@@ -77,6 +83,7 @@ public class TitleBar extends ConstraintLayout {
         isShowShoppingBag = typedArray.getBoolean(R.styleable.TitleBar_showShoppingBag, false);
         isShowSetting = typedArray.getBoolean(R.styleable.TitleBar_showSetting, false);
         isShowClose = typedArray.getBoolean(R.styleable.TitleBar_showClose, false);
+        isShowWrite = typedArray.getBoolean(R.styleable.TitleBar_showWrite, false);
         title = typedArray.getString(R.styleable.TitleBar_setTitle);
         count = typedArray.getInteger(R.styleable.TitleBar_setCount, 0);
         typedArray.recycle();
@@ -106,6 +113,7 @@ public class TitleBar extends ConstraintLayout {
         shoppingbagImageView.setVisibility(isShowShoppingBag ? VISIBLE : GONE);
         settingImageView.setVisibility(isShowSetting ? VISIBLE : GONE);
         closeImageView.setVisibility(isShowClose ? VISIBLE : GONE);
+        writeImageView.setVisibility(isShowWrite ? VISIBLE : GONE);
 
         titleTextView.setText(title);
         countTextView.setText(StringUtil.toDigit(count));
@@ -158,6 +166,11 @@ public class TitleBar extends ConstraintLayout {
 
     public void setShowClose(boolean visible) {
         isShowClose = visible;
+        updateUI();
+    }
+
+    public void setShowWrite(boolean visible) {
+        isShowWrite = visible;
         updateUI();
     }
 
@@ -214,6 +227,17 @@ public class TitleBar extends ConstraintLayout {
     @OnClick(R.id.img_titlebar_close)
     void onCloseClick() {
         if (activity != null) activity.finish();
+    }
+
+    @OnClick(R.id.img_titlebar_write)
+    void onWriteClick() {
+        if (activity != null) {
+            if (App.getInstance().isLogin()) {
+                QuestionWriteActivity.start(activity, productNo);
+            } else {
+                LoginActivity.start(activity);
+            }
+        }
     }
 
     private Activity getActivity() {

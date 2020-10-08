@@ -11,6 +11,7 @@
         <attr name="showShoppingBag" format="reference|boolean" />
         <attr name="showSetting" format="reference|boolean" />
         <attr name="showClose" format="reference|boolean" />
+        <attr name="showWrite" format="reference|boolean" />
         <attr name="setTitle" format="reference|string" />
         <attr name="setCount" format="reference|integer" />
     </declare-styleable>

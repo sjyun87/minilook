@@ -15,4 +15,9 @@ public interface QuestionService {
         @Path("productNo") int productNo,
         @Body RequestBody body
     );
+
+    @POST("/api/products/{productNo}/inquiries") Single<BaseDataModel> writeQuestion(
+        @Path("productNo") int productNo,
+        @Body RequestBody body
+    );
 }

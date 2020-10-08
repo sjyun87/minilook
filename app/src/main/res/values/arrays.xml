@@ -23,4 +23,13 @@
         <item>부재시 경비실에 맡겨주세요.</item>
         <item>부재시 전화 주시거나 문자 남겨주세요.</item>
     </string-array>
+
+    <string-array name="question_type">
+        <item>상품문의</item>
+        <item>사이즈문의</item>
+        <item>배송문의</item>
+        <item>환불/교환문의</item>
+        <item>재입고문의</item>
+        <item>기타문의</item>
+    </string-array>
 </resources>

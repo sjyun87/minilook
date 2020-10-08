@@ -23,6 +23,7 @@ import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
+import com.minilook.minilook.ui.question_write.QuestionWritePresenterImpl;
 import com.minilook.minilook.ui.review.ReviewPresenterImpl;
 import com.minilook.minilook.util.StringUtil;
 import io.reactivex.rxjava3.core.Observable;
@@ -351,6 +352,9 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
                 int reviewNo = ((ReviewPresenterImpl.RxEventReviewHelpClick) o).getReviewNo();
                 boolean isHelp = ((ReviewPresenterImpl.RxEventReviewHelpClick) o).isHelp();
                 syncReviewData(reviewNo, isHelp);
+            } else if (o instanceof QuestionWritePresenterImpl.RxEventQuestionWrite) {
+                data.setQuestionCount(data.getQuestionCount() + 1);
+                view.setupQuestionCount(StringUtil.toDigit(data.getQuestionCount()));
             }
         }, Timber::e));
     }
