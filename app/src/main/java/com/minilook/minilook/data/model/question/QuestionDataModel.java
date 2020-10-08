@@ -9,6 +9,8 @@ import lombok.Data;
     private int questionNo;
     @Expose @SerializedName("memberNo")
     private int memberNo;
+    @Expose @SerializedName("nickname")
+    private String nick;
     @Expose @SerializedName("type")
     private String type;
     @Expose @SerializedName("regDate")
@@ -19,6 +21,8 @@ import lombok.Data;
     private boolean isAnswer;
     @Expose @SerializedName("answer")
     private String answer;
+    @Expose @SerializedName("updateDate")
+    private String answerDate;
     @Expose @SerializedName("isSecret")
     private boolean isSecret;
 }

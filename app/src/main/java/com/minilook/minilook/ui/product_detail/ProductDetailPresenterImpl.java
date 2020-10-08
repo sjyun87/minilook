@@ -111,11 +111,6 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         }
     }
 
-    private void reqScrap() {
-        addDisposable(scrapRequest.updateProductScrap(data.isScrap(), productNo)
-            .subscribe());
-    }
-
     @Override public void onBuyClick() {
         if (App.getInstance().isLogin()) {
             view.showOptionSelector();
@@ -340,6 +335,11 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
             item.setHelp(isHelp);
             view.reviewRefresh();
         }
+    }
+
+    private void reqScrap() {
+        addDisposable(scrapRequest.updateProductScrap(data.isScrap(), productNo)
+            .subscribe());
     }
 
     private void toRxObservable() {
