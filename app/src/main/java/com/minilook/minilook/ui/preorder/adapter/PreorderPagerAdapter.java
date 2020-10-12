@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+import com.minilook.minilook.ui.preorder.view.close.PreorderCloseFragment;
 import com.minilook.minilook.ui.preorder.view.coming.PreorderComingFragment;
 import com.minilook.minilook.ui.preorder.view.open.PreorderOpenFragment;
 
@@ -21,10 +22,12 @@ public class PreorderPagerAdapter extends FragmentStateAdapter {
                 return PreorderOpenFragment.newInstance();
             case 1:
                 return PreorderComingFragment.newInstance();
+            case 2:
+                return PreorderCloseFragment.newInstance();
         }
     }
 
     @Override public int getItemCount() {
-        return 2;
+        return 3;
     }
 }

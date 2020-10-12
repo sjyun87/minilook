@@ -20,4 +20,8 @@ public class PreorderPresenterImpl extends BasePresenterImpl implements Preorder
         view.setupCurrentPage(position);
         view.scrollToTop();
     }
+
+    @Override public void onInfoClick() {
+        view.navigateToPreorderInfo();
+    }
 }

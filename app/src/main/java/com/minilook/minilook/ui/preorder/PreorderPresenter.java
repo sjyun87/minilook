@@ -11,7 +11,9 @@ public interface PreorderPresenter extends LifecycleObserver {
 
   void onTabClick(int position);
 
-    interface View {
+  void onInfoClick();
+
+  interface View {
 
       void setupTabLayout();
 
@@ -20,5 +22,7 @@ public interface PreorderPresenter extends LifecycleObserver {
       void setupCurrentPage(int position);
 
       void scrollToTop();
-    }
+
+      void navigateToPreorderInfo();
+  }
 }

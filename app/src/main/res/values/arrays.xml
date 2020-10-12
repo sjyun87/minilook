@@ -10,6 +10,7 @@
     <string-array name="tab_preorder">
         <item>진행중</item>
         <item>오픈예정</item>
+        <item>주문종료</item>
     </string-array>
 
     <string-array name="tab_scrapbook">
