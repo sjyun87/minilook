@@ -99,7 +99,12 @@ public class SettingPresenterImpl extends BasePresenterImpl implements SettingPr
             .compose(Transformer.applySchedulers())
             .filter(data -> {
                 Timber.e(data.toString());
-                return data.getCode().equals(HttpCode.OK);
+                String code = data.getCode();
+                if (code.equals(HttpCode.NO_DATA)) {
+                    view.setupOrderInfoSwitchButton();
+                    view.setupMarketingSwitchButton();
+                }
+                return code.equals(HttpCode.OK);
             })
             .map(data -> gson.fromJson(data.getData(), InfoStatusDataModel.class))
             .subscribe(this::resInfoStatus, Timber::e));

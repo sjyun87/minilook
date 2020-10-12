@@ -95,7 +95,7 @@
                 android:fontFamily="@font/nanum_square_r"
                 android:gravity="top"
                 android:hint="@string/question_write_contents_hint"
-                android:inputType="text"
+                android:inputType="textMultiLine"
                 android:lineSpacingMultiplier="1.5"
                 android:maxLines="7"
                 android:padding="@dimen/dp_8"
