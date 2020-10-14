@@ -9,7 +9,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseFragment;
-import com.minilook.minilook.ui.preorder.adapter.PreorderAdapter;
+import com.minilook.minilook.ui.preorder.view.close.adapter.PreorderCloseAdapter;
 import com.minilook.minilook.ui.preorder.view.close.di.PreorderCloseArguments;
 
 public class PreorderCloseFragment extends BaseFragment implements PreorderClosePresenter.View {
@@ -18,12 +18,12 @@ public class PreorderCloseFragment extends BaseFragment implements PreorderClose
         return new PreorderCloseFragment();
     }
 
-    //@BindView(R.id.rcv_preorder_open) RecyclerView recyclerView;
+    @BindView(R.id.rcv_preorder_close) RecyclerView recyclerView;
 
     @BindDimen(R.dimen.dp_4) int dp_4;
 
     private PreorderClosePresenter presenter;
-    private PreorderAdapter adapter = new PreorderAdapter();
+    private PreorderCloseAdapter adapter = new PreorderCloseAdapter();
     private BaseAdapterDataView<PreorderDataModel> adapterView = adapter;
 
     @Override protected int getLayoutID() {
@@ -43,16 +43,16 @@ public class PreorderCloseFragment extends BaseFragment implements PreorderClose
     }
 
     @Override public void setupRecyclerView() {
-        //recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        //recyclerView.setAdapter(adapter);
-        //DividerDecoration.builder(requireContext())
-        //    .size(dp_4)
-        //    .asSpace()
-        //    .build()
-        //    .addTo(recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
+        DividerDecoration.builder(requireContext())
+            .size(dp_4)
+            .asSpace()
+            .build()
+            .addTo(recyclerView);
     }
 
     @Override public void refresh() {
-        //adapterView.refresh();
+        adapterView.refresh();
     }
 }

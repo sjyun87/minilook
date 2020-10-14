@@ -14,15 +14,25 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
 
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@color/color_4DFFFFFF"
+        app:layout_constraintTop_toTopOf="@+id/img_thumb"
+        app:layout_constraintBottom_toBottomOf="@+id/img_thumb"
+        app:layout_constraintLeft_toLeftOf="@+id/img_thumb"
+        app:layout_constraintRight_toRightOf="@+id/img_thumb"
+        tools:ignore="ContentDescription" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:background="@color/color_FF8140E5"
+        android:background="@color/color_FF232323"
         android:fontFamily="@font/nanum_square_r"
         android:gravity="center"
         android:paddingStart="@dimen/dp_4"
         android:paddingEnd="@dimen/dp_4"
-        android:text="@string/preorder_open"
+        android:text="@string/preorder_close"
         android:textColor="@color/color_FFFFFFFF"
         android:textSize="@dimen/sp_7"
         app:layout_constraintBottom_toBottomOf="@+id/txt_start_date"
@@ -33,17 +43,17 @@
         android:id="@+id/txt_start_date"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_14"
-        android:background="@color/color_FF232323"
+        android:background="@color/color_FF616161"
         android:fontFamily="@font/nanum_square_r"
         android:gravity="center"
         android:paddingStart="@dimen/dp_4"
         android:paddingEnd="@dimen/dp_4"
+        android:text="@string/preorder_close_end"
         android:textColor="@color/color_FFFFFFFF"
         android:textSize="@dimen/sp_7"
         app:layout_constraintBottom_toBottomOf="@+id/img_thumb"
         app:layout_constraintRight_toRightOf="@+id/img_thumb"
-        app:layout_constraintTop_toBottomOf="@+id/img_thumb"
-        tools:text="10/31(토) D-23" />
+        app:layout_constraintTop_toBottomOf="@+id/img_thumb" />
 
     <TextView
         android:id="@+id/txt_brand"

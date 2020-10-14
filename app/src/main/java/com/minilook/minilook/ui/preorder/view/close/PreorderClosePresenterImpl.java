@@ -28,7 +28,7 @@ public class PreorderClosePresenterImpl extends BasePresenterImpl implements Pre
     }
 
     private void setupData() {
-        /*List<PreorderDataModel> items = new ArrayList<>();
+        List<PreorderDataModel> items = new ArrayList<>();
 
         PreorderDataModel model1 = new PreorderDataModel();
         model1.setFlag(0);
@@ -49,6 +49,6 @@ public class PreorderClosePresenterImpl extends BasePresenterImpl implements Pre
         items.add(model2);
 
         adapter.set(items);
-        view.refresh();*/
+        view.refresh();
     }
 }

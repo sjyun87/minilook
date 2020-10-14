@@ -598,9 +598,9 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
     private BootUser getBootUser() {
         BootUser bootUser = new BootUser();
         if (userData.getName() != null && !TextUtils.isEmpty(userData.getName())) {
-            bootUser.setUsername(userData.getName() + "(" + userData.getMemberNo() + ")");
+            bootUser.setUsername(userData.getName());
         } else {
-            bootUser.setUsername("(" + userData.getMemberNo() + ")");
+            bootUser.setUsername("");
         }
         bootUser.setEmail(userData.getEmail());
         bootUser.setPhone(userData.getPhone());

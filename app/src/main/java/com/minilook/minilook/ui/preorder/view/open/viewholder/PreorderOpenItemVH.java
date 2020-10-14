@@ -1,6 +1,7 @@
 package com.minilook.minilook.ui.preorder.view.open.viewholder;
 
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
@@ -25,6 +29,8 @@ public class PreorderOpenItemVH extends BaseViewHolder<PreorderDataModel> {
 
     @BindString(R.string.preorder_end_date) String format_end_date;
 
+    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+
     public PreorderOpenItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
             .inflate(R.layout.item_preorder_open, (ViewGroup) itemView, false));
@@ -33,15 +39,12 @@ public class PreorderOpenItemVH extends BaseViewHolder<PreorderDataModel> {
     @Override public void bind(PreorderDataModel $data) {
         super.bind($data);
 
-        //if (data.getId() == 0) {
-        //    Glide.with(context)
-        //        .load(ContextCompat.getDrawable(context, R.drawable.test_img1))
-        //        .into(thumbImageView);
-        //} else {
-        //    Glide.with(context)
-        //        .load(ContextCompat.getDrawable(context, R.drawable.test_img2))
-        //        .into(thumbImageView);
-        //}
+        Glide.with(context)
+            .load(data.getUrl_thumb())
+            .placeholder(img_placeholder)
+            .error(img_placeholder)
+            .transition(new DrawableTransitionOptions().crossFade())
+            .into(thumbImageView);
 
         endDateTextView.setText(getEndDate(data.getDate_end()));
         brandTextView.setText(data.getBrand());

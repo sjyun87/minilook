@@ -1,40 +1,28 @@
-package com.minilook.minilook.ui.preorder.adapter;
+package com.minilook.minilook.ui.preorder.view.coming.adapter;
 
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
-import com.minilook.minilook.data.code.PreorderType;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.preorder.view.coming.viewholder.PreorderComingItemVH;
 import com.minilook.minilook.ui.preorder.view.open.viewholder.PreorderOpenItemVH;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PreorderAdapter extends RecyclerView.Adapter<BaseViewHolder<PreorderDataModel>> implements
+public class PreorderComingAdapter extends RecyclerView.Adapter<PreorderComingItemVH> implements
     BaseAdapterDataModel<PreorderDataModel>, BaseAdapterDataView<PreorderDataModel> {
 
     private List<PreorderDataModel> items = new ArrayList<>();
 
     @NonNull @Override
-    public BaseViewHolder<PreorderDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == PreorderType.TYPE_OPEN.getValue()) {
-            return new PreorderOpenItemVH(parent);
-        } else if (viewType == PreorderType.TYPE_COMING.getValue()) {
-            return new PreorderComingItemVH(parent);
-        } else {
-            return new BaseViewHolder<>(parent);
-        }
+    public PreorderComingItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new PreorderComingItemVH(parent);
     }
 
-    @Override public void onBindViewHolder(@NonNull BaseViewHolder<PreorderDataModel> holder, int position) {
+    @Override public void onBindViewHolder(@NonNull PreorderComingItemVH holder, int position) {
         holder.bind(items.get(position));
-    }
-
-    @Override public int getItemViewType(int position) {
-        return items.get(position).getFlag();
     }
 
     @Override public int getItemCount() {

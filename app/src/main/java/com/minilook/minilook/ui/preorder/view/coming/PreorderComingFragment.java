@@ -9,7 +9,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseFragment;
-import com.minilook.minilook.ui.preorder.adapter.PreorderAdapter;
+import com.minilook.minilook.ui.preorder.view.coming.adapter.PreorderComingAdapter;
 import com.minilook.minilook.ui.preorder.view.coming.di.PreorderComingArguments;
 
 public class PreorderComingFragment extends BaseFragment implements PreorderComingPresenter.View {
@@ -23,7 +23,7 @@ public class PreorderComingFragment extends BaseFragment implements PreorderComi
     @BindDimen(R.dimen.dp_4) int dp_4;
 
     private PreorderComingPresenter presenter;
-    private PreorderAdapter adapter = new PreorderAdapter();
+    private PreorderComingAdapter adapter = new PreorderComingAdapter();
     private BaseAdapterDataView<PreorderDataModel> adapterView = adapter;
 
     @Override protected int getLayoutID() {
