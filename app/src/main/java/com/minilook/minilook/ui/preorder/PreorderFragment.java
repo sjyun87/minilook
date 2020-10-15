@@ -1,12 +1,8 @@
 package com.minilook.minilook.ui.preorder;
 
-import android.view.View;
-import android.view.ViewGroup;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 import butterknife.BindArray;
 import butterknife.BindView;
-import butterknife.OnClick;
 import com.google.android.material.tabs.TabLayout;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseFragment;
@@ -15,7 +11,6 @@ import com.minilook.minilook.ui.preorder.adapter.PreorderPagerAdapter;
 import com.minilook.minilook.ui.preorder.di.PreorderArguments;
 import com.minilook.minilook.ui.preorder_info.PreorderInfoActivity;
 import java.util.Objects;
-import me.didik.component.StickyNestedScrollView;
 
 public class PreorderFragment extends BaseFragment implements PreorderPresenter.View {
 
@@ -23,7 +18,6 @@ public class PreorderFragment extends BaseFragment implements PreorderPresenter.
         return new PreorderFragment();
     }
 
-    @BindView(R.id.nsv_content) StickyNestedScrollView scrollView;
     @BindView(R.id.layout_tab_panel) TabLayout tabLayout;
     @BindView(R.id.vp_preorder) ViewPager2 viewPager;
 
@@ -88,33 +82,7 @@ public class PreorderFragment extends BaseFragment implements PreorderPresenter.
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setUserInputEnabled(false);
-        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override public void onPageSelected(int position) {
-                updateHeight(position);
-            }
-        });
         viewPager.setCurrentItem(0);
-    }
-
-    private void updateHeight(int position) {
-        RecyclerView.LayoutManager layoutManager = ((RecyclerView) viewPager.getChildAt(0)).getLayoutManager();
-        if (layoutManager != null) {
-            View view = layoutManager.findViewByPosition(position);
-            if (view != null) {
-                view.post(() -> {
-                    int wMeasureSpec =
-                        View.MeasureSpec.makeMeasureSpec(view.getWidth(), View.MeasureSpec.EXACTLY);
-                    int hMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-                    view.measure(wMeasureSpec, hMeasureSpec);
-
-                    if (viewPager.getLayoutParams().height != view.getMeasuredHeight()) {
-                        ViewGroup.LayoutParams params = viewPager.getLayoutParams();
-                        params.height = view.getMeasuredHeight();
-                        viewPager.setLayoutParams(params);
-                    }
-                });
-            }
-        }
     }
 
     @Override public void setupCurrentPage(int position) {
@@ -122,16 +90,7 @@ public class PreorderFragment extends BaseFragment implements PreorderPresenter.
         adapter.notifyDataSetChanged();
     }
 
-    @Override public void scrollToTop() {
-        scrollView.scrollTo(0, (int) tabLayout.getY());
-    }
-
     @Override public void navigateToPreorderInfo() {
         PreorderInfoActivity.start(getContext());
-    }
-
-    @OnClick(R.id.img_info)
-    void onInfoClick() {
-        presenter.onInfoClick();
     }
 }

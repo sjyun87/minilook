@@ -6,27 +6,38 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.preorder.view.coming.viewholder.PreorderComingHeaderVH;
 import com.minilook.minilook.ui.preorder.view.coming.viewholder.PreorderComingItemVH;
-import com.minilook.minilook.ui.preorder.view.open.viewholder.PreorderOpenItemVH;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PreorderComingAdapter extends RecyclerView.Adapter<PreorderComingItemVH> implements
+public class PreorderComingAdapter extends RecyclerView.Adapter<BaseViewHolder<PreorderDataModel>> implements
     BaseAdapterDataModel<PreorderDataModel>, BaseAdapterDataView<PreorderDataModel> {
 
     private List<PreorderDataModel> items = new ArrayList<>();
 
     @NonNull @Override
-    public PreorderComingItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new PreorderComingItemVH(parent);
+    public BaseViewHolder<PreorderDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (viewType == 0) {
+            return new PreorderComingHeaderVH(parent);
+        } else {
+            return new PreorderComingItemVH(parent);
+        }
     }
 
-    @Override public void onBindViewHolder(@NonNull PreorderComingItemVH holder, int position) {
-        holder.bind(items.get(position));
+    @Override public void onBindViewHolder(@NonNull BaseViewHolder<PreorderDataModel> holder, int position) {
+        if (position != 0) {
+            holder.bind(items.get(position - 1));
+        }
     }
 
     @Override public int getItemCount() {
-        return getSize();
+        return getSize() + 1;
+    }
+
+    @Override public int getItemViewType(int position) {
+        return position;
     }
 
     @Override public void add(PreorderDataModel $item) {

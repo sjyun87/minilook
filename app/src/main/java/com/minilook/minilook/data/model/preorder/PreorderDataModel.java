@@ -1,14 +1,22 @@
 package com.minilook.minilook.data.model.preorder;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 @Data public class PreorderDataModel {
-    private int flag;
-    private int id;
+    @Expose @SerializedName("preorderNo")
+    private int preorderNo;
+    @Expose @SerializedName("title")
     private String title;
+    @Expose @SerializedName("description")
     private String desc;
-    private String brand;
-    private String url_thumb;
-    private String date_start;
-    private String date_end;
+    @Expose @SerializedName("brandName")
+    private String brandName;
+    @Expose @SerializedName("image1")
+    private String thumbUrl;
+    @Expose @SerializedName("startDate")
+    private long startDate;
+    @Expose @SerializedName("endDate")
+    private long endDate;
 }

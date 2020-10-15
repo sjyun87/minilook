@@ -18,6 +18,11 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.util.SpannableUtil;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import timber.log.Timber;
 
 public class PreorderOpenItemVH extends BaseViewHolder<PreorderDataModel> {
 
@@ -27,7 +32,8 @@ public class PreorderOpenItemVH extends BaseViewHolder<PreorderDataModel> {
     @BindView(R.id.txt_title) TextView titleTextView;
     @BindView(R.id.txt_desc) TextView descTextView;
 
-    @BindString(R.string.preorder_end_date) String format_end_date;
+    @BindString(R.string.preorder_d_day) String format_d_day;
+    @BindString(R.string.preorder_open_date) String format_date;
 
     @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
 
@@ -40,20 +46,29 @@ public class PreorderOpenItemVH extends BaseViewHolder<PreorderDataModel> {
         super.bind($data);
 
         Glide.with(context)
-            .load(data.getUrl_thumb())
+            .load(data.getThumbUrl())
             .placeholder(img_placeholder)
             .error(img_placeholder)
             .transition(new DrawableTransitionOptions().crossFade())
             .into(thumbImageView);
 
-        endDateTextView.setText(getEndDate(data.getDate_end()));
-        brandTextView.setText(data.getBrand());
+        endDateTextView.setText(getEndDate(data.getEndDate()));
+        brandTextView.setText(data.getBrandName());
         titleTextView.setText(data.getTitle());
         descTextView.setText(data.getDesc());
     }
 
-    private SpannableString getEndDate(String date) {
-        String total = String.format(format_end_date, date);
-        return SpannableUtil.styleSpan(total, date, Typeface.BOLD);
+    private SpannableString getEndDate(long date) {
+        Date endDate = new Date(date);
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd(E)", Locale.KOREA);
+        String strEndData = format.format(endDate);
+
+        long todayDay = Calendar.getInstance().getTimeInMillis() / (24 * 60 * 60 * 1000);
+        long targetDay = endDate.getTime() / (24 * 60 * 60 * 1000);
+        long count = targetDay - todayDay;
+
+        String dday = String.format(format_d_day, count);
+        String totalEndData = String.format(format_date, strEndData, dday);
+        return SpannableUtil.styleSpan(totalEndData, dday, Typeface.BOLD);
     }
 }

@@ -9,6 +9,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseFragment;
+import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
 import com.minilook.minilook.ui.preorder.view.close.adapter.PreorderCloseAdapter;
 import com.minilook.minilook.ui.preorder.view.close.di.PreorderCloseArguments;
 
@@ -50,9 +51,20 @@ public class PreorderCloseFragment extends BaseFragment implements PreorderClose
             .asSpace()
             .build()
             .addTo(recyclerView);
+        EndlessOnScrollListener scrollListener =
+            EndlessOnScrollListener.builder()
+                .layoutManager(recyclerView.getLayoutManager())
+                .onLoadMoreListener(presenter::onLoadMore)
+                .visibleThreshold(10)
+                .build();
+        recyclerView.addOnScrollListener(scrollListener);
     }
 
     @Override public void refresh() {
         adapterView.refresh();
+    }
+
+    @Override public void refresh(int start, int rows) {
+        adapterView.refresh(start, rows);
     }
 }

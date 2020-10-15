@@ -1,54 +1,86 @@
 package com.minilook.minilook.ui.preorder.view.close;
 
+import com.google.gson.Gson;
+import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
+import com.minilook.minilook.data.model.preorder.PreorderPageDataModel;
+import com.minilook.minilook.data.network.preorder.PreorderRequest;
+import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.preorder.view.close.di.PreorderCloseArguments;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import timber.log.Timber;
 
 public class PreorderClosePresenterImpl extends BasePresenterImpl implements PreorderClosePresenter {
 
+    private static final int ROWS = 30;
+
     private final View view;
     private final BaseAdapterDataModel<PreorderDataModel> adapter;
+    private final PreorderRequest preorderRequest;
+
+    private Gson gson = new Gson();
+    private AtomicInteger page;
+    private int totalPage = 0;
+    private int lastPreorderNo;
 
     public PreorderClosePresenterImpl(PreorderCloseArguments args) {
         view = args.getView();
         adapter = args.getAdapter();
+        preorderRequest = new PreorderRequest();
     }
 
     @Override public void onCreate() {
         view.setupRecyclerView();
-        //reqPreorderOpen();
-        setupData();
+        reqPreorderClose();
     }
 
-    private void reqPreorderOpen() {
-
+    @Override public void onLoadMore() {
+        if (totalPage > page.get()) reqLoadMorePreorderClose();
     }
 
-    private void setupData() {
-        List<PreorderDataModel> items = new ArrayList<>();
+    private void reqPreorderClose() {
+        page = new AtomicInteger(1);
+        addDisposable(preorderRequest.getClosePreorders(ROWS, lastPreorderNo)
+            .compose(Transformer.applySchedulers())
+            .filter(data -> {
+                String code = data.getCode();
+                if (code.equals(HttpCode.NO_DATA)) {
 
-        PreorderDataModel model1 = new PreorderDataModel();
-        model1.setFlag(0);
-        model1.setId(0);
-        model1.setBrand("아델리");
-        model1.setTitle("아이 체형에 딱 맞춘 기능성 잠옷");
-        model1.setDesc("아이가 잠옷이 불편해서 잠을 설치는 일은 더이상 없도록 통기성과 신축성이 뛰어난 원단을 활용한 기능성 잠옷");
-        model1.setDate_end("12시간 20분 55초");
-        items.add(model1);
+                }
+                return code.equals(HttpCode.OK);
+            })
+            .map(data -> gson.fromJson(data.getData(), PreorderPageDataModel.class))
+            .subscribe(this::resPreorderClose, Timber::e));
+    }
 
-        PreorderDataModel model2 = new PreorderDataModel();
-        model2.setFlag(0);
-        model2.setId(1);
-        model2.setBrand("퓨어오가닉");
-        model2.setTitle("코디 걱정 없는 인기만점 데일리 등원룩 완성");
-        model2.setDesc("아이가 잠옷이 불편해서 잠을 설치는 일은 더이상 없도록 통기성과 신축성이 뛰어난 원단을 활용한 기능성 잠옷");
-        model2.setDate_end("1시간 9분 2초");
-        items.add(model2);
-
+    private void resPreorderClose(PreorderPageDataModel data) {
+        totalPage = data.getTotal();
+        List<PreorderDataModel> items = data.getPreorders();
+        lastPreorderNo = items.get(items.size() - 1).getPreorderNo();
         adapter.set(items);
         view.refresh();
+    }
+
+    private void reqLoadMorePreorderClose() {
+        page.incrementAndGet();
+        addDisposable(preorderRequest.getClosePreorders(ROWS, lastPreorderNo)
+            .compose(Transformer.applySchedulers())
+            .filter(data -> {
+                String code = data.getCode();
+                return code.equals(HttpCode.OK);
+            })
+            .map(data -> gson.fromJson(data.getData(), PreorderPageDataModel.class))
+            .subscribe(this::resLoadMorePreorderClose, Timber::e));
+    }
+
+    private void resLoadMorePreorderClose(PreorderPageDataModel data) {
+        List<PreorderDataModel> items = data.getPreorders();
+        lastPreorderNo = items.get(items.size() - 1).getPreorderNo();
+        int start = adapter.getSize();
+        adapter.addAll(items);
+        view.refresh(start, items.size());
     }
 }

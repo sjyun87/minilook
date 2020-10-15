@@ -6,13 +6,13 @@ import androidx.lifecycle.OnLifecycleEvent;
 
 public interface PreorderOpenPresenter extends LifecycleObserver {
 
-  @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-  void onCreate();
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    void onCreate();
 
-  interface View {
+    interface View {
 
-      void setupRecyclerView();
+        void setupRecyclerView();
 
-      void refresh();
-  }
+        void refresh();
+    }
 }

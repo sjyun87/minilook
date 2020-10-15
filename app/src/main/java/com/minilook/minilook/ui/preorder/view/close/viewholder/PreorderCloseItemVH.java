@@ -23,8 +23,6 @@ public class PreorderCloseItemVH extends BaseViewHolder<PreorderDataModel> {
     @BindView(R.id.txt_title) TextView titleTextView;
     @BindView(R.id.txt_desc) TextView descTextView;
 
-    @BindString(R.string.preorder_end_date) String format_end_date;
-
     @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
 
     public PreorderCloseItemVH(@NonNull View itemView) {
@@ -36,13 +34,13 @@ public class PreorderCloseItemVH extends BaseViewHolder<PreorderDataModel> {
         super.bind($data);
 
         Glide.with(context)
-            .load(data.getUrl_thumb())
+            .load(data.getThumbUrl())
             .placeholder(img_placeholder)
             .error(img_placeholder)
             .transition(new DrawableTransitionOptions().crossFade())
             .into(thumbImageView);
 
-        brandTextView.setText(data.getBrand());
+        brandTextView.setText(data.getBrandName());
         titleTextView.setText(data.getTitle());
         descTextView.setText(data.getDesc());
     }

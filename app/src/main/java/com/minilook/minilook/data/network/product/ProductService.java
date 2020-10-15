@@ -16,7 +16,7 @@ public interface ProductService {
         @Body RequestBody body
     );
 
-    @GET("/api/products/{product_id}/productNo") Single<BaseDataModel> getProductOptions(
+    @GET("/api/products/{productNo}/options") Single<BaseDataModel> getProductOptions(
         @Path("productNo") int productNo
     );
 }

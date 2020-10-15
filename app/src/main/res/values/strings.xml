@@ -454,11 +454,13 @@
     <string name="preorder_accent">소중한 아이에게\n가장 먼저 특별함을 선물하세요.</string>
     <string name="preorder_process_title">프리오더 진행과정</string>
 
+    <string name="preorder_d_day">D-%d</string>
     <string name="preorder_open">진행 중</string>
-    <string name="preorder_end_date">주문 종료 %s 남음</string>
+    <string name="preorder_open_date">%s %s</string>
     <string name="preorder_coming_soon">COMING SOON</string>
     <string name="preorder_coming_soon_desc">관심 있는 프리오더 알림을 받아보세요\n주문이 오픈되면 알려드립니다</string>
     <string name="preorder_coming">예정</string>
+    <string name="preorder_coming_date">오픈 %s %s</string>
     <string name="preorder_start_date">주문 오픈 %s 남음</string>
     <string name="preorder_close">마감</string>
     <string name="preorder_close_end">주문 종료</string>

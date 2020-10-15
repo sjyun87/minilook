@@ -19,6 +19,11 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.util.SpannableUtil;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import timber.log.Timber;
 
 public class PreorderComingItemVH extends BaseViewHolder<PreorderDataModel> {
 
@@ -28,7 +33,9 @@ public class PreorderComingItemVH extends BaseViewHolder<PreorderDataModel> {
     @BindView(R.id.txt_title) TextView titleTextView;
     @BindView(R.id.txt_desc) TextView descTextView;
 
-    @BindString(R.string.preorder_start_date) String format_start_date;
+    @BindString(R.string.preorder_d_day) String format_d_day;
+    @BindString(R.string.preorder_coming_date) String format_date;
+
     @BindString(R.string.preorder_notification_off) String str_noti_off;
     @BindString(R.string.preorder_notification_on) String str_noti_on;
 
@@ -48,20 +55,29 @@ public class PreorderComingItemVH extends BaseViewHolder<PreorderDataModel> {
         super.bind($data);
 
         Glide.with(context)
-            .load(data.getUrl_thumb())
+            .load(data.getThumbUrl())
             .placeholder(img_placeholder)
             .error(img_placeholder)
             .transition(new DrawableTransitionOptions().crossFade())
             .into(thumbImageView);
 
-        startDateTextView.setText(getStartDate(data.getDate_start()));
-        brandTextView.setText(data.getBrand());
+        startDateTextView.setText(getStartDate(data.getStartDate()));
+        brandTextView.setText(data.getBrandName());
         titleTextView.setText(data.getTitle());
         descTextView.setText(data.getDesc());
     }
 
-    private SpannableString getStartDate(String date) {
-        String total = String.format(format_start_date, date);
-        return SpannableUtil.styleSpan(total, date, Typeface.BOLD);
+    private SpannableString getStartDate(long date) {
+        Date startDate = new Date(date);
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd(E)", Locale.KOREA);
+        String strStartData = format.format(startDate);
+
+        long todayDay = Calendar.getInstance().getTimeInMillis() / (24 * 60 * 60 * 1000);
+        long targetDay = startDate.getTime() / (24 * 60 * 60 * 1000);
+        long count = targetDay - todayDay;
+
+        String dday = String.format(format_d_day, count);
+        String totalStartData = String.format(format_date, strStartData, dday);
+        return SpannableUtil.styleSpan(totalStartData, dday, Typeface.BOLD);
     }
 }
