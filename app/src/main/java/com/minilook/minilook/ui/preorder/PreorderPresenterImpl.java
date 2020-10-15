@@ -29,10 +29,15 @@ public class PreorderPresenterImpl extends BasePresenterImpl implements Preorder
         addDisposable(RxBus.toObservable().subscribe(o -> {
             if (o instanceof RxBusEventPreorderInfoClick) {
                 view.navigateToPreorderInfo();
+            } else if (o instanceof RxBusEventClosePreorderEmpty) {
+                view.hideClosePreorderTab();
             }
         }, Timber::e));
     }
 
     @AllArgsConstructor @Getter public final static class RxBusEventPreorderInfoClick {
+    }
+
+    @AllArgsConstructor @Getter public final static class RxBusEventClosePreorderEmpty {
     }
 }

@@ -41,7 +41,7 @@ public class PreorderComingPresenterImpl extends BasePresenterImpl implements Pr
             .filter(data -> {
                 String code = data.getCode();
                 if (code.equals(HttpCode.NO_DATA)) {
-
+                    view.showEmptyPanel();
                 }
                 return code.equals(HttpCode.OK);
             })

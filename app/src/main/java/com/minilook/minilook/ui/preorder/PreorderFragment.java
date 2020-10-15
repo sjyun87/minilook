@@ -93,4 +93,8 @@ public class PreorderFragment extends BaseFragment implements PreorderPresenter.
     @Override public void navigateToPreorderInfo() {
         PreorderInfoActivity.start(getContext());
     }
+
+    @Override public void hideClosePreorderTab() {
+        tabLayout.removeTabAt(tabLayout.getTabCount() - 1);
+    }
 }

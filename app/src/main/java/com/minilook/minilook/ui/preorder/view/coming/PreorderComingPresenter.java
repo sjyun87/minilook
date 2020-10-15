@@ -14,5 +14,7 @@ public interface PreorderComingPresenter extends LifecycleObserver {
       void setupRecyclerView();
 
       void refresh();
+
+      void showEmptyPanel();
   }
 }

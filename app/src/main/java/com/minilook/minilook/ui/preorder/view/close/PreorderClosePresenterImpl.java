@@ -5,9 +5,11 @@ import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
 import com.minilook.minilook.data.model.preorder.PreorderPageDataModel;
 import com.minilook.minilook.data.network.preorder.PreorderRequest;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
+import com.minilook.minilook.ui.preorder.PreorderPresenterImpl;
 import com.minilook.minilook.ui.preorder.view.close.di.PreorderCloseArguments;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -48,7 +50,7 @@ public class PreorderClosePresenterImpl extends BasePresenterImpl implements Pre
             .filter(data -> {
                 String code = data.getCode();
                 if (code.equals(HttpCode.NO_DATA)) {
-
+                    RxBus.send(new PreorderPresenterImpl.RxBusEventClosePreorderEmpty());
                 }
                 return code.equals(HttpCode.OK);
             })

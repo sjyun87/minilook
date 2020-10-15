@@ -40,7 +40,7 @@ public class PreorderOpenPresenterImpl extends BasePresenterImpl implements Preo
             .filter(data -> {
                 String code = data.getCode();
                 if (code.equals(HttpCode.NO_DATA)) {
-
+                    view.showEmptyPanel();
                 }
                 return code.equals(HttpCode.OK);
             })

@@ -1,5 +1,7 @@
 package com.minilook.minilook.ui.preorder.view.coming;
 
+import android.view.View;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindDimen;
@@ -19,6 +21,7 @@ public class PreorderComingFragment extends BaseFragment implements PreorderComi
     }
 
     @BindView(R.id.rcv_preorder_coming) RecyclerView recyclerView;
+    @BindView(R.id.layout_empty_panel) ConstraintLayout emptyPanel;
 
     @BindDimen(R.dimen.dp_4) int dp_4;
 
@@ -54,5 +57,9 @@ public class PreorderComingFragment extends BaseFragment implements PreorderComi
 
     @Override public void refresh() {
         adapterView.refresh();
+    }
+
+    @Override public void showEmptyPanel() {
+        emptyPanel.setVisibility(View.VISIBLE);
     }
 }
