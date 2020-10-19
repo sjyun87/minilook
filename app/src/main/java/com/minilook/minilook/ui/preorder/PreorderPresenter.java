@@ -22,5 +22,7 @@ public interface PreorderPresenter extends LifecycleObserver {
       void navigateToPreorderInfo();
 
       void hideClosePreorderTab();
+
+      void navigateToPreorderDetail(int preorderNo);
   }
 }

@@ -5,14 +5,344 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="프리오더 상세"
-        android:textSize="40sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <com.minilook.minilook.ui.base.widget.TitleBar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:showBack="true" />
 
+    <me.didik.component.StickyNestedScrollView
+        android:id="@+id/nsv_root"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titlebar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/dp_80">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vp_preorder_image"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="H,1:1"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:orientation="horizontal" />
+
+            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                android:id="@+id/indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:layout_marginBottom="@dimen/dp_16"
+                app:dotsColor="@color/color_FFEEEFF5"
+                app:dotsCornerRadius="0dp"
+                app:dotsSize="@dimen/dp_4"
+                app:dotsSpacing="@dimen/dp_2"
+                app:dotsWidthFactor="1"
+                app:layout_constraintBottom_toBottomOf="@+id/vp_preorder_image"
+                app:layout_constraintRight_toRightOf="@+id/vp_preorder_image"
+                app:selectedDotColor="@color/color_FF8140E5" />
+
+            <TextView
+                android:id="@+id/txt_brand_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_9"
+                android:fontFamily="@font/nanum_square_b"
+                android:textColor="@color/color_FF424242"
+                android:textSize="@dimen/sp_7"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/vp_preorder_image"
+                tools:text="아델리" />
+
+            <TextView
+                android:id="@+id/txt_preorder_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_6"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:fontFamily="@font/nanum_square_b"
+                android:letterSpacing="-0.02"
+                android:lineSpacingMultiplier="1.3"
+                android:textColor="@color/color_FF232323"
+                android:textSize="@dimen/sp_12"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_brand_name"
+                tools:text="아이 체형에 딱 맞춘 기능성 잠옷" />
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/dp_12"
+                android:background="@color/color_FFDBDBDB"
+                app:layout_constraintTop_toBottomOf="@+id/txt_preorder_title" />
+
+            <TextView
+                android:id="@+id/txt_info_caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:fontFamily="@font/nanum_square_eb"
+                android:text="@string/preorder_detail_info_caption"
+                android:textColor="@color/color_FF232323"
+                android:textSize="@dimen/sp_8"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line1" />
+
+            <ImageView
+                android:id="@+id/img_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_2"
+                android:src="@drawable/ic_info"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_info_caption"
+                app:layout_constraintLeft_toRightOf="@+id/txt_info_caption"
+                app:layout_constraintTop_toTopOf="@+id/txt_info_caption"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/txt_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_12"
+                android:background="@drawable/bg_round_border_purple"
+                android:fontFamily="@font/nanum_square_b"
+                android:paddingStart="@dimen/dp_5"
+                android:paddingTop="@dimen/dp_2"
+                android:paddingEnd="@dimen/dp_5"
+                android:paddingBottom="@dimen/dp_2"
+                android:textColor="@color/color_FF8140E5"
+                android:textSize="@dimen/sp_6"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_info_caption"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/txt_info_caption"
+                tools:text="진행중" />
+
+            <FrameLayout
+                android:id="@+id/layout_state_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_12"
+                android:layout_marginTop="@dimen/dp_12"
+                app:layout_constraintTop_toBottomOf="@+id/txt_info_caption">
+
+                <LinearLayout
+                    android:id="@+id/layout_remain_panel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_remain_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nanum_square_eb"
+                        android:textColor="@color/color_FF232323"
+                        android:textSize="@dimen/sp_16"
+                        tools:text="3일" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginStart="@dimen/dp_4"
+                        android:fontFamily="@font/nanum_square_r"
+                        android:text="@string/preorder_detail_remain_date"
+                        android:textColor="@color/color_FF232323"
+                        android:textSize="@dimen/sp_7" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txt_preorder_close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanum_square_eb"
+                    android:text="@string/preorder_detail_close"
+                    android:textColor="@color/color_FF616161"
+                    android:textSize="@dimen/sp_16"
+                    android:visibility="gone" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/txt_term_date_caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_12"
+                android:layout_marginTop="@dimen/dp_12"
+                android:fontFamily="@font/nanum_square_r"
+                android:text="@string/preorder_detail_term_date_caption"
+                android:textColor="@color/color_FF232323"
+                android:textSize="@dimen/sp_6"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_state_panel" />
+
+            <TextView
+                android:id="@+id/txt_term_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:fontFamily="@font/nanum_square_b"
+                android:textColor="@color/color_FF232323"
+                android:textSize="@dimen/sp_6"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_term_date_caption"
+                app:layout_constraintLeft_toRightOf="@+id/txt_term_date_caption"
+                app:layout_constraintTop_toTopOf="@+id/txt_term_date_caption"
+                tools:text="2020.07.15 ~ 2020.07.26" />
+
+            <TextView
+                android:id="@+id/txt_delivery_date_caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:fontFamily="@font/nanum_square_r"
+                android:text="@string/preorder_detail_delivery_date_caption"
+                android:textColor="@color/color_FF232323"
+                android:textSize="@dimen/sp_6"
+                app:layout_constraintLeft_toLeftOf="@+id/txt_term_date_caption"
+                app:layout_constraintTop_toBottomOf="@+id/txt_term_date_caption" />
+
+            <TextView
+                android:id="@+id/txt_delivery_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nanum_square_b"
+                android:textColor="@color/color_FF8140E5"
+                android:textSize="@dimen/sp_6"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_delivery_date_caption"
+                app:layout_constraintLeft_toLeftOf="@+id/txt_term_date"
+                app:layout_constraintTop_toTopOf="@+id/txt_delivery_date_caption"
+                tools:text="7월 28일 수요일" />
+
+            <View
+                android:id="@+id/line2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/dp_14"
+                android:background="@color/color_FFDBDBDB"
+                app:layout_constraintTop_toBottomOf="@+id/txt_delivery_date_caption" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/layout_tab_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_FFFFFFFF"
+                android:tag="sticky"
+                app:layout_constraintTop_toBottomOf="@+id/line2"
+                app:tabIndicatorColor="@color/color_FF8140E5"
+                app:tabIndicatorHeight="@dimen/dp_1"
+                app:tabMode="fixed"
+                app:tabRippleColor="@android:color/transparent" />
+
+            <WebView
+                android:id="@+id/webview_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/layout_tab_panel" />
+
+            <View
+                android:id="@+id/line3"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_8"
+                android:background="@color/color_FFF5F5F5"
+                app:layout_constraintTop_toBottomOf="@+id/webview_content" />
+
+            <ImageView
+                android:id="@+id/img_product_detail_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_11"
+                android:src="@drawable/ic_detail"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/txt_product_detail_desc"
+                app:layout_constraintTop_toBottomOf="@+id/line3"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/txt_product_detail_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_4"
+                android:fontFamily="@font/nanum_square_r"
+                android:text="@string/preorder_detail_product_detail_desc"
+                android:textColor="@color/color_FF232323"
+                android:textSize="@dimen/sp_6"
+                app:layout_constraintBottom_toBottomOf="@+id/img_product_detail_desc"
+                app:layout_constraintLeft_toRightOf="@+id/img_product_detail_desc"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/img_product_detail_desc" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_11"
+                app:layout_constraintTop_toBottomOf="@+id/img_product_detail_desc" />
+
+            <View
+                android:id="@+id/line4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_FFDBDBDB"
+                app:layout_constraintTop_toBottomOf="@+id/rcv_product" />
+
+            <LinearLayout
+                android:id="@+id/layout_shipping_n_refund_panel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_32"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_8"
+                app:layout_constraintTop_toBottomOf="@+id/line4"
+                tools:ignore="UseCompoundDrawables">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:includeFontPadding="false"
+                    android:text="@string/product_detail_shipping_n_refund_title"
+                    android:textColor="@color/color_FF232323"
+                    android:textSize="@dimen/sp_9" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_right_black"
+                    tools:ignore="ContentDescription" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_FFDBDBDB"
+                app:layout_constraintTop_toBottomOf="@+id/layout_shipping_n_refund_panel" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </me.didik.component.StickyNestedScrollView>
+
+    <TextView
+        android:id="@+id/txt_buy"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_30"
+        android:background="@color/color_FF8140E5"
+        android:fontFamily="@font/nanum_square_eb"
+        android:gravity="center"
+        android:text="@string/product_detail_buy"
+        android:textColor="@color/color_FFFFFFFF"
+        android:textSize="@dimen/sp_10"
+        app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

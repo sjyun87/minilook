@@ -30,4 +30,8 @@ public class PreorderRequest extends BaseRequest<PreorderService> {
         jsonMap.put("pageSize", rows);
         return jsonMap;
     }
+
+    public Single<BaseDataModel> getPreorder(int preorderNo) {
+        return getApi().getPreorder(preorderNo);
+    }
 }

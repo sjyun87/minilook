@@ -13,6 +13,12 @@
         <item>주문종료</item>
     </string-array>
 
+    <string-array name="tab_preorder_detail">
+        <item>소개</item>
+        <item>상품</item>
+        <item>배송 · 환불</item>
+    </string-array>
+
     <string-array name="tab_scrapbook">
         <item>상품</item>
         <item>브랜드</item>

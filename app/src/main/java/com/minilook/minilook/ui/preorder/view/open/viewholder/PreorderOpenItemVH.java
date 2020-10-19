@@ -16,12 +16,15 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.util.SpannableUtil;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import timber.log.Timber;
 
 public class PreorderOpenItemVH extends BaseViewHolder<PreorderDataModel> {
@@ -56,6 +59,8 @@ public class PreorderOpenItemVH extends BaseViewHolder<PreorderDataModel> {
         brandTextView.setText(data.getBrandName());
         titleTextView.setText(data.getTitle());
         descTextView.setText(data.getDesc());
+
+        itemView.setOnClickListener(this::onItemClick);
     }
 
     private SpannableString getEndDate(long date) {
@@ -70,5 +75,13 @@ public class PreorderOpenItemVH extends BaseViewHolder<PreorderDataModel> {
         String dday = String.format(format_d_day, count);
         String totalEndData = String.format(format_date, strEndData, dday);
         return SpannableUtil.styleSpan(totalEndData, dday, Typeface.BOLD);
+    }
+
+    private void onItemClick(View view) {
+        RxBus.send(new RxBusEventPreorderClick(data.getPreorderNo()));
+    }
+
+    @AllArgsConstructor @Getter public final static class RxBusEventPreorderClick {
+        int preorderNo;
     }
 }

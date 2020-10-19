@@ -9,6 +9,7 @@ import com.minilook.minilook.ui.base.BaseFragment;
 import com.minilook.minilook.ui.base.widget.TabView;
 import com.minilook.minilook.ui.preorder.adapter.PreorderPagerAdapter;
 import com.minilook.minilook.ui.preorder.di.PreorderArguments;
+import com.minilook.minilook.ui.preorder_detail.PreorderDetailActivity;
 import com.minilook.minilook.ui.preorder_info.PreorderInfoActivity;
 import java.util.Objects;
 
@@ -96,5 +97,9 @@ public class PreorderFragment extends BaseFragment implements PreorderPresenter.
 
     @Override public void hideClosePreorderTab() {
         tabLayout.removeTabAt(tabLayout.getTabCount() - 1);
+    }
+
+    @Override public void navigateToPreorderDetail(int preorderNo) {
+        PreorderDetailActivity.start(getContext(), preorderNo);
     }
 }

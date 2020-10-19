@@ -6,6 +6,7 @@ import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface PreorderService {
 
@@ -15,5 +16,9 @@ public interface PreorderService {
 
     @POST("/api/preorders/ends") Single<BaseDataModel> getClosePreorders(
         @Body RequestBody body
+    );
+
+    @GET("/api/preorders/{preorderNo}") Single<BaseDataModel> getPreorder(
+        @Path("preorderNo") int preorderNo
     );
 }

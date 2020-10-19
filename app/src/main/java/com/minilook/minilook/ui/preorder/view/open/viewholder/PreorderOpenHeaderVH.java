@@ -9,7 +9,8 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
-import com.minilook.minilook.ui.preorder.PreorderPresenterImpl;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 public class PreorderOpenHeaderVH extends BaseViewHolder<PreorderDataModel> {
 
@@ -20,6 +21,9 @@ public class PreorderOpenHeaderVH extends BaseViewHolder<PreorderDataModel> {
 
     @OnClick(R.id.img_info)
     void onInfoClick() {
-        RxBus.send(new PreorderPresenterImpl.RxBusEventPreorderInfoClick());
+        RxBus.send(new RxBusEventPreorderInfoClick());
+    }
+
+    @AllArgsConstructor @Getter public final static class RxBusEventPreorderInfoClick {
     }
 }

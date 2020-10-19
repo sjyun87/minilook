@@ -9,10 +9,11 @@ import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
-import com.minilook.minilook.ui.preorder.PreorderPresenterImpl;
 import com.minilook.minilook.ui.preorder.view.close.di.PreorderCloseArguments;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import timber.log.Timber;
 
 public class PreorderClosePresenterImpl extends BasePresenterImpl implements PreorderClosePresenter {
@@ -50,7 +51,7 @@ public class PreorderClosePresenterImpl extends BasePresenterImpl implements Pre
             .filter(data -> {
                 String code = data.getCode();
                 if (code.equals(HttpCode.NO_DATA)) {
-                    RxBus.send(new PreorderPresenterImpl.RxBusEventClosePreorderEmpty());
+                    RxBus.send(new RxBusEventClosePreorderEmpty());
                 }
                 return code.equals(HttpCode.OK);
             })
@@ -84,5 +85,8 @@ public class PreorderClosePresenterImpl extends BasePresenterImpl implements Pre
         int start = adapter.getSize();
         adapter.addAll(items);
         view.refresh(start, items.size());
+    }
+
+    @AllArgsConstructor @Getter public final static class RxBusEventClosePreorderEmpty {
     }
 }
