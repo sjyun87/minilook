@@ -29,6 +29,7 @@ import com.minilook.minilook.ui.preorder_detail.adapter.PreorderDetailImageAdapt
 import com.minilook.minilook.ui.preorder_detail.adapter.PreorderDetailProductAdapter;
 import com.minilook.minilook.ui.preorder_detail.di.PreorderDetailArguments;
 import com.minilook.minilook.ui.preorder_info.PreorderInfoActivity;
+import com.minilook.minilook.ui.preorder_product_detail.PreorderProductDetailActivity;
 import com.minilook.minilook.ui.product_detail.widget.ProductTabView;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 import java.util.Objects;
@@ -231,6 +232,10 @@ public class PreorderDetailActivity extends BaseActivity implements PreorderDeta
 
     @Override public void scrollToShippingNRefund() {
         scrollView.smoothScrollTo(0, (int) shippingNRefundPanel.getY() - tabLayout.getHeight());
+    }
+
+    @Override public void navigateToPreorderProductDetail(String title, int preorderNo, int productNo) {
+        PreorderProductDetailActivity.start(this, title, preorderNo, productNo);
     }
 
     @OnClick({ R.id.img_info, R.id.layout_shipping_n_refund_panel })

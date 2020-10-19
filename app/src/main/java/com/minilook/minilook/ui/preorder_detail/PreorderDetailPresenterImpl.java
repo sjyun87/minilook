@@ -6,10 +6,15 @@ import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.network.preorder.PreorderRequest;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.preorder_detail.di.PreorderDetailArguments;
+import com.minilook.minilook.ui.preorder_detail.viewholder.PreorderDetailProductVH;
+import com.minilook.minilook.ui.profile.ProfilePresenterImpl;
+import com.minilook.minilook.ui.shipping.ShippingPresenterImpl;
+import com.minilook.minilook.ui.verify.VerifyActivity;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -36,10 +41,12 @@ public class PreorderDetailPresenterImpl extends BasePresenterImpl implements Pr
     }
 
     @Override public void onCreate() {
+        toRxObservable();
         view.setupViewPager();
         view.setupTabLayout();
         view.setupWebView();
         view.setupRecyclerView();
+
         reqPreorder();
     }
 
@@ -114,5 +121,16 @@ public class PreorderDetailPresenterImpl extends BasePresenterImpl implements Pr
     private String getDeliveryDate(long deliveryDate) {
         SimpleDateFormat format = new SimpleDateFormat("MM월 dd일 E요일", Locale.KOREA);
         return format.format(new Date(deliveryDate));
+    }
+
+
+    private void toRxObservable() {
+        addDisposable(RxBus.toObservable().subscribe(o -> {
+            if (o instanceof PreorderDetailProductVH.RxEventPreorderProductClick) {
+                String title = ((PreorderDetailProductVH.RxEventPreorderProductClick) o).getTitle();
+                int productNo = ((PreorderDetailProductVH.RxEventPreorderProductClick) o).getProductNo();
+                view.navigateToPreorderProductDetail(title, preorderNo, productNo);
+            }
+        }, Timber::e));
     }
 }

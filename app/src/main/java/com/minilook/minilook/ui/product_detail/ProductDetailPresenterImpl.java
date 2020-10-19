@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.code.DisplayCode;
 import com.minilook.minilook.data.code.ShippingCode;
+import com.minilook.minilook.data.code.StockType;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.product.ProductColorDataModel;
@@ -35,9 +36,6 @@ import lombok.Getter;
 import timber.log.Timber;
 
 public class ProductDetailPresenterImpl extends BasePresenterImpl implements ProductDetailPresenter {
-
-    private static final String STOCK_TYPE_SIZE = "size";
-    private static final String STOCK_TYPE_COLOR = "color";
 
     private final View view;
     private final int productNo;
@@ -207,10 +205,13 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
 
         if (data.getStocks() != null) {
             for (ProductStockDataModel model : data.getStocks()) {
-                if (model.getType().equals(STOCK_TYPE_COLOR)) {
-                    view.addColorView(model);
-                } else if (model.getType().equals(STOCK_TYPE_SIZE)) {
-                    view.addSizeView(model);
+                switch (StockType.toType(model.getType())) {
+                    case SIZE:
+                        view.addSizeView(model);
+                        break;
+                    case COLOR:
+                        view.addColorView(model);
+                        break;
                 }
             }
         }

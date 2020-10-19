@@ -205,6 +205,11 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
+            android:name=".ui.preorder_product_detail.PreorderProductDetailActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
             android:name=".ui.guide.GuideActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />

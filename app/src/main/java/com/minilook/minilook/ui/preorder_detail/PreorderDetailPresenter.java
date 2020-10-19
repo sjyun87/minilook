@@ -54,5 +54,7 @@ public interface PreorderDetailPresenter extends LifecycleObserver {
         void scrollToProduct();
 
         void scrollToShippingNRefund();
+
+        void navigateToPreorderProductDetail(String title, int preorderNo, int productNo);
     }
 }
