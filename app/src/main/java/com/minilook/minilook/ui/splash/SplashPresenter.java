@@ -3,6 +3,8 @@ package com.minilook.minilook.ui.splash;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 
 public interface SplashPresenter extends LifecycleObserver {
 
@@ -16,6 +18,8 @@ public interface SplashPresenter extends LifecycleObserver {
     void onUpdateDialogCancelClick();
 
     void onErrorDialogOkClick();
+
+    void onDynamicLinkCheckComplete(Task<PendingDynamicLinkData> task);
 
     interface View {
 
@@ -32,5 +36,7 @@ public interface SplashPresenter extends LifecycleObserver {
         void navigateToMain();
 
         void finish();
+
+        void checkDynamicLink();
     }
 }

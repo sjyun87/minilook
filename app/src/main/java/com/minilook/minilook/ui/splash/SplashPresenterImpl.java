@@ -1,5 +1,7 @@
 package com.minilook.minilook.ui.splash;
 
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.App;
@@ -57,6 +59,12 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
         view.finish();
     }
 
+    @Override public void onDynamicLinkCheckComplete(Task<PendingDynamicLinkData> task) {
+        if (task.getResult() != null) {
+
+        }
+    }
+
     private void reqCheckAppVersion() {
         if (BuildConfig.DEBUG) {
             startApp();
@@ -84,6 +92,7 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
     }
 
     private void startApp() {
+        view.checkDynamicLink();
         reqSortCode();
     }
 
@@ -104,7 +113,7 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
 
     private void checkToDo() {
         if (isAnimationEnd && isCommonDataGet) {
-            checkGuide();
+            //checkGuide();
         }
     }
 

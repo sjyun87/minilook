@@ -56,10 +56,6 @@ dependencies {
   androidTestImplementation "com.android.support.test:runner:$runner_version"
   androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_version"
 
-  // Firebase
-  implementation "com.google.firebase:firebase-analytics:$firebase_analytics_version"
-  implementation "com.google.firebase:firebase-crashlytics:$firebase_crashlytics_version"
-
   // AndroidX
   implementation "androidx.appcompat:appcompat:$appcompat_version"
   implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
@@ -71,6 +67,9 @@ dependencies {
   // Firebase
   implementation "com.google.firebase:firebase-analytics:$firebase_analytics_version"
   implementation "com.google.firebase:firebase-messaging:$firebase_messaging_version"
+  implementation "com.google.firebase:firebase-crashlytics:$firebase_crashlytics_version"
+  implementation "com.google.firebase:firebase-dynamic-links:$firebase_dynamic_link_version"
+
 
   // Butter Knife
   implementation "com.jakewharton:butterknife:$butterknife_version"
