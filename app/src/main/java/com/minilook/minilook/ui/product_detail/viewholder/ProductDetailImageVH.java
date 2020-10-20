@@ -15,7 +15,7 @@ import com.minilook.minilook.ui.base.BaseViewHolder;
 
 public class ProductDetailImageVH extends BaseViewHolder<String> {
 
-    @BindView(R.id.img_style) ImageView imageView;
+    @BindView(R.id.img_product) ImageView imageView;
 
     @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
 

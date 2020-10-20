@@ -6,9 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import butterknife.BindView;
 import com.airbnb.lottie.LottieAnimationView;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
-import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
@@ -71,7 +69,7 @@ public class SplashActivity extends BaseActivity implements SplashPresenter.View
     @Override public void checkDynamicLink() {
         FirebaseDynamicLinks.getInstance()
             .getDynamicLink(getIntent())
-            .addOnCompleteListener(this, task -> presenter.onDynamicLinkCheckComplete(task))
+            .addOnCompleteListener(this, task -> presenter.onDynamicLinkCheckComplete(task));
     }
 
     @Override public void onBackPressed() {

@@ -113,7 +113,7 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
 
     private void checkToDo() {
         if (isAnimationEnd && isCommonDataGet) {
-            //checkGuide();
+            checkGuide();
         }
     }
 

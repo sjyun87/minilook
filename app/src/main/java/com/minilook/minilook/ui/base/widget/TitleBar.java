@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -94,6 +95,13 @@ public class TitleBar extends ConstraintLayout {
     @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         setMeasuredDimension(widthMeasureSpec, getResources().getDimensionPixelSize(R.dimen.dp_30));
+    }
+
+    @Override protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        ViewGroup.LayoutParams params = getLayoutParams();
+        params.height = getResources().getDimensionPixelSize(R.dimen.dp_30);
+        setLayoutParams(params);
     }
 
     private void initView() {
