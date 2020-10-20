@@ -88,7 +88,6 @@ public class PreorderFragment extends BaseFragment implements PreorderPresenter.
 
     @Override public void setupCurrentPage(int position) {
         viewPager.setCurrentItem(position);
-        adapter.notifyDataSetChanged();
     }
 
     @Override public void navigateToPreorderInfo() {
