@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.option_selector.viewholder;
+package com.minilook.minilook.ui.product_option_selector.viewholder;
 
 import android.graphics.Paint;
 import android.graphics.Typeface;
@@ -16,7 +16,7 @@ import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.base.widget.ColorView;
 import lombok.Setter;
 
-public class OptionSelectorColorVH extends BaseViewHolder<OptionColorDataModel> {
+public class ProductOptionSelectorColorVH extends BaseViewHolder<OptionColorDataModel> {
 
     @BindView(R.id.view_color) ColorView colorView;
     @BindView(R.id.txt_color) TextView colorTextView;
@@ -30,9 +30,9 @@ public class OptionSelectorColorVH extends BaseViewHolder<OptionColorDataModel> 
 
     @Setter private OnColorSelectedListener onColorSelectedListener;
 
-    public OptionSelectorColorVH(@NonNull View itemView) {
+    public ProductOptionSelectorColorVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_option_selector_color, (ViewGroup) itemView, false));
+            .inflate(R.layout.item_product_option_selector_color, (ViewGroup) itemView, false));
     }
 
     @Override public void bind(OptionColorDataModel $data) {

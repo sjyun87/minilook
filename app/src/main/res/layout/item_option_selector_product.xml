@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_40">
+
+    <View
+        android:id="@+id/line_left"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/color_FFA9A9A9"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/img_product_thumb"
+        android:layout_width="@dimen/dp_30"
+        android:layout_height="@dimen/dp_30"
+        android:layout_marginStart="@dimen/dp_8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <FrameLayout
+        android:id="@+id/layout_display_curtain"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_product_thumb"
+        app:layout_constraintLeft_toLeftOf="@+id/img_product_thumb"
+        app:layout_constraintRight_toRightOf="@+id/img_product_thumb"
+        app:layout_constraintTop_toTopOf="@+id/img_product_thumb">
+
+        <TextView
+            android:id="@+id/txt_display_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_display_label"
+            android:gravity="center"
+            android:textColor="@color/color_FFFFFFFF"
+            android:textSize="@dimen/sp_6"
+            tools:text="품절" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/txt_index"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_6"
+        android:fontFamily="@font/nanum_square_b"
+        android:textColor="@color/color_FF232323"
+        android:textSize="@dimen/sp_6"
+        app:layout_constraintLeft_toRightOf="@+id/img_product_thumb"
+        app:layout_constraintTop_toTopOf="@+id/img_product_thumb"
+        tools:text="상품 01" />
+
+    <TextView
+        android:id="@+id/txt_product_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_2"
+        android:layout_marginEnd="@dimen/dp_6"
+        android:ellipsize="end"
+        android:fontFamily="@font/nanum_square_r"
+        android:maxLines="1"
+        android:textColor="@color/color_FF232323"
+        android:textSize="@dimen/sp_7"
+        app:layout_constraintLeft_toLeftOf="@+id/txt_index"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_index"
+        tools:text="천연소가죽 태슬장식 클래식 톤다운 포인트주름 로퍼 " />
+
+    <TextView
+        android:id="@+id/txt_product_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_5"
+        android:fontFamily="@font/nanum_square_eb"
+        android:textColor="@color/color_FF232323"
+        android:textSize="@dimen/sp_7"
+        app:layout_constraintLeft_toLeftOf="@+id/txt_product_name"
+        app:layout_constraintTop_toBottomOf="@+id/txt_product_name"
+        tools:text="28,000" />
+
+    <View
+        android:id="@+id/line_right"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/color_FFA9A9A9"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

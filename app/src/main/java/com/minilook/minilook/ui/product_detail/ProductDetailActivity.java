@@ -29,7 +29,7 @@ import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.android.material.tabs.TabLayout;
 import com.minilook.minilook.App;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.product.ProductColorDataModel;
+import com.minilook.minilook.data.model.product.OptionColorDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.product.ProductStockDataModel;
 import com.minilook.minilook.data.model.review.ReviewDataModel;
@@ -43,7 +43,7 @@ import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.event_detail.EventDetailActivity;
 import com.minilook.minilook.ui.login.LoginActivity;
-import com.minilook.minilook.ui.option_selector.OptionSelector;
+import com.minilook.minilook.ui.product_option_selector.ProductOptionSelector;
 import com.minilook.minilook.ui.order.OrderActivity;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.product_detail.adapter.ProductDetailImageAdapter;
@@ -120,7 +120,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     @BindView(R.id.img_scrap) ImageView scrapImageView;
     @BindView(R.id.txt_buy) TextView buyTextView;
 
-    @BindView(R.id.option_selector) OptionSelector optionSelector;
+    @BindView(R.id.option_selector) ProductOptionSelector productOptionSelector;
 
     @BindString(R.string.base_price_percent) String format_percent;
     @BindString(R.string.product_detail_point) String format_point;
@@ -383,9 +383,9 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         getTabView(2).setupCount(text);
     }
 
-    @Override public void setupOptionSelector(int price, List<ProductColorDataModel> options) {
-        optionSelector.setupData(price, options);
-        optionSelector.setOnButtonClickListener(new OptionSelector.OnButtonClickListener() {
+    @Override public void setupOptionSelector(int price, List<OptionColorDataModel> options) {
+        productOptionSelector.setupData(price, options);
+        productOptionSelector.setOnButtonClickListener(new ProductOptionSelector.OnButtonClickListener() {
             @Override public void onShoppingBagClick(List<ShoppingOptionDataModel> optionData) {
                 presenter.onOptionSelectorShoppingBagClick(optionData);
             }
@@ -397,11 +397,11 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     }
 
     @Override public void showOptionSelector() {
-        optionSelector.show();
+        productOptionSelector.show();
     }
 
     @Override public void hideOptionSelector() {
-        optionSelector.hide();
+        productOptionSelector.hide();
     }
 
     @Override public void setupInfoStyleNo(String text) {

@@ -31,7 +31,7 @@
 
     <TextView
         android:id="@+id/txt_price_add"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_6"
         android:layout_marginEnd="@dimen/dp_6"
@@ -42,6 +42,7 @@
         android:textSize="@dimen/sp_7"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/txt_size"
+        app:layout_constraintRight_toLeftOf="@+id/txt_size_sold_out"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="+ 6,000" />
 

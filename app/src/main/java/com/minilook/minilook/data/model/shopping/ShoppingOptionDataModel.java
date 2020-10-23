@@ -1,7 +1,9 @@
 package com.minilook.minilook.data.model.shopping;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.minilook.minilook.data.model.base.BooleanDeserializer;
 import lombok.Data;
 
 @Data public class ShoppingOptionDataModel {
@@ -9,6 +11,21 @@ import lombok.Data;
     private int optionNo;                   // 옵션 아아디
     @Expose @SerializedName("cartNo")
     private int shoppingbagNo;              // 장바구니 아이디
+    @Expose @SerializedName("productNo")
+    private int productNo;
+    @Expose @SerializedName("productIndex")
+    private int productIndex;
+    @Expose @SerializedName("productName")
+    private String productName;
+    @Expose @SerializedName("image")
+    private String image;
+    @Expose @SerializedName("isdiscount")
+    @JsonAdapter(BooleanDeserializer.class)
+    private boolean isDiscount;
+    @Expose @SerializedName("discountPercent")
+    private int discountPercent;
+    @Expose @SerializedName("productPrice")
+    private int price;
     @Expose @SerializedName("colorCode")
     private String colorCode;               // 색상 코드
     @Expose @SerializedName("colorName")
@@ -28,4 +45,5 @@ import lombok.Data;
     private int limitQuantity;              // 주문 가능 수량
     private int priceSum;                   // 합산금액 (상품가격 + 추가금)
     private int brandNo;
+    private boolean isBonus;
 }

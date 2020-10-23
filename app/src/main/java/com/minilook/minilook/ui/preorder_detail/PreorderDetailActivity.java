@@ -1,14 +1,10 @@
 package com.minilook.minilook.ui.preorder_detail;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.View;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -20,18 +16,28 @@ import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.android.material.tabs.TabLayout;
+import com.minilook.minilook.App;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.product.OptionDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
+import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.ui.login.LoginActivity;
+import com.minilook.minilook.ui.option_selector.OptionSelector;
+import com.minilook.minilook.ui.order.OrderActivity;
 import com.minilook.minilook.ui.preorder_detail.adapter.PreorderDetailImageAdapter;
 import com.minilook.minilook.ui.preorder_detail.adapter.PreorderDetailProductAdapter;
 import com.minilook.minilook.ui.preorder_detail.di.PreorderDetailArguments;
 import com.minilook.minilook.ui.preorder_info.PreorderInfoActivity;
 import com.minilook.minilook.ui.preorder_product_detail.PreorderProductDetailActivity;
+import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.ui.product_detail.widget.ProductTabView;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
+import java.util.List;
 import java.util.Objects;
 import me.didik.component.StickyNestedScrollView;
 
@@ -57,10 +63,11 @@ public class PreorderDetailActivity extends BaseActivity implements PreorderDeta
     @BindView(R.id.txt_preorder_close) TextView closeTextView;
     @BindView(R.id.txt_delivery_date) TextView deliveryDateTextView;
     @BindView(R.id.layout_tab_panel) TabLayout tabLayout;
-    @BindView(R.id.webview_content) WebView preorderWebView;
+    @BindView(R.id.img_detail) ImageView detailImageView;
     @BindView(R.id.rcv_product) RecyclerView productRecyclerView;
     @BindView(R.id.layout_shipping_n_refund_panel) LinearLayout shippingNRefundPanel;
     @BindView(R.id.txt_buy) TextView buyTextView;
+    @BindView(R.id.option_selector) OptionSelector optionSelector;
 
     @BindString(R.string.preorder_detail_remain_date_unit) String format_remain_date;
 
@@ -136,23 +143,11 @@ public class PreorderDetailActivity extends BaseActivity implements PreorderDeta
         getTabView(0).setupSelected();
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
-    @Override public void setupWebView() {
-        preorderWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-        preorderWebView.getSettings().setJavaScriptEnabled(false);
-        preorderWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(false);
-        preorderWebView.getSettings().setAppCacheEnabled(true);
-        preorderWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-        preorderWebView.getSettings().setDomStorageEnabled(true);
-        preorderWebView.getSettings().setSupportMultipleWindows(false);
-        preorderWebView.getSettings().setSupportZoom(true);
-        preorderWebView.getSettings().setBuiltInZoomControls(true);
-        preorderWebView.setWebViewClient(new WebViewClient());
-        preorderWebView.setWebChromeClient(new WebChromeClient());
-    }
-
-    @Override public void setPreorderWebView(String url) {
-        preorderWebView.loadUrl(url);
+    @Override public void setDetailImage(String url) {
+        Glide.with(this)
+            .load(url)
+            .transition(new DrawableTransitionOptions().crossFade())
+            .into(detailImageView);
     }
 
     @Override public void setupRecyclerView() {
@@ -223,7 +218,7 @@ public class PreorderDetailActivity extends BaseActivity implements PreorderDeta
     }
 
     @Override public void scrollToPreorderInfo() {
-        scrollView.smoothScrollTo(0, (int) preorderWebView.getY() - tabLayout.getHeight());
+        scrollView.smoothScrollTo(0, (int) detailImageView.getY() - tabLayout.getHeight());
     }
 
     @Override public void scrollToProduct() {
@@ -238,8 +233,36 @@ public class PreorderDetailActivity extends BaseActivity implements PreorderDeta
         PreorderProductDetailActivity.start(this, title, preorderNo, productNo);
     }
 
+    @Override public void setupOptionSelector(OptionDataModel options) {
+        optionSelector.setupData(options);
+        optionSelector.setOnButtonClickListener(
+            shoppingProductData -> presenter.onOptionSelectorBuyClick(shoppingProductData));
+    }
+
+    @Override public void showOptionSelector() {
+        optionSelector.show();
+    }
+
+    @Override public void hideOptionSelector() {
+        optionSelector.hide();
+    }
+
+    @Override public void navigateToLogin() {
+        LoginActivity.start(this);
+    }
+
+    @Override public void navigateToOrder(List<ShoppingBrandDataModel> items) {
+        App.getInstance().setOrderItem(items);
+        OrderActivity.start(this, ProductDetailActivity.class.getSimpleName());
+    }
+
     @OnClick({ R.id.img_info, R.id.layout_shipping_n_refund_panel })
     void onInfoClick() {
         PreorderInfoActivity.start(this);
+    }
+
+    @OnClick(R.id.txt_buy)
+    void onBuyClick() {
+        presenter.onBuyClick();
     }
 }

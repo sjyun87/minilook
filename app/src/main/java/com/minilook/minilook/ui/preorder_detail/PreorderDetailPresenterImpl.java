@@ -1,10 +1,17 @@
 package com.minilook.minilook.ui.preorder_detail;
 
 import com.google.gson.Gson;
+import com.minilook.minilook.App;
 import com.minilook.minilook.data.code.DisplayCode;
+import com.minilook.minilook.data.code.ShippingCode;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
+import com.minilook.minilook.data.model.product.OptionDataModel;
+import com.minilook.minilook.data.model.product.OptionProductDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
+import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
+import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
+import com.minilook.minilook.data.model.shopping.ShoppingProductDataModel;
 import com.minilook.minilook.data.network.preorder.PreorderRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
@@ -12,12 +19,11 @@ import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.preorder_detail.di.PreorderDetailArguments;
 import com.minilook.minilook.ui.preorder_detail.viewholder.PreorderDetailProductVH;
-import com.minilook.minilook.ui.profile.ProfilePresenterImpl;
-import com.minilook.minilook.ui.shipping.ShippingPresenterImpl;
-import com.minilook.minilook.ui.verify.VerifyActivity;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import timber.log.Timber;
 
@@ -31,6 +37,7 @@ public class PreorderDetailPresenterImpl extends BasePresenterImpl implements Pr
     private final PreorderRequest preorderRequest;
 
     private Gson gson = new Gson();
+    private PreorderDataModel data;
 
     public PreorderDetailPresenterImpl(PreorderDetailArguments args) {
         view = args.getView();
@@ -44,7 +51,6 @@ public class PreorderDetailPresenterImpl extends BasePresenterImpl implements Pr
         toRxObservable();
         view.setupViewPager();
         view.setupTabLayout();
-        view.setupWebView();
         view.setupRecyclerView();
 
         reqPreorder();
@@ -64,6 +70,31 @@ public class PreorderDetailPresenterImpl extends BasePresenterImpl implements Pr
         }
     }
 
+    @Override public void onBuyClick() {
+        if (App.getInstance().isLogin()) {
+            view.showOptionSelector();
+            reqPreorderOptions();
+        } else {
+            view.navigateToLogin();
+        }
+    }
+
+    @Override public void onOptionSelectorBuyClick(List<ShoppingProductDataModel> shoppingProductData) {
+        List<ShoppingBrandDataModel> brandData = parseToData(shoppingProductData);
+        view.navigateToOrder(brandData);
+    }
+
+    private List<ShoppingBrandDataModel> parseToData(List<ShoppingProductDataModel> shoppingProductData) {
+        List<ShoppingBrandDataModel> brandData = new ArrayList<>();
+        ShoppingBrandDataModel brandModel = new ShoppingBrandDataModel();
+        brandModel.setBrandNo(data.getBrandNo());
+        brandModel.setBrandName(data.getBrandName());
+        brandModel.setShippingType(ShippingCode.FREE.getValue());
+        brandModel.setProducts(shoppingProductData);
+        brandData.add(brandModel);
+        return brandData;
+    }
+
     private void reqPreorder() {
         addDisposable(preorderRequest.getPreorder(preorderNo)
             .compose(Transformer.applySchedulers())
@@ -77,6 +108,7 @@ public class PreorderDetailPresenterImpl extends BasePresenterImpl implements Pr
     }
 
     private void resPreorder(PreorderDataModel data) {
+        this.data = data;
         int status = data.getStatus();
 
         if (status == DisplayCode.DISPLAY.getValue()) {
@@ -99,7 +131,7 @@ public class PreorderDetailPresenterImpl extends BasePresenterImpl implements Pr
         view.setTermDate(getTermDate(data.getStartDate(), data.getEndDate()));
         view.setDeliveryDate(getDeliveryDate(data.getDeliveryDate()));
 
-        //view.setPreorderWebView("https://minilook.page.link/5jKst77ZNRg5irkd7");
+        view.setDetailImage(data.getDetailUrl());
 
         productAdapter.set(data.getProducts());
         view.productRefresh();
@@ -123,6 +155,26 @@ public class PreorderDetailPresenterImpl extends BasePresenterImpl implements Pr
         return format.format(new Date(deliveryDate));
     }
 
+    private void reqPreorderOptions() {
+        addDisposable(preorderRequest.getPreorderOptions(preorderNo)
+            .compose(Transformer.applySchedulers())
+            .filter(data -> data.getCode().equals(HttpCode.OK))
+            .map(data -> gson.fromJson(data.getData(), OptionDataModel.class))
+            .subscribe(this::resPreorderOptions, Timber::e));
+    }
+
+    private void resPreorderOptions(OptionDataModel options) {
+        List<OptionProductDataModel> productOptions = options.getProducts();
+        for (int i = 0; i < productOptions.size(); i++) {
+            productOptions.get(i).setPosition(i);
+            productOptions.get(i).setBonus(false);
+        }
+        for (OptionProductDataModel bonusOptionData : options.getBonusProducts()) {
+            bonusOptionData.setPosition(-1);
+            bonusOptionData.setBonus(true);
+        }
+        view.setupOptionSelector(options);
+    }
 
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {

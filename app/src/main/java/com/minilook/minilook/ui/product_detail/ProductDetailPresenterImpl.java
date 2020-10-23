@@ -8,7 +8,7 @@ import com.minilook.minilook.data.code.ShippingCode;
 import com.minilook.minilook.data.code.StockType;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
-import com.minilook.minilook.data.model.product.ProductColorDataModel;
+import com.minilook.minilook.data.model.product.OptionColorDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.product.ProductStockDataModel;
 import com.minilook.minilook.data.model.review.ReviewDataModel;
@@ -311,13 +311,13 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         addDisposable(productRequest.getProductOptions(productNo)
             .compose(Transformer.applySchedulers())
             .filter(data -> data.getCode().equals(HttpCode.OK))
-            .map((Function<BaseDataModel, List<ProductColorDataModel>>)
-                data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<ProductColorDataModel>>() {
+            .map((Function<BaseDataModel, List<OptionColorDataModel>>)
+                data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<OptionColorDataModel>>() {
                 }.getType()))
             .subscribe(this::resProductOptions, Timber::e));
     }
 
-    private void resProductOptions(List<ProductColorDataModel> options) {
+    private void resProductOptions(List<OptionColorDataModel> options) {
         view.setupOptionSelector(data.getPrice(), options);
     }
 

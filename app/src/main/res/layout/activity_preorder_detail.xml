@@ -244,18 +244,20 @@
                 app:tabMode="fixed"
                 app:tabRippleColor="@android:color/transparent" />
 
-            <WebView
-                android:id="@+id/webview_content"
+            <ImageView
+                android:id="@+id/img_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/layout_tab_panel" />
+                android:adjustViewBounds="true"
+                app:layout_constraintTop_toBottomOf="@+id/layout_tab_panel"
+                tools:ignore="ContentDescription" />
 
             <View
                 android:id="@+id/line3"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_8"
                 android:background="@color/color_FFF5F5F5"
-                app:layout_constraintTop_toBottomOf="@+id/webview_content" />
+                app:layout_constraintTop_toBottomOf="@+id/img_detail" />
 
             <ImageView
                 android:id="@+id/img_product_detail_desc"
@@ -345,4 +347,10 @@
         android:textColor="@color/color_FFFFFFFF"
         android:textSize="@dimen/sp_10"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <com.minilook.minilook.ui.option_selector.OptionSelector
+        android:id="@+id/option_selector"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:visibility="gone" />
 </androidx.constraintlayout.widget.ConstraintLayout>

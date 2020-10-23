@@ -19,6 +19,8 @@ import lombok.Data;
     private String desc;
     @Expose @SerializedName("image1")
     private String thumbUrl;
+    @Expose @SerializedName("brandNo")
+    private int brandNo;
     @Expose @SerializedName("brandName")
     private String brandName;
     @Expose @SerializedName("images")
@@ -29,6 +31,8 @@ import lombok.Data;
     private long endDate;
     @Expose @SerializedName("deliveryDate")
     private long deliveryDate;
+    @Expose @SerializedName("detailUrl")
+    private String detailUrl;
     @Expose @SerializedName("products")
     private List<ProductDataModel> products;
 }

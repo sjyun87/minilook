@@ -822,9 +822,9 @@
             android:textSize="@dimen/sp_10" />
     </LinearLayout>
 
-    <com.minilook.minilook.ui.option_selector.OptionSelector
+    <com.minilook.minilook.ui.product_option_selector.ProductOptionSelector
         android:id="@+id/option_selector"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:visibility="gone" />
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

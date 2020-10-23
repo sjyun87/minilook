@@ -14,39 +14,34 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txt_size"
+    <com.minilook.minilook.ui.base.widget.ColorView
+        android:id="@+id/view_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/line_left"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_color"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_6"
+        android:layout_marginEnd="@dimen/dp_6"
+        android:layout_weight="1"
         android:bufferType="spannable"
         android:fontFamily="@font/nanum_square_b"
         android:includeFontPadding="false"
         android:textColor="@color/color_FF424242"
         android:textSize="@dimen/sp_7"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/line_left"
+        app:layout_constraintLeft_toRightOf="@+id/view_color"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="XXL" />
+        tools:text="화이트" />
 
     <TextView
-        android:id="@+id/txt_price_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_6"
-        android:layout_marginEnd="@dimen/dp_6"
-        android:bufferType="spannable"
-        android:fontFamily="@font/nanum_square_b"
-        android:includeFontPadding="false"
-        android:textColor="@color/color_FF616161"
-        android:textSize="@dimen/sp_7"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/txt_size"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="+ 6,000" />
-
-    <TextView
-        android:id="@+id/txt_size_sold_out"
+        android:id="@+id/txt_color_sold_out"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/dp_8"

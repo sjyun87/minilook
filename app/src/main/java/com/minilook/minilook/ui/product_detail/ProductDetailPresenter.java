@@ -3,7 +3,7 @@ package com.minilook.minilook.ui.product_detail;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
-import com.minilook.minilook.data.model.product.ProductColorDataModel;
+import com.minilook.minilook.data.model.product.OptionColorDataModel;
 import com.minilook.minilook.data.model.product.ProductStockDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
@@ -108,7 +108,7 @@ public interface ProductDetailPresenter extends LifecycleObserver {
 
         void setupQuestionCount(String text);
 
-        void setupOptionSelector(int price, List<ProductColorDataModel> options);
+        void setupOptionSelector(int price, List<OptionColorDataModel> options);
 
         void showOptionSelector();
 

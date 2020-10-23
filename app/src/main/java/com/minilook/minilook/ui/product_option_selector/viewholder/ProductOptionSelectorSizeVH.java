@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.option_selector.viewholder;
+package com.minilook.minilook.ui.product_option_selector.viewholder;
 
 import android.graphics.Paint;
 import android.graphics.Typeface;
@@ -17,7 +17,7 @@ import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.util.StringUtil;
 import lombok.Setter;
 
-public class OptionSelectorSizeVH extends BaseViewHolder<OptionSizeDataModel> {
+public class ProductOptionSelectorSizeVH extends BaseViewHolder<OptionSizeDataModel> {
 
     @BindView(R.id.txt_size) TextView sizeTextView;
     @BindView(R.id.txt_price_add) TextView addPriceTextView;
@@ -33,9 +33,9 @@ public class OptionSelectorSizeVH extends BaseViewHolder<OptionSizeDataModel> {
 
     @Setter private OnSizeSelectedListener onSizeSelectedListener;
 
-    public OptionSelectorSizeVH(@NonNull View itemView) {
+    public ProductOptionSelectorSizeVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_option_selector_size, (ViewGroup) itemView, false));
+            .inflate(R.layout.item_product_option_selector_size, (ViewGroup) itemView, false));
     }
 
     @Override public void bind(OptionSizeDataModel $data) {

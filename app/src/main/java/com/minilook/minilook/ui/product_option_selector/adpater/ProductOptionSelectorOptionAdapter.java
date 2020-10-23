@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.option_selector.adpater;
+package com.minilook.minilook.ui.product_option_selector.adpater;
 
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
@@ -6,22 +6,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.option_selector.viewholder.OptionSelectorOptionVH;
+import com.minilook.minilook.ui.product_option_selector.viewholder.ProductOptionSelectorOptionVH;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Setter;
 
-public class OptionSelectorOptionAdapter extends RecyclerView.Adapter<OptionSelectorOptionVH>
+public class ProductOptionSelectorOptionAdapter extends RecyclerView.Adapter<ProductOptionSelectorOptionVH>
     implements BaseAdapterDataModel<ShoppingOptionDataModel>, BaseAdapterDataView<ShoppingOptionDataModel> {
 
     private List<ShoppingOptionDataModel> items = new ArrayList<>();
-    @Setter private OptionSelectorOptionVH.OnButtonClickListener OnButtonClickListener;
+    @Setter private ProductOptionSelectorOptionVH.OnButtonClickListener OnButtonClickListener;
 
-    @NonNull @Override public OptionSelectorOptionVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new OptionSelectorOptionVH(parent);
+    @NonNull @Override public ProductOptionSelectorOptionVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ProductOptionSelectorOptionVH(parent);
     }
 
-    @Override public void onBindViewHolder(@NonNull OptionSelectorOptionVH holder, int position) {
+    @Override public void onBindViewHolder(@NonNull ProductOptionSelectorOptionVH holder, int position) {
         holder.bind(items.get(position));
         holder.setOnButtonClickListener(OnButtonClickListener);
     }

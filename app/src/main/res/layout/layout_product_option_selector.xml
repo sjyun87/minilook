@@ -14,7 +14,7 @@
         android:focusable="true"
         android:visibility="gone" />
 
-    <include layout="@layout/layout_option_selector_buy_panel" />
+    <include layout="@layout/layout_product_option_buy_panel" />
 
-    <include layout="@layout/layout_option_selector_add_panel" />
+    <include layout="@layout/layout_product_option_select_panel" />
 </merge>

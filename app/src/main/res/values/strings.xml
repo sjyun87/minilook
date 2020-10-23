@@ -419,18 +419,24 @@
     <string name="product_info_title">배송/교환/환불 안내</string>
 
     <!--Option Selector-->
-    <string name="option_selector_select_box_hint">옵션을 선택해주세요</string>
+    <string name="option_selector_select_box_hint">상품을 선택해주세요</string>
+    <string name="option_selector_select_bonus_box_hint">추가상품을 선택해주세요</string>
     <string name="option_selector_total_count">총 %d개 상품</string>
     <string name="option_selector_total_price">총 금액</string>
     <string name="option_selector_buy_now">바로 구매</string>
+    <string name="option_selector_buy">구매하기</string>
     <string name="option_selector_shopping_bag">장바구니</string>
 
-    <string name="option_selector_title">옵션 선택</string>
+    <string name="option_selector_title">상품 선택</string>
+    <string name="option_selector_bonus_title">추가상품 선택</string>
+    <string name="option_selector_product_box_hint">상품을 선택해주세요</string>
     <string name="option_selector_color_box_hint">색상을 선택해주세요</string>
     <string name="option_selector_size_box_hint">사이즈를 선택해주세요</string>
     <string name="option_selector_sold_out">품절</string>
     <string name="option_selector_price_add">+ %s</string>
     <string name="option_selector_selected_color">색상 - %s</string>
+    <string name="option_selector_product_index">상품 %s</string>
+    <string name="option_selector_bonus_product_index">추가상품</string>
     <string name="option_selector_available_quantity">주문가능한 수량은 %s개 입니다.</string>
 
     <!--Review-->

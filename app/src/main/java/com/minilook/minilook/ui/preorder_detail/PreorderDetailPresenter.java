@@ -3,6 +3,10 @@ package com.minilook.minilook.ui.preorder_detail;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
+import com.minilook.minilook.data.model.product.OptionDataModel;
+import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
+import com.minilook.minilook.data.model.shopping.ShoppingProductDataModel;
+import java.util.List;
 
 public interface PreorderDetailPresenter extends LifecycleObserver {
 
@@ -10,6 +14,10 @@ public interface PreorderDetailPresenter extends LifecycleObserver {
     void onCreate();
 
     void onTabClick(int position);
+
+    void onBuyClick();
+
+    void onOptionSelectorBuyClick(List<ShoppingProductDataModel> shoppingProductData);
 
     interface View {
 
@@ -19,9 +27,7 @@ public interface PreorderDetailPresenter extends LifecycleObserver {
 
         void setupTabLayout();
 
-        void setupWebView();
-
-        void setPreorderWebView(String url);
+        void setDetailImage(String url);
 
         void setupRecyclerView();
 
@@ -56,5 +62,15 @@ public interface PreorderDetailPresenter extends LifecycleObserver {
         void scrollToShippingNRefund();
 
         void navigateToPreorderProductDetail(String title, int preorderNo, int productNo);
+
+        void setupOptionSelector(OptionDataModel options);
+
+        void showOptionSelector();
+
+        void hideOptionSelector();
+
+        void navigateToLogin();
+
+        void navigateToOrder(List<ShoppingBrandDataModel> brandData);
     }
 }

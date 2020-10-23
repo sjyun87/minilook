@@ -21,4 +21,8 @@ public interface PreorderService {
     @GET("/api/preorders/{preorderNo}") Single<BaseDataModel> getPreorder(
         @Path("preorderNo") int preorderNo
     );
+
+    @GET("/api/preorders/{preorderNo}/options") Single<BaseDataModel> getPreorderOptions(
+        @Path("preorderNo") int preorderNo
+    );
 }

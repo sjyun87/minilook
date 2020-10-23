@@ -34,4 +34,8 @@ public class PreorderRequest extends BaseRequest<PreorderService> {
     public Single<BaseDataModel> getPreorder(int preorderNo) {
         return getApi().getPreorder(preorderNo);
     }
+
+    public Single<BaseDataModel> getPreorderOptions(int preorderNo) {
+        return getApi().getPreorderOptions(preorderNo);
+    }
 }

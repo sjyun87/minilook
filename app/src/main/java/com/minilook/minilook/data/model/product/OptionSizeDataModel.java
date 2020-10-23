@@ -4,13 +4,13 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
-@Data public class ProductSizeDataModel {
+@Data public class OptionSizeDataModel {
     @Expose @SerializedName("optionNo")
     private int optionNo;
     @Expose @SerializedName("sizeName")
     private String sizeName;
     @Expose @SerializedName("sizeCode")
-    private int sizeCode;
+    private String sizeCode;
     @Expose @SerializedName("stockQty")
     private int sizeStock;
     @Expose @SerializedName("extraAmount")

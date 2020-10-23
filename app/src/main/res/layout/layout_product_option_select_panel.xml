@@ -62,7 +62,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/layout_size_box_panel"
                 tools:itemCount="4"
                 tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_option_selector_size" />
+                tools:listitem="@layout/item_product_option_selector_size" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcv_select_color"
@@ -75,7 +75,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/layout_color_box_panel"
                 tools:itemCount="4"
                 tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_option_selector_color" />
+                tools:listitem="@layout/item_product_option_selector_color" />
 
             <View
                 android:id="@+id/view_margin"
