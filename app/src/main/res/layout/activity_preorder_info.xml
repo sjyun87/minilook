@@ -31,6 +31,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:fontFamily="@font/nanum_square_r"
+                android:lineSpacingMultiplier="1.5"
+                android:text="@string/preorder_info_process_desc"
+                android:textColor="@color/color_FF232323"
+                android:textSize="@dimen/sp_6" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_16"
                 android:fontFamily="@font/nanum_square_b"
                 android:text="@string/preorder_info_process_title"
                 android:textColor="@color/color_FF232323"
@@ -46,18 +58,6 @@
                 android:src="@drawable/img_preorder_process"
                 tools:ignore="ContentDescription" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_10"
-                android:layout_marginTop="@dimen/dp_10"
-                android:layout_marginEnd="@dimen/dp_10"
-                android:fontFamily="@font/nanum_square_r"
-                android:lineSpacingMultiplier="1.5"
-                android:text="@string/preorder_info_process_desc"
-                android:textColor="@color/color_FF232323"
-                android:textSize="@dimen/sp_6" />
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -72,7 +72,7 @@
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_16"
                 android:fontFamily="@font/nanum_square_b"
-                android:text="@string/preorder_info_refund_n_exchange_title"
+                android:text="@string/preorder_info_notice_title"
                 android:textColor="@color/color_FF232323"
                 android:textSize="@dimen/sp_7" />
 
@@ -82,7 +82,7 @@
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_10"
                 android:fontFamily="@font/nanum_square_b"
-                android:text="@string/preorder_info_soldout_title"
+                android:text="@string/preorder_info_delivery_title"
                 android:textColor="@color/color_FF616161"
                 android:textSize="@dimen/sp_6" />
 
@@ -90,11 +90,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_10"
-                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_6"
                 android:layout_marginEnd="@dimen/dp_10"
                 android:fontFamily="@font/nanum_square_r"
                 android:lineSpacingMultiplier="1.5"
-                android:text="@string/preorder_info_soldout_desc"
+                android:text="@string/preorder_info_delivery_desc"
                 android:textColor="@color/color_FF232323"
                 android:textSize="@dimen/sp_6" />
 
@@ -104,7 +104,7 @@
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_10"
                 android:fontFamily="@font/nanum_square_b"
-                android:text="@string/preorder_info_order_cancel_title"
+                android:text="@string/preorder_info_refund_n_exchange_title"
                 android:textColor="@color/color_FF616161"
                 android:textSize="@dimen/sp_6" />
 
@@ -112,11 +112,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_10"
-                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_6"
                 android:layout_marginEnd="@dimen/dp_10"
                 android:fontFamily="@font/nanum_square_r"
                 android:lineSpacingMultiplier="1.5"
-                android:text="@string/preorder_info_order_cancel_desc"
+                android:text="@string/preorder_info_refund_n_exchange_desc"
+                android:textColor="@color/color_FF232323"
+                android:textSize="@dimen/sp_6" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:fontFamily="@font/nanum_square_b"
+                android:text="@string/preorder_info_etc_title"
+                android:textColor="@color/color_FF616161"
+                android:textSize="@dimen/sp_6" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_6"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:fontFamily="@font/nanum_square_r"
+                android:lineSpacingMultiplier="1.5"
+                android:text="@string/preorder_info_etc_desc"
                 android:textColor="@color/color_FF232323"
                 android:textSize="@dimen/sp_6" />
         </LinearLayout>

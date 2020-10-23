@@ -479,12 +479,15 @@
     <!--Pre-Order Info-->
     <string name="preorder_info_title">프리오더 안내</string>
     <string name="preorder_info_process_title">프리오더 진행과정</string>
-    <string name="preorder_info_process_desc">상품출고를 위한 작업이 시작된 이후에는 취소나 변경이 어렵습니다. 취소나 변경을 위하시면 출고전 게시판이나 고객센터에 남겨주시면 가능합니다. 출고 이후에는 변경이 어려운점 양해 부탁드립니다. 취소 후 사용하신 적립금은 바로 복원되지 않는 점 유의 부탁드립니다.</string>
-    <string name="preorder_info_refund_n_exchange_title">환불/교환 관련 안내</string>
-    <string name="preorder_info_soldout_title">품절상품이나 입고지연</string>
+    <string name="preorder_info_process_desc">미니룩은 좋은 품질의 상품을 주문 수량만큼 제작함으로써 경쟁력 있는 가격에 제공해 드릴 수 있도록 다양한 브랜드와 협업하고 있습니다.</string>
+    <string name="preorder_info_notice_title">안내사항</string>
+    <string name="preorder_info_delivery_title">배송</string>
+    <string name="preorder_info_delivery_desc">1. 프리오더 종료 후 상품을 제작하여 배송 예정일 부터 순차 배송됩니다.\n2. 프리오더 진행 제품과 일반 상품은 별개의 제품으로 합포장 배송이 불가합니다.</string>
+    <string name="preorder_info_refund_n_exchange_title">환불/교환</string>
+    <string name="preorder_info_refund_n_exchange_desc">1. 프리오더 기간 내에만 주문 취소 및 사이즈 교환이 가능합니다.\n(단, 여분의 사이즈가 있을 경우)\n2. 프리오더 제품은 주문 제작 상품으로, 프리오더 기간 종료 후에는 교환 및 환불이 불가합니다.</string>
     <string name="preorder_info_soldout_desc">주문후에 일부 상품에 대해 품절 또는 입고 지연으로 개별 안내드릴 수 있습니다. 품절 상품이니 경우 안내후 주문건 취소 처리해드립니다.</string>
-    <string name="preorder_info_order_cancel_title">취소 및 변경공지</string>
-    <string name="preorder_info_order_cancel_desc">상품출고를 위한 작업이 시작된 이후에는 취소나 변경이 어렵습니다. 취소나 변경을 위하시면 출고전 게시판이나 고객센터에 남겨주시면 가능합니다. 출고 이후에는 변경이 어려운점 양해 부탁드립니다. 취소 후 사용하신 적립금은 바로 복원되지 않는 점 유의 부탁드립니다.</string>
+    <string name="preorder_info_etc_title">기타</string>
+    <string name="preorder_info_etc_desc">1. 프리오더 상품은 배송 완료 후 8일 뒤 자동으로 구매확정 됩니다.\n2. 프리오더는 당사 사정에 따라 조기 종료 혹은 취소될 수 있습니다.\n3. 프리오더 기간에 진행되는 프로모션은 진행 업체 사정에 따라서 조기 종료 혹은 다른 프로모션으로 대체될 수 있습니다.</string>
 
     <!--Pre-Order Detail-->
     <string name="preorder_detail_info_caption">PRE-ORDER</string>
