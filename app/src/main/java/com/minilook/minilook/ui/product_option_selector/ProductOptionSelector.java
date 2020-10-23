@@ -46,6 +46,7 @@ public class ProductOptionSelector extends FrameLayout implements ProductOptionS
     @BindView(R.id.rcv_goods) RecyclerView goodsRecyclerView;
     @BindView(R.id.txt_total_count) TextView totalCountTextView;
     @BindView(R.id.txt_total_price) TextView totalPriceTextView;
+    @BindView(R.id.txt_buy) TextView buyTextView;
 
     @BindView(R.id.layout_option_select_panel) ConstraintLayout selectPanel;
     @BindView(R.id.img_back) ImageView backImageView;
@@ -62,6 +63,7 @@ public class ProductOptionSelector extends FrameLayout implements ProductOptionS
     @BindString(R.string.option_selector_available_quantity) String format_available_quantity;
 
     @BindColor(R.color.color_FFA9A9A9) int color_FFA9A9A9;
+    @BindColor(R.color.color_FF8140E5) int color_FF8140E5;
     @BindColor(R.color.color_FF424242) int color_FF424242;
     @BindColor(R.color.color_FF616161) int color_FF616161;
 
@@ -345,6 +347,7 @@ public class ProductOptionSelector extends FrameLayout implements ProductOptionS
             }
         }
         setupTotal();
+        enableBuyButton();
     }
 
     private void setupTotal() {
@@ -358,6 +361,16 @@ public class ProductOptionSelector extends FrameLayout implements ProductOptionS
         }
         setupTotalCount(totalCount);
         setupTotalPrice(totalPrice);
+    }
+
+    private void enableBuyButton() {
+        buyTextView.setEnabled(true);
+        buyTextView.setBackgroundColor(color_FF8140E5);
+    }
+
+    private void disableBuyButton() {
+        buyTextView.setEnabled(false);
+        buyTextView.setBackgroundColor(color_FFA9A9A9);
     }
 
     @OnClick(R.id.curtain)
@@ -403,6 +416,8 @@ public class ProductOptionSelector extends FrameLayout implements ProductOptionS
         optionAdapter.refresh();
         selectedData.remove(data.getOptionNo());
         setupTotal();
+
+        if (optionAdapter.getSize() == 0) disableBuyButton();
     }
 
     @Override public void onMinusClick() {

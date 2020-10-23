@@ -77,6 +77,7 @@ public class OptionSelector extends FrameLayout implements OptionSelectorShoppin
     @BindView(R.id.rcv_shopping) RecyclerView shoppingRecyclerView;
     @BindView(R.id.txt_total_count) TextView totalCountTextView;
     @BindView(R.id.txt_total_price) TextView totalPriceTextView;
+    @BindView(R.id.txt_buy) TextView buyTextView;
 
     @BindString(R.string.option_selector_title) String str_add_panel_title;
     @BindString(R.string.option_selector_bonus_title) String str_add_panel_bonus_title;
@@ -88,6 +89,7 @@ public class OptionSelector extends FrameLayout implements OptionSelectorShoppin
     @BindString(R.string.option_selector_bonus_product_index) String str_bonus_product;
 
     @BindColor(R.color.color_FFA9A9A9) int color_FFA9A9A9;
+    @BindColor(R.color.color_FF8140E5) int color_FF8140E5;
     @BindColor(R.color.color_FF424242) int color_FF424242;
     @BindColor(R.color.color_FF616161) int color_FF616161;
 
@@ -331,6 +333,7 @@ public class OptionSelector extends FrameLayout implements OptionSelectorShoppin
         }
 
         setupTotal();
+        enableBuyButton();
     }
 
     private void setupTotal() {
@@ -522,6 +525,16 @@ public class OptionSelector extends FrameLayout implements OptionSelectorShoppin
         }
     }
 
+    private void enableBuyButton() {
+        buyTextView.setEnabled(true);
+        buyTextView.setBackgroundColor(color_FF8140E5);
+    }
+
+    private void disableBuyButton() {
+        buyTextView.setEnabled(false);
+        buyTextView.setBackgroundColor(color_FFA9A9A9);
+    }
+
     @OnClick(R.id.curtain)
     void onCurtainClick() {
         resetData();
@@ -581,6 +594,11 @@ public class OptionSelector extends FrameLayout implements OptionSelectorShoppin
 
     @OnClick(R.id.layout_add_bonus_box_panel)
     void onAddBonusBoxClick() {
+        if (selectedOptionData.size() == 0) {
+            Toast.makeText(getContext(), "상품을 먼저 선택해주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         for (ShoppingOptionDataModel optionData : selectedOptionData) {
             if (optionData.isBonus()) {
                 Toast.makeText(getContext(), "이미 선택한 추가상품이 있습니다.", Toast.LENGTH_SHORT).show();
@@ -629,9 +647,12 @@ public class OptionSelector extends FrameLayout implements OptionSelectorShoppin
         if (selectedOptionData.size() == 1 && selectedOptionData.get(0).isBonus()) {
             selectedOptionData.clear();
             selectedData.clear();
+            shoppingAdapter.clear();
+            shoppingAdapter.refresh();
         }
-
         setupTotal();
+
+        if (selectedOptionData.size() == 0) disableBuyButton();
     }
 
     @Override public void onMinusClick() {

@@ -95,4 +95,9 @@ import lombok.Data;
     private String infoDamage;
     @Expose @SerializedName("serviceCenter")
     private String infoServiceCenter;
+    @Expose @SerializedName("ispreorder")
+    @JsonAdapter(BooleanDeserializer.class)
+    private boolean isPreorder;
+    @Expose @SerializedName("preorderNo")
+    private int preorderNo;
 }
