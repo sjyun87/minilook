@@ -17,7 +17,10 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.google.android.material.tabs.TabLayout;
 import com.minilook.minilook.App;
 import com.minilook.minilook.R;
@@ -146,7 +149,10 @@ public class PreorderDetailActivity extends BaseActivity implements PreorderDeta
     @Override public void setDetailImage(String url) {
         Glide.with(this)
             .load(url)
-            .transition(new DrawableTransitionOptions().crossFade())
+            .apply(new RequestOptions()
+                .fitCenter()
+                .format(DecodeFormat.PREFER_ARGB_8888)
+                .override(Target.SIZE_ORIGINAL))
             .into(detailImageView);
     }
 

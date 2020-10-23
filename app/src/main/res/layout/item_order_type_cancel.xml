@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/dp_10">
 
     <View
         android:id="@+id/line"
@@ -85,7 +86,6 @@
         android:layout_height="@dimen/dp_16"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_marginEnd="@dimen/dp_2"
-        android:layout_marginBottom="@dimen/dp_10"
         android:background="@drawable/bg_button_border_lightgray"
         android:fontFamily="@font/nanum_square_r"
         android:gravity="center"

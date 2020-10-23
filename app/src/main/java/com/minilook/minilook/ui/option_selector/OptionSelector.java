@@ -625,6 +625,12 @@ public class OptionSelector extends FrameLayout implements OptionSelectorShoppin
         selectedOptionData.remove(data);
         List<ShoppingOptionDataModel> options = selectedData.get(data.getProductNo());
         if (options != null) options.remove(data);
+
+        if (selectedOptionData.size() == 1 && selectedOptionData.get(0).isBonus()) {
+            selectedOptionData.clear();
+            selectedData.clear();
+        }
+
         setupTotal();
     }
 
