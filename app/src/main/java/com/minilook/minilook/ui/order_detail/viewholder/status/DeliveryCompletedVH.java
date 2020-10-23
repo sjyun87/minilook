@@ -29,6 +29,8 @@ public class DeliveryCompletedVH extends BaseViewHolder<OrderProductDataModel> {
     @BindView(R.id.txt_name) TextView nameTextView;
     @BindView(R.id.txt_option) TextView optionTextView;
     @BindView(R.id.txt_price) TextView priceTextView;
+    @BindView(R.id.txt_exchange_n_return) TextView exchangeNReturnTextView;
+    @BindView(R.id.txt_purchase_confirm) TextView purchaseConfirmTextView;
 
     @BindString(R.string.order_detail_option) String format_option;
 
@@ -54,6 +56,14 @@ public class DeliveryCompletedVH extends BaseViewHolder<OrderProductDataModel> {
         nameTextView.setText(data.getName());
         optionTextView.setText(String.format(format_option, data.getColorName(), data.getSizeName()));
         priceTextView.setText(StringUtil.toDigit(data.getProductPrice()));
+
+        if (data.isPreorder()) {
+            exchangeNReturnTextView.setVisibility(View.GONE);
+            purchaseConfirmTextView.setVisibility(View.GONE);
+        } else {
+            exchangeNReturnTextView.setVisibility(View.VISIBLE);
+            purchaseConfirmTextView.setVisibility(View.VISIBLE);
+        }
     }
 
     @OnClick(R.id.txt_exchange_n_return)
@@ -78,6 +88,8 @@ public class DeliveryCompletedVH extends BaseViewHolder<OrderProductDataModel> {
 
     @OnClick(R.id.img_thumb)
     void onProductClick() {
-        ProductDetailActivity.start(context, data.getProductNo());
+        if (!data.isPreorder()) {
+            ProductDetailActivity.start(context, data.getProductNo());
+        }
     }
 }

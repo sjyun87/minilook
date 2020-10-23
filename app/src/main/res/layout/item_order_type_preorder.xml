@@ -23,14 +23,16 @@
         android:textSize="@dimen/sp_6"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/line"
-        tools:text="배송중" />
+        tools:text="주문제작" />
 
     <ImageView
         android:id="@+id/img_thumb"
         android:layout_width="@dimen/dp_32"
         android:layout_height="@dimen/dp_32"
         android:layout_marginTop="@dimen/dp_7"
+        android:layout_marginBottom="@dimen/dp_10"
         android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/txt_state"
         app:layout_constraintTop_toBottomOf="@+id/txt_state"
         tools:ignore="ContentDescription" />
@@ -76,72 +78,4 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/txt_option"
         tools:text="52,000" />
-
-    <TextView
-        android:id="@+id/txt_delivery_tracking"
-        android:layout_width="@dimen/dp_62"
-        android:layout_height="@dimen/dp_16"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginEnd="@dimen/dp_2"
-        android:background="@drawable/bg_button_border_lightgray"
-        android:fontFamily="@font/nanum_square_r"
-        android:gravity="center"
-        android:text="@string/order_detail_tracking"
-        android:textColor="@color/color_FF232323"
-        android:textSize="@dimen/sp_6"
-        app:layout_constraintBottom_toTopOf="@+id/txt_purchase_confirm"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_thumb"
-        app:layout_goneMarginBottom="@dimen/dp_10" />
-
-    <TextView
-        android:id="@+id/txt_exchange_n_return"
-        android:layout_width="@dimen/dp_62"
-        android:layout_height="@dimen/dp_16"
-        android:layout_marginEnd="@dimen/dp_4"
-        android:background="@drawable/bg_button_border_lightgray"
-        android:fontFamily="@font/nanum_square_r"
-        android:gravity="center"
-        android:text="@string/order_detail_exchange_n_return"
-        android:textColor="@color/color_FF232323"
-        android:textSize="@dimen/sp_6"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_delivery_tracking"
-        app:layout_constraintRight_toLeftOf="@+id/txt_delivery_tracking"
-        app:layout_constraintTop_toTopOf="@+id/txt_delivery_tracking" />
-
-    <TextView
-        android:id="@+id/txt_question"
-        android:layout_width="@dimen/dp_62"
-        android:layout_height="@dimen/dp_16"
-        android:layout_marginTop="@dimen/dp_4"
-        android:layout_marginEnd="@dimen/dp_2"
-        android:layout_marginBottom="@dimen/dp_10"
-        android:background="@drawable/bg_button_border_lightgray"
-        android:fontFamily="@font/nanum_square_r"
-        android:gravity="center"
-        android:text="@string/order_detail_question"
-        android:textColor="@color/color_FF232323"
-        android:textSize="@dimen/sp_6"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_delivery_tracking" />
-
-    <TextView
-        android:id="@+id/txt_purchase_confirm"
-        android:layout_width="@dimen/dp_62"
-        android:layout_height="@dimen/dp_16"
-        android:layout_marginEnd="@dimen/dp_4"
-        android:background="@drawable/bg_button_border_lightgray"
-        android:fontFamily="@font/nanum_square_r"
-        android:gravity="center"
-        android:text="@string/order_detail_purchase_confirm"
-        android:textColor="@color/color_FF232323"
-        android:textSize="@dimen/sp_6"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_question"
-        app:layout_constraintRight_toLeftOf="@+id/txt_question"
-        app:layout_constraintTop_toTopOf="@+id/txt_question"
-        app:layout_goneMarginBottom="@dimen/dp_10"
-        app:layout_goneMarginEnd="@dimen/dp_2"
-        app:layout_goneMarginTop="@dimen/dp_4" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -68,6 +68,8 @@ public class CannotExchangeVH extends BaseViewHolder<OrderProductDataModel> {
 
     @OnClick(R.id.img_thumb)
     void onProductClick() {
-        ProductDetailActivity.start(context, data.getProductNo());
+        if (!data.isPreorder()) {
+            ProductDetailActivity.start(context, data.getProductNo());
+        }
     }
 }

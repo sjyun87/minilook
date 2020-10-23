@@ -43,7 +43,11 @@ public class PurchaseConfirmVH extends BaseViewHolder<OrderProductDataModel> {
     @Override public void bind(OrderProductDataModel $data) {
         super.bind($data);
 
-        reviewWriteTextView.setVisibility(data.isReviewed() ? View.GONE : View.VISIBLE);
+        if (data.isPreorder()) {
+            reviewWriteTextView.setVisibility(View.GONE);
+        } else {
+            reviewWriteTextView.setVisibility(data.isReviewed() ? View.GONE : View.VISIBLE);
+        }
 
         stateTextView.setText(OrderStatus.toName(data.getStatusCode()));
 
@@ -71,6 +75,8 @@ public class PurchaseConfirmVH extends BaseViewHolder<OrderProductDataModel> {
 
     @OnClick(R.id.img_thumb)
     void onProductClick() {
-        ProductDetailActivity.start(context, data.getProductNo());
+        if (!data.isPreorder()) {
+            ProductDetailActivity.start(context, data.getProductNo());
+        }
     }
 }

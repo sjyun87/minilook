@@ -37,6 +37,9 @@ import lombok.Data;
     @Expose @SerializedName("isReviewed")
     @JsonAdapter(BooleanDeserializer.class)
     private boolean isReviewed;
+    @Expose @SerializedName("ispreorder")
+    @JsonAdapter(BooleanDeserializer.class)
+    private boolean isPreorder;
 
     private String brandName;
 }

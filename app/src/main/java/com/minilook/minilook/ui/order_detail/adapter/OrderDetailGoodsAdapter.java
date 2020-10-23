@@ -17,6 +17,7 @@ import com.minilook.minilook.ui.order_detail.viewholder.status.DeliveryVH;
 import com.minilook.minilook.ui.order_detail.viewholder.status.ExchangeCompletedVH;
 import com.minilook.minilook.ui.order_detail.viewholder.status.ExchangeVH;
 import com.minilook.minilook.ui.order_detail.viewholder.status.OrderCompletedVH;
+import com.minilook.minilook.ui.order_detail.viewholder.status.PreorderVH;
 import com.minilook.minilook.ui.order_detail.viewholder.status.PrepareDeliveryVH;
 import com.minilook.minilook.ui.order_detail.viewholder.status.PurchaseConfirmVH;
 import com.minilook.minilook.ui.order_detail.viewholder.status.ReturnCompletedVH;
@@ -58,6 +59,8 @@ public class OrderDetailGoodsAdapter extends RecyclerView.Adapter<BaseViewHolder
                 return new PurchaseConfirmVH(parent);
             case CANCEL:
                 return new CancelVH(parent);
+            case PREORDER:
+                return new PreorderVH(parent);
             default:
                 return new BaseViewHolder<>(parent);
         }
