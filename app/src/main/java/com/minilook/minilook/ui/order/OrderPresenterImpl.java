@@ -650,7 +650,8 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
                 reqOrderSheet();
             } else if (o instanceof ShippingPresenterImpl.RxEventShippingDeleteClick) {
                 ShippingDataModel shippingData = ((ShippingPresenterImpl.RxEventShippingDeleteClick) o).getData();
-                if (shippingData.getAddressNo() == selectedShippingData.getAddressNo()) {
+                if (shippingData.getAddressNo() > 0
+                    && shippingData.getAddressNo() == selectedShippingData.getAddressNo()) {
                     isSelectedShipping = false;
                     selectedShippingData = null;
                     setupShippingData(null);

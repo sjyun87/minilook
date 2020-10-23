@@ -73,6 +73,7 @@ public class ShippingPresenterImpl extends BasePresenterImpl implements Shipping
     private void resShippings(List<ShippingDataModel> data) {
         adapter.set(data);
         view.refresh();
+        view.hideEmptyPanel();
     }
 
     private void reqDeleteShipping(int address_id) {
@@ -133,7 +134,6 @@ public class ShippingPresenterImpl extends BasePresenterImpl implements Shipping
                 view.navigateToShippingEdit(data);
             } else if (o instanceof RxEventShippingUpdated) {
                 reqShippings();
-                view.hideEmptyPanel();
             }
         }, Timber::e));
     }
