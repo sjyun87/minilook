@@ -27,8 +27,8 @@ import com.minilook.minilook.BuildConfig;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.bootpay.BootPayDataModel;
 import com.minilook.minilook.data.model.bootpay.BootPayItemDataModel;
-import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.data.model.member.CouponDataModel;
+import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
@@ -490,6 +490,11 @@ public class OrderActivity extends BaseActivity implements OrderPresenter.View {
     @OnClick(R.id.layout_coupon_box)
     void onCouponBoxClick() {
         presenter.onCouponBoxClick();
+    }
+
+    @OnClick(R.id.txt_point_unit)
+    void onPointUnitClick() {
+        pointEditText.setSelection(pointEditText.getText().length());
     }
 
     @OnClick(R.id.txt_point_all)

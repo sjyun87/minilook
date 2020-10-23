@@ -627,7 +627,7 @@ public class OptionSelector extends FrameLayout implements OptionSelectorShoppin
                 shoppingProductData.setDiscount(shoppingOptions.get(0).isDiscount());
                 shoppingProductData.setDiscountPercent(shoppingOptions.get(0).getDiscountPercent());
                 shoppingProductData.setPrice(shoppingOptions.get(0).getPrice());
-                shoppingProductData.setAddPointPercent(0);
+                shoppingProductData.setAddPointPercent(1);
                 shoppingProductData.setOptions(shoppingOptions);
                 shoppingProducts.add(shoppingProductData);
             }

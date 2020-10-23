@@ -5,11 +5,15 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.minilook.minilook.App;
+import com.minilook.minilook.data.code.ShippingCode;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.bootpay.BootPayDataModel;
 import com.minilook.minilook.data.model.bootpay.BootPayItemDataModel;
 import com.minilook.minilook.data.model.brand.BrandShippingDataModel;
+import com.minilook.minilook.data.model.member.CouponDataModel;
+import com.minilook.minilook.data.model.member.MemberDataModel;
+import com.minilook.minilook.data.model.member.PointHistoryDataModel;
 import com.minilook.minilook.data.model.order.OrderCompleteDataModel;
 import com.minilook.minilook.data.model.order.OrderCompleteOptionDataModel;
 import com.minilook.minilook.data.model.order.OrderSheetDataModel;
@@ -18,14 +22,10 @@ import com.minilook.minilook.data.model.shipping.ShippingDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingProductDataModel;
-import com.minilook.minilook.data.model.member.CouponDataModel;
-import com.minilook.minilook.data.model.member.PointHistoryDataModel;
-import com.minilook.minilook.data.model.member.MemberDataModel;
 import com.minilook.minilook.data.network.order.OrderRequest;
 import com.minilook.minilook.data.network.shipping.ShippingRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
-import com.minilook.minilook.data.code.ShippingCode;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.ipage.IpagePresenterImpl;
@@ -119,7 +119,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
             selectedPoint = Math.min(applyCouponPrice, havePoint);
             view.setupPoint(selectedPoint);
             setupTotalPrice();
-        } else  {
+        } else {
             view.showUseMinPointToast();
         }
     }
@@ -277,6 +277,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
     }
 
     private void setupCouponData(List<CouponDataModel> coupons) {
+        availableCouponCount = -1;
         if (coupons != null && coupons.size() > 0) {
             coupons.add(0, new CouponDataModel());
             for (CouponDataModel couponData : coupons) {
@@ -492,7 +493,8 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
                     ShoppingOptionDataModel optionData = productData.getOptions().get(optionIndex);
 
                     float per = (float) optionData.getPriceSum() / totalProductPrice;
-                    for (int optionQuantityIndex = 0; optionQuantityIndex < optionData.getQuantity(); optionQuantityIndex++) {
+                    for (int optionQuantityIndex = 0; optionQuantityIndex < optionData.getQuantity();
+                        optionQuantityIndex++) {
                         OrderCompleteOptionDataModel completeOptionModel = new OrderCompleteOptionDataModel();
                         completeOptionModel.setOption_id(optionData.getOptionNo());
                         completeOptionModel.setShoppingbag_id(optionData.getShoppingbagNo());
@@ -646,6 +648,13 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
                 handleMemoBox();
             } else if (o instanceof ShippingPresenterImpl.RxEventShippingUpdated) {
                 reqOrderSheet();
+            } else if (o instanceof ShippingPresenterImpl.RxEventShippingDeleteClick) {
+                ShippingDataModel shippingData = ((ShippingPresenterImpl.RxEventShippingDeleteClick) o).getData();
+                if (shippingData.getAddressNo() == selectedShippingData.getAddressNo()) {
+                    isSelectedShipping = false;
+                    selectedShippingData = null;
+                    setupShippingData(null);
+                }
             }
         }, Timber::e));
     }
