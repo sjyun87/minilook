@@ -46,7 +46,7 @@ public class ProductOptionSelector extends FrameLayout implements ProductOptionS
     @BindView(R.id.rcv_goods) RecyclerView goodsRecyclerView;
     @BindView(R.id.txt_total_count) TextView totalCountTextView;
     @BindView(R.id.txt_total_price) TextView totalPriceTextView;
-    @BindView(R.id.txt_buy) TextView buyTextView;
+    @BindView(R.id.txt_buy_now) TextView buyTextView;
 
     @BindView(R.id.layout_option_select_panel) ConstraintLayout selectPanel;
     @BindView(R.id.img_back) ImageView backImageView;

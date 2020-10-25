@@ -121,7 +121,7 @@ public class PreorderDetailPresenterImpl extends BasePresenterImpl implements Pr
         }
         view.setLabel(data.getStatusName());
 
-        imageAdapter.set(data.getImages());
+        imageAdapter.set(checkValid(data.getImages()));
         view.imageRefresh();
 
         view.setBrandName(data.getBrandName());
@@ -137,10 +137,18 @@ public class PreorderDetailPresenterImpl extends BasePresenterImpl implements Pr
         view.productRefresh();
     }
 
+    private List<String> checkValid(List<String> images) {
+        List<String> items = new ArrayList<>();
+        for (String url : images) {
+            if (url != null && !url.equals("")) items.add(url);
+        }
+        return items;
+    }
+
     private int getRemainDate(long endDate) {
         long todayDay = Calendar.getInstance().getTimeInMillis() / (24 * 60 * 60 * 1000);
         long targetDay = endDate / (24 * 60 * 60 * 1000);
-        return (int) (targetDay - todayDay);
+        return (int) Math.abs(targetDay - todayDay) + 1;
     }
 
     private String getTermDate(long startDate, long endDate) {

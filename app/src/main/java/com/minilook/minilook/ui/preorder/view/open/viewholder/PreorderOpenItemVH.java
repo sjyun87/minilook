@@ -70,7 +70,7 @@ public class PreorderOpenItemVH extends BaseViewHolder<PreorderDataModel> {
 
         long todayDay = Calendar.getInstance().getTimeInMillis() / (24 * 60 * 60 * 1000);
         long targetDay = endDate.getTime() / (24 * 60 * 60 * 1000);
-        long count = targetDay - todayDay;
+        long count = Math.abs(targetDay - todayDay) + 1;
 
         String dday = String.format(format_d_day, count);
         String totalEndData = String.format(format_date, strEndData, dday);
