@@ -11,6 +11,8 @@ import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.preorder_product_detail.di.PreorderProductDetailArguments;
 import com.minilook.minilook.util.StringUtil;
+import java.util.ArrayList;
+import java.util.List;
 import timber.log.Timber;
 
 public class PreorderProductDetailPresenterImpl extends BasePresenterImpl implements PreorderProductDetailPresenter {
@@ -63,7 +65,7 @@ public class PreorderProductDetailPresenterImpl extends BasePresenterImpl implem
     }
 
     private void resPreorderProductDetail(ProductDataModel data) {
-        imageAdapter.set(data.getImages());
+        imageAdapter.set(checkValid(data.getImages()));
         view.imageRefresh();
 
         view.setProductIndex(title);
@@ -108,5 +110,13 @@ public class PreorderProductDetailPresenterImpl extends BasePresenterImpl implem
         view.setupInfoWarranty(data.getInfoWarranty());
         view.setupInfoDamage(data.getInfoDamage());
         view.setupInfoServiceCenter(data.getInfoServiceCenter());
+    }
+
+    private List<String> checkValid(List<String> images) {
+        List<String> items = new ArrayList<>();
+        for (String url : images) {
+            if (url != null && !url.equals("")) items.add(url);
+        }
+        return items;
     }
 }

@@ -24,7 +24,6 @@ public class LoginRequest extends BaseRequest<LoginService> {
         jsonMap.put("snsAccount", model.getSnsId());
         jsonMap.put("snsTypeCode", model.getType());
         jsonMap.put("pushToken", App.getInstance().getPushToken());
-        Timber.e(jsonMap.toString());
         return jsonMap;
     }
 
@@ -36,7 +35,6 @@ public class LoginRequest extends BaseRequest<LoginService> {
     private Map<String, Object> parseToLogoutJson() {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("pushToken", App.getInstance().getPushToken());
-        Timber.e(jsonMap.toString());
         return jsonMap;
     }
 
@@ -60,15 +58,7 @@ public class LoginRequest extends BaseRequest<LoginService> {
 
     public Single<BaseDataModel> leave() {
         int user_id = App.getInstance().getMemberNo();
-        return getApi().leave(user_id, createRequestBody(parseToLeaveJson()));
-    }
-
-    private Map<String, Object> parseToLeaveJson() {
-        Map<String, Object> jsonMap = new HashMap<>();
-        jsonMap.put("snsAccount", App.getInstance().getSnsId());
-        jsonMap.put("snsTypeCode", App.getInstance().getSnsType());
-        jsonMap.put("pushToken", App.getInstance().getPushToken());
-        return jsonMap;
+        return getApi().leave(user_id);
     }
 
     public Single<BaseDataModel> getPointNCoupon() {
