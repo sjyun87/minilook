@@ -58,7 +58,7 @@ public class MarketCategoryVH extends BaseViewHolder<MarketDataModel> {
         adapter.refresh();
     }
 
-    private List<CommercialDataModel> parseJsonToModel() {
+    private List<CodeDataModel> parseJsonToModel() {
         return gson.fromJson(data.getData(), new TypeToken<ArrayList<CodeDataModel>>() {
         }.getType());
     }
