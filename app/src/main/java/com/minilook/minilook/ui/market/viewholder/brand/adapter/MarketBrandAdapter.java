@@ -1,34 +1,26 @@
 package com.minilook.minilook.ui.market.viewholder.brand.adapter;
 
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.market.viewholder.brand.viewholder.MarketBrandMenuVH;
-
+import com.minilook.minilook.ui.market.viewholder.brand.viewholder.MarketBrandItemVH;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Setter;
-
-public class MarketBrandMenuAdapter extends RecyclerView.Adapter<MarketBrandMenuVH> implements
+public class MarketBrandAdapter extends RecyclerView.Adapter<MarketBrandItemVH> implements
     BaseAdapterDataModel<BrandDataModel>, BaseAdapterDataView<BrandDataModel> {
 
     private List<BrandDataModel> items = new ArrayList<>();
-    @Setter private MarketBrandMenuVH.OnMenuClickListener onMenuClickListener;
 
-    @NonNull @Override
-    public MarketBrandMenuVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MarketBrandMenuVH(parent);
+    @NonNull @Override public MarketBrandItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new MarketBrandItemVH(parent);
     }
 
-    @Override public void onBindViewHolder(@NonNull MarketBrandMenuVH holder, int position) {
+    @Override public void onBindViewHolder(@NonNull MarketBrandItemVH holder, int position) {
         holder.bind(items.get(position));
-        holder.setOnMenuClickListener(onMenuClickListener);
     }
 
     @Override public int getItemCount() {
