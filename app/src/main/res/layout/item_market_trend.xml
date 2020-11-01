@@ -19,7 +19,20 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="new arrival" />
+        tools:text="trend Now" />
+
+    <TextView
+        android:id="@+id/txt_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_4"
+        android:fontFamily="@font/nanum_square_eb"
+        android:textColor="@color/color_FFE5B340"
+        android:textSize="@dimen/sp_7"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_title"
+        tools:text="#stay_home" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/layout_tab_panel"
@@ -27,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_5"
         android:background="@color/color_FFFFFFFF"
-        app:layout_constraintTop_toBottomOf="@+id/txt_title"
+        app:layout_constraintTop_toBottomOf="@+id/txt_tag"
         app:tabIndicatorColor="@color/color_FF8140E5"
         app:tabIndicatorHeight="@dimen/dp_1"
         app:tabMode="fixed"

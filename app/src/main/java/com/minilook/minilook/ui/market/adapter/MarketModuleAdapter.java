@@ -1,26 +1,14 @@
 package com.minilook.minilook.ui.market.adapter;
 
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.minilook.minilook.data.model.market.MarketDataModel;
-import com.minilook.minilook.data.code.MarketModuleType;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseViewHolder;
-import com.minilook.minilook.ui.market.viewholder.brand.MarketBrandVH;
-import com.minilook.minilook.ui.market.viewholder.commercial.MarketCommercialVH;
-import com.minilook.minilook.ui.market.viewholder.filter.MarketFilterVH;
-import com.minilook.minilook.ui.market.viewholder.limited.MarketLimitedVH;
-import com.minilook.minilook.ui.market.viewholder.new_arrivals.MarketNewArrivalsVH;
-import com.minilook.minilook.ui.market.viewholder.recommend.MarketRecommendVH;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import timber.log.Timber;
 
 public class MarketModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<MarketDataModel>> implements
     BaseAdapterDataModel<MarketDataModel>, BaseAdapterDataView<MarketDataModel> {
@@ -29,28 +17,29 @@ public class MarketModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<Mar
 
     @NonNull @Override
     public BaseViewHolder<MarketDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == MarketModuleType.TYPE_COMMERCIAL.getValue()) {
-            return new MarketCommercialVH(parent);
-        } else if (viewType == MarketModuleType.TYPE_LIMITED.getValue()) {
-            return new MarketLimitedVH(parent);
-        } else if (viewType == MarketModuleType.TYPE_RECOMMEND_4.getValue()) {
-            return new MarketRecommendVH(parent, 4);
-        } else if (viewType == MarketModuleType.TYPE_RECOMMEND_5.getValue()) {
-            return new MarketRecommendVH(parent, 5);
-        } else if (viewType == MarketModuleType.TYPE_RECOMMEND_6.getValue()) {
-            return new MarketRecommendVH(parent, 6);
-        } else if (viewType == MarketModuleType.TYPE_RECOMMEND_9.getValue()) {
-            return new MarketRecommendVH(parent, 9);
-        } else if (viewType == MarketModuleType.TYPE_NEW_ARRIVALS.getValue()) {
-            return new MarketNewArrivalsVH(parent);
-        } else if (viewType == MarketModuleType.TYPE_BRAND.getValue()) {
-            return new MarketBrandVH(parent);
-        } else if (viewType == MarketModuleType.TYPE_FILTER.getValue()) {
-            return new MarketFilterVH(parent);
-        } else {
-            Timber.e("Market Module type is null..");
-            return new BaseViewHolder<>(parent);
-        }
+        //if (viewType == MarketModuleType.TYPE_COMMERCIAL.getValue()) {
+        //    return new MarketCommercialVH(parent);
+        //} else if (viewType == MarketModuleType.TYPE_LIMITED.getValue()) {
+        //    return new MarketLimitedVH(parent);
+        //} else if (viewType == MarketModuleType.TYPE_RECOMMEND_4.getValue()) {
+        //    return new MarketRecommendVH(parent, 4);
+        //} else if (viewType == MarketModuleType.TYPE_RECOMMEND_5.getValue()) {
+        //    return new MarketRecommendVH(parent, 5);
+        //} else if (viewType == MarketModuleType.TYPE_RECOMMEND_6.getValue()) {
+        //    return new MarketRecommendVH(parent, 6);
+        //} else if (viewType == MarketModuleType.TYPE_RECOMMEND_9.getValue()) {
+        //    return new MarketRecommendVH(parent, 9);
+        //} else if (viewType == MarketModuleType.TYPE_NEW_ARRIVALS.getValue()) {
+        //    return new MarketNewArrivalsVH(parent);
+        //} else if (viewType == MarketModuleType.TYPE_BRAND.getValue()) {
+        //    return new MarketBrandVH(parent);
+        //} else if (viewType == MarketModuleType.TYPE_FILTER.getValue()) {
+        //    return new MarketFilterVH(parent);
+        //} else {
+        //    Timber.e("Market Module type is null..");
+        //    return new BaseViewHolder<>(parent);
+        //}
+        return new BaseViewHolder<>(parent);
     }
 
     @SuppressWarnings("unchecked")

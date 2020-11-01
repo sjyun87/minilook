@@ -1,17 +1,15 @@
-package com.minilook.minilook.ui.market.viewholder.limited;
+package com.minilook.minilook.ui.market.viewholder.trend;
 
-import android.graphics.Typeface;
-import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import butterknife.BindDimen;
+import butterknife.BindView;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -19,43 +17,33 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
-import com.minilook.minilook.ui.product.adapter.ProductAdapter;
-import com.minilook.minilook.util.SpannableUtil;
-
+import com.minilook.minilook.ui.market.viewholder.recommend.adapter.MarketRecommendAdapter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
-import butterknife.BindDimen;
-import butterknife.BindFont;
-import butterknife.BindView;
-
-import static com.minilook.minilook.ui.product.adapter.ProductAdapter.VIEW_TYPE_FULL;
-
-public class MarketLimitedVH extends BaseViewHolder<MarketDataModel> {
+public class MarketTrendVH extends BaseViewHolder<MarketDataModel> {
 
     @BindView(R.id.txt_title) TextView titleTextView;
     @BindView(R.id.rcv_product) RecyclerView recyclerView;
 
-    @BindDimen(R.dimen.dp_2) int dp_2;
-    @BindFont(R.font.nanum_square_b) Typeface font_bold;
+    @BindDimen(R.dimen.dp_4) int dp_4;
 
-    private ProductAdapter adapter;
+    private MarketRecommendAdapter adapter;
     private Gson gson = new Gson();
 
-    public MarketLimitedVH(@NonNull View itemView) {
+    public MarketTrendVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_market_limited, (ViewGroup) itemView, false));
-        setupRecyclerView();
+            .inflate(R.layout.item_market_trend, (ViewGroup) itemView, false));
+
+        setupProductRecyclerView();
     }
 
-    private void setupRecyclerView() {
+    private void setupProductRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
-        adapter = new ProductAdapter();
-        adapter.setViewType(VIEW_TYPE_FULL);
+        adapter = new MarketRecommendAdapter();
         recyclerView.setAdapter(adapter);
         DividerDecoration.builder(context)
-            .size(dp_2)
+            .size(dp_4)
             .asSpace()
             .build()
             .addTo(recyclerView);
@@ -65,19 +53,10 @@ public class MarketLimitedVH extends BaseViewHolder<MarketDataModel> {
     @Override public void bind(MarketDataModel $data) {
         super.bind($data);
 
-        titleTextView.setText(getBoldText());
-
-        adapter.set(parseJsonToModel());
-        adapter.refresh();
-    }
-
-    private SpannableString getBoldText() {
-        SpannableString title = new SpannableString(data.getTitle());
-        StringTokenizer tokenizer = new StringTokenizer(data.getBold_text(), ",");
-        while (tokenizer.hasMoreTokens()) {
-            SpannableUtil.fontSpan(title, tokenizer.nextToken(), font_bold);
-        }
-        return title;
+        //titleTextView.setText(data.getTitle());
+        //
+        //adapter.set(parseJsonToModel());
+        //adapter.refresh();
     }
 
     private List<ProductDataModel> parseJsonToModel() {
