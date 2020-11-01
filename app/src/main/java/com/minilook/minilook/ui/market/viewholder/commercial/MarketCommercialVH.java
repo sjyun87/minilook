@@ -25,7 +25,6 @@ import butterknife.BindView;
 public class MarketCommercialVH extends BaseViewHolder<MarketDataModel> {
 
     @BindView(R.id.vp_commercial) ViewPager2 viewPager;
-    @BindView(R.id.indicator) DotsIndicator indicator;
 
     private MarketCommercialAdapter adapter;
     private Gson gson = new Gson();
@@ -40,7 +39,6 @@ public class MarketCommercialVH extends BaseViewHolder<MarketDataModel> {
         adapter = new MarketCommercialAdapter();
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(2);
-        indicator.setViewPager2(viewPager);
         ViewCompat.setNestedScrollingEnabled(viewPager, false);
     }
 

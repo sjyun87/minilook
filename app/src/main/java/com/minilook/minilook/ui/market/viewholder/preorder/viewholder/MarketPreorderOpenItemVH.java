@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.preorder.view.open.viewholder;
+package com.minilook.minilook.ui.market.viewholder.preorder.viewholder;
 
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -16,33 +16,29 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
-import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.util.SpannableUtil;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import timber.log.Timber;
 
-public class PreorderOpenItemVH extends BaseViewHolder<PreorderDataModel> {
+public class MarketPreorderOpenItemVH extends BaseViewHolder<PreorderDataModel> {
 
     @BindView(R.id.img_thumb) ImageView thumbImageView;
     @BindView(R.id.txt_end_date) TextView endDateTextView;
-    @BindView(R.id.txt_brand) TextView brandTextView;
+    @BindView(R.id.txt_brand_name) TextView brandNameTextView;
     @BindView(R.id.txt_title) TextView titleTextView;
     @BindView(R.id.txt_desc) TextView descTextView;
 
     @BindString(R.string.preorder_d_day) String format_d_day;
     @BindString(R.string.preorder_open_date) String format_date;
 
-    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @BindDrawable(R.drawable.placeholder_logo) Drawable img_placeholder;
 
-    public PreorderOpenItemVH(@NonNull View itemView) {
+    public MarketPreorderOpenItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_preorder_open, (ViewGroup) itemView, false));
+            .inflate(R.layout.item_market_preorder_open_item, (ViewGroup) itemView, false));
     }
 
     @Override public void bind(PreorderDataModel $data) {
@@ -56,7 +52,7 @@ public class PreorderOpenItemVH extends BaseViewHolder<PreorderDataModel> {
             .into(thumbImageView);
 
         endDateTextView.setText(getEndDate(data.getEndDate()));
-        brandTextView.setText(data.getBrandName());
+        brandNameTextView.setText(data.getBrandName());
         titleTextView.setText(data.getTitle());
         descTextView.setText(data.getDesc());
 
@@ -77,11 +73,7 @@ public class PreorderOpenItemVH extends BaseViewHolder<PreorderDataModel> {
         return SpannableUtil.styleSpan(totalEndData, dday, Typeface.BOLD);
     }
 
-    private void onItemClick(View view) {
-        RxBus.send(new RxBusEventPreorderClick(data.getPreorderNo()));
-    }
+    void onItemClick(View view) {
 
-    @AllArgsConstructor @Getter public final static class RxBusEventPreorderClick {
-        int preorderNo;
     }
 }

@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:descendantFocusability="blocksDescendants"
-    android:paddingBottom="@dimen/dp_10">
+    android:descendantFocusability="blocksDescendants">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vp_commercial"
@@ -13,19 +12,4 @@
         android:orientation="horizontal"
         app:layout_constraintDimensionRatio="H,1:1"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-        android:id="@+id/indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_6"
-        android:layout_marginEnd="@dimen/dp_8"
-        app:dotsColor="@color/color_FFEEEFF5"
-        app:dotsCornerRadius="0dp"
-        app:dotsSize="@dimen/dp_4"
-        app:dotsSpacing="@dimen/dp_2"
-        app:dotsWidthFactor="1"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vp_commercial"
-        app:selectedDotColor="@color/color_FF8140E5" />
 </androidx.constraintlayout.widget.ConstraintLayout>
