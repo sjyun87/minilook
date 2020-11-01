@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/img_thumb"
+        android:id="@+id/img_brand_thumb"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintDimensionRatio="H,2:1"
@@ -20,10 +20,10 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/color_4D000000"
-        app:layout_constraintBottom_toBottomOf="@+id/img_thumb"
-        app:layout_constraintLeft_toLeftOf="@+id/img_thumb"
-        app:layout_constraintRight_toRightOf="@+id/img_thumb"
-        app:layout_constraintTop_toTopOf="@+id/img_thumb" />
+        app:layout_constraintBottom_toBottomOf="@+id/img_brand_thumb"
+        app:layout_constraintLeft_toLeftOf="@+id/img_brand_thumb"
+        app:layout_constraintRight_toRightOf="@+id/img_brand_thumb"
+        app:layout_constraintTop_toTopOf="@+id/img_brand_thumb" />
 
     <TextView
         android:id="@+id/txt_brand_name"
@@ -33,9 +33,9 @@
         android:textColor="@color/color_FFFFFFFF"
         android:textSize="@dimen/sp_9"
         app:layout_constraintBottom_toTopOf="@+id/txt_brand_tag"
-        app:layout_constraintLeft_toLeftOf="@+id/img_thumb"
-        app:layout_constraintRight_toRightOf="@+id/img_thumb"
-        app:layout_constraintTop_toTopOf="@+id/img_thumb"
+        app:layout_constraintLeft_toLeftOf="@+id/img_brand_thumb"
+        app:layout_constraintRight_toRightOf="@+id/img_brand_thumb"
+        app:layout_constraintTop_toTopOf="@+id/img_brand_thumb"
         app:layout_constraintVertical_chainStyle="packed"
         tools:text="미니룩" />
 
@@ -47,9 +47,9 @@
         android:fontFamily="@font/nanum_square_r"
         android:textColor="@color/color_FFFFFFFF"
         android:textSize="@dimen/sp_6"
-        app:layout_constraintBottom_toBottomOf="@+id/img_thumb"
-        app:layout_constraintLeft_toLeftOf="@+id/img_thumb"
-        app:layout_constraintRight_toRightOf="@+id/img_thumb"
+        app:layout_constraintBottom_toBottomOf="@+id/img_brand_thumb"
+        app:layout_constraintLeft_toLeftOf="@+id/img_brand_thumb"
+        app:layout_constraintRight_toRightOf="@+id/img_brand_thumb"
         app:layout_constraintTop_toBottomOf="@+id/txt_brand_name"
         tools:text="#스트릿 #미니멀리즘 #모던" />
 
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/layout_product2_panel"
-        app:layout_constraintTop_toBottomOf="@+id/img_thumb">
+        app:layout_constraintTop_toBottomOf="@+id/img_brand_thumb">
 
         <ImageView
             android:id="@+id/img_product1_thumb"
@@ -154,7 +154,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/layout_product1_discount_panel"
                 app:layout_goneMarginTop="@dimen/dp_4"
                 tools:text="54,000" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -164,7 +163,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@+id/layout_product1_panel"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_thumb">
+        app:layout_constraintTop_toBottomOf="@+id/img_brand_thumb">
 
         <ImageView
             android:id="@+id/img_product2_thumb"
@@ -177,79 +176,88 @@
             tools:ignore="ContentDescription"
             tools:src="@drawable/placeholder_image" />
 
-        <TextView
-            android:id="@+id/txt_product2_brand_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_6"
-            android:fontFamily="@font/nanum_square_b"
-            android:textColor="@color/color_FF616161"
-            android:textSize="@dimen/sp_6"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_60"
+            android:orientation="vertical"
             app:layout_constraintLeft_toLeftOf="@+id/img_product2_thumb"
             app:layout_constraintRight_toRightOf="@+id/img_product2_thumb"
-            app:layout_constraintTop_toBottomOf="@+id/img_product2_thumb"
-            tools:text="미니룩" />
-
-        <TextView
-            android:id="@+id/txt_product2_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_10"
-            android:layout_marginTop="@dimen/dp_4"
-            android:layout_marginEnd="@dimen/dp_10"
-            android:fontFamily="@font/nanum_square_r"
-            android:gravity="center"
-            android:lineSpacingMultiplier="1.5"
-            android:textColor="@color/color_FF000000"
-            android:textSize="@dimen/sp_7"
-            app:layout_constraintLeft_toLeftOf="@+id/img_product2_thumb"
-            app:layout_constraintRight_toRightOf="@+id/img_product2_thumb"
-            app:layout_constraintTop_toBottomOf="@+id/txt_product2_brand_name"
-            tools:text="벨벳 윈터 와이드 벨벳 윈터 와이드" />
-
-        <LinearLayout
-            android:id="@+id/layout_product2_discount_panel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_4"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintLeft_toLeftOf="@+id/img_product2_thumb"
-            app:layout_constraintRight_toRightOf="@+id/img_product2_thumb"
-            app:layout_constraintTop_toBottomOf="@+id/txt_product2_name">
+            app:layout_constraintTop_toBottomOf="@+id/img_product2_thumb">
 
             <TextView
-                android:id="@+id/txt_product2_discount_percent"
+                android:id="@+id/txt_product2_brand_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_6"
                 android:fontFamily="@font/nanum_square_b"
-                android:textColor="@color/color_FFFF3C50"
+                android:textColor="@color/color_FF616161"
                 android:textSize="@dimen/sp_6"
-                tools:text="10%" />
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="미니룩" />
 
             <TextView
-                android:id="@+id/txt_product2_price_origin"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_2"
+                android:id="@+id/txt_product2_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_4"
+                android:layout_marginEnd="@dimen/dp_10"
                 android:fontFamily="@font/nanum_square_r"
-                android:textColor="@color/color_FFA9A9A9"
-                android:textSize="@dimen/sp_6"
-                tools:text="60,000" />
-        </LinearLayout>
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.5"
+                android:textColor="@color/color_FF000000"
+                android:textSize="@dimen/sp_7"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_product2_brand_name"
+                tools:text="벨벳 윈터 와이드 벨벳 윈터 와이드" />
 
-        <TextView
-            android:id="@+id/txt_product2_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_2"
-            android:fontFamily="@font/nanum_square_b"
-            android:textColor="@color/color_FF232323"
-            android:textSize="@dimen/sp_7"
-            app:layout_constraintLeft_toLeftOf="@+id/img_product2_thumb"
-            app:layout_constraintRight_toRightOf="@+id/img_product2_thumb"
-            app:layout_constraintTop_toBottomOf="@+id/layout_product2_discount_panel"
-            app:layout_goneMarginTop="@dimen/dp_4"
-            tools:text="54,000" />
+            <LinearLayout
+                android:id="@+id/layout_product2_discount_panel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_product2_name">
+
+                <TextView
+                    android:id="@+id/txt_product2_discount_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:textColor="@color/color_FFFF3C50"
+                    android:textSize="@dimen/sp_6"
+                    tools:text="10%" />
+
+                <TextView
+                    android:id="@+id/txt_product2_price_origin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_2"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:textColor="@color/color_FFA9A9A9"
+                    android:textSize="@dimen/sp_6"
+                    tools:text="60,000" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_product2_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_2"
+                android:fontFamily="@font/nanum_square_b"
+                android:textColor="@color/color_FF232323"
+                android:textSize="@dimen/sp_7"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_product2_discount_panel"
+                app:layout_goneMarginTop="@dimen/dp_4"
+                tools:text="54,000" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
