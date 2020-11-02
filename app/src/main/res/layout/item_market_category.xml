@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:descendantFocusability="blocksDescendants"
-    android:paddingTop="@dimen/dp_8"
-    android:paddingBottom="@dimen/dp_13">
+    >
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcv_category"
