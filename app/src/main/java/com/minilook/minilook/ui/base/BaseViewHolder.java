@@ -26,4 +26,10 @@ public class BaseViewHolder<T> extends RecyclerView.ViewHolder {
     public void bind(T $data) {
         this.data = $data;
     }
+
+    public void onAttach() {
+    }
+
+    public void onDetach() {
+    }
 }

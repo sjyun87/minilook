@@ -68,6 +68,14 @@ public class MarketCommercialVH extends BaseViewHolder<MarketDataModel> {
         }
     };
 
+    @Override public void onAttach() {
+        handler.postDelayed(nextPageRunnable, 3000);
+    }
+
+    @Override public void onDetach() {
+        handler.removeCallbacks(nextPageRunnable);
+    }
+
     @Override public void bind(MarketDataModel $data) {
         super.bind($data);
 
