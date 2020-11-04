@@ -180,8 +180,8 @@ public class ProductBridgeActivity extends BaseActivity implements ProductBridge
         emptyPanel.setVisibility(View.GONE);
     }
 
-    @Override public void navigateToSearchFilter() {
-        SearchFilterActivity.start(this);
+    @Override public void navigateToSearchFilter(SearchOptionDataModel options) {
+        SearchFilterActivity.start(this, options);
     }
 
     @OnClick(R.id.layout_sort_panel)

@@ -8,10 +8,12 @@ import butterknife.BindView;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.market.MarketDataModel;
+import com.minilook.minilook.data.model.search.SearchOptionDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseFragment;
 import com.minilook.minilook.ui.market.adapter.MarketModuleAdapter;
 import com.minilook.minilook.ui.market.di.MarketArguments;
+import com.minilook.minilook.ui.product_bridge.ProductBridgeActivity;
 
 public class MarketFragment extends BaseFragment implements MarketPresenter.View {
 
@@ -64,5 +66,9 @@ public class MarketFragment extends BaseFragment implements MarketPresenter.View
 
     @Override public void refresh() {
         adapterView.refresh();
+    }
+
+    @Override public void navigateToProductBridge(SearchOptionDataModel model) {
+        ProductBridgeActivity.start(getContext(), model);
     }
 }

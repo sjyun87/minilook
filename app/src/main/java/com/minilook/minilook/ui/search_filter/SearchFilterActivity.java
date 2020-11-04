@@ -46,6 +46,13 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
         context.startActivity(intent);
     }
 
+    public static void start(Context context, SearchOptionDataModel options) {
+        Intent intent = new Intent(context, SearchFilterActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        intent.putExtra("options", options);
+        context.startActivity(intent);
+    }
+
     @BindView(R.id.nsv_contents) NestedScrollView contentsScrollView;
     @BindView(R.id.rcv_gender) RecyclerView genderRecyclerView;
     @BindView(R.id.slider_gender) Slider ageSlider;
@@ -99,6 +106,7 @@ public class SearchFilterActivity extends BaseActivity implements SearchFilterPr
     private SearchFilterArguments provideArguments() {
         return SearchFilterArguments.builder()
             .view(this)
+            .options((SearchOptionDataModel) getIntent().getSerializableExtra("options"))
             .genderAdapter(genderAdapter)
             .categoryAdapter(categoryAdapter)
             .colorAdapter(colorAdapter)

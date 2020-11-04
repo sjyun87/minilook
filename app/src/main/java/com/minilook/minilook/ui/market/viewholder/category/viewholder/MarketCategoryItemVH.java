@@ -15,10 +15,13 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.code.CommercialType;
 import com.minilook.minilook.data.model.commercial.CommercialDataModel;
 import com.minilook.minilook.data.model.common.CodeDataModel;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.event_detail.EventDetailActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.ui.promotion_detail.PromotionDetailActivity;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 public class MarketCategoryItemVH extends BaseViewHolder<CodeDataModel> {
 
@@ -48,6 +51,10 @@ public class MarketCategoryItemVH extends BaseViewHolder<CodeDataModel> {
     }
 
     void onItemClick(View view) {
+        RxBus.send(new RxBusEventMarketCategoryClick(data));
+    }
 
+    @AllArgsConstructor @Getter public final static class RxBusEventMarketCategoryClick {
+        private CodeDataModel categoryData;
     }
 }

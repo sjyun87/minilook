@@ -4,6 +4,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import com.minilook.minilook.data.model.common.CodeDataModel;
+import com.minilook.minilook.data.model.search.SearchOptionDataModel;
 import java.util.List;
 
 public interface ProductBridgePresenter extends LifecycleObserver {
@@ -47,7 +48,7 @@ public interface ProductBridgePresenter extends LifecycleObserver {
 
         void hideEmptyPanel();
 
-        void navigateToSearchFilter();
+        void navigateToSearchFilter(SearchOptionDataModel options);
 
         void finish();
     }

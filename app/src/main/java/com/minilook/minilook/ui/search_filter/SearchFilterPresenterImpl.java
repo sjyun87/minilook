@@ -25,6 +25,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
     private static final String SIZE_TYPE_ACCESSORIES = "가방/잡화";
 
     private final View view;
+    private final SearchOptionDataModel options;
     private final BaseAdapterDataModel<GenderDataModel> genderAdapter;
     private final BaseAdapterDataModel<CodeDataModel> categoryAdapter;
     private final BaseAdapterDataModel<ColorDataModel> colorAdapter;
@@ -52,6 +53,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
 
     public SearchFilterPresenterImpl(SearchFilterArguments args) {
         view = args.getView();
+        options = args.getOptions();
         genderAdapter = args.getGenderAdapter();
         categoryAdapter = args.getCategoryAdapter();
         colorAdapter = args.getColorAdapter();
@@ -301,8 +303,12 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         List<CodeDataModel> items = new ArrayList<>();
         for (int i = 0; i < categories.size(); i++) {
             CodeDataModel model = categories.get(i);
+            if (options != null && options.getCategory_code() != null && model.getCode().equals(options.getCategory_code())) {
+                model.setSelected(true);
+            } else {
+                model.setSelected(false);
+            }
             model.setPosition(i);
-            model.setSelected(false);
             items.add(model);
         }
         return items;

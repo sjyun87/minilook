@@ -97,7 +97,7 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
     }
 
     @Override public void onFilterClick() {
-        view.navigateToSearchFilter();
+        view.navigateToSearchFilter(options);
         view.finish();
     }
 
