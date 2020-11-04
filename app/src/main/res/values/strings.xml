@@ -74,6 +74,8 @@
     <string name="leave_ok">탈퇴하기</string>
 
     <!--Market-->
+    <string name="market_commercial_index">%d/%d</string>
+
 
     <string name="market_limited_desc">매일 오전 9시 오픈되는 한정 할인 상품</string>
     <string name="market_brand_more">전체보기</string>

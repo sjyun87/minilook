@@ -23,7 +23,8 @@ public class MarketCommercialAdapter extends RecyclerView.Adapter<MarketCommerci
     }
 
     @Override public void onBindViewHolder(@NonNull MarketCommercialItemVH holder, int position) {
-        holder.bind(items.get(position));
+        int realPosition = position % items.size();
+        holder.bind(items.get(realPosition), realPosition, items.size());
     }
 
     @Override public int getItemCount() {
@@ -80,7 +81,7 @@ public class MarketCommercialAdapter extends RecyclerView.Adapter<MarketCommerci
     }
 
     @Override public int getSize() {
-        return items.size();
+        return Integer.MAX_VALUE;
     }
 
     @Override public void refresh() {

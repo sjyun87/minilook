@@ -5,8 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import butterknife.BindDrawable;
+import butterknife.BindString;
 import butterknife.BindView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
@@ -21,15 +23,18 @@ import com.minilook.minilook.ui.promotion_detail.PromotionDetailActivity;
 public class MarketCommercialItemVH extends BaseViewHolder<CommercialDataModel> {
 
     @BindView(R.id.img_contents) ImageView contentsImageView;
+    @BindView(R.id.txt_index) TextView indexTextView;
 
     @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+
+    @BindString(R.string.market_commercial_index) String format_index;
 
     public MarketCommercialItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
             .inflate(R.layout.item_market_commercial_item, (ViewGroup) itemView, false));
     }
 
-    @Override public void bind(CommercialDataModel $data) {
+    public void bind(CommercialDataModel $data, int position, int total) {
         super.bind($data);
 
         Glide.with(context)
@@ -38,6 +43,8 @@ public class MarketCommercialItemVH extends BaseViewHolder<CommercialDataModel> 
             .error(img_placeholder)
             .transition(new DrawableTransitionOptions().crossFade())
             .into(contentsImageView);
+
+        indexTextView.setText(String.format(format_index, position + 1, total));
 
         itemView.setOnClickListener(this::onItemClick);
     }
