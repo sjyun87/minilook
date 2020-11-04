@@ -12,12 +12,15 @@ import androidx.annotation.NonNull;
 import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
+import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.StringUtil;
 import java.util.List;
 
@@ -123,6 +126,18 @@ public class MarketBrandItemVH extends BaseViewHolder<BrandDataModel> {
     }
 
     void onItemClick(View view) {
+        BrandDetailActivity.start(context, data.getBrandNo());
+    }
 
+    @OnClick(R.id.layout_product1_panel)
+    void onProduct1Click() {
+        int productNo = data.getProducts().get(0).getProductNo();
+        ProductDetailActivity.start(context, productNo);
+    }
+
+    @OnClick(R.id.layout_product2_panel)
+    void onProduct2Click() {
+        int productNo = data.getProducts().get(1).getProductNo();
+        ProductDetailActivity.start(context, productNo);
     }
 }

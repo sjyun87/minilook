@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindDimen;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -18,6 +19,7 @@ import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.commercial.CommercialDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.brand.BrandActivity;
 import com.minilook.minilook.ui.market.viewholder.brand.adapter.MarketBrandAdapter;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,5 +66,10 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> {
     private List<BrandDataModel> parseJsonToModel() {
         return gson.fromJson(data.getData(), new TypeToken<ArrayList<BrandDataModel>>() {
         }.getType());
+    }
+
+    @OnClick(R.id.img_more)
+    void onMoreClick() {
+        BrandActivity.start(context);
     }
 }
