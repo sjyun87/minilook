@@ -17,7 +17,8 @@ public class MarketPreorderAdapter extends RecyclerView.Adapter<BaseViewHolder<P
 
     private List<PreorderDataModel> items = new ArrayList<>();
 
-    @NonNull @Override public BaseViewHolder<PreorderDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    @NonNull @Override
+    public BaseViewHolder<PreorderDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == 0) {
             return new MarketPreorderOpenItemVH(parent);
         } else {

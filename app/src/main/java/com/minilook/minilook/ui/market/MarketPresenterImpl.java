@@ -8,8 +8,6 @@ import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.network.market.MarketRequest;
 import com.minilook.minilook.data.rx.Transformer;
-import com.minilook.minilook.data.code.MarketModuleCode;
-import com.minilook.minilook.data.code.MarketModuleType;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.market.di.MarketArguments;
@@ -53,46 +51,15 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
     }
 
     private void resMarketModules(@NonNull List<MarketDataModel> data) {
-        adapter.set(parseToModuleType(data));
+        List<MarketDataModel> item = new ArrayList<>();
+        item.add(data.get(0));
+        item.add(data.get(1));
+        item.add(data.get(3));
+        item.add(data.get(6));
+        item.add(data.get(7));
+
+        adapter.set(item);
         view.refresh();
         view.setRefreshing();
-    }
-
-    private List<MarketDataModel> parseToModuleType(List<MarketDataModel> data) {
-        List<MarketDataModel> items = new ArrayList<>();
-        for (MarketDataModel model : data) {
-            if (model.getModule().equals(MarketModuleCode.COMMERCIAL.name())) {
-                model.setType(MarketModuleType.TYPE_COMMERCIAL.getValue());
-                items.add(model);
-            } else if (model.getModule().equals(MarketModuleCode.TODAY.name())) {
-                model.setType(MarketModuleType.TYPE_LIMITED.getValue());
-                items.add(model);
-            } else if (model.getModule().equals(MarketModuleCode.NEW.name())) {
-                model.setType(MarketModuleType.TYPE_NEW_ARRIVALS.getValue());
-                items.add(model);
-            } else if (model.getModule().equals(MarketModuleCode.BRAND.name())) {
-                model.setType(MarketModuleType.TYPE_BRAND.getValue());
-                items.add(model);
-            } else if (model.getModule().equals(MarketModuleCode.CATEGORY.name())) {
-                model.setType(MarketModuleType.TYPE_FILTER.getValue());
-                items.add(model);
-            } else if (model.getModule().equals(MarketModuleCode.RECOMMEND.name())) {
-                int visibleCount = model.getVisible_cnt();
-                if (visibleCount == 4) {
-                    model.setType(MarketModuleType.TYPE_RECOMMEND_4.getValue());
-                    items.add(model);
-                } else if (visibleCount == 5) {
-                    model.setType(MarketModuleType.TYPE_RECOMMEND_5.getValue());
-                    items.add(model);
-                } else if (visibleCount == 6) {
-                    model.setType(MarketModuleType.TYPE_RECOMMEND_6.getValue());
-                    items.add(model);
-                } else if (visibleCount == 9) {
-                    model.setType(MarketModuleType.TYPE_RECOMMEND_9.getValue());
-                    items.add(model);
-                }
-            }
-        }
-        return items;
     }
 }

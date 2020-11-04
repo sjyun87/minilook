@@ -5,6 +5,7 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.minilook.minilook.data.model.base.BooleanDeserializer;
 import com.minilook.minilook.data.model.common.CodeDataModel;
+import com.minilook.minilook.data.model.product.ProductDataModel;
 import java.util.List;
 import lombok.Data;
 
@@ -30,6 +31,8 @@ import lombok.Data;
     private List<CodeDataModel> styles;
     @Expose @SerializedName("styleImages")
     private List<String> styleImages;
+    @Expose @SerializedName("products")
+    private List<ProductDataModel> products;
 
     // -- Optional Data
     private int position;

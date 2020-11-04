@@ -1,17 +1,17 @@
 package com.minilook.minilook.ui.market.viewholder.new_arrivals;
 
 import android.graphics.Typeface;
-import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import butterknife.BindDimen;
+import butterknife.BindFont;
+import butterknife.BindView;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -20,15 +20,8 @@ import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
-import com.minilook.minilook.util.SpannableUtil;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
-
-import butterknife.BindDimen;
-import butterknife.BindFont;
-import butterknife.BindView;
 
 public class MarketNewArrivalsVH extends BaseViewHolder<MarketDataModel> {
 
@@ -63,22 +56,14 @@ public class MarketNewArrivalsVH extends BaseViewHolder<MarketDataModel> {
     @Override public void bind(MarketDataModel $data) {
         super.bind($data);
 
-        titleTextView.setText(getBoldText());
+        titleTextView.setText(data.getTitle());
 
         adapter.set(parseJsonToModel());
         adapter.refresh();
     }
 
-    private SpannableString getBoldText() {
-        SpannableString title = new SpannableString(data.getTitle());
-        StringTokenizer tokenizer = new StringTokenizer(data.getBold_text(), ",");
-        while (tokenizer.hasMoreTokens()) {
-            SpannableUtil.fontSpan(title, tokenizer.nextToken(), font_bold);
-        }
-        return title;
-    }
-
     private List<ProductDataModel> parseJsonToModel() {
-        return gson.fromJson(data.getData(), new TypeToken<ArrayList<ProductDataModel>>() {}.getType());
+        return gson.fromJson(data.getData(), new TypeToken<ArrayList<ProductDataModel>>() {
+        }.getType());
     }
 }

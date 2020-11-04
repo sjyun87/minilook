@@ -12,10 +12,15 @@ import butterknife.BindDimen;
 import butterknife.BindView;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.brand.BrandDataModel;
+import com.minilook.minilook.data.model.commercial.CommercialDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.market.viewholder.brand.adapter.MarketBrandAdapter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MarketBrandVH extends BaseViewHolder<MarketDataModel> {
 
@@ -26,7 +31,7 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> {
 
     private Gson gson = new Gson();
 
-    private MarketBrandAdapter menuAdapter;
+    private MarketBrandAdapter adapter;
 
     public MarketBrandVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
@@ -36,9 +41,9 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> {
     }
 
     private void setupRecyclerView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
-        menuAdapter = new MarketBrandAdapter();
-        recyclerView.setAdapter(menuAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        adapter = new MarketBrandAdapter();
+        recyclerView.setAdapter(adapter);
         DividerDecoration.builder(context)
             .size(dp_6)
             .asSpace()
@@ -50,13 +55,14 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> {
     @Override public void bind(MarketDataModel $data) {
         super.bind($data);
 
-        //titleTextView.setText(getBoldText());
-        //
-        //brandItems = parseJsonToModel();
-        //
-        //menuAdapter.set(brandItems);
-        //menuAdapter.refresh();
-        //
-        //setupBrandData(brandItems.get(selectedPosition));
+        titleTextView.setText(data.getTitle());
+
+        adapter.set(parseJsonToModel());
+        adapter.refresh();
+    }
+
+    private List<BrandDataModel> parseJsonToModel() {
+        return gson.fromJson(data.getData(), new TypeToken<ArrayList<BrandDataModel>>() {
+        }.getType());
     }
 }

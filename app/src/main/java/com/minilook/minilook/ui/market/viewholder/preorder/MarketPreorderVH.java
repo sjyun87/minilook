@@ -15,10 +15,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.market.MarketDataModel;
-import com.minilook.minilook.data.model.product.ProductDataModel;
+import com.minilook.minilook.data.model.preorder.PreorderDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.market.viewholder.preorder.adapter.MarketPreorderAdapter;
-import com.minilook.minilook.ui.market.viewholder.recommend.adapter.MarketRecommendAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,12 +55,12 @@ public class MarketPreorderVH extends BaseViewHolder<MarketDataModel> {
 
         titleTextView.setText(data.getTitle());
 
-        //adapter.set(parseJsonToModel());
-        //adapter.refresh();
+        adapter.set(parseJsonToModel());
+        adapter.refresh();
     }
 
-    //private List<ProductDataModel> parseJsonToModel() {
-    //    return gson.fromJson(data.getData(), new TypeToken<ArrayList<ProductDataModel>>() {
-    //    }.getType());
-    //}
+    private List<PreorderDataModel> parseJsonToModel() {
+        return gson.fromJson(data.getData(), new TypeToken<ArrayList<PreorderDataModel>>() {
+        }.getType());
+    }
 }

@@ -11,9 +11,10 @@ import butterknife.BindView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.commercial.CommercialDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 
-public class MarketBannerItemVH extends BaseViewHolder<String> {
+public class MarketBannerItemVH extends BaseViewHolder<CommercialDataModel> {
 
     @BindView(R.id.img_contents) ImageView contentsImageView;
 
@@ -24,15 +25,15 @@ public class MarketBannerItemVH extends BaseViewHolder<String> {
             .inflate(R.layout.item_market_banner_item, (ViewGroup) itemView, false));
     }
 
-    @Override public void bind(String $data) {
+    @Override public void bind(CommercialDataModel $data) {
         super.bind($data);
 
-        //Glide.with(context)
-        //    .load(data.getThumbUrl())
-        //    .placeholder(img_placeholder)
-        //    .error(img_placeholder)
-        //    .transition(new DrawableTransitionOptions().crossFade())
-        //    .into(contentsImageView);
+        Glide.with(context)
+            .load(data.getThumbUrl())
+            .placeholder(img_placeholder)
+            .error(img_placeholder)
+            .transition(new DrawableTransitionOptions().crossFade())
+            .into(contentsImageView);
 
         itemView.setOnClickListener(this::onItemClick);
     }

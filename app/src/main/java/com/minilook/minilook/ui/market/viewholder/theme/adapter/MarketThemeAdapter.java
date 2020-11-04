@@ -20,7 +20,7 @@ public class MarketThemeAdapter extends RecyclerView.Adapter<MarketThemeItemVH> 
     }
 
     @Override public void onBindViewHolder(@NonNull MarketThemeItemVH holder, int position) {
-        holder.bind(items.get(position), position);
+        holder.bind(items.get(position));
     }
 
     @Override public int getItemCount() {

@@ -4,24 +4,25 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor @Getter public enum MarketModuleType {
-    TYPE_COMMERCIAL(1),
-    TYPE_LIMITED(2),
-    TYPE_RECOMMEND_4(3),
-    TYPE_RECOMMEND_5(4),
-    TYPE_RECOMMEND_6(5),
-    TYPE_RECOMMEND_9(6),
-    TYPE_NEW_ARRIVALS(7),
-    TYPE_BRAND(8),
-    TYPE_FILTER(9);
+    TYPE_COMMERCIAL(1, "COMMERCIAL"),
+    TYPE_CATEGORY(2, "CATEGORY"),
+    TYPE_RECOMMEND(3, "RECOMMEND"),
+    TYPE_PREORDER(4, "PREORDER"),
+    TYPE_TREND(5, "TREND"),
+    TYPE_NEW_ARRIVAL(6, "NEW"),
+    TYPE_BANNER(7, "BANNER"),
+    TYPE_BRAND(8, "BRAND"),
+    TYPE_THEME(9, "THEME");
 
-    private int value;
+    private int type;
+    private String value;
 
-    public static MarketModuleType toModuleType(int $value) {
+    public static int toModuleType(String $value) {
         for (MarketModuleType moduleType : MarketModuleType.values()) {
-            if (moduleType.value == $value) {
-                return moduleType;
+            if (moduleType.value.equals($value)) {
+                return moduleType.type;
             }
         }
-        return null;
+        return -1;
     }
 }

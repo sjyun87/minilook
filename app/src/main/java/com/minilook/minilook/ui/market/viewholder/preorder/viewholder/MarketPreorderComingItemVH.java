@@ -34,7 +34,7 @@ public class MarketPreorderComingItemVH extends BaseViewHolder<PreorderDataModel
     @BindString(R.string.preorder_d_day) String format_d_day;
     @BindString(R.string.preorder_coming_date) String format_date;
 
-    @BindDrawable(R.drawable.placeholder_logo) Drawable img_placeholder;
+    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
 
     public MarketPreorderComingItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())

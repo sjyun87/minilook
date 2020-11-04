@@ -3,10 +3,17 @@ package com.minilook.minilook.ui.market.adapter;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.minilook.minilook.data.code.MarketModuleType;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.market.viewholder.banner.MarketBannerVH;
+import com.minilook.minilook.ui.market.viewholder.brand.MarketBrandVH;
+import com.minilook.minilook.ui.market.viewholder.category.MarketCategoryVH;
+import com.minilook.minilook.ui.market.viewholder.commercial.MarketCommercialVH;
+import com.minilook.minilook.ui.market.viewholder.preorder.MarketPreorderVH;
+import com.minilook.minilook.ui.market.viewholder.recommend.MarketRecommendVH;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,29 +24,22 @@ public class MarketModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<Mar
 
     @NonNull @Override
     public BaseViewHolder<MarketDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        //if (viewType == MarketModuleType.TYPE_COMMERCIAL.getValue()) {
-        //    return new MarketCommercialVH(parent);
-        //} else if (viewType == MarketModuleType.TYPE_LIMITED.getValue()) {
-        //    return new MarketLimitedVH(parent);
-        //} else if (viewType == MarketModuleType.TYPE_RECOMMEND_4.getValue()) {
-        //    return new MarketRecommendVH(parent, 4);
-        //} else if (viewType == MarketModuleType.TYPE_RECOMMEND_5.getValue()) {
-        //    return new MarketRecommendVH(parent, 5);
-        //} else if (viewType == MarketModuleType.TYPE_RECOMMEND_6.getValue()) {
-        //    return new MarketRecommendVH(parent, 6);
-        //} else if (viewType == MarketModuleType.TYPE_RECOMMEND_9.getValue()) {
-        //    return new MarketRecommendVH(parent, 9);
-        //} else if (viewType == MarketModuleType.TYPE_NEW_ARRIVALS.getValue()) {
-        //    return new MarketNewArrivalsVH(parent);
-        //} else if (viewType == MarketModuleType.TYPE_BRAND.getValue()) {
-        //    return new MarketBrandVH(parent);
-        //} else if (viewType == MarketModuleType.TYPE_FILTER.getValue()) {
-        //    return new MarketFilterVH(parent);
-        //} else {
-        //    Timber.e("Market Module type is null..");
-        //    return new BaseViewHolder<>(parent);
-        //}
-        return new BaseViewHolder<>(parent);
+
+        if (viewType == MarketModuleType.TYPE_COMMERCIAL.getType()) {
+            return new MarketCommercialVH(parent);
+        } else if (viewType == MarketModuleType.TYPE_CATEGORY.getType()) {
+            return new MarketCategoryVH(parent);
+        } else if (viewType == MarketModuleType.TYPE_RECOMMEND.getType()) {
+            return new MarketRecommendVH(parent);
+        } else if (viewType == MarketModuleType.TYPE_PREORDER.getType()) {
+            return new MarketPreorderVH(parent);
+        } else if (viewType == MarketModuleType.TYPE_BANNER.getType()) {
+            return new MarketBannerVH(parent);
+        } else if (viewType == MarketModuleType.TYPE_BRAND.getType()) {
+            return new MarketBrandVH(parent);
+        } else {
+            return new BaseViewHolder<>(parent);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -52,7 +52,7 @@ public class MarketModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<Mar
     }
 
     @Override public int getItemViewType(int position) {
-        return items.get(position).getType();
+        return MarketModuleType.toModuleType(items.get(position).getType());
     }
 
     @Override public void add(MarketDataModel $item) {

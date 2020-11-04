@@ -7,7 +7,7 @@ import retrofit2.http.Query;
 
 public interface MarketService {
 
-    @GET("/api/markets") Single<BaseDataModel> getMarketModules(
-        @Query("memberNo") int user_id
+    @GET("/api/markets/new") Single<BaseDataModel> getMarketModules(
+        @Query("memberNo") int memberNo
     );
 }

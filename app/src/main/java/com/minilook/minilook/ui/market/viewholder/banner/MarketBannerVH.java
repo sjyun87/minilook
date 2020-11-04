@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 import butterknife.BindDimen;
 import butterknife.BindView;
@@ -15,9 +16,11 @@ import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.commercial.CommercialDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.market.viewholder.banner.adapter.MarketBannerAdapter;
 import com.minilook.minilook.ui.market.viewholder.recommend.adapter.MarketRecommendAdapter;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +31,7 @@ public class MarketBannerVH extends BaseViewHolder<MarketDataModel> {
 
     @BindDimen(R.dimen.dp_4) int dp_4;
 
-    private MarketRecommendAdapter adapter;
+    private MarketBannerAdapter adapter;
     private Gson gson = new Gson();
 
     public MarketBannerVH(@NonNull View itemView) {
@@ -39,28 +42,26 @@ public class MarketBannerVH extends BaseViewHolder<MarketDataModel> {
     }
 
     private void setupProductRecyclerView() {
-        //recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
-        //adapter = new MarketRecommendAdapter();
-        //recyclerView.setAdapter(adapter);
-        //DividerDecoration.builder(context)
-        //    .size(dp_4)
-        //    .asSpace()
-        //    .build()
-        //    .addTo(recyclerView);
-        //ViewCompat.setNestedScrollingEnabled(recyclerView, false);
+        adapter = new MarketBannerAdapter();
+        viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(2);
+        viewPager.setPageTransformer(new MarginPageTransformer(dp_4));
+        ViewCompat.setNestedScrollingEnabled(viewPager, false);
     }
 
     @Override public void bind(MarketDataModel $data) {
         super.bind($data);
+        List<CommercialDataModel> items = parseJsonToModel();
+        items.add(items.get(0));
+        items.add(items.get(0));
+        items.add(items.get(0));
 
-        //titleTextView.setText(data.getTitle());
-        //
-        //adapter.set(parseJsonToModel());
-        //adapter.refresh();
+        adapter.set(items);
+        adapter.refresh();
     }
 
-    private List<ProductDataModel> parseJsonToModel() {
-        return gson.fromJson(data.getData(), new TypeToken<ArrayList<ProductDataModel>>() {
+    private List<CommercialDataModel> parseJsonToModel() {
+        return gson.fromJson(data.getData(), new TypeToken<ArrayList<CommercialDataModel>>() {
         }.getType());
     }
 }
