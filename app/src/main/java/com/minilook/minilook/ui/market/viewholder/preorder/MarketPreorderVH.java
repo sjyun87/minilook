@@ -10,13 +10,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindDimen;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.main.MainPresenterImpl;
 import com.minilook.minilook.ui.market.viewholder.preorder.adapter.MarketPreorderAdapter;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,5 +65,10 @@ public class MarketPreorderVH extends BaseViewHolder<MarketDataModel> {
     private List<PreorderDataModel> parseJsonToModel() {
         return gson.fromJson(data.getData(), new TypeToken<ArrayList<PreorderDataModel>>() {
         }.getType());
+    }
+
+    @OnClick(R.id.img_more)
+    void onMoreClick() {
+        RxBus.send(new MainPresenterImpl.RxEventNavigateToPage(3));
     }
 }
