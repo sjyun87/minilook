@@ -20,7 +20,8 @@ public class MarketBannerAdapter extends RecyclerView.Adapter<MarketBannerItemVH
     }
 
     @Override public void onBindViewHolder(@NonNull MarketBannerItemVH holder, int position) {
-        holder.bind(items.get(position));
+        int realPosition = position % items.size();
+        holder.bind(items.get(realPosition));
     }
 
     @Override public int getItemCount() {
@@ -77,7 +78,7 @@ public class MarketBannerAdapter extends RecyclerView.Adapter<MarketBannerItemVH
     }
 
     @Override public int getSize() {
-        return items.size();
+        return Integer.MAX_VALUE;
     }
 
     @Override public void refresh() {

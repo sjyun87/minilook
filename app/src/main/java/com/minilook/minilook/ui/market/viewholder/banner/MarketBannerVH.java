@@ -1,5 +1,6 @@
 package com.minilook.minilook.ui.market.viewholder.banner;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ public class MarketBannerVH extends BaseViewHolder<MarketDataModel> {
 
     private MarketBannerAdapter adapter;
     private Gson gson = new Gson();
+    private Handler handler = new Handler();
 
     public MarketBannerVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
@@ -46,8 +48,33 @@ public class MarketBannerVH extends BaseViewHolder<MarketDataModel> {
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setPageTransformer(new MarginPageTransformer(dp_4));
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override public void onPageSelected(int position) {
+                handler.removeCallbacks(nextPageRunnable);
+                handler.postDelayed(nextPageRunnable, 3000);
+            }
+
+            @Override public void onPageScrollStateChanged(int state) {
+                if (state == ViewPager2.SCROLL_STATE_DRAGGING) {
+                    handler.removeCallbacks(nextPageRunnable);
+                } else if (state == ViewPager2.SCROLL_STATE_IDLE) {
+                    handler.postDelayed(nextPageRunnable, 3000);
+                }
+            }
+        });
         ViewCompat.setNestedScrollingEnabled(viewPager, false);
     }
+
+    private Runnable nextPageRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (viewPager.getCurrentItem() != adapter.getSize() - 1) {
+                viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
+            } else {
+                viewPager.setCurrentItem(0, false);
+            }
+        }
+    };
 
     @Override public void bind(MarketDataModel $data) {
         super.bind($data);
