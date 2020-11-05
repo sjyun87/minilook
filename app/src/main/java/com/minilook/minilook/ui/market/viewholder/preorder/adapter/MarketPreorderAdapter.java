@@ -3,6 +3,7 @@ package com.minilook.minilook.ui.market.viewholder.preorder.adapter;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.minilook.minilook.data.code.PreorderType;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
@@ -19,7 +20,7 @@ public class MarketPreorderAdapter extends RecyclerView.Adapter<BaseViewHolder<P
 
     @NonNull @Override
     public BaseViewHolder<PreorderDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == 0) {
+        if (viewType == PreorderType.ING.getValue()) {
             return new MarketPreorderOpenItemVH(parent);
         } else {
             return new MarketPreorderComingItemVH(parent);
@@ -28,6 +29,10 @@ public class MarketPreorderAdapter extends RecyclerView.Adapter<BaseViewHolder<P
 
     @Override public void onBindViewHolder(@NonNull BaseViewHolder<PreorderDataModel> holder, int position) {
         holder.bind(items.get(position));
+    }
+
+    @Override public int getItemViewType(int position) {
+        return items.get(position).getStatus();
     }
 
     @Override public int getItemCount() {

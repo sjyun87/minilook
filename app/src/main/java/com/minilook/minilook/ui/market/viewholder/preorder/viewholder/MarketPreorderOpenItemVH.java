@@ -17,6 +17,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.preorder_detail.PreorderDetailActivity;
 import com.minilook.minilook.util.SpannableUtil;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -74,6 +75,6 @@ public class MarketPreorderOpenItemVH extends BaseViewHolder<PreorderDataModel> 
     }
 
     void onItemClick(View view) {
-
+        PreorderDetailActivity.start(context, data.getPreorderNo());
     }
 }

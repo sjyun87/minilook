@@ -27,7 +27,7 @@ public class MarketPreorderComingItemVH extends BaseViewHolder<PreorderDataModel
 
     @BindView(R.id.img_thumb) ImageView thumbImageView;
     @BindView(R.id.txt_start_date) TextView startDateTextView;
-    @BindView(R.id.txt_brand) TextView brandTextView;
+    @BindView(R.id.txt_brand_name) TextView brandNameTextView;
     @BindView(R.id.txt_title) TextView titleTextView;
     @BindView(R.id.txt_desc) TextView descTextView;
 
@@ -52,11 +52,9 @@ public class MarketPreorderComingItemVH extends BaseViewHolder<PreorderDataModel
             .into(thumbImageView);
 
         startDateTextView.setText(getStartDate(data.getStartDate()));
-        brandTextView.setText(data.getBrandName());
+        brandNameTextView.setText(data.getBrandName());
         titleTextView.setText(data.getTitle());
         descTextView.setText(data.getDesc());
-
-        itemView.setOnClickListener(this::onItemClick);
     }
 
     private SpannableString getStartDate(long date) {
@@ -71,9 +69,5 @@ public class MarketPreorderComingItemVH extends BaseViewHolder<PreorderDataModel
         String dday = String.format(format_d_day, count);
         String totalStartData = String.format(format_date, strStartData, dday);
         return SpannableUtil.styleSpan(totalStartData, dday, Typeface.BOLD);
-    }
-
-    void onItemClick(View view) {
-
     }
 }
