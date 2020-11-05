@@ -14,6 +14,7 @@ import com.minilook.minilook.ui.market.viewholder.category.MarketCategoryVH;
 import com.minilook.minilook.ui.market.viewholder.commercial.MarketCommercialVH;
 import com.minilook.minilook.ui.market.viewholder.preorder.MarketPreorderVH;
 import com.minilook.minilook.ui.market.viewholder.recommend.MarketRecommendVH;
+import com.minilook.minilook.ui.market.viewholder.trend.MarketTrendVH;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,8 @@ public class MarketModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<Mar
             return new MarketRecommendVH(parent);
         } else if (viewType == MarketModuleType.TYPE_PREORDER.getType()) {
             return new MarketPreorderVH(parent);
+        } else if (viewType == MarketModuleType.TYPE_TREND.getType()) {
+            return new MarketTrendVH(parent);
         } else if (viewType == MarketModuleType.TYPE_BANNER.getType()) {
             return new MarketBannerVH(parent);
         } else if (viewType == MarketModuleType.TYPE_BRAND.getType()) {

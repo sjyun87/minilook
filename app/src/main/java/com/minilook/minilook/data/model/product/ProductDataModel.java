@@ -100,4 +100,6 @@ import lombok.Data;
     private boolean isPreorder;
     @Expose @SerializedName("preorderNo")
     private int preorderNo;
+    @Expose @SerializedName("type")
+    private String type;
 }

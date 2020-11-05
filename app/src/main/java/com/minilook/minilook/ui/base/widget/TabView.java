@@ -27,18 +27,20 @@ public class TabView extends LinearLayout {
     @BindFont(R.font.nanum_square_eb) Typeface font_extrabold;
 
     @Getter private String name;
+    @Getter private String code;
     private int unselectedTextColor = color_FF616161;
     private int selectedTextColor = color_FF232323;
     private Typeface unselectedTextFont = font_bold;
     private Typeface selectedTextFont = font_extrabold;
 
     @Builder
-    public TabView(@NonNull Context context, @NonNull String name, int width,
-        int unselectedTextColor, int selectedTextColor,
+    public TabView(@NonNull Context context, @NonNull String name, String code,
+        int width, int unselectedTextColor, int selectedTextColor,
         Typeface unselectedTextFont, Typeface selectedTextFont) {
 
         super(context);
         this.name = name;
+        this.code = code;
         this.unselectedTextColor = unselectedTextColor;
         this.selectedTextColor = selectedTextColor;
         this.unselectedTextFont = unselectedTextFont;

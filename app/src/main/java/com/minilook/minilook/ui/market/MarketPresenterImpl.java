@@ -66,6 +66,7 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
         item.add(data.get(1));
         item.add(data.get(2));
         //item.add(data.get(3));
+        item.add(data.get(4));
         item.add(data.get(6));
         item.add(data.get(7));
 
