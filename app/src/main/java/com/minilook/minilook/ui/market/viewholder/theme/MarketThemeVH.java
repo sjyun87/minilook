@@ -56,8 +56,10 @@ public class MarketThemeVH extends BaseViewHolder<MarketDataModel> {
     @Override public void bind(MarketDataModel $data) {
         super.bind($data);
 
-        //titleTextView.setText(data.getTitle());
-        //
+        titleTextView.setText(data.getTitle());
+
+
+
         //adapter.set(parseJsonToModel());
         //adapter.refresh();
     }

@@ -3,6 +3,7 @@ package com.minilook.minilook.ui.market;
 import androidx.annotation.NonNull;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.minilook.minilook.data.code.MarketModuleType;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.common.CodeDataModel;
@@ -16,7 +17,9 @@ import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.main.MainPresenterImpl;
 import com.minilook.minilook.ui.market.di.MarketArguments;
 import com.minilook.minilook.ui.market.viewholder.category.viewholder.MarketCategoryItemVH;
+import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.functions.Function;
+import io.reactivex.rxjava3.functions.Predicate;
 import java.util.ArrayList;
 import java.util.List;
 import timber.log.Timber;
@@ -61,19 +64,16 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
     }
 
     private void resMarketModules(@NonNull List<MarketDataModel> data) {
-        List<MarketDataModel> item = new ArrayList<>();
-        item.add(data.get(0));
-        item.add(data.get(1));
-        item.add(data.get(2));
-        item.add(data.get(3));
-        item.add(data.get(4));
-        item.add(data.get(5));
-        item.add(data.get(6));
-        item.add(data.get(7));
-
-        adapter.set(item);
+        adapter.set(checkData(data));
         view.refresh();
         view.setRefreshing();
+    }
+
+    private List<MarketDataModel> checkData(List<MarketDataModel> data) {
+        return Observable.fromIterable(data)
+            .filter(model -> MarketModuleType.toModuleType(model.getType()) != -1)
+            .toList()
+            .blockingGet();
     }
 
     private void navigateToProductBridge(CodeDataModel categoryData) {
@@ -99,7 +99,6 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
             if (o instanceof MarketCategoryItemVH.RxBusEventMarketCategoryClick) {
                 CodeDataModel categoryData = ((MarketCategoryItemVH.RxBusEventMarketCategoryClick) o).getCategoryData();
                 navigateToProductBridge(categoryData);
-
             }
         }, Timber::e));
     }
