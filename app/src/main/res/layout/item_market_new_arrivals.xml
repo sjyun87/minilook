@@ -27,9 +27,13 @@
         android:layout_marginTop="@dimen/dp_5"
         android:background="@color/color_FFFFFFFF"
         app:layout_constraintTop_toBottomOf="@+id/txt_title"
+        app:tabGravity="center"
         app:tabIndicatorColor="@color/color_FF8140E5"
+        app:tabIndicatorFullWidth="false"
         app:tabIndicatorHeight="@dimen/dp_1"
-        app:tabMode="fixed"
+        app:tabMode="scrollable"
+        app:tabPaddingEnd="0dp"
+        app:tabPaddingStart="0dp"
         app:tabRippleColor="@android:color/transparent" />
 
     <androidx.recyclerview.widget.RecyclerView
