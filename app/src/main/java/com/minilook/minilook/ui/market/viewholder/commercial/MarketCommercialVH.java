@@ -79,13 +79,7 @@ public class MarketCommercialVH extends BaseViewHolder<MarketDataModel> {
     @Override public void bind(MarketDataModel $data) {
         super.bind($data);
 
-        List<CommercialDataModel> items = parseJsonToModel();
-        items.add(items.get(0));
-        items.add(items.get(0));
-        items.add(items.get(0));
-        items.add(items.get(0));
-
-        adapter.set(items);
+        adapter.set(parseJsonToModel());
         adapter.refresh();
     }
 

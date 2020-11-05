@@ -27,7 +27,6 @@ public class MarketModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<Mar
 
     @NonNull @Override
     public BaseViewHolder<MarketDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         if (viewType == MarketModuleType.TYPE_COMMERCIAL.getType()) {
             return new MarketCommercialVH(parent);
         } else if (viewType == MarketModuleType.TYPE_CATEGORY.getType()) {

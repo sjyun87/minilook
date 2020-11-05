@@ -1,6 +1,5 @@
 package com.minilook.minilook.ui.market.viewholder.new_arrivals;
 
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,23 +9,19 @@ import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindDimen;
-import butterknife.BindFont;
 import butterknife.BindView;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
-import com.minilook.minilook.data.model.market.MarketTabDataModel;
+import com.minilook.minilook.data.model.market.MarketModuleDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.base.widget.TabView;
 import com.minilook.minilook.ui.market.viewholder.new_arrivals.adapter.MarketNewArrivalsAdapter;
-import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import io.reactivex.rxjava3.core.Observable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -93,34 +88,36 @@ public class MarketNewArrivalsVH extends BaseViewHolder<MarketDataModel> {
 
         titleTextView.setText(data.getTitle());
 
-        MarketTabDataModel data = parseJsonToModel();
-        for (CodeDataModel tabModel : data.getTabs()) {
-            TabView tabView = TabView.builder()
-                .context(context)
-                .name(tabModel.getName())
-                .code(tabModel.getCode())
-                .width(dp_48)
-                .build();
+        MarketModuleDataModel data = parseJsonToModel();
+        if (tabLayout.getTabCount() == 0) {
+            for (CodeDataModel tabModel : data.getTabs()) {
+                TabView tabView = TabView.builder()
+                    .context(context)
+                    .name(tabModel.getName())
+                    .code(tabModel.getCode())
+                    .width(dp_48)
+                    .build();
 
-            TabLayout.Tab tab = tabLayout.newTab();
-            tab.setCustomView(tabView);
-            tabLayout.addTab(tab);
+                TabLayout.Tab tab = tabLayout.newTab();
+                tab.setCustomView(tabView);
+                tabLayout.addTab(tab);
+            }
+            getTabView(0).setupSelected();
         }
-        getTabView(0).setupSelected();
 
         adapter.set(getProducts(data.getTabs().get(0).getCode()));
         adapter.refresh();
     }
 
     private List<ProductDataModel> getProducts(String code) {
-        MarketTabDataModel data = parseJsonToModel();
+        MarketModuleDataModel data = parseJsonToModel();
         return Observable.fromIterable(data.getProducts())
             .filter(model -> model.getType().equals(code))
             .toList()
             .blockingGet();
     }
 
-    private MarketTabDataModel parseJsonToModel() {
-        return gson.fromJson(data.getData(), MarketTabDataModel.class);
+    private MarketModuleDataModel parseJsonToModel() {
+        return gson.fromJson(data.getData(), MarketModuleDataModel.class);
     }
 }

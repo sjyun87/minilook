@@ -12,16 +12,13 @@ import butterknife.BindDimen;
 import butterknife.BindView;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.market.MarketDataModel;
-import com.minilook.minilook.data.model.product.ProductDataModel;
+import com.minilook.minilook.data.model.market.MarketModuleDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
-import com.minilook.minilook.ui.market.viewholder.recommend.adapter.MarketRecommendAdapter;
+import com.minilook.minilook.ui.base.widget.TagView;
 import com.minilook.minilook.ui.market.viewholder.theme.adapter.MarketThemeAdapter;
 import com.nex3z.flowlayout.FlowLayout;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MarketThemeVH extends BaseViewHolder<MarketDataModel> {
 
@@ -58,14 +55,19 @@ public class MarketThemeVH extends BaseViewHolder<MarketDataModel> {
 
         titleTextView.setText(data.getTitle());
 
-
-
-        //adapter.set(parseJsonToModel());
-        //adapter.refresh();
+        MarketModuleDataModel model = parseJsonToModel();
+        for (String tag : model.getTags()) {
+            TagView tagView = TagView.builder()
+                .context(context)
+                .tag(tag)
+                .build();
+            themePanel.addView(tagView);
+        }
+        adapter.set(model.getProducts());
+        adapter.refresh();
     }
 
-    private List<ProductDataModel> parseJsonToModel() {
-        return gson.fromJson(data.getData(), new TypeToken<ArrayList<ProductDataModel>>() {
-        }.getType());
+    private MarketModuleDataModel parseJsonToModel() {
+        return gson.fromJson(data.getData(), MarketModuleDataModel.class);
     }
 }

@@ -7,9 +7,11 @@ import com.minilook.minilook.data.model.product.ProductDataModel;
 import java.util.List;
 import lombok.Data;
 
-@Data public class MarketTabDataModel {
+@Data public class MarketModuleDataModel {
     @Expose @SerializedName("tabs")
     private List<CodeDataModel> tabs;
     @Expose @SerializedName("products")
     private List<ProductDataModel> products;
+    @Expose @SerializedName("tags")
+    private List<String> tags;
 }

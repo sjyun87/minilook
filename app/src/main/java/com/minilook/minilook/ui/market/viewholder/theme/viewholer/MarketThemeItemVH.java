@@ -17,6 +17,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.StringUtil;
 
 public class MarketThemeItemVH extends BaseViewHolder<ProductDataModel> {
@@ -31,7 +32,7 @@ public class MarketThemeItemVH extends BaseViewHolder<ProductDataModel> {
 
     @BindString(R.string.base_price_percent) String format_percent;
 
-    @BindDrawable(R.drawable.placeholder_logo) Drawable img_placeholder;
+    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
 
     public MarketThemeItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
@@ -65,6 +66,6 @@ public class MarketThemeItemVH extends BaseViewHolder<ProductDataModel> {
     }
 
     void onItemClick(View view) {
-
+        ProductDetailActivity.start(context, data.getProductNo());
     }
 }
