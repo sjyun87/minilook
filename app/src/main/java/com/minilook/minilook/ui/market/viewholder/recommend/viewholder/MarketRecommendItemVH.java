@@ -17,6 +17,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.StringUtil;
 
 public class MarketRecommendItemVH extends BaseViewHolder<ProductDataModel> {
@@ -46,6 +47,7 @@ public class MarketRecommendItemVH extends BaseViewHolder<ProductDataModel> {
             .load(data.getImageUrl())
             .placeholder(img_placeholder)
             .error(img_placeholder)
+            .circleCrop()
             .transition(new DrawableTransitionOptions().crossFade())
             .into(thumbImageView);
 
@@ -67,6 +69,6 @@ public class MarketRecommendItemVH extends BaseViewHolder<ProductDataModel> {
     }
 
     void onItemClick(View view) {
-
+        ProductDetailActivity.start(context, data.getProductNo());
     }
 }

@@ -3,6 +3,7 @@ package com.minilook.minilook.ui.preorder_detail;
 import com.google.gson.Gson;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.code.DisplayCode;
+import com.minilook.minilook.data.code.PreorderType;
 import com.minilook.minilook.data.code.ShippingCode;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
@@ -111,7 +112,7 @@ public class PreorderDetailPresenterImpl extends BasePresenterImpl implements Pr
         this.data = data;
         int status = data.getStatus();
 
-        if (status == DisplayCode.DISPLAY.getValue()) {
+        if (status == PreorderType.ING.getValue()) {
             view.setEnableLabelBackground();
             view.enableBuyButton();
         } else {

@@ -64,7 +64,8 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
         List<MarketDataModel> item = new ArrayList<>();
         item.add(data.get(0));
         item.add(data.get(1));
-        item.add(data.get(3));
+        item.add(data.get(2));
+        //item.add(data.get(3));
         item.add(data.get(6));
         item.add(data.get(7));
 
