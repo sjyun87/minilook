@@ -31,6 +31,7 @@ import java.util.Objects;
 public class MarketTrendVH extends BaseViewHolder<MarketDataModel> {
 
     @BindView(R.id.txt_title) TextView titleTextView;
+    @BindView(R.id.txt_tag) TextView tagTextView;
     @BindView(R.id.layout_tab_panel) TabLayout tabLayout;
     @BindView(R.id.rcv_product) RecyclerView recyclerView;
 
@@ -92,6 +93,8 @@ public class MarketTrendVH extends BaseViewHolder<MarketDataModel> {
         titleTextView.setText(data.getTitle());
 
         MarketTabDataModel data = parseJsonToModel();
+        tagTextView.setText(data.getProducts().get(0).getTag());
+
         for (CodeDataModel tabModel : data.getTabs()) {
             TabView tabView = TabView.builder()
                 .context(context)

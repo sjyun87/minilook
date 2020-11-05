@@ -102,4 +102,6 @@ import lombok.Data;
     private int preorderNo;
     @Expose @SerializedName("type")
     private String type;
+    @Expose @SerializedName("tagName")
+    private String tag;
 }
