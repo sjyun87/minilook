@@ -5,14 +5,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
+
 import butterknife.BindDimen;
 import butterknife.BindView;
+
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -23,6 +26,7 @@ import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.market.viewholder.banner.adapter.MarketBannerAdapter;
 import com.minilook.minilook.ui.market.viewholder.recommend.adapter.MarketRecommendAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,7 +98,10 @@ public class MarketBannerVH extends BaseViewHolder<MarketDataModel> {
 
     @Override public void bind(MarketDataModel $data) {
         super.bind($data);
-        adapter.set(parseJsonToModel());
+
+        List<CommercialDataModel> items = parseJsonToModel();
+        viewPager.setUserInputEnabled(items.size() > 1);
+        adapter.set(items);
         adapter.refresh();
     }
 

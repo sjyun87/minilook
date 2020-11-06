@@ -87,7 +87,9 @@ public class MarketCommercialVH extends BaseViewHolder<MarketDataModel> {
     @Override public void bind(MarketDataModel $data) {
         super.bind($data);
 
-        adapter.set(parseJsonToModel());
+        List<CommercialDataModel> items = parseJsonToModel();
+        viewPager.setUserInputEnabled(items.size() > 1);
+        adapter.set(items);
         adapter.refresh();
     }
 
