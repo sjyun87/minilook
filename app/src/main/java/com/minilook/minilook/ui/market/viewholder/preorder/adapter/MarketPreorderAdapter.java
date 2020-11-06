@@ -9,7 +9,10 @@ import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.market.viewholder.preorder.viewholder.MarketPreorderComingItemVH;
+import com.minilook.minilook.ui.market.viewholder.preorder.viewholder.MarketPreorderComingOnly1ItemVH;
 import com.minilook.minilook.ui.market.viewholder.preorder.viewholder.MarketPreorderOpenItemVH;
+import com.minilook.minilook.ui.market.viewholder.preorder.viewholder.MarketPreorderOpenOnly1ItemVH;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +24,17 @@ public class MarketPreorderAdapter extends RecyclerView.Adapter<BaseViewHolder<P
     @NonNull @Override
     public BaseViewHolder<PreorderDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == PreorderType.ING.getValue()) {
-            return new MarketPreorderOpenItemVH(parent);
+            if (items.size() > 1) {
+                return new MarketPreorderOpenItemVH(parent);
+            } else {
+                return new MarketPreorderOpenOnly1ItemVH(parent);
+            }
         } else {
-            return new MarketPreorderComingItemVH(parent);
+            if (items.size() > 1) {
+                return new MarketPreorderComingItemVH(parent);
+            } else {
+                return new MarketPreorderComingOnly1ItemVH(parent);
+            }
         }
     }
 
