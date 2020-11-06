@@ -11,6 +11,9 @@ import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.order_cancel.di.OrderCancelArguments;
 import com.minilook.minilook.ui.order_detail.OrderDetailPresenterImpl;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import timber.log.Timber;
 
 public class OrderCancelPresenterImpl extends BasePresenterImpl implements OrderCancelPresenter {
@@ -57,7 +60,11 @@ public class OrderCancelPresenterImpl extends BasePresenterImpl implements Order
 
     private void resOrderAllCancel(BaseDataModel dataModel) {
         RxBus.send(new OrderDetailPresenterImpl.RxBusEventStatusRefresh());
+        RxBus.send(new RxBusEventOrderCancelCompleted());
         view.showReceiptCompletedToast();
         view.finish();
+    }
+
+    @AllArgsConstructor @Getter public final static class RxBusEventOrderCancelCompleted {
     }
 }

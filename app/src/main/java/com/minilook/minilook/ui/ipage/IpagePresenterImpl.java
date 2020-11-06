@@ -10,6 +10,7 @@ import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.ipage.di.IpageArguments;
+import com.minilook.minilook.ui.order_cancel.OrderCancelPresenterImpl;
 import com.minilook.minilook.ui.review_write.ReviewWritePresenterImpl;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -146,6 +147,8 @@ public class IpagePresenterImpl extends BasePresenterImpl implements IpagePresen
             } else if (o instanceof RxBusEventDataChanged) {
                 setupUser();
             } else if (o instanceof ReviewWritePresenterImpl.RxEventReviewWrite) {
+                reqIpage();
+            } else if (o instanceof OrderCancelPresenterImpl.RxBusEventOrderCancelCompleted) {
                 reqIpage();
             }
         }, Timber::e));
