@@ -18,9 +18,15 @@ import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.model.market.MarketModuleDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
+import com.minilook.minilook.data.model.search.SearchOptionDataModel;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.base.widget.TabView;
+import com.minilook.minilook.ui.main.MainPresenterImpl;
 import com.minilook.minilook.ui.market.viewholder.new_arrivals.adapter.MarketNewArrivalsAdapter;
+import com.minilook.minilook.ui.product_bridge.ProductBridgeActivity;
+
+import butterknife.OnClick;
 import io.reactivex.rxjava3.core.Observable;
 import java.util.List;
 import java.util.Objects;
@@ -119,5 +125,10 @@ public class MarketNewArrivalsVH extends BaseViewHolder<MarketDataModel> {
 
     private MarketModuleDataModel parseJsonToModel() {
         return gson.fromJson(data.getData(), MarketModuleDataModel.class);
+    }
+
+    @OnClick(R.id.img_more)
+    void onMoreClick() {
+        ProductBridgeActivity.start(context, new SearchOptionDataModel());
     }
 }
