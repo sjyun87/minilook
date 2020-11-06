@@ -27,6 +27,10 @@ public class MarketCommercialAdapter extends RecyclerView.Adapter<MarketCommerci
         holder.bind(items.get(realPosition), realPosition, items.size());
     }
 
+    public int getRealItemCount() {
+        return items.size();
+    }
+
     @Override public int getItemCount() {
         return getSize();
     }

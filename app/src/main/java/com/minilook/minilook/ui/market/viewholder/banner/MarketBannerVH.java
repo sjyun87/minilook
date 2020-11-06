@@ -50,15 +50,15 @@ public class MarketBannerVH extends BaseViewHolder<MarketDataModel> {
         viewPager.setPageTransformer(new MarginPageTransformer(dp_4));
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override public void onPageSelected(int position) {
-                handler.removeCallbacks(nextPageRunnable);
-                handler.postDelayed(nextPageRunnable, 3000);
+                cancelAutoSlide();
+                startAutoSlide();
             }
 
             @Override public void onPageScrollStateChanged(int state) {
                 if (state == ViewPager2.SCROLL_STATE_DRAGGING) {
-                    handler.removeCallbacks(nextPageRunnable);
+                    cancelAutoSlide();
                 } else if (state == ViewPager2.SCROLL_STATE_IDLE) {
-                    handler.postDelayed(nextPageRunnable, 3000);
+                    startAutoSlide();
                 }
             }
         });
@@ -76,12 +76,20 @@ public class MarketBannerVH extends BaseViewHolder<MarketDataModel> {
         }
     };
 
+    private void startAutoSlide() {
+        if (adapter.getRealItemCount() > 1) handler.postDelayed(nextPageRunnable, 3000);
+    }
+
+    private void cancelAutoSlide() {
+        if (adapter.getRealItemCount() > 1) handler.removeCallbacks(nextPageRunnable);
+    }
+
     @Override public void onAttach() {
-        handler.postDelayed(nextPageRunnable, 3000);
+        startAutoSlide();
     }
 
     @Override public void onDetach() {
-        handler.removeCallbacks(nextPageRunnable);
+        cancelAutoSlide();
     }
 
     @Override public void bind(MarketDataModel $data) {

@@ -14,4 +14,6 @@ import lombok.Data;
     private List<ProductDataModel> products;
     @Expose @SerializedName("tags")
     private List<String> tags;
+    @Expose @SerializedName("tagName")
+    private String tag;
 }

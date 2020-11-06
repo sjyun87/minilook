@@ -89,11 +89,11 @@ public class MarketTrendVH extends BaseViewHolder<MarketDataModel> {
 
         titleTextView.setText(data.getTitle());
 
-        MarketModuleDataModel data = parseJsonToModel();
-        tagTextView.setText(data.getProducts().get(0).getTag());
+        MarketModuleDataModel moduleData = parseJsonToModel();
+        tagTextView.setText(moduleData.getTag());
 
         if (tabLayout.getTabCount() == 0) {
-            for (CodeDataModel tabModel : data.getTabs()) {
+            for (CodeDataModel tabModel : moduleData.getTabs()) {
                 TabView tabView = TabView.builder()
                     .context(context)
                     .name(tabModel.getName())
@@ -108,7 +108,7 @@ public class MarketTrendVH extends BaseViewHolder<MarketDataModel> {
             getTabView(0).setupSelected();
         }
 
-        adapter.set(getProducts(data.getTabs().get(0).getCode()));
+        adapter.set(getProducts(moduleData.getTabs().get(0).getCode()));
         adapter.refresh();
     }
 

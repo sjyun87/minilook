@@ -24,6 +24,10 @@ public class MarketBannerAdapter extends RecyclerView.Adapter<MarketBannerItemVH
         holder.bind(items.get(realPosition));
     }
 
+    public int getRealItemCount() {
+        return items.size();
+    }
+
     @Override public int getItemCount() {
         return getSize();
     }
