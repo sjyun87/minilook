@@ -11,6 +11,8 @@ public interface PromotionDetailPresenter extends LifecycleObserver {
 
     void onLoadMore();
 
+    void onShareClick();
+
     interface View {
 
         void setupThumb(String url);
@@ -26,5 +28,9 @@ public interface PromotionDetailPresenter extends LifecycleObserver {
         void setupPromotionRecyclerView();
 
         void promotionRefresh(int start, int rows);
+
+        void sendLink(String shareLink);
+
+        void showErrorMessage();
     }
 }

@@ -24,5 +24,9 @@ public interface PreorderPresenter extends LifecycleObserver {
       void hideClosePreorderTab();
 
       void navigateToPreorderDetail(int preorderNo);
+
+      void sendLink(String shareLink);
+
+      void showErrorMessage();
   }
 }

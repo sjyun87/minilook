@@ -1,5 +1,6 @@
 package com.minilook.minilook.ui.preorder_detail;
 
+import android.net.Uri;
 import com.google.gson.Gson;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.code.DisplayCode;
@@ -20,6 +21,7 @@ import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.preorder_detail.di.PreorderDetailArguments;
 import com.minilook.minilook.ui.preorder_detail.viewholder.PreorderDetailProductVH;
+import com.minilook.minilook.util.DynamicLinkManager;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,6 +36,7 @@ public class PreorderDetailPresenterImpl extends BasePresenterImpl implements Pr
     private final int preorderNo;
     private final BaseAdapterDataModel<String> imageAdapter;
     private final BaseAdapterDataModel<ProductDataModel> productAdapter;
+    private final DynamicLinkManager dynamicLinkManager;
 
     private final PreorderRequest preorderRequest;
 
@@ -45,6 +48,7 @@ public class PreorderDetailPresenterImpl extends BasePresenterImpl implements Pr
         preorderNo = args.getPreorderNo();
         imageAdapter = args.getImageAdapter();
         productAdapter = args.getProductAdapter();
+        dynamicLinkManager = args.getDynamicLinkManager();
         preorderRequest = new PreorderRequest();
     }
 
@@ -83,6 +87,19 @@ public class PreorderDetailPresenterImpl extends BasePresenterImpl implements Pr
     @Override public void onOptionSelectorBuyClick(List<ShoppingProductDataModel> shoppingProductData) {
         List<ShoppingBrandDataModel> brandData = parseToData(shoppingProductData);
         view.navigateToOrder(brandData);
+    }
+
+    @Override public void onShareClick() {
+        dynamicLinkManager.createShareLink(DynamicLinkManager.TYPE_PREORDER, data.getPreorderNo(), data.getTitle(), data.getThumbUrl(),
+            new DynamicLinkManager.OnCompletedListener() {
+                @Override public void onSuccess(Uri uri) {
+                    view.sendLink(uri.toString());
+                }
+
+                @Override public void onFail() {
+                    view.showErrorMessage();
+                }
+            });
     }
 
     private List<ShoppingBrandDataModel> parseToData(List<ShoppingProductDataModel> shoppingProductData) {

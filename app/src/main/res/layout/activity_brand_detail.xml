@@ -54,7 +54,6 @@
                 android:layout_marginTop="@dimen/dp_4"
                 android:padding="@dimen/dp_6"
                 android:src="@drawable/ic_share"
-                android:visibility="gone"
                 app:layout_constraintRight_toLeftOf="@+id/img_scrap"
                 app:layout_constraintTop_toBottomOf="@+id/img_thumb"
                 tools:ignore="ContentDescription" />

@@ -12,12 +12,14 @@ import androidx.annotation.NonNull;
 import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.preorder.PreorderPresenterImpl;
 import com.minilook.minilook.util.SpannableUtil;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -79,6 +81,11 @@ public class PreorderOpenItemVH extends BaseViewHolder<PreorderDataModel> {
 
     private void onItemClick(View view) {
         RxBus.send(new RxBusEventPreorderClick(data.getPreorderNo()));
+    }
+
+    @OnClick(R.id.img_share)
+    void onShareClick() {
+        RxBus.send(new PreorderPresenterImpl.RxEventPreorderShareClick(data));
     }
 
     @AllArgsConstructor @Getter public final static class RxBusEventPreorderClick {

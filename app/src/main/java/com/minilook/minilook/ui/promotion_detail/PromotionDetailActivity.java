@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +15,7 @@ import butterknife.BindDrawable;
 import butterknife.BindFont;
 import butterknife.BindString;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
@@ -26,6 +28,7 @@ import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.promotion_detail.adapter.PromotionAdapter;
 import com.minilook.minilook.ui.promotion_detail.di.PromotionDetailArguments;
+import com.minilook.minilook.util.DynamicLinkManager;
 import com.minilook.minilook.util.SpannableUtil;
 
 public class PromotionDetailActivity extends BaseActivity implements PromotionDetailPresenter.View {
@@ -48,6 +51,7 @@ public class PromotionDetailActivity extends BaseActivity implements PromotionDe
 
     @BindString(R.string.promotion_total) String format_total;
     @BindString(R.string.promotion_total_b) String format_total_bold;
+    @BindString(R.string.dialog_error_title) String str_error_msg;
 
     @BindDimen(R.dimen.dp_2) int dp_2;
 
@@ -74,6 +78,7 @@ public class PromotionDetailActivity extends BaseActivity implements PromotionDe
             .promotionId(getIntent().getIntExtra("promotion_id", -1))
             .productAdapter(productAdapter)
             .promotionAdapter(promotionAdapter)
+            .dynamicLinkManager(new DynamicLinkManager(this))
             .build();
     }
 
@@ -108,6 +113,17 @@ public class PromotionDetailActivity extends BaseActivity implements PromotionDe
         promotionAdapterView.refresh(start, rows);
     }
 
+    @Override public void sendLink(String shareLink) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, shareLink);
+        startActivity(Intent.createChooser(intent, "친구에게 공유하기"));
+    }
+
+    @Override public void showErrorMessage() {
+        Toast.makeText(this, str_error_msg, Toast.LENGTH_SHORT).show();
+    }
+
     @Override public void setupThumb(String url) {
         Glide.with(this)
             .load(url)
@@ -128,5 +144,10 @@ public class PromotionDetailActivity extends BaseActivity implements PromotionDe
         String total = String.format(format_total, count);
         String bold = String.format(format_total_bold, count);
         totalTextView.setText(SpannableUtil.fontSpan(total, bold, font_bold));
+    }
+
+    @OnClick(R.id.img_titlebar_share)
+    void onShareClick() {
+        presenter.onShareClick();
     }
 }

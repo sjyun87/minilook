@@ -19,6 +19,8 @@ public interface PreorderDetailPresenter extends LifecycleObserver {
 
     void onOptionSelectorBuyClick(List<ShoppingProductDataModel> shoppingProductData);
 
+    void onShareClick();
+
     interface View {
 
         void setupViewPager();
@@ -72,5 +74,9 @@ public interface PreorderDetailPresenter extends LifecycleObserver {
         void navigateToLogin();
 
         void navigateToOrder(List<ShoppingBrandDataModel> brandData);
+
+        void sendLink(String shareLink);
+
+        void showErrorMessage();
     }
 }

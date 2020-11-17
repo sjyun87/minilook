@@ -11,6 +11,8 @@ public interface EventDetailPresenter extends LifecycleObserver {
 
     void onLoadMore();
 
+    void onShareClick();
+
     interface View {
 
         void setupEventImage(String url);
@@ -18,5 +20,9 @@ public interface EventDetailPresenter extends LifecycleObserver {
         void setupRecyclerView();
 
         void refresh(int start, int rows);
+
+        void sendLink(String shareLink);
+
+        void showErrorMessage();
     }
 }
