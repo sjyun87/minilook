@@ -1,7 +1,11 @@
 package com.minilook.minilook.ui.splash;
 
+import androidx.annotation.NonNull;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.App;
@@ -29,6 +33,7 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
 
     private boolean isAnimationEnd = false;
     private boolean isCommonDataGet = false;
+    private boolean isUpdateToken = false;
 
     private Gson gson = new Gson();
 
@@ -94,6 +99,7 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
     private void startApp() {
         view.checkDynamicLink();
         reqSortCode();
+        reqUpdateToken();
     }
 
     private void reqSortCode() {
@@ -111,8 +117,22 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
         checkToDo();
     }
 
+    private void reqUpdateToken() {
+        FirebaseMessaging.getInstance().getToken()
+            .addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    String token = task.getResult();
+                    addDisposable(commonRequest.updateToken(token)
+                        .subscribe());
+                } else {
+                    Timber.e(task.getException());
+                }
+                isUpdateToken = true;
+            });
+    }
+
     private void checkToDo() {
-        if (isAnimationEnd && isCommonDataGet) {
+        if (isAnimationEnd && isCommonDataGet && isUpdateToken) {
             checkGuide();
         }
     }

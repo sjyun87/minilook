@@ -6,12 +6,17 @@ import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 public interface CommonService {
 
     @GET("/api/commons/orderbys") Single<BaseDataModel> getSortCode();
 
     @POST("/api/commons/appversions") Single<BaseDataModel> checkVersion(
+        @Body RequestBody body
+    );
+
+    @PUT("/api/commons/tokens") Single<BaseDataModel> updateToken(
         @Body RequestBody body
     );
 }
