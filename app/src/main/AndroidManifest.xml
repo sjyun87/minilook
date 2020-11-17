@@ -36,6 +36,7 @@
 
                 <data
                     android:host="https://minilook.page.link"
+                    android:mimeType="text/plain"
                     android:scheme="https" />
             </intent-filter>
         </activity>

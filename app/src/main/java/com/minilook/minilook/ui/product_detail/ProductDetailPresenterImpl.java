@@ -1,5 +1,6 @@
 package com.minilook.minilook.ui.product_detail;
 
+import android.net.Uri;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.App;
@@ -26,6 +27,7 @@ import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
 import com.minilook.minilook.ui.question_write.QuestionWritePresenterImpl;
 import com.minilook.minilook.ui.review.ReviewPresenterImpl;
+import com.minilook.minilook.util.DynamicLinkManager;
 import com.minilook.minilook.util.StringUtil;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.functions.Function;
@@ -42,6 +44,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     private final BaseAdapterDataModel<String> productImageAdapter;
     private final BaseAdapterDataModel<ReviewDataModel> reviewAdapter;
     private final BaseAdapterDataModel<ProductDataModel> relatedProductsAdapter;
+    private final DynamicLinkManager dynamicLinkManager;
     private final ProductRequest productRequest;
     private final OrderRequest orderRequest;
     private final ScrapRequest scrapRequest;
@@ -57,6 +60,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         productImageAdapter = args.getProductImageAdapter();
         reviewAdapter = args.getReviewAdapter();
         relatedProductsAdapter = args.getRelatedProductAdapter();
+        dynamicLinkManager = args.getDynamicLinkManager();
         productRequest = new ProductRequest();
         orderRequest = new OrderRequest();
         scrapRequest = new ScrapRequest();
@@ -174,6 +178,20 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
 
     @Override public void onTrialVersionDialogGoClick() {
         view.navigateToEventDetail();
+    }
+
+    @Override public void onShareClick() {
+        String title = data.getProductName() + " - " + data.getBrandName();
+        dynamicLinkManager.createShareLink(DynamicLinkManager.TYPE_PRODUCT, productNo, title, data.getImages().get(0),
+            new DynamicLinkManager.OnCompletedListener() {
+                @Override public void onSuccess(Uri uri) {
+                    view.sendLink(uri.toString());
+                }
+
+                @Override public void onFail() {
+                    view.showErrorMessage();
+                }
+            });
     }
 
     private void reqAddShoppingBag(List<ShoppingOptionDataModel> optionData) {

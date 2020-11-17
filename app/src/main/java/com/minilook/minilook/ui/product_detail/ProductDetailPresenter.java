@@ -36,6 +36,8 @@ public interface ProductDetailPresenter extends LifecycleObserver {
 
     void onTrialVersionDialogGoClick();
 
+    void onShareClick();
+
     interface View {
 
         void setupProductImageViewPager();
@@ -179,5 +181,9 @@ public interface ProductDetailPresenter extends LifecycleObserver {
         void navigateToReview(int productNo);
 
         void navigateToQuestion(int productNo);
+
+        void sendLink(String shareLink);
+
+        void showErrorMessage();
     }
 }

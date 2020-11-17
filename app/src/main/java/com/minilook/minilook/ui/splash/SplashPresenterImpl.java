@@ -122,6 +122,7 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
             .addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     String token = task.getResult();
+                    App.getInstance().setPushToken(token);
                     addDisposable(commonRequest.updateToken(token)
                         .subscribe());
                 } else {

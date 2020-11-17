@@ -796,7 +796,6 @@
             android:paddingStart="@dimen/dp_8"
             android:paddingEnd="@dimen/dp_8"
             android:src="@drawable/ic_share"
-            android:visibility="gone"
             tools:ignore="ContentDescription" />
 
         <ImageView
