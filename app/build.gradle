@@ -155,4 +155,7 @@ dependencies {
 
   // Shadow
   implementation "com.sdsmdg.harjot:materialshadows:$shadow_version"
+
+  // Shimmer placeholder
+  implementation "com.facebook.shimmer:shimmer:$shimmer_version"
 }

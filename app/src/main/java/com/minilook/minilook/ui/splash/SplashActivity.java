@@ -43,6 +43,12 @@ public class SplashActivity extends BaseActivity implements SplashPresenter.View
         });
     }
 
+    @Override public void checkDynamicLink() {
+        FirebaseDynamicLinks.getInstance()
+            .getDynamicLink(getIntent())
+            .addOnCompleteListener(this, task -> presenter.onDynamicLinkCheckComplete(task));
+    }
+
     @Override public void showUpdateDialog() {
         DialogManager.showUpdateDialog(this, presenter::onUpdateDialogOkClick, presenter::onUpdateDialogCancelClick);
     }
@@ -64,12 +70,6 @@ public class SplashActivity extends BaseActivity implements SplashPresenter.View
 
     @Override public void navigateToMain() {
         MainActivity.start(this);
-    }
-
-    @Override public void checkDynamicLink() {
-        FirebaseDynamicLinks.getInstance()
-            .getDynamicLink(getIntent())
-            .addOnCompleteListener(this, task -> presenter.onDynamicLinkCheckComplete(task));
     }
 
     @Override public void onBackPressed() {

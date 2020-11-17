@@ -104,4 +104,7 @@ ext {
 
   // Shadow
   shadow_version = '1.2.5'
+
+  // Shimmer placeholder
+  shimmer_version = '0.5.0'
 }
