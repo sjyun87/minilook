@@ -31,6 +31,10 @@ public class App extends Application {
     private String snsType;
     private String pushToken;
 
+    @Getter @Setter private boolean isDynamicLink = false;
+    @Getter @Setter private String dynamicLinkType;
+    @Getter @Setter private int dynamicLinkItemNo;
+
     @Override public void onCreate() {
         super.onCreate();
 

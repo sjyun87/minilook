@@ -17,11 +17,15 @@ import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.widget.BottomBar;
+import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
+import com.minilook.minilook.ui.event_detail.EventDetailActivity;
 import com.minilook.minilook.ui.lookbook.LookBookPresenterImpl;
 import com.minilook.minilook.ui.lookbook.view.preview.LookBookPreviewPresenterImpl;
 import com.minilook.minilook.ui.main.adapter.MainPagerAdapter;
 import com.minilook.minilook.ui.main.di.MainArguments;
+import com.minilook.minilook.ui.preorder_detail.PreorderDetailActivity;
+import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.pixplicity.easyprefs.library.Prefs;
 
 public class MainActivity extends BaseActivity implements MainPresenter.View {
@@ -127,6 +131,26 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
         coachLookbook1.setVisibility(View.VISIBLE);
     }
 
+    @Override public void navigateToPromotionDetail(int promotionNo) {
+        ProductDetailActivity.start(this, promotionNo);
+    }
+
+    @Override public void navigateToEventDetail(int eventNo) {
+        EventDetailActivity.start(this, eventNo);
+    }
+
+    @Override public void navigateToProductDetail(int productNo) {
+        ProductDetailActivity.start(this, productNo);
+    }
+
+    @Override public void navigateToBrandDetail(int brandNo) {
+        BrandDetailActivity.start(this, brandNo);
+    }
+
+    @Override public void navigateToPreorderDetail(int preorderNo) {
+        PreorderDetailActivity.start(this, preorderNo);
+    }
+
     @Override public void onBackPressed() {
         if (System.currentTimeMillis() > backPressedTime + 2000) {
             backPressedTime = System.currentTimeMillis();
@@ -155,5 +179,6 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
         RxBus.send(new LookBookPresenterImpl.RxEventScrollToPreview(true));
         coachLookbook3.setVisibility(View.GONE);
         Prefs.putBoolean(PrefsKey.KEY_LOOKBOOK_COACH_VISIBLE, true);
+        presenter.onCoachMarkEnd();
     }
 }

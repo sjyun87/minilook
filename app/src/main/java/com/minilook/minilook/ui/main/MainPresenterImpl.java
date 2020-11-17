@@ -11,6 +11,7 @@ import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.lookbook.LookBookPresenterImpl;
 import com.minilook.minilook.ui.lookbook.view.detail.LookBookDetailPresenterImpl;
 import com.minilook.minilook.ui.main.di.MainArguments;
+import com.minilook.minilook.util.DynamicLinkManager;
 import com.pixplicity.easyprefs.library.Prefs;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -60,6 +61,10 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
         checkCoachMark();
     }
 
+    @Override public void onCoachMarkEnd() {
+        checkDynamicLink();
+    }
+
     private void checkMarketingInfoDialog() {
         boolean isVisible = Prefs.getBoolean(PrefsKey.KEY_MARKETING_DIALOG_VISIBLE, false);
         Prefs.putBoolean(PrefsKey.KEY_MARKETING_DIALOG_VISIBLE, true);
@@ -74,6 +79,33 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
         boolean isVisible = Prefs.getBoolean(PrefsKey.KEY_LOOKBOOK_COACH_VISIBLE, false);
         if (!isVisible) {
             view.showLookBookCoachMark();
+        } else {
+            checkDynamicLink();
+        }
+    }
+
+    private void checkDynamicLink() {
+        if (App.getInstance().isDynamicLink()) {
+            String type = App.getInstance().getDynamicLinkType();
+            int itemNo = App.getInstance().getDynamicLinkItemNo();
+
+            switch (type) {
+                case DynamicLinkManager.TYPE_PROMOTION:
+                    view.navigateToPromotionDetail(itemNo);
+                    break;
+                case DynamicLinkManager.TYPE_EVENT:
+                    view.navigateToEventDetail(itemNo);
+                    break;
+                case DynamicLinkManager.TYPE_PRODUCT:
+                    view.navigateToProductDetail(itemNo);
+                    break;
+                case DynamicLinkManager.TYPE_BRAND:
+                    view.navigateToBrandDetail(itemNo);
+                    break;
+                case DynamicLinkManager.TYPE_PREORDER:
+                    view.navigateToPreorderDetail(itemNo);
+                    break;
+            }
         }
     }
 

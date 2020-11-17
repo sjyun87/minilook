@@ -1,10 +1,9 @@
 package com.minilook.minilook.ui.splash;
 
-import androidx.annotation.NonNull;
-import com.google.android.gms.tasks.OnCompleteListener;
+import android.net.Uri;
+import android.text.TextUtils;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -34,6 +33,7 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
     private boolean isAnimationEnd = false;
     private boolean isCommonDataGet = false;
     private boolean isUpdateToken = false;
+    private boolean isDynamicLinkCheck = false;
 
     private Gson gson = new Gson();
 
@@ -66,8 +66,16 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
 
     @Override public void onDynamicLinkCheckComplete(Task<PendingDynamicLinkData> task) {
         if (task.getResult() != null) {
-
+            Uri link = task.getResult().getLink();
+            if (link != null) {
+                String type = link.getQueryParameter("type");
+                String itemNo = link.getQueryParameter("id");
+                App.getInstance().setDynamicLink(true);
+                App.getInstance().setDynamicLinkType(type);
+                App.getInstance().setDynamicLinkItemNo(Integer.parseInt(itemNo));
+            }
         }
+        isDynamicLinkCheck = true;
     }
 
     private void reqCheckAppVersion() {
@@ -133,7 +141,7 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
     }
 
     private void checkToDo() {
-        if (isAnimationEnd && isCommonDataGet && isUpdateToken) {
+        if (isAnimationEnd && isCommonDataGet && isUpdateToken && isDynamicLinkCheck) {
             checkGuide();
         }
     }
