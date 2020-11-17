@@ -37,6 +37,7 @@ public class KakaoLoginManager {
     private Function2<OAuthToken, Throwable, Unit> callback = new Function2<OAuthToken, Throwable, Unit>() {
         @Override public Unit invoke(OAuthToken oAuthToken, Throwable error) {
             if (error != null) {
+                // TODO 카카오톡은 깔려있으나, 연동이 되지 않은경우 예외 처리 필요
                 if (listener != null) listener.onSNSError(ERROR_LOGIN, error.getMessage());
             } else {
                 getUserData(oAuthToken.getAccessToken());
