@@ -11,22 +11,22 @@ import retrofit2.http.Path;
 
 public interface MemberService {
 
-    @GET("/api/members/{user_id}/details") Single<BaseDataModel> getProfile(
-        @Path("user_id") int user_id
+    @GET("/api/members/{memberNo}/details") Single<BaseDataModel> getProfile(
+        @Path("memberNo") int memberNo
     );
 
-    @PUT("/api/members/{user_id}/nicknamnes") Single<BaseDataModel> updateNick(
-        @Path("user_id") int user_id,
+    @PUT("/api/members/{memberNo}/nicknamnes") Single<BaseDataModel> updateNick(
+        @Path("memberNo") int memberNo,
         @Body RequestBody body
     );
 
-    @PUT("/api/members/{user_id}/contacts") Single<BaseDataModel> updatePhone(
-        @Path("user_id") int user_id,
+    @PUT("/api/members/{memberNo}/contacts") Single<BaseDataModel> updatePhone(
+        @Path("memberNo") int memberNo,
         @Body RequestBody body
     );
 
-    @POST("/api/members/{user_id}/pushtokens/agreements") Single<BaseDataModel> getInfoStatus(
-        @Path("user_id") int user_id,
+    @POST("/api/members/{memberNo}/pushtokens/agreements") Single<BaseDataModel> getInfoStatus(
+        @Path("memberNo") int memberNo,
         @Body RequestBody body
     );
 
@@ -34,8 +34,8 @@ public interface MemberService {
         @Body RequestBody body
     );
 
-    @PUT("/api/members/{user_id}/informationpushes") Single<BaseDataModel> updateOrderInfo(
-        @Path("user_id") int user_id,
+    @PUT("/api/members/{memberNo}/informationpushes") Single<BaseDataModel> updateOrderInfo(
+        @Path("memberNo") int memberNo,
         @Body RequestBody body
     );
 
@@ -43,8 +43,8 @@ public interface MemberService {
         @Body RequestBody body
     );
 
-    @PUT("/api/members/{user_id}/marketingpushes") Single<BaseDataModel> updateMarketingInfo(
-        @Path("user_id") int user_id,
+    @PUT("/api/members/{memberNo}/marketingpushes") Single<BaseDataModel> updateMarketingInfo(
+        @Path("memberNo") int memberNo,
         @Body RequestBody body
     );
 }
