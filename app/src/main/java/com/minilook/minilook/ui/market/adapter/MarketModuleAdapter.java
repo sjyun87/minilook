@@ -12,6 +12,7 @@ import com.minilook.minilook.ui.market.viewholder.banner.MarketBannerVH;
 import com.minilook.minilook.ui.market.viewholder.brand.MarketBrandVH;
 import com.minilook.minilook.ui.market.viewholder.category.MarketCategoryVH;
 import com.minilook.minilook.ui.market.viewholder.commercial.MarketCommercialVH;
+import com.minilook.minilook.ui.market.viewholder.event.MarketEventVH;
 import com.minilook.minilook.ui.market.viewholder.new_arrivals.MarketNewArrivalsVH;
 import com.minilook.minilook.ui.market.viewholder.preorder.MarketPreorderVH;
 import com.minilook.minilook.ui.market.viewholder.recommend.MarketRecommendVH;
@@ -36,7 +37,9 @@ public class MarketModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<Mar
         } else if (viewType == MarketModuleType.TYPE_PREORDER.getType()) {
             return new MarketPreorderVH(parent);
         } else if (viewType == MarketModuleType.TYPE_TREND.getType()) {
-            return new MarketTrendVH(parent);
+            //return new MarketTrendVH(parent);
+            return new MarketEventVH(parent);
+
         } else if (viewType == MarketModuleType.TYPE_NEW_ARRIVAL.getType()) {
             return new MarketNewArrivalsVH(parent);
         } else if (viewType == MarketModuleType.TYPE_BANNER.getType()) {
@@ -45,6 +48,8 @@ public class MarketModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<Mar
             return new MarketBrandVH(parent);
         } else if (viewType == MarketModuleType.TYPE_THEME.getType()) {
             return new MarketThemeVH(parent);
+        } else if (viewType == MarketModuleType.TYPE_EVENT.getType()) {
+            return new MarketEventVH(parent);
         } else {
             return new BaseViewHolder<>(parent);
         }

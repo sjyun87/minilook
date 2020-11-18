@@ -12,7 +12,8 @@ import lombok.Getter;
     TYPE_NEW_ARRIVAL(6, "NEW"),
     TYPE_BANNER(7, "BANNER"),
     TYPE_BRAND(8, "BRAND"),
-    TYPE_THEME(9, "THEME");
+    TYPE_THEME(9, "THEME"),
+    TYPE_EVENT(10, "EVENT");
 
     private int type;
     private String value;
