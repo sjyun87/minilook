@@ -2,16 +2,13 @@ package com.minilook.minilook;
 
 import android.app.Application;
 import android.content.ContextWrapper;
-import android.text.TextUtils;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 import com.kakao.sdk.common.KakaoSdk;
 import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.member.MemberDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.RxBusEvent;
+import com.minilook.minilook.util.TrackingManager;
 import com.pixplicity.easyprefs.library.Prefs;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,11 +40,16 @@ public class App extends Application {
 
     private void init() {
         instance = this;
+        setupFA();
         setupTimber();
         setupKakao();
         setupPreference();
         setupBootPay();
         isLogin = getMemberNo() != -1;
+    }
+
+    private void setupFA() {
+        TrackingManager.init(getApplicationContext());
     }
 
     private void setupTimber() {

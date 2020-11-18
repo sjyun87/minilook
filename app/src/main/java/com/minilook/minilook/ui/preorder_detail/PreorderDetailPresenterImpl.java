@@ -3,7 +3,6 @@ package com.minilook.minilook.ui.preorder_detail;
 import android.net.Uri;
 import com.google.gson.Gson;
 import com.minilook.minilook.App;
-import com.minilook.minilook.data.code.DisplayCode;
 import com.minilook.minilook.data.code.PreorderType;
 import com.minilook.minilook.data.code.ShippingCode;
 import com.minilook.minilook.data.common.HttpCode;
@@ -12,7 +11,6 @@ import com.minilook.minilook.data.model.product.OptionDataModel;
 import com.minilook.minilook.data.model.product.OptionProductDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
-import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingProductDataModel;
 import com.minilook.minilook.data.network.preorder.PreorderRequest;
 import com.minilook.minilook.data.rx.RxBus;
@@ -22,6 +20,7 @@ import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.preorder_detail.di.PreorderDetailArguments;
 import com.minilook.minilook.ui.preorder_detail.viewholder.PreorderDetailProductVH;
 import com.minilook.minilook.util.DynamicLinkManager;
+import com.minilook.minilook.util.TrackingManager;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -61,6 +60,10 @@ public class PreorderDetailPresenterImpl extends BasePresenterImpl implements Pr
         reqPreorder();
     }
 
+    @Override public void onResume() {
+        TrackingManager.pageTracking("프리오더 상세페이지", PreorderDetailActivity.class.getSimpleName());
+    }
+
     @Override public void onTabClick(int position) {
         switch (position) {
             case 0:
@@ -90,7 +93,8 @@ public class PreorderDetailPresenterImpl extends BasePresenterImpl implements Pr
     }
 
     @Override public void onShareClick() {
-        dynamicLinkManager.createShareLink(DynamicLinkManager.TYPE_PREORDER, data.getPreorderNo(), data.getTitle(), data.getThumbUrl(),
+        dynamicLinkManager.createShareLink(DynamicLinkManager.TYPE_PREORDER, data.getPreorderNo(), data.getTitle(),
+            data.getThumbUrl(),
             new DynamicLinkManager.OnCompletedListener() {
                 @Override public void onSuccess(Uri uri) {
                     view.sendLink(uri.toString());

@@ -11,6 +11,7 @@ import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.category.di.CategoryArguments;
+import com.minilook.minilook.util.TrackingManager;
 import io.reactivex.rxjava3.functions.Function;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,10 @@ public class CategoryPresenterImpl extends BasePresenterImpl implements Category
         view.setupRecyclerView();
 
         reqCategory();
+    }
+
+    @Override public void onResume() {
+        TrackingManager.pageTracking("필터검색페이지", CategoryFragment.class.getSimpleName());
     }
 
     @Override public void onBannerVideoClick() {

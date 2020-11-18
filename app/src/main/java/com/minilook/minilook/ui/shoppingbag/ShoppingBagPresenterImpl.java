@@ -15,6 +15,7 @@ import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.shoppingbag.di.ShoppingBagArguments;
+import com.minilook.minilook.util.TrackingManager;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.functions.Function;
 import java.util.ArrayList;
@@ -45,6 +46,10 @@ public class ShoppingBagPresenterImpl extends BasePresenterImpl implements Shopp
         view.setupRecyclerView();
 
         reqShoppingBag();
+    }
+
+    @Override public void onResume() {
+        TrackingManager.pageTracking("장바구니 페이지", ShoppingBagActivity.class.getSimpleName());
     }
 
     @Override public void onAllCheckClick() {

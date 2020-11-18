@@ -31,6 +31,7 @@ import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.ipage.IpagePresenterImpl;
 import com.minilook.minilook.ui.order.di.OrderArguments;
 import com.minilook.minilook.ui.shipping.ShippingPresenterImpl;
+import com.minilook.minilook.util.TrackingManager;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -100,6 +101,10 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
 
         calPrice();
         reqOrderSheet();
+    }
+
+    @Override public void onResume() {
+        TrackingManager.pageTracking("주문서 페이지", OrderActivity.class.getSimpleName());
     }
 
     @Override public void onShippingClick() {

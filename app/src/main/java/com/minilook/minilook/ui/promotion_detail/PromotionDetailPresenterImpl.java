@@ -13,6 +13,7 @@ import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.promotion_detail.di.PromotionDetailArguments;
 import com.minilook.minilook.util.DynamicLinkManager;
+import com.minilook.minilook.util.TrackingManager;
 import io.reactivex.rxjava3.functions.Function;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,12 +52,17 @@ public class PromotionDetailPresenterImpl extends BasePresenterImpl implements P
         reqTogetherPromotion();
     }
 
+    @Override public void onResume() {
+        TrackingManager.pageTracking("기획전 상세페이지", PromotionDetailActivity.class.getSimpleName());
+    }
+
     @Override public void onLoadMore() {
         reqTogetherPromotion();
     }
 
     @Override public void onShareClick() {
-        dynamicLinkManager.createShareLink(DynamicLinkManager.TYPE_PROMOTION, promotionNo, data.getTitle(), data.getImageUrl(),
+        dynamicLinkManager.createShareLink(DynamicLinkManager.TYPE_PROMOTION, promotionNo, data.getTitle(),
+            data.getImageUrl(),
             new DynamicLinkManager.OnCompletedListener() {
                 @Override public void onSuccess(Uri uri) {
                     view.sendLink(uri.toString());

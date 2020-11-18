@@ -10,6 +10,7 @@ import com.minilook.minilook.ui.preorder.view.close.PreorderClosePresenterImpl;
 import com.minilook.minilook.ui.preorder.view.open.viewholder.PreorderOpenHeaderVH;
 import com.minilook.minilook.ui.preorder.view.open.viewholder.PreorderOpenItemVH;
 import com.minilook.minilook.util.DynamicLinkManager;
+import com.minilook.minilook.util.TrackingManager;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import timber.log.Timber;
@@ -30,12 +31,17 @@ public class PreorderPresenterImpl extends BasePresenterImpl implements Preorder
         view.setupViewPager();
     }
 
+    @Override public void onResume() {
+        TrackingManager.pageTracking("프리오더페이지", PreorderFragment.class.getSimpleName());
+    }
+
     @Override public void onTabClick(int position) {
         view.setupCurrentPage(position);
     }
 
     private void sendShareLink(PreorderDataModel data) {
-        dynamicLinkManager.createShareLink(DynamicLinkManager.TYPE_PREORDER, data.getPreorderNo(), data.getTitle(), data.getThumbUrl(),
+        dynamicLinkManager.createShareLink(DynamicLinkManager.TYPE_PREORDER, data.getPreorderNo(), data.getTitle(),
+            data.getThumbUrl(),
             new DynamicLinkManager.OnCompletedListener() {
                 @Override public void onSuccess(Uri uri) {
                     view.sendLink(uri.toString());

@@ -12,6 +12,7 @@ import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.event_detail.di.EventDetailArguments;
 import com.minilook.minilook.util.DynamicLinkManager;
+import com.minilook.minilook.util.TrackingManager;
 import io.reactivex.rxjava3.functions.Function;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,10 @@ public class EventDetailPresenterImpl extends BasePresenterImpl implements Event
 
         reqEventDetail();
         reqEvents();
+    }
+
+    @Override public void onResume() {
+        TrackingManager.pageTracking("이벤트 상세페이지", EventDetailActivity.class.getSimpleName());
     }
 
     private void reqEventDetail() {

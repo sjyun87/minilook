@@ -29,6 +29,7 @@ import com.minilook.minilook.ui.question_write.QuestionWritePresenterImpl;
 import com.minilook.minilook.ui.review.ReviewPresenterImpl;
 import com.minilook.minilook.util.DynamicLinkManager;
 import com.minilook.minilook.util.StringUtil;
+import com.minilook.minilook.util.TrackingManager;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.functions.Function;
 import java.util.ArrayList;
@@ -76,6 +77,10 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         view.setupRelatedProductRecyclerView();
 
         reqProductDetail();
+    }
+
+    @Override public void onResume() {
+        TrackingManager.pageTracking("상품 상세페이지", ProductDetailActivity.class.getSimpleName());
     }
 
     @Override public void onTabClick(int position) {

@@ -13,13 +13,12 @@ import com.minilook.minilook.data.model.search.SearchOptionDataModel;
 import com.minilook.minilook.data.network.brand.BrandRequest;
 import com.minilook.minilook.data.network.scrap.ScrapRequest;
 import com.minilook.minilook.data.network.search.SearchRequest;
-import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.data.rx.RxBusEvent;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.brand_detail.di.BrandDetailArguments;
 import com.minilook.minilook.util.DynamicLinkManager;
+import com.minilook.minilook.util.TrackingManager;
 import java.util.concurrent.atomic.AtomicInteger;
 import timber.log.Timber;
 
@@ -68,6 +67,10 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         reqBrandDetail();
     }
 
+    @Override public void onResume() {
+        TrackingManager.pageTracking("브랜드 상세페이지", BrandDetailActivity.class.getSimpleName());
+    }
+
     @Override public void onScrapClick() {
         if (!App.getInstance().isLogin()) {
             view.navigateToLogin();
@@ -112,7 +115,8 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     }
 
     @Override public void onShareClick() {
-        dynamicLinkManager.createShareLink(DynamicLinkManager.TYPE_BRAND, brandNo, data.getBrandName(), data.getImageUrl(),
+        dynamicLinkManager.createShareLink(DynamicLinkManager.TYPE_BRAND, brandNo, data.getBrandName(),
+            data.getImageUrl(),
             new DynamicLinkManager.OnCompletedListener() {
                 @Override public void onSuccess(Uri uri) {
                     view.sendLink(uri.toString());
