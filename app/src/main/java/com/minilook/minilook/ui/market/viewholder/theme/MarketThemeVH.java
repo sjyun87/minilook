@@ -56,6 +56,7 @@ public class MarketThemeVH extends BaseViewHolder<MarketDataModel> {
         titleTextView.setText(data.getTitle());
 
         MarketModuleDataModel model = parseJsonToModel();
+        themePanel.removeAllViews();
         for (String tag : model.getTags()) {
             TagView tagView = TagView.builder()
                 .context(context)

@@ -7,8 +7,9 @@
     tools:parentTag="android.widget.FrameLayout">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="@dimen/dp_40"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_12"
+        android:minWidth="@dimen/dp_40"
         app:cardBackgroundColor="@color/color_FFE5B340"
         app:cardCornerRadius="@dimen/dp_6"
         app:cardElevation="0dp">
@@ -18,7 +19,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginStart="@dimen/dp_9"
+            android:layout_marginEnd="@dimen/dp_9"
             android:fontFamily="@font/nanum_square_b"
+            android:maxLines="1"
             android:textColor="@color/color_FFFFFFFF"
             android:textSize="@dimen/sp_6"
             tools:text="내추럴" />

@@ -27,6 +27,7 @@
         android:layout_marginStart="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_7"
         android:layout_marginEnd="@dimen/dp_10"
+        android:gravity="center"
         app:flChildSpacing="@dimen/dp_4"
         app:flRowSpacing="@dimen/dp_2"
         app:layout_constraintTop_toBottomOf="@+id/txt_title" />
