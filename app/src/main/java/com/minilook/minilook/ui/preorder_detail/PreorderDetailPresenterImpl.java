@@ -94,7 +94,7 @@ public class PreorderDetailPresenterImpl extends BasePresenterImpl implements Pr
 
     @Override public void onShareClick() {
         String title = data.getTitle() + " (" + parseToDate(data.getStartDate()) + "~" + parseToDate(data.getEndDate()) + ")";
-        dynamicLinkManager.createShareLink(DynamicLinkManager.TYPE_PREORDER, preorderNo, data.getTitle(),
+        dynamicLinkManager.createShareLink(DynamicLinkManager.TYPE_PREORDER, preorderNo, title,
             data.getImages().get(0),
             new DynamicLinkManager.OnCompletedListener() {
                 @Override public void onSuccess(Uri uri) {
