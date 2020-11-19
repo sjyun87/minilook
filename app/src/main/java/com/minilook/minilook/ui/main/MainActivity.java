@@ -26,6 +26,7 @@ import com.minilook.minilook.ui.main.adapter.MainPagerAdapter;
 import com.minilook.minilook.ui.main.di.MainArguments;
 import com.minilook.minilook.ui.preorder_detail.PreorderDetailActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
+import com.minilook.minilook.ui.promotion_detail.PromotionDetailActivity;
 import com.pixplicity.easyprefs.library.Prefs;
 
 public class MainActivity extends BaseActivity implements MainPresenter.View {
@@ -132,7 +133,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
     }
 
     @Override public void navigateToPromotionDetail(int promotionNo) {
-        ProductDetailActivity.start(this, promotionNo);
+        PromotionDetailActivity.start(this, promotionNo);
     }
 
     @Override public void navigateToEventDetail(int eventNo) {

@@ -93,8 +93,9 @@ public class PreorderDetailPresenterImpl extends BasePresenterImpl implements Pr
     }
 
     @Override public void onShareClick() {
-        dynamicLinkManager.createShareLink(DynamicLinkManager.TYPE_PREORDER, data.getPreorderNo(), data.getTitle(),
-            data.getThumbUrl(),
+        String title = data.getTitle() + " (" + parseToDate(data.getStartDate()) + "~" + parseToDate(data.getEndDate()) + ")";
+        dynamicLinkManager.createShareLink(DynamicLinkManager.TYPE_PREORDER, preorderNo, data.getTitle(),
+            data.getImages().get(0),
             new DynamicLinkManager.OnCompletedListener() {
                 @Override public void onSuccess(Uri uri) {
                     view.sendLink(uri.toString());
@@ -104,6 +105,12 @@ public class PreorderDetailPresenterImpl extends BasePresenterImpl implements Pr
                     view.showErrorMessage();
                 }
             });
+    }
+
+    private String parseToDate(long date) {
+        Date endDate = new Date(date);
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd", Locale.KOREA);
+        return format.format(endDate);
     }
 
     private List<ShoppingBrandDataModel> parseToData(List<ShoppingProductDataModel> shoppingProductData) {

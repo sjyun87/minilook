@@ -62,7 +62,7 @@ public class PromotionDetailPresenterImpl extends BasePresenterImpl implements P
 
     @Override public void onShareClick() {
         dynamicLinkManager.createShareLink(DynamicLinkManager.TYPE_PROMOTION, promotionNo, data.getTitle(),
-            data.getImageUrl(),
+            data.getThumbUrl(),
             new DynamicLinkManager.OnCompletedListener() {
                 @Override public void onSuccess(Uri uri) {
                     view.sendLink(uri.toString());

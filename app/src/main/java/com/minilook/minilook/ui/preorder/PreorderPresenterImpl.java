@@ -9,6 +9,9 @@ import com.minilook.minilook.ui.preorder.view.close.PreorderClosePresenterImpl;
 import com.minilook.minilook.ui.preorder.view.open.viewholder.PreorderOpenHeaderVH;
 import com.minilook.minilook.util.DynamicLinkManager;
 import com.minilook.minilook.util.TrackingManager;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import timber.log.Timber;
@@ -38,7 +41,8 @@ public class PreorderPresenterImpl extends BasePresenterImpl implements Preorder
     }
 
     private void sendShareLink(PreorderDataModel data) {
-        dynamicLinkManager.createShareLink(DynamicLinkManager.TYPE_PREORDER, data.getPreorderNo(), data.getTitle(),
+        String title = data.getTitle() + " (" + parseToDate(data.getStartDate()) + "~" + parseToDate(data.getEndDate()) + ")";
+        dynamicLinkManager.createShareLink(DynamicLinkManager.TYPE_PREORDER, data.getPreorderNo(), title,
             data.getThumbUrl(),
             new DynamicLinkManager.OnCompletedListener() {
                 @Override public void onSuccess(Uri uri) {
@@ -49,6 +53,12 @@ public class PreorderPresenterImpl extends BasePresenterImpl implements Preorder
                     view.showErrorMessage();
                 }
             });
+    }
+
+    private String parseToDate(long date) {
+        Date endDate = new Date(date);
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd", Locale.KOREA);
+        return format.format(endDate);
     }
 
     private void toRxObservable() {
