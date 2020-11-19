@@ -22,6 +22,8 @@ import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.preorder.PreorderPresenterImpl;
 import com.minilook.minilook.util.SpannableUtil;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -69,7 +71,7 @@ public class PreorderOpenItemVH extends BaseViewHolder<PreorderDataModel> {
 
         long todayDay = Calendar.getInstance().getTimeInMillis() / (24 * 60 * 60 * 1000);
         long targetDay = endDate.getTime() / (24 * 60 * 60 * 1000);
-        long count = Math.abs(targetDay - todayDay) + 1;
+        long count = (targetDay - todayDay) + 1;
 
         String dday = String.format(format_d_day, count);
         String totalEndData = String.format(format_date, strEndData, dday);

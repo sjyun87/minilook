@@ -177,7 +177,7 @@ public class PreorderDetailPresenterImpl extends BasePresenterImpl implements Pr
     private int getRemainDate(long endDate) {
         long todayDay = Calendar.getInstance().getTimeInMillis() / (24 * 60 * 60 * 1000);
         long targetDay = endDate / (24 * 60 * 60 * 1000);
-        return (int) Math.abs(targetDay - todayDay) + 1;
+        return (int) (targetDay - todayDay) + 1;
     }
 
     private String getTermDate(long startDate, long endDate) {

@@ -67,7 +67,7 @@ public class MarketPreorderOpenItemVH extends BaseViewHolder<PreorderDataModel> 
 
         long todayDay = Calendar.getInstance().getTimeInMillis() / (24 * 60 * 60 * 1000);
         long targetDay = endDate.getTime() / (24 * 60 * 60 * 1000);
-        long count = Math.abs(targetDay - todayDay) + 1;
+        long count = (targetDay - todayDay) + 1;
 
         String dday = String.format(format_d_day, count);
         String totalEndData = String.format(format_date, strEndData, dday);
