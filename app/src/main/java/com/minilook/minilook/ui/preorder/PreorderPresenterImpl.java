@@ -2,13 +2,11 @@ package com.minilook.minilook.ui.preorder;
 
 import android.net.Uri;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
-import com.minilook.minilook.data.model.shipping.ShippingDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.preorder.di.PreorderArguments;
 import com.minilook.minilook.ui.preorder.view.close.PreorderClosePresenterImpl;
 import com.minilook.minilook.ui.preorder.view.open.viewholder.PreorderOpenHeaderVH;
-import com.minilook.minilook.ui.preorder.view.open.viewholder.PreorderOpenItemVH;
 import com.minilook.minilook.util.DynamicLinkManager;
 import com.minilook.minilook.util.TrackingManager;
 import lombok.AllArgsConstructor;
@@ -59,14 +57,18 @@ public class PreorderPresenterImpl extends BasePresenterImpl implements Preorder
                 view.navigateToPreorderInfo();
             } else if (o instanceof PreorderClosePresenterImpl.RxBusEventClosePreorderEmpty) {
                 view.hideClosePreorderTab();
-            } else if (o instanceof PreorderOpenItemVH.RxBusEventPreorderClick) {
-                int preorderNo = ((PreorderOpenItemVH.RxBusEventPreorderClick) o).getPreorderNo();
+            } else if (o instanceof RxBusEventPreorderClick) {
+                int preorderNo = ((RxBusEventPreorderClick) o).getPreorderNo();
                 view.navigateToPreorderDetail(preorderNo);
             } else if (o instanceof RxEventPreorderShareClick) {
                 PreorderDataModel data = ((RxEventPreorderShareClick) o).getData();
                 sendShareLink(data);
             }
         }, Timber::e));
+    }
+
+    @AllArgsConstructor @Getter public final static class RxBusEventPreorderClick {
+        int preorderNo;
     }
 
     @AllArgsConstructor @Getter public final static class RxEventPreorderShareClick {

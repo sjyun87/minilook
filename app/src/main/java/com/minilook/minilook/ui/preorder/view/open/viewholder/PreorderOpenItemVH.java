@@ -25,9 +25,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import timber.log.Timber;
 
 public class PreorderOpenItemVH extends BaseViewHolder<PreorderDataModel> {
 
@@ -80,15 +77,11 @@ public class PreorderOpenItemVH extends BaseViewHolder<PreorderDataModel> {
     }
 
     private void onItemClick(View view) {
-        RxBus.send(new RxBusEventPreorderClick(data.getPreorderNo()));
+        RxBus.send(new PreorderPresenterImpl.RxBusEventPreorderClick(data.getPreorderNo()));
     }
 
     @OnClick(R.id.img_share)
     void onShareClick() {
         RxBus.send(new PreorderPresenterImpl.RxEventPreorderShareClick(data));
-    }
-
-    @AllArgsConstructor @Getter public final static class RxBusEventPreorderClick {
-        int preorderNo;
     }
 }

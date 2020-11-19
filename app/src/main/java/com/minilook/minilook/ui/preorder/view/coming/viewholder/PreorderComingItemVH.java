@@ -85,9 +85,4 @@ public class PreorderComingItemVH extends BaseViewHolder<PreorderDataModel> {
         String totalStartData = String.format(format_date, strStartData, dday);
         return SpannableUtil.styleSpan(totalStartData, dday, Typeface.BOLD);
     }
-
-    @OnClick(R.id.img_share)
-    void onShareClick() {
-        RxBus.send(new PreorderPresenterImpl.RxEventPreorderShareClick(data));
-    }
 }

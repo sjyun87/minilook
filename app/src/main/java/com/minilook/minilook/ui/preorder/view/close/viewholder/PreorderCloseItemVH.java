@@ -13,7 +13,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.preorder.PreorderPresenterImpl;
 
 public class PreorderCloseItemVH extends BaseViewHolder<PreorderDataModel> {
 
@@ -42,5 +44,11 @@ public class PreorderCloseItemVH extends BaseViewHolder<PreorderDataModel> {
         brandTextView.setText(data.getBrandName());
         titleTextView.setText(data.getTitle());
         descTextView.setText(data.getDesc());
+
+        itemView.setOnClickListener(this::onItemClick);
+    }
+
+    private void onItemClick(View view) {
+        RxBus.send(new PreorderPresenterImpl.RxBusEventPreorderClick(data.getPreorderNo()));
     }
 }
