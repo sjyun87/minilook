@@ -72,7 +72,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_60"
+            android:layout_height="@dimen/dp_64"
             android:orientation="vertical"
             app:layout_constraintLeft_toLeftOf="@+id/img_product1_thumb"
             app:layout_constraintRight_toRightOf="@+id/img_product1_thumb"
