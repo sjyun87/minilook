@@ -29,6 +29,8 @@ public interface SplashPresenter extends LifecycleObserver {
 
         void showErrorDialog();
 
+        void checkDynamicLink();
+
         void navigateToPlayStore();
 
         void navigateToGuide();
@@ -36,7 +38,5 @@ public interface SplashPresenter extends LifecycleObserver {
         void navigateToMain();
 
         void finish();
-
-        void checkDynamicLink();
     }
 }

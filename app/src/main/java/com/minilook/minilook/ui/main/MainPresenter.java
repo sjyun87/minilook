@@ -21,6 +21,8 @@ public interface MainPresenter extends LifecycleObserver {
 
     void onMarketingDismiss();
 
+    void onCoachMarkEnd();
+
     interface View {
 
         void setupViewPager();
@@ -34,5 +36,15 @@ public interface MainPresenter extends LifecycleObserver {
         void showMarketingDialog();
 
         void showLookBookCoachMark();
+
+        void navigateToPromotionDetail(int promotionNo);
+
+        void navigateToEventDetail(int eventNo);
+
+        void navigateToProductDetail(int productNo);
+
+        void navigateToBrandDetail(int brandNo);
+
+        void navigateToPreorderDetail(int preorderNo);
     }
 }

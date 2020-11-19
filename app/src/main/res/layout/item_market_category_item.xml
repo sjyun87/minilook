@@ -37,5 +37,5 @@
         app:layout_constraintLeft_toLeftOf="@+id/card_icon"
         app:layout_constraintRight_toRightOf="@+id/card_icon"
         app:layout_constraintTop_toBottomOf="@+id/card_icon"
-        tools:text="베이비" />
+        tools:text="스포츠/테마" />
 </androidx.constraintlayout.widget.ConstraintLayout>

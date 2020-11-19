@@ -1,5 +1,6 @@
 package com.minilook.minilook.ui.brand_detail;
 
+import android.net.Uri;
 import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.minilook.minilook.App;
@@ -12,12 +13,12 @@ import com.minilook.minilook.data.model.search.SearchOptionDataModel;
 import com.minilook.minilook.data.network.brand.BrandRequest;
 import com.minilook.minilook.data.network.scrap.ScrapRequest;
 import com.minilook.minilook.data.network.search.SearchRequest;
-import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.data.rx.RxBusEvent;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.brand_detail.di.BrandDetailArguments;
+import com.minilook.minilook.util.DynamicLinkManager;
+import com.minilook.minilook.util.TrackingManager;
 import java.util.concurrent.atomic.AtomicInteger;
 import timber.log.Timber;
 
@@ -28,6 +29,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     private final BaseAdapterDataModel<String> styleAdapter;
     private final BaseAdapterDataModel<CodeDataModel> sortAdapter;
     private final BaseAdapterDataModel<ProductDataModel> productAdapter;
+    private DynamicLinkManager dynamicLinkManager;
     private final BrandRequest brandRequest;
     private final SearchRequest searchRequest;
     private final ScrapRequest scrapRequest;
@@ -36,6 +38,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
 
     private AtomicInteger page = new AtomicInteger(0);
     private Gson gson = new Gson();
+    private BrandDataModel data;
     private boolean isScrap;
     private int scrapCount = 0;
     private boolean isSortPanelVisible = false;
@@ -48,6 +51,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         styleAdapter = args.getStyleAdapter();
         sortAdapter = args.getSortAdapter();
         productAdapter = args.getProductAdapter();
+        dynamicLinkManager = args.getDynamicLinkManager();
         brandRequest = new BrandRequest();
         searchRequest = new SearchRequest();
         scrapRequest = new ScrapRequest();
@@ -61,6 +65,10 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
 
         setupSortData();
         reqBrandDetail();
+    }
+
+    @Override public void onResume() {
+        TrackingManager.pageTracking("브랜드 상세페이지", BrandDetailActivity.class.getSimpleName());
     }
 
     @Override public void onScrapClick() {
@@ -106,6 +114,20 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         view.navigateToBrandInfo(brandNo);
     }
 
+    @Override public void onShareClick() {
+        dynamicLinkManager.createShareLink(DynamicLinkManager.TYPE_BRAND, brandNo, data.getBrandName(),
+            data.getImageUrl(),
+            new DynamicLinkManager.OnCompletedListener() {
+                @Override public void onSuccess(Uri uri) {
+                    view.sendLink(uri.toString());
+                }
+
+                @Override public void onFail() {
+                    view.showErrorMessage();
+                }
+            });
+    }
+
     private void reqBrandDetail() {
         addDisposable(
             brandRequest.getBrandDetail(brandNo)
@@ -117,6 +139,8 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     }
 
     private void resBrandDetail(BrandDataModel data) {
+        this.data = data;
+
         view.setupThumb(data.getImageUrl());
         view.setupLogo(data.getBrandLogo());
         isScrap = data.isScrap();

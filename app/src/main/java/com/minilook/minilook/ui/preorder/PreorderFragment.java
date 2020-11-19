@@ -1,7 +1,10 @@
 package com.minilook.minilook.ui.preorder;
 
+import android.content.Intent;
+import android.widget.Toast;
 import androidx.viewpager2.widget.ViewPager2;
 import butterknife.BindArray;
+import butterknife.BindString;
 import butterknife.BindView;
 import com.google.android.material.tabs.TabLayout;
 import com.minilook.minilook.R;
@@ -11,6 +14,7 @@ import com.minilook.minilook.ui.preorder.adapter.PreorderPagerAdapter;
 import com.minilook.minilook.ui.preorder.di.PreorderArguments;
 import com.minilook.minilook.ui.preorder_detail.PreorderDetailActivity;
 import com.minilook.minilook.ui.preorder_info.PreorderInfoActivity;
+import com.minilook.minilook.util.DynamicLinkManager;
 import java.util.Objects;
 
 public class PreorderFragment extends BaseFragment implements PreorderPresenter.View {
@@ -21,6 +25,8 @@ public class PreorderFragment extends BaseFragment implements PreorderPresenter.
 
     @BindView(R.id.layout_tab_panel) TabLayout tabLayout;
     @BindView(R.id.vp_preorder) ViewPager2 viewPager;
+
+    @BindString(R.string.dialog_error_title) String str_error_msg;
 
     @BindArray(R.array.tab_preorder) String[] tabNames;
 
@@ -39,6 +45,7 @@ public class PreorderFragment extends BaseFragment implements PreorderPresenter.
     private PreorderArguments provideArguments() {
         return PreorderArguments.builder()
             .view(this)
+            .dynamicLinkManager(new DynamicLinkManager(getContext()))
             .build();
     }
 
@@ -100,5 +107,16 @@ public class PreorderFragment extends BaseFragment implements PreorderPresenter.
 
     @Override public void navigateToPreorderDetail(int preorderNo) {
         PreorderDetailActivity.start(getContext(), preorderNo);
+    }
+
+    @Override public void sendLink(String shareLink) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, shareLink);
+        startActivity(Intent.createChooser(intent, "친구에게 공유하기"));
+    }
+
+    @Override public void showErrorMessage() {
+        Toast.makeText(getContext(), str_error_msg, Toast.LENGTH_SHORT).show();
     }
 }

@@ -9,6 +9,9 @@ public interface CategoryPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    void onResume();
+
     void onBannerVideoClick();
 
     interface View {
@@ -17,6 +20,6 @@ public interface CategoryPresenter extends LifecycleObserver {
 
         void refresh();
 
-      void navigateToYoutube(String url);
+        void navigateToYoutube(String url);
     }
 }

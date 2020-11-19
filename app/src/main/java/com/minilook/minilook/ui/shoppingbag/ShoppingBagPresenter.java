@@ -11,6 +11,9 @@ public interface ShoppingBagPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    void onResume();
+
     void onAllCheckClick();
 
     void onDeleteClick();

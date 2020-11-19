@@ -12,6 +12,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:setTitle="@string/promotion_detail_title"
         app:showBack="true"
+        app:showShare="true"
         app:showTitle="true" />
 
     <androidx.core.widget.NestedScrollView

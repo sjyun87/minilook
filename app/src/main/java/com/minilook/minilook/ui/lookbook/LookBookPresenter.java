@@ -9,6 +9,9 @@ public interface LookBookPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    void onResume();
+
     void onPageSelected(int position);
 
     interface View {

@@ -1,5 +1,6 @@
 package com.minilook.minilook.ui.event_detail;
 
+import android.net.Uri;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.data.common.HttpCode;
@@ -10,6 +11,8 @@ import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.event_detail.di.EventDetailArguments;
+import com.minilook.minilook.util.DynamicLinkManager;
+import com.minilook.minilook.util.TrackingManager;
 import io.reactivex.rxjava3.functions.Function;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,17 +23,20 @@ public class EventDetailPresenterImpl extends BasePresenterImpl implements Event
     private static final int ROWS = 10;
 
     private final View view;
-    private final int event_id;
+    private final int eventNo;
     private final BaseAdapterDataModel<EventDataModel> eventAdapter;
+    private final DynamicLinkManager dynamicLinkManager;
     private final EventRequest eventRequest;
 
     private Gson gson = new Gson();
+    private EventDataModel data;
     private int latestEventId = -1;
 
     public EventDetailPresenterImpl(EventDetailArguments args) {
         view = args.getView();
-        event_id = args.getEvent_id();
+        eventNo = args.getEventNo();
         eventAdapter = args.getAdapter();
+        dynamicLinkManager = args.getDynamicLinkManager();
         eventRequest = new EventRequest();
     }
 
@@ -41,8 +47,12 @@ public class EventDetailPresenterImpl extends BasePresenterImpl implements Event
         reqEvents();
     }
 
+    @Override public void onResume() {
+        TrackingManager.pageTracking("이벤트 상세페이지", EventDetailActivity.class.getSimpleName());
+    }
+
     private void reqEventDetail() {
-        addDisposable(eventRequest.getEventDetail(event_id)
+        addDisposable(eventRequest.getEventDetail(eventNo)
             .compose(Transformer.applySchedulers())
             .filter(data -> data.getCode().equals(HttpCode.OK))
             .map(data -> gson.fromJson(data.getData(), EventDataModel.class))
@@ -50,6 +60,8 @@ public class EventDetailPresenterImpl extends BasePresenterImpl implements Event
     }
 
     private void resEventDetail(EventDataModel data) {
+        this.data = data;
+
         view.setupEventImage(data.getEventUrl());
     }
 
@@ -57,8 +69,21 @@ public class EventDetailPresenterImpl extends BasePresenterImpl implements Event
         reqEvents();
     }
 
+    @Override public void onShareClick() {
+        dynamicLinkManager.createShareLink(DynamicLinkManager.TYPE_EVENT, eventNo, data.getTitle(), data.getThumbUrl(),
+            new DynamicLinkManager.OnCompletedListener() {
+                @Override public void onSuccess(Uri uri) {
+                    view.sendLink(uri.toString());
+                }
+
+                @Override public void onFail() {
+                    view.showErrorMessage();
+                }
+            });
+    }
+
     private void reqEvents() {
-        addDisposable(eventRequest.getEvents(event_id, latestEventId, ROWS)
+        addDisposable(eventRequest.getEvents(eventNo, latestEventId, ROWS)
             .compose(Transformer.applySchedulers())
             .filter(data -> data.getCode().equals(HttpCode.OK))
             .map((Function<BaseDataModel, List<EventDataModel>>)

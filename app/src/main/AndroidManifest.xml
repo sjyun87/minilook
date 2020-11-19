@@ -36,6 +36,7 @@
 
                 <data
                     android:host="https://minilook.page.link"
+                    android:mimeType="text/plain"
                     android:scheme="https" />
             </intent-filter>
         </activity>
@@ -258,14 +259,5 @@
                     android:scheme="@string/kakao_scheme" />
             </intent-filter>
         </activity>
-
-        <service
-            android:name=".data.firebase.CustomFirebaseMessagingService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
     </application>
 </manifest>

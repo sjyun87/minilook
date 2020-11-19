@@ -10,6 +10,9 @@ public interface BrandDetailPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    void onResume();
+
     void onScrapClick();
 
     void onSortClick();
@@ -19,6 +22,8 @@ public interface BrandDetailPresenter extends LifecycleObserver {
     void onLoadMore();
 
     void onBrandInfoClick();
+
+    void onShareClick();
 
     interface View {
 
@@ -65,5 +70,9 @@ public interface BrandDetailPresenter extends LifecycleObserver {
         void navigateToBrandInfo(int brandNo);
 
         void navigateToLogin();
+
+        void sendLink(String shareLink);
+
+        void showErrorMessage();
     }
 }

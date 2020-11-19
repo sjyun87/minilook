@@ -3,7 +3,7 @@ ext {
   // Versioning
   versionMajor = 1
   versionMinor = 1
-  versionPatch = 10
+  versionPatch = 11
 
   // Android
   compile_sdk_version = 29
@@ -104,4 +104,7 @@ ext {
 
   // Shadow
   shadow_version = '1.2.5'
+
+  // Shimmer placeholder
+  shimmer_version = '0.5.0'
 }

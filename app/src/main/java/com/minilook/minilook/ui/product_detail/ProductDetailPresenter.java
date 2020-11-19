@@ -14,6 +14,9 @@ public interface ProductDetailPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    void onResume();
+
     void onTabClick(int position);
 
     void onReviewMoreClick();
@@ -35,6 +38,8 @@ public interface ProductDetailPresenter extends LifecycleObserver {
     void onOptionSelectorBuyClick(List<ShoppingOptionDataModel> optionData);
 
     void onTrialVersionDialogGoClick();
+
+    void onShareClick();
 
     interface View {
 
@@ -179,5 +184,9 @@ public interface ProductDetailPresenter extends LifecycleObserver {
         void navigateToReview(int productNo);
 
         void navigateToQuestion(int productNo);
+
+        void sendLink(String shareLink);
+
+        void showErrorMessage();
     }
 }

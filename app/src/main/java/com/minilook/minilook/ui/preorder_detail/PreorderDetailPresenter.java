@@ -13,11 +13,16 @@ public interface PreorderDetailPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    void onResume();
+
     void onTabClick(int position);
 
     void onBuyClick();
 
     void onOptionSelectorBuyClick(List<ShoppingProductDataModel> shoppingProductData);
+
+    void onShareClick();
 
     interface View {
 
@@ -72,5 +77,9 @@ public interface PreorderDetailPresenter extends LifecycleObserver {
         void navigateToLogin();
 
         void navigateToOrder(List<ShoppingBrandDataModel> brandData);
+
+        void sendLink(String shareLink);
+
+        void showErrorMessage();
     }
 }

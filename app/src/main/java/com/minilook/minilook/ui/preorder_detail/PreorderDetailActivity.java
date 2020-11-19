@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
@@ -39,6 +40,7 @@ import com.minilook.minilook.ui.preorder_info.PreorderInfoActivity;
 import com.minilook.minilook.ui.preorder_product_detail.PreorderProductDetailActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.ui.product_detail.widget.ProductTabView;
+import com.minilook.minilook.util.DynamicLinkManager;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 import java.util.List;
 import java.util.Objects;
@@ -73,6 +75,7 @@ public class PreorderDetailActivity extends BaseActivity implements PreorderDeta
     @BindView(R.id.option_selector) OptionSelector optionSelector;
 
     @BindString(R.string.preorder_detail_remain_date_unit) String format_remain_date;
+    @BindString(R.string.dialog_error_title) String str_error_msg;
 
     @BindArray(R.array.tab_preorder_detail) String[] tabNames;
 
@@ -104,6 +107,7 @@ public class PreorderDetailActivity extends BaseActivity implements PreorderDeta
             .preorderNo(getIntent().getIntExtra("preorderNo", -1))
             .imageAdapter(imageAdapter)
             .productAdapter(productAdapter)
+            .dynamicLinkManager(new DynamicLinkManager(this))
             .build();
     }
 
@@ -262,6 +266,17 @@ public class PreorderDetailActivity extends BaseActivity implements PreorderDeta
         OrderActivity.start(this, ProductDetailActivity.class.getSimpleName());
     }
 
+    @Override public void sendLink(String shareLink) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, shareLink);
+        startActivity(Intent.createChooser(intent, "친구에게 공유하기"));
+    }
+
+    @Override public void showErrorMessage() {
+        Toast.makeText(this, str_error_msg, Toast.LENGTH_SHORT).show();
+    }
+
     @OnClick({ R.id.img_info, R.id.layout_shipping_n_refund_panel })
     void onInfoClick() {
         PreorderInfoActivity.start(this);
@@ -270,5 +285,10 @@ public class PreorderDetailActivity extends BaseActivity implements PreorderDeta
     @OnClick(R.id.txt_buy)
     void onBuyClick() {
         presenter.onBuyClick();
+    }
+
+    @OnClick(R.id.img_share)
+    void onShareClick() {
+        presenter.onShareClick();
     }
 }

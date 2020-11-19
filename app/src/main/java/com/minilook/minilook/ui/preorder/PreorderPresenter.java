@@ -6,23 +6,30 @@ import androidx.lifecycle.OnLifecycleEvent;
 
 public interface PreorderPresenter extends LifecycleObserver {
 
-  @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-  void onCreate();
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    void onCreate();
 
-  void onTabClick(int position);
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    void onResume();
 
-  interface View {
+    void onTabClick(int position);
 
-      void setupTabLayout();
+    interface View {
 
-      void setupViewPager();
+        void setupTabLayout();
 
-      void setupCurrentPage(int position);
+        void setupViewPager();
 
-      void navigateToPreorderInfo();
+        void setupCurrentPage(int position);
 
-      void hideClosePreorderTab();
+        void navigateToPreorderInfo();
 
-      void navigateToPreorderDetail(int preorderNo);
-  }
+        void hideClosePreorderTab();
+
+        void navigateToPreorderDetail(int preorderNo);
+
+        void sendLink(String shareLink);
+
+        void showErrorMessage();
+    }
 }

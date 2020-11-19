@@ -39,6 +39,7 @@ public class TitleBar extends ConstraintLayout {
     @BindView(R.id.img_titlebar_setting) ImageView settingImageView;
     @BindView(R.id.img_titlebar_close) ImageView closeImageView;
     @BindView(R.id.img_titlebar_write) ImageView writeImageView;
+    @BindView(R.id.img_titlebar_share) ImageView shareImageView;
 
     @BindColor(R.color.color_FFFFFFFF) int color_FFFFFFFF;
 
@@ -55,6 +56,7 @@ public class TitleBar extends ConstraintLayout {
     private boolean isShowSetting;
     private boolean isShowClose;
     private boolean isShowWrite;
+    private boolean isShowShare;
     private String title;
     private int count;
 
@@ -85,6 +87,7 @@ public class TitleBar extends ConstraintLayout {
         isShowSetting = typedArray.getBoolean(R.styleable.TitleBar_showSetting, false);
         isShowClose = typedArray.getBoolean(R.styleable.TitleBar_showClose, false);
         isShowWrite = typedArray.getBoolean(R.styleable.TitleBar_showWrite, false);
+        isShowShare = typedArray.getBoolean(R.styleable.TitleBar_showShare, false);
         title = typedArray.getString(R.styleable.TitleBar_setTitle);
         count = typedArray.getInteger(R.styleable.TitleBar_setCount, 0);
         typedArray.recycle();
@@ -122,6 +125,7 @@ public class TitleBar extends ConstraintLayout {
         settingImageView.setVisibility(isShowSetting ? VISIBLE : GONE);
         closeImageView.setVisibility(isShowClose ? VISIBLE : GONE);
         writeImageView.setVisibility(isShowWrite ? VISIBLE : GONE);
+        shareImageView.setVisibility(isShowShare ? VISIBLE : GONE);
 
         titleTextView.setText(title);
         countTextView.setText(StringUtil.toDigit(count));
@@ -179,6 +183,11 @@ public class TitleBar extends ConstraintLayout {
 
     public void setShowWrite(boolean visible) {
         isShowWrite = visible;
+        updateUI();
+    }
+
+    public void setShowShare(boolean visible) {
+        isShowShare = visible;
         updateUI();
     }
 

@@ -43,7 +43,6 @@ import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.event_detail.EventDetailActivity;
 import com.minilook.minilook.ui.login.LoginActivity;
-import com.minilook.minilook.ui.product_option_selector.ProductOptionSelector;
 import com.minilook.minilook.ui.order.OrderActivity;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.product_detail.adapter.ProductDetailImageAdapter;
@@ -51,10 +50,12 @@ import com.minilook.minilook.ui.product_detail.adapter.ProductDetailReviewAdapte
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
 import com.minilook.minilook.ui.product_detail.widget.ProductTabView;
 import com.minilook.minilook.ui.product_info.ProductInfoActivity;
+import com.minilook.minilook.ui.product_option_selector.ProductOptionSelector;
 import com.minilook.minilook.ui.question.QuestionActivity;
 import com.minilook.minilook.ui.review.ReviewActivity;
 import com.minilook.minilook.ui.shoppingbag.ShoppingBagActivity;
 import com.minilook.minilook.util.DimenUtil;
+import com.minilook.minilook.util.DynamicLinkManager;
 import com.minilook.minilook.util.SpannableUtil;
 import com.minilook.minilook.util.StringUtil;
 import com.nex3z.flowlayout.FlowLayout;
@@ -126,6 +127,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     @BindString(R.string.product_detail_point) String format_point;
     @BindString(R.string.product_detail_point_save) String format_point_save;
     @BindString(R.string.product_detail_review_more) String format_review_more;
+    @BindString(R.string.dialog_error_title) String str_error_msg;
     @BindArray(R.array.tab_product_detail) String[] tabNames;
 
     @BindString(R.string.product_detail_shipping_free) String str_shipping_free;
@@ -169,6 +171,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
             .productImageAdapter(productImageAdapter)
             .reviewAdapter(reviewAdapter)
             .relatedProductAdapter(relatedProductAdapter)
+            .dynamicLinkManager(new DynamicLinkManager(this))
             .build();
     }
 
@@ -544,6 +547,17 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         QuestionActivity.start(this, productNo);
     }
 
+    @Override public void sendLink(String shareLink) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, shareLink);
+        startActivity(Intent.createChooser(intent, "친구에게 공유하기"));
+    }
+
+    @Override public void showErrorMessage() {
+        Toast.makeText(this, str_error_msg, Toast.LENGTH_SHORT).show();
+    }
+
     @OnClick(R.id.layout_expand_panel)
     void onExpandClick() {
         presenter.onExpandClick();
@@ -567,6 +581,11 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     @OnClick(R.id.layout_shipping_n_refund_panel)
     void onShippingNRefundClick() {
         presenter.onShippingNRefundClick();
+    }
+
+    @OnClick(R.id.img_share)
+    void onShareClick() {
+        presenter.onShareClick();
     }
 
     @OnClick(R.id.img_scrap)

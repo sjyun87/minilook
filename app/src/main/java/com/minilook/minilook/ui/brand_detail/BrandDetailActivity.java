@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindColor;
 import butterknife.BindDimen;
 import butterknife.BindDrawable;
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.bumptech.glide.Glide;
@@ -34,6 +36,7 @@ import com.minilook.minilook.ui.brand_info.BrandInfoActivity;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.util.DimenUtil;
+import com.minilook.minilook.util.DynamicLinkManager;
 import com.minilook.minilook.util.StringUtil;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
 
@@ -68,10 +71,12 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
 
     @BindDrawable(R.drawable.ic_scrap_off) Drawable img_scrap_off;
     @BindDrawable(R.drawable.ic_scrap_on) Drawable img_scrap_on;
-    ;
+
     @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
     @BindDrawable(R.drawable.placeholder_image_wide) Drawable img_placeholder_wide;
     @BindDrawable(R.drawable.placeholder_logo) Drawable img_placeholder_logo;
+
+    @BindString(R.string.dialog_error_title) String str_error_msg;
 
     @BindDimen(R.dimen.dp_2) int dp_2;
     @BindDimen(R.dimen.dp_50) int dp_50;
@@ -103,6 +108,7 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
             .styleAdapter(styleAdapter)
             .sortAdapter(sortAdapter)
             .productAdapter(productAdapter)
+            .dynamicLinkManager(new DynamicLinkManager(this))
             .build();
     }
 
@@ -270,6 +276,17 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
         LoginActivity.start(this);
     }
 
+    @Override public void sendLink(String shareLink) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, shareLink);
+        startActivity(Intent.createChooser(intent, "친구에게 공유하기"));
+    }
+
+    @Override public void showErrorMessage() {
+        Toast.makeText(this, str_error_msg, Toast.LENGTH_SHORT).show();
+    }
+
     @OnClick({ R.id.img_scrap, R.id.txt_scrap })
     void onScrapClick() {
         presenter.onScrapClick();
@@ -283,5 +300,10 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
     @OnClick({ R.id.layout_sort_panel, R.id.layout_sticky_sort_panel })
     void onSortClick() {
         presenter.onSortClick();
+    }
+
+    @OnClick(R.id.img_share)
+    void onShareClick() {
+        presenter.onShareClick();
     }
 }

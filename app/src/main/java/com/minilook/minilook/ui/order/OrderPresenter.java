@@ -10,6 +10,9 @@ public interface OrderPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    void onResume();
+
     void onShippingClick();
 
     void onMemoBoxClick();

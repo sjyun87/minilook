@@ -17,6 +17,7 @@ import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.main.MainPresenterImpl;
 import com.minilook.minilook.ui.market.di.MarketArguments;
 import com.minilook.minilook.ui.market.viewholder.category.viewholder.MarketCategoryItemVH;
+import com.minilook.minilook.util.TrackingManager;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.functions.Function;
 import io.reactivex.rxjava3.functions.Predicate;
@@ -47,6 +48,10 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
         view.setupRefreshLayout();
         view.setupRecyclerView();
         reqMarketModule();
+    }
+
+    @Override public void onResume() {
+        TrackingManager.pageTracking("마켓페이지", MarketFragment.class.getSimpleName());
     }
 
     @Override public void onRefresh() {

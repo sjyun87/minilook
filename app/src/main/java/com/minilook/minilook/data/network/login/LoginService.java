@@ -7,6 +7,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface LoginService {
@@ -20,18 +21,18 @@ public interface LoginService {
         @Path("user_id") int user_id
     );
 
-    @POST("/api/members/existing") Single<BaseDataModel> login(
+    @PUT("/api/members") Single<BaseDataModel> login(
         @Body RequestBody body
     );
 
-    @HTTP(method = "DELETE", path = "/api/members/{user_id}/pushtokens", hasBody = true)
+    @HTTP(method = "DELETE", path = "/api/members/{memberNo}/pushtokens", hasBody = true)
     Single<BaseDataModel> logout(
-        @Path("user_id") int user_id,
+        @Path("memberNo") int memberNo,
         @Body RequestBody body
     );
 
-    @GET("/api/members/{user_id}/points/coupons")
+    @GET("/api/members/{memberNo}/points/coupons")
     Single<BaseDataModel> getPointNCoupon(
-        @Path("user_id") int user_id
+        @Path("memberNo") int memberNo
     );
 }
