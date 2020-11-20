@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.market.viewholder.event;
+package com.minilook.minilook.ui.market.viewholder.day;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindColor;
 import butterknife.BindDimen;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
@@ -19,14 +20,17 @@ import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.model.market.MarketModuleDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.base.widget.TabView;
-import com.minilook.minilook.ui.market.viewholder.event.adapter.MarketEventAdapter;
+import com.minilook.minilook.ui.market.viewholder.day.adapter.MarketDayAdapter;
 import io.reactivex.rxjava3.core.Observable;
 import java.util.List;
 import java.util.Objects;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-public class MarketEventVH extends BaseViewHolder<MarketDataModel> {
+public class MarketDayVH extends BaseViewHolder<MarketDataModel> {
 
     @BindView(R.id.txt_title) TextView titleTextView;
     @BindView(R.id.txt_tag) TextView tagTextView;
@@ -37,13 +41,16 @@ public class MarketEventVH extends BaseViewHolder<MarketDataModel> {
     @BindDimen(R.dimen.dp_48) int dp_48;
 
     @BindColor(R.color.color_FFFFFFFF) int color_FFFFFFFF;
+    @BindColor(R.color.color_FFA8A6A1) int color_FFA8A6A1;
 
-    private MarketEventAdapter adapter;
+    private MarketDayAdapter adapter;
     private Gson gson = new Gson();
 
-    public MarketEventVH(@NonNull View itemView) {
+    private MarketModuleDataModel moduleData;
+
+    public MarketDayVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_market_event, (ViewGroup) itemView, false));
+            .inflate(R.layout.item_market_day, (ViewGroup) itemView, false));
 
         setupTabLayout();
         setupProductRecyclerView();
@@ -77,7 +84,7 @@ public class MarketEventVH extends BaseViewHolder<MarketDataModel> {
 
     private void setupProductRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
-        adapter = new MarketEventAdapter();
+        adapter = new MarketDayAdapter();
         recyclerView.setAdapter(adapter);
         DividerDecoration.builder(context)
             .size(dp_2)
@@ -92,7 +99,7 @@ public class MarketEventVH extends BaseViewHolder<MarketDataModel> {
 
         titleTextView.setText(data.getTitle());
 
-        MarketModuleDataModel moduleData = parseJsonToModel();
+        moduleData = parseJsonToModel();
         tagTextView.setText(moduleData.getTag());
 
         if (tabLayout.getTabCount() == 0) {
@@ -103,6 +110,7 @@ public class MarketEventVH extends BaseViewHolder<MarketDataModel> {
                     .code(tabModel.getCode())
                     .width(dp_48)
                     .selectedTextColor(color_FFFFFFFF)
+                    .unselectedTextColor(color_FFA8A6A1)
                     .build();
 
                 TabLayout.Tab tab = tabLayout.newTab();
@@ -117,8 +125,7 @@ public class MarketEventVH extends BaseViewHolder<MarketDataModel> {
     }
 
     private List<ProductDataModel> getProducts(String code) {
-        MarketModuleDataModel data = parseJsonToModel();
-        return Observable.fromIterable(data.getProducts())
+        return Observable.fromIterable(moduleData.getProducts())
             .filter(model -> model.getType().equals(code))
             .toList()
             .blockingGet();
@@ -126,5 +133,14 @@ public class MarketEventVH extends BaseViewHolder<MarketDataModel> {
 
     private MarketModuleDataModel parseJsonToModel() {
         return gson.fromJson(data.getData(), MarketModuleDataModel.class);
+    }
+
+    @OnClick(R.id.img_more)
+    void onMoreClick() {
+        RxBus.send(new RxBusEventMarketDayModuleMoreClick(moduleData.getPromotionNo()));
+    }
+
+    @AllArgsConstructor @Getter public final static class RxBusEventMarketDayModuleMoreClick {
+        int promotionNo;
     }
 }

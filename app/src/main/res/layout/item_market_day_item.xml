@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/color_FF232323">
+    android:background="@color/color_FF000000">
 
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview"
-        android:layout_width="@dimen/dp_64"
-        android:layout_height="@dimen/dp_64"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="@dimen/dp_80"
         app:cardCornerRadius="@dimen/dp_2"
         app:cardElevation="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -57,7 +57,7 @@
             android:gravity="center"
             android:lineSpacingMultiplier="1.5"
             android:maxLines="2"
-            android:textColor="@color/color_FFFFFFFF"
+            android:textColor="@color/color_FFA8A6A1"
             android:textSize="@dimen/sp_7"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -90,7 +90,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/dp_2"
                 android:fontFamily="@font/nanum_square_r"
-                android:textColor="@color/color_FFFFFFFF"
+                android:textColor="@color/color_FFA8A6A1"
                 android:textSize="@dimen/sp_6"
                 tools:text="60,000" />
         </LinearLayout>

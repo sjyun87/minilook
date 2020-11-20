@@ -16,4 +16,6 @@ import lombok.Data;
     private List<String> tags;
     @Expose @SerializedName("tagName")
     private String tag;
+    @Expose @SerializedName("promotionNo")
+    private int promotionNo;
 }

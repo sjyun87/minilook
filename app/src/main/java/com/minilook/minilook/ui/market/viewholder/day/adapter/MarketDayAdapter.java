@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.market.viewholder.event.adapter;
+package com.minilook.minilook.ui.market.viewholder.day.adapter;
 
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
@@ -6,20 +6,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.market.viewholder.event.viewholder.MarketEventItemVH;
+import com.minilook.minilook.ui.market.viewholder.day.viewholder.MarketDayItemVH;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MarketEventAdapter extends RecyclerView.Adapter<MarketEventItemVH> implements
+public class MarketDayAdapter extends RecyclerView.Adapter<MarketDayItemVH> implements
     BaseAdapterDataModel<ProductDataModel>, BaseAdapterDataView<ProductDataModel> {
 
     private List<ProductDataModel> items = new ArrayList<>();
 
-    @NonNull @Override public MarketEventItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MarketEventItemVH(parent);
+    @NonNull @Override public MarketDayItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new MarketDayItemVH(parent);
     }
 
-    @Override public void onBindViewHolder(@NonNull MarketEventItemVH holder, int position) {
+    @Override public void onBindViewHolder(@NonNull MarketDayItemVH holder, int position) {
         holder.bind(items.get(position));
     }
 

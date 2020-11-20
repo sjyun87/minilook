@@ -17,6 +17,7 @@ import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.main.MainPresenterImpl;
 import com.minilook.minilook.ui.market.di.MarketArguments;
 import com.minilook.minilook.ui.market.viewholder.category.viewholder.MarketCategoryItemVH;
+import com.minilook.minilook.ui.market.viewholder.day.MarketDayVH;
 import com.minilook.minilook.util.TrackingManager;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.functions.Function;
@@ -104,6 +105,9 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
             if (o instanceof MarketCategoryItemVH.RxBusEventMarketCategoryClick) {
                 CodeDataModel categoryData = ((MarketCategoryItemVH.RxBusEventMarketCategoryClick) o).getCategoryData();
                 navigateToProductBridge(categoryData);
+            } else if (o instanceof MarketDayVH.RxBusEventMarketDayModuleMoreClick) {
+                int promotionNo = ((MarketDayVH.RxBusEventMarketDayModuleMoreClick) o).getPromotionNo();
+                view.navigateToPromotionDetail(promotionNo);
             }
         }, Timber::e));
     }

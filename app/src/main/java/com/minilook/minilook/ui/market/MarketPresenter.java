@@ -26,5 +26,7 @@ public interface MarketPresenter extends LifecycleObserver {
         void refresh();
 
         void navigateToProductBridge(SearchOptionDataModel model);
+
+        void navigateToPromotionDetail(int promotionNo);
     }
 }

@@ -14,6 +14,7 @@ import com.minilook.minilook.ui.base.BaseFragment;
 import com.minilook.minilook.ui.market.adapter.MarketModuleAdapter;
 import com.minilook.minilook.ui.market.di.MarketArguments;
 import com.minilook.minilook.ui.product_bridge.ProductBridgeActivity;
+import com.minilook.minilook.ui.promotion_detail.PromotionDetailActivity;
 
 public class MarketFragment extends BaseFragment implements MarketPresenter.View {
 
@@ -70,5 +71,9 @@ public class MarketFragment extends BaseFragment implements MarketPresenter.View
 
     @Override public void navigateToProductBridge(SearchOptionDataModel model) {
         ProductBridgeActivity.start(getContext(), model);
+    }
+
+    @Override public void navigateToPromotionDetail(int promotionNo) {
+        PromotionDetailActivity.start(getContext(), promotionNo);
     }
 }

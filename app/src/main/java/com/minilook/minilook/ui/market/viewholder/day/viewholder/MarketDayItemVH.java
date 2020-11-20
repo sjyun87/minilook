@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.market.viewholder.event.viewholder;
+package com.minilook.minilook.ui.market.viewholder.day.viewholder;
 
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
@@ -20,7 +20,7 @@ import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.StringUtil;
 
-public class MarketEventItemVH extends BaseViewHolder<ProductDataModel> {
+public class MarketDayItemVH extends BaseViewHolder<ProductDataModel> {
 
     @BindView(R.id.img_thumb) ImageView thumbImageView;
     @BindView(R.id.txt_brand_name) TextView brandNameTextView;
@@ -34,9 +34,9 @@ public class MarketEventItemVH extends BaseViewHolder<ProductDataModel> {
 
     @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
 
-    public MarketEventItemVH(@NonNull View itemView) {
+    public MarketDayItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_market_event_item, (ViewGroup) itemView, false));
+            .inflate(R.layout.item_market_day_item, (ViewGroup) itemView, false));
     }
 
     @Override public void bind(ProductDataModel $data) {
