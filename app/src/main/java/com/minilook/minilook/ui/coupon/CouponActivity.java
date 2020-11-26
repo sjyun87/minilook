@@ -12,13 +12,13 @@ import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.member.CouponDataModel;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.coupon.adapter.CouponAdapter;
 import com.minilook.minilook.ui.coupon.di.CouponArguments;
 import com.minilook.minilook.ui.webview.WebViewActivity;
 
-public class CouponActivity extends BaseActivity implements CouponPresenter.View {
+public class CouponActivity extends _BaseActivity implements CouponPresenter.View {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, CouponActivity.class);

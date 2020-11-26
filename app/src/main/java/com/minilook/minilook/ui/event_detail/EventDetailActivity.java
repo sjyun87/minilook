@@ -17,14 +17,14 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.event.EventDataModel;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
 import com.minilook.minilook.ui.event_detail.adapter.EventAdapter;
 import com.minilook.minilook.ui.event_detail.di.EventDetailArguments;
 import com.minilook.minilook.util.DynamicLinkManager;
 
-public class EventDetailActivity extends BaseActivity implements EventDetailPresenter.View {
+public class EventDetailActivity extends _BaseActivity implements EventDetailPresenter.View {
 
     public static void start(Context context, int eventNo) {
         Intent intent = new Intent(context, EventDetailActivity.class);

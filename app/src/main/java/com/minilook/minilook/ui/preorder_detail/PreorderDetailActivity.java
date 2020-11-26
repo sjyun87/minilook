@@ -19,7 +19,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.google.android.material.tabs.TabLayout;
@@ -28,7 +27,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.OptionDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.option_selector.OptionSelector;
@@ -46,7 +45,7 @@ import java.util.List;
 import java.util.Objects;
 import me.didik.component.StickyNestedScrollView;
 
-public class PreorderDetailActivity extends BaseActivity implements PreorderDetailPresenter.View {
+public class PreorderDetailActivity extends _BaseActivity implements PreorderDetailPresenter.View {
 
     public static void start(Context context, int preorderNo) {
         Intent intent = new Intent(context, PreorderDetailActivity.class);

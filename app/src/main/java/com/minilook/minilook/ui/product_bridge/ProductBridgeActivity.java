@@ -20,7 +20,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.search.SearchOptionDataModel;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
 import com.minilook.minilook.ui.base.widget.TabView;
@@ -33,7 +33,7 @@ import com.minilook.minilook.util.DimenUtil;
 import java.util.List;
 import java.util.Objects;
 
-public class ProductBridgeActivity extends BaseActivity implements ProductBridgePresenter.View {
+public class ProductBridgeActivity extends _BaseActivity implements ProductBridgePresenter.View {
 
     public static void start(Context context, SearchOptionDataModel model) {
         Intent intent = new Intent(context, ProductBridgeActivity.class);

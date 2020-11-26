@@ -13,7 +13,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.BuildConfig;
 import com.minilook.minilook.R;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.widget.BottomBar;
 import com.minilook.minilook.ui.leave.LeaveActivity;
 import com.minilook.minilook.ui.login.LoginActivity;
@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 import timber.log.Timber;
 
-public class SettingActivity extends BaseActivity implements SettingPresenter.View {
+public class SettingActivity extends _BaseActivity implements SettingPresenter.View {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, SettingActivity.class);

@@ -12,7 +12,7 @@ import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.order.OrderHistoryDataModel;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.widget.BottomBar;
 import com.minilook.minilook.ui.main.MainActivity;
@@ -20,7 +20,7 @@ import com.minilook.minilook.ui.order_detail.OrderDetailActivity;
 import com.minilook.minilook.ui.order_history.adapter.OrderHistoryAdapter;
 import com.minilook.minilook.ui.order_history.di.OrderHistoryArguments;
 
-public class OrderHistoryActivity extends BaseActivity implements OrderHistoryPresenter.View {
+public class OrderHistoryActivity extends _BaseActivity implements OrderHistoryPresenter.View {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, OrderHistoryActivity.class);

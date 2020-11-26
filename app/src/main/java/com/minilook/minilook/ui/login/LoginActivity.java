@@ -5,7 +5,7 @@ import android.content.Intent;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.member.MemberDataModel;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.widget.BottomBar;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.join.JoinActivity;
@@ -15,7 +15,7 @@ import com.minilook.minilook.ui.login.listener.OnSNSLoginListener;
 import com.minilook.minilook.ui.login.naver.NaverLoginManager;
 import com.minilook.minilook.ui.main.MainActivity;
 
-public class LoginActivity extends BaseActivity implements LoginPresenter.View {
+public class LoginActivity extends _BaseActivity implements LoginPresenter.View {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);

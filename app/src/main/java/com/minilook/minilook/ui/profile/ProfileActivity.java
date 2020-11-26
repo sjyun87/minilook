@@ -15,13 +15,13 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.profile.di.ProfileArguments;
 import com.minilook.minilook.ui.shipping.ShippingActivity;
 import com.minilook.minilook.ui.verify.VerifyActivity;
 import com.minilook.minilook.util.KeyboardUtil;
 
-public class ProfileActivity extends BaseActivity implements ProfilePresenter.View {
+public class ProfileActivity extends _BaseActivity implements ProfilePresenter.View {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, ProfileActivity.class);

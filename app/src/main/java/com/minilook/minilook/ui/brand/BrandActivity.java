@@ -15,13 +15,13 @@ import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.common.CodeDataModel;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.brand.adapter.BrandAdapter;
 import com.minilook.minilook.ui.brand.adapter.BrandStyleAdapter;
 import com.minilook.minilook.ui.brand.di.BrandArguments;
 
-public class BrandActivity extends BaseActivity implements BrandPresenter.View {
+public class BrandActivity extends _BaseActivity implements BrandPresenter.View {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, BrandActivity.class);

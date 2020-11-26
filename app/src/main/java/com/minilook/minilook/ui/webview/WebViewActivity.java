@@ -10,10 +10,10 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import butterknife.BindView;
 import com.minilook.minilook.R;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.webview.di.WebViewArguments;
 
-public class WebViewActivity extends BaseActivity implements WebViewPresenter.View {
+public class WebViewActivity extends _BaseActivity implements WebViewPresenter.View {
 
     public static void start(Context context, String url) {
         Intent intent = new Intent(context, WebViewActivity.class);

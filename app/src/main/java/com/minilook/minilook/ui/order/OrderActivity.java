@@ -29,7 +29,7 @@ import com.minilook.minilook.data.model.bootpay.BootPayDataModel;
 import com.minilook.minilook.data.model.bootpay.BootPayItemDataModel;
 import com.minilook.minilook.data.model.member.CouponDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.order.adapter.CouponAdapter;
@@ -48,7 +48,7 @@ import kr.co.bootpay.enums.PG;
 import kr.co.bootpay.enums.UX;
 import timber.log.Timber;
 
-public class OrderActivity extends BaseActivity implements OrderPresenter.View {
+public class OrderActivity extends _BaseActivity implements OrderPresenter.View {
 
     public static void start(Context context, String route) {
         Intent intent = new Intent(context, OrderActivity.class);

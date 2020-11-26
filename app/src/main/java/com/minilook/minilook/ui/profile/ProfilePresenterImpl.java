@@ -39,7 +39,7 @@ public class ProfilePresenterImpl extends BasePresenterImpl implements ProfilePr
 
     @Override public void onTextChanged(String text) {
         if (text.trim().length() > 0) {
-            nick = text;
+            nick = text.trim();
             view.enableNickSaveButton();
             view.showNickClearButton();
         } else {

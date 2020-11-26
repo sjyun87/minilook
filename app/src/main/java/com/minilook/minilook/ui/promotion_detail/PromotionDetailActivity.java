@@ -22,7 +22,7 @@ import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.promotion.PromotionDataModel;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
@@ -31,7 +31,7 @@ import com.minilook.minilook.ui.promotion_detail.di.PromotionDetailArguments;
 import com.minilook.minilook.util.DynamicLinkManager;
 import com.minilook.minilook.util.SpannableUtil;
 
-public class PromotionDetailActivity extends BaseActivity implements PromotionDetailPresenter.View {
+public class PromotionDetailActivity extends _BaseActivity implements PromotionDetailPresenter.View {
 
     public static void start(Context context, int id) {
         Intent intent = new Intent(context, PromotionDetailActivity.class);

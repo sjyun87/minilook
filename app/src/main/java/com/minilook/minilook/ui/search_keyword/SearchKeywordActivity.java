@@ -11,14 +11,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.minilook.minilook.R;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.search_keyword.di.SearchKeywordArguments;
 import com.nex3z.flowlayout.FlowLayout;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class SearchKeywordActivity extends BaseActivity implements SearchKeywordPresenter.View {
+public class SearchKeywordActivity extends _BaseActivity implements SearchKeywordPresenter.View {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, SearchKeywordActivity.class);

@@ -15,12 +15,12 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.shipping.ShippingDataModel;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.widget.TitleBar;
 import com.minilook.minilook.ui.search_zip.SearchZipActivity;
 import com.minilook.minilook.ui.shipping_update.di.ShippingUpdateArguments;
 
-public class ShippingUpdateActivity extends BaseActivity implements ShippingUpdatePresenter.View {
+public class ShippingUpdateActivity extends _BaseActivity implements ShippingUpdatePresenter.View {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, ShippingUpdateActivity.class);

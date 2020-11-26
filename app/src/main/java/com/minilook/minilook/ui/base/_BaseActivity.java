@@ -2,7 +2,6 @@ package com.minilook.minilook.ui.base;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.ButterKnife;
@@ -17,37 +16,24 @@ import com.minilook.minilook.ui.base.listener.OnScrapListener;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 
-public abstract class BaseActivity extends AppCompatActivity implements OnLoginListener, OnScrapListener {
+public abstract class _BaseActivity extends AppCompatActivity implements OnLoginListener, OnScrapListener {
 
-    private final CompositeDisposable disposable = new CompositeDisposable();
+    private CompositeDisposable disposable = new CompositeDisposable();
+    private Unbinder binder;
 
     @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(getBindingView());
+        setContentView(getLayoutID());
         getWindow().getDecorView().setBackgroundColor(Color.WHITE);
+        binder = ButterKnife.bind(this);
         createPresenter();
         toRxBusObservable();
     }
 
     @Override protected void onDestroy() {
+        if (binder != null) binder.unbind();
         clearDisposable();
         super.onDestroy();
-    }
-
-    protected abstract View getBindingView();
-
-    protected abstract void createPresenter();
-
-    protected void addDisposable(Disposable d) {
-        disposable.add(d);
-    }
-
-    protected void clearDisposable() {
-        disposable.clear();
-    }
-
-    protected CompositeDisposable getDisposable() {
-        return disposable;
     }
 
     private void toRxBusObservable() {
@@ -80,5 +66,21 @@ public abstract class BaseActivity extends AppCompatActivity implements OnLoginL
     }
 
     @Override public void onBrandScrap(boolean isScrap, BrandDataModel brand) {
+    }
+
+    protected abstract int getLayoutID();
+
+    protected abstract void createPresenter();
+
+    protected void addDisposable(Disposable d) {
+        disposable.add(d);
+    }
+
+    protected void clearDisposable() {
+        disposable.clear();
+    }
+
+    protected CompositeDisposable getDisposable() {
+        return disposable;
     }
 }

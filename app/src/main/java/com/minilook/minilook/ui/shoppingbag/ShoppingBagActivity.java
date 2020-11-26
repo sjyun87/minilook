@@ -20,7 +20,7 @@ import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.App;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.widget.BottomBar;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
@@ -32,7 +32,7 @@ import com.minilook.minilook.ui.shoppingbag.di.ShoppingBagArguments;
 import com.minilook.minilook.util.StringUtil;
 import java.util.List;
 
-public class ShoppingBagActivity extends BaseActivity implements ShoppingBagPresenter.View {
+public class ShoppingBagActivity extends _BaseActivity implements ShoppingBagPresenter.View {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, ShoppingBagActivity.class);

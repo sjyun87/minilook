@@ -22,14 +22,14 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.order.OrderProductDataModel;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.order_exchange_n_return.adapter.ExchangeNReturnReasonAdapter;
 import com.minilook.minilook.ui.order_exchange_n_return.adapter.ExchangeNReturnTypeAdapter;
 import com.minilook.minilook.ui.order_exchange_n_return.di.OrderExchangeNReturnArguments;
 import com.minilook.minilook.util.StringUtil;
 
-public class OrderExchangeNReturnActivity extends BaseActivity implements OrderExchangeNReturnPresenter.View {
+public class OrderExchangeNReturnActivity extends _BaseActivity implements OrderExchangeNReturnPresenter.View {
 
     public static void start(Context context, OrderProductDataModel data) {
         Intent intent = new Intent(context, OrderExchangeNReturnActivity.class);

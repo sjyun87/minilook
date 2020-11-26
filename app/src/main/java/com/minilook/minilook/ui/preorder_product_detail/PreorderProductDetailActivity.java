@@ -20,7 +20,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductStockDataModel;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.widget.ColorView;
 import com.minilook.minilook.ui.base.widget.SizeView;
@@ -30,7 +30,7 @@ import com.minilook.minilook.ui.preorder_product_detail.di.PreorderProductDetail
 import com.nex3z.flowlayout.FlowLayout;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
-public class PreorderProductDetailActivity extends BaseActivity implements PreorderProductDetailPresenter.View {
+public class PreorderProductDetailActivity extends _BaseActivity implements PreorderProductDetailPresenter.View {
 
     public static void start(Context context, String title, int preorderNo, int productNo) {
         Intent intent = new Intent(context, PreorderProductDetailActivity.class);

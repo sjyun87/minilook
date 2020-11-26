@@ -10,13 +10,13 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.recent.di.RecentArguments;
 
-public class RecentActivity extends BaseActivity implements RecentPresenter.View {
+public class RecentActivity extends _BaseActivity implements RecentPresenter.View {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, RecentActivity.class);

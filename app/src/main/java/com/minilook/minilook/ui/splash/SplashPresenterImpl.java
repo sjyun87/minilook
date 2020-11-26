@@ -29,17 +29,17 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
 
     private final View view;
     private final CommonRequest commonRequest;
+    private final Gson gson;
 
     private boolean isAnimationEnd = false;
     private boolean isCommonDataGet = false;
     private boolean isUpdateToken = false;
     private boolean isDynamicLinkCheck = false;
 
-    private Gson gson = new Gson();
-
     public SplashPresenterImpl(SplashArguments args) {
         view = args.getView();
         commonRequest = new CommonRequest();
+        gson = new Gson();
     }
 
     @Override public void onCreate() {
@@ -54,6 +54,7 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
 
     @Override public void onUpdateDialogOkClick() {
         view.navigateToPlayStore();
+        view.finish();
     }
 
     @Override public void onUpdateDialogCancelClick() {
@@ -76,6 +77,7 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
             }
         }
         isDynamicLinkCheck = true;
+        checkToDo();
     }
 
     private void reqCheckAppVersion() {
@@ -126,10 +128,12 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
     }
 
     private void reqUpdateToken() {
-        FirebaseMessaging.getInstance().getToken()
+        FirebaseMessaging.getInstance()
+            .getToken()
             .addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     String token = task.getResult();
+                    Timber.e("Token :: %s", token);
                     App.getInstance().setPushToken(token);
                     addDisposable(commonRequest.updateToken(token)
                         .subscribe());
@@ -137,6 +141,7 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
                     Timber.e(task.getException());
                 }
                 isUpdateToken = true;
+                checkToDo();
             });
     }
 

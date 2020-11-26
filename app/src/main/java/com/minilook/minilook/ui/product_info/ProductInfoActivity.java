@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.widget.TextView;
 import butterknife.BindView;
 import com.minilook.minilook.R;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.product_info.di.ProductInfoArguments;
 
-public class ProductInfoActivity extends BaseActivity implements ProductInfoPresenter.View {
+public class ProductInfoActivity extends _BaseActivity implements ProductInfoPresenter.View {
 
     public static void start(Context context, int brand_id) {
         Intent intent = new Intent(context, ProductInfoActivity.class);

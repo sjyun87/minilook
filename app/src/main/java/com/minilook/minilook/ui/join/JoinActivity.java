@@ -15,7 +15,7 @@ import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.member.MemberDataModel;
 import com.minilook.minilook.data.code.LoginType;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.widget.BottomBar;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.join.di.JoinArguments;
@@ -23,7 +23,7 @@ import com.minilook.minilook.ui.main.MainActivity;
 import com.minilook.minilook.ui.verify.VerifyActivity;
 import com.minilook.minilook.ui.webview.WebViewActivity;
 
-public class JoinActivity extends BaseActivity implements JoinPresenter.View {
+public class JoinActivity extends _BaseActivity implements JoinPresenter.View {
 
     public static void start(Context context, MemberDataModel userData) {
         Intent intent = new Intent(context, JoinActivity.class);

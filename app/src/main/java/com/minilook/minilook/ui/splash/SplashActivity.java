@@ -4,10 +4,10 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.net.Uri;
-import butterknife.BindView;
+import android.view.View;
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
-import com.minilook.minilook.R;
+import com.minilook.minilook.databinding.ActivitySplashBinding;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.guide.GuideActivity;
@@ -16,12 +16,14 @@ import com.minilook.minilook.ui.splash.di.SplashArguments;
 
 public class SplashActivity extends BaseActivity implements SplashPresenter.View {
 
-    @BindView(R.id.img_logo_symbol) LottieAnimationView lottieView;
+    private LottieAnimationView lottieView;
 
     private SplashPresenter presenter;
 
-    @Override protected int getLayoutID() {
-        return R.layout.activity_splash;
+    @Override protected View getBindingView() {
+        ActivitySplashBinding binding = ActivitySplashBinding.inflate(getLayoutInflater());
+        lottieView = binding.imgLogoSymbol;
+        return binding.getRoot();
     }
 
     @Override protected void createPresenter() {
@@ -39,6 +41,7 @@ public class SplashActivity extends BaseActivity implements SplashPresenter.View
         lottieView.addAnimatorListener(new AnimatorListenerAdapter() {
             @Override public void onAnimationEnd(Animator animation) {
                 presenter.onAnimationEnd();
+                lottieView.removeAllAnimatorListeners();
             }
         });
     }
@@ -46,7 +49,7 @@ public class SplashActivity extends BaseActivity implements SplashPresenter.View
     @Override public void checkDynamicLink() {
         FirebaseDynamicLinks.getInstance()
             .getDynamicLink(getIntent())
-            .addOnCompleteListener(this, task -> presenter.onDynamicLinkCheckComplete(task));
+            .addOnCompleteListener(this, presenter::onDynamicLinkCheckComplete);
     }
 
     @Override public void showUpdateDialog() {

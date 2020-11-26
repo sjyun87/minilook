@@ -13,13 +13,13 @@ import android.widget.FrameLayout;
 import butterknife.BindView;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.search_zip.di.SearchZipArguments;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import timber.log.Timber;
 
-public class SearchZipActivity extends BaseActivity implements SearchZipPresenter.View {
+public class SearchZipActivity extends _BaseActivity implements SearchZipPresenter.View {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, SearchZipActivity.class);

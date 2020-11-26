@@ -18,10 +18,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.order.OrderProductDataModel;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.review_write.di.ReviewWriteArguments;
 
-public class ReviewWriteActivity extends BaseActivity implements ReviewWritePresenter.View {
+public class ReviewWriteActivity extends _BaseActivity implements ReviewWritePresenter.View {
 
     public static void start(Context context, String orderNo, OrderProductDataModel data) {
         Intent intent = new Intent(context, ReviewWriteActivity.class);

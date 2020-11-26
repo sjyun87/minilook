@@ -12,14 +12,14 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.member.PointDataModel;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.point.adapter.PointHistoryAdapter;
 import com.minilook.minilook.ui.point.di.PointArguments;
 import com.minilook.minilook.ui.webview.WebViewActivity;
 import com.minilook.minilook.util.StringUtil;
 
-public class PointActivity extends BaseActivity implements PointPresenter.View {
+public class PointActivity extends _BaseActivity implements PointPresenter.View {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, PointActivity.class);

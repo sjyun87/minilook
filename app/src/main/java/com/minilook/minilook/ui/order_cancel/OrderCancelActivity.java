@@ -12,12 +12,12 @@ import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.order.OrderCancelDataModel;
 import com.minilook.minilook.data.model.order.OrderProductDataModel;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.order_cancel.adapter.OrderCancelAdapter;
 import com.minilook.minilook.ui.order_cancel.di.OrderCancelArguments;
 
-public class OrderCancelActivity extends BaseActivity implements OrderCancelPresenter.View {
+public class OrderCancelActivity extends _BaseActivity implements OrderCancelPresenter.View {
 
     public static void start(Context context, OrderCancelDataModel orderData) {
         Intent intent = new Intent(context, OrderCancelActivity.class);

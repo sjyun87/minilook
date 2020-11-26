@@ -11,14 +11,14 @@ import butterknife.BindView;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.review.ReviewDataModel;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
 import com.minilook.minilook.ui.base.widget.TitleBar;
 import com.minilook.minilook.ui.review.adapter.ReviewAdapter;
 import com.minilook.minilook.ui.review.di.ReviewArguments;
 
-public class ReviewActivity extends BaseActivity implements ReviewPresenter.View {
+public class ReviewActivity extends _BaseActivity implements ReviewPresenter.View {
 
     public static void start(Context context, int productNo) {
         Intent intent = new Intent(context, ReviewActivity.class);

@@ -27,7 +27,7 @@ import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.brand_detail.adapter.BrandDetailSortAdapter;
 import com.minilook.minilook.ui.brand_detail.adapter.BrandDetailStyleAdapter;
@@ -40,7 +40,7 @@ import com.minilook.minilook.util.DynamicLinkManager;
 import com.minilook.minilook.util.StringUtil;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
 
-public class BrandDetailActivity extends BaseActivity implements BrandDetailPresenter.View {
+public class BrandDetailActivity extends _BaseActivity implements BrandDetailPresenter.View {
 
     public static void start(Context context, int brandNo) {
         Intent intent = new Intent(context, BrandDetailActivity.class);

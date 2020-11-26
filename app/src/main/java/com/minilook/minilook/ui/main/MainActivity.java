@@ -15,7 +15,7 @@ import com.minilook.minilook.data.common.PrefsKey;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.widget.BottomBar;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
@@ -29,7 +29,7 @@ import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.ui.promotion_detail.PromotionDetailActivity;
 import com.pixplicity.easyprefs.library.Prefs;
 
-public class MainActivity extends BaseActivity implements MainPresenter.View {
+public class MainActivity extends _BaseActivity implements MainPresenter.View {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, MainActivity.class);

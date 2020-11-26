@@ -35,7 +35,7 @@ import com.minilook.minilook.data.model.product.ProductStockDataModel;
 import com.minilook.minilook.data.model.review.ReviewDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.widget.ColorView;
 import com.minilook.minilook.ui.base.widget.SizeView;
@@ -64,7 +64,7 @@ import java.util.List;
 import java.util.Objects;
 import me.didik.component.StickyNestedScrollView;
 
-public class ProductDetailActivity extends BaseActivity implements ProductDetailPresenter.View {
+public class ProductDetailActivity extends _BaseActivity implements ProductDetailPresenter.View {
 
     public static void start(Context context, int productNo) {
         Intent intent = new Intent(context, ProductDetailActivity.class);

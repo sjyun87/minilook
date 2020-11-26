@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +15,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.order.OrderBrandDataModel;
 import com.minilook.minilook.data.model.order.OrderCancelDataModel;
 import com.minilook.minilook.data.model.order.OrderProductDataModel;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.order_cancel.OrderCancelActivity;
@@ -26,7 +25,7 @@ import com.minilook.minilook.ui.order_exchange_n_return.OrderExchangeNReturnActi
 import com.minilook.minilook.ui.review_write.ReviewWriteActivity;
 import com.minilook.minilook.util.StringUtil;
 
-public class OrderDetailActivity extends BaseActivity implements OrderDetailPresenter.View {
+public class OrderDetailActivity extends _BaseActivity implements OrderDetailPresenter.View {
 
     public static void start(Context context, String orderNo, String receiptNo) {
         Intent intent = new Intent(context, OrderDetailActivity.class);

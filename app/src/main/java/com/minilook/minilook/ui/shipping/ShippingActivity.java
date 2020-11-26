@@ -12,14 +12,14 @@ import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.shipping.ShippingDataModel;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.shipping.adapter.ShippingAdapter;
 import com.minilook.minilook.ui.shipping.di.ShippingArguments;
 import com.minilook.minilook.ui.shipping_update.ShippingUpdateActivity;
 
-public class ShippingActivity extends BaseActivity implements ShippingPresenter.View {
+public class ShippingActivity extends _BaseActivity implements ShippingPresenter.View {
 
     public static void start(Context context, String route) {
         Intent intent = new Intent(context, ShippingActivity.class);

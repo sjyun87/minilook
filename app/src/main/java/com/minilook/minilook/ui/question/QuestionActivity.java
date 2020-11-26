@@ -12,7 +12,7 @@ import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.question.QuestionDataModel;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
 import com.minilook.minilook.ui.base.widget.TitleBar;
@@ -21,7 +21,7 @@ import com.minilook.minilook.ui.question.adapter.QuestionAdapter;
 import com.minilook.minilook.ui.question.di.QuestionArguments;
 import com.minilook.minilook.ui.question_write.QuestionWriteActivity;
 
-public class QuestionActivity extends BaseActivity implements QuestionPresenter.View {
+public class QuestionActivity extends _BaseActivity implements QuestionPresenter.View {
 
     public static void start(Context context, int productNo) {
         Intent intent = new Intent(context, QuestionActivity.class);

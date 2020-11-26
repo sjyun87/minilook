@@ -4,13 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.widget.BottomBar;
 import com.minilook.minilook.ui.main.MainActivity;
 import com.minilook.minilook.ui.order_complete.di.OrderCompleteArguments;
 import com.minilook.minilook.ui.order_history.OrderHistoryActivity;
 
-public class OrderCompleteActivity extends BaseActivity implements OrderCompletePresenter.View {
+public class OrderCompleteActivity extends _BaseActivity implements OrderCompletePresenter.View {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, OrderCompleteActivity.class);

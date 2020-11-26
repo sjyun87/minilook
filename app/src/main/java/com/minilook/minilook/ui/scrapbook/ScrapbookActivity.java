@@ -8,13 +8,13 @@ import butterknife.BindDimen;
 import butterknife.BindView;
 import com.google.android.material.tabs.TabLayout;
 import com.minilook.minilook.R;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.widget.TabView;
 import com.minilook.minilook.ui.scrapbook.adapter.ScrapbookPagerAdapter;
 import com.minilook.minilook.ui.scrapbook.di.ScrapbookArguments;
 import java.util.Objects;
 
-public class ScrapbookActivity extends BaseActivity implements ScrapbookPresenter.View {
+public class ScrapbookActivity extends _BaseActivity implements ScrapbookPresenter.View {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, ScrapbookActivity.class);

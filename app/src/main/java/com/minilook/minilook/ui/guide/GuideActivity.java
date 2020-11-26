@@ -8,13 +8,13 @@ import androidx.viewpager2.widget.ViewPager2;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.guide.adapter.GuideAdapter;
 import com.minilook.minilook.ui.guide.di.GuideArguments;
 import com.minilook.minilook.ui.main.MainActivity;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
-public class GuideActivity extends BaseActivity implements GuidePresenter.View {
+public class GuideActivity extends _BaseActivity implements GuidePresenter.View {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, GuideActivity.class);

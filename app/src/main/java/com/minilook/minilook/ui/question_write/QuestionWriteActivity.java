@@ -20,13 +20,13 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.question_write.adapter.QuestionTypeAdapter;
 import com.minilook.minilook.ui.question_write.di.QuestionWriteArguments;
 import com.minilook.minilook.util.DimenUtil;
 import java.util.Arrays;
 
-public class QuestionWriteActivity extends BaseActivity implements QuestionWritePresenter.View {
+public class QuestionWriteActivity extends _BaseActivity implements QuestionWritePresenter.View {
 
     public static void start(Context context, int productNo) {
         Intent intent = new Intent(context, QuestionWriteActivity.class);

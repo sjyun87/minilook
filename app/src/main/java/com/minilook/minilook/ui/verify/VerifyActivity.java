@@ -13,12 +13,12 @@ import android.widget.FrameLayout;
 import butterknife.BindView;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.verify.di.VerifyArguments;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-public class VerifyActivity extends BaseActivity implements VerifyPresenter.View {
+public class VerifyActivity extends _BaseActivity implements VerifyPresenter.View {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, VerifyActivity.class);

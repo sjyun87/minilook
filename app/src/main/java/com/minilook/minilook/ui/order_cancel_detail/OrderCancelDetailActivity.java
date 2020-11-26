@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import com.minilook.minilook.R;
-import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.order_cancel_detail.di.OrderCancelDetailArguments;
 
-public class OrderCancelDetailActivity extends BaseActivity implements OrderCancelDetailPresenter.View {
+public class OrderCancelDetailActivity extends _BaseActivity implements OrderCancelDetailPresenter.View {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, OrderCancelDetailActivity.class);
