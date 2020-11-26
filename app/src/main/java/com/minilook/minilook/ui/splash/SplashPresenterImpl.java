@@ -107,9 +107,9 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
     }
 
     private void startApp() {
-        view.checkDynamicLink();
+        view.getDynamicLink();
         reqSortCode();
-        reqUpdateToken();
+        getPushToken();
     }
 
     private void reqSortCode() {
@@ -127,31 +127,38 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
         checkToDo();
     }
 
-    private void reqUpdateToken() {
+    private void getPushToken() {
         FirebaseMessaging.getInstance()
             .getToken()
             .addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
+                if (task.isSuccessful() && !TextUtils.isEmpty(task.getResult())) {
                     String token = task.getResult();
-                    Timber.e("Token :: %s", token);
                     App.getInstance().setPushToken(token);
-                    addDisposable(commonRequest.updateToken(token)
-                        .subscribe());
+                    reqUpdateToken(token);
                 } else {
                     Timber.e(task.getException());
+                    view.showErrorDialog();
                 }
-                isUpdateToken = true;
-                checkToDo();
             });
+    }
+
+    private void reqUpdateToken(String token) {
+        addDisposable(commonRequest.updateToken(token)
+            .subscribe(this::resUpdateToken));
+    }
+
+    private void resUpdateToken(BaseDataModel object) {
+        isUpdateToken = true;
+        checkToDo();
     }
 
     private void checkToDo() {
         if (isAnimationEnd && isCommonDataGet && isUpdateToken && isDynamicLinkCheck) {
-            checkGuide();
+            handleStartPage();
         }
     }
 
-    private void checkGuide() {
+    private void handleStartPage() {
         int visibleCount = Prefs.getInt(PrefsKey.KEY_GUIDE_VISIBLE_COUNT, 0);
         if (visibleCount >= 3) {
             view.navigateToMain();

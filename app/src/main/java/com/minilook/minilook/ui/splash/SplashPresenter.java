@@ -29,7 +29,7 @@ public interface SplashPresenter extends LifecycleObserver {
 
         void showErrorDialog();
 
-        void checkDynamicLink();
+        void getDynamicLink();
 
         void navigateToPlayStore();
 

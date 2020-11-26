@@ -46,7 +46,7 @@ public class SplashActivity extends BaseActivity implements SplashPresenter.View
         });
     }
 
-    @Override public void checkDynamicLink() {
+    @Override public void getDynamicLink() {
         FirebaseDynamicLinks.getInstance()
             .getDynamicLink(getIntent())
             .addOnCompleteListener(this, presenter::onDynamicLinkCheckComplete);
