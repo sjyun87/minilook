@@ -17,6 +17,7 @@ import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.widget.BottomBar;
+import com.minilook.minilook.ui.base.widget.LoadingView;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.event_detail.EventDetailActivity;
@@ -51,6 +52,8 @@ public class MainActivity extends _BaseActivity implements MainPresenter.View {
     @BindView(R.id.layout_coach_lookbook1) ConstraintLayout coachLookbook1;
     @BindView(R.id.layout_coach_lookbook2) ConstraintLayout coachLookbook2;
     @BindView(R.id.layout_coach_lookbook3) ConstraintLayout coachLookbook3;
+
+    @BindView(R.id.loading_view) LoadingView loadingView;
 
     @BindString(R.string.toast_app_finish) String toast_app_finish;
     @BindString(R.string.toast_marketing_info_agree) String toast_marketing_agree;
@@ -150,6 +153,14 @@ public class MainActivity extends _BaseActivity implements MainPresenter.View {
 
     @Override public void navigateToPreorderDetail(int preorderNo) {
         PreorderDetailActivity.start(this, preorderNo);
+    }
+
+    @Override public void showLoadingView() {
+        loadingView.show();
+    }
+
+    @Override public void hideLoadingView() {
+        loadingView.hide();
     }
 
     @Override public void onBackPressed() {

@@ -4,7 +4,7 @@ import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.brand_detail.BrandDetailPresenter;
-import com.minilook.minilook.util.DynamicLinkManager;
+import com.minilook.minilook.data.firebase.DynamicLinkManager;
 import lombok.Builder;
 import lombok.Getter;
 

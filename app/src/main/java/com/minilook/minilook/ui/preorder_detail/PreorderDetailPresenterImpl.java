@@ -19,7 +19,7 @@ import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.preorder_detail.di.PreorderDetailArguments;
 import com.minilook.minilook.ui.preorder_detail.viewholder.PreorderDetailProductVH;
-import com.minilook.minilook.util.DynamicLinkManager;
+import com.minilook.minilook.data.firebase.DynamicLinkManager;
 import com.minilook.minilook.util.TrackingManager;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

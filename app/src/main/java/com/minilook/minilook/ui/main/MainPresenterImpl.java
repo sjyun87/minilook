@@ -10,8 +10,9 @@ import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.lookbook.LookBookPresenterImpl;
 import com.minilook.minilook.ui.lookbook.view.detail.LookBookDetailPresenterImpl;
+import com.minilook.minilook.ui.lookbook.view.preview.viewholder.LookBookImageModuleVH;
 import com.minilook.minilook.ui.main.di.MainArguments;
-import com.minilook.minilook.util.DynamicLinkManager;
+import com.minilook.minilook.data.firebase.DynamicLinkManager;
 import com.pixplicity.easyprefs.library.Prefs;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,6 +31,8 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
     }
 
     @Override public void onCreate() {
+        view.showLoadingView();
+
         toRxObservable();
         view.setupViewPager();
         view.setupBottomBar();
@@ -132,6 +135,8 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
             } else if (o instanceof RxEventNavigateToPage) {
                 int position = ((RxEventNavigateToPage) o).getPosition();
                 view.setupCurrentPage(position);
+            } else if (o instanceof LookBookImageModuleVH.RxBusEventLookBookReady) {
+                view.hideLoadingView();
             }
         }, Timber::e));
     }

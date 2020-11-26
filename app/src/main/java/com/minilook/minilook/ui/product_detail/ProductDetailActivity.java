@@ -55,7 +55,7 @@ import com.minilook.minilook.ui.question.QuestionActivity;
 import com.minilook.minilook.ui.review.ReviewActivity;
 import com.minilook.minilook.ui.shoppingbag.ShoppingBagActivity;
 import com.minilook.minilook.util.DimenUtil;
-import com.minilook.minilook.util.DynamicLinkManager;
+import com.minilook.minilook.data.firebase.DynamicLinkManager;
 import com.minilook.minilook.util.SpannableUtil;
 import com.minilook.minilook.util.StringUtil;
 import com.nex3z.flowlayout.FlowLayout;

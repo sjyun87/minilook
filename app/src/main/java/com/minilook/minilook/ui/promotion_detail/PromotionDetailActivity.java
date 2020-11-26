@@ -28,7 +28,7 @@ import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.promotion_detail.adapter.PromotionAdapter;
 import com.minilook.minilook.ui.promotion_detail.di.PromotionDetailArguments;
-import com.minilook.minilook.util.DynamicLinkManager;
+import com.minilook.minilook.data.firebase.DynamicLinkManager;
 import com.minilook.minilook.util.SpannableUtil;
 
 public class PromotionDetailActivity extends _BaseActivity implements PromotionDetailPresenter.View {

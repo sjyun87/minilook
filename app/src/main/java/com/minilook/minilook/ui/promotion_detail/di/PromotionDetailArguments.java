@@ -5,7 +5,7 @@ import com.minilook.minilook.data.model.promotion.PromotionDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.promotion_detail.PromotionDetailPresenter;
 
-import com.minilook.minilook.util.DynamicLinkManager;
+import com.minilook.minilook.data.firebase.DynamicLinkManager;
 import lombok.Builder;
 import lombok.Getter;
 

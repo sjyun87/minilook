@@ -161,4 +161,7 @@ dependencies {
 
   // Shimmer placeholder
   implementation "com.facebook.shimmer:shimmer:$shimmer_version"
+
+  // Loading View
+  implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 }

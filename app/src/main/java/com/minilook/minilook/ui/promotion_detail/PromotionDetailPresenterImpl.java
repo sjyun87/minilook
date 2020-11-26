@@ -12,7 +12,7 @@ import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.promotion_detail.di.PromotionDetailArguments;
-import com.minilook.minilook.util.DynamicLinkManager;
+import com.minilook.minilook.data.firebase.DynamicLinkManager;
 import com.minilook.minilook.util.TrackingManager;
 import io.reactivex.rxjava3.functions.Function;
 import java.util.ArrayList;

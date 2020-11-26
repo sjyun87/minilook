@@ -39,7 +39,7 @@ import com.minilook.minilook.ui.preorder_info.PreorderInfoActivity;
 import com.minilook.minilook.ui.preorder_product_detail.PreorderProductDetailActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.ui.product_detail.widget.ProductTabView;
-import com.minilook.minilook.util.DynamicLinkManager;
+import com.minilook.minilook.data.firebase.DynamicLinkManager;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 import java.util.List;
 import java.util.Objects;

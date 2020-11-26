@@ -1,4 +1,4 @@
-package com.minilook.minilook.util;
+package com.minilook.minilook.data.firebase;
 
 import android.content.Context;
 import android.net.Uri;

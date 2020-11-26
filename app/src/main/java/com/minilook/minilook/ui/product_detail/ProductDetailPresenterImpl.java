@@ -27,7 +27,7 @@ import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
 import com.minilook.minilook.ui.question_write.QuestionWritePresenterImpl;
 import com.minilook.minilook.ui.review.ReviewPresenterImpl;
-import com.minilook.minilook.util.DynamicLinkManager;
+import com.minilook.minilook.data.firebase.DynamicLinkManager;
 import com.minilook.minilook.util.StringUtil;
 import com.minilook.minilook.util.TrackingManager;
 import io.reactivex.rxjava3.core.Observable;

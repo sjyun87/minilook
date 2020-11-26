@@ -2,7 +2,6 @@ package com.minilook.minilook.ui.preorder.view.coming.viewholder;
 
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,21 +13,16 @@ import butterknife.BindColor;
 import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
-import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
-import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BaseViewHolder;
-import com.minilook.minilook.ui.preorder.PreorderPresenterImpl;
-import com.minilook.minilook.util.DynamicLinkManager;
 import com.minilook.minilook.util.SpannableUtil;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import timber.log.Timber;
 
 public class PreorderComingItemVH extends BaseViewHolder<PreorderDataModel> {
 

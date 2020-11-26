@@ -5,7 +5,7 @@ import com.minilook.minilook.data.model.review.ReviewDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.product_detail.ProductDetailPresenter;
 
-import com.minilook.minilook.util.DynamicLinkManager;
+import com.minilook.minilook.data.firebase.DynamicLinkManager;
 import lombok.Builder;
 import lombok.Getter;
 

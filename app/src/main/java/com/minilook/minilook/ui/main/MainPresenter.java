@@ -46,5 +46,9 @@ public interface MainPresenter extends LifecycleObserver {
         void navigateToBrandDetail(int brandNo);
 
         void navigateToPreorderDetail(int preorderNo);
+
+        void showLoadingView();
+
+        void hideLoadingView();
     }
 }
