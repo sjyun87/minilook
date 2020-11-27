@@ -15,7 +15,7 @@ import java.util.List;
 public class LookBookModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<String>> implements
     BaseAdapterDataModel<LookBookModuleDataModel>, BaseAdapterDataView<LookBookModuleDataModel> {
 
-    private List<LookBookModuleDataModel> items = new ArrayList<>();
+    private final List<LookBookModuleDataModel> items = new ArrayList<>();
 
     @NonNull @Override
     public BaseViewHolder<String> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

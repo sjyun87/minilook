@@ -100,7 +100,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
     @Override public void showLookBookCoachMark() {
         binding.coachLookbook.getRoot().setVisibility(View.VISIBLE);
         binding.coachLookbook.coach1.setOnClickListener(v -> {
-            RxBus.send(new LookBookPreviewPresenterImpl.RxEventLookBookScrollToNext());
+            RxBus.send(new LookBookPreviewPresenterImpl.RxEventLookBookScrollToNextModule());
             binding.coachLookbook.coach1.setVisibility(View.GONE);
             binding.coachLookbook.coach2.setVisibility(View.VISIBLE);
         });
