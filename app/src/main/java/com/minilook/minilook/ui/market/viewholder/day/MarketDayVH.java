@@ -21,7 +21,7 @@ import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.model.market.MarketModuleDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.base.widget.TabView;
 import com.minilook.minilook.ui.market.viewholder.day.adapter.MarketDayAdapter;
 import io.reactivex.rxjava3.core.Observable;
@@ -30,7 +30,7 @@ import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-public class MarketDayVH extends BaseViewHolder<MarketDataModel> {
+public class MarketDayVH extends _BaseViewHolder<MarketDataModel> {
 
     @BindView(R.id.txt_title) TextView titleTextView;
     @BindView(R.id.txt_tag) TextView tagTextView;

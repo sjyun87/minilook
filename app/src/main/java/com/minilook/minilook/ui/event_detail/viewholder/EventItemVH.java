@@ -12,10 +12,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.event.EventDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.event_detail.EventDetailActivity;
 
-public class EventItemVH extends BaseViewHolder<EventDataModel> {
+public class EventItemVH extends _BaseViewHolder<EventDataModel> {
 
     @BindView(R.id.img_thumb) ImageView thumbImageView;
 

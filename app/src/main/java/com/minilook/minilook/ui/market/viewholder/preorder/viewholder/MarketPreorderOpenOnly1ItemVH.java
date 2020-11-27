@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.preorder_detail.PreorderDetailActivity;
 import com.minilook.minilook.util.SpannableUtil;
 
@@ -28,7 +28,7 @@ import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
 
-public class MarketPreorderOpenOnly1ItemVH extends BaseViewHolder<PreorderDataModel> {
+public class MarketPreorderOpenOnly1ItemVH extends _BaseViewHolder<PreorderDataModel> {
 
     @BindView(R.id.img_thumb) ImageView thumbImageView;
     @BindView(R.id.txt_end_date) TextView endDateTextView;
@@ -39,7 +39,7 @@ public class MarketPreorderOpenOnly1ItemVH extends BaseViewHolder<PreorderDataMo
     @BindString(R.string.preorder_d_day) String format_d_day;
     @BindString(R.string.preorder_open_date) String format_date;
 
-    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @BindDrawable(R.drawable.ph_square) Drawable img_placeholder;
 
     public MarketPreorderOpenOnly1ItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())

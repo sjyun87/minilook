@@ -15,12 +15,12 @@ import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.market.viewholder.category.adapter.MarketCategoryAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MarketCategoryVH extends BaseViewHolder<MarketDataModel> {
+public class MarketCategoryVH extends _BaseViewHolder<MarketDataModel> {
 
     @BindView(R.id.rcv_category) RecyclerView recyclerView;
 

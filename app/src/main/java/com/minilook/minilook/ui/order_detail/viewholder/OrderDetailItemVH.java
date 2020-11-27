@@ -22,7 +22,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.order.OrderBrandDataModel;
 import com.minilook.minilook.data.model.order.OrderProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.order_detail.OrderDetailPresenterImpl;
 import com.minilook.minilook.ui.order_detail.adapter.OrderDetailGoodsAdapter;
@@ -31,7 +31,7 @@ import com.minilook.minilook.util.StringUtil;
 import java.util.List;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
 
-public class OrderDetailItemVH extends BaseViewHolder<OrderBrandDataModel> {
+public class OrderDetailItemVH extends _BaseViewHolder<OrderBrandDataModel> {
 
     @BindView(R.id.img_brand_logo) ImageView brandLogoImageView;
     @BindView(R.id.txt_brand_name) TextView brandNameTextView;
@@ -41,7 +41,7 @@ public class OrderDetailItemVH extends BaseViewHolder<OrderBrandDataModel> {
 
     @BindColor(R.color.color_FFDBDBDB) int color_FFDBDBDB;
 
-    @BindDrawable(R.drawable.placeholder_logo) Drawable img_placeholder_logo;
+    @BindDrawable(R.drawable.ph_circle) Drawable img_placeholder_logo;
 
     @BindString(R.string.order_detail_free_shipping) String str_free_shipping;
 

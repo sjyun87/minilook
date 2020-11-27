@@ -12,11 +12,11 @@ import butterknife.BindFont;
 import butterknife.BindView;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.OptionColorDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.base.widget.ColorView;
 import lombok.Setter;
 
-public class ProductOptionSelectorColorVH extends BaseViewHolder<OptionColorDataModel> {
+public class ProductOptionSelectorColorVH extends _BaseViewHolder<OptionColorDataModel> {
 
     @BindView(R.id.view_color) ColorView colorView;
     @BindView(R.id.txt_color) TextView colorTextView;

@@ -11,13 +11,13 @@ import butterknife.BindView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 
-public class ProductDetailImageVH extends BaseViewHolder<String> {
+public class ProductDetailImageVH extends _BaseViewHolder<String> {
 
     @BindView(R.id.img_product) ImageView imageView;
 
-    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @BindDrawable(R.drawable.ph_square) Drawable img_placeholder;
 
     public ProductDetailImageVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())

@@ -12,10 +12,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.promotion.PromotionDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.promotion_detail.PromotionDetailActivity;
 
-public class PromotionItemVH extends BaseViewHolder<PromotionDataModel> {
+public class PromotionItemVH extends _BaseViewHolder<PromotionDataModel> {
 
     @BindView(R.id.img_promotion) ImageView thumbImageView;
 

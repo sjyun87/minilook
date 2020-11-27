@@ -20,14 +20,14 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.RxBusEvent;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.util.DimenUtil;
 import java.util.List;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
 
-public class ScrapbookBrandItemVH extends BaseViewHolder<BrandDataModel> {
+public class ScrapbookBrandItemVH extends _BaseViewHolder<BrandDataModel> {
 
     @BindViews({ R.id.img_style1, R.id.img_style2, R.id.img_style3 }) List<ImageView> styleImageViews;
     @BindView(R.id.img_logo) ImageView logoImageView;
@@ -37,8 +37,8 @@ public class ScrapbookBrandItemVH extends BaseViewHolder<BrandDataModel> {
 
     @BindColor(R.color.color_FFDBDBDB) int color_FFDBDBDB;
 
-    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
-    @BindDrawable(R.drawable.placeholder_logo) Drawable img_placeholder_logo;
+    @BindDrawable(R.drawable.ph_square) Drawable img_placeholder;
+    @BindDrawable(R.drawable.ph_circle) Drawable img_placeholder_logo;
 
     public ScrapbookBrandItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())

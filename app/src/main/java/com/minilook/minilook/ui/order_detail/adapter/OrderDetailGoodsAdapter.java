@@ -7,7 +7,7 @@ import com.minilook.minilook.data.model.order.OrderProductDataModel;
 import com.minilook.minilook.data.code.OrderStatus;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.order_detail.viewholder.status.CancelCompletedVH;
 import com.minilook.minilook.ui.order_detail.viewholder.status.CancelVH;
 import com.minilook.minilook.ui.order_detail.viewholder.status.CannotExchangeVH;
@@ -25,13 +25,13 @@ import com.minilook.minilook.ui.order_detail.viewholder.status.ReturnVH;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderDetailGoodsAdapter extends RecyclerView.Adapter<BaseViewHolder<OrderProductDataModel>>
+public class OrderDetailGoodsAdapter extends RecyclerView.Adapter<_BaseViewHolder<OrderProductDataModel>>
     implements BaseAdapterDataModel<OrderProductDataModel>, BaseAdapterDataView<OrderProductDataModel> {
 
     private List<OrderProductDataModel> items = new ArrayList<>();
 
     @NonNull @Override
-    public BaseViewHolder<OrderProductDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public _BaseViewHolder<OrderProductDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (OrderStatus.toStatus(viewType)) {
             case ORDER_COMPLETED:
                 return new OrderCompletedVH(parent);
@@ -62,11 +62,11 @@ public class OrderDetailGoodsAdapter extends RecyclerView.Adapter<BaseViewHolder
             case PREORDER:
                 return new PreorderVH(parent);
             default:
-                return new BaseViewHolder<>(parent);
+                return new _BaseViewHolder<>(parent);
         }
     }
 
-    @Override public void onBindViewHolder(@NonNull BaseViewHolder<OrderProductDataModel> holder, int position) {
+    @Override public void onBindViewHolder(@NonNull _BaseViewHolder<OrderProductDataModel> holder, int position) {
         holder.bind(items.get(position));
     }
 

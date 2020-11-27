@@ -15,17 +15,17 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.commercial.CommercialDataModel;
 import com.minilook.minilook.data.code.CommercialType;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.event_detail.EventDetailActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.ui.promotion_detail.PromotionDetailActivity;
 
-public class MarketCommercialItemVH extends BaseViewHolder<CommercialDataModel> {
+public class MarketCommercialItemVH extends _BaseViewHolder<CommercialDataModel> {
 
     @BindView(R.id.img_contents) ImageView contentsImageView;
     @BindView(R.id.txt_index) TextView indexTextView;
 
-    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @BindDrawable(R.drawable.ph_square) Drawable img_placeholder;
 
     @BindString(R.string.market_commercial_index) String format_index;
 

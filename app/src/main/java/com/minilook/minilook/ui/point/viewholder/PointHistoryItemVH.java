@@ -13,9 +13,9 @@ import butterknife.BindView;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.member.PointDataModel;
 import com.minilook.minilook.data.code.PointStatus;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 
-public class PointHistoryItemVH extends BaseViewHolder<PointDataModel> {
+public class PointHistoryItemVH extends _BaseViewHolder<PointDataModel> {
 
     @BindView(R.id.txt_type) TextView typeTextView;
     @BindView(R.id.txt_title) TextView titleTextView;

@@ -65,7 +65,7 @@ public class OrderExchangeNReturnActivity extends _BaseActivity implements Order
 
     @BindDrawable(R.drawable.ic_arrow_down_black) Drawable img_arrow_down;
     @BindDrawable(R.drawable.ic_arrow_up_black) Drawable img_arrow_up;
-    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @BindDrawable(R.drawable.ph_square) Drawable img_placeholder;
 
     private OrderExchangeNReturnPresenter presenter;
     private ExchangeNReturnTypeAdapter typeAdapter = new ExchangeNReturnTypeAdapter();

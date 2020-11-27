@@ -89,26 +89,26 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
 
     private void checkDynamicLink() {
         if (App.getInstance().isDynamicLink()) {
-            String type = App.getInstance().getDynamicLinkType();
-            int itemNo = App.getInstance().getDynamicLinkItemNo();
-
-            switch (type) {
-                case DynamicLinkManager.TYPE_PROMOTION:
-                    view.navigateToPromotionDetail(itemNo);
-                    break;
-                case DynamicLinkManager.TYPE_EVENT:
-                    view.navigateToEventDetail(itemNo);
-                    break;
-                case DynamicLinkManager.TYPE_PRODUCT:
-                    view.navigateToProductDetail(itemNo);
-                    break;
-                case DynamicLinkManager.TYPE_BRAND:
-                    view.navigateToBrandDetail(itemNo);
-                    break;
-                case DynamicLinkManager.TYPE_PREORDER:
-                    view.navigateToPreorderDetail(itemNo);
-                    break;
-            }
+            //String type = App.getInstance().getDynamicLinkType();
+            //int itemNo = App.getInstance().getDynamicLinkItemNo();
+            //
+            //switch (type) {
+            //    case DynamicLinkManager.TYPE_PROMOTION:
+            //        view.navigateToPromotionDetail(itemNo);
+            //        break;
+            //    case DynamicLinkManager.TYPE_EVENT:
+            //        view.navigateToEventDetail(itemNo);
+            //        break;
+            //    case DynamicLinkManager.TYPE_PRODUCT:
+            //        view.navigateToProductDetail(itemNo);
+            //        break;
+            //    case DynamicLinkManager.TYPE_BRAND:
+            //        view.navigateToBrandDetail(itemNo);
+            //        break;
+            //    case DynamicLinkManager.TYPE_PREORDER:
+            //        view.navigateToPreorderDetail(itemNo);
+            //        break;
+            //}
         }
     }
 

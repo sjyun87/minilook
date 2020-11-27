@@ -16,12 +16,12 @@ import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.market.viewholder.recommend.adapter.MarketRecommendAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MarketRecommendVH extends BaseViewHolder<MarketDataModel> {
+public class MarketRecommendVH extends _BaseViewHolder<MarketDataModel> {
 
     @BindView(R.id.txt_title) TextView titleTextView;
     @BindView(R.id.rcv_product) RecyclerView recyclerView;

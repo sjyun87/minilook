@@ -21,12 +21,12 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.shopping.ShoppingProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.code.DisplayCode;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.ui.shoppingbag.ShoppingBagPresenterImpl;
 import com.minilook.minilook.ui.shoppingbag.adapter.ShoppingBagOptionAdapter;
 
-public class ShoppingBagProductItemVH extends BaseViewHolder<ShoppingProductDataModel> {
+public class ShoppingBagProductItemVH extends _BaseViewHolder<ShoppingProductDataModel> {
 
     @BindView(R.id.img_checkbox) ImageView checkImageView;
     @BindView(R.id.img_product_thumb) ImageView thumbImageView;
@@ -34,7 +34,7 @@ public class ShoppingBagProductItemVH extends BaseViewHolder<ShoppingProductData
     @BindView(R.id.txt_display_label) TextView displayLabelTextView;
     @BindView(R.id.rcv_option) RecyclerView recyclerView;
 
-    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @BindDrawable(R.drawable.ph_square) Drawable img_placeholder;
     @BindDrawable(R.drawable.ic_checkbox2_off) Drawable img_check_off;
     @BindDrawable(R.drawable.ic_checkbox2_on) Drawable img_check_on;
 

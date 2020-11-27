@@ -36,7 +36,7 @@ public class BrandCallDialog extends BaseDialog {
 
     @BindFont(R.font.nanum_square_eb) Typeface font_extrabold;
 
-    @BindDrawable(R.drawable.placeholder_logo) Drawable img_placeholder_logo;
+    @BindDrawable(R.drawable.ph_circle) Drawable img_placeholder_logo;
 
     @Setter private String brandName;
     @Setter private String brandLogo;

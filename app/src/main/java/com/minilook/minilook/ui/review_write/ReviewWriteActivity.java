@@ -45,7 +45,7 @@ public class ReviewWriteActivity extends _BaseActivity implements ReviewWritePre
     @BindColor(R.color.color_FFF5F5F5) int color_FFF5F5F5;
     @BindColor(R.color.color_FF8140E5) int color_FF8140E5;
 
-    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @BindDrawable(R.drawable.ph_square) Drawable img_placeholder;
 
     private ReviewWritePresenter presenter;
 

@@ -16,15 +16,14 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
-import com.minilook.minilook.data.model.commercial.CommercialDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.brand.BrandActivity;
 import com.minilook.minilook.ui.market.viewholder.brand.adapter.MarketBrandAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MarketBrandVH extends BaseViewHolder<MarketDataModel> {
+public class MarketBrandVH extends _BaseViewHolder<MarketDataModel> {
 
     @BindView(R.id.txt_title) TextView titleTextView;
     @BindView(R.id.rcv_brand) RecyclerView recyclerView;

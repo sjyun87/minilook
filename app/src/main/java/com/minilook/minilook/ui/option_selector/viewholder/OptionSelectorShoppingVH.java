@@ -15,12 +15,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.util.StringUtil;
 import java.util.Locale;
 import lombok.Setter;
 
-public class OptionSelectorShoppingVH extends BaseViewHolder<ShoppingOptionDataModel> {
+public class OptionSelectorShoppingVH extends _BaseViewHolder<ShoppingOptionDataModel> {
 
     @BindView(R.id.img_product_thumb) ImageView thumbImageView;
     @BindView(R.id.txt_index) TextView indexTextView;
@@ -33,7 +33,7 @@ public class OptionSelectorShoppingVH extends BaseViewHolder<ShoppingOptionDataM
     @BindString(R.string.option_selector_product_index) String format_product_index;
     @BindString(R.string.option_selector_bonus_product_index) String str_bonus_product;
 
-    @BindDrawable(R.drawable.placeholder_image) Drawable placeholder_image;
+    @BindDrawable(R.drawable.ph_square) Drawable placeholder_image;
 
     @Setter private OnButtonClickListener onButtonClickListener;
 

@@ -14,7 +14,7 @@ import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.commercial.CommercialDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.market.viewholder.commercial.adapter.MarketCommercialAdapter;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class MarketCommercialVH extends BaseViewHolder<MarketDataModel> {
+public class MarketCommercialVH extends _BaseViewHolder<MarketDataModel> {
 
     @BindView(R.id.vp_commercial) ViewPager2 viewPager;
 

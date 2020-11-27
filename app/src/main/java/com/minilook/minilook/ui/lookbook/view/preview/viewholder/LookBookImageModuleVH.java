@@ -17,16 +17,16 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.lookbook.LookBookPresenterImpl;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-public class LookBookImageModuleVH extends BaseViewHolder<String> {
+public class LookBookImageModuleVH extends _BaseViewHolder<String> {
 
     @BindView(R.id.img_lookbook) ImageView imageView;
 
-    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @BindDrawable(R.drawable.ph_square) Drawable img_placeholder;
 
     public LookBookImageModuleVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())

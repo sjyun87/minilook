@@ -18,13 +18,13 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.StringUtil;
 import java.util.List;
 
-public class MarketBrandItemVH extends BaseViewHolder<BrandDataModel> {
+public class MarketBrandItemVH extends _BaseViewHolder<BrandDataModel> {
 
     @BindView(R.id.img_brand_thumb) ImageView brandThumbImageView;
     @BindView(R.id.txt_brand_name) TextView brandNameTextView;
@@ -46,7 +46,7 @@ public class MarketBrandItemVH extends BaseViewHolder<BrandDataModel> {
     @BindView(R.id.txt_product2_price_origin) TextView product2PriceOriginTextView;
     @BindView(R.id.txt_product2_price) TextView product2PriceTextView;
 
-    @BindDrawable(R.drawable.placeholder_image) Drawable placeholder_image;
+    @BindDrawable(R.drawable.ph_square) Drawable placeholder_image;
 
     @BindString(R.string.base_price_percent) String format_percent;
 

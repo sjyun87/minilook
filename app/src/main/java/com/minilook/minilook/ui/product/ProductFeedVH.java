@@ -19,7 +19,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.RxBusEvent;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
@@ -27,7 +27,7 @@ import com.minilook.minilook.util.DimenUtil;
 import com.minilook.minilook.util.StringUtil;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
 
-public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
+public class ProductFeedVH extends _BaseViewHolder<ProductDataModel> {
 
     @BindView(R.id.img_brand_logo) ImageView brandLogoImageView;
     @BindView(R.id.txt_brand_name) TextView brandNameTextView;
@@ -41,8 +41,8 @@ public class ProductFeedVH extends BaseViewHolder<ProductDataModel> {
 
     @BindColor(R.color.color_FFDBDBDB) int color_FFDBDBDB;
 
-    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
-    @BindDrawable(R.drawable.placeholder_logo) Drawable img_placeholder_logo;
+    @BindDrawable(R.drawable.ph_square) Drawable img_placeholder;
+    @BindDrawable(R.drawable.ph_circle) Drawable img_placeholder_logo;
     @BindDrawable(R.drawable.ic_scrap_off) Drawable img_scrap_off;
     @BindDrawable(R.drawable.ic_scrap_on) Drawable img_scrap_on;
 

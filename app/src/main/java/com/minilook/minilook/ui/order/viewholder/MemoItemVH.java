@@ -8,10 +8,10 @@ import androidx.annotation.NonNull;
 import butterknife.BindView;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.order.OrderPresenterImpl;
 
-public class MemoItemVH extends BaseViewHolder<String> {
+public class MemoItemVH extends _BaseViewHolder<String> {
 
     @BindView(R.id.txt_memo) TextView memoTextView;
 

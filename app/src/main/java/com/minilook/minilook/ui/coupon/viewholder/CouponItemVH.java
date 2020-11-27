@@ -9,10 +9,10 @@ import butterknife.BindString;
 import butterknife.BindView;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.member.CouponDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.util.StringUtil;
 
-public class CouponItemVH extends BaseViewHolder<CouponDataModel> {
+public class CouponItemVH extends _BaseViewHolder<CouponDataModel> {
 
     @BindView(R.id.txt_coupon) TextView couponTextView;
     @BindView(R.id.txt_name) TextView nameTextView;

@@ -13,16 +13,16 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.code.CommercialType;
 import com.minilook.minilook.data.model.commercial.CommercialDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.event_detail.EventDetailActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.ui.promotion_detail.PromotionDetailActivity;
 
-public class MarketBannerItemVH extends BaseViewHolder<CommercialDataModel> {
+public class MarketBannerItemVH extends _BaseViewHolder<CommercialDataModel> {
 
     @BindView(R.id.img_contents) ImageView contentsImageView;
 
-    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @BindDrawable(R.drawable.ph_square) Drawable img_placeholder;
 
     public MarketBannerItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())

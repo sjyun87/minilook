@@ -7,7 +7,7 @@ import com.minilook.minilook.data.code.MarketModuleType;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.market.viewholder.banner.MarketBannerVH;
 import com.minilook.minilook.ui.market.viewholder.brand.MarketBrandVH;
 import com.minilook.minilook.ui.market.viewholder.category.MarketCategoryVH;
@@ -21,13 +21,13 @@ import com.minilook.minilook.ui.market.viewholder.trend.MarketTrendVH;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MarketModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<MarketDataModel>> implements
+public class MarketModuleAdapter extends RecyclerView.Adapter<_BaseViewHolder<MarketDataModel>> implements
     BaseAdapterDataModel<MarketDataModel>, BaseAdapterDataView<MarketDataModel> {
 
     private List<MarketDataModel> items = new ArrayList<>();
 
     @NonNull @Override
-    public BaseViewHolder<MarketDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public _BaseViewHolder<MarketDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == MarketModuleType.TYPE_COMMERCIAL.getType()) {
             return new MarketCommercialVH(parent);
         } else if (viewType == MarketModuleType.TYPE_CATEGORY.getType()) {
@@ -49,12 +49,12 @@ public class MarketModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<Mar
         } else if (viewType == MarketModuleType.TYPE_DAY.getType()) {
             return new MarketDayVH(parent);
         } else {
-            return new BaseViewHolder<>(parent);
+            return new _BaseViewHolder<>(parent);
         }
     }
 
     @SuppressWarnings("unchecked")
-    @Override public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
+    @Override public void onBindViewHolder(@NonNull _BaseViewHolder holder, int position) {
         holder.bind(items.get(position));
     }
 
@@ -131,11 +131,11 @@ public class MarketModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<Mar
         notifyItemRangeChanged($start, $row);
     }
 
-    @Override public void onViewAttachedToWindow(@NonNull BaseViewHolder<MarketDataModel> holder) {
+    @Override public void onViewAttachedToWindow(@NonNull _BaseViewHolder<MarketDataModel> holder) {
         holder.onAttach();
     }
 
-    @Override public void onViewDetachedFromWindow(@NonNull BaseViewHolder<MarketDataModel> holder) {
+    @Override public void onViewDetachedFromWindow(@NonNull _BaseViewHolder<MarketDataModel> holder) {
         holder.onDetach();
     }
 }

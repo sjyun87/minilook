@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.SortDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 
-public class OrderDetailItemVH extends BaseViewHolder<SortDataModel> {
+public class OrderDetailItemVH extends _BaseViewHolder<SortDataModel> {
 
     @BindView(R.id.rcv_goods) RecyclerView recyclerView;
 

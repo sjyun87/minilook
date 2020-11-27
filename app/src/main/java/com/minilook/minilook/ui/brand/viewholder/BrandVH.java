@@ -18,12 +18,12 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.RxBusEvent;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.util.DimenUtil;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
 
-public class BrandVH extends BaseViewHolder<BrandDataModel> {
+public class BrandVH extends _BaseViewHolder<BrandDataModel> {
 
     @BindView(R.id.img_logo) ImageView logoImageView;
     @BindView(R.id.txt_name) TextView nameTextView;

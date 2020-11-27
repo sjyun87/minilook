@@ -17,14 +17,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.util.SpannableUtil;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class PreorderComingItemVH extends BaseViewHolder<PreorderDataModel> {
+public class PreorderComingItemVH extends _BaseViewHolder<PreorderDataModel> {
 
     @BindView(R.id.img_thumb) ImageView thumbImageView;
     @BindView(R.id.txt_start_date) TextView startDateTextView;
@@ -41,7 +41,7 @@ public class PreorderComingItemVH extends BaseViewHolder<PreorderDataModel> {
     @BindColor(R.color.color_FF232323) int color_FF232323;
     @BindColor(R.color.color_FF8140E5) int color_FF8140E5;
 
-    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @BindDrawable(R.drawable.ph_square) Drawable img_placeholder;
     @BindDrawable(R.drawable.bg_preorder_notification_off) Drawable bg_noti_off;
     @BindDrawable(R.drawable.bg_preorder_notification_on) Drawable bg_noti_on;
 

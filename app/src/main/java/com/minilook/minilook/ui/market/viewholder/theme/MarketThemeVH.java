@@ -15,12 +15,12 @@ import com.google.gson.Gson;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.model.market.MarketModuleDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.base.widget.TagView;
 import com.minilook.minilook.ui.market.viewholder.theme.adapter.MarketThemeAdapter;
 import com.nex3z.flowlayout.FlowLayout;
 
-public class MarketThemeVH extends BaseViewHolder<MarketDataModel> {
+public class MarketThemeVH extends _BaseViewHolder<MarketDataModel> {
 
     @BindView(R.id.txt_title) TextView titleTextView;
     @BindView(R.id.layout_theme_panel) FlowLayout themePanel;

@@ -7,7 +7,7 @@ import com.minilook.minilook.data.code.PreorderType;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.market.viewholder.preorder.viewholder.MarketPreorderComingItemVH;
 import com.minilook.minilook.ui.market.viewholder.preorder.viewholder.MarketPreorderComingOnly1ItemVH;
 import com.minilook.minilook.ui.market.viewholder.preorder.viewholder.MarketPreorderOpenItemVH;
@@ -16,13 +16,13 @@ import com.minilook.minilook.ui.market.viewholder.preorder.viewholder.MarketPreo
 import java.util.ArrayList;
 import java.util.List;
 
-public class MarketPreorderAdapter extends RecyclerView.Adapter<BaseViewHolder<PreorderDataModel>> implements
+public class MarketPreorderAdapter extends RecyclerView.Adapter<_BaseViewHolder<PreorderDataModel>> implements
     BaseAdapterDataModel<PreorderDataModel>, BaseAdapterDataView<PreorderDataModel> {
 
     private List<PreorderDataModel> items = new ArrayList<>();
 
     @NonNull @Override
-    public BaseViewHolder<PreorderDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public _BaseViewHolder<PreorderDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == PreorderType.ING.getValue()) {
             if (items.size() > 1) {
                 return new MarketPreorderOpenItemVH(parent);
@@ -38,7 +38,7 @@ public class MarketPreorderAdapter extends RecyclerView.Adapter<BaseViewHolder<P
         }
     }
 
-    @Override public void onBindViewHolder(@NonNull BaseViewHolder<PreorderDataModel> holder, int position) {
+    @Override public void onBindViewHolder(@NonNull _BaseViewHolder<PreorderDataModel> holder, int position) {
         holder.bind(items.get(position));
     }
 

@@ -26,7 +26,7 @@ import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.data.code.ShippingCode;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.shoppingbag.adapter.ShoppingBagProductAdapter;
 import com.minilook.minilook.util.DimenUtil;
@@ -34,7 +34,7 @@ import com.minilook.minilook.util.SpannableUtil;
 import com.minilook.minilook.util.StringUtil;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
 
-public class ShoppingBagItemVH extends BaseViewHolder<ShoppingBrandDataModel> {
+public class ShoppingBagItemVH extends _BaseViewHolder<ShoppingBrandDataModel> {
 
     @BindView(R.id.img_brand_logo) ImageView logoImageView;
     @BindView(R.id.txt_brand_name) TextView nameTextView;
@@ -47,7 +47,7 @@ public class ShoppingBagItemVH extends BaseViewHolder<ShoppingBrandDataModel> {
     @BindView(R.id.txt_final_shipping_price) TextView finalShippingPriceTextView;
     @BindView(R.id.txt_total_price) TextView totalPriceTextView;
 
-    @BindDrawable(R.drawable.placeholder_logo) Drawable img_placeholder_logo;
+    @BindDrawable(R.drawable.ph_circle) Drawable img_placeholder_logo;
 
     @BindColor(R.color.color_FFDBDBDB) int color_FFDBDBDB;
     @BindColor(R.color.color_FF6200EA) int color_FF6200EA;

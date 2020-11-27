@@ -15,6 +15,11 @@ public class GuidePresenterImpl extends BasePresenterImpl implements GuidePresen
 
     @Override public void onCreate() {
         view.setupViewPager();
+        view.setupGuideListener();
+    }
+
+    @Override public void onDestroy() {
+        view.clear();
     }
 
     @Override public void onPageSelected(int position) {
@@ -28,5 +33,6 @@ public class GuidePresenterImpl extends BasePresenterImpl implements GuidePresen
     @Override public void onGuideEnd() {
         Prefs.putInt(PrefsKey.KEY_GUIDE_VISIBLE_COUNT, 3);
         view.navigateToMain();
+        view.finish();
     }
 }

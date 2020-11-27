@@ -11,10 +11,10 @@ import com.bumptech.glide.Glide;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.search.SearchOptionDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.product_bridge.ProductBridgeActivity;
 
-public class CategoryVH extends BaseViewHolder<CodeDataModel> {
+public class CategoryVH extends _BaseViewHolder<CodeDataModel> {
 
     @BindView(R.id.txt_name) TextView nameTextView;
     @BindView(R.id.img_icon) ImageView iconImageView;

@@ -9,12 +9,12 @@ import androidx.annotation.NonNull;
 
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.CodeDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 
 import butterknife.BindView;
 import lombok.Setter;
 
-public class BrandDetailSortItemVH extends BaseViewHolder<CodeDataModel> {
+public class BrandDetailSortItemVH extends _BaseViewHolder<CodeDataModel> {
 
     @BindView(R.id.txt_sort) TextView sortTextView;
 

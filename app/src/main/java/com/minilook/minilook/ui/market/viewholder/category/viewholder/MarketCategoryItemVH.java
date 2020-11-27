@@ -12,23 +12,18 @@ import butterknife.BindView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.code.CommercialType;
-import com.minilook.minilook.data.model.commercial.CommercialDataModel;
 import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.ui.base.BaseViewHolder;
-import com.minilook.minilook.ui.event_detail.EventDetailActivity;
-import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
-import com.minilook.minilook.ui.promotion_detail.PromotionDetailActivity;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-public class MarketCategoryItemVH extends BaseViewHolder<CodeDataModel> {
+public class MarketCategoryItemVH extends _BaseViewHolder<CodeDataModel> {
 
     @BindView(R.id.img_icon) ImageView iconImageView;
     @BindView(R.id.txt_name) TextView nameTextView;
 
-    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @BindDrawable(R.drawable.ph_square) Drawable img_placeholder;
 
     public MarketCategoryItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())

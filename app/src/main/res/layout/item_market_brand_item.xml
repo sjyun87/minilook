@@ -68,7 +68,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription"
-            tools:src="@drawable/placeholder_image" />
+            tools:src="@drawable/ph_square" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -174,7 +174,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription"
-            tools:src="@drawable/placeholder_image" />
+            tools:src="@drawable/ph_square" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

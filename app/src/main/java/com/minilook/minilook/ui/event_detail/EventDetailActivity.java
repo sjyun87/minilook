@@ -36,7 +36,7 @@ public class EventDetailActivity extends _BaseActivity implements EventDetailPre
     @BindView(R.id.img_event) ImageView eventImageView;
     @BindView(R.id.rcv_event) RecyclerView eventRecyclerView;
 
-    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @BindDrawable(R.drawable.ph_square) Drawable img_placeholder;
     @BindDrawable(R.drawable.placeholder_image_wide) Drawable img_placeholder_wide;
 
     @BindString(R.string.dialog_error_title) String str_error_msg;

@@ -15,16 +15,16 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.shopping.ShoppingProductDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.order.adapter.OrderOptionAdapter;
 
-public class OrderProductItemVH extends BaseViewHolder<ShoppingProductDataModel> {
+public class OrderProductItemVH extends _BaseViewHolder<ShoppingProductDataModel> {
 
     @BindView(R.id.img_product_thumb) ImageView thumbImageView;
     @BindView(R.id.txt_product_name) TextView nameTextView;
     @BindView(R.id.rcv_option) RecyclerView recyclerView;
 
-    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @BindDrawable(R.drawable.ph_square) Drawable img_placeholder;
 
     private OrderOptionAdapter adapter;
 

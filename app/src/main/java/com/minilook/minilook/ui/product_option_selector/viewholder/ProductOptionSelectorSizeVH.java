@@ -13,11 +13,11 @@ import butterknife.BindString;
 import butterknife.BindView;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.OptionSizeDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.util.StringUtil;
 import lombok.Setter;
 
-public class ProductOptionSelectorSizeVH extends BaseViewHolder<OptionSizeDataModel> {
+public class ProductOptionSelectorSizeVH extends _BaseViewHolder<OptionSizeDataModel> {
 
     @BindView(R.id.txt_size) TextView sizeTextView;
     @BindView(R.id.txt_price_add) TextView addPriceTextView;

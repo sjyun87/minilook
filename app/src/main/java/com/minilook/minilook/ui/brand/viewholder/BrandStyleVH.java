@@ -14,10 +14,10 @@ import butterknife.BindString;
 import butterknife.BindView;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.CodeDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import lombok.Setter;
 
-public class BrandStyleVH extends BaseViewHolder<CodeDataModel> {
+public class BrandStyleVH extends _BaseViewHolder<CodeDataModel> {
 
     @BindView(R.id.txt_style) TextView styleTextView;
 

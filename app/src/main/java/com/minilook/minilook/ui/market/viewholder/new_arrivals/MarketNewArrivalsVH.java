@@ -19,10 +19,8 @@ import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.model.market.MarketModuleDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.search.SearchOptionDataModel;
-import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.base.widget.TabView;
-import com.minilook.minilook.ui.main.MainPresenterImpl;
 import com.minilook.minilook.ui.market.viewholder.new_arrivals.adapter.MarketNewArrivalsAdapter;
 import com.minilook.minilook.ui.product_bridge.ProductBridgeActivity;
 
@@ -31,7 +29,7 @@ import io.reactivex.rxjava3.core.Observable;
 import java.util.List;
 import java.util.Objects;
 
-public class MarketNewArrivalsVH extends BaseViewHolder<MarketDataModel> {
+public class MarketNewArrivalsVH extends _BaseViewHolder<MarketDataModel> {
 
     @BindView(R.id.txt_title) TextView titleTextView;
     @BindView(R.id.layout_tab_panel) TabLayout tabLayout;

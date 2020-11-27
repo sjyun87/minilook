@@ -72,9 +72,9 @@ public class BrandDetailActivity extends _BaseActivity implements BrandDetailPre
     @BindDrawable(R.drawable.ic_scrap_off) Drawable img_scrap_off;
     @BindDrawable(R.drawable.ic_scrap_on) Drawable img_scrap_on;
 
-    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @BindDrawable(R.drawable.ph_square) Drawable img_placeholder;
     @BindDrawable(R.drawable.placeholder_image_wide) Drawable img_placeholder_wide;
-    @BindDrawable(R.drawable.placeholder_logo) Drawable img_placeholder_logo;
+    @BindDrawable(R.drawable.ph_circle) Drawable img_placeholder_logo;
 
     @BindString(R.string.dialog_error_title) String str_error_msg;
 

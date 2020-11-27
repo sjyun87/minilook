@@ -18,12 +18,12 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.RxBusEvent;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.StringUtil;
 
-public class ProductSize84VH extends BaseViewHolder<ProductDataModel> {
+public class ProductSize84VH extends _BaseViewHolder<ProductDataModel> {
 
     @BindView(R.id.img_product_thumb) ImageView thumbImageView;
     @BindView(R.id.img_scrap) ImageView scrapImageView;
@@ -34,7 +34,7 @@ public class ProductSize84VH extends BaseViewHolder<ProductDataModel> {
 
     @BindString(R.string.base_price_percent) String format_percent;
 
-    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @BindDrawable(R.drawable.ph_square) Drawable img_placeholder;
     @BindDrawable(R.drawable.ic_scrap_off) Drawable img_scrap_off;
     @BindDrawable(R.drawable.ic_scrap_on) Drawable img_scrap_on;
 

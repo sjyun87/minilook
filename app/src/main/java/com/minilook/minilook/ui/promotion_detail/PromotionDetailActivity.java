@@ -46,7 +46,7 @@ public class PromotionDetailActivity extends _BaseActivity implements PromotionD
     @BindView(R.id.rcv_product) RecyclerView productRecyclerView;
     @BindView(R.id.rcv_promotion) RecyclerView promotionRecyclerView;
 
-    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @BindDrawable(R.drawable.ph_square) Drawable img_placeholder;
     @BindDrawable(R.drawable.placeholder_image_wide) Drawable img_placeholder_wide;
 
     @BindString(R.string.promotion_total) String format_total;

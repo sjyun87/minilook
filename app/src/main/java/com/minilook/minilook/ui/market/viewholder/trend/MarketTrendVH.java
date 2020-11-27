@@ -18,14 +18,14 @@ import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.model.market.MarketModuleDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.base.widget.TabView;
 import com.minilook.minilook.ui.market.viewholder.trend.adapter.MarketTrendAdapter;
 import io.reactivex.rxjava3.core.Observable;
 import java.util.List;
 import java.util.Objects;
 
-public class MarketTrendVH extends BaseViewHolder<MarketDataModel> {
+public class MarketTrendVH extends _BaseViewHolder<MarketDataModel> {
 
     @BindView(R.id.txt_title) TextView titleTextView;
     @BindView(R.id.txt_tag) TextView tagTextView;
