@@ -103,7 +103,7 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
 
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
-            if (o instanceof RxEventLookBookCoachMark1) {
+            if (o instanceof RxEventLookBookScrollToNext) {
                 view.scrollToNextPage();
             }
         }, Timber::e));
@@ -113,6 +113,6 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
         private LookBookModuleDataModel data;
     }
 
-    @AllArgsConstructor @Getter public final static class RxEventLookBookCoachMark1 {
+    @AllArgsConstructor @Getter public final static class RxEventLookBookScrollToNext {
     }
 }

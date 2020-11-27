@@ -518,10 +518,6 @@ public class ProductDetailActivity extends _BaseActivity implements ProductDetai
         ShoppingBagActivity.start(this);
     }
 
-    @Override public void showTrialVersionDialog() {
-        DialogManager.showTrialVersionDialog(this, presenter::onTrialVersionDialogGoClick);
-    }
-
     @Override public void showAddShoppingBagToast() {
         Toast.makeText(this, str_add_shoppingbag, Toast.LENGTH_SHORT).show();
     }

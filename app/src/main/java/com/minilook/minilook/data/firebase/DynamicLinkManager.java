@@ -13,7 +13,7 @@ public class DynamicLinkManager {
     public static final String TYPE_PROMOTION = "promotion";
     public static final String TYPE_PREORDER = "preorder";
 
-    private Context context;
+    private final Context context;
 
     public DynamicLinkManager(Context context) {
         this.context = context;

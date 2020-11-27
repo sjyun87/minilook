@@ -148,7 +148,7 @@ public class ShoppingBagActivity extends _BaseActivity implements ShoppingBagPre
     }
 
     @Override public void showTrialVersionDialog() {
-        DialogManager.showTrialVersionDialog(this, presenter::onTrialVersionDialogGoClick);
+        //DialogManager.showTrialVersionDialog(this, presenter::onTrialVersionDialogGoClick);
     }
 
     @Override public void navigateToMain() {

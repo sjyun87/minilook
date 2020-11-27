@@ -181,10 +181,6 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         return brandData;
     }
 
-    @Override public void onTrialVersionDialogGoClick() {
-        view.navigateToEventDetail();
-    }
-
     @Override public void onShareClick() {
         String title = data.getProductName() + " - " + data.getBrandName();
         dynamicLinkManager.createShareLink(DynamicLinkManager.TYPE_PRODUCT, productNo, title, data.getImages().get(0),

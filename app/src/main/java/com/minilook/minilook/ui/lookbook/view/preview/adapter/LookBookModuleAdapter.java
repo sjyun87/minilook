@@ -3,38 +3,31 @@ package com.minilook.minilook.ui.lookbook.view.preview.adapter;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.minilook.minilook.data.model.lookbook.LookBookModuleDataModel;
 import com.minilook.minilook.data.code.LookBookModuleType;
+import com.minilook.minilook.data.model.lookbook.LookBookModuleDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.base._BaseViewHolder;
+import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.lookbook.view.preview.viewholder.LookBookImageModuleVH;
 import java.util.ArrayList;
 import java.util.List;
-import timber.log.Timber;
 
-public class LookBookModuleAdapter extends RecyclerView.Adapter<_BaseViewHolder<String>> implements
+public class LookBookModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<String>> implements
     BaseAdapterDataModel<LookBookModuleDataModel>, BaseAdapterDataView<LookBookModuleDataModel> {
 
     private List<LookBookModuleDataModel> items = new ArrayList<>();
 
     @NonNull @Override
-    public _BaseViewHolder<String> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BaseViewHolder<String> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == LookBookModuleType.TYPE_IMAGE.getValue()) {
             return new LookBookImageModuleVH(parent);
         } else {
-            Timber.e("Lookbook Module type is null..");
-            return new _BaseViewHolder<>(parent);
+            throw new IllegalStateException("Lookbook module type is not matching = " + viewType);
         }
     }
 
-    @SuppressWarnings("unchecked")
-    @Override public void onBindViewHolder(@NonNull _BaseViewHolder holder, int position) {
-        if (holder instanceof LookBookImageModuleVH) {
-            ((LookBookImageModuleVH) holder).bind(items.get(position).getBackgroundUrl(), position);
-        } else {
-            holder.bind(items.get(position).getBackgroundUrl());
-        }
+    @Override public void onBindViewHolder(@NonNull BaseViewHolder<String> holder, int position) {
+        holder.bind(position, items.get(position).getBackgroundUrl());
     }
 
     @Override public int getItemCount() {

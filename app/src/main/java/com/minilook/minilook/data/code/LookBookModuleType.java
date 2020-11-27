@@ -7,7 +7,7 @@ import lombok.Getter;
     TYPE_IMAGE(0);
     //TYPE_VIDEO(1),
 
-    private int value;
+    private final int value;
 
     public static LookBookModuleType toType(int $value) {
         for (LookBookModuleType type : LookBookModuleType.values()) {

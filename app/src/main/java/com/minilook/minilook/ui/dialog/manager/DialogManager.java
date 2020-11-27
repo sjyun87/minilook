@@ -13,7 +13,6 @@ import com.minilook.minilook.ui.dialog.MarketingInfoDialog;
 import com.minilook.minilook.ui.dialog.NoEmailDialog;
 import com.minilook.minilook.ui.dialog.OutOfStockDialog;
 import com.minilook.minilook.ui.dialog.PurchaseConfirmDialog;
-import com.minilook.minilook.ui.dialog.TrialVersionDialog;
 import com.minilook.minilook.ui.dialog.UpdateDialog;
 import com.minilook.minilook.ui.dialog.listener.OnCloseClickListener;
 import com.minilook.minilook.ui.dialog.listener.OnNegativeClickListener;
@@ -49,11 +48,11 @@ public final class DialogManager {
     }
 
     @Builder
-    public static void showMarketingDialog(Activity activity, OnPositiveClickListener listener,
-        DialogInterface.OnDismissListener dismissListener) {
+    public static void showMarketingDialog(Activity activity, OnPositiveClickListener onPositiveClickListener,
+        OnNegativeClickListener onNegativeClickListener) {
         MarketingInfoDialog dialog = new MarketingInfoDialog(activity);
-        dialog.setOnPositiveClickListener(listener);
-        dialog.setOnDismissListener(dismissListener);
+        dialog.setOnPositiveClickListener(onPositiveClickListener);
+        dialog.setOnNegativeClickListener(onNegativeClickListener);
         dialog.show();
     }
 
@@ -75,13 +74,6 @@ public final class DialogManager {
     public static void showUpdateDialog(Activity activity, OnPositiveClickListener onPositiveListener) {
         UpdateDialog dialog = new UpdateDialog(activity);
         dialog.setOnPositiveClickListener(onPositiveListener);
-        dialog.show();
-    }
-
-    @Builder
-    public static void showTrialVersionDialog(Activity activity, OnPositiveClickListener onPositiveClickListener) {
-        TrialVersionDialog dialog = new TrialVersionDialog(activity);
-        dialog.setOnPositiveClickListener(onPositiveClickListener);
         dialog.show();
     }
 

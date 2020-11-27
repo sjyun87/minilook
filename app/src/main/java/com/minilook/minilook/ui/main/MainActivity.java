@@ -4,20 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.annotation.StringRes;
 import androidx.viewpager2.widget.ViewPager2;
-import butterknife.BindColor;
-import butterknife.BindString;
-import butterknife.BindView;
-import butterknife.OnClick;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.common.PrefsKey;
-import com.minilook.minilook.data.model.brand.BrandDataModel;
-import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.ui.base._BaseActivity;
+import com.minilook.minilook.databinding.ActivityMainBinding;
+import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.widget.BottomBar;
-import com.minilook.minilook.ui.base.widget.LoadingView;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.event_detail.EventDetailActivity;
@@ -28,45 +21,31 @@ import com.minilook.minilook.ui.main.di.MainArguments;
 import com.minilook.minilook.ui.preorder_detail.PreorderDetailActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.ui.promotion_detail.PromotionDetailActivity;
-import com.pixplicity.easyprefs.library.Prefs;
 
-public class MainActivity extends _BaseActivity implements MainPresenter.View {
+public class MainActivity extends BaseActivity implements MainPresenter.View {
 
     public static void start(Context context) {
-        Intent intent = new Intent(context, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        context.startActivity(intent);
+        start(context, 0);
     }
 
     public static void start(Context context, int position) {
         Intent intent = new Intent(context, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("position", position);
         context.startActivity(intent);
     }
 
-    @BindView(R.id.viewpager) ViewPager2 viewPager;
-    @BindView(R.id.bottombar) BottomBar bottomBar;
+    @StringRes int str_marketing_agree = R.string.toast_marketing_info_agree;
+    @StringRes int str_marketing_disagree = R.string.toast_marketing_info_disagree;
+    @StringRes int str_app_finish = R.string.toast_app_finish;
 
-    @BindView(R.id.layout_coach_lookbook1) ConstraintLayout coachLookbook1;
-    @BindView(R.id.layout_coach_lookbook2) ConstraintLayout coachLookbook2;
-    @BindView(R.id.layout_coach_lookbook3) ConstraintLayout coachLookbook3;
-
-    @BindView(R.id.loading_view) LoadingView loadingView;
-
-    @BindString(R.string.toast_app_finish) String toast_app_finish;
-    @BindString(R.string.toast_marketing_info_agree) String toast_marketing_agree;
-
-    @BindColor(R.color.color_FF616161) int color_FF616161;
-
+    private ActivityMainBinding binding;
     private MainPresenter presenter;
-    private MainPagerAdapter adapter;
 
-    private long backPressedTime;
-
-    @Override protected int getLayoutID() {
-        return R.layout.activity_main;
+    @Override protected View getBindingView() {
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        return binding.getRoot();
     }
 
     @Override protected void createPresenter() {
@@ -76,8 +55,8 @@ public class MainActivity extends _BaseActivity implements MainPresenter.View {
 
     @Override protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        int position = intent.getIntExtra("position", -1);
-        if (position != -1) bottomBar.setCurrentPage(position);
+        int position = intent.getIntExtra("position", 0);
+        binding.bottombar.setCurrentPage(position);
     }
 
     private MainArguments provideArguments() {
@@ -86,53 +65,63 @@ public class MainActivity extends _BaseActivity implements MainPresenter.View {
             .build();
     }
 
-    @Override public void onLogin() {
-    }
-
-    @Override public void onLogout() {
-    }
-
-    @Override public void onProductScrap(boolean isScrap, ProductDataModel product) {
-        presenter.onProductScrap(isScrap, product);
-    }
-
-    @Override public void onBrandScrap(boolean isScrap, BrandDataModel brand) {
-        presenter.onBrandScrap(isScrap, brand);
-    }
-
     @Override public void setupViewPager() {
-        adapter = new MainPagerAdapter(this);
-        viewPager.setAdapter(adapter);
-        viewPager.setUserInputEnabled(false);
-        viewPager.setOffscreenPageLimit(5);
-        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        binding.viewpager.setAdapter(new MainPagerAdapter(this));
+        binding.viewpager.setUserInputEnabled(false);
+        binding.viewpager.setOffscreenPageLimit(5);
+        binding.viewpager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override public void onPageSelected(int position) {
-                bottomBar.setCurrentPage(position);
+                binding.bottombar.setCurrentPage(position);
             }
         });
     }
 
     @Override public void setupCurrentPage(int position) {
-        viewPager.setCurrentItem(position, false);
+        binding.viewpager.setCurrentItem(position, false);
     }
 
     @Override public void setupBottomBar() {
-        bottomBar.setOnTabChangeListener(position -> presenter.onTabChanged(position));
+        binding.bottombar.setOnTabChangeListener(presenter::onTabChanged);
     }
 
     @Override public void setupBottomBarTheme(boolean flag) {
-        bottomBar.setupWhiteTheme(flag);
+        if (binding.bottombar.getCurrentPage() == BottomBar.POSITION_LOOKBOOK) binding.bottombar.setupWhiteTheme(flag);
     }
 
     @Override public void showMarketingDialog() {
-        DialogManager.showMarketingDialog(this, () -> {
-            presenter.onMarketingAgree();
-            Toast.makeText(MainActivity.this, toast_marketing_agree, Toast.LENGTH_SHORT).show();
-        }, dialogInterface -> presenter.onMarketingDismiss());
+        DialogManager.showMarketingDialog(this, presenter::onMarketingAgree, presenter::onMarketingDisagree);
+    }
+
+    @Override public void updateMarketingAgreeToast(boolean enable) {
+        Toast.makeText(MainActivity.this, enable ? str_marketing_agree : str_marketing_disagree, Toast.LENGTH_SHORT)
+            .show();
     }
 
     @Override public void showLookBookCoachMark() {
-        coachLookbook1.setVisibility(View.VISIBLE);
+        binding.coachLookbook.getRoot().setVisibility(View.VISIBLE);
+        binding.coachLookbook.coach1.setOnClickListener(v -> {
+            RxBus.send(new LookBookPreviewPresenterImpl.RxEventLookBookScrollToNext());
+            binding.coachLookbook.coach1.setVisibility(View.GONE);
+            binding.coachLookbook.coach2.setVisibility(View.VISIBLE);
+        });
+        binding.coachLookbook.coach2.setOnClickListener(v -> {
+            RxBus.send(new LookBookPresenterImpl.RxEventScrollToDetail(true));
+            binding.coachLookbook.coach2.setVisibility(View.GONE);
+            binding.coachLookbook.coach3.setVisibility(View.VISIBLE);
+        });
+        binding.coachLookbook.coach3.setOnClickListener(v -> {
+            RxBus.send(new LookBookPresenterImpl.RxEventScrollToPreview(true));
+            binding.coachLookbook.getRoot().setVisibility(View.GONE);
+            presenter.onCoachMarkEnd();
+        });
+    }
+
+    @Override public void showLoadingView() {
+        binding.loadingView.show();
+    }
+
+    @Override public void hideLoadingView() {
+        binding.loadingView.hide();
     }
 
     @Override public void navigateToPromotionDetail(int promotionNo) {
@@ -155,42 +144,14 @@ public class MainActivity extends _BaseActivity implements MainPresenter.View {
         PreorderDetailActivity.start(this, preorderNo);
     }
 
-    @Override public void showLoadingView() {
-        loadingView.show();
-    }
-
-    @Override public void hideLoadingView() {
-        loadingView.hide();
-    }
+    private long backPressedTime;
 
     @Override public void onBackPressed() {
         if (System.currentTimeMillis() > backPressedTime + 2000) {
             backPressedTime = System.currentTimeMillis();
-            Toast.makeText(this, toast_app_finish, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, str_app_finish, Toast.LENGTH_SHORT).show();
         } else {
             finishAffinity();
         }
-    }
-
-    @OnClick(R.id.layout_coach_lookbook1)
-    void onCoachLookBook1Click() {
-        RxBus.send(new LookBookPreviewPresenterImpl.RxEventLookBookCoachMark1());
-        coachLookbook1.setVisibility(View.GONE);
-        coachLookbook2.setVisibility(View.VISIBLE);
-    }
-
-    @OnClick(R.id.layout_coach_lookbook2)
-    void onCoachLookBook2Click() {
-        RxBus.send(new LookBookPresenterImpl.RxEventScrollToDetail(true));
-        coachLookbook2.setVisibility(View.GONE);
-        coachLookbook3.setVisibility(View.VISIBLE);
-    }
-
-    @OnClick(R.id.layout_coach_lookbook3)
-    void onCoachLookBook3Click() {
-        RxBus.send(new LookBookPresenterImpl.RxEventScrollToPreview(true));
-        coachLookbook3.setVisibility(View.GONE);
-        Prefs.putBoolean(PrefsKey.KEY_LOOKBOOK_COACH_VISIBLE, true);
-        presenter.onCoachMarkEnd();
     }
 }

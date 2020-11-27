@@ -71,13 +71,13 @@ public class MemberRequest extends BaseRequest<MemberService> {
     public Single<BaseDataModel> updateMarketingInfo(boolean enable) {
         if (App.getInstance().isLogin()) {
             int memberNo = App.getInstance().getMemberNo();
-            return getApi().updateMarketingInfo(memberNo, createRequestBody(parseToMarketingInfoJson(enable)));
+            return getApi().updateMarketingInfo(memberNo, createRequestBody(getMarketingData(enable)));
         } else {
-            return getApi().updateMarketingInfo(createRequestBody(parseToMarketingInfoJson(enable)));
+            return getApi().updateMarketingInfo(createRequestBody(getMarketingData(enable)));
         }
     }
 
-    private Map<String, Object> parseToMarketingInfoJson(boolean enable) {
+    private Map<String, Object> getMarketingData(boolean enable) {
         Map<String, Object> jsonMap = new HashMap<>();
         if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("pushToken", App.getInstance().getPushToken());

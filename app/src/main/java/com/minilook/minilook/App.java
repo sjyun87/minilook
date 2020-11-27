@@ -2,7 +2,6 @@ package com.minilook.minilook;
 
 import android.app.Application;
 import android.content.ContextWrapper;
-import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kakao.sdk.common.KakaoSdk;
@@ -27,7 +26,6 @@ public class App extends Application {
 
     @Getter private static App instance;
     @Getter private Gson gson;
-    @Getter private Glide glide;
 
     @Getter @Setter private boolean isLogin = false;
 

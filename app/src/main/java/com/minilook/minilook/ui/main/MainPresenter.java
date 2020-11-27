@@ -13,13 +13,9 @@ public interface MainPresenter extends LifecycleObserver {
 
     void onTabChanged(int position);
 
-    void onProductScrap(boolean isScrap, ProductDataModel product);
-
-    void onBrandScrap(boolean isScrap, BrandDataModel brand);
-
     void onMarketingAgree();
 
-    void onMarketingDismiss();
+    void onMarketingDisagree();
 
     void onCoachMarkEnd();
 
@@ -35,7 +31,13 @@ public interface MainPresenter extends LifecycleObserver {
 
         void showMarketingDialog();
 
+        void updateMarketingAgreeToast(boolean enable);
+
         void showLookBookCoachMark();
+
+        void showLoadingView();
+
+        void hideLoadingView();
 
         void navigateToPromotionDetail(int promotionNo);
 
@@ -46,9 +48,5 @@ public interface MainPresenter extends LifecycleObserver {
         void navigateToBrandDetail(int brandNo);
 
         void navigateToPreorderDetail(int preorderNo);
-
-        void showLoadingView();
-
-        void hideLoadingView();
     }
 }

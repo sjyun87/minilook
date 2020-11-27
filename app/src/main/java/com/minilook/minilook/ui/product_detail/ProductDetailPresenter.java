@@ -37,8 +37,6 @@ public interface ProductDetailPresenter extends LifecycleObserver {
 
     void onOptionSelectorBuyClick(List<ShoppingOptionDataModel> optionData);
 
-    void onTrialVersionDialogGoClick();
-
     void onShareClick();
 
     interface View {
@@ -170,8 +168,6 @@ public interface ProductDetailPresenter extends LifecycleObserver {
         void navigateToBrandDetail(int brand_id);
 
         void navigateToShoppingBag();
-
-        void showTrialVersionDialog();
 
         void showAddShoppingBagToast();
 

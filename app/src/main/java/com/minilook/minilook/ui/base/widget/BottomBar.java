@@ -123,6 +123,10 @@ public class BottomBar extends LinearLayout {
         }
     }
 
+    public int getCurrentPage() {
+        return position;
+    }
+
     private void updateUI() {
         if (isWhiteTheme) {
             setBackground(bg_white);

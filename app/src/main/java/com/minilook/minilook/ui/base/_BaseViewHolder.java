@@ -12,8 +12,9 @@ import butterknife.ButterKnife;
 
 public class _BaseViewHolder<T> extends RecyclerView.ViewHolder {
     public Context context;
-    public T data;
     public Resources resources;
+    public T data;
+    public int position;
 
     public _BaseViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -23,8 +24,14 @@ public class _BaseViewHolder<T> extends RecyclerView.ViewHolder {
     }
 
     @CallSuper
-    public void bind(T $data) {
-        this.data = $data;
+    public void bind(T data) {
+        this.data = data;
+    }
+
+    @CallSuper
+    public void bind(int position, T data) {
+        this.data = data;
+        this.position = position;
     }
 
     public void onAttach() {

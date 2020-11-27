@@ -46,6 +46,7 @@ public class MarketingInfoDialog extends BaseDialog {
     @OnClick(R.id.txt_later)
     void onLaterClick() {
         this.dismiss();
+        onNegativeClickListener.onNegativeClick();
     }
 
     @OnClick(R.id.txt_agree)

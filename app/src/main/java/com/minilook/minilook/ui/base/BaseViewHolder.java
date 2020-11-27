@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import butterknife.ButterKnife;
+import butterknife.Optional;
 
 public class BaseViewHolder<T> extends RecyclerView.ViewHolder {
 
@@ -24,6 +25,10 @@ public class BaseViewHolder<T> extends RecyclerView.ViewHolder {
     @CallSuper
     public void bind(T $data) {
         this.data = $data;
+    }
+
+    // Optional
+    public void bind(int position, T $data) {
     }
 
     public void onAttach() {
