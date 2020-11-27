@@ -5,20 +5,16 @@
         <item name="colorPrimaryDark">@color/color_FFFFFFFF</item>
         <item name="colorAccent">@color/color_FF8140E5</item>
 
-        <item name="android:overScrollMode">never</item>
+        <!--Full Screen-->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
+
+        <!--Over Scroll Mode-->
+        <item name="android:overScrollMode">never</item>
+
+        <!--Background Color-->
         <item name="android:windowBackground">@color/color_FFFFFFFF</item>
         <item name="android:colorBackground">@color/color_FFFFFFFF</item>
-    </style>
-
-    <style name="SplashTheme" parent="AppTheme">
-        <!--        <item name="android:windowBackground">@drawable/img_cold</item>-->
-    </style>
-
-    <style name="ToastStyle">
-        <item name="android:windowEnterAnimation">@anim/toast_enter</item>
-        <item name="android:windowExitAnimation">@anim/toast_exit</item>
     </style>
 </resources>

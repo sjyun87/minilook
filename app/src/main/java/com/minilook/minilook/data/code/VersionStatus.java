@@ -8,5 +8,5 @@ import lombok.Getter;
     OPTIONAL(0),
     NEWEST(1);
 
-    private int value;
+    private final int value;
 }

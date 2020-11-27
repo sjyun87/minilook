@@ -4,6 +4,7 @@ import android.os.Build;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
+import com.minilook.minilook.App;
 import com.minilook.minilook.BuildConfig;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +22,7 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public abstract class BaseRequest<T> {
-    private final static int TIMEOUT_SECONDS = 10;
+    private final static int TIMEOUT_SECONDS = 5;
 
     public T getApi() {
         return createRetrofit().create(getService());
@@ -43,7 +44,7 @@ public abstract class BaseRequest<T> {
     }
 
     private Gson getGson() {
-        return new GsonBuilder().setPrettyPrinting().create();
+        return App.getInstance().getGson();
     }
 
     private OkHttpClient createClient() {
@@ -56,7 +57,6 @@ public abstract class BaseRequest<T> {
 
             Map<String, String> header = createHeaders();
             addHeader(header, requestBuilder);
-
             return chain.proceed(requestBuilder.build());
         });
 
@@ -102,6 +102,7 @@ public abstract class BaseRequest<T> {
         BASE_URL(BuildConfig.DEBUG ?
             "http://dev.app.api.minilook.co.kr:8080" :
             "http://app.api.minilook.co.kr");
-        private String value;
+
+        private final String value;
     }
 }

@@ -8,13 +8,16 @@ import androidx.viewpager2.widget.ViewPager2;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
+import com.minilook.minilook.databinding.ActivityGuideBinding;
+import com.minilook.minilook.databinding.ActivitySplashBinding;
+import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.guide.adapter.GuideAdapter;
 import com.minilook.minilook.ui.guide.di.GuideArguments;
 import com.minilook.minilook.ui.main.MainActivity;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
-public class GuideActivity extends _BaseActivity implements GuidePresenter.View {
+public class GuideActivity extends BaseActivity implements GuidePresenter.View {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, GuideActivity.class);
@@ -23,15 +26,22 @@ public class GuideActivity extends _BaseActivity implements GuidePresenter.View 
         context.startActivity(intent);
     }
 
-    @BindView(R.id.vp_guide) ViewPager2 viewPager;
-    @BindView(R.id.txt_skip) TextView skipTextView;
-    @BindView(R.id.indicator) DotsIndicator indicator;
-    @BindView(R.id.txt_start) TextView startTextView;
+    private ViewPager2 viewPager;
+    private TextView skipTextView;
+    private DotsIndicator indicator;
+    private TextView startTextView;
 
     private GuidePresenter presenter;
 
-    @Override protected int getLayoutID() {
-        return R.layout.activity_guide;
+    @Override protected View getBindingView() {
+        ActivityGuideBinding binding = ActivityGuideBinding.inflate(getLayoutInflater());
+        viewPager = binding.vpGuide;
+        skipTextView = binding.txtSkip;
+        skipTextView.setOnClickListener(view -> presenter.onGuideEnd());
+        indicator = binding.indicator;
+        startTextView = binding.txtStart;
+        startTextView.setOnClickListener(view -> presenter.onGuideEnd());
+        return binding.getRoot();
     }
 
     @Override protected void createPresenter() {
@@ -69,16 +79,6 @@ public class GuideActivity extends _BaseActivity implements GuidePresenter.View 
 
     @Override public void navigateToMain() {
         MainActivity.start(this);
-    }
-
-    @OnClick(R.id.txt_skip)
-    void onSkipClick() {
-        presenter.onGuideEnd();
-    }
-
-    @OnClick(R.id.txt_start)
-    void onStartClick() {
-        presenter.onGuideEnd();
     }
 
     @Override public void onBackPressed() {

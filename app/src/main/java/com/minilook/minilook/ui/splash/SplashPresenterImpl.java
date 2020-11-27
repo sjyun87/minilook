@@ -1,10 +1,8 @@
 package com.minilook.minilook.ui.splash;
 
 import android.net.Uri;
-import android.text.TextUtils;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.App;
@@ -33,18 +31,25 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
 
     private boolean isAnimationEnd = false;
     private boolean isCommonDataGet = false;
-    private boolean isUpdateToken = false;
+    private boolean isTokenUpdate = false;
     private boolean isDynamicLinkCheck = false;
 
     public SplashPresenterImpl(SplashArguments args) {
         view = args.getView();
         commonRequest = new CommonRequest();
-        gson = new Gson();
+        gson = App.getInstance().getGson();
     }
 
     @Override public void onCreate() {
         view.setupLottieView();
-        reqCheckAppVersion();
+        view.setupDynamicLink();
+        view.setupPushToken();
+
+        if (BuildConfig.DEBUG) {
+            startApp();
+        } else {
+            checkVersion();
+        }
     }
 
     @Override public void onAnimationEnd() {
@@ -52,53 +57,50 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
         checkToDo();
     }
 
-    @Override public void onUpdateDialogOkClick() {
-        view.navigateToPlayStore();
-        view.finish();
-    }
-
-    @Override public void onUpdateDialogCancelClick() {
-        view.finish();
-    }
-
-    @Override public void onErrorDialogOkClick() {
-        view.finish();
-    }
-
-    @Override public void onDynamicLinkCheckComplete(Task<PendingDynamicLinkData> task) {
+    @Override public void onDynamicLink(Task<PendingDynamicLinkData> task) {
         if (task.getResult() != null) {
             Uri link = task.getResult().getLink();
             if (link != null) {
                 String type = link.getQueryParameter("type");
-                String itemNo = link.getQueryParameter("id");
-                App.getInstance().setDynamicLink(true);
-                App.getInstance().setDynamicLinkType(type);
-                App.getInstance().setDynamicLinkItemNo(Integer.parseInt(itemNo));
+                String id = link.getQueryParameter("id");
+                App.getInstance().setDynamicLink(type, id);
             }
         }
         isDynamicLinkCheck = true;
         checkToDo();
     }
 
-    private void reqCheckAppVersion() {
-        if (BuildConfig.DEBUG) {
-            startApp();
+    @Override public void onPushToken(Task<String> task) {
+        if (task.isSuccessful()) {
+            String token = task.getResult();
+            App.getInstance().setPushToken(token);
+            updateToken(token);
         } else {
-            addDisposable(commonRequest.checkVersion(BuildConfig.VERSION_NAME)
-                .compose(Transformer.applySchedulers())
-                .filter(data -> {
-                    String code = data.getCode();
-                    if (!code.equals(HttpCode.OK)) {
-                        view.showErrorDialog();
-                    }
-                    return code.equals(HttpCode.OK);
-                })
-                .map(data -> gson.fromJson(data.getData(), VersionDataModel.class))
-                .subscribe(this::resCheckAppVersion, Timber::e));
+            Timber.e(task.getException());
+            view.showErrorDialog();
         }
     }
 
-    private void resCheckAppVersion(VersionDataModel data) {
+    @Override public void onUpdateDialogOkClick() {
+        view.navigateToPlayStore();
+        view.finish();
+    }
+
+    private void checkVersion() {
+        addDisposable(commonRequest.checkVersion()
+            .compose(Transformer.applySchedulers())
+            .filter(data -> {
+                String code = data.getCode();
+                if (!code.equals(HttpCode.OK)) {
+                    view.showErrorDialog();
+                }
+                return code.equals(HttpCode.OK);
+            })
+            .map(model -> gson.fromJson(model.getData(), VersionDataModel.class))
+            .subscribe(this::onResCheckVersion, Timber::e));
+    }
+
+    private void onResCheckVersion(VersionDataModel data) {
         if (data.getStatus() == VersionStatus.FORCE.getValue()) {
             view.showUpdateDialog();
         } else {
@@ -107,64 +109,47 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
     }
 
     private void startApp() {
-        view.getDynamicLink();
-        reqSortCode();
-        getPushToken();
+        getCommonData();
     }
 
-    private void reqSortCode() {
+    private void updateToken(String token) {
+        addDisposable(commonRequest.updateToken(token)
+            .subscribe(this::onResUpdateToken));
+    }
+
+    private void onResUpdateToken(BaseDataModel data) {
+        isTokenUpdate = true;
+        checkToDo();
+    }
+
+    private void getCommonData() {
         addDisposable(commonRequest.getSortCode()
             .compose(Transformer.applySchedulers())
             .map((Function<BaseDataModel, List<CodeDataModel>>)
                 data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<CodeDataModel>>() {
                 }.getType()))
-            .subscribe(this::resSortCode, Timber::e));
+            .subscribe(this::onResCommonData, Timber::e));
     }
 
-    private void resSortCode(List<CodeDataModel> data) {
+    private void onResCommonData(List<CodeDataModel> data) {
         App.getInstance().setSortCodes(data);
         isCommonDataGet = true;
         checkToDo();
     }
 
-    private void getPushToken() {
-        FirebaseMessaging.getInstance()
-            .getToken()
-            .addOnCompleteListener(task -> {
-                if (task.isSuccessful() && !TextUtils.isEmpty(task.getResult())) {
-                    String token = task.getResult();
-                    App.getInstance().setPushToken(token);
-                    reqUpdateToken(token);
-                } else {
-                    Timber.e(task.getException());
-                    view.showErrorDialog();
-                }
-            });
-    }
-
-    private void reqUpdateToken(String token) {
-        addDisposable(commonRequest.updateToken(token)
-            .subscribe(this::resUpdateToken));
-    }
-
-    private void resUpdateToken(BaseDataModel object) {
-        isUpdateToken = true;
-        checkToDo();
-    }
-
     private void checkToDo() {
-        if (isAnimationEnd && isCommonDataGet && isUpdateToken && isDynamicLinkCheck) {
-            handleStartPage();
+        if (isAnimationEnd && isCommonDataGet && isTokenUpdate && isDynamicLinkCheck) {
+            navigateToPage();
         }
     }
 
-    private void handleStartPage() {
+    private void navigateToPage() {
         int visibleCount = Prefs.getInt(PrefsKey.KEY_GUIDE_VISIBLE_COUNT, 0);
-        if (visibleCount >= 3) {
-            view.navigateToMain();
-        } else {
+        if (visibleCount < 3) {
             Prefs.putInt(PrefsKey.KEY_GUIDE_VISIBLE_COUNT, visibleCount + 1);
             view.navigateToGuide();
+        } else {
+            view.navigateToMain();
         }
     }
 }

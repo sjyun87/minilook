@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
@@ -24,9 +22,8 @@ public abstract class BaseActivity extends AppCompatActivity implements OnLoginL
     @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getBindingView());
-        getWindow().getDecorView().setBackgroundColor(Color.WHITE);
         createPresenter();
-        toRxBusObservable();
+        toRxObservable();
     }
 
     @Override protected void onDestroy() {
@@ -50,7 +47,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnLoginL
         return disposable;
     }
 
-    private void toRxBusObservable() {
+    private void toRxObservable() {
         addDisposable(
             RxBus.toObservable().observeOn(SchedulersFacade.ui()).subscribe(o -> {
                 if (o instanceof RxBusEvent.RxBusEventLogin) {

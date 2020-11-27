@@ -1,5 +1,6 @@
 package com.minilook.minilook.ui.dialog;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -23,8 +24,12 @@ public class ErrorDialog extends BaseDialog {
 
     @BindFont(R.font.nanum_square_b) Typeface font_bold;
 
-    public ErrorDialog(@NonNull Context context) {
-        super(context);
+    private Activity activity;
+
+    public ErrorDialog(@NonNull Activity activity) {
+        super(activity);
+
+        this.activity = activity;
     }
 
     @Override protected int getLayoutID() {
@@ -44,5 +49,6 @@ public class ErrorDialog extends BaseDialog {
     @OnClick(R.id.txt_ok)
     void onOkClick() {
         this.dismiss();
+        activity.finish();
     }
 }

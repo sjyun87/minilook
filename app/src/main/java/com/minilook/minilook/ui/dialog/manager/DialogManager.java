@@ -72,11 +72,9 @@ public final class DialogManager {
     }
 
     @Builder
-    public static void showUpdateDialog(Activity activity, OnPositiveClickListener onPositiveListener,
-        OnNegativeClickListener onNegativeClickListener) {
+    public static void showUpdateDialog(Activity activity, OnPositiveClickListener onPositiveListener) {
         UpdateDialog dialog = new UpdateDialog(activity);
         dialog.setOnPositiveClickListener(onPositiveListener);
-        dialog.setOnNegativeClickListener(onNegativeClickListener);
         dialog.show();
     }
 
@@ -101,9 +99,8 @@ public final class DialogManager {
     }
 
     @Builder
-    public static void showErrorDialog(Activity activity, OnPositiveClickListener onPositiveClickListener) {
+    public static void showErrorDialog(Activity activity) {
         ErrorDialog dialog = new ErrorDialog(activity);
-        dialog.setOnPositiveClickListener(onPositiveClickListener);
         dialog.show();
     }
 

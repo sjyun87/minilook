@@ -16,12 +16,6 @@ public class UpdateDialog extends BaseDialog {
         return R.layout.dialog_update;
     }
 
-    @OnClick(R.id.txt_cancel)
-    void onCancelClick() {
-        this.dismiss();
-        onNegativeClickListener.onNegativeClick();
-    }
-
     @OnClick(R.id.txt_ok)
     void onOkClick() {
         this.dismiss();
