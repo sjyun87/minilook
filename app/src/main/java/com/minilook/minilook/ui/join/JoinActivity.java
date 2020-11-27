@@ -27,8 +27,8 @@ public class JoinActivity extends _BaseActivity implements JoinPresenter.View {
 
     public static void start(Context context, MemberDataModel userData) {
         Intent intent = new Intent(context, JoinActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("userData", userData);
         context.startActivity(intent);
     }

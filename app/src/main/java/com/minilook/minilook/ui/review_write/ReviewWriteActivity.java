@@ -25,8 +25,8 @@ public class ReviewWriteActivity extends _BaseActivity implements ReviewWritePre
 
     public static void start(Context context, String orderNo, OrderProductDataModel data) {
         Intent intent = new Intent(context, ReviewWriteActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("orderNo", orderNo);
         intent.putExtra("data", data);
         context.startActivity(intent);

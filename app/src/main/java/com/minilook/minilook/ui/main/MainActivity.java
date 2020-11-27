@@ -21,6 +21,7 @@ import com.minilook.minilook.ui.main.di.MainArguments;
 import com.minilook.minilook.ui.preorder_detail.PreorderDetailActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.ui.promotion_detail.PromotionDetailActivity;
+import timber.log.Timber;
 
 public class MainActivity extends BaseActivity implements MainPresenter.View {
 
@@ -30,8 +31,8 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
 
     public static void start(Context context, int position) {
         Intent intent = new Intent(context, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("position", position);
         context.startActivity(intent);
     }
@@ -54,6 +55,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
     }
 
     @Override protected void onNewIntent(Intent intent) {
+        Timber.e("onNewIntent");
         super.onNewIntent(intent);
         int position = intent.getIntExtra("position", 0);
         binding.bottombar.setCurrentPage(position);

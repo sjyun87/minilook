@@ -49,8 +49,8 @@ public class PreorderDetailActivity extends _BaseActivity implements PreorderDet
 
     public static void start(Context context, int preorderNo) {
         Intent intent = new Intent(context, PreorderDetailActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("preorderNo", preorderNo);
         context.startActivity(intent);
     }

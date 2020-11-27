@@ -14,8 +14,8 @@ public class GuideActivity extends BaseActivity implements GuidePresenter.View {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, GuideActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         context.startActivity(intent);
     }
 

@@ -42,7 +42,6 @@ public class ProductGridVH extends _BaseViewHolder<ProductDataModel> {
     @BindDrawable(R.drawable.ic_scrap_off) Drawable img_scrap_off;
     @BindDrawable(R.drawable.ic_scrap_on) Drawable img_scrap_on;
 
-    @Setter private boolean isShowScrap;
     @Setter private boolean isShowBrand;
 
     public ProductGridVH(@NonNull View itemView) {
@@ -59,12 +58,6 @@ public class ProductGridVH extends _BaseViewHolder<ProductDataModel> {
             .error(img_placeholder)
             .transition(new DrawableTransitionOptions().crossFade())
             .into(thumbImageView);
-
-        if (isShowScrap) {
-            showScrap();
-        } else {
-            hideScrap();
-        }
 
         if (isShowBrand) {
             showBrand();

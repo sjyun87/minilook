@@ -52,8 +52,8 @@ public class OrderActivity extends _BaseActivity implements OrderPresenter.View 
 
     public static void start(Context context, String route) {
         Intent intent = new Intent(context, OrderActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("route", route);
         context.startActivity(intent);
     }

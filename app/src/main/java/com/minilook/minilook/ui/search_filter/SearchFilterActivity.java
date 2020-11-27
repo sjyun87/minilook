@@ -42,13 +42,13 @@ public class SearchFilterActivity extends _BaseActivity implements SearchFilterP
 
     public static void start(Context context) {
         Intent intent = new Intent(context, SearchFilterActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         context.startActivity(intent);
     }
 
     public static void start(Context context, SearchOptionDataModel options) {
         Intent intent = new Intent(context, SearchFilterActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         intent.putExtra("options", options);
         context.startActivity(intent);
     }

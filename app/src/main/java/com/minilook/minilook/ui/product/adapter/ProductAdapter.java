@@ -31,11 +31,10 @@ public class ProductAdapter extends RecyclerView.Adapter<_BaseViewHolder<Product
     public static final int VIEW_TYPE_WIDE_32 = 6;
 
     @Setter private int viewType = 0;
-    @Setter private boolean isShowScrap = true;
     @Setter private boolean isShowBrand = true;
     @Setter private ProductWideVH.OnDeleteClickListener onDeleteClickListener;
 
-    private List<ProductDataModel> items = new ArrayList<>();
+    private final List<ProductDataModel> items = new ArrayList<>();
 
     @NonNull @Override
     public _BaseViewHolder<ProductDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -44,7 +43,6 @@ public class ProductAdapter extends RecyclerView.Adapter<_BaseViewHolder<Product
                 return new ProductFeedVH(parent);
             case VIEW_TYPE_GRID:
                 ProductGridVH productGridVH = new ProductGridVH(parent);
-                productGridVH.setShowScrap(isShowScrap);
                 productGridVH.setShowBrand(isShowBrand);
                 return productGridVH;
             case VIEW_TYPE_IMAGE:

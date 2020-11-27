@@ -30,8 +30,8 @@ public class QuestionWriteActivity extends _BaseActivity implements QuestionWrit
 
     public static void start(Context context, int productNo) {
         Intent intent = new Intent(context, QuestionWriteActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("productNo", productNo);
         context.startActivity(intent);
     }

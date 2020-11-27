@@ -12,8 +12,8 @@ public class ProductInfoActivity extends _BaseActivity implements ProductInfoPre
 
     public static void start(Context context, int brand_id) {
         Intent intent = new Intent(context, ProductInfoActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("brand_id", brand_id);
         context.startActivity(intent);
     }

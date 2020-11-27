@@ -25,8 +25,8 @@ public class QuestionActivity extends _BaseActivity implements QuestionPresenter
 
     public static void start(Context context, int productNo) {
         Intent intent = new Intent(context, QuestionActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("productNo", productNo);
         context.startActivity(intent);
     }

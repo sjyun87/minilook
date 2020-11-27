@@ -35,7 +35,7 @@ public class PromotionDetailActivity extends _BaseActivity implements PromotionD
 
     public static void start(Context context, int id) {
         Intent intent = new Intent(context, PromotionDetailActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("promotion_id", id);
         context.startActivity(intent);
     }

@@ -14,8 +14,8 @@ public class BrandInfoActivity extends _BaseActivity implements BrandInfoPresent
 
     public static void start(Context context, int brandNo) {
         Intent intent = new Intent(context, BrandInfoActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("brandNo", brandNo);
         context.startActivity(intent);
     }
