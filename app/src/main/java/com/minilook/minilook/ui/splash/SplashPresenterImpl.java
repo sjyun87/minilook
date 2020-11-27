@@ -96,7 +96,7 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
                 }
                 return code.equals(HttpCode.OK);
             })
-            .map(data -> gson.fromJson(data.getData(), VersionDataModel.class))
+            .map(model -> gson.fromJson(model.getData(), VersionDataModel.class))
             .subscribe(this::onResCheckVersion, Timber::e));
     }
 
@@ -151,6 +151,5 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
         } else {
             view.navigateToMain();
         }
-        view.finish();
     }
 }
