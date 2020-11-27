@@ -193,7 +193,7 @@ public class JoinActivity extends _BaseActivity implements JoinPresenter.View {
         presenter.onJoinClick();
     }
 
-    @OnClick(R.id.img_titlebar_back)
+    @OnClick(R.id.img_back)
     void onBackClick() {
         presenter.onBackClick();
     }

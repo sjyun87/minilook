@@ -35,6 +35,7 @@ public class LookBookFragment extends BaseFragment implements LookBookPresenter.
     @Override public void setupViewPager() {
         binding.viewpager.setAdapter(
             new LookBookPagerAdapter(getChildFragmentManager(), getViewLifecycleOwner().getLifecycle()));
+        binding.viewpager.setOffscreenPageLimit(1);
         binding.viewpager.registerOnPageChangeCallback(OnPageChangeCallback);
     }
 

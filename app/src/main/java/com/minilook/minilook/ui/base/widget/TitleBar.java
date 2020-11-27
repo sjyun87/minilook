@@ -5,18 +5,21 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.annotation.ColorRes;
+import androidx.annotation.Dimension;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import butterknife.BindColor;
+import androidx.core.content.ContextCompat;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.minilook.minilook.App;
 import com.minilook.minilook.R;
+import com.minilook.minilook.databinding.LayoutTitlebarBinding;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.main.MainActivity;
 import com.minilook.minilook.ui.question_write.QuestionWriteActivity;
@@ -24,26 +27,16 @@ import com.minilook.minilook.ui.search_filter.SearchFilterActivity;
 import com.minilook.minilook.ui.setting.SettingActivity;
 import com.minilook.minilook.ui.shoppingbag.ShoppingBagActivity;
 import com.minilook.minilook.util.StringUtil;
+import lombok.Getter;
 import lombok.Setter;
 
 public class TitleBar extends ConstraintLayout {
 
-    @BindView(R.id.txt_titlebar_title) TextView titleTextView;
-    @BindView(R.id.txt_titlebar_count) TextView countTextView;
-    @BindView(R.id.img_titlebar_logo) ImageView logoImageView;
-    @BindView(R.id.img_titlebar_back) ImageView backImageView;
-    @BindView(R.id.img_titlebar_home) ImageView homeImageView;
-    @BindView(R.id.img_titlebar_search_keyword) ImageView keywordSearchImageView;
-    @BindView(R.id.img_titlebar_search_filter) ImageView filterSearchImageView;
-    @BindView(R.id.img_titlebar_shoppingbag) ImageView shoppingbagImageView;
-    @BindView(R.id.img_titlebar_setting) ImageView settingImageView;
-    @BindView(R.id.img_titlebar_close) ImageView closeImageView;
-    @BindView(R.id.img_titlebar_write) ImageView writeImageView;
-    @BindView(R.id.img_titlebar_share) ImageView shareImageView;
+    @ColorRes int color_FFFFFFFF = R.color.color_FFFFFFFF;
 
-    @BindColor(R.color.color_FFFFFFFF) int color_FFFFFFFF;
+    @Getter private LayoutTitlebarBinding binding;
 
-    private Activity activity;
+    private final Activity activity;
 
     private boolean isShowTitle;
     private boolean isShowCount;
@@ -108,27 +101,42 @@ public class TitleBar extends ConstraintLayout {
     }
 
     private void initView() {
-        ButterKnife.bind(this, inflate(getContext(), R.layout.layout_titlebar, this));
-        setBackgroundColor(color_FFFFFFFF);
+        binding = LayoutTitlebarBinding.inflate(LayoutInflater.from(getContext()), this);
+
+        setBackgroundColor(ContextCompat.getColor(getContext(), color_FFFFFFFF));
+        setupAction();
         updateUI();
     }
 
     private void updateUI() {
-        titleTextView.setVisibility(isShowTitle ? VISIBLE : GONE);
-        countTextView.setVisibility(isShowCount ? VISIBLE : GONE);
-        logoImageView.setVisibility(isShowLogo ? VISIBLE : GONE);
-        backImageView.setVisibility(isShowBack ? VISIBLE : GONE);
-        homeImageView.setVisibility(isShowHome ? VISIBLE : GONE);
-        keywordSearchImageView.setVisibility(isShowKeywordSearch ? VISIBLE : GONE);
-        filterSearchImageView.setVisibility(isShowFilterSearch ? VISIBLE : GONE);
-        shoppingbagImageView.setVisibility(isShowShoppingBag ? VISIBLE : GONE);
-        settingImageView.setVisibility(isShowSetting ? VISIBLE : GONE);
-        closeImageView.setVisibility(isShowClose ? VISIBLE : GONE);
-        writeImageView.setVisibility(isShowWrite ? VISIBLE : GONE);
-        shareImageView.setVisibility(isShowShare ? VISIBLE : GONE);
+        binding.txtTitlebarTitle.setVisibility(isShowTitle ? VISIBLE : GONE);
+        binding.txtTitlebarCount.setVisibility(isShowCount ? VISIBLE : GONE);
+        binding.imgTitlebarLogo.setVisibility(isShowLogo ? VISIBLE : GONE);
+        binding.imgTitlebarBack.setVisibility(isShowBack ? VISIBLE : GONE);
+        binding.imgTitlebarHome.setVisibility(isShowHome ? VISIBLE : GONE);
+        binding.imgTitlebarSearchKeyword.setVisibility(isShowKeywordSearch ? VISIBLE : GONE);
+        binding.imgTitlebarSearchFilter.setVisibility(isShowFilterSearch ? VISIBLE : GONE);
+        binding.imgTitlebarShoppingbag.setVisibility(isShowShoppingBag ? VISIBLE : GONE);
+        binding.imgTitlebarSetting.setVisibility(isShowSetting ? VISIBLE : GONE);
+        binding.imgTitlebarClose.setVisibility(isShowClose ? VISIBLE : GONE);
+        binding.imgTitlebarWrite.setVisibility(isShowWrite ? VISIBLE : GONE);
+        binding.imgTitlebarShare.setVisibility(isShowShare ? VISIBLE : GONE);
 
-        titleTextView.setText(title);
-        countTextView.setText(StringUtil.toDigit(count));
+        binding.txtTitlebarTitle.setText(title);
+        binding.txtTitlebarCount.setText(StringUtil.toDigit(count));
+    }
+
+    private void setupAction() {
+        binding.imgTitlebarLogo.setOnClickListener(view -> onLogoClick());
+        binding.imgTitlebarBack.setOnClickListener(view -> onBackClick());
+        binding.imgTitlebarHome.setOnClickListener(view -> onHomeClick());
+        binding.imgTitlebarSearchKeyword.setOnClickListener(view -> onKeywordSearchClick());
+        binding.imgTitlebarSearchFilter.setOnClickListener(view -> onFilterSearchClick());
+        binding.imgTitlebarShoppingbag.setOnClickListener(view -> onShoppingBagClick());
+        binding.imgTitlebarSetting.setOnClickListener(view -> onSettingClick());
+        binding.imgTitlebarClose.setOnClickListener(view -> onCloseClick());
+        binding.imgTitlebarWrite.setOnClickListener(view -> onWriteClick());
+        binding.imgTitlebarShare.setOnClickListener(view -> onShareClick());
     }
 
     public void setShowTitle(boolean visible) {
@@ -201,32 +209,25 @@ public class TitleBar extends ConstraintLayout {
         updateUI();
     }
 
-    @OnClick(R.id.img_titlebar_back)
-    void onBackClick() {
+    private void onLogoClick() {
+    }
+
+    private void onBackClick() {
         if (activity != null) activity.finish();
     }
 
-    @OnClick(R.id.img_titlebar_home)
-    void onHomeClick() {
+    private void onHomeClick() {
         if (activity != null) MainActivity.start(activity, BottomBar.POSITION_MARKET);
     }
 
-    @OnClick(R.id.img_titlebar_logo)
-    void onLogoClick() {
+    private void onKeywordSearchClick() {
     }
 
-    @OnClick(R.id.img_titlebar_search_keyword)
-    void onKeywordSearchClick() {
-        //if (activity != null) SearchKeywordActivity.start(activity);
-    }
-
-    @OnClick(R.id.img_titlebar_search_filter)
-    void onFilterSearchClick() {
+    private void onFilterSearchClick() {
         if (activity != null) SearchFilterActivity.start(activity);
     }
 
-    @OnClick(R.id.img_titlebar_shoppingbag)
-    void onShoppingBagClick() {
+    private void onShoppingBagClick() {
         if (activity != null) {
             if (App.getInstance().isLogin()) {
                 ShoppingBagActivity.start(activity);
@@ -236,18 +237,15 @@ public class TitleBar extends ConstraintLayout {
         }
     }
 
-    @OnClick(R.id.img_titlebar_setting)
-    void onSettingClick() {
+    private void onSettingClick() {
         if (activity != null) SettingActivity.start(activity);
     }
 
-    @OnClick(R.id.img_titlebar_close)
-    void onCloseClick() {
+    private void onCloseClick() {
         if (activity != null) activity.finish();
     }
 
-    @OnClick(R.id.img_titlebar_write)
-    void onWriteClick() {
+    private void onWriteClick() {
         if (activity != null) {
             if (App.getInstance().isLogin()) {
                 QuestionWriteActivity.start(activity, productNo);
@@ -255,6 +253,9 @@ public class TitleBar extends ConstraintLayout {
                 LoginActivity.start(activity);
             }
         }
+    }
+
+    private void onShareClick() {
     }
 
     private Activity getActivity() {

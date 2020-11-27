@@ -7,11 +7,13 @@ import androidx.lifecycle.OnLifecycleEvent;
 public interface LookBookDetailPresenter extends LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    void onCreate();
+    void onCreateView();
 
     void onBackClick();
 
     interface View {
+
+        void setupTitleBar();
 
         void setupStyleRecyclerView();
 

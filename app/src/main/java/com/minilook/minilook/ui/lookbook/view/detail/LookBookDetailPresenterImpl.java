@@ -24,8 +24,9 @@ public class LookBookDetailPresenterImpl extends BasePresenterImpl implements Lo
         productAdapter = args.getProductAdapter();
     }
 
-    @Override public void onCreate() {
+    @Override public void onCreateView() {
         toRxObservable();
+        view.setupTitleBar();
         view.setupStyleRecyclerView();
         view.setupProductRecyclerView();
     }
@@ -36,6 +37,7 @@ public class LookBookDetailPresenterImpl extends BasePresenterImpl implements Lo
 
     private void setupData(LookBookModuleDataModel data) {
         view.scrollToTop();
+
         view.setupLabel(data.getLabel());
         view.setupTitle(data.getTitle());
         view.setupTag(data.getTag());
