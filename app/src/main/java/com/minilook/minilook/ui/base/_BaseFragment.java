@@ -19,38 +19,25 @@ import com.minilook.minilook.ui.base.listener.OnScrapListener;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 
-public abstract class BaseFragment extends Fragment implements OnLoginListener, OnScrapListener {
+public abstract class _BaseFragment extends Fragment implements OnLoginListener, OnScrapListener {
 
-    private final CompositeDisposable disposable = new CompositeDisposable();
+    private CompositeDisposable disposable = new CompositeDisposable();
+    private Unbinder binder;
 
     @Nullable @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
         @Nullable Bundle savedInstanceState) {
-        View view = getBindingView();
+        View view = inflater.inflate(getLayoutID(), container, false);
+        binder = ButterKnife.bind(this, view);
         createPresenter();
         toRxBusObservable();
         return view;
     }
 
     @Override public void onDestroyView() {
+        if (binder != null) binder.unbind();
         clearDisposable();
         super.onDestroyView();
-    }
-
-    protected abstract View getBindingView();
-
-    protected abstract void createPresenter();
-
-    protected void addDisposable(Disposable d) {
-        disposable.add(d);
-    }
-
-    protected void clearDisposable() {
-        disposable.clear();
-    }
-
-    protected CompositeDisposable getDisposable() {
-        return disposable;
     }
 
     private void toRxBusObservable() {
@@ -83,5 +70,21 @@ public abstract class BaseFragment extends Fragment implements OnLoginListener, 
     }
 
     @Override public void onBrandScrap(boolean isScrap, BrandDataModel brand) {
+    }
+
+    protected abstract int getLayoutID();
+
+    protected abstract void createPresenter();
+
+    protected void addDisposable(Disposable d) {
+        disposable.add(d);
+    }
+
+    protected void clearDisposable() {
+        disposable.clear();
+    }
+
+    protected CompositeDisposable getDisposable() {
+        return disposable;
     }
 }

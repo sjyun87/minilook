@@ -12,12 +12,12 @@ import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.base.BaseFragment;
+import com.minilook.minilook.ui.base._BaseFragment;
 import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
 import com.minilook.minilook.ui.scrapbook.view.brand.adapter.ScrapbookBrandAdapter;
 import com.minilook.minilook.ui.scrapbook.view.brand.di.ScrapbookBrandArguments;
 
-public class ScrapbookBrandFragment extends BaseFragment implements ScrapbookBrandPresenter.View {
+public class ScrapbookBrandFragment extends _BaseFragment implements ScrapbookBrandPresenter.View {
 
     public static ScrapbookBrandFragment newInstance() {
         return new ScrapbookBrandFragment();

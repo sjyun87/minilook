@@ -11,11 +11,11 @@ import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.base.BaseFragment;
+import com.minilook.minilook.ui.base._BaseFragment;
 import com.minilook.minilook.ui.category.adapter.CategoryAdapter;
 import com.minilook.minilook.ui.category.di.CategoryArguments;
 
-public class CategoryFragment extends BaseFragment implements CategoryPresenter.View {
+public class CategoryFragment extends _BaseFragment implements CategoryPresenter.View {
 
     public static CategoryFragment newInstance() {
         return new CategoryFragment();

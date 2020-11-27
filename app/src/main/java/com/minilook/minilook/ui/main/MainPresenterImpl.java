@@ -9,7 +9,6 @@ import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.lookbook.LookBookPresenterImpl;
 import com.minilook.minilook.ui.lookbook.view.detail.LookBookDetailPresenterImpl;
-import com.minilook.minilook.ui.lookbook.view.preview.viewholder.LookBookImageModuleVH;
 import com.minilook.minilook.ui.main.di.MainArguments;
 import com.pixplicity.easyprefs.library.Prefs;
 import java.util.Map;
@@ -143,9 +142,9 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
                 } else {
                     isLookBookReady = true;
                 }
-            } else if (o instanceof RxEventLookBookPrePageChanged) {
-                int position = ((RxEventLookBookPrePageChanged) o).getPosition();
-                view.setupBottomBarTheme(position != 0);
+            } else if (o instanceof RxEventChangeBottomBarTheme) {
+                boolean flag = ((RxEventChangeBottomBarTheme) o).isFlag();
+                view.setBottomBarTheme(flag);
             } else if (o instanceof RxEventNavigateToPage) {
                 int position = ((RxEventNavigateToPage) o).getPosition();
                 view.setupCurrentPage(position);
@@ -156,8 +155,8 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
     @AllArgsConstructor @Getter public final static class RxBusEventLookBookReady {
     }
 
-    @AllArgsConstructor @Getter public final static class RxEventLookBookPrePageChanged {
-        private final int position;
+    @AllArgsConstructor @Getter public final static class RxEventChangeBottomBarTheme {
+        private final boolean flag;
     }
 
     @AllArgsConstructor @Getter public final static class RxEventNavigateToPage {

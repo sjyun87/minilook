@@ -9,12 +9,12 @@ import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.base.BaseFragment;
+import com.minilook.minilook.ui.base._BaseFragment;
 import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.scrapbook.view.product.di.ScrapbookProductArguments;
 
-public class ScrapbookProductFragment extends BaseFragment implements ScrapbookProductPresenter.View {
+public class ScrapbookProductFragment extends _BaseFragment implements ScrapbookProductPresenter.View {
 
     public static ScrapbookProductFragment newInstance() {
         return new ScrapbookProductFragment();

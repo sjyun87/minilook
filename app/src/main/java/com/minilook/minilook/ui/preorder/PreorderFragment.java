@@ -8,7 +8,7 @@ import butterknife.BindString;
 import butterknife.BindView;
 import com.google.android.material.tabs.TabLayout;
 import com.minilook.minilook.R;
-import com.minilook.minilook.ui.base.BaseFragment;
+import com.minilook.minilook.ui.base._BaseFragment;
 import com.minilook.minilook.ui.base.widget.TabView;
 import com.minilook.minilook.ui.preorder.adapter.PreorderPagerAdapter;
 import com.minilook.minilook.ui.preorder.di.PreorderArguments;
@@ -17,7 +17,7 @@ import com.minilook.minilook.ui.preorder_info.PreorderInfoActivity;
 import com.minilook.minilook.data.firebase.DynamicLinkManager;
 import java.util.Objects;
 
-public class PreorderFragment extends BaseFragment implements PreorderPresenter.View {
+public class PreorderFragment extends _BaseFragment implements PreorderPresenter.View {
 
     public static PreorderFragment newInstance() {
         return new PreorderFragment();

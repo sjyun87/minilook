@@ -27,7 +27,7 @@ public interface MainPresenter extends LifecycleObserver {
 
         void setupBottomBar();
 
-        void setupBottomBarTheme(boolean flag);
+        void setBottomBarTheme(boolean flag);
 
         void showMarketingDialog();
 

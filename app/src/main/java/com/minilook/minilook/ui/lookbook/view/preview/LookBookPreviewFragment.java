@@ -5,11 +5,11 @@ import butterknife.BindView;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.lookbook.LookBookModuleDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.base.BaseFragment;
+import com.minilook.minilook.ui.base._BaseFragment;
 import com.minilook.minilook.ui.lookbook.view.preview.adapter.LookBookModuleAdapter;
 import com.minilook.minilook.ui.lookbook.view.preview.di.LookBookPreviewArguments;
 
-public class LookBookPreviewFragment extends BaseFragment implements LookBookPreviewPresenter.View {
+public class LookBookPreviewFragment extends _BaseFragment implements LookBookPreviewPresenter.View {
 
     public static LookBookPreviewFragment newInstance() {
         return new LookBookPreviewFragment();

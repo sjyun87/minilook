@@ -84,8 +84,8 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
         binding.bottombar.setOnTabChangeListener(presenter::onTabChanged);
     }
 
-    @Override public void setupBottomBarTheme(boolean flag) {
-        if (binding.bottombar.getCurrentPage() == BottomBar.POSITION_LOOKBOOK) binding.bottombar.setupWhiteTheme(flag);
+    @Override public void setBottomBarTheme(boolean flag) {
+        if (binding.bottombar.getCurrentPage() == BottomBar.POSITION_LOOKBOOK) binding.bottombar.setWhiteTheme(flag);
     }
 
     @Override public void showMarketingDialog() {

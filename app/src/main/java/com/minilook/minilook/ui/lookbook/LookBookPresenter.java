@@ -7,10 +7,13 @@ import androidx.lifecycle.OnLifecycleEvent;
 public interface LookBookPresenter extends LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    void onCreate();
+    void onCreateView();
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     void onResume();
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    void onDestroyView();
 
     void onPageSelected(int position);
 
@@ -21,5 +24,7 @@ public interface LookBookPresenter extends LifecycleObserver {
         void scrollToPreviewPage(boolean smoothScroll);
 
         void scrollToDetailPage(boolean smoothScroll);
+
+        void clear();
     }
 }

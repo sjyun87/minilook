@@ -10,12 +10,12 @@ import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.base.BaseFragment;
+import com.minilook.minilook.ui.base._BaseFragment;
 import com.minilook.minilook.ui.lookbook.view.detail.adapter.LookBookStyleAdapter;
 import com.minilook.minilook.ui.lookbook.view.detail.di.LookBookDetailArguments;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 
-public class LookBookDetailFragment extends BaseFragment implements LookBookDetailPresenter.View {
+public class LookBookDetailFragment extends _BaseFragment implements LookBookDetailPresenter.View {
 
     public static LookBookDetailFragment newInstance() {
         return new LookBookDetailFragment();
