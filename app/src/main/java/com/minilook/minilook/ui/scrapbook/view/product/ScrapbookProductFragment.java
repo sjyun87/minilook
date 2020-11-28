@@ -43,9 +43,9 @@ public class ScrapbookProductFragment extends _BaseFragment implements Scrapbook
             .build();
     }
 
-    @Override public void onProductScrap(boolean isScrap, ProductDataModel product) {
-        presenter.onProductScrap(isScrap, product);
-    }
+    //@Override public void onProductScrap(boolean isScrap, ProductDataModel product) {
+    //    presenter.onProductScrap(isScrap, product);
+    //}
 
     @Override public void setupRecyclerView() {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);

@@ -3,6 +3,7 @@ package com.minilook.minilook.ui.lookbook.view.preview;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
+import com.minilook.minilook.data.model.product.ProductDataModel;
 
 public interface LookBookPreviewPresenter extends LifecycleObserver {
 
@@ -15,6 +16,8 @@ public interface LookBookPreviewPresenter extends LifecycleObserver {
     void onPageSelected(int position);
 
     void onLoadMore();
+
+    void onProductScrap(ProductDataModel data);
 
     interface View {
 

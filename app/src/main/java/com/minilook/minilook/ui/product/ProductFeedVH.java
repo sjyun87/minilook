@@ -115,7 +115,7 @@ public class ProductFeedVH extends _BaseViewHolder<ProductDataModel> {
                 data.setScrapCount(data.getScrapCount() - 1);
             }
             setupScrap();
-            RxBus.send(new RxBusEvent.RxBusEventProductScrap(data.isScrap(), data));
+            //RxBus.send(new RxBusEvent.RxBusEventProductScrap(data.isScrap(), data));
         } else {
             LoginActivity.start(context);
         }

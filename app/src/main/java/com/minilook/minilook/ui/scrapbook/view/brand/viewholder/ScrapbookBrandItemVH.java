@@ -89,7 +89,7 @@ public class ScrapbookBrandItemVH extends _BaseViewHolder<BrandDataModel> {
     void onScrapClick() {
         if (App.getInstance().isLogin()) {
             data.setScrap(!data.isScrap());
-            RxBus.send(new RxBusEvent.RxBusEventBrandScrap(data.isScrap(), data));
+            //RxBus.send(new RxBusEvent.RxBusEventBrandScrap(data.isScrap(), data));
         } else {
             LoginActivity.start(context);
         }

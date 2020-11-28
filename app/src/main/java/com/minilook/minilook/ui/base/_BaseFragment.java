@@ -48,13 +48,13 @@ public abstract class _BaseFragment extends Fragment implements OnLoginListener,
                 } else if (o instanceof RxBusEvent.RxBusEventLogout) {
                     onLogout();
                 } else if (o instanceof RxBusEvent.RxBusEventProductScrap) {
-                    boolean isScrap = ((RxBusEvent.RxBusEventProductScrap) o).isScrap();
-                    ProductDataModel product = ((RxBusEvent.RxBusEventProductScrap) o).getProduct();
-                    onProductScrap(isScrap, product);
+                    //boolean isScrap = ((RxBusEvent.RxBusEventProductScrap) o).isScrap();
+                    //ProductDataModel product = ((RxBusEvent.RxBusEventProductScrap) o).getProduct();
+                    //onProductScrap(isScrap, product);
                 } else if (o instanceof RxBusEvent.RxBusEventBrandScrap) {
-                    boolean isScrap = ((RxBusEvent.RxBusEventBrandScrap) o).isScrap();
-                    BrandDataModel brand_id = ((RxBusEvent.RxBusEventBrandScrap) o).getBrand();
-                    onBrandScrap(isScrap, brand_id);
+                    //boolean isScrap = ((RxBusEvent.RxBusEventBrandScrap) o).isScrap();
+                    //BrandDataModel brand_id = ((RxBusEvent.RxBusEventBrandScrap) o).getBrand();
+                    //onBrandScrap(isScrap, brand_id);
                 }
             })
         );
@@ -66,10 +66,10 @@ public abstract class _BaseFragment extends Fragment implements OnLoginListener,
     @Override public void onLogout() {
     }
 
-    @Override public void onProductScrap(boolean isScrap, ProductDataModel product) {
+    @Override public void onProductScrap(ProductDataModel data) {
     }
 
-    @Override public void onBrandScrap(boolean isScrap, BrandDataModel brand) {
+    @Override public void onBrandScrap(BrandDataModel data) {
     }
 
     protected abstract int getLayoutID();

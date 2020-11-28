@@ -50,9 +50,9 @@ public class ScrapbookBrandFragment extends _BaseFragment implements ScrapbookBr
             .build();
     }
 
-    @Override public void onBrandScrap(boolean isScrap, BrandDataModel brand) {
-        presenter.onBrandScrap(isScrap, brand);
-    }
+    //@Override public void onBrandScrap(boolean isScrap, BrandDataModel brand) {
+    //    presenter.onBrandScrap(isScrap, brand);
+    //}
 
     @Override public void setupRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());

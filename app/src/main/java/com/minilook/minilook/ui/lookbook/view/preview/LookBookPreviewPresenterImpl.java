@@ -5,11 +5,13 @@ import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.lookbook.LookBookDataModel;
 import com.minilook.minilook.data.model.lookbook.LookBookModuleDataModel;
+import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.network.lookbook.LookBookRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
+import com.minilook.minilook.ui.lookbook.view.detail.LookBookDetailPresenterImpl;
 import com.minilook.minilook.ui.lookbook.view.preview.di.LookBookPreviewArguments;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,7 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
     private List<LookBookModuleDataModel> dataPool;
 
     private final List<Integer> usedLookbooks = new ArrayList<>();
+    private int currentPosition = 0;
 
     public LookBookPreviewPresenterImpl(LookBookPreviewArguments args) {
         view = args.getView();
@@ -49,11 +52,16 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
     }
 
     @Override public void onPageSelected(int position) {
+        currentPosition = position;
         RxBus.send(new RxEventLookBookModuleChanged(adapter.get(position)));
     }
 
     @Override public void onLoadMore() {
         if (dataPool.size() > 0) setupLoadMoreData();
+    }
+
+    @Override public void onProductScrap(ProductDataModel data) {
+        replaceData(data);
     }
 
     private void setupLoadMoreData() {
@@ -112,6 +120,22 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
     private void addUsedData(List<LookBookModuleDataModel> lookbooks) {
         for (LookBookModuleDataModel model : lookbooks) {
             usedLookbooks.add(model.getLookbookNo());
+        }
+    }
+
+    private void replaceData(ProductDataModel data) {
+        for (int i = 0; i < adapter.getSize(); i++) {
+            for (ProductDataModel product : adapter.get(i).getProducts()) {
+                if (product.getProductNo() == data.getProductNo()) {
+                    product.setScrap(data.isScrap());
+                    product.setScrapCount(data.getScrapCount());
+                    product.setReviewCount(data.getReviewCount());
+
+                    if (i == currentPosition) {
+                        RxBus.send(new LookBookDetailPresenterImpl.RxEventLookBookDetailUpdateScrap(adapter.get(i)));
+                    }
+                }
+            }
         }
     }
 

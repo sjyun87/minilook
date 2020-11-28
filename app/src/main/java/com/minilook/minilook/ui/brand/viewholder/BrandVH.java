@@ -74,6 +74,6 @@ public class BrandVH extends _BaseViewHolder<BrandDataModel> {
     void onScrapClick() {
         data.setScrap(!data.isScrap());
         setupScrapImage(data.isScrap());
-        RxBus.send(new RxBusEvent.RxBusEventBrandScrap(data.isScrap(), data));
+        //RxBus.send(new RxBusEvent.RxBusEventBrandScrap(data.isScrap(), data));
     }
 }

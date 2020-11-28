@@ -109,7 +109,7 @@ public class LookBookProductVH extends BaseViewHolder<ProductDataModel> {
                 data.setScrapCount(data.getScrapCount() - 1);
             }
             setupScrap();
-            RxBus.send(new MainPresenterImpl.RxBusEventUpdateProductScrap(data.isScrap(), data));
+            RxBus.send(new MainPresenterImpl.RxBusEventUpdateProductScrap(data));
         } else {
             LoginActivity.start(context);
         }

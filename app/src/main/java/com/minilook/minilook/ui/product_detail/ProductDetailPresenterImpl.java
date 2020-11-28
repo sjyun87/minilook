@@ -24,6 +24,7 @@ import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
+import com.minilook.minilook.ui.main.MainPresenterImpl;
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
 import com.minilook.minilook.ui.question_write.QuestionWritePresenterImpl;
 import com.minilook.minilook.ui.review.ReviewPresenterImpl;
@@ -111,8 +112,13 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     @Override public void onScrapClick() {
         if (App.getInstance().isLogin()) {
             data.setScrap(!data.isScrap());
+            if (data.isScrap()) {
+                data.setScrapCount(data.getScrapCount() + 1);
+            } else {
+                data.setScrapCount(data.getScrapCount() - 1);
+            }
             setupScrap();
-            reqScrap();
+            RxBus.send(new MainPresenterImpl.RxBusEventUpdateProductScrap(data));
         } else {
             view.navigateToLogin();
         }

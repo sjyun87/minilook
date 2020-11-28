@@ -139,22 +139,22 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
         checkAction(++step);
     }
 
-    private void updateProductScrap(boolean isScrap, ProductDataModel data) {
-        addDisposable(scrapRequest.updateProductScrap(isScrap, data.getProductNo())
-            .subscribe(model -> onResUpdateProductScrap(isScrap, data), Timber::e));
+    private void updateProductScrap(ProductDataModel data) {
+        addDisposable(scrapRequest.updateProductScrap(data.isScrap(), data.getProductNo())
+            .subscribe(model -> onResUpdateProductScrap(data), Timber::e));
     }
 
-    private void onResUpdateProductScrap(boolean isScrap, ProductDataModel data) {
-        RxBus.send(new RxBusEvent.RxBusEventProductScrap(isScrap, data));
+    private void onResUpdateProductScrap(ProductDataModel data) {
+        RxBus.send(new RxBusEvent.RxBusEventProductScrap(data));
     }
 
-    private void updateBrandScrap(boolean isScrap, BrandDataModel data) {
-        addDisposable(scrapRequest.updateBrandScrap(isScrap, data.getBrandNo())
-            .subscribe(model -> onResUpdateBrandScrap(isScrap, data), Timber::e));
+    private void updateBrandScrap(BrandDataModel data) {
+        addDisposable(scrapRequest.updateBrandScrap(data.isScrap(), data.getBrandNo())
+            .subscribe(model -> onResUpdateBrandScrap(data), Timber::e));
     }
 
-    private void onResUpdateBrandScrap(boolean isScrap, BrandDataModel data) {
-        RxBus.send(new RxBusEvent.RxBusEventBrandScrap(isScrap, data));
+    private void onResUpdateBrandScrap(BrandDataModel data) {
+        RxBus.send(new RxBusEvent.RxBusEventBrandScrap(data));
     }
 
     private void toRxObservable() {
@@ -174,13 +174,11 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
                 int position = ((RxEventNavigateToPage) o).getPosition();
                 view.setupCurrentPage(position);
             } else if (o instanceof RxBusEventUpdateProductScrap) {
-                boolean isScrap = ((RxBusEventUpdateProductScrap) o).isScrap;
                 ProductDataModel data = ((RxBusEventUpdateProductScrap) o).getData();
-                updateProductScrap(isScrap, data);
+                updateProductScrap(data);
             } else if (o instanceof RxBusEventUpdateBrandScrap) {
-                boolean isScrap = ((RxBusEventUpdateBrandScrap) o).isScrap;
                 BrandDataModel data = ((RxBusEventUpdateBrandScrap) o).getData();
-                updateBrandScrap(isScrap, data);
+                updateBrandScrap(data);
             }
         }, Timber::e));
     }
@@ -197,12 +195,10 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
     }
 
     @AllArgsConstructor @Getter public final static class RxBusEventUpdateProductScrap {
-        private final boolean isScrap;
         private final ProductDataModel data;
     }
 
     @AllArgsConstructor @Getter public final static class RxBusEventUpdateBrandScrap {
-        private final boolean isScrap;
         private final BrandDataModel data;
     }
 }

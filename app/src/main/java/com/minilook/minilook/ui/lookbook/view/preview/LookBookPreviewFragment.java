@@ -4,6 +4,7 @@ import android.view.View;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 import com.minilook.minilook.data.model.lookbook.LookBookModuleDataModel;
+import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.databinding.FragmentLookbookPreviewBinding;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseFragment;
@@ -41,6 +42,10 @@ public class LookBookPreviewFragment extends BaseFragment implements LookBookPre
             .view(this)
             .adapter(adapter)
             .build();
+    }
+
+    @Override public void onProductScrap(ProductDataModel data) {
+        presenter.onProductScrap(data);
     }
 
     @Override public void setupViewPager() {

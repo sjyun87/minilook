@@ -5,7 +5,7 @@ import com.minilook.minilook.data.model.product.ProductDataModel;
 
 public interface OnScrapListener {
 
-    void onProductScrap(boolean isScrap, ProductDataModel product);
+    void onProductScrap(ProductDataModel data);
 
-    void onBrandScrap(boolean isScrap, BrandDataModel brand);
+    void onBrandScrap(BrandDataModel data);
 }

@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
@@ -61,13 +59,11 @@ public abstract class BaseFragment extends Fragment implements OnLoginListener, 
                 } else if (o instanceof RxBusEvent.RxBusEventLogout) {
                     onLogout();
                 } else if (o instanceof RxBusEvent.RxBusEventProductScrap) {
-                    boolean isScrap = ((RxBusEvent.RxBusEventProductScrap) o).isScrap();
-                    ProductDataModel product = ((RxBusEvent.RxBusEventProductScrap) o).getProduct();
-                    onProductScrap(isScrap, product);
+                    ProductDataModel data = ((RxBusEvent.RxBusEventProductScrap) o).getData();
+                    onProductScrap(data);
                 } else if (o instanceof RxBusEvent.RxBusEventBrandScrap) {
-                    boolean isScrap = ((RxBusEvent.RxBusEventBrandScrap) o).isScrap();
-                    BrandDataModel brand_id = ((RxBusEvent.RxBusEventBrandScrap) o).getBrand();
-                    onBrandScrap(isScrap, brand_id);
+                    BrandDataModel data = ((RxBusEvent.RxBusEventBrandScrap) o).getData();
+                    onBrandScrap(data);
                 }
             })
         );
@@ -79,9 +75,9 @@ public abstract class BaseFragment extends Fragment implements OnLoginListener, 
     @Override public void onLogout() {
     }
 
-    @Override public void onProductScrap(boolean isScrap, ProductDataModel product) {
+    @Override public void onProductScrap(ProductDataModel data) {
     }
 
-    @Override public void onBrandScrap(boolean isScrap, BrandDataModel brand) {
+    @Override public void onBrandScrap(BrandDataModel data) {
     }
 }
