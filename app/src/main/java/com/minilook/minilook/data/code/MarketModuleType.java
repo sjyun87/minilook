@@ -16,8 +16,8 @@ import lombok.Getter;
     TYPE_EVENT(10, "EVENT"),
     TYPE_DAY(11, "DAY");
 
-    private int type;
-    private String value;
+    private final int type;
+    private final String value;
 
     public static int toModuleType(String $value) {
         for (MarketModuleType moduleType : MarketModuleType.values()) {

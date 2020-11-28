@@ -8,13 +8,4 @@ import lombok.Getter;
     //TYPE_VIDEO(1),
 
     private final int value;
-
-    public static LookBookModuleType toType(int $value) {
-        for (LookBookModuleType type : LookBookModuleType.values()) {
-            if (type.value == $value) {
-                return type;
-            }
-        }
-        return null;
-    }
 }

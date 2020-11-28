@@ -8,7 +8,7 @@ import lombok.Getter;
     EVENT("event"),
     PRODUCT("product");
 
-    private String value;
+    private final String value;
 
     public static CommercialType toType(String $value) {
         for (CommercialType type : CommercialType.values()) {

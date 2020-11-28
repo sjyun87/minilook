@@ -10,7 +10,7 @@ public class CategoryRequest extends BaseRequest<CategoryService> {
         return CategoryService.class;
     }
 
-    public Single<BaseDataModel> getCategoryList() {
-        return getApi().getCategoryList();
+    public Single<BaseDataModel> getCategories() {
+        return getApi().getCategories();
     }
 }

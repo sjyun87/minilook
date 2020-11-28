@@ -95,7 +95,7 @@ public abstract class BaseRequest<T> {
     }
 
     protected RequestBody createRequestBody(String json) {
-        return RequestBody.create(MediaType.parse("application/json"), json);
+        return RequestBody.create(json, MediaType.parse("application/json"));
     }
 
     @AllArgsConstructor @Getter protected enum EndPoint {

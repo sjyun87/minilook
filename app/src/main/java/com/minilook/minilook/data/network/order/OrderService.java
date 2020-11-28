@@ -13,27 +13,27 @@ import retrofit2.http.Query;
 
 public interface OrderService {
 
-    @GET("/api/members/{user_id}/carts") Single<BaseDataModel> getShoppingBag(
-        @Path("user_id") int user_id
+    @GET("/api/members/{memberNo}/carts") Single<BaseDataModel> getShoppingBag(
+        @Path("memberNo") int memberNo
     );
 
-    @POST("/api/members/{user_id}/carts") Single<BaseDataModel> addShoppingBag(
-        @Path("user_id") int user_id,
+    @POST("/api/members/{memberNo}/carts") Single<BaseDataModel> addShoppingBag(
+        @Path("memberNo") int memberNo,
         @Body RequestBody requestBody
     );
 
-    @PUT("/api/members/{user_id}/carts/{goods_id}") Single<BaseDataModel> updateGoodsQuantity(
-        @Path("user_id") int user_id,
-        @Path("goods_id") int goods_id,
+    @PUT("/api/members/{memberNo}/carts/{goodsNo}") Single<BaseDataModel> updateGoodsQuantity(
+        @Path("memberNo") int memberNo,
+        @Path("goodsNo") int goodsNo,
         @Body RequestBody requestBody);
 
-    @HTTP(method = "DELETE", path = "/api/members/{user_id}/carts", hasBody = true)
+    @HTTP(method = "DELETE", path = "/api/members/{memberNo}/carts", hasBody = true)
     Single<BaseDataModel> deleteShoppingBag(
-        @Path("user_id") int user_id,
+        @Path("memberNo") int memberNo,
         @Body RequestBody requestBody);
 
     @GET("/api/orders/sheet") Single<BaseDataModel> getOrderSheet(
-        @Query("memberNo") int user_id
+        @Query("memberNo") int memberNo
     );
 
     @POST("/api/orders/safetystocks") Single<BaseDataModel> setSafetyStock(

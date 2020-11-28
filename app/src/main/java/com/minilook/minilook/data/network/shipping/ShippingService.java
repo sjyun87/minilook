@@ -12,27 +12,27 @@ import retrofit2.http.Path;
 
 public interface ShippingService {
 
-    @GET("/api/members/{user_id}/addresses") Single<BaseDataModel> getShippings(
-        @Path("user_id") int user_id
+    @GET("/api/members/{memberNo}/addresses") Single<BaseDataModel> getShippings(
+        @Path("memberNo") int memberNo
     );
 
-    @DELETE("/api/members/{user_id}/addresses/{address_id}") Single<BaseDataModel> deleteShipping(
-        @Path("user_id") int user_id,
-        @Path("address_id") int address_id
+    @DELETE("/api/members/{memberNo}/addresses/{addressNo}") Single<BaseDataModel> deleteShipping(
+        @Path("memberNo") int memberNo,
+        @Path("addressNo") int addressNo
     );
 
-    @PUT("/api/members/{user_id}/addresses/{address_id}") Single<BaseDataModel> updateShipping(
-        @Path("user_id") int user_id,
-        @Path("address_id") int address_id,
+    @PUT("/api/members/{memberNo}/addresses/{addressNo}") Single<BaseDataModel> updateShipping(
+        @Path("memberNo") int memberNo,
+        @Path("addressNo") int addressNo,
         @Body RequestBody body
     );
 
-    @POST("/api/members/{user_id}/addresses") Single<BaseDataModel> addShipping(
-        @Path("user_id") int user_id,
+    @POST("/api/members/{memberNo}/addresses") Single<BaseDataModel> addShipping(
+        @Path("memberNo") int memberNo,
         @Body RequestBody body
     );
 
-    @GET("/api/shipping/addresses/{address_id}/islands") Single<BaseDataModel> checkIsland(
-        @Path("address_id") int address_id
+    @GET("/api/shipping/addresses/{addressNo}/islands") Single<BaseDataModel> checkIsland(
+        @Path("addressNo") int addressNo
     );
 }

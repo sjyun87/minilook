@@ -16,9 +16,9 @@ public interface LoginService {
         @Body RequestBody body
     );
 
-    @HTTP(method = "DELETE", path = "/api/members/{user_id}", hasBody = true)
+    @HTTP(method = "DELETE", path = "/api/members/{memberNo}")
     Single<BaseDataModel> leave(
-        @Path("user_id") int user_id
+        @Path("memberNo") int memberNo
     );
 
     @PUT("/api/members") Single<BaseDataModel> login(

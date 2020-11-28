@@ -6,5 +6,5 @@ import retrofit2.http.GET;
 
 public interface CategoryService {
 
-    @GET("/api/commons/categories") Single<BaseDataModel> getCategoryList();
+    @GET("/api/commons/categories") Single<BaseDataModel> getCategories();
 }

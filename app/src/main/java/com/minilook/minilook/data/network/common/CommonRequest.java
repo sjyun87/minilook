@@ -7,6 +7,7 @@ import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
 import java.util.HashMap;
 import java.util.Map;
+import okhttp3.RequestBody;
 
 public class CommonRequest extends BaseRequest<CommonService> {
 
@@ -15,14 +16,14 @@ public class CommonRequest extends BaseRequest<CommonService> {
     }
 
     public Single<BaseDataModel> checkVersion() {
-        return getApi().checkVersion(createRequestBody(getVersionData()));
+        return getApi().checkVersion(createCheckVersionData());
     }
 
-    private Map<String, Object> getVersionData() {
+    private RequestBody createCheckVersionData() {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("appName", "minilook-a");
         jsonMap.put("appVersion", BuildConfig.VERSION_NAME);
-        return jsonMap;
+        return createRequestBody(jsonMap);
     }
 
     public Single<BaseDataModel> getSortCode() {
@@ -30,13 +31,13 @@ public class CommonRequest extends BaseRequest<CommonService> {
     }
 
     public Single<BaseDataModel> updateToken(String token) {
-        return getApi().updateToken(createRequestBody(getPushTokenData(token)));
+        return getApi().updateToken(createUpdateTokenData(token));
     }
 
-    private Map<String, Object> getPushTokenData(String token) {
+    private RequestBody createUpdateTokenData(String token) {
         Map<String, Object> jsonMap = new HashMap<>();
         if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("pushToken", token);
-        return jsonMap;
+        return createRequestBody(jsonMap);
     }
 }

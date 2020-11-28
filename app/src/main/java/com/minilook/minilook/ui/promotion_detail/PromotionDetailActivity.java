@@ -146,7 +146,7 @@ public class PromotionDetailActivity extends _BaseActivity implements PromotionD
         totalTextView.setText(SpannableUtil.fontSpan(total, bold, font_bold));
     }
 
-    @OnClick(R.id.img_share)
+    @OnClick(R.id.img_titlebar_share)
     void onShareClick() {
         presenter.onShareClick();
     }

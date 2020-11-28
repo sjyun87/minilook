@@ -7,6 +7,7 @@ import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
 import java.util.HashMap;
 import java.util.Map;
+import okhttp3.RequestBody;
 
 public class ShippingRequest extends BaseRequest<ShippingService> {
 
@@ -15,26 +16,26 @@ public class ShippingRequest extends BaseRequest<ShippingService> {
     }
 
     public Single<BaseDataModel> getShippings() {
-        int user_id = App.getInstance().getMemberNo();
-        return getApi().getShippings(user_id);
+        int memberNo = App.getInstance().getMemberNo();
+        return getApi().getShippings(memberNo);
     }
 
-    public Single<BaseDataModel> deleteShipping(int address_id) {
-        int user_id = App.getInstance().getMemberNo();
-        return getApi().deleteShipping(user_id, address_id);
+    public Single<BaseDataModel> deleteShipping(int addressNo) {
+        int memberNo = App.getInstance().getMemberNo();
+        return getApi().deleteShipping(memberNo, addressNo);
     }
 
     public Single<BaseDataModel> updateShipping(ShippingDataModel model) {
-        int user_id = App.getInstance().getMemberNo();
-        return getApi().updateShipping(user_id, model.getAddressNo(), createRequestBody(parseToJson(model)));
+        int memberNo = App.getInstance().getMemberNo();
+        return getApi().updateShipping(memberNo, model.getAddressNo(), createShippingData(model));
     }
 
     public Single<BaseDataModel> addShipping(ShippingDataModel model) {
-        int user_id = App.getInstance().getMemberNo();
-        return getApi().addShipping(user_id, createRequestBody(parseToJson(model)));
+        int memberNo = App.getInstance().getMemberNo();
+        return getApi().addShipping(memberNo, createShippingData(model));
     }
 
-    private Map<String, Object> parseToJson(ShippingDataModel model) {
+    private RequestBody createShippingData(ShippingDataModel model) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("isDefault", model.isDefault());
         jsonMap.put("name", model.getName());
@@ -42,10 +43,10 @@ public class ShippingRequest extends BaseRequest<ShippingService> {
         jsonMap.put("zipcode", model.getZipcode());
         jsonMap.put("address1", model.getAddress());
         jsonMap.put("address2", model.getAddressDetail());
-        return jsonMap;
+        return createRequestBody(jsonMap);
     }
 
-    public Single<BaseDataModel> checkIsland(int address_id) {
-        return getApi().checkIsland(address_id);
+    public Single<BaseDataModel> checkIsland(int addressNo) {
+        return getApi().checkIsland(addressNo);
     }
 }

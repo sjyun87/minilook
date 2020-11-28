@@ -98,7 +98,6 @@ public class SettingPresenterImpl extends BasePresenterImpl implements SettingPr
         addDisposable(memberRequest.getInfoStatus()
             .compose(Transformer.applySchedulers())
             .filter(data -> {
-                Timber.e(data.toString());
                 String code = data.getCode();
                 if (code.equals(HttpCode.NO_DATA)) {
                     view.setupOrderInfoSwitchButton();

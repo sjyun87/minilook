@@ -14,7 +14,7 @@ public interface SearchService {
         @Body RequestBody requestBody
     );
 
-    @GET("/api/commons/filters/options/{category_code}") Single<BaseDataModel> getFilterOptions(
-        @Path("category_code") String code
+    @GET("/api/commons/filters/options/{categoryCode}") Single<BaseDataModel> getFilterOptions(
+        @Path("categoryCode") String code
     );
 }

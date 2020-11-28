@@ -15,14 +15,10 @@ public class SearchRequest extends BaseRequest<SearchService> {
     }
 
     public Single<BaseDataModel> getProducts(int page, int rows, SearchOptionDataModel options) {
-        return getApi().getProducts(createRequestBody(parseToJson(page, rows, options)));
+        return getApi().getProducts(createRequestBody(createGetProductsData(page, rows, options)));
     }
 
-    public Single<BaseDataModel> getFilterOptions(String category_code) {
-        return getApi().getFilterOptions(category_code);
-    }
-
-    private Map<String, Object> parseToJson(int page, int rows, SearchOptionDataModel options) {
+    private Map<String, Object> createGetProductsData(int page, int rows, SearchOptionDataModel options) {
         Map<String, Object> jsonMap = new HashMap<>();
         if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("current", page);
@@ -47,5 +43,9 @@ public class SearchRequest extends BaseRequest<SearchService> {
         jsonMap.put("discount", options.isDiscount());
         jsonMap.put("outOfStock", options.isStock());
         return jsonMap;
+    }
+
+    public Single<BaseDataModel> getFilterOptions(String categoryCode) {
+        return getApi().getFilterOptions(categoryCode);
     }
 }

@@ -7,5 +7,5 @@ import lombok.Getter;
     KAKAO("KAKAO"),
     NAVER("NAVER");
 
-    private String value;
+    private final String value;
 }

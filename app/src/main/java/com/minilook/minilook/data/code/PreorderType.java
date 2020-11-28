@@ -8,5 +8,5 @@ import lombok.Getter;
     ING(1),         // 진행중
     WILL(2);        // 진행예정
 
-    private int value;
+    private final int value;
 }

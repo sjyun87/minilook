@@ -10,13 +10,13 @@ import retrofit2.http.Path;
 
 public interface ScrapService {
 
-    @POST("/api/members/{user_id}/scrabs/products") Single<BaseDataModel> getScrapProducts(
-        @Path("user_id") int user_id,
+    @POST("/api/members/{memberNo}/scrabs/products") Single<BaseDataModel> getScrapProducts(
+        @Path("memberNo") int memberNo,
         @Body RequestBody body
     );
 
-    @POST("/api/members/{user_id}/scrabs/brands") Single<BaseDataModel> getScrapBrands(
-        @Path("user_id") int user_id,
+    @POST("/api/members/{memberNo}/scrabs/brands") Single<BaseDataModel> getScrapBrands(
+        @Path("memberNo") int memberNo,
         @Body RequestBody body
     );
 

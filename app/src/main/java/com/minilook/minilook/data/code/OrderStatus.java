@@ -20,8 +20,8 @@ import lombok.Getter;
     PREORDER(16, "주문제작중"),
     ERROR(-1, "");
 
-    private int code;
-    private String name;
+    private final int code;
+    private final String name;
 
     public static OrderStatus toStatus(int $value) {
         for (OrderStatus status : OrderStatus.values()) {

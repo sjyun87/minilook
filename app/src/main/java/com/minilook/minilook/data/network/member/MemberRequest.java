@@ -6,6 +6,7 @@ import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
 import java.util.HashMap;
 import java.util.Map;
+import okhttp3.RequestBody;
 
 public class MemberRequest extends BaseRequest<MemberService> {
 
@@ -14,70 +15,70 @@ public class MemberRequest extends BaseRequest<MemberService> {
     }
 
     public Single<BaseDataModel> getProfile() {
-        int user_id = App.getInstance().getMemberNo();
-        return getApi().getProfile(user_id);
+        int memberNo = App.getInstance().getMemberNo();
+        return getApi().getProfile(memberNo);
     }
 
     public Single<BaseDataModel> updateNick(String nick) {
-        int user_id = App.getInstance().getMemberNo();
-        return getApi().updateNick(user_id, createRequestBody(parseToUpdateNick(nick)));
+        int memberNo = App.getInstance().getMemberNo();
+        return getApi().updateNick(memberNo, createUpdateNickData(nick));
     }
 
-    private Map<String, Object> parseToUpdateNick(String nick) {
+    private RequestBody createUpdateNickData(String nick) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("nickname", nick);
-        return jsonMap;
+        return createRequestBody(jsonMap);
     }
 
     public Single<BaseDataModel> updatePhone(String phone, String name, String ci) {
-        int user_id = App.getInstance().getMemberNo();
-        return getApi().updatePhone(user_id, createRequestBody(parseToUpdatePhoneJson(phone, name, ci)));
+        int memberNo = App.getInstance().getMemberNo();
+        return getApi().updatePhone(memberNo, createUpdatePhoneData(phone, name, ci));
     }
 
-    private Map<String, Object> parseToUpdatePhoneJson(String phone, String name, String ci) {
+    private RequestBody createUpdatePhoneData(String phone, String name, String ci) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("ci", ci);
         jsonMap.put("phone", phone);
         jsonMap.put("name", name);
-        return jsonMap;
+        return createRequestBody(jsonMap);
     }
 
     public Single<BaseDataModel> getInfoStatus() {
         if (App.getInstance().isLogin()) {
-            int user_id = App.getInstance().getMemberNo();
-            return getApi().getInfoStatus(user_id, createRequestBody(parseToInfoJson()));
+            int memberNo = App.getInstance().getMemberNo();
+            return getApi().getInfoStatus(memberNo, createInfoData());
         } else {
-            return getApi().getInfoStatus(createRequestBody(parseToInfoJson()));
+            return getApi().getInfoStatus(createInfoData());
         }
     }
 
-    private Map<String, Object> parseToInfoJson() {
+    private RequestBody createInfoData() {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("pushToken", App.getInstance().getPushToken());
-        return jsonMap;
+        return createRequestBody(jsonMap);
     }
 
     public Single<BaseDataModel> updateOrderInfo(boolean enable) {
-        int user_id = App.getInstance().getMemberNo();
-        return getApi().updateOrderInfo(user_id, createRequestBody(parseToOrderInfoJson(enable)));
+        int memberNo = App.getInstance().getMemberNo();
+        return getApi().updateOrderInfo(memberNo, createOrderInfoData(enable));
     }
 
-    private Map<String, Object> parseToOrderInfoJson(boolean enable) {
+    private RequestBody createOrderInfoData(boolean enable) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("isInformationAgree", enable);
-        return jsonMap;
+        return createRequestBody(jsonMap);
     }
 
     public Single<BaseDataModel> updateMarketingInfo(boolean enable) {
         if (App.getInstance().isLogin()) {
             int memberNo = App.getInstance().getMemberNo();
-            return getApi().updateMarketingInfo(memberNo, createRequestBody(getMarketingData(enable)));
+            return getApi().updateMarketingInfo(memberNo, createRequestBody(createMarketingData(enable)));
         } else {
-            return getApi().updateMarketingInfo(createRequestBody(getMarketingData(enable)));
+            return getApi().updateMarketingInfo(createRequestBody(createMarketingData(enable)));
         }
     }
 
-    private Map<String, Object> getMarketingData(boolean enable) {
+    private Map<String, Object> createMarketingData(boolean enable) {
         Map<String, Object> jsonMap = new HashMap<>();
         if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("pushToken", App.getInstance().getPushToken());

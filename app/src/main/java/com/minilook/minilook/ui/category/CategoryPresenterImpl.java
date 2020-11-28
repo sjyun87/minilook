@@ -47,7 +47,7 @@ public class CategoryPresenterImpl extends BasePresenterImpl implements Category
 
     private void reqCategory() {
         addDisposable(
-            categoryRequest.getCategoryList()
+            categoryRequest.getCategories()
                 .compose(Transformer.applySchedulers())
                 .filter(data -> data.getCode().equals(HttpCode.OK))
                 .map((Function<BaseDataModel, List<CodeDataModel>>)

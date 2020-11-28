@@ -7,6 +7,7 @@ import io.reactivex.rxjava3.core.Single;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import okhttp3.RequestBody;
 
 public class LookBookRequest extends BaseRequest<LookBookService> {
 
@@ -15,14 +16,14 @@ public class LookBookRequest extends BaseRequest<LookBookService> {
     }
 
     public Single<BaseDataModel> getLookbookModules(int rows, List<Integer> usedItems) {
-        return getApi().getLookBookModule(createRequestBody(parseToJson(rows, usedItems)));
+        return getApi().getLookBookModule(createLookBookModulesData(rows, usedItems));
     }
 
-    private Map<String, Object> parseToJson(int rows, List<Integer> usedItems) {
+    private RequestBody createLookBookModulesData(int rows, List<Integer> usedItems) {
         Map<String, Object> jsonMap = new HashMap<>();
         if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("pageSize", rows);
         jsonMap.put("usedLookbooks", usedItems);
-        return jsonMap;
+        return createRequestBody(jsonMap);
     }
 }

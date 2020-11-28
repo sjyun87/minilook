@@ -5,6 +5,7 @@ import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
 import java.util.HashMap;
 import java.util.Map;
+import okhttp3.RequestBody;
 
 public class EventRequest extends BaseRequest<EventService> {
 
@@ -12,19 +13,19 @@ public class EventRequest extends BaseRequest<EventService> {
         return EventService.class;
     }
 
-    public Single<BaseDataModel> getEventDetail(int event_id) {
-        return getApi().getEventDetail(event_id, createRequestBody(new HashMap<>()));
+    public Single<BaseDataModel> getEventDetail(int eventNo) {
+        return getApi().getEventDetail(eventNo, createRequestBody(new HashMap<>()));
     }
 
-    public Single<BaseDataModel> getEvents(int event_id, int latest_id, int rows) {
-        return getApi().getEvents(createRequestBody(parseToJson(event_id, latest_id, rows)));
+    public Single<BaseDataModel> getEvents(int eventNo, int lastEventNo, int rows) {
+        return getApi().getEvents(createRequestBody(parseToJson(eventNo, lastEventNo, rows)));
     }
 
-    private Map<String, Object> parseToJson(int event_id, int latest_id, int rows) {
+    private Map<String, Object> parseToJson(int eventNo, int lastEventNo, int rows) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("pageSize", rows);
-        jsonMap.put("pageEventNo", latest_id);
-        jsonMap.put("eventNo", event_id);
+        jsonMap.put("pageEventNo", lastEventNo);
+        jsonMap.put("eventNo", eventNo);
         return jsonMap;
     }
 }

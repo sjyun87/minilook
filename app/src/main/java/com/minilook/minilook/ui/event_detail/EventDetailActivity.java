@@ -104,7 +104,7 @@ public class EventDetailActivity extends _BaseActivity implements EventDetailPre
             .into(eventImageView);
     }
 
-    @OnClick(R.id.img_share)
+    @OnClick(R.id.img_titlebar_share)
     void onShareClick() {
         presenter.onShareClick();
     }

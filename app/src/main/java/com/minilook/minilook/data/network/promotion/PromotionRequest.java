@@ -6,6 +6,7 @@ import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
 import java.util.HashMap;
 import java.util.Map;
+import okhttp3.RequestBody;
 
 public class PromotionRequest extends BaseRequest<PromotionService> {
 
@@ -13,28 +14,27 @@ public class PromotionRequest extends BaseRequest<PromotionService> {
         return PromotionService.class;
     }
 
-    public Single<BaseDataModel> getPromotionDetail(int promotion_id) {
-        return getApi().getPromotionDetail(promotion_id,
-            createRequestBody(parseToPromotionJson(promotion_id)));
+    public Single<BaseDataModel> getPromotionDetail(int promotionNo) {
+        return getApi().getPromotionDetail(promotionNo, createPromotionDetailData(promotionNo));
     }
 
-    private Map<String, Object> parseToPromotionJson(int promotion_id) {
+    private RequestBody createPromotionDetailData(int promotionNo) {
         Map<String, Object> jsonMap = new HashMap<>();
         if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("pageSize", 0);
-        jsonMap.put("promotionNo", promotion_id);
-        return jsonMap;
+        jsonMap.put("promotionNo", promotionNo);
+        return createRequestBody(jsonMap);
     }
 
-    public Single<BaseDataModel> getPromotions(int promotion_id, int rows, int latestPromotionId) {
-        return getApi().getPromotions(createRequestBody(parseToTogetherJson(promotion_id, rows, latestPromotionId)));
+    public Single<BaseDataModel> getPromotions(int promotionNo, int rows, int lastPromotionNo) {
+        return getApi().getPromotions(createRequestBody(parseToTogetherJson(promotionNo, rows, lastPromotionNo)));
     }
 
-    private Map<String, Object> parseToTogetherJson(int promotion_id, int rows, int latest_id) {
+    private Map<String, Object> parseToTogetherJson(int promotionNo, int rows, int lastPromotionNo) {
         Map<String, Object> jsonMap = new HashMap<>();
-        if (latest_id != -1) jsonMap.put("pagePromotionNo", latest_id);
+        if (lastPromotionNo != -1) jsonMap.put("pagePromotionNo", lastPromotionNo);
         jsonMap.put("pageSize", rows);
-        jsonMap.put("promotionNo", promotion_id);
+        jsonMap.put("promotionNo", promotionNo);
         return jsonMap;
     }
 }

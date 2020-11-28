@@ -9,5 +9,5 @@ import lombok.Getter;
     PAID(3),            // 유료배송
     CONDITIONAL(4);     // 조건부 무료배송
 
-    private int value;
+    private final int value;
 }

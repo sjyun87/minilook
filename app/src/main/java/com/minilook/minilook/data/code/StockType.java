@@ -8,7 +8,7 @@ import lombok.Getter;
     COLOR("color"),
     EMPTY("");
 
-    private String value;
+    private final String value;
 
     public static StockType toType(String $value) {
         for (StockType type : StockType.values()) {
