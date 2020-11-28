@@ -117,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_36"
                 tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_product_feed"
+                tools:listitem="@layout/item_lookbook_detail_product"
                 tools:orientation="vertical" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

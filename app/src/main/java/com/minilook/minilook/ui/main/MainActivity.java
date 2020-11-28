@@ -55,7 +55,6 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
     }
 
     @Override protected void onNewIntent(Intent intent) {
-        Timber.e("onNewIntent");
         super.onNewIntent(intent);
         int position = intent.getIntExtra("position", 0);
         binding.bottombar.setCurrentPage(position);

@@ -3,8 +3,13 @@ package com.minilook.minilook.ui.main;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.PrefsKey;
 import com.minilook.minilook.data.firebase.DynamicLinkManager;
+import com.minilook.minilook.data.model.base.BaseDataModel;
+import com.minilook.minilook.data.model.brand.BrandDataModel;
+import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.network.member.MemberRequest;
+import com.minilook.minilook.data.network.scrap.ScrapRequest;
 import com.minilook.minilook.data.rx.RxBus;
+import com.minilook.minilook.data.rx.RxBusEvent;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.lookbook.LookBookPresenterImpl;
@@ -20,6 +25,7 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
 
     private final View view;
     private final MemberRequest memberRequest;
+    private final ScrapRequest scrapRequest;
 
     private int step = 0;
     private boolean isLookBookReady = false;
@@ -28,6 +34,7 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
     public MainPresenterImpl(MainArguments args) {
         view = args.getView();
         memberRequest = new MemberRequest();
+        scrapRequest = new ScrapRequest();
     }
 
     @Override public void onCreate() {
@@ -132,6 +139,24 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
         checkAction(++step);
     }
 
+    private void updateProductScrap(boolean isScrap, ProductDataModel data) {
+        addDisposable(scrapRequest.updateProductScrap(isScrap, data.getProductNo())
+            .subscribe(model -> onResUpdateProductScrap(isScrap, data), Timber::e));
+    }
+
+    private void onResUpdateProductScrap(boolean isScrap, ProductDataModel data) {
+        RxBus.send(new RxBusEvent.RxBusEventProductScrap(isScrap, data));
+    }
+
+    private void updateBrandScrap(boolean isScrap, BrandDataModel data) {
+        addDisposable(scrapRequest.updateBrandScrap(isScrap, data.getBrandNo())
+            .subscribe(model -> onResUpdateBrandScrap(isScrap, data), Timber::e));
+    }
+
+    private void onResUpdateBrandScrap(boolean isScrap, BrandDataModel data) {
+        RxBus.send(new RxBusEvent.RxBusEventBrandScrap(isScrap, data));
+    }
+
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
             if (o instanceof RxBusEventLookBookReady) {
@@ -148,6 +173,14 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
             } else if (o instanceof RxEventNavigateToPage) {
                 int position = ((RxEventNavigateToPage) o).getPosition();
                 view.setupCurrentPage(position);
+            } else if (o instanceof RxBusEventUpdateProductScrap) {
+                boolean isScrap = ((RxBusEventUpdateProductScrap) o).isScrap;
+                ProductDataModel data = ((RxBusEventUpdateProductScrap) o).getData();
+                updateProductScrap(isScrap, data);
+            } else if (o instanceof RxBusEventUpdateBrandScrap) {
+                boolean isScrap = ((RxBusEventUpdateBrandScrap) o).isScrap;
+                BrandDataModel data = ((RxBusEventUpdateBrandScrap) o).getData();
+                updateBrandScrap(isScrap, data);
             }
         }, Timber::e));
     }
@@ -161,5 +194,15 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
 
     @AllArgsConstructor @Getter public final static class RxEventNavigateToPage {
         private final int position;
+    }
+
+    @AllArgsConstructor @Getter public final static class RxBusEventUpdateProductScrap {
+        private final boolean isScrap;
+        private final ProductDataModel data;
+    }
+
+    @AllArgsConstructor @Getter public final static class RxBusEventUpdateBrandScrap {
+        private final boolean isScrap;
+        private final BrandDataModel data;
     }
 }

@@ -15,6 +15,7 @@ import com.minilook.minilook.databinding.FragmentLookbookPreviewBinding;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseFragment;
 import com.minilook.minilook.ui.base._BaseFragment;
+import com.minilook.minilook.ui.lookbook.view.detail.adapter.LookBookProductAdapter;
 import com.minilook.minilook.ui.lookbook.view.detail.adapter.LookBookStyleAdapter;
 import com.minilook.minilook.ui.lookbook.view.detail.di.LookBookDetailArguments;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
@@ -30,7 +31,7 @@ public class LookBookDetailFragment extends BaseFragment implements LookBookDeta
 
     private final LookBookStyleAdapter styleAdapter = new LookBookStyleAdapter();
     private final BaseAdapterDataView<String> styleAdapterDataView = styleAdapter;
-    private final ProductAdapter productAdapter = new ProductAdapter();
+    private final LookBookProductAdapter productAdapter = new LookBookProductAdapter();
     private final BaseAdapterDataView<ProductDataModel> productAdapterDataView = productAdapter;
 
     @Override protected View getBindingView() {

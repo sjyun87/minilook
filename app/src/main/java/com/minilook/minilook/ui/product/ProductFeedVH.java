@@ -48,7 +48,7 @@ public class ProductFeedVH extends _BaseViewHolder<ProductDataModel> {
 
     public ProductFeedVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_product_feed, (ViewGroup) itemView, false));
+            .inflate(R.layout.item_lookbook_detail_product, (ViewGroup) itemView, false));
     }
 
     @Override public void bind(ProductDataModel $data) {
