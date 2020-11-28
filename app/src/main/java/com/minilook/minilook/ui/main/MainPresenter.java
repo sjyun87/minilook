@@ -11,13 +11,13 @@ public interface MainPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
-    void onTabChanged(int position);
-
     void onMarketingAgree();
 
     void onMarketingDisagree();
 
     void onCoachMarkEnd();
+
+    void onBottomBarClick(int position);
 
     interface View {
 

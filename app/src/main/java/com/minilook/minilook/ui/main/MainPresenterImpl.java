@@ -46,14 +46,6 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
         checkAction(step);
     }
 
-    @Override public void onTabChanged(int position) {
-        if (position != 0) {
-            RxBus.send(new LookBookPresenterImpl.RxEventScrollToPreview(false));
-            RxBus.send(new LookBookDetailPresenterImpl.RxEventLookBookDetailScrollToTop());
-        }
-        view.setupCurrentPage(position);
-    }
-
     @Override public void onMarketingAgree() {
         updateMarketingAgree(true);
     }
@@ -65,6 +57,14 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
     @Override public void onCoachMarkEnd() {
         Prefs.putBoolean(PrefsKey.KEY_LOOKBOOK_COACH_VISIBLE, true);
         checkAction(++step);
+    }
+
+    @Override public void onBottomBarClick(int position) {
+        if (position != 0) {
+            RxBus.send(new LookBookPresenterImpl.RxEventScrollToPreview(false));
+            RxBus.send(new LookBookDetailPresenterImpl.RxEventLookBookDetailScrollToTop());
+        }
+        view.setupCurrentPage(position);
     }
 
     private void checkAction(int step) {

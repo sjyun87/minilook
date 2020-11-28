@@ -102,10 +102,22 @@ public class TitleBar extends ConstraintLayout {
 
     private void initView() {
         binding = LayoutTitlebarBinding.inflate(LayoutInflater.from(getContext()), this);
-
         setBackgroundColor(ContextCompat.getColor(getContext(), color_FFFFFFFF));
         setupAction();
         updateUI();
+    }
+
+    private void setupAction() {
+        binding.imgTitlebarLogo.setOnClickListener(view -> onLogoClick());
+        binding.imgTitlebarBack.setOnClickListener(view -> onBackClick());
+        binding.imgTitlebarHome.setOnClickListener(view -> onHomeClick());
+        binding.imgTitlebarSearchKeyword.setOnClickListener(view -> onKeywordSearchClick());
+        binding.imgTitlebarSearchFilter.setOnClickListener(view -> onFilterSearchClick());
+        binding.imgTitlebarShoppingbag.setOnClickListener(view -> onShoppingBagClick());
+        binding.imgTitlebarSetting.setOnClickListener(view -> onSettingClick());
+        binding.imgTitlebarClose.setOnClickListener(view -> onCloseClick());
+        binding.imgTitlebarWrite.setOnClickListener(view -> onWriteClick());
+        binding.imgTitlebarShare.setOnClickListener(view -> onShareClick());
     }
 
     private void updateUI() {
@@ -124,19 +136,6 @@ public class TitleBar extends ConstraintLayout {
 
         binding.txtTitlebarTitle.setText(title);
         binding.txtTitlebarCount.setText(StringUtil.toDigit(count));
-    }
-
-    private void setupAction() {
-        binding.imgTitlebarLogo.setOnClickListener(view -> onLogoClick());
-        binding.imgTitlebarBack.setOnClickListener(view -> onBackClick());
-        binding.imgTitlebarHome.setOnClickListener(view -> onHomeClick());
-        binding.imgTitlebarSearchKeyword.setOnClickListener(view -> onKeywordSearchClick());
-        binding.imgTitlebarSearchFilter.setOnClickListener(view -> onFilterSearchClick());
-        binding.imgTitlebarShoppingbag.setOnClickListener(view -> onShoppingBagClick());
-        binding.imgTitlebarSetting.setOnClickListener(view -> onSettingClick());
-        binding.imgTitlebarClose.setOnClickListener(view -> onCloseClick());
-        binding.imgTitlebarWrite.setOnClickListener(view -> onWriteClick());
-        binding.imgTitlebarShare.setOnClickListener(view -> onShareClick());
     }
 
     public void setShowTitle(boolean visible) {

@@ -21,7 +21,6 @@ import com.minilook.minilook.ui.main.di.MainArguments;
 import com.minilook.minilook.ui.preorder_detail.PreorderDetailActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.ui.promotion_detail.PromotionDetailActivity;
-import timber.log.Timber;
 
 public class MainActivity extends BaseActivity implements MainPresenter.View {
 
@@ -82,7 +81,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
     }
 
     @Override public void setupBottomBar() {
-        binding.bottombar.setOnTabChangeListener(presenter::onTabChanged);
+        binding.bottombar.setOnBottomBarListener(presenter::onBottomBarClick);
     }
 
     @Override public void setBottomBarTheme(boolean flag) {
