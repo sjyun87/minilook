@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -38,6 +39,8 @@ public class OrderDetailItemVH extends BaseViewHolder<OrderBrandDataModel> {
     @BindView(R.id.img_call) ImageView callImageView;
     @BindView(R.id.rcv_goods) RecyclerView recyclerView;
     @BindView(R.id.txt_shipping_price) TextView shippingPriceTextView;
+    @BindView(R.id.layout_order_memo_panel) LinearLayout orderMemoPanel;
+    @BindView(R.id.txt_order_memo) TextView orderMemoTextView;
 
     @BindColor(R.color.color_FFDBDBDB) int color_FFDBDBDB;
 
@@ -85,6 +88,13 @@ public class OrderDetailItemVH extends BaseViewHolder<OrderBrandDataModel> {
 
         shippingPriceTextView.setText(
             data.getShippingPrice() != 0 ? StringUtil.toDigit(data.getShippingPrice()) : str_free_shipping);
+
+        if (TextUtils.isEmpty(data.getOrderMemo())) {
+            orderMemoPanel.setVisibility(View.GONE);
+        } else {
+            orderMemoPanel.setVisibility(View.VISIBLE);
+            orderMemoTextView.setText(data.getOrderMemo());
+        }
     }
 
     private List<OrderProductDataModel> setupBrandDate(List<OrderProductDataModel> goods) {
