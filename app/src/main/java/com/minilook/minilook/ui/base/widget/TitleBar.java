@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.ColorRes;
+import androidx.annotation.DimenRes;
 import androidx.annotation.Dimension;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,6 +34,8 @@ import lombok.Setter;
 public class TitleBar extends ConstraintLayout {
 
     @ColorRes int color_FFFFFFFF = R.color.color_FFFFFFFF;
+
+    @DimenRes int dp_30 = R.dimen.dp_30;
 
     @Getter private LayoutTitlebarBinding binding;
 
@@ -90,13 +93,13 @@ public class TitleBar extends ConstraintLayout {
 
     @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension(widthMeasureSpec, getResources().getDimensionPixelSize(R.dimen.dp_30));
+        setMeasuredDimension(widthMeasureSpec, getResources().getDimensionPixelSize(dp_30));
     }
 
     @Override protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
         ViewGroup.LayoutParams params = getLayoutParams();
-        params.height = getResources().getDimensionPixelSize(R.dimen.dp_30);
+        params.height = getResources().getDimensionPixelSize(dp_30);
         setLayoutParams(params);
     }
 

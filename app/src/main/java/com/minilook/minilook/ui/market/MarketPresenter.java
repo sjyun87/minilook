@@ -25,6 +25,8 @@ public interface MarketPresenter extends LifecycleObserver {
 
         void refresh();
 
+        void showErrorDialog();
+
         void navigateToProductBridge(SearchOptionDataModel model);
 
         void navigateToPromotionDetail(int promotionNo);

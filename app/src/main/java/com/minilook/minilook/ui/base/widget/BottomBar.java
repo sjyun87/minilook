@@ -7,12 +7,14 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import androidx.annotation.ColorRes;
+import androidx.annotation.DimenRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import com.minilook.minilook.R;
 import com.minilook.minilook.databinding.LayoutBottombarBinding;
+import com.minilook.minilook.util.DimenUtil;
 import lombok.Setter;
 
 public class BottomBar extends LinearLayout {
@@ -45,6 +47,8 @@ public class BottomBar extends LinearLayout {
     @ColorRes int color_FFA9A9A9 = R.color.color_FFA9A9A9;
     @ColorRes int color_FF8140E5 = R.color.color_FF8140E5;
 
+    @DimenRes int dp_30 = R.dimen.dp_30;
+
     private LayoutBottombarBinding binding;
 
     private int position = POSITION_LOOKBOOK;
@@ -76,7 +80,7 @@ public class BottomBar extends LinearLayout {
 
     @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension(widthMeasureSpec, getResources().getDimensionPixelSize(R.dimen.dp_30));
+        setMeasuredDimension(widthMeasureSpec, getResources().getDimensionPixelSize(dp_30));
     }
 
     private void initView() {
