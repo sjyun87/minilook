@@ -32,4 +32,5 @@ import lombok.Data;
     private boolean isBillVisible = false;              // 계산서 노출 여부
     private boolean isIsland;                           // 도서산간지역 여부
     private int islandShippingPrice;                  // 도서산간지역 추가배송비
+    private String orderMemo;
 }

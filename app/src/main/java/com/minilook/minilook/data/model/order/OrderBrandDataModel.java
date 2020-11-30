@@ -20,4 +20,6 @@ import lombok.Data;
     private String csTel;
     @Expose @SerializedName("options")
     private List<OrderProductDataModel> goods;
+    @Expose @SerializedName("optionRequestMemo")
+    private String orderMemo;
 }
