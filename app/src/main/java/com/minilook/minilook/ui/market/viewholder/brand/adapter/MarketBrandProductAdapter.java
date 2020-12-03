@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.market.viewholder.theme.adapter;
+package com.minilook.minilook.ui.market.viewholder.brand.adapter;
 
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
@@ -6,20 +6,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.market.viewholder.theme.viewholer.MarketThemeItemVH;
+import com.minilook.minilook.ui.market.viewholder.brand.viewholder.MarketBrandProductVH;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MarketThemeAdapter extends RecyclerView.Adapter<MarketThemeItemVH> implements
+public class MarketBrandProductAdapter extends RecyclerView.Adapter<MarketBrandProductVH> implements
     BaseAdapterDataModel<ProductDataModel>, BaseAdapterDataView<ProductDataModel> {
 
     private final List<ProductDataModel> items = new ArrayList<>();
 
-    @NonNull @Override public MarketThemeItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MarketThemeItemVH(parent);
+    @NonNull @Override public MarketBrandProductVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new MarketBrandProductVH(parent);
     }
 
-    @Override public void onBindViewHolder(@NonNull MarketThemeItemVH holder, int position) {
+    @Override public void onBindViewHolder(@NonNull MarketBrandProductVH holder, int position) {
         holder.bind(items.get(position));
     }
 

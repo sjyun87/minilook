@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-
+    android:layout_height="wrap_content"
+    android:background="@color/color_FF000000"
+    android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardview"
-        android:layout_width="@dimen/dp_64"
-        android:layout_height="@dimen/dp_64"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="@dimen/dp_80"
         app:cardCornerRadius="@dimen/dp_2"
-        app:cardElevation="0dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:cardElevation="0dp">
 
         <ImageView
             android:id="@+id/img_thumb"
@@ -25,11 +22,8 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="0dp"
-        android:layout_height="@dimen/dp_64"
-        app:layout_constraintLeft_toLeftOf="@+id/cardview"
-        app:layout_constraintRight_toRightOf="@+id/cardview"
-        app:layout_constraintTop_toBottomOf="@+id/cardview">
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_64">
 
         <TextView
             android:id="@+id/txt_brand_name"
@@ -37,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_6"
             android:fontFamily="@font/nanum_square_b"
-            android:textColor="@color/color_FF616161"
+            android:textColor="@color/color_FFFFFFFF"
             android:textSize="@dimen/sp_6"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -56,7 +50,7 @@
             android:gravity="center"
             android:lineSpacingMultiplier="1.5"
             android:maxLines="2"
-            android:textColor="@color/color_FF000000"
+            android:textColor="@color/color_FFA8A6A1"
             android:textSize="@dimen/sp_7"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -89,7 +83,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/dp_2"
                 android:fontFamily="@font/nanum_square_r"
-                android:textColor="@color/color_FFA9A9A9"
+                android:textColor="@color/color_FFA8A6A1"
                 android:textSize="@dimen/sp_6"
                 tools:text="60,000" />
         </LinearLayout>
@@ -100,7 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_2"
             android:fontFamily="@font/nanum_square_b"
-            android:textColor="@color/color_FF232323"
+            android:textColor="@color/color_FFFFFFFF"
             android:textSize="@dimen/sp_7"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -108,4 +102,4 @@
             app:layout_goneMarginTop="@dimen/dp_4"
             tools:text="54,000" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

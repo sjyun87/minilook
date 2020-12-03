@@ -94,7 +94,7 @@
                     android:scrollbarTrackHorizontal="@drawable/img_track"
                     android:scrollbars="horizontal"
                     tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_lookbook_detail_style"
+                    tools:listitem="@layout/view_lookbook_detail_style"
                     tools:orientation="horizontal" />
             </com.minilook.minilook.ui.base.widget.NestedScrollableHost>
 
@@ -117,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_36"
                 tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_lookbook_detail_product"
+                tools:listitem="@layout/view_lookbook_detail_product"
                 tools:orientation="vertical" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

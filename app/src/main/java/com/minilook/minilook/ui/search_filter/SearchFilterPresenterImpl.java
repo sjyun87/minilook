@@ -218,18 +218,18 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
 
     @Override public void onSearchClick() {
         SearchOptionDataModel model = new SearchOptionDataModel();
-        model.setGender_code(genderCode);
+        model.setGenderCode(genderCode);
         model.setAge(ageCode);
         model.setDiscount(isShowDiscount);
         model.setStock(isShowStock);
-        model.setCategory_name(categoryName);
-        model.setCategory_code(categoryCode);
-        model.setPrice_min(minPrice);
-        model.setPrice_max(maxPrice);
-        model.setColor_codes(colorCodes);
-        model.setStyle_codes(styleCodes);
+        model.setCategoryName(categoryName);
+        model.setCategoryCode(categoryCode);
+        model.setMinPrice(minPrice);
+        model.setMaxPrice(maxPrice);
+        model.setColorCodes(colorCodes);
+        model.setStyleCodes(styleCodes);
         model.setType(sizeType);
-        model.setColor_codes(colorCodes);
+        model.setColorCodes(colorCodes);
 
         view.navigateToProductBridge(model);
         view.scrollToTop();
@@ -303,7 +303,7 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         List<CodeDataModel> items = new ArrayList<>();
         for (int i = 0; i < categories.size(); i++) {
             CodeDataModel model = categories.get(i);
-            if (options != null && options.getCategory_code() != null && model.getCode().equals(options.getCategory_code())) {
+            if (options != null && options.getCategoryCode() != null && model.getCode().equals(options.getCategoryCode())) {
                 model.setSelected(true);
             } else {
                 model.setSelected(false);

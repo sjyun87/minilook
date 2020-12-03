@@ -6,17 +6,12 @@ import com.minilook.minilook.App;
 import com.minilook.minilook.data.code.MarketModuleType;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
-import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
-import com.minilook.minilook.data.model.search.SearchOptionDataModel;
 import com.minilook.minilook.data.network.market.MarketRequest;
-import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.market.di.MarketArguments;
-import com.minilook.minilook.ui.market.viewholder.category.viewholder.MarketCategoryItemVH;
-import com.minilook.minilook.ui.market.viewholder.day.MarketDayVH;
 import com.minilook.minilook.util.TrackingManager;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.functions.Function;
@@ -39,7 +34,6 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
     }
 
     @Override public void onCreate() {
-        toRxObservable();
         view.setupRefreshLayout();
         view.setupRecyclerView();
 
@@ -65,40 +59,21 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
                 return code.equals(HttpCode.OK);
             })
             .map((Function<BaseDataModel, List<MarketDataModel>>)
-                data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<MarketDataModel>>() {
-                }.getType()))
+                data -> checkValidData(gson.fromJson(data.getData(), new TypeToken<ArrayList<MarketDataModel>>() {
+                }.getType())))
             .subscribe(this::onResMarketModules, Timber::e));
     }
 
-    private void onResMarketModules(List<MarketDataModel> data) {
-        adapter.set(checkData(data));
-        view.refresh();
-        view.setRefreshing();
-    }
-
-    private List<MarketDataModel> checkData(List<MarketDataModel> data) {
+    private List<MarketDataModel> checkValidData(List<MarketDataModel> data) {
         return Observable.fromIterable(data)
             .filter(model -> MarketModuleType.toModuleType(model.getType()) != -1)
             .toList()
             .blockingGet();
     }
 
-    private void navigateToProductBridge(CodeDataModel categoryData) {
-        SearchOptionDataModel model = new SearchOptionDataModel();
-        model.setCategory_name(categoryData.getName());
-        model.setCategory_code(categoryData.getCode());
-        view.navigateToProductBridge(model);
-    }
-
-    private void toRxObservable() {
-        addDisposable(RxBus.toObservable().subscribe(o -> {
-            if (o instanceof MarketCategoryItemVH.RxBusEventMarketCategoryClick) {
-                CodeDataModel categoryData = ((MarketCategoryItemVH.RxBusEventMarketCategoryClick) o).getCategoryData();
-                navigateToProductBridge(categoryData);
-            } else if (o instanceof MarketDayVH.RxBusEventMarketDayModuleMoreClick) {
-                int promotionNo = ((MarketDayVH.RxBusEventMarketDayModuleMoreClick) o).getPromotionNo();
-                view.navigateToPromotionDetail(promotionNo);
-            }
-        }, Timber::e));
+    private void onResMarketModules(List<MarketDataModel> data) {
+        adapter.set(data);
+        view.refresh();
+        view.setRefreshing(false);
     }
 }

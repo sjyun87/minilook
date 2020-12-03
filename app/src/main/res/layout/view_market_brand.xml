@@ -37,5 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_9"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/txt_title" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_title"
+        tools:itemCount="2"
+        tools:listitem="@layout/view_market_brand_item" />
 </androidx.constraintlayout.widget.ConstraintLayout>

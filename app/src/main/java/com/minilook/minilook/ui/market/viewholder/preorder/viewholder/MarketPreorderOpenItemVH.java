@@ -1,22 +1,20 @@
 package com.minilook.minilook.ui.market.viewholder.preorder.viewholder;
 
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import androidx.annotation.DimenRes;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
-import butterknife.BindDrawable;
-import butterknife.BindString;
-import butterknife.BindView;
+import androidx.annotation.StringRes;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
-import com.minilook.minilook.ui.base._BaseViewHolder;
+import com.minilook.minilook.databinding.ViewMarketPreorderOpenItemBinding;
+import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.preorder_detail.PreorderDetailActivity;
 import com.minilook.minilook.util.SpannableUtil;
 import java.text.SimpleDateFormat;
@@ -24,22 +22,29 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class MarketPreorderOpenItemVH extends _BaseViewHolder<PreorderDataModel> {
+public class MarketPreorderOpenItemVH extends BaseViewHolder<PreorderDataModel> {
 
-    @BindView(R.id.img_thumb) ImageView thumbImageView;
-    @BindView(R.id.txt_end_date) TextView endDateTextView;
-    @BindView(R.id.txt_brand_name) TextView brandNameTextView;
-    @BindView(R.id.txt_title) TextView titleTextView;
-    @BindView(R.id.txt_desc) TextView descTextView;
+    @StringRes int str_format_d_day = R.string.preorder_d_day;
+    @StringRes int str_format_date = R.string.preorder_open_date;
 
-    @BindString(R.string.preorder_d_day) String format_d_day;
-    @BindString(R.string.preorder_open_date) String format_date;
+    @DrawableRes int ph_square = R.drawable.ph_square;
 
-    @BindDrawable(R.drawable.ph_square) Drawable img_placeholder;
+    @DimenRes int dp_150 = R.dimen.dp_150;
 
-    public MarketPreorderOpenItemVH(@NonNull View itemView) {
-        super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_market_preorder_open_item, (ViewGroup) itemView, false));
+    private final ViewMarketPreorderOpenItemBinding binding;
+
+    public MarketPreorderOpenItemVH(@NonNull View parent, boolean isOnlyOne) {
+        super(ViewMarketPreorderOpenItemBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,
+            false));
+        binding = ViewMarketPreorderOpenItemBinding.bind(itemView);
+
+        setupItemSize(isOnlyOne);
+    }
+
+    private void setupItemSize(boolean isOnlyOne) {
+        ViewGroup.LayoutParams params = binding.getRoot().getLayoutParams();
+        params.width = isOnlyOne ? ViewGroup.LayoutParams.MATCH_PARENT : resources.getDimensionPixelSize(dp_150);
+        binding.getRoot().setLayoutParams(params);
     }
 
     @Override public void bind(PreorderDataModel $data) {
@@ -47,15 +52,15 @@ public class MarketPreorderOpenItemVH extends _BaseViewHolder<PreorderDataModel>
 
         Glide.with(context)
             .load(data.getThumbUrl())
-            .placeholder(img_placeholder)
-            .error(img_placeholder)
+            .placeholder(ph_square)
+            .error(ph_square)
             .transition(new DrawableTransitionOptions().crossFade())
-            .into(thumbImageView);
+            .into(binding.imgThumb);
 
-        endDateTextView.setText(getEndDate(data.getEndDate()));
-        brandNameTextView.setText(data.getBrandName());
-        titleTextView.setText(data.getTitle());
-        descTextView.setText(data.getDesc());
+        binding.txtEndDate.setText(getEndDate(data.getEndDate()));
+        binding.txtBrandName.setText(data.getBrandName());
+        binding.txtTitle.setText(data.getTitle());
+        binding.txtDesc.setText(data.getDesc());
 
         itemView.setOnClickListener(this::onItemClick);
     }
@@ -69,8 +74,8 @@ public class MarketPreorderOpenItemVH extends _BaseViewHolder<PreorderDataModel>
         long targetDay = endDate.getTime() / (24 * 60 * 60 * 1000);
         long count = (targetDay - todayDay) + 1;
 
-        String dday = String.format(format_d_day, count);
-        String totalEndData = String.format(format_date, strEndData, dday);
+        String dday = String.format(resources.getString(str_format_d_day), count);
+        String totalEndData = String.format(resources.getString(str_format_date), strEndData, dday);
         return SpannableUtil.styleSpan(totalEndData, dday, Typeface.BOLD);
     }
 

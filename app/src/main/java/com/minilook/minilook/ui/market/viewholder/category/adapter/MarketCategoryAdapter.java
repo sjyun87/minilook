@@ -13,7 +13,7 @@ import java.util.List;
 public class MarketCategoryAdapter extends RecyclerView.Adapter<MarketCategoryItemVH> implements
     BaseAdapterDataModel<CodeDataModel>, BaseAdapterDataView<CodeDataModel> {
 
-    private List<CodeDataModel> items = new ArrayList<>();
+    private final List<CodeDataModel> items = new ArrayList<>();
 
     @NonNull @Override public MarketCategoryItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new MarketCategoryItemVH(parent);

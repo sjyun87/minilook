@@ -66,9 +66,9 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
     @Override public void onTabClick(int position) {
         String categoryCode = categoryOptions.get(position).getCode();
         if (isVisibleCategoryDepth1) {
-            options.setCategory_code(categoryCode);
+            options.setCategoryCode(categoryCode);
         } else {
-            options.setCategory_derail_code(categoryCode);
+            options.setCategoryDerailCode(categoryCode);
         }
         reqProducts();
     }
@@ -85,7 +85,7 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
     @Override public void onSortSelected(CodeDataModel data) {
         if (!selectedSortCode.equals(data.getCode())) {
             selectedSortCode = data.getCode();
-            options.setSort_code(selectedSortCode);
+            options.setSortCode(selectedSortCode);
             view.setupSortText(data.getName());
 
             productAdapter.clear();
@@ -102,13 +102,13 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
     }
 
     private void initData() {
-        isVisibleCategoryDepth1 = options.getCategory_code() == null;
-        if (!isVisibleCategoryDepth1) view.setupTitle(options.getCategory_name());
+        isVisibleCategoryDepth1 = options.getCategoryCode() == null;
+        if (!isVisibleCategoryDepth1) view.setupTitle(options.getCategoryName());
 
-        String categoryCode = isVisibleCategoryDepth1 ? "" : options.getCategory_code();
+        String categoryCode = isVisibleCategoryDepth1 ? "" : options.getCategoryCode();
         reqFilters(categoryCode);
 
-        options.setSort_code(sortCodes.get(0).getCode());
+        options.setSortCode(sortCodes.get(0).getCode());
         setupSortData();
     }
 
@@ -119,7 +119,7 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
         view.setupSortText(sortItems.get(0).getName());
         selectedSortCode = sortItems.get(0).getCode();
 
-        options.setSort_code(sortItems.get(0).getCode());
+        options.setSortCode(sortItems.get(0).getCode());
         reqProducts();
     }
 

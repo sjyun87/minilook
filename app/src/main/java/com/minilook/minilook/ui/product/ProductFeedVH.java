@@ -17,8 +17,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.minilook.minilook.App;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
-import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.data.rx.RxBusEvent;
 import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.login.LoginActivity;
@@ -48,7 +46,7 @@ public class ProductFeedVH extends _BaseViewHolder<ProductDataModel> {
 
     public ProductFeedVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_lookbook_detail_product, (ViewGroup) itemView, false));
+            .inflate(R.layout.view_lookbook_detail_product, (ViewGroup) itemView, false));
     }
 
     @Override public void bind(ProductDataModel $data) {

@@ -2,21 +2,14 @@ package com.minilook.minilook.ui.market;
 
 import android.view.View;
 import androidx.annotation.DimenRes;
-import androidx.annotation.Dimension;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import butterknife.BindDimen;
-import butterknife.BindView;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.model.search.SearchOptionDataModel;
-import com.minilook.minilook.databinding.ActivitySplashBinding;
 import com.minilook.minilook.databinding.FragmentMarketBinding;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseFragment;
-import com.minilook.minilook.ui.base._BaseFragment;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.market.adapter.MarketModuleAdapter;
 import com.minilook.minilook.ui.market.di.MarketArguments;
@@ -58,8 +51,8 @@ public class MarketFragment extends BaseFragment implements MarketPresenter.View
         binding.layoutSwipeRefresh.setOnRefreshListener(presenter::onRefresh);
     }
 
-    @Override public void setRefreshing() {
-        if (binding.layoutSwipeRefresh.isRefreshing()) binding.layoutSwipeRefresh.setRefreshing(false);
+    @Override public void setRefreshing(boolean flag) {
+        if (binding.layoutSwipeRefresh.isRefreshing() != flag) binding.layoutSwipeRefresh.setRefreshing(flag);
     }
 
     @Override public void setupRecyclerView() {
@@ -78,13 +71,5 @@ public class MarketFragment extends BaseFragment implements MarketPresenter.View
 
     @Override public void showErrorDialog() {
         DialogManager.showErrorDialog(getActivity());
-    }
-
-    @Override public void navigateToProductBridge(SearchOptionDataModel model) {
-        ProductBridgeActivity.start(getContext(), model);
-    }
-
-    @Override public void navigateToPromotionDetail(int promotionNo) {
-        PromotionDetailActivity.start(getContext(), promotionNo);
     }
 }

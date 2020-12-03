@@ -3,63 +3,65 @@ package com.minilook.minilook.ui.market.viewholder.preorder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import androidx.annotation.DimenRes;
 import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindDimen;
-import butterknife.BindView;
-import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.minilook.minilook.App;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
 import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.ui.base._BaseViewHolder;
+import com.minilook.minilook.databinding.ViewMarketPreorderBinding;
+import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base.widget.BottomBar;
 import com.minilook.minilook.ui.main.MainPresenterImpl;
 import com.minilook.minilook.ui.market.viewholder.preorder.adapter.MarketPreorderAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MarketPreorderVH extends _BaseViewHolder<MarketDataModel> {
+public class MarketPreorderVH extends BaseViewHolder<MarketDataModel> {
 
-    @BindView(R.id.txt_title) TextView titleTextView;
-    @BindView(R.id.rcv_preorder) RecyclerView recyclerView;
+    @DimenRes int dp_4 = R.dimen.dp_4;
 
-    @BindDimen(R.dimen.dp_4) int dp_4;
+    private final ViewMarketPreorderBinding binding;
+    private final Gson gson;
 
     private MarketPreorderAdapter adapter;
-    private Gson gson = new Gson();
 
-    public MarketPreorderVH(@NonNull View itemView) {
-        super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_market_preorder, (ViewGroup) itemView, false));
+    public MarketPreorderVH(@NonNull View parent) {
+        super(ViewMarketPreorderBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent, false));
+        binding = ViewMarketPreorderBinding.bind(itemView);
+        gson = App.getInstance().getGson();
 
         setupProductRecyclerView();
     }
 
     private void setupProductRecyclerView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
+        binding.rcvPreorder.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
         adapter = new MarketPreorderAdapter();
-        recyclerView.setAdapter(adapter);
+        binding.rcvPreorder.setAdapter(adapter);
         DividerDecoration.builder(context)
-            .size(dp_4)
+            .size(resources.getDimensionPixelSize(dp_4))
             .asSpace()
             .build()
-            .addTo(recyclerView);
-        ViewCompat.setNestedScrollingEnabled(recyclerView, false);
+            .addTo(binding.rcvPreorder);
+        ViewCompat.setNestedScrollingEnabled(binding.rcvPreorder, false);
     }
 
     @Override public void bind(MarketDataModel $data) {
         super.bind($data);
 
-        titleTextView.setText(data.getTitle());
+        binding.txtTitle.setText(data.getTitle());
 
         adapter.set(parseJsonToModel());
         adapter.refresh();
+
+        binding.imgMore.setOnClickListener(this::onMoreClick);
     }
 
     private List<PreorderDataModel> parseJsonToModel() {
@@ -67,8 +69,7 @@ public class MarketPreorderVH extends _BaseViewHolder<MarketDataModel> {
         }.getType());
     }
 
-    @OnClick(R.id.img_more)
-    void onMoreClick() {
-        RxBus.send(new MainPresenterImpl.RxEventNavigateToPage(3));
+    void onMoreClick(View view) {
+        RxBus.send(new MainPresenterImpl.RxEventNavigateToPage(BottomBar.POSITION_PREORDER));
     }
 }

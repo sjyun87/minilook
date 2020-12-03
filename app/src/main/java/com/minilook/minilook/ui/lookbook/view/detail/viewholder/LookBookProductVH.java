@@ -7,7 +7,6 @@ import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
@@ -15,8 +14,7 @@ import com.minilook.minilook.App;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.data.rx.RxBusEvent;
-import com.minilook.minilook.databinding.ItemLookbookDetailProductBinding;
+import com.minilook.minilook.databinding.ViewLookbookDetailProductBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.login.LoginActivity;
@@ -36,12 +34,12 @@ public class LookBookProductVH extends BaseViewHolder<ProductDataModel> {
 
     @ColorRes int color_FFDBDBDB = R.color.color_FFDBDBDB;
 
-    private final ItemLookbookDetailProductBinding binding;
+    private final ViewLookbookDetailProductBinding binding;
 
     public LookBookProductVH(@NonNull View parent) {
-        super(ItemLookbookDetailProductBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,
+        super(ViewLookbookDetailProductBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,
             false));
-        binding = ItemLookbookDetailProductBinding.bind(itemView);
+        binding = ViewLookbookDetailProductBinding.bind(itemView);
     }
 
     @Override public void bind(ProductDataModel $data) {

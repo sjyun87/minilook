@@ -8,19 +8,19 @@ import androidx.annotation.NonNull;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
-import com.minilook.minilook.databinding.ItemLookbookDetailStyleBinding;
+import com.minilook.minilook.databinding.ViewLookbookDetailStyleBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 
 public class LookBookStyleVH extends BaseViewHolder<String> {
 
     @DrawableRes int ph_square = R.drawable.ph_square;
 
-    private ItemLookbookDetailStyleBinding binding;
+    private ViewLookbookDetailStyleBinding binding;
 
     public LookBookStyleVH(@NonNull View parent) {
-        super(ItemLookbookDetailStyleBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,
+        super(ViewLookbookDetailStyleBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,
             false));
-        binding = ItemLookbookDetailStyleBinding.bind(itemView);
+        binding = ViewLookbookDetailStyleBinding.bind(itemView);
     }
 
     @Override public void bind(String $data) {

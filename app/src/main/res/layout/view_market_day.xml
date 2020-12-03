@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/color_FF000000"
     android:descendantFocusability="blocksDescendants">
 
     <TextView
@@ -13,12 +14,12 @@
         android:layout_marginTop="@dimen/dp_9"
         android:fontFamily="@font/nanum_square_b"
         android:letterSpacing="0.1"
-        android:textColor="@color/color_FF232323"
+        android:textColor="@color/color_FFFFFFFF"
         android:textSize="@dimen/sp_9"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="mini's preorder" />
+        tools:text="BlackFriday" />
 
     <ImageView
         android:id="@+id/img_more"
@@ -31,19 +32,46 @@
         app:layout_constraintTop_toTopOf="@+id/txt_title"
         tools:ignore="ContentDescription" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_preorder"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/txt_tag"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_9"
-        android:clipToPadding="false"
-        android:paddingStart="@dimen/dp_8"
-        android:paddingEnd="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_4"
+        android:fontFamily="@font/nanum_square_eb"
+        android:textColor="@color/color_FFE5B340"
+        android:textSize="@dimen/sp_7"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_title"
-        tools:itemCount="1"
+        tools:text="#stay_home" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/layout_tab_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_5"
+        android:background="@color/color_FF000000"
+        app:layout_constraintTop_toBottomOf="@+id/txt_tag"
+        app:tabGravity="center"
+        app:tabIndicatorColor="@color/color_FF8140E5"
+        app:tabIndicatorFullWidth="false"
+        app:tabIndicatorHeight="@dimen/dp_1"
+        app:tabMode="scrollable"
+        app:tabPaddingEnd="0dp"
+        app:tabPaddingStart="0dp"
+        app:tabRippleColor="@android:color/transparent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_6"
+        android:clipToPadding="false"
+        android:paddingStart="@dimen/dp_8"
+        android:paddingEnd="@dimen/dp_8"
+        app:layout_constraintTop_toBottomOf="@+id/layout_tab_panel"
+        tools:itemCount="4"
         tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_market_preorder_open_item"
+        tools:listitem="@layout/view_market_day_item"
         tools:orientation="horizontal" />
 </androidx.constraintlayout.widget.ConstraintLayout>

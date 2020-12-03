@@ -16,7 +16,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.databinding.ItemLookbookModuleImageBinding;
+import com.minilook.minilook.databinding.ViewLookbookModuleImageBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.lookbook.LookBookPresenterImpl;
 import com.minilook.minilook.ui.main.MainPresenterImpl;
@@ -25,12 +25,12 @@ public class LookBookImageModuleVH extends BaseViewHolder<String> {
 
     @DrawableRes int ph_square = R.drawable.ph_square;
 
-    private final ItemLookbookModuleImageBinding binding;
+    private final ViewLookbookModuleImageBinding binding;
 
     public LookBookImageModuleVH(@NonNull View parent) {
-        super(ItemLookbookModuleImageBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,
+        super(ViewLookbookModuleImageBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,
             false));
-        binding = ItemLookbookModuleImageBinding.bind(itemView);
+        binding = ViewLookbookModuleImageBinding.bind(itemView);
     }
 
     @Override

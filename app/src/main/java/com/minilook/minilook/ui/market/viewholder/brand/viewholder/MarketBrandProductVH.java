@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.market.viewholder.recommend.viewholder;
+package com.minilook.minilook.ui.market.viewholder.brand.viewholder;
 
 import android.graphics.Paint;
 import android.view.LayoutInflater;
@@ -11,37 +11,35 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
-import com.minilook.minilook.databinding.ViewMarketRecommendItemBinding;
+import com.minilook.minilook.databinding.ViewMarketBrandProductBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.StringUtil;
 
-public class MarketRecommendItemVH extends BaseViewHolder<ProductDataModel> {
+public class MarketBrandProductVH extends BaseViewHolder<ProductDataModel> {
+
+    @DrawableRes int ph_square = R.drawable.ph_square;
 
     @StringRes int str_format_percent = R.string.base_price_percent;
 
-    @DrawableRes int ph_circle = R.drawable.ph_circle;
+    private final ViewMarketBrandProductBinding binding;
 
-    private final ViewMarketRecommendItemBinding binding;
-
-    public MarketRecommendItemVH(@NonNull View parent) {
-        super(ViewMarketRecommendItemBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,
+    public MarketBrandProductVH(@NonNull View parent) {
+        super(ViewMarketBrandProductBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,
             false));
-        binding = ViewMarketRecommendItemBinding.bind(itemView);
+        binding = ViewMarketBrandProductBinding.bind(itemView);
     }
 
-    public void bind(ProductDataModel $data, int position) {
+    @Override public void bind(ProductDataModel $data) {
         super.bind($data);
 
         Glide.with(context)
             .load(data.getImageUrl())
-            .placeholder(ph_circle)
-            .error(ph_circle)
-            .circleCrop()
+            .placeholder(ph_square)
+            .error(ph_square)
             .transition(new DrawableTransitionOptions().crossFade())
             .into(binding.imgThumb);
 
-        binding.txtIndex.setText(String.valueOf(position + 1));
         binding.txtBrandName.setText(data.getBrandName());
         binding.txtProductName.setText(data.getProductName());
 
@@ -54,6 +52,7 @@ public class MarketRecommendItemVH extends BaseViewHolder<ProductDataModel> {
         } else {
             binding.layoutDiscountPanel.setVisibility(View.GONE);
         }
+
         binding.txtPrice.setText(StringUtil.toDigit(data.getPrice()));
 
         itemView.setOnClickListener(this::onItemClick);

@@ -23,22 +23,22 @@ public class SearchRequest extends BaseRequest<SearchService> {
         if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("current", page);
         jsonMap.put("pageSize", rows);
-        jsonMap.put("productOrderByCode", options.getSort_code());
-        if (options.getBrand_no() > 0) jsonMap.put("brandNo", options.getBrand_no());
-        if (options.getGender_code() != null) jsonMap.put("genderCode", options.getGender_code());
+        jsonMap.put("productOrderByCode", options.getSortCode());
+        if (options.getBrandNo() > 0) jsonMap.put("brandNo", options.getBrandNo());
+        if (options.getGenderCode() != null) jsonMap.put("genderCode", options.getGenderCode());
         if (options.getAge() > 0) jsonMap.put("age", options.getAge());
-        if (options.getCategory_code() != null) jsonMap.put("categoryCode", options.getCategory_code());
-        if (options.getCategory_derail_code() != null) {
-            jsonMap.put("categoryDetailCode", options.getCategory_derail_code());
+        if (options.getCategoryCode() != null) jsonMap.put("categoryCode", options.getCategoryCode());
+        if (options.getCategoryDerailCode() != null) {
+            jsonMap.put("categoryDetailCode", options.getCategoryDerailCode());
         }
         if (options.getType() > 0) jsonMap.put("sizeType", options.getType());
-        if (options.getPrice_min() > 0) jsonMap.put("startPrice", options.getPrice_min());
-        if (options.getPrice_max() > 0) jsonMap.put("endPrice", options.getPrice_max());
-        if (options.getColor_codes() != null && options.getColor_codes().size() > 0) {
-            jsonMap.put("colorCode", options.getColor_codes());
+        if (options.getMinPrice() > 0) jsonMap.put("startPrice", options.getMinPrice());
+        if (options.getMaxPrice() > 0) jsonMap.put("endPrice", options.getMaxPrice());
+        if (options.getColorCodes() != null && options.getColorCodes().size() > 0) {
+            jsonMap.put("colorCode", options.getColorCodes());
         }
-        if (options.getStyle_codes() != null && options.getStyle_codes().size() > 0) {
-            jsonMap.put("styleCode", options.getStyle_codes());
+        if (options.getStyleCodes() != null && options.getStyleCodes().size() > 0) {
+            jsonMap.put("styleCode", options.getStyleCodes());
         }
         jsonMap.put("discount", options.isDiscount());
         jsonMap.put("outOfStock", options.isStock());

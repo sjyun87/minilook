@@ -14,7 +14,7 @@ import androidx.core.content.res.ResourcesCompat;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
-import com.minilook.minilook.databinding.ItemGuideBinding;
+import com.minilook.minilook.databinding.ViewGuideBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.util.SpannableUtil;
 
@@ -39,11 +39,11 @@ public class GuideVH extends BaseViewHolder<Integer> {
 
     @FontRes int font_bold = R.font.nanum_square_b;
 
-    private final ItemGuideBinding binding;
+    private final ViewGuideBinding binding;
 
     public GuideVH(@NonNull View parent) {
-        super(ItemGuideBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent, false));
-        binding = ItemGuideBinding.bind(itemView);
+        super(ViewGuideBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent, false));
+        binding = ViewGuideBinding.bind(itemView);
     }
 
     @Override public void bind(Integer $data) {

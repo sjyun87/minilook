@@ -19,16 +19,12 @@ public interface MarketPresenter extends LifecycleObserver {
 
         void setupRefreshLayout();
 
-        void setRefreshing();
+        void setRefreshing(boolean flag);
 
         void setupRecyclerView();
 
         void refresh();
 
         void showErrorDialog();
-
-        void navigateToProductBridge(SearchOptionDataModel model);
-
-        void navigateToPromotionDetail(int promotionNo);
     }
 }

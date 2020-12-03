@@ -16,7 +16,7 @@ import java.util.List;
 public class MarketCommercialAdapter extends RecyclerView.Adapter<MarketCommercialItemVH> implements
     BaseAdapterDataModel<CommercialDataModel>, BaseAdapterDataView<CommercialDataModel> {
 
-    private List<CommercialDataModel> items = new ArrayList<>();
+    private final List<CommercialDataModel> items = new ArrayList<>();
 
     @NonNull @Override public MarketCommercialItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new MarketCommercialItemVH(parent);

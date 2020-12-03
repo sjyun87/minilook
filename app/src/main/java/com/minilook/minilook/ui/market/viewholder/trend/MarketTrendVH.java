@@ -3,55 +3,53 @@ package com.minilook.minilook.ui.market.viewholder.trend;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import androidx.annotation.DimenRes;
 import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindDimen;
-import butterknife.BindView;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
+import com.minilook.minilook.App;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.model.market.MarketModuleDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
-import com.minilook.minilook.ui.base._BaseViewHolder;
+import com.minilook.minilook.databinding.ViewMarketTrendBinding;
+import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.base.widget.TabView;
 import com.minilook.minilook.ui.market.viewholder.trend.adapter.MarketTrendAdapter;
 import io.reactivex.rxjava3.core.Observable;
 import java.util.List;
 import java.util.Objects;
 
-public class MarketTrendVH extends _BaseViewHolder<MarketDataModel> {
+public class MarketTrendVH extends BaseViewHolder<MarketDataModel> {
 
-    @BindView(R.id.txt_title) TextView titleTextView;
-    @BindView(R.id.txt_tag) TextView tagTextView;
-    @BindView(R.id.layout_tab_panel) TabLayout tabLayout;
-    @BindView(R.id.rcv_product) RecyclerView recyclerView;
+    @DimenRes int dp_2 = R.dimen.dp_2;
+    @DimenRes int dp_48 = R.dimen.dp_48;
 
-    @BindDimen(R.dimen.dp_2) int dp_2;
-    @BindDimen(R.dimen.dp_48) int dp_48;
+    private final ViewMarketTrendBinding binding;
+    private final Gson gson;
 
     private MarketTrendAdapter adapter;
-    private Gson gson = new Gson();
 
-    public MarketTrendVH(@NonNull View itemView) {
-        super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_market_trend, (ViewGroup) itemView, false));
+    public MarketTrendVH(@NonNull View parent) {
+        super(ViewMarketTrendBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent, false));
+        binding = ViewMarketTrendBinding.bind(itemView);
+        gson = App.getInstance().getGson();
 
         setupTabLayout();
         setupProductRecyclerView();
     }
 
     private void setupTabLayout() {
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        binding.layoutTabPanel.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override public void onTabSelected(TabLayout.Tab tab) {
                 adapter.set(getProducts(getTabView(tab).getCode()));
                 adapter.refresh();
-                recyclerView.scrollToPosition(0);
+                binding.rcvProduct.scrollToPosition(0);
                 getTabView(tab).setupSelected();
             }
 
@@ -69,47 +67,46 @@ public class MarketTrendVH extends _BaseViewHolder<MarketDataModel> {
     }
 
     private TabView getTabView(int position) {
-        return (TabView) Objects.requireNonNull(tabLayout.getTabAt(position)).getCustomView();
+        return (TabView) Objects.requireNonNull(binding.layoutTabPanel.getTabAt(position)).getCustomView();
     }
 
     private void setupProductRecyclerView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
+        binding.rcvProduct.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
         adapter = new MarketTrendAdapter();
-        recyclerView.setAdapter(adapter);
+        binding.rcvProduct.setAdapter(adapter);
         DividerDecoration.builder(context)
-            .size(dp_2)
+            .size(resources.getDimensionPixelSize(dp_2))
             .asSpace()
             .build()
-            .addTo(recyclerView);
-        ViewCompat.setNestedScrollingEnabled(recyclerView, false);
+            .addTo(binding.rcvProduct);
+        ViewCompat.setNestedScrollingEnabled(binding.rcvProduct, false);
     }
 
     @Override public void bind(MarketDataModel $data) {
         super.bind($data);
 
-        titleTextView.setText(data.getTitle());
+        binding.txtTitle.setText(data.getTitle());
 
         MarketModuleDataModel moduleData = parseJsonToModel();
-        tagTextView.setText(moduleData.getTag());
+        binding.txtTag.setText(moduleData.getTag());
 
-        if (tabLayout.getTabCount() == 0) {
+        if (binding.layoutTabPanel.getTabCount() == 0) {
             for (CodeDataModel tabModel : moduleData.getTabs()) {
                 TabView tabView = TabView.builder()
                     .context(context)
                     .name(tabModel.getName())
                     .code(tabModel.getCode())
-                    .width(dp_48)
+                    .width(resources.getDimensionPixelSize(dp_48))
                     .build();
 
-                TabLayout.Tab tab = tabLayout.newTab();
+                TabLayout.Tab tab = binding.layoutTabPanel.newTab();
                 tab.setCustomView(tabView);
-                tabLayout.addTab(tab);
+                binding.layoutTabPanel.addTab(tab);
             }
             getTabView(0).setupSelected();
+            adapter.set(getProducts(moduleData.getTabs().get(0).getCode()));
+            adapter.refresh();
         }
-
-        adapter.set(getProducts(moduleData.getTabs().get(0).getCode()));
-        adapter.refresh();
     }
 
     private List<ProductDataModel> getProducts(String code) {
