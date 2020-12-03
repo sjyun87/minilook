@@ -48,4 +48,8 @@ public class SearchRequest extends BaseRequest<SearchService> {
     public Single<BaseDataModel> getFilterOptions(String categoryCode) {
         return getApi().getFilterOptions(categoryCode);
     }
+
+    public Single<BaseDataModel> getFilterOptions() {
+        return getApi().getFilterOptions();
+    }
 }

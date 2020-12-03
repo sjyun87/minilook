@@ -14,7 +14,7 @@ import lombok.Setter;
 public class BrandStyleAdapter extends RecyclerView.Adapter<BrandStyleVH> implements
     BaseAdapterDataModel<CodeDataModel>, BaseAdapterDataView<CodeDataModel> {
 
-    private List<CodeDataModel> items = new ArrayList<>();
+    private final List<CodeDataModel> items = new ArrayList<>();
     @Setter private BrandStyleVH.OnStyleClickListener onStyleClickListener;
 
     @NonNull @Override

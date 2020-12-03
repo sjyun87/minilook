@@ -6,21 +6,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.brand.viewholder.BrandVH;
+import com.minilook.minilook.ui.brand.viewholder.BrandItemVH;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BrandAdapter extends RecyclerView.Adapter<BrandVH> implements
+public class BrandAdapter extends RecyclerView.Adapter<BrandItemVH> implements
     BaseAdapterDataModel<BrandDataModel>, BaseAdapterDataView<BrandDataModel> {
 
-    private List<BrandDataModel> items = new ArrayList<>();
+    private final List<BrandDataModel> items = new ArrayList<>();
 
     @NonNull @Override
-    public BrandVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new BrandVH(parent);
+    public BrandItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new BrandItemVH(parent);
     }
 
-    @Override public void onBindViewHolder(@NonNull BrandVH holder, int position) {
+    @Override public void onBindViewHolder(@NonNull BrandItemVH holder, int position) {
         holder.bind(items.get(position));
     }
 

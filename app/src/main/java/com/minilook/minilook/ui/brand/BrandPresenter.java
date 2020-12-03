@@ -3,6 +3,7 @@ package com.minilook.minilook.ui.brand;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
+import com.minilook.minilook.data.model.common.CodeDataModel;
 
 public interface BrandPresenter extends LifecycleObserver {
 
@@ -11,9 +12,11 @@ public interface BrandPresenter extends LifecycleObserver {
 
     void onResetClick();
 
-    void onStyleClick(int position);
+    void onStyleClick(CodeDataModel data);
 
     interface View {
+
+        void setupClickAction();
 
         void setupStyleRecyclerView();
 
