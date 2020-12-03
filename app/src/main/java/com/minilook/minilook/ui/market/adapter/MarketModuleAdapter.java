@@ -20,6 +20,7 @@ import com.minilook.minilook.ui.market.viewholder.theme.MarketThemeVH;
 import com.minilook.minilook.ui.market.viewholder.trend.MarketTrendVH;
 import java.util.ArrayList;
 import java.util.List;
+import timber.log.Timber;
 
 public class MarketModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<MarketDataModel>> implements
     BaseAdapterDataModel<MarketDataModel>, BaseAdapterDataView<MarketDataModel> {

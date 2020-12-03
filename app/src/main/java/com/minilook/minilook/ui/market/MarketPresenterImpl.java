@@ -67,6 +67,12 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
     private List<MarketDataModel> checkValidData(List<MarketDataModel> data) {
         return Observable.fromIterable(data)
             .filter(model -> MarketModuleType.toModuleType(model.getType()) != -1)
+            .map(new Function<MarketDataModel, MarketDataModel>() {
+                @Override public MarketDataModel apply(MarketDataModel model) throws Throwable {
+                    model.setRefreshing(true);
+                    return model;
+                }
+            })
             .toList()
             .blockingGet();
     }

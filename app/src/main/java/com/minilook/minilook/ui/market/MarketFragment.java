@@ -6,15 +6,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.market.MarketDataModel;
-import com.minilook.minilook.data.model.search.SearchOptionDataModel;
 import com.minilook.minilook.databinding.FragmentMarketBinding;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseFragment;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.market.adapter.MarketModuleAdapter;
 import com.minilook.minilook.ui.market.di.MarketArguments;
-import com.minilook.minilook.ui.product_bridge.ProductBridgeActivity;
-import com.minilook.minilook.ui.promotion_detail.PromotionDetailActivity;
 
 public class MarketFragment extends BaseFragment implements MarketPresenter.View {
 
@@ -27,7 +24,7 @@ public class MarketFragment extends BaseFragment implements MarketPresenter.View
     private FragmentMarketBinding binding;
     private MarketPresenter presenter;
 
-    private final MarketModuleAdapter adapter = new MarketModuleAdapter();
+    private MarketModuleAdapter adapter = new MarketModuleAdapter();
     private final BaseAdapterDataView<MarketDataModel> adapterView = adapter;
 
     @Override protected View getBindingView() {

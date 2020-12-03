@@ -12,4 +12,7 @@ import lombok.Data;
     private String title;
     @Expose @SerializedName("data")
     private JsonElement data;
+
+    // -- Optional
+    private boolean isRefreshing;
 }

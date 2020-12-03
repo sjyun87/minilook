@@ -34,6 +34,8 @@ public class MarketTrendVH extends BaseViewHolder<MarketDataModel> {
     private final Gson gson;
 
     private MarketTrendAdapter adapter;
+    private MarketModuleDataModel moduleData;
+    private int tabPosition = 0;
 
     public MarketTrendVH(@NonNull View parent) {
         super(ViewMarketTrendBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent, false));
@@ -85,9 +87,11 @@ public class MarketTrendVH extends BaseViewHolder<MarketDataModel> {
     @Override public void bind(MarketDataModel $data) {
         super.bind($data);
 
+        if (data.isRefreshing()) resetData();
+
         binding.txtTitle.setText(data.getTitle());
 
-        MarketModuleDataModel moduleData = parseJsonToModel();
+        if (moduleData == null) moduleData = parseJsonToModel();
         binding.txtTag.setText(moduleData.getTag());
 
         if (binding.layoutTabPanel.getTabCount() == 0) {
@@ -107,6 +111,12 @@ public class MarketTrendVH extends BaseViewHolder<MarketDataModel> {
             adapter.set(getProducts(moduleData.getTabs().get(0).getCode()));
             adapter.refresh();
         }
+    }
+
+    private void resetData() {
+        moduleData = null;
+        binding.layoutTabPanel.removeAllTabs();
+        data.setRefreshing(false);
     }
 
     private List<ProductDataModel> getProducts(String code) {

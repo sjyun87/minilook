@@ -92,9 +92,11 @@ public class MarketDayVH extends BaseViewHolder<MarketDataModel> {
     @Override public void bind(MarketDataModel $data) {
         super.bind($data);
 
+        if (data.isRefreshing()) resetData();
+
         binding.txtTitle.setText(data.getTitle());
 
-        moduleData = parseJsonToModel();
+        if (moduleData == null) moduleData = parseJsonToModel();
         binding.txtTag.setText(moduleData.getTag());
 
         if (binding.layoutTabPanel.getTabCount() == 0) {
@@ -103,7 +105,7 @@ public class MarketDayVH extends BaseViewHolder<MarketDataModel> {
                     .context(context)
                     .name(tabModel.getName())
                     .code(tabModel.getCode())
-                    .width(dp_48)
+                    .width(resources.getDimensionPixelSize(dp_48))
                     .selectedTextColor(color_FFFFFFFF)
                     .unselectedTextColor(color_FFA8A6A1)
                     .build();
@@ -118,6 +120,12 @@ public class MarketDayVH extends BaseViewHolder<MarketDataModel> {
         }
 
         binding.imgMore.setOnClickListener(this::onMoreClick);
+    }
+
+    private void resetData() {
+        moduleData = null;
+        binding.layoutTabPanel.removeAllTabs();
+        data.setRefreshing(false);
     }
 
     private List<ProductDataModel> getProducts(String code) {

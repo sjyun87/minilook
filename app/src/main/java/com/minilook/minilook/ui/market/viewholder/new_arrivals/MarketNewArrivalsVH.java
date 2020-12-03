@@ -36,6 +36,7 @@ public class MarketNewArrivalsVH extends BaseViewHolder<MarketDataModel> {
     private final Gson gson;
 
     private MarketNewArrivalsAdapter adapter;
+    private MarketModuleDataModel moduleData;
 
     public MarketNewArrivalsVH(@NonNull View parent) {
         super(ViewMarketNewArrivalsBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,
@@ -88,11 +89,13 @@ public class MarketNewArrivalsVH extends BaseViewHolder<MarketDataModel> {
     @Override public void bind(MarketDataModel $data) {
         super.bind($data);
 
+        if (data.isRefreshing()) resetData();
+
         binding.txtTitle.setText(data.getTitle());
 
-        MarketModuleDataModel data = parseJsonToModel();
+        if (moduleData == null) moduleData = parseJsonToModel();
         if (binding.layoutTabPanel.getTabCount() == 0) {
-            for (CodeDataModel tabModel : data.getTabs()) {
+            for (CodeDataModel tabModel : moduleData.getTabs()) {
                 TabView tabView = TabView.builder()
                     .context(context)
                     .name(tabModel.getName())
@@ -105,11 +108,17 @@ public class MarketNewArrivalsVH extends BaseViewHolder<MarketDataModel> {
                 binding.layoutTabPanel.addTab(tab);
             }
             getTabView(0).setupSelected();
-            adapter.set(getProducts(data.getTabs().get(0).getCode()));
+            adapter.set(getProducts(moduleData.getTabs().get(0).getCode()));
             adapter.refresh();
         }
 
         binding.imgMore.setOnClickListener(this::onMoreClick);
+    }
+
+    private void resetData() {
+        moduleData = null;
+        binding.layoutTabPanel.removeAllTabs();
+        data.setRefreshing(false);
     }
 
     private List<ProductDataModel> getProducts(String code) {
