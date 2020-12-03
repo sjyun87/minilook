@@ -8,10 +8,13 @@ import com.minilook.minilook.data.model.search.SearchOptionDataModel;
 public interface MarketPresenter extends LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    void onCreate();
+    void onCreateView();
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     void onResume();
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    void onPause();
 
     void onRefresh();
 
@@ -24,6 +27,10 @@ public interface MarketPresenter extends LifecycleObserver {
         void setupRecyclerView();
 
         void refresh();
+
+        void attachedToWindow();
+
+        void detachToWindow();
 
         void showErrorDialog();
     }

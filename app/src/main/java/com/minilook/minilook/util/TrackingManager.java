@@ -3,6 +3,7 @@ package com.minilook.minilook.util;
 import android.content.Context;
 import android.os.Bundle;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.minilook.minilook.BuildConfig;
 
 public class TrackingManager {
 
@@ -13,6 +14,7 @@ public class TrackingManager {
     }
 
     public static void pageTracking(String pageName, String className) {
+        if (BuildConfig.DEBUG) return;
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, pageName);
         bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, className);

@@ -8,15 +8,19 @@ import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.network.market.MarketRequest;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
+import com.minilook.minilook.ui.main.MainPresenterImpl;
 import com.minilook.minilook.ui.market.di.MarketArguments;
 import com.minilook.minilook.util.TrackingManager;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.functions.Function;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import timber.log.Timber;
 
 public class MarketPresenterImpl extends BasePresenterImpl implements MarketPresenter {
@@ -33,7 +37,8 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
         gson = App.getInstance().getGson();
     }
 
-    @Override public void onCreate() {
+    @Override public void onCreateView() {
+        toRxObservable();
         view.setupRefreshLayout();
         view.setupRecyclerView();
 
@@ -41,7 +46,12 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
     }
 
     @Override public void onResume() {
+        view.attachedToWindow();
         TrackingManager.pageTracking("마켓페이지", MarketFragment.class.getSimpleName());
+    }
+
+    @Override public void onPause() {
+        view.detachToWindow();
     }
 
     @Override public void onRefresh() {
@@ -67,11 +77,9 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
     private List<MarketDataModel> checkValidData(List<MarketDataModel> data) {
         return Observable.fromIterable(data)
             .filter(model -> MarketModuleType.toModuleType(model.getType()) != -1)
-            .map(new Function<MarketDataModel, MarketDataModel>() {
-                @Override public MarketDataModel apply(MarketDataModel model) throws Throwable {
-                    model.setRefreshing(true);
-                    return model;
-                }
+            .map(model -> {
+                model.setRefreshing(true);
+                return model;
             })
             .toList()
             .blockingGet();
@@ -81,5 +89,21 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
         adapter.set(data);
         view.refresh();
         view.setRefreshing(false);
+    }
+
+    private void toRxObservable() {
+        addDisposable(RxBus.toObservable().subscribe(o -> {
+            if (o instanceof RxBusEventMarketAttach) {
+
+            } else if (o instanceof RxBusEventMarketDetach){
+
+            }
+        }, Timber::e));
+    }
+
+    @AllArgsConstructor @Getter public final static class RxBusEventMarketAttach {
+    }
+
+    @AllArgsConstructor @Getter public final static class RxBusEventMarketDetach {
     }
 }

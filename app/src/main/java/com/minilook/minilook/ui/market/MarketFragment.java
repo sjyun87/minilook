@@ -24,7 +24,7 @@ public class MarketFragment extends BaseFragment implements MarketPresenter.View
     private FragmentMarketBinding binding;
     private MarketPresenter presenter;
 
-    private MarketModuleAdapter adapter = new MarketModuleAdapter();
+    private final MarketModuleAdapter adapter = new MarketModuleAdapter();
     private final BaseAdapterDataView<MarketDataModel> adapterView = adapter;
 
     @Override protected View getBindingView() {
@@ -64,6 +64,14 @@ public class MarketFragment extends BaseFragment implements MarketPresenter.View
 
     @Override public void refresh() {
         adapterView.refresh();
+    }
+
+    @Override public void attachedToWindow() {
+        adapter.onAttach();
+    }
+
+    @Override public void detachToWindow() {
+        adapter.onDetach();
     }
 
     @Override public void showErrorDialog() {

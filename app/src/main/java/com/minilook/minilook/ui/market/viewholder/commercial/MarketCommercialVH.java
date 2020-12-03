@@ -17,6 +17,7 @@ import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.market.viewholder.commercial.adapter.MarketCommercialAdapter;
 import java.util.ArrayList;
 import java.util.List;
+import timber.log.Timber;
 
 public class MarketCommercialVH extends BaseViewHolder<MarketDataModel> {
 
@@ -39,22 +40,58 @@ public class MarketCommercialVH extends BaseViewHolder<MarketDataModel> {
         adapter = new MarketCommercialAdapter();
         binding.viewpager.setAdapter(adapter);
         binding.viewpager.setOffscreenPageLimit(2);
-        binding.viewpager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override public void onPageSelected(int position) {
-                cancelAutoSlide();
-                startAutoSlide();
-            }
-
-            @Override public void onPageScrollStateChanged(int state) {
-                if (state == ViewPager2.SCROLL_STATE_DRAGGING) {
-                    cancelAutoSlide();
-                } else if (state == ViewPager2.SCROLL_STATE_IDLE) {
-                    startAutoSlide();
-                }
-            }
-        });
         ViewCompat.setNestedScrollingEnabled(binding.viewpager, false);
     }
+
+    private void startAutoSlide() {
+        if (adapter.getRealItemCount() > 1) handler.postDelayed(nextPageRunnable, 3000);
+    }
+
+    private void cancelAutoSlide() {
+        if (adapter.getRealItemCount() > 1) handler.removeCallbacks(nextPageRunnable);
+    }
+
+    @Override public void onAttach() {
+        binding.viewpager.registerOnPageChangeCallback(callback);
+        startAutoSlide();
+    }
+
+    @Override public void onDetach() {
+        binding.viewpager.unregisterOnPageChangeCallback(callback);
+        cancelAutoSlide();
+    }
+
+    @Override public void bind(MarketDataModel $data) {
+        super.bind($data);
+
+        List<CommercialDataModel> items = parseJsonToModel();
+        binding.viewpager.setUserInputEnabled(items.size() > 1);
+
+        if (adapter.getRealItemCount() == 0) {
+            adapter.set(items);
+            adapter.refresh();
+        }
+    }
+
+    private List<CommercialDataModel> parseJsonToModel() {
+        return gson.fromJson(data.getData(), new TypeToken<ArrayList<CommercialDataModel>>() {
+        }.getType());
+    }
+
+    private final ViewPager2.OnPageChangeCallback callback = new ViewPager2.OnPageChangeCallback() {
+        @Override public void onPageSelected(int position) {
+            cancelAutoSlide();
+            startAutoSlide();
+        }
+
+        @Override public void onPageScrollStateChanged(int state) {
+            if (state == ViewPager2.SCROLL_STATE_DRAGGING) {
+                cancelAutoSlide();
+            } else if (state == ViewPager2.SCROLL_STATE_IDLE) {
+                startAutoSlide();
+            }
+        }
+    };
 
     private final Runnable nextPageRunnable = new Runnable() {
         @Override
@@ -66,34 +103,4 @@ public class MarketCommercialVH extends BaseViewHolder<MarketDataModel> {
             }
         }
     };
-
-    private void startAutoSlide() {
-        if (adapter.getRealItemCount() > 1) handler.postDelayed(nextPageRunnable, 3000);
-    }
-
-    private void cancelAutoSlide() {
-        if (adapter.getRealItemCount() > 1) handler.removeCallbacks(nextPageRunnable);
-    }
-
-    @Override public void onAttach() {
-        startAutoSlide();
-    }
-
-    @Override public void onDetach() {
-        cancelAutoSlide();
-    }
-
-    @Override public void bind(MarketDataModel $data) {
-        super.bind($data);
-
-        List<CommercialDataModel> items = parseJsonToModel();
-        binding.viewpager.setUserInputEnabled(items.size() > 1);
-        adapter.set(items);
-        adapter.refresh();
-    }
-
-    private List<CommercialDataModel> parseJsonToModel() {
-        return gson.fromJson(data.getData(), new TypeToken<ArrayList<CommercialDataModel>>() {
-        }.getType());
-    }
 }
