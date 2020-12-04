@@ -160,7 +160,9 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
             backPressedTime = System.currentTimeMillis();
             Toast.makeText(this, str_app_finish, Toast.LENGTH_SHORT).show();
         } else {
-            finishAffinity();
+            moveTaskToBack(true);
+            finishAndRemoveTask();
+            android.os.Process.killProcess(android.os.Process.myPid());
         }
     }
 }

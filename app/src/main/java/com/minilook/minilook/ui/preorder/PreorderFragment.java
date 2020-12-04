@@ -14,7 +14,7 @@ import com.minilook.minilook.ui.preorder.adapter.PreorderPagerAdapter;
 import com.minilook.minilook.ui.preorder.di.PreorderArguments;
 import com.minilook.minilook.ui.preorder_detail.PreorderDetailActivity;
 import com.minilook.minilook.ui.preorder_info.PreorderInfoActivity;
-import com.minilook.minilook.data.firebase.DynamicLinkManager;
+import com.minilook.minilook.util.DynamicLinkUtil;
 import java.util.Objects;
 
 public class PreorderFragment extends _BaseFragment implements PreorderPresenter.View {
@@ -45,7 +45,6 @@ public class PreorderFragment extends _BaseFragment implements PreorderPresenter
     private PreorderArguments provideArguments() {
         return PreorderArguments.builder()
             .view(this)
-            .dynamicLinkManager(new DynamicLinkManager(getContext()))
             .build();
     }
 

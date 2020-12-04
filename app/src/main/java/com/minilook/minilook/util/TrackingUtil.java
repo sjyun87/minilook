@@ -5,7 +5,7 @@ import android.os.Bundle;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.minilook.minilook.BuildConfig;
 
-public class TrackingManager {
+public class TrackingUtil {
 
     private static FirebaseAnalytics firebaseAnalytics;
 

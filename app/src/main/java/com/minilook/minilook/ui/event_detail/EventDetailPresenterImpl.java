@@ -1,6 +1,5 @@
 package com.minilook.minilook.ui.event_detail;
 
-import android.net.Uri;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.data.common.HttpCode;
@@ -11,8 +10,8 @@ import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.event_detail.di.EventDetailArguments;
-import com.minilook.minilook.data.firebase.DynamicLinkManager;
-import com.minilook.minilook.util.TrackingManager;
+import com.minilook.minilook.util.DynamicLinkUtil;
+import com.minilook.minilook.util.TrackingUtil;
 import io.reactivex.rxjava3.functions.Function;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +24,6 @@ public class EventDetailPresenterImpl extends BasePresenterImpl implements Event
     private final View view;
     private final int eventNo;
     private final BaseAdapterDataModel<EventDataModel> eventAdapter;
-    private final DynamicLinkManager dynamicLinkManager;
     private final EventRequest eventRequest;
 
     private Gson gson = new Gson();
@@ -36,7 +34,6 @@ public class EventDetailPresenterImpl extends BasePresenterImpl implements Event
         view = args.getView();
         eventNo = args.getEventNo();
         eventAdapter = args.getAdapter();
-        dynamicLinkManager = args.getDynamicLinkManager();
         eventRequest = new EventRequest();
     }
 
@@ -48,7 +45,7 @@ public class EventDetailPresenterImpl extends BasePresenterImpl implements Event
     }
 
     @Override public void onResume() {
-        TrackingManager.pageTracking("이벤트 상세페이지", EventDetailActivity.class.getSimpleName());
+        TrackingUtil.pageTracking("이벤트 상세페이지", EventDetailActivity.class.getSimpleName());
     }
 
     private void reqEventDetail() {
@@ -70,16 +67,7 @@ public class EventDetailPresenterImpl extends BasePresenterImpl implements Event
     }
 
     @Override public void onShareClick() {
-        dynamicLinkManager.createShareLink(DynamicLinkManager.TYPE_EVENT, eventNo, data.getTitle(), data.getThumbUrl(),
-            new DynamicLinkManager.OnCompletedListener() {
-                @Override public void onSuccess(Uri uri) {
-                    view.sendLink(uri.toString());
-                }
-
-                @Override public void onFail() {
-                    view.showErrorMessage();
-                }
-            });
+        DynamicLinkUtil.sendDynamicLink(DynamicLinkUtil.TYPE_EVENT, eventNo, data.getTitle(), data.getThumbUrl());
     }
 
     private void reqEvents() {

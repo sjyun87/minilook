@@ -12,7 +12,7 @@ import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.ipage.di.IpageArguments;
 import com.minilook.minilook.ui.order_cancel.OrderCancelPresenterImpl;
 import com.minilook.minilook.ui.review_write.ReviewWritePresenterImpl;
-import com.minilook.minilook.util.TrackingManager;
+import com.minilook.minilook.util.TrackingUtil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import timber.log.Timber;
@@ -39,7 +39,7 @@ public class IpagePresenterImpl extends BasePresenterImpl implements IpagePresen
     }
 
     @Override public void onResume() {
-        TrackingManager.pageTracking("아이페이지", IpageFragment.class.getSimpleName());
+        TrackingUtil.pageTracking("아이페이지", IpageFragment.class.getSimpleName());
     }
 
     @Override public void onLogin() {

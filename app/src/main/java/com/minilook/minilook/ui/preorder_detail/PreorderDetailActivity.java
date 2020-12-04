@@ -27,8 +27,8 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.OptionDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
-import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.option_selector.OptionSelector;
 import com.minilook.minilook.ui.order.OrderActivity;
@@ -39,7 +39,7 @@ import com.minilook.minilook.ui.preorder_info.PreorderInfoActivity;
 import com.minilook.minilook.ui.preorder_product_detail.PreorderProductDetailActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.ui.product_detail.widget.ProductTabView;
-import com.minilook.minilook.data.firebase.DynamicLinkManager;
+import com.minilook.minilook.util.DynamicLinkUtil;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 import java.util.List;
 import java.util.Objects;
@@ -106,7 +106,6 @@ public class PreorderDetailActivity extends _BaseActivity implements PreorderDet
             .preorderNo(getIntent().getIntExtra("preorderNo", -1))
             .imageAdapter(imageAdapter)
             .productAdapter(productAdapter)
-            .dynamicLinkManager(new DynamicLinkManager(this))
             .build();
     }
 

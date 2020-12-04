@@ -11,7 +11,7 @@ import com.minilook.minilook.data.model.member.MemberDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.RxBusEvent;
-import com.minilook.minilook.util.TrackingManager;
+import com.minilook.minilook.util.TrackingUtil;
 import com.pixplicity.easyprefs.library.Prefs;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,7 +63,7 @@ public class App extends Application {
     }
 
     private void setupFA() {
-        TrackingManager.init(getApplicationContext());
+        TrackingUtil.init(getApplicationContext());
     }
 
     private void setupKakao() {

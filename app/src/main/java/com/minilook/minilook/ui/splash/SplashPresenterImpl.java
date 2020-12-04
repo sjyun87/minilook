@@ -1,6 +1,7 @@
 package com.minilook.minilook.ui.splash;
 
 import android.net.Uri;
+import android.text.TextUtils;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.google.gson.Gson;
@@ -63,7 +64,10 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
             if (link != null) {
                 String type = link.getQueryParameter("type");
                 String id = link.getQueryParameter("id");
-                App.getInstance().setDynamicLink(type, id);
+
+                if (!TextUtils.isEmpty(type) && !TextUtils.isEmpty(id)) {
+                    App.getInstance().setDynamicLink(type, id);
+                }
             }
         }
         isDynamicLinkCheck = true;

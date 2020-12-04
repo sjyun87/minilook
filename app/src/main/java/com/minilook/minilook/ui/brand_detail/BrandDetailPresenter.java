@@ -17,8 +17,6 @@ public interface BrandDetailPresenter extends LifecycleObserver {
 
     void onSortClick();
 
-    void onSortSelected(CodeDataModel data);
-
     void onLoadMore();
 
     void onBrandInfoClick();
@@ -27,15 +25,11 @@ public interface BrandDetailPresenter extends LifecycleObserver {
 
     interface View {
 
-        void setupScrollView();
+        void setupClickAction();
 
         void setupStyleRecyclerView();
 
         void styleRefresh();
-
-        void setupSortRecyclerView();
-
-        void sortRefresh();
 
         void setupSortText(String name);
 
@@ -67,12 +61,10 @@ public interface BrandDetailPresenter extends LifecycleObserver {
 
         void scrollToTop();
 
+        void showErrorDialog();
+
         void navigateToBrandInfo(int brandNo);
 
         void navigateToLogin();
-
-        void sendLink(String shareLink);
-
-        void showErrorMessage();
     }
 }

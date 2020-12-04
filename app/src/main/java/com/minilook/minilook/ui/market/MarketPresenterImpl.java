@@ -12,9 +12,8 @@ import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
-import com.minilook.minilook.ui.main.MainPresenterImpl;
 import com.minilook.minilook.ui.market.di.MarketArguments;
-import com.minilook.minilook.util.TrackingManager;
+import com.minilook.minilook.util.TrackingUtil;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.functions.Function;
 import java.util.ArrayList;
@@ -47,7 +46,7 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
 
     @Override public void onResume() {
         view.attachedToWindow();
-        TrackingManager.pageTracking("마켓페이지", MarketFragment.class.getSimpleName());
+        TrackingUtil.pageTracking("마켓페이지", MarketFragment.class.getSimpleName());
     }
 
     @Override public void onPause() {

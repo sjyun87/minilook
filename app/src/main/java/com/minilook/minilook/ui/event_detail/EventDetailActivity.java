@@ -22,7 +22,7 @@ import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
 import com.minilook.minilook.ui.event_detail.adapter.EventAdapter;
 import com.minilook.minilook.ui.event_detail.di.EventDetailArguments;
-import com.minilook.minilook.data.firebase.DynamicLinkManager;
+import com.minilook.minilook.util.DynamicLinkUtil;
 
 public class EventDetailActivity extends _BaseActivity implements EventDetailPresenter.View {
 
@@ -61,7 +61,6 @@ public class EventDetailActivity extends _BaseActivity implements EventDetailPre
             .view(this)
             .eventNo(getIntent().getIntExtra("eventNo", -1))
             .adapter(adapter)
-            .dynamicLinkManager(new DynamicLinkManager(this))
             .build();
     }
 

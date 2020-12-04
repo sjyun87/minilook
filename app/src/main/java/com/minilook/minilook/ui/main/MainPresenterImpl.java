@@ -2,8 +2,7 @@ package com.minilook.minilook.ui.main;
 
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.PrefsKey;
-import com.minilook.minilook.data.firebase.DynamicLinkManager;
-import com.minilook.minilook.data.model.base.BaseDataModel;
+import com.minilook.minilook.util.DynamicLinkUtil;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.network.member.MemberRequest;
@@ -109,19 +108,19 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
             int itemNo = Integer.parseInt(dynamicData.get("id"));
 
             switch (type) {
-                case DynamicLinkManager.TYPE_PROMOTION:
+                case DynamicLinkUtil.TYPE_PROMOTION:
                     view.navigateToPromotionDetail(itemNo);
                     break;
-                case DynamicLinkManager.TYPE_EVENT:
+                case DynamicLinkUtil.TYPE_EVENT:
                     view.navigateToEventDetail(itemNo);
                     break;
-                case DynamicLinkManager.TYPE_PRODUCT:
+                case DynamicLinkUtil.TYPE_PRODUCT:
                     view.navigateToProductDetail(itemNo);
                     break;
-                case DynamicLinkManager.TYPE_BRAND:
+                case DynamicLinkUtil.TYPE_BRAND:
                     view.navigateToBrandDetail(itemNo);
                     break;
-                case DynamicLinkManager.TYPE_PREORDER:
+                case DynamicLinkUtil.TYPE_PREORDER:
                     view.navigateToPreorderDetail(itemNo);
                     break;
             }

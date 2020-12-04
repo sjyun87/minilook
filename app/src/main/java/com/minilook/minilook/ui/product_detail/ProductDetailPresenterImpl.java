@@ -1,6 +1,5 @@
 package com.minilook.minilook.ui.product_detail;
 
-import android.net.Uri;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.App;
@@ -28,9 +27,9 @@ import com.minilook.minilook.ui.main.MainPresenterImpl;
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
 import com.minilook.minilook.ui.question_write.QuestionWritePresenterImpl;
 import com.minilook.minilook.ui.review.ReviewPresenterImpl;
-import com.minilook.minilook.data.firebase.DynamicLinkManager;
+import com.minilook.minilook.util.DynamicLinkUtil;
 import com.minilook.minilook.util.StringUtil;
-import com.minilook.minilook.util.TrackingManager;
+import com.minilook.minilook.util.TrackingUtil;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.functions.Function;
 import java.util.ArrayList;
@@ -46,7 +45,6 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     private final BaseAdapterDataModel<String> productImageAdapter;
     private final BaseAdapterDataModel<ReviewDataModel> reviewAdapter;
     private final BaseAdapterDataModel<ProductDataModel> relatedProductsAdapter;
-    private final DynamicLinkManager dynamicLinkManager;
     private final ProductRequest productRequest;
     private final OrderRequest orderRequest;
     private final ScrapRequest scrapRequest;
@@ -62,7 +60,6 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         productImageAdapter = args.getProductImageAdapter();
         reviewAdapter = args.getReviewAdapter();
         relatedProductsAdapter = args.getRelatedProductAdapter();
-        dynamicLinkManager = args.getDynamicLinkManager();
         productRequest = new ProductRequest();
         orderRequest = new OrderRequest();
         scrapRequest = new ScrapRequest();
@@ -81,7 +78,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     }
 
     @Override public void onResume() {
-        TrackingManager.pageTracking("상품 상세페이지", ProductDetailActivity.class.getSimpleName());
+        TrackingUtil.pageTracking("상품 상세페이지", ProductDetailActivity.class.getSimpleName());
     }
 
     @Override public void onTabClick(int position) {
@@ -189,16 +186,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
 
     @Override public void onShareClick() {
         String title = data.getProductName() + " - " + data.getBrandName();
-        dynamicLinkManager.createShareLink(DynamicLinkManager.TYPE_PRODUCT, productNo, title, data.getImages().get(0),
-            new DynamicLinkManager.OnCompletedListener() {
-                @Override public void onSuccess(Uri uri) {
-                    view.sendLink(uri.toString());
-                }
-
-                @Override public void onFail() {
-                    view.showErrorMessage();
-                }
-            });
+        DynamicLinkUtil.sendDynamicLink(DynamicLinkUtil.TYPE_PRODUCT, productNo, title, data.getImages().get(0));
     }
 
     private void reqAddShoppingBag(List<ShoppingOptionDataModel> optionData) {

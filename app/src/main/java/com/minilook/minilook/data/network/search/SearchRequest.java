@@ -31,7 +31,6 @@ public class SearchRequest extends BaseRequest<SearchService> {
         if (options.getCategoryDerailCode() != null) {
             jsonMap.put("categoryDetailCode", options.getCategoryDerailCode());
         }
-        if (options.getType() > 0) jsonMap.put("sizeType", options.getType());
         if (options.getMinPrice() > 0) jsonMap.put("startPrice", options.getMinPrice());
         if (options.getMaxPrice() > 0) jsonMap.put("endPrice", options.getMaxPrice());
         if (options.getColorCodes() != null && options.getColorCodes().size() > 0) {

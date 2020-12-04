@@ -10,6 +10,7 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.FontRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
@@ -92,7 +93,8 @@ public class GuideVH extends BaseViewHolder<Integer> {
         String target = resources.getString(targetId);
 
         SpannableString fontSpan = SpannableUtil.fontSpan(text, target, font);
-        SpannableString colorSpan = SpannableUtil.foregroundColorSpan(fontSpan, target, color_FF8140E5);
+        SpannableString colorSpan =
+            SpannableUtil.foregroundColorSpan(fontSpan, target, ContextCompat.getColor(context, color_FF8140E5));
         return colorSpan;
     }
 }

@@ -59,6 +59,10 @@ public class BrandActivity extends BaseActivity implements BrandPresenter.View {
             .build();
     }
 
+    @Override public void onBrandScrap(BrandDataModel data) {
+        presenter.onBrandScrap(data);
+    }
+
     @Override public void setupClickAction() {
         binding.txtReset.setOnClickListener(view -> presenter.onResetClick());
         binding.txtEmpty.setOnClickListener(view -> presenter.onResetClick());
