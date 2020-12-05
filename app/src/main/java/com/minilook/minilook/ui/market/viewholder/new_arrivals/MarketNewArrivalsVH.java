@@ -80,7 +80,7 @@ public class MarketNewArrivalsVH extends BaseViewHolder<MarketDataModel> {
         adapter = new MarketNewArrivalsAdapter();
         binding.rcvProduct.setAdapter(adapter);
         DividerDecoration.builder(context)
-            .size(resources.getDimensionPixelSize(dp_2))
+            .size(resources.getDimen(dp_2))
             .asSpace()
             .build()
             .addTo(binding.rcvProduct);
@@ -100,7 +100,7 @@ public class MarketNewArrivalsVH extends BaseViewHolder<MarketDataModel> {
                     .context(context)
                     .name(tabModel.getName())
                     .code(tabModel.getCode())
-                    .width(resources.getDimensionPixelSize(dp_48))
+                    .width(resources.getDimen(dp_48))
                     .build();
 
                 TabLayout.Tab tab = binding.layoutTabPanel.newTab();

@@ -56,7 +56,7 @@ public class MarketFragment extends BaseFragment implements MarketPresenter.View
         binding.rcvMarket.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rcvMarket.setAdapter(adapter);
         DividerDecoration.builder(requireContext())
-            .size(getResources().getDimensionPixelSize(dp_10))
+            .size(resources.getDimen(dp_10))
             .asSpace()
             .build()
             .addTo(binding.rcvMarket);

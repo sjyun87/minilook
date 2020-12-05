@@ -43,7 +43,7 @@ public class MarketPreorderOpenItemVH extends BaseViewHolder<PreorderDataModel> 
 
     private void setupItemSize(boolean isOnlyOne) {
         ViewGroup.LayoutParams params = binding.getRoot().getLayoutParams();
-        params.width = isOnlyOne ? ViewGroup.LayoutParams.MATCH_PARENT : resources.getDimensionPixelSize(dp_150);
+        params.width = isOnlyOne ? ViewGroup.LayoutParams.MATCH_PARENT : resources.getDimen(dp_150);
         binding.getRoot().setLayoutParams(params);
     }
 

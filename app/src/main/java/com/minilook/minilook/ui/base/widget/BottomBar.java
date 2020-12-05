@@ -11,10 +11,9 @@ import androidx.annotation.DimenRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import com.minilook.minilook.R;
 import com.minilook.minilook.databinding.LayoutBottombarBinding;
-import com.minilook.minilook.util.DimenUtil;
+import com.minilook.minilook.ui.base.ResourcesProvider;
 import lombok.Setter;
 
 public class BottomBar extends LinearLayout {
@@ -50,6 +49,7 @@ public class BottomBar extends LinearLayout {
     @DimenRes int dp_30 = R.dimen.dp_30;
 
     private LayoutBottombarBinding binding;
+    private ResourcesProvider resources;
 
     private int position = POSITION_LOOKBOOK;
     private boolean isWhiteTheme;
@@ -85,6 +85,7 @@ public class BottomBar extends LinearLayout {
 
     private void initView() {
         binding = LayoutBottombarBinding.inflate(LayoutInflater.from(getContext()), this);
+        resources = new ResourcesProvider(getContext());
         setGravity(Gravity.CENTER_VERTICAL);
         setupAction();
         updateUI();
@@ -110,11 +111,11 @@ public class BottomBar extends LinearLayout {
                     binding.imgBottombarPreorder.setImageResource(icon_preorder_gray);
                     binding.imgBottombarIpage.setImageResource(icon_ipage_gray);
 
-                    binding.txtBottombarLookbook.setTextColor(ContextCompat.getColor(getContext(), color_FF8140E5));
-                    binding.txtBottombarMarket.setTextColor(ContextCompat.getColor(getContext(), color_FFA9A9A9));
-                    binding.txtBottombarCategory.setTextColor(ContextCompat.getColor(getContext(), color_FFA9A9A9));
-                    binding.txtBottombarPreorder.setTextColor(ContextCompat.getColor(getContext(), color_FFA9A9A9));
-                    binding.txtBottombarIpage.setTextColor(ContextCompat.getColor(getContext(), color_FFA9A9A9));
+                    binding.txtBottombarLookbook.setTextColor(resources.getColor(color_FF8140E5));
+                    binding.txtBottombarMarket.setTextColor(resources.getColor(color_FFA9A9A9));
+                    binding.txtBottombarCategory.setTextColor(resources.getColor(color_FFA9A9A9));
+                    binding.txtBottombarPreorder.setTextColor(resources.getColor(color_FFA9A9A9));
+                    binding.txtBottombarIpage.setTextColor(resources.getColor(color_FFA9A9A9));
                 } else {
                     binding.imgBottombarLookbook.setImageResource(icon_lookbook_white);
                     binding.imgBottombarMarket.setImageResource(icon_market_white);
@@ -122,11 +123,11 @@ public class BottomBar extends LinearLayout {
                     binding.imgBottombarPreorder.setImageResource(icon_preorder_white);
                     binding.imgBottombarIpage.setImageResource(icon_ipage_white);
 
-                    binding.txtBottombarLookbook.setTextColor(ContextCompat.getColor(getContext(), color_FFFFFFFF));
-                    binding.txtBottombarMarket.setTextColor(ContextCompat.getColor(getContext(), color_FFFFFFFF));
-                    binding.txtBottombarCategory.setTextColor(ContextCompat.getColor(getContext(), color_FFFFFFFF));
-                    binding.txtBottombarPreorder.setTextColor(ContextCompat.getColor(getContext(), color_FFFFFFFF));
-                    binding.txtBottombarIpage.setTextColor(ContextCompat.getColor(getContext(), color_FFFFFFFF));
+                    binding.txtBottombarLookbook.setTextColor(resources.getColor(color_FFFFFFFF));
+                    binding.txtBottombarMarket.setTextColor(resources.getColor(color_FFFFFFFF));
+                    binding.txtBottombarCategory.setTextColor(resources.getColor(color_FFFFFFFF));
+                    binding.txtBottombarPreorder.setTextColor(resources.getColor(color_FFFFFFFF));
+                    binding.txtBottombarIpage.setTextColor(resources.getColor(color_FFFFFFFF));
                 }
                 break;
 
@@ -137,11 +138,11 @@ public class BottomBar extends LinearLayout {
                 binding.imgBottombarPreorder.setImageResource(icon_preorder_gray);
                 binding.imgBottombarIpage.setImageResource(icon_ipage_gray);
 
-                binding.txtBottombarLookbook.setTextColor(ContextCompat.getColor(getContext(), color_FFA9A9A9));
-                binding.txtBottombarMarket.setTextColor(ContextCompat.getColor(getContext(), color_FF8140E5));
-                binding.txtBottombarCategory.setTextColor(ContextCompat.getColor(getContext(), color_FFA9A9A9));
-                binding.txtBottombarPreorder.setTextColor(ContextCompat.getColor(getContext(), color_FFA9A9A9));
-                binding.txtBottombarIpage.setTextColor(ContextCompat.getColor(getContext(), color_FFA9A9A9));
+                binding.txtBottombarLookbook.setTextColor(resources.getColor(color_FFA9A9A9));
+                binding.txtBottombarMarket.setTextColor(resources.getColor(color_FF8140E5));
+                binding.txtBottombarCategory.setTextColor(resources.getColor(color_FFA9A9A9));
+                binding.txtBottombarPreorder.setTextColor(resources.getColor(color_FFA9A9A9));
+                binding.txtBottombarIpage.setTextColor(resources.getColor(color_FFA9A9A9));
                 break;
 
             case POSITION_CATEGORY:
@@ -151,11 +152,11 @@ public class BottomBar extends LinearLayout {
                 binding.imgBottombarPreorder.setImageResource(icon_preorder_gray);
                 binding.imgBottombarIpage.setImageResource(icon_ipage_gray);
 
-                binding.txtBottombarLookbook.setTextColor(ContextCompat.getColor(getContext(), color_FFA9A9A9));
-                binding.txtBottombarMarket.setTextColor(ContextCompat.getColor(getContext(), color_FFA9A9A9));
-                binding.txtBottombarCategory.setTextColor(ContextCompat.getColor(getContext(), color_FF8140E5));
-                binding.txtBottombarPreorder.setTextColor(ContextCompat.getColor(getContext(), color_FFA9A9A9));
-                binding.txtBottombarIpage.setTextColor(ContextCompat.getColor(getContext(), color_FFA9A9A9));
+                binding.txtBottombarLookbook.setTextColor(resources.getColor(color_FFA9A9A9));
+                binding.txtBottombarMarket.setTextColor(resources.getColor(color_FFA9A9A9));
+                binding.txtBottombarCategory.setTextColor(resources.getColor(color_FF8140E5));
+                binding.txtBottombarPreorder.setTextColor(resources.getColor(color_FFA9A9A9));
+                binding.txtBottombarIpage.setTextColor(resources.getColor(color_FFA9A9A9));
                 break;
 
             case POSITION_PREORDER:
@@ -165,11 +166,11 @@ public class BottomBar extends LinearLayout {
                 binding.imgBottombarPreorder.setImageResource(icon_preorder_purple);
                 binding.imgBottombarIpage.setImageResource(icon_ipage_gray);
 
-                binding.txtBottombarLookbook.setTextColor(ContextCompat.getColor(getContext(), color_FFA9A9A9));
-                binding.txtBottombarMarket.setTextColor(ContextCompat.getColor(getContext(), color_FFA9A9A9));
-                binding.txtBottombarCategory.setTextColor(ContextCompat.getColor(getContext(), color_FFA9A9A9));
-                binding.txtBottombarPreorder.setTextColor(ContextCompat.getColor(getContext(), color_FF8140E5));
-                binding.txtBottombarIpage.setTextColor(ContextCompat.getColor(getContext(), color_FFA9A9A9));
+                binding.txtBottombarLookbook.setTextColor(resources.getColor(color_FFA9A9A9));
+                binding.txtBottombarMarket.setTextColor(resources.getColor(color_FFA9A9A9));
+                binding.txtBottombarCategory.setTextColor(resources.getColor(color_FFA9A9A9));
+                binding.txtBottombarPreorder.setTextColor(resources.getColor(color_FF8140E5));
+                binding.txtBottombarIpage.setTextColor(resources.getColor(color_FFA9A9A9));
                 break;
 
             case POSITION_IPAGE:
@@ -179,11 +180,11 @@ public class BottomBar extends LinearLayout {
                 binding.imgBottombarPreorder.setImageResource(icon_preorder_gray);
                 binding.imgBottombarIpage.setImageResource(icon_ipage_purple);
 
-                binding.txtBottombarLookbook.setTextColor(ContextCompat.getColor(getContext(), color_FFA9A9A9));
-                binding.txtBottombarMarket.setTextColor(ContextCompat.getColor(getContext(), color_FFA9A9A9));
-                binding.txtBottombarCategory.setTextColor(ContextCompat.getColor(getContext(), color_FFA9A9A9));
-                binding.txtBottombarPreorder.setTextColor(ContextCompat.getColor(getContext(), color_FFA9A9A9));
-                binding.txtBottombarIpage.setTextColor(ContextCompat.getColor(getContext(), color_FF8140E5));
+                binding.txtBottombarLookbook.setTextColor(resources.getColor(color_FFA9A9A9));
+                binding.txtBottombarMarket.setTextColor(resources.getColor(color_FFA9A9A9));
+                binding.txtBottombarCategory.setTextColor(resources.getColor(color_FFA9A9A9));
+                binding.txtBottombarPreorder.setTextColor(resources.getColor(color_FFA9A9A9));
+                binding.txtBottombarIpage.setTextColor(resources.getColor(color_FF8140E5));
                 break;
         }
     }

@@ -17,10 +17,14 @@ import io.reactivex.rxjava3.disposables.Disposable;
 public abstract class BaseActivity extends AppCompatActivity implements OnLoginListener, OnScrapListener {
 
     private final CompositeDisposable disposable = new CompositeDisposable();
+    protected ResourcesProvider resources;
 
     @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(getBindingView());
+        View view = getBindingView();
+        resources = new ResourcesProvider(view.getContext());
+
+        setContentView(view);
         createPresenter();
         toRxObservable();
     }

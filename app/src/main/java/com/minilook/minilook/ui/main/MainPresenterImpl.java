@@ -63,7 +63,7 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
             RxBus.send(new LookBookPresenterImpl.RxEventScrollToPreview(false));
             RxBus.send(new LookBookDetailPresenterImpl.RxEventLookBookDetailScrollToTop());
         }
-        view.setupCurrentPage(position);
+        view.setCurrentPage(position);
     }
 
     private void checkAction(int step) {
@@ -171,7 +171,7 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
                 view.setBottomBarTheme(flag);
             } else if (o instanceof RxEventNavigateToPage) {
                 int position = ((RxEventNavigateToPage) o).getPosition();
-                view.setupCurrentPage(position);
+                view.setCurrentPage(position);
             } else if (o instanceof RxBusEventUpdateProductScrap) {
                 ProductDataModel data = ((RxBusEventUpdateProductScrap) o).getData();
                 updateProductScrap(data);

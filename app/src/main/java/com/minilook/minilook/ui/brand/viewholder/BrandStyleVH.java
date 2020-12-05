@@ -8,8 +8,6 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.FontRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.databinding.ViewBrandStyleBinding;
@@ -45,12 +43,12 @@ public class BrandStyleVH extends BaseViewHolder<CodeDataModel> {
 
         if (data.isSelected()) {
             binding.txtStyle.setBackgroundResource(img_style_on);
-            binding.txtStyle.setTextColor(ContextCompat.getColor(context, color_FF8140E5));
-            binding.txtStyle.setTypeface(ResourcesCompat.getFont(context, font_bold));
+            binding.txtStyle.setTextColor(resources.getColor(color_FF8140E5));
+            binding.txtStyle.setTypeface(resources.getFont(font_bold));
         } else {
             binding.txtStyle.setBackgroundResource(img_style_off);
-            binding.txtStyle.setTextColor(ContextCompat.getColor(context, color_FF232323));
-            binding.txtStyle.setTypeface(ResourcesCompat.getFont(context, font_regular));
+            binding.txtStyle.setTextColor(resources.getColor(color_FF232323));
+            binding.txtStyle.setTypeface(resources.getFont(font_regular));
         }
 
         itemView.setOnClickListener(this::onItemClick);

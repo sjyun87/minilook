@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.minilook.minilook.App;
@@ -45,7 +44,7 @@ public class BrandItemVH extends BaseViewHolder<BrandDataModel> {
             .error(ph_circle)
             .apply(RequestOptions.bitmapTransform(
                 new CropCircleWithBorderTransformation(DimenUtil.dpToPx(context, 1),
-                    ContextCompat.getColor(context, color_FFDBDBDB))))
+                    resources.getColor(color_FFDBDBDB))))
             .into(binding.imgLogo);
 
         binding.txtName.setText(data.getBrandName());

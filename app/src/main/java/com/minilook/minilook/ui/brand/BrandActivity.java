@@ -7,7 +7,6 @@ import androidx.annotation.DimenRes;
 import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
@@ -73,7 +72,7 @@ public class BrandActivity extends BaseActivity implements BrandPresenter.View {
         styleAdapter.setOnStyleClickListener(presenter::onStyleClick);
         binding.rcvStyle.setAdapter(styleAdapter);
         DividerDecoration.builder(this)
-            .size(getResources().getDimensionPixelSize(dp_4))
+            .size(resources.getDimen(dp_4))
             .asSpace()
             .build()
             .addTo(binding.rcvStyle);
@@ -88,7 +87,7 @@ public class BrandActivity extends BaseActivity implements BrandPresenter.View {
         binding.rcvBrand.setLayoutManager(new LinearLayoutManager(this));
         binding.rcvBrand.setAdapter(brandAdapter);
         DividerDecoration.builder(this)
-            .size(getResources().getDimensionPixelSize(dp_2))
+            .size(resources.getDimen(dp_2))
             .asSpace()
             .build()
             .addTo(binding.rcvBrand);

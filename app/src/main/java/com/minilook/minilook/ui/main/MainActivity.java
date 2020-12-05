@@ -76,7 +76,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
         });
     }
 
-    @Override public void setupCurrentPage(int position) {
+    @Override public void setCurrentPage(int position) {
         binding.viewpager.setCurrentItem(position, false);
     }
 

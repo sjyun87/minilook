@@ -12,7 +12,6 @@ import androidx.annotation.DimenRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 import com.minilook.minilook.App;
 import com.minilook.minilook.R;
 import com.minilook.minilook.databinding.LayoutTitlebarBinding;
@@ -22,6 +21,7 @@ import com.minilook.minilook.ui.question_write.QuestionWriteActivity;
 import com.minilook.minilook.ui.search_filter.SearchFilterActivity;
 import com.minilook.minilook.ui.setting.SettingActivity;
 import com.minilook.minilook.ui.shoppingbag.ShoppingBagActivity;
+import com.minilook.minilook.ui.base.ResourcesProvider;
 import com.minilook.minilook.util.StringUtil;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,6 +35,7 @@ public class TitleBar extends ConstraintLayout {
     @Getter private LayoutTitlebarBinding binding;
 
     private final Activity activity;
+    private ResourcesProvider resources;
 
     private boolean isShowTitle;
     private boolean isShowCount;
@@ -100,7 +101,8 @@ public class TitleBar extends ConstraintLayout {
 
     private void initView() {
         binding = LayoutTitlebarBinding.inflate(LayoutInflater.from(getContext()), this);
-        setBackgroundColor(ContextCompat.getColor(getContext(), color_FFFFFFFF));
+        resources = new ResourcesProvider(getContext());
+        setBackgroundColor(resources.getColor(color_FFFFFFFF));
         setupAction();
         updateUI();
     }

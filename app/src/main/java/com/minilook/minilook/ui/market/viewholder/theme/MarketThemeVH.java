@@ -41,7 +41,7 @@ public class MarketThemeVH extends BaseViewHolder<MarketDataModel> {
         adapter = new MarketThemeAdapter();
         binding.rcvProduct.setAdapter(adapter);
         DividerDecoration.builder(context)
-            .size(resources.getDimensionPixelSize(dp_2))
+            .size(resources.getDimen(dp_2))
             .asSpace()
             .build()
             .addTo(binding.rcvProduct);

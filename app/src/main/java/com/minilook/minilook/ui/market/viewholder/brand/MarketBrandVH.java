@@ -44,7 +44,7 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> {
         adapter = new MarketBrandAdapter();
         binding.rcvBrand.setAdapter(adapter);
         DividerDecoration.builder(context)
-            .size(resources.getDimensionPixelSize(dp_6))
+            .size(resources.getDimen(dp_6))
             .asSpace()
             .build()
             .addTo(binding.rcvBrand);

@@ -43,7 +43,7 @@ public class MarketBannerVH extends BaseViewHolder<MarketDataModel> {
         adapter = new MarketBannerAdapter();
         binding.vpBanner.setAdapter(adapter);
         binding.vpBanner.setOffscreenPageLimit(2);
-        binding.vpBanner.setPageTransformer(new MarginPageTransformer(resources.getDimensionPixelSize(dp_4)));
+        binding.vpBanner.setPageTransformer(new MarginPageTransformer(resources.getDimen(dp_4)));
     }
 
     private void startAutoSlide() {

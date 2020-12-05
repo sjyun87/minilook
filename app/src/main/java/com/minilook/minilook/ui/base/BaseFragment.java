@@ -20,11 +20,14 @@ import io.reactivex.rxjava3.disposables.Disposable;
 public abstract class BaseFragment extends Fragment implements OnLoginListener, OnScrapListener {
 
     private final CompositeDisposable disposable = new CompositeDisposable();
+    protected ResourcesProvider resources;
 
     @Nullable @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
         @Nullable Bundle savedInstanceState) {
         View view = getBindingView();
+        resources = new ResourcesProvider(view.getContext());
+
         createPresenter();
         toRxBusObservable();
         return view;

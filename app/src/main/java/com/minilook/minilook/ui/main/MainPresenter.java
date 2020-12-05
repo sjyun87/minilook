@@ -23,7 +23,7 @@ public interface MainPresenter extends LifecycleObserver {
 
         void setupViewPager();
 
-        void setupCurrentPage(int position);
+        void setCurrentPage(int position);
 
         void setupBottomBar();
 

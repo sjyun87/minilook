@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
@@ -51,7 +50,7 @@ public class LookBookProductVH extends BaseViewHolder<ProductDataModel> {
             .error(ph_circle)
             .apply(RequestOptions.bitmapTransform(
                 new CropCircleWithBorderTransformation(DimenUtil.dpToPx(context, 1),
-                    ContextCompat.getColor(context, color_FFDBDBDB))))
+                    resources.getColor(color_FFDBDBDB))))
             .transition(new DrawableTransitionOptions().crossFade())
             .into(binding.imgBrandLogo);
 
@@ -68,8 +67,7 @@ public class LookBookProductVH extends BaseViewHolder<ProductDataModel> {
         binding.txtCategory.setText(data.getCategory());
         binding.txtProductName.setText(data.getProductName());
         binding.txtProductDesc.setText(data.getProductDesc());
-
-        setupScrap();
+        setScrap();
 
         itemView.setOnClickListener(this::onItemClick);
         binding.layoutBrandPanel.setOnClickListener(view -> onBrandClick());
@@ -77,7 +75,7 @@ public class LookBookProductVH extends BaseViewHolder<ProductDataModel> {
         binding.layoutScrapPanel.setOnClickListener(view -> onScrapClick());
     }
 
-    private void setupScrap() {
+    private void setScrap() {
         if (data.isScrap()) {
             binding.imgScrap.setImageResource(scrap_on);
         } else {
@@ -106,7 +104,7 @@ public class LookBookProductVH extends BaseViewHolder<ProductDataModel> {
             } else {
                 data.setScrapCount(data.getScrapCount() - 1);
             }
-            setupScrap();
+            setScrap();
             RxBus.send(new MainPresenterImpl.RxBusEventUpdateProductScrap(data));
         } else {
             LoginActivity.start(context);

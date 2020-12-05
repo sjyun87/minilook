@@ -1,24 +1,15 @@
 package com.minilook.minilook.ui.lookbook.view.detail;
 
 import android.view.View;
-import android.widget.TextView;
-import androidx.core.view.ViewCompat;
-import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.OnClick;
-import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.databinding.FragmentLookbookDetailBinding;
-import com.minilook.minilook.databinding.FragmentLookbookPreviewBinding;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseFragment;
-import com.minilook.minilook.ui.base._BaseFragment;
 import com.minilook.minilook.ui.lookbook.view.detail.adapter.LookBookProductAdapter;
 import com.minilook.minilook.ui.lookbook.view.detail.adapter.LookBookStyleAdapter;
 import com.minilook.minilook.ui.lookbook.view.detail.di.LookBookDetailArguments;
-import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 
 public class LookBookDetailFragment extends BaseFragment implements LookBookDetailPresenter.View {
 
@@ -75,23 +66,23 @@ public class LookBookDetailFragment extends BaseFragment implements LookBookDeta
         productAdapterDataView.refresh();
     }
 
-    @Override public void setupLabel(String text) {
+    @Override public void setLabel(String text) {
         binding.txtLabel.setText(text);
     }
 
-    @Override public void setupTitle(String text) {
+    @Override public void setTitle(String text) {
         binding.txtTitle.setText(text);
     }
 
-    @Override public void setupTag(String text) {
+    @Override public void setTag(String text) {
         binding.txtTag.setText(text);
     }
 
-    @Override public void setupDesc(String text) {
+    @Override public void setDesc(String text) {
         binding.txtDesc.setText(text);
     }
 
-    @Override public void setupSimpleInfo(String text) {
+    @Override public void setSimpleInfo(String text) {
         binding.txtProductInfo.setText(text);
     }
 

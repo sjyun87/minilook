@@ -44,7 +44,7 @@ public class MarketRecommendVH extends BaseViewHolder<MarketDataModel> {
         adapter = new MarketRecommendAdapter();
         binding.rcvProduct.setAdapter(adapter);
         DividerDecoration.builder(context)
-            .size(resources.getDimensionPixelSize(dp_4))
+            .size(resources.getDimen(dp_4))
             .asSpace()
             .build()
             .addTo(binding.rcvProduct);

@@ -41,15 +41,15 @@ public class LookBookDetailPresenterImpl extends BasePresenterImpl implements Lo
     private void setupData() {
         view.scrollToTop();
 
-        view.setupLabel(data.getLabel());
-        view.setupTitle(data.getTitle());
-        view.setupTag(data.getTag());
-        view.setupDesc(data.getDesc());
+        view.setLabel(data.getLabel());
+        view.setTitle(data.getTitle());
+        view.setTag(data.getTag());
+        view.setDesc(data.getDesc());
 
         styleAdapter.set(data.getStyles());
         view.styleRefresh();
 
-        view.setupSimpleInfo(data.getSimpleInfo());
+        view.setSimpleInfo(data.getSimpleInfo());
 
         productAdapter.set(data.getProducts());
         view.productRefresh();

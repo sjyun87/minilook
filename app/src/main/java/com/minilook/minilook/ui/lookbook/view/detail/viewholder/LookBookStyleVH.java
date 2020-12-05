@@ -15,7 +15,7 @@ public class LookBookStyleVH extends BaseViewHolder<String> {
 
     @DrawableRes int ph_square = R.drawable.ph_square;
 
-    private ViewLookbookDetailStyleBinding binding;
+    private final ViewLookbookDetailStyleBinding binding;
 
     public LookBookStyleVH(@NonNull View parent) {
         super(ViewLookbookDetailStyleBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,

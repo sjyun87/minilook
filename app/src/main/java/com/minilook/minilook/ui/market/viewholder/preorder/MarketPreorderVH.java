@@ -47,7 +47,7 @@ public class MarketPreorderVH extends BaseViewHolder<MarketDataModel> {
         adapter = new MarketPreorderAdapter();
         binding.rcvPreorder.setAdapter(adapter);
         DividerDecoration.builder(context)
-            .size(resources.getDimensionPixelSize(dp_4))
+            .size(resources.getDimen(dp_4))
             .asSpace()
             .build()
             .addTo(binding.rcvPreorder);

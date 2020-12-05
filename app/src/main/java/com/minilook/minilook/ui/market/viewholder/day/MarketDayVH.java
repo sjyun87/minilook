@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import androidx.annotation.ColorRes;
 import androidx.annotation.DimenRes;
 import androidx.annotation.NonNull;
-import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
@@ -83,7 +82,7 @@ public class MarketDayVH extends BaseViewHolder<MarketDataModel> {
         adapter = new MarketDayAdapter();
         binding.rcvProduct.setAdapter(adapter);
         DividerDecoration.builder(context)
-            .size(resources.getDimensionPixelSize(dp_2))
+            .size(resources.getDimen(dp_2))
             .asSpace()
             .build()
             .addTo(binding.rcvProduct);
@@ -105,9 +104,9 @@ public class MarketDayVH extends BaseViewHolder<MarketDataModel> {
                     .context(context)
                     .name(tabModel.getName())
                     .code(tabModel.getCode())
-                    .width(resources.getDimensionPixelSize(dp_48))
-                    .selectedTextColor(color_FFFFFFFF)
-                    .unselectedTextColor(color_FFA8A6A1)
+                    .width(resources.getDimen(dp_48))
+                    .selectedTextColor(resources.getColor(color_FFFFFFFF))
+                    .unselectedTextColor(resources.getColor(color_FFA8A6A1))
                     .build();
 
                 TabLayout.Tab tab = binding.layoutTabPanel.newTab();

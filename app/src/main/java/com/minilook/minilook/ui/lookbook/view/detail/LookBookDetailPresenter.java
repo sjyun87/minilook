@@ -23,15 +23,15 @@ public interface LookBookDetailPresenter extends LifecycleObserver {
 
         void productRefresh();
 
-        void setupLabel(String text);
+        void setLabel(String text);
 
-        void setupTitle(String text);
+        void setTitle(String text);
 
-        void setupTag(String text);
+        void setTag(String text);
 
-        void setupDesc(String text);
+        void setDesc(String text);
 
-        void setupSimpleInfo(String text);
+        void setSimpleInfo(String text);
 
         void scrollToTop();
     }

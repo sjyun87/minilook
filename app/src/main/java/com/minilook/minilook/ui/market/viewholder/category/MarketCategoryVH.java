@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.DimenRes;
 import androidx.annotation.NonNull;
-import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
@@ -44,7 +43,7 @@ public class MarketCategoryVH extends BaseViewHolder<MarketDataModel> {
         adapter = new MarketCategoryAdapter();
         binding.rcvCategory.setAdapter(adapter);
         DividerDecoration.builder(context)
-            .size(resources.getDimensionPixelSize(dp_5))
+            .size(resources.getDimen(dp_5))
             .asSpace()
             .build()
             .addTo(binding.rcvCategory);

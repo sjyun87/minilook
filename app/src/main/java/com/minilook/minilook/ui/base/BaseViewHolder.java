@@ -1,25 +1,22 @@
 package com.minilook.minilook.ui.base;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.view.View;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
-import butterknife.ButterKnife;
-import butterknife.Optional;
 
 public class BaseViewHolder<T> extends RecyclerView.ViewHolder {
 
     public Context context;
-    public Resources resources;
+    public ResourcesProvider resources;
     public T data;
+    public int position;
 
     public BaseViewHolder(@NonNull ViewBinding $binding) {
         super($binding.getRoot());
         context = itemView.getContext();
-        resources = itemView.getResources();
+        resources = new ResourcesProvider(context);
     }
 
     @CallSuper

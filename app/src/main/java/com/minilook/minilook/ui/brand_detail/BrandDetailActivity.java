@@ -86,7 +86,7 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
         binding.rcvStyle.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         binding.rcvStyle.setAdapter(styleAdapter);
         DividerDecoration.builder(this)
-            .size(getResources().getDimensionPixelSize(dp_2))
+            .size(resources.getDimen(dp_2))
             .asSpace()
             .build()
             .addTo(binding.rcvStyle);
