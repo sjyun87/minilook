@@ -16,7 +16,7 @@ import java.util.List;
 public class BrandDetailStyleAdapter extends RecyclerView.Adapter<BrandDetailStyleVH>
     implements BaseAdapterDataModel<String>, BaseAdapterDataView<String> {
 
-    private List<String> items = new ArrayList<>();
+    private final List<String> items = new ArrayList<>();
 
     @NonNull @Override public BrandDetailStyleVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new BrandDetailStyleVH(parent);

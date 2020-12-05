@@ -39,6 +39,7 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> {
     }
 
     private void setupRecyclerView() {
+        binding.rcvBrand.setHasFixedSize(true);
         binding.rcvBrand.setLayoutManager(new LinearLayoutManager(context));
         adapter = new MarketBrandAdapter();
         binding.rcvBrand.setAdapter(adapter);
@@ -47,7 +48,6 @@ public class MarketBrandVH extends BaseViewHolder<MarketDataModel> {
             .asSpace()
             .build()
             .addTo(binding.rcvBrand);
-        ViewCompat.setNestedScrollingEnabled(binding.rcvBrand, false);
     }
 
     @Override public void bind(MarketDataModel $data) {

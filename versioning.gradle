@@ -107,4 +107,7 @@ ext {
 
   // Shimmer placeholder
   shimmer_version = '0.5.0'
+
+  // Loading View
+  laodding_view_version = '1.4.0'
 }

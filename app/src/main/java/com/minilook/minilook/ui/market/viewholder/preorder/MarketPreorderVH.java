@@ -42,6 +42,7 @@ public class MarketPreorderVH extends BaseViewHolder<MarketDataModel> {
     }
 
     private void setupProductRecyclerView() {
+        binding.rcvPreorder.setHasFixedSize(true);
         binding.rcvPreorder.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
         adapter = new MarketPreorderAdapter();
         binding.rcvPreorder.setAdapter(adapter);
@@ -50,7 +51,6 @@ public class MarketPreorderVH extends BaseViewHolder<MarketDataModel> {
             .asSpace()
             .build()
             .addTo(binding.rcvPreorder);
-        ViewCompat.setNestedScrollingEnabled(binding.rcvPreorder, false);
     }
 
     @Override public void bind(MarketDataModel $data) {

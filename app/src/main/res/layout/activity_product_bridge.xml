@@ -119,7 +119,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_control_panel"
         tools:itemCount="3"
-        tools:listitem="@layout/item_brand_detail_sort"
+        tools:listitem="@layout/view_sort_selector_item"
         tools:visibility="visible" />
 
     <LinearLayout

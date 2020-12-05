@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/dp_10">
+
+    <ImageView
+        android:id="@+id/img_thumb"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        app:layout_constraintDimensionRatio="H,1:1"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <View
+        android:id="@+id/curtain"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/color_80FFFFFF"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/img_thumb"
+        app:layout_constraintLeft_toLeftOf="@+id/img_thumb"
+        app:layout_constraintRight_toRightOf="@+id/img_thumb"
+        app:layout_constraintTop_toTopOf="@+id/img_thumb"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/txt_display_label"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_10"
+        android:layout_marginStart="@dimen/dp_6"
+        android:layout_marginTop="@dimen/dp_6"
+        android:background="@drawable/bg_display_label"
+        android:fontFamily="@font/nanum_square_r"
+        android:gravity="center"
+        android:textColor="@color/color_FFFFFFFF"
+        android:textSize="@dimen/sp_6"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="@+id/img_thumb"
+        app:layout_constraintTop_toTopOf="@id/img_thumb"
+        tools:text="품절" />
+
+    <ImageView
+        android:id="@+id/img_scrap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/color_CCFFFFFF"
+        android:padding="@dimen/dp_4"
+        android:src="@drawable/ic_scrap_off"
+        app:layout_constraintBottom_toBottomOf="@+id/img_thumb"
+        app:layout_constraintRight_toRightOf="@+id/img_thumb"
+        app:layout_constraintTop_toBottomOf="@+id/img_thumb"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/txt_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_8"
+        android:ellipsize="end"
+        android:fontFamily="@font/nanum_square_r"
+        android:lineSpacingMultiplier="1.3"
+        android:maxLines="2"
+        android:textColor="@color/color_FF000000"
+        android:textSize="@dimen/sp_8"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/img_scrap"
+        app:layout_constraintTop_toBottomOf="@+id/img_thumb"
+        tools:text="데일리 로우게이지 니트 풀오버 세트" />
+
+    <TextView
+        android:id="@+id/txt_discount_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_5"
+        android:fontFamily="@font/nanum_square_b"
+        android:textColor="@color/color_FFFF3C50"
+        android:textSize="@dimen/sp_8"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_price"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="@+id/txt_name"
+        app:layout_constraintRight_toLeftOf="@+id/txt_price"
+        app:layout_constraintTop_toTopOf="@+id/txt_price"
+        tools:text="20%" />
+
+    <TextView
+        android:id="@+id/txt_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_6"
+        android:fontFamily="@font/nanum_square_eb"
+        android:textColor="@color/color_FF232323"
+        android:textSize="@dimen/sp_8"
+        app:layout_constraintLeft_toRightOf="@+id/txt_discount_percent"
+        app:layout_constraintRight_toRightOf="@+id/txt_name"
+        app:layout_constraintTop_toBottomOf="@+id/txt_name"
+        tools:text="52,000" />
+</androidx.constraintlayout.widget.ConstraintLayout>

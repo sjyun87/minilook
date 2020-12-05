@@ -84,6 +84,7 @@ public class BrandActivity extends BaseActivity implements BrandPresenter.View {
     }
 
     @Override public void setupBrandRecyclerView() {
+        binding.rcvBrand.setHasFixedSize(true);
         binding.rcvBrand.setLayoutManager(new LinearLayoutManager(this));
         binding.rcvBrand.setAdapter(brandAdapter);
         DividerDecoration.builder(this)

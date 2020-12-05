@@ -1,297 +1,295 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <com.minilook.minilook.ui.base.widget.TitleBar
+        android:id="@+id/titlebar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:elevation="0dp">
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_scrollFlags="noScroll"
+        app:showBack="true"
+        app:showHome="true"
+        app:showShoppingBag="true" />
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
+    <me.didik.component.StickyNestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titlebar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="@dimen/dp_82"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:layout_height="wrap_content">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <ImageView
+                android:id="@+id/img_thumb"
                 android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintDimensionRatio="H,180:135"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/img_logo"
+                android:layout_width="@dimen/dp_36"
+                android:layout_height="@dimen/dp_36"
+                android:layout_marginStart="@dimen/dp_10"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="@+id/img_thumb"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_thumb"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/img_share"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_30">
+                android:layout_marginTop="@dimen/dp_4"
+                android:padding="@dimen/dp_6"
+                android:src="@drawable/ic_share"
+                app:layout_constraintRight_toLeftOf="@+id/layout_scrap_panel"
+                app:layout_constraintTop_toBottomOf="@+id/img_thumb"
+                tools:ignore="ContentDescription" />
+
+            <LinearLayout
+                android:id="@+id/layout_scrap_panel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+                android:layout_marginEnd="@dimen/dp_4"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/dp_6"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_thumb"
+                tools:ignore="UseCompoundDrawables">
 
                 <ImageView
-                    android:id="@+id/img_thumb"
+                    android:id="@+id/img_scrap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_scrap_off"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/txt_scrap_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/color_FF616161"
+                    android:textSize="@dimen/sp_6"
+                    tools:text="1000" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_28"
+                android:fontFamily="@font/nanum_square_b"
+                android:letterSpacing="-0.02"
+                android:textColor="@color/color_FF232323"
+                android:textSize="@dimen/sp_11"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_thumb"
+                tools:text="아델리" />
+
+            <TextView
+                android:id="@+id/txt_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_6"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:fontFamily="@font/nanum_square_r"
+                android:textColor="@color/color_FF616161"
+                android:textSize="@dimen/sp_6"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_name"
+                tools:text="#스트릿 #밀리터리 #빈티지" />
+
+            <TextView
+                android:id="@+id/txt_desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_6"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:fontFamily="@font/nanum_square_r"
+                android:lineSpacingMultiplier="1.5"
+                android:textColor="@color/color_FF232323"
+                android:textSize="@dimen/sp_7"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_tag"
+                tools:text="아델리는 매시즌 완성도 높은 퀄리티의 좋은 소재로 의복을 만들었습니다. 편안함과 세련된 감성이 공존하며 입었을 때 웨어러블하며 여성스러움을 담아내고자 만들어진 브랜드입니다." />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_12"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                android:paddingStart="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_10"
+                app:layout_constraintTop_toBottomOf="@+id/txt_desc"
+                tools:itemCount="10"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/view_brand_detail_style"
+                tools:orientation="horizontal" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_brand_info_panel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_24"
+                android:layout_marginTop="@dimen/dp_24"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/rcv_style">
+
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintDimensionRatio="H,180:135"
+                    android:layout_height="1dp"
+                    android:background="@color/color_FFDBDBDB"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/img_brand_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:src="@drawable/ic_info"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="ContentDescription" />
 
-                <ImageView
-                    android:id="@+id/img_logo"
-                    android:layout_width="@dimen/dp_36"
-                    android:layout_height="@dimen/dp_36"
-                    android:layout_marginStart="@dimen/dp_10"
-                    android:scaleType="fitXY"
-                    app:layout_constraintBottom_toBottomOf="@+id/img_thumb"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/img_thumb"
-                    tools:ignore="ContentDescription" />
-
-                <ImageView
-                    android:id="@+id/img_share"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_4"
-                    android:padding="@dimen/dp_6"
-                    android:src="@drawable/ic_share"
-                    app:layout_constraintRight_toLeftOf="@+id/layout_scrap_panel"
-                    app:layout_constraintTop_toBottomOf="@+id/img_thumb"
-                    tools:ignore="ContentDescription" />
-
-                <LinearLayout
-                    android:id="@+id/layout_scrap_panel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_4"
-                    android:layout_marginEnd="@dimen/dp_4"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="@dimen/dp_6"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/img_thumb"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:id="@+id/img_scrap"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_scrap_off"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:id="@+id/txt_scrap_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_2"
-                        android:fontFamily="@font/nanum_square_r"
-                        android:gravity="center_horizontal"
-                        android:textColor="@color/color_FF616161"
-                        android:textSize="@dimen/sp_6"
-                        tools:text="1000" />
-                </LinearLayout>
-
                 <TextView
-                    android:id="@+id/txt_name"
+                    android:id="@+id/txt_brand_info_caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_10"
-                    android:layout_marginTop="@dimen/dp_28"
+                    android:layout_marginStart="@dimen/dp_2"
                     android:fontFamily="@font/nanum_square_b"
-                    android:letterSpacing="-0.02"
-                    android:textColor="@color/color_FF232323"
-                    android:textSize="@dimen/sp_11"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/img_thumb"
-                    tools:text="아델리" />
-
-                <TextView
-                    android:id="@+id/txt_tag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_10"
-                    android:layout_marginTop="@dimen/dp_6"
-                    android:layout_marginEnd="@dimen/dp_10"
-                    android:fontFamily="@font/nanum_square_r"
-                    android:textColor="@color/color_FF616161"
-                    android:textSize="@dimen/sp_6"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_name"
-                    tools:text="#스트릿 #밀리터리 #빈티지" />
-
-                <TextView
-                    android:id="@+id/txt_desc"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_10"
-                    android:layout_marginTop="@dimen/dp_6"
-                    android:layout_marginEnd="@dimen/dp_10"
-                    android:fontFamily="@font/nanum_square_r"
-                    android:lineSpacingMultiplier="1.5"
+                    android:includeFontPadding="false"
+                    android:text="@string/brand_detail_info_caption"
                     android:textColor="@color/color_FF232323"
                     android:textSize="@dimen/sp_7"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_tag"
-                    tools:text="아델리는 매시즌 완성도 높은 퀄리티의 좋은 소재로 의복을 만들었습니다. 편안함과 세련된 감성이 공존하며 입었을 때 웨어러블하며 여성스러움을 담아내고자 만들어진 브랜드입니다." />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/img_brand_info"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rcv_style"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_12"
-                    android:clipToPadding="false"
-                    android:nestedScrollingEnabled="false"
-                    android:paddingStart="@dimen/dp_10"
-                    android:paddingEnd="@dimen/dp_10"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_desc"
-                    tools:itemCount="10"
-                    tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_brand_detail_style"
-                    tools:orientation="horizontal" />
+                    android:layout_marginStart="@dimen/dp_2"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:includeFontPadding="false"
+                    android:text="@string/brand_detail_info_desc"
+                    android:textColor="@color/color_FF616161"
+                    android:textSize="@dimen/sp_6"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/txt_brand_info_caption"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/layout_brand_info_panel"
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_4"
+                    android:layout_marginEnd="@dimen/dp_6"
+                    android:src="@drawable/ic_arrow_right_black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
+
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_24"
-                    android:layout_marginTop="@dimen/dp_24"
+                    android:layout_height="1dp"
+                    android:background="@color/color_FFDBDBDB"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_header_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_24"
+                android:background="@color/color_FFFFFFFF"
+                android:orientation="vertical"
+                android:tag="sticky"
+                app:layout_constraintTop_toBottomOf="@+id/layout_brand_info_panel">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:fontFamily="@font/nanum_square_eb"
+                    android:gravity="center_vertical"
+                    android:text="@string/brand_detail_product_title"
+                    android:textColor="@color/color_FF232323"
+                    android:textSize="@dimen/sp_12" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/color_FFF5F5F5" />
+
+                <LinearLayout
+                    android:id="@+id/layout_sort_panel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_22"
+                    android:layout_gravity="end"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    app:layout_constraintTop_toBottomOf="@+id/rcv_style">
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/color_FFDBDBDB"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/img_brand_info"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp_8"
-                        android:src="@drawable/ic_info"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="ContentDescription" />
+                    android:paddingStart="@dimen/dp_10"
+                    android:paddingEnd="@dimen/dp_10"
+                    tools:ignore="UseCompoundDrawables">
 
                     <TextView
-                        android:id="@+id/txt_brand_info_caption"
+                        android:id="@+id/txt_sort"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp_2"
-                        android:fontFamily="@font/nanum_square_b"
-                        android:includeFontPadding="false"
-                        android:text="@string/brand_detail_info_caption"
-                        android:textColor="@color/color_FF232323"
-                        android:textSize="@dimen/sp_7"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toRightOf="@+id/img_brand_info"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp_2"
-                        android:layout_weight="1"
                         android:fontFamily="@font/nanum_square_r"
                         android:includeFontPadding="false"
-                        android:text="@string/brand_detail_info_desc"
                         android:textColor="@color/color_FF616161"
                         android:textSize="@dimen/sp_6"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toRightOf="@+id/txt_brand_info_caption"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        tools:text="최신등록순" />
 
                     <ImageView
+                        android:id="@+id/img_arrow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_4"
-                        android:layout_marginEnd="@dimen/dp_6"
-                        android:src="@drawable/ic_arrow_right_black"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
+                        android:src="@drawable/ic_arrow_down_xs"
                         tools:ignore="ContentDescription" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/color_FFDBDBDB"
-                        app:layout_constraintBottom_toBottomOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_header_panel"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_52"
-                    android:layout_marginTop="@dimen/dp_24"
-                    android:orientation="vertical"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_brand_info_panel">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_marginStart="@dimen/dp_10"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/nanum_square_eb"
-                        android:gravity="center_vertical"
-                        android:text="@string/brand_detail_product_title"
-                        android:textColor="@color/color_FF232323"
-                        android:textSize="@dimen/sp_12" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/color_FFF5F5F5" />
-
-                    <LinearLayout
-                        android:id="@+id/layout_sort_panel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dp_22"
-                        android:layout_gravity="end"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingStart="@dimen/dp_10"
-                        android:paddingEnd="@dimen/dp_10"
-                        tools:ignore="UseCompoundDrawables">
-
-                        <TextView
-                            android:id="@+id/txt_sort"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/nanum_square_r"
-                            android:includeFontPadding="false"
-                            android:textColor="@color/color_FF616161"
-                            android:textSize="@dimen/sp_6"
-                            tools:text="최신등록순" />
-
-                        <ImageView
-                            android:id="@+id/img_arrow"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp_4"
-                            android:src="@drawable/ic_arrow_down_xs"
-                            tools:ignore="ContentDescription" />
-                    </LinearLayout>
                 </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
-            <com.minilook.minilook.ui.base.widget.TitleBar
-                android:id="@+id/titlebar"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_product"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_30"
-                app:layout_collapseMode="pin"
-                app:layout_scrollFlags="noScroll"
-                app:showBack="true"
-                app:showHome="true"
-                app:showShoppingBag="true" />
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                android:paddingBottom="@dimen/dp_50"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_header_panel" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </me.didik.component.StickyNestedScrollView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_product"
+    <com.minilook.minilook.ui.base.widget.selector.sort.SortSelector
+        android:id="@+id/sort_selector"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:paddingBottom="@dimen/dp_50"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:itemCount="4"
-        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        tools:listitem="@layout/item_product_type_grid"
-        tools:spanCount="2" />
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        android:layout_height="match_parent"
+        tools:visibility="gone" />
+</androidx.constraintlayout.widget.ConstraintLayout>

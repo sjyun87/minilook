@@ -39,15 +39,15 @@ public class MarketCategoryVH extends BaseViewHolder<MarketDataModel> {
     }
 
     private void setupRecyclerView() {
-        adapter = new MarketCategoryAdapter();
+        binding.rcvCategory.setHasFixedSize(true);
         binding.rcvCategory.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
+        adapter = new MarketCategoryAdapter();
         binding.rcvCategory.setAdapter(adapter);
         DividerDecoration.builder(context)
             .size(resources.getDimensionPixelSize(dp_5))
             .asSpace()
             .build()
             .addTo(binding.rcvCategory);
-        ViewCompat.setNestedScrollingEnabled(binding.rcvCategory, false);
     }
 
     @Override public void bind(MarketDataModel $data) {

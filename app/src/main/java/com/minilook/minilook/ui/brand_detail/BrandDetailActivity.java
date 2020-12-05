@@ -13,19 +13,20 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
+import com.minilook.minilook.App;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.databinding.ActivityBrandDetailBinding;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
+import com.minilook.minilook.ui.brand_detail.adapter.BrandDetailProductAdapter;
 import com.minilook.minilook.ui.brand_detail.adapter.BrandDetailStyleAdapter;
 import com.minilook.minilook.ui.brand_detail.di.BrandDetailArguments;
 import com.minilook.minilook.ui.brand_info.BrandInfoActivity;
+import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.login.LoginActivity;
-import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.util.DimenUtil;
-import com.minilook.minilook.util.DynamicLinkUtil;
 import com.minilook.minilook.util.StringUtil;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
 
@@ -51,7 +52,7 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
 
     private final BrandDetailStyleAdapter styleAdapter = new BrandDetailStyleAdapter();
     private final BaseAdapterDataView<String> styleAdapterView = styleAdapter;
-    private final ProductAdapter productAdapter = new ProductAdapter();
+    private final BrandDetailProductAdapter productAdapter = new BrandDetailProductAdapter();
     private final BaseAdapterDataView<ProductDataModel> productAdapterView = productAdapter;
 
     @Override protected View getBindingView() {
@@ -81,6 +82,7 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
     }
 
     @Override public void setupStyleRecyclerView() {
+        binding.rcvStyle.setHasFixedSize(true);
         binding.rcvStyle.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         binding.rcvStyle.setAdapter(styleAdapter);
         DividerDecoration.builder(this)
@@ -94,22 +96,25 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
         styleAdapterView.refresh();
     }
 
+    @Override public void setupSortSelector() {
+        binding.sortSelector.bind(App.getInstance().getSortCodes(), presenter::onSortSelected);
+    }
+
+    @Override public void showSortSelector() {
+        binding.sortSelector.show();
+    }
+
+    @Override public void hideSortSelector() {
+        binding.sortSelector.hide();
+    }
+
     @Override public void setupSortText(String name) {
         binding.txtSort.setText(name);
     }
 
-    @Override public void showSortPanel() {
-        //binding.rcvSort.setVisibility(View.VISIBLE);
-    }
-
-    @Override public void hideSortPanel() {
-        //binding.rcvSort.setVisibility(View.GONE);
-    }
-
     @Override public void setupProductRecyclerView() {
+        binding.rcvProduct.setHasFixedSize(true);
         binding.rcvProduct.setLayoutManager(new GridLayoutManager(this, 2));
-        productAdapter.setViewType(ProductAdapter.VIEW_TYPE_GRID);
-        productAdapter.setShowBrand(false);
         binding.rcvProduct.setAdapter(productAdapter);
         EndlessOnScrollListener scrollListener =
             EndlessOnScrollListener.builder()
@@ -157,7 +162,7 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
     }
 
     @Override public void setupTag(String tag) {
-        binding.txtTag.setText(tag.replace(",", " "));
+        binding.txtTag.setText(tag);
     }
 
     @Override public void setupDesc(String desc) {
@@ -173,9 +178,11 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
     }
 
     @Override public void scrollToTop() {
-        //if (binding.nsvContents.getScrollY() > binding.layoutHeaderPanel.getY()) {
-        //    binding.nsvContents.setScrollY((int) binding.layoutHeaderPanel.getY());
-        //}
+        binding.rcvProduct.smoothScrollToPosition(0);
+    }
+
+    @Override public void showErrorDialog() {
+        DialogManager.showErrorDialog(this);
     }
 
     @Override public void navigateToBrandInfo(int brandNo) {
@@ -184,5 +191,13 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
 
     @Override public void navigateToLogin() {
         LoginActivity.start(this);
+    }
+
+    @Override public void onBackPressed() {
+        if (binding.sortSelector.isShow()) {
+            hideSortSelector();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

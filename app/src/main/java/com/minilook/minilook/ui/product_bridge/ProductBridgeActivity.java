@@ -25,7 +25,7 @@ import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
 import com.minilook.minilook.ui.base.widget.TabView;
 import com.minilook.minilook.ui.base.widget.TitleBar;
-import com.minilook.minilook.ui.brand_detail.adapter.BrandDetailSortAdapter;
+import com.minilook.minilook.ui.product_bridge.adapter.BrandDetailSortAdapter;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.product_bridge.di.ProductBridgeArguments;
 import com.minilook.minilook.ui.search_filter.SearchFilterActivity;

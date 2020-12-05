@@ -163,5 +163,10 @@ dependencies {
   implementation "com.facebook.shimmer:shimmer:$shimmer_version"
 
   // Loading View
-  implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+  implementation "com.github.ybq:Android-SpinKit:$laodding_view_version"
+
+
+  //RecyclerView
+  implementation "androidx.recyclerview:recyclerview:1.2.0-beta01"
+
 }

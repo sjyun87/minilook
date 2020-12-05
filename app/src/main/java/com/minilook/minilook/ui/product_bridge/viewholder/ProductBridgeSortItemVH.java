@@ -19,7 +19,7 @@ public class ProductBridgeSortItemVH extends _BaseViewHolder<SortDataModel> {
 
     public ProductBridgeSortItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_brand_detail_sort, (ViewGroup) itemView, false));
+            .inflate(R.layout.view_sort_selector_item, (ViewGroup) itemView, false));
     }
 
     @Override public void bind(SortDataModel $data) {

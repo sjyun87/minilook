@@ -442,6 +442,9 @@
     <string name="option_selector_bonus_product_index">추가상품</string>
     <string name="option_selector_available_quantity">주문가능한 수량은 %s개 입니다.</string>
 
+    <!--Sort Selector-->
+    <string name="sort_selector_title">정렬</string>
+
     <!--Review-->
     <string name="review_title">상품리뷰</string>
     <string name="review_help_button">도움 돼요</string>

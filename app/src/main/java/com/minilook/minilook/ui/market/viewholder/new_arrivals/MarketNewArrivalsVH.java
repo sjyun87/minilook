@@ -75,6 +75,7 @@ public class MarketNewArrivalsVH extends BaseViewHolder<MarketDataModel> {
     }
 
     private void setupProductRecyclerView() {
+        binding.rcvProduct.setHasFixedSize(true);
         binding.rcvProduct.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
         adapter = new MarketNewArrivalsAdapter();
         binding.rcvProduct.setAdapter(adapter);
@@ -83,7 +84,6 @@ public class MarketNewArrivalsVH extends BaseViewHolder<MarketDataModel> {
             .asSpace()
             .build()
             .addTo(binding.rcvProduct);
-        ViewCompat.setNestedScrollingEnabled(binding.rcvProduct, false);
     }
 
     @Override public void bind(MarketDataModel $data) {

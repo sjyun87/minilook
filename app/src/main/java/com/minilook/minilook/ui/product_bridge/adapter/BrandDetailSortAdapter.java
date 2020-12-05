@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.brand_detail.adapter;
+package com.minilook.minilook.ui.product_bridge.adapter;
 
 import android.view.ViewGroup;
 
@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.brand_detail.viewholder.BrandDetailSortItemVH;
+import com.minilook.minilook.ui.product_bridge.viewholder.BrandDetailSortItemVH;
 
 import java.util.ArrayList;
 import java.util.List;

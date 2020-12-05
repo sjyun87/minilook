@@ -78,6 +78,7 @@ public class MarketDayVH extends BaseViewHolder<MarketDataModel> {
     }
 
     private void setupProductRecyclerView() {
+        binding.rcvProduct.setHasFixedSize(true);
         binding.rcvProduct.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
         adapter = new MarketDayAdapter();
         binding.rcvProduct.setAdapter(adapter);
@@ -86,7 +87,6 @@ public class MarketDayVH extends BaseViewHolder<MarketDataModel> {
             .asSpace()
             .build()
             .addTo(binding.rcvProduct);
-        ViewCompat.setNestedScrollingEnabled(binding.rcvProduct, false);
     }
 
     @Override public void bind(MarketDataModel $data) {

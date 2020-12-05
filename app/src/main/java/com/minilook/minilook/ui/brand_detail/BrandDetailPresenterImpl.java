@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
+import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.search.SearchDataModel;
 import com.minilook.minilook.data.model.search.SearchOptionDataModel;
@@ -17,6 +18,7 @@ import com.minilook.minilook.ui.brand_detail.di.BrandDetailArguments;
 import com.minilook.minilook.ui.main.MainPresenterImpl;
 import com.minilook.minilook.util.DynamicLinkUtil;
 import com.minilook.minilook.util.TrackingUtil;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import timber.log.Timber;
 
@@ -33,12 +35,10 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     private final Gson gson;
 
     private AtomicInteger page = new AtomicInteger(0);
+    private int totalPageSize;
+    private String selectSortCode;
 
     private BrandDataModel data;
-
-    private boolean isSortPanelVisible = false;
-    private String sortCode;
-    private int totalPageSize;
 
     public BrandDetailPresenterImpl(BrandDetailArguments args) {
         view = args.getView();
@@ -53,10 +53,11 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     @Override public void onCreate() {
         view.setupClickAction();
         view.setupStyleRecyclerView();
+        view.setupSortSelector();
         view.setupProductRecyclerView();
 
         getBrandDetail();
-        setupSortData();
+        initSortData();
     }
 
     @Override public void onResume() {
@@ -79,29 +80,24 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     }
 
     @Override public void onSortClick() {
-        isSortPanelVisible = !isSortPanelVisible;
-        if (isSortPanelVisible) {
-            view.showSortPanel();
-        } else {
-            view.hideSortPanel();
+        view.showSortSelector();
+    }
+
+    @Override public void onSortSelected(CodeDataModel data) {
+        view.hideSortSelector();
+
+        if (!selectSortCode.equals(data.getCode())) {
+            selectSortCode = data.getCode();
+            view.setupSortText(data.getName());
+
+            productAdapter.clear();
+            page = new AtomicInteger(0);
+            getProducts();
         }
     }
 
-    //@Override public void onSortSelected(CodeDataModel data) {
-    //    if (!sortCode.equals(data.getCode())) {
-    //        sortCode = data.getCode();
-    //        view.setupSortText(data.getName());
-    //
-    //        productAdapter.clear();
-    //        page = new AtomicInteger(0);
-    //        reqProducts();
-    //    }
-    //    view.hideSortPanel();
-    //    isSortPanelVisible = false;
-    //}
-
     @Override public void onLoadMore() {
-        getProducts();
+        if (totalPageSize > page.get()) getMoreProducts();
     }
 
     @Override public void onBrandInfoClick() {
@@ -135,7 +131,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         view.setupLogo(data.getBrandLogo());
         setupScrap();
         view.setupName(data.getBrandName());
-        view.setupTag(data.getBrandTag());
+        view.setupTag(data.getBrandTag().replace(",", " "));
         view.setupDesc(data.getBrandDesc());
 
         styleAdapter.set(data.getStyleImages());
@@ -151,40 +147,59 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         view.setupScrapCount(data.getScrapCount());
     }
 
-    private void setupSortData() {
-        //sortAdapter.set(App.getInstance().getSortCodes());
-        //view.sortRefresh();
-        sortCode = App.getInstance().getSortCodes().get(0).getCode();
-        view.setupSortText(App.getInstance().getSortCodes().get(0).getName());
-
+    private void initSortData() {
+        List<CodeDataModel> sorts = App.getInstance().getSortCodes();
+        selectSortCode = sorts.get(0).getCode();
+        view.setupSortText(sorts.get(0).getName());
         getProducts();
     }
 
     private void getProducts() {
-        if (page.get() != 0 && page.get() >= totalPageSize) return;
         addDisposable(
             searchRequest.getProducts(page.incrementAndGet(), ROWS, parseToModel())
                 .compose(Transformer.applySchedulers())
-                .filter(data -> data.getCode().equals(HttpCode.OK))
+                .filter(data -> {
+                    String code = data.getCode();
+                    if (code.equals(HttpCode.NO_DATA)) {
+                        //view.hideProducts();
+                    }
+                    return code.equals(HttpCode.OK);
+                })
                 .map(data -> gson.fromJson(data.getData(), SearchDataModel.class))
-                .subscribe(this::resProducts, Timber::e)
+                .subscribe(this::onResProducts, Timber::e)
         );
     }
 
     private SearchOptionDataModel parseToModel() {
         SearchOptionDataModel options = new SearchOptionDataModel();
         options.setBrandNo(brandNo);
-        options.setSortCode(sortCode);
+        options.setSortCode(selectSortCode);
         return options;
     }
 
-    private void resProducts(SearchDataModel data) {
+    private void onResProducts(SearchDataModel data) {
         totalPageSize = data.getTotal();
+        productAdapter.set(data.getProducts());
+        view.productRefresh();
+    }
+
+    private void getMoreProducts() {
+        addDisposable(
+            searchRequest.getProducts(page.incrementAndGet(), ROWS, parseToModel())
+                .compose(Transformer.applySchedulers())
+                .filter(data -> {
+                    String code = data.getCode();
+                    return code.equals(HttpCode.OK);
+                })
+                .map(data -> gson.fromJson(data.getData(), SearchDataModel.class))
+                .subscribe(this::onResMoreProducts, Timber::e)
+        );
+    }
+
+    private void onResMoreProducts(SearchDataModel data) {
         int start = productAdapter.getSize();
         int row = data.getProducts().size();
         productAdapter.addAll(data.getProducts());
         view.productRefresh(start, row);
-
-        view.scrollToTop();
     }
 }

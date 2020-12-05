@@ -60,8 +60,6 @@ public class LookBookDetailFragment extends BaseFragment implements LookBookDeta
         binding.rcvStyle.setHasFixedSize(true);
         binding.rcvStyle.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         binding.rcvStyle.setAdapter(styleAdapter);
-        binding.rcvStyle.setNestedScrollingEnabled(false);
-        ViewCompat.setNestedScrollingEnabled(binding.rcvStyle, false);
     }
 
     @Override public void styleRefresh() {
@@ -69,10 +67,8 @@ public class LookBookDetailFragment extends BaseFragment implements LookBookDeta
     }
 
     @Override public void setupProductRecyclerView() {
-        binding.rcvProduct.setHasFixedSize(true);
         binding.rcvProduct.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rcvProduct.setAdapter(productAdapter);
-        ViewCompat.setNestedScrollingEnabled(binding.rcvProduct, false);
     }
 
     @Override public void productRefresh() {

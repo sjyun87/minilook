@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.brand_detail.viewholder;
+package com.minilook.minilook.ui.product_bridge.viewholder;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +22,7 @@ public class BrandDetailSortItemVH extends _BaseViewHolder<CodeDataModel> {
 
     public BrandDetailSortItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_brand_detail_sort, (ViewGroup) itemView, false));
+            .inflate(R.layout.view_sort_selector_item, (ViewGroup) itemView, false));
     }
 
     @Override public void bind(CodeDataModel $data) {

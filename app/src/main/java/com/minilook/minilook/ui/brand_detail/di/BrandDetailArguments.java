@@ -1,5 +1,6 @@
 package com.minilook.minilook.ui.brand_detail.di;
 
+import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.brand_detail.BrandDetailPresenter;
