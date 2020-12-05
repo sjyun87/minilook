@@ -66,9 +66,10 @@ public class GuideActivity extends BaseActivity implements GuidePresenter.View {
     }
 
     @Override public void clear() {
-        binding.vpGuide.unregisterOnPageChangeCallback(onPageChangeCallback);
         binding.txtStart.setOnClickListener(null);
         binding.txtSkip.setOnClickListener(null);
+        binding.vpGuide.unregisterOnPageChangeCallback(onPageChangeCallback);
+        binding.vpGuide.setAdapter(null);
     }
 
     @Override public void onBackPressed() {

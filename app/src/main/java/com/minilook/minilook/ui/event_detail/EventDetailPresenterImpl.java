@@ -2,6 +2,7 @@ package com.minilook.minilook.ui.event_detail;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.event.EventDataModel;
@@ -25,8 +26,8 @@ public class EventDetailPresenterImpl extends BasePresenterImpl implements Event
     private final int eventNo;
     private final BaseAdapterDataModel<EventDataModel> eventAdapter;
     private final EventRequest eventRequest;
+    private final Gson gson;
 
-    private Gson gson = new Gson();
     private EventDataModel data;
     private int latestEventId = -1;
 
@@ -35,52 +36,91 @@ public class EventDetailPresenterImpl extends BasePresenterImpl implements Event
         eventNo = args.getEventNo();
         eventAdapter = args.getAdapter();
         eventRequest = new EventRequest();
+        gson = App.getInstance().getGson();
     }
 
     @Override public void onCreate() {
+        view.setupClickAction();
         view.setupRecyclerView();
 
-        reqEventDetail();
-        reqEvents();
+        getEventDetail();
+        getOtherEvents();
     }
 
     @Override public void onResume() {
         TrackingUtil.pageTracking("이벤트 상세페이지", EventDetailActivity.class.getSimpleName());
     }
 
-    private void reqEventDetail() {
-        addDisposable(eventRequest.getEventDetail(eventNo)
-            .compose(Transformer.applySchedulers())
-            .filter(data -> data.getCode().equals(HttpCode.OK))
-            .map(data -> gson.fromJson(data.getData(), EventDataModel.class))
-            .subscribe(this::resEventDetail, Timber::e));
+    @Override public void onDestroy() {
+        view.clear();
     }
 
-    private void resEventDetail(EventDataModel data) {
+    private void getEventDetail() {
+        addDisposable(eventRequest.getEventDetail(eventNo)
+            .compose(Transformer.applySchedulers())
+            .filter(data -> {
+                String code = data.getCode();
+                if (!code.equals(HttpCode.OK)) {
+                    view.showErrorDialog();
+                }
+                return code.equals(HttpCode.OK);
+            })
+            .map(data -> gson.fromJson(data.getData(), EventDataModel.class))
+            .subscribe(this::onResEventDetail, Timber::e));
+    }
+
+    private void onResEventDetail(EventDataModel data) {
         this.data = data;
 
-        view.setupEventImage(data.getEventUrl());
+        view.setEventImage(data.getEventUrl());
     }
 
     @Override public void onLoadMore() {
-        reqEvents();
+        getMoreOtherEvents();
     }
 
     @Override public void onShareClick() {
         DynamicLinkUtil.sendDynamicLink(DynamicLinkUtil.TYPE_EVENT, eventNo, data.getTitle(), data.getThumbUrl());
     }
 
-    private void reqEvents() {
+    private void getOtherEvents() {
         addDisposable(eventRequest.getEvents(eventNo, latestEventId, ROWS)
             .compose(Transformer.applySchedulers())
-            .filter(data -> data.getCode().equals(HttpCode.OK))
+            .filter(data -> {
+                String code = data.getCode();
+                if (code.equals(HttpCode.NO_DATA)) {
+                    view.hideOtherEvents();
+                } else if (!code.equals(HttpCode.OK)){
+                    view.showErrorDialog();
+                }
+                return data.getCode().equals(HttpCode.OK);
+            })
             .map((Function<BaseDataModel, List<EventDataModel>>)
                 data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<EventDataModel>>() {
                 }.getType()))
-            .subscribe(this::resTogetherPromotion, Timber::e));
+            .subscribe(this::onResOtherEvents, Timber::e));
     }
 
-    private void resTogetherPromotion(List<EventDataModel> data) {
+    private void onResOtherEvents(List<EventDataModel> data) {
+        latestEventId = data.get(data.size() - 1).getEventNo();
+        eventAdapter.set(data);
+        view.refresh();
+    }
+
+    private void getMoreOtherEvents() {
+        addDisposable(eventRequest.getEvents(eventNo, latestEventId, ROWS)
+            .compose(Transformer.applySchedulers())
+            .filter(data -> {
+                String code = data.getCode();
+                return code.equals(HttpCode.OK);
+            })
+            .map((Function<BaseDataModel, List<EventDataModel>>)
+                data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<EventDataModel>>() {
+                }.getType()))
+            .subscribe(this::onResMoreOtherEvents, Timber::e));
+    }
+
+    private void onResMoreOtherEvents(List<EventDataModel> data) {
         latestEventId = data.get(data.size() - 1).getEventNo();
         int start = eventAdapter.getSize();
         eventAdapter.addAll(data);

@@ -45,6 +45,10 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
         checkAction(step);
     }
 
+    @Override public void onDestroy() {
+        view.clear();
+    }
+
     @Override public void onMarketingAgree() {
         updateMarketingAgree(true);
     }

@@ -53,6 +53,10 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
         view.detachToWindow();
     }
 
+    @Override public void onDestroyView() {
+        view.clear();
+    }
+
     @Override public void onRefresh() {
         getMarketModules();
     }

@@ -83,6 +83,7 @@ public class LookBookPreviewFragment extends BaseFragment implements LookBookPre
     @Override public void clear() {
         binding.viewpager.unregisterOnPageChangeCallback(OnPageChangeCallback);
         getRecyclerView().removeOnScrollListener(scrollListener);
+        binding.viewpager.setAdapter(null);
     }
 
     private final ViewPager2.OnPageChangeCallback OnPageChangeCallback = new ViewPager2.OnPageChangeCallback() {

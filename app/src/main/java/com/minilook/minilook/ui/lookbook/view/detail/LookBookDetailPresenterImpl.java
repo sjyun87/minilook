@@ -1,5 +1,7 @@
 package com.minilook.minilook.ui.lookbook.view.detail;
 
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.OnLifecycleEvent;
 import com.minilook.minilook.data.model.lookbook.LookBookModuleDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
@@ -27,11 +29,16 @@ public class LookBookDetailPresenterImpl extends BasePresenterImpl implements Lo
         productAdapter = args.getProductAdapter();
     }
 
-    @Override public void onCreateView() {
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    public void onCreateView() {
         toRxObservable();
         view.setupTitleBar();
         view.setupStyleRecyclerView();
         view.setupProductRecyclerView();
+    }
+
+    @Override public void onDestroyView() {
+        view.clear();
     }
 
     @Override public void onBackClick() {

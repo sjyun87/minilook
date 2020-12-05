@@ -11,6 +11,9 @@ public interface MainPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    void onDestroy();
+
     void onMarketingAgree();
 
     void onMarketingDisagree();
@@ -48,5 +51,7 @@ public interface MainPresenter extends LifecycleObserver {
         void navigateToBrandDetail(int brandNo);
 
         void navigateToPreorderDetail(int preorderNo);
+
+        void clear();
     }
 }

@@ -49,6 +49,7 @@ public class LookBookFragment extends BaseFragment implements LookBookPresenter.
 
     @Override public void clear() {
         binding.viewpager.unregisterOnPageChangeCallback(OnPageChangeCallback);
+        binding.viewpager.setAdapter(null);
     }
 
     private final ViewPager2.OnPageChangeCallback OnPageChangeCallback = new ViewPager2.OnPageChangeCallback() {

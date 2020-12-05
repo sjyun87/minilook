@@ -108,4 +108,11 @@ public class BrandActivity extends BaseActivity implements BrandPresenter.View {
     @Override public void hideEmptyPanel() {
         binding.layoutEmptyPanel.setVisibility(View.GONE);
     }
+
+    @Override public void clear() {
+        binding.txtReset.setOnClickListener(null);
+        binding.txtEmpty.setOnClickListener(null);
+        binding.rcvStyle.setAdapter(null);
+        binding.rcvBrand.setAdapter(null);
+    }
 }

@@ -69,11 +69,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
         binding.viewpager.setAdapter(new MainPagerAdapter(this));
         binding.viewpager.setUserInputEnabled(false);
         binding.viewpager.setOffscreenPageLimit(5);
-        binding.viewpager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override public void onPageSelected(int position) {
-                binding.bottombar.setCurrentPage(position);
-            }
-        });
+        binding.viewpager.registerOnPageChangeCallback(onPageChangeCallback);
     }
 
     @Override public void setCurrentPage(int position) {
@@ -152,6 +148,22 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
     @Override public void navigateToPreorderDetail(int preorderNo) {
         PreorderDetailActivity.start(this, preorderNo);
     }
+
+    @Override public void clear() {
+        binding.viewpager.unregisterOnPageChangeCallback(onPageChangeCallback);
+        binding.viewpager.setAdapter(null);
+        binding.bottombar.setOnBottomBarListener(null);
+        binding.coachLookbook.getRoot().setOnClickListener(null);
+        binding.coachLookbook.coach1.setOnClickListener(null);
+        binding.coachLookbook.coach2.setOnClickListener(null);
+        binding.coachLookbook.coach3.setOnClickListener(null);
+    }
+
+    private final ViewPager2.OnPageChangeCallback onPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
+        @Override public void onPageSelected(int position) {
+            binding.bottombar.setCurrentPage(position);
+        }
+    };
 
     private long backPressedTime;
 

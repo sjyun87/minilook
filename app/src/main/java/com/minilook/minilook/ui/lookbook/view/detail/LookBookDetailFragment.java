@@ -90,4 +90,10 @@ public class LookBookDetailFragment extends BaseFragment implements LookBookDeta
         binding.nsvContents.smoothScrollTo(0, 0);
         binding.rcvStyle.scrollToPosition(0);
     }
+
+    @Override public void clear() {
+        binding.rcvStyle.setAdapter(null);
+        binding.rcvProduct.setAdapter(null);
+        binding.titlebar.getBinding().imgTitlebarBack.setOnClickListener(null);
+    }
 }

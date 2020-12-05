@@ -36,7 +36,7 @@ public class BrandDetailProductAdapter extends RecyclerView.Adapter<BrandDetailP
     }
 
     @Override public void addAll(List<ProductDataModel> $items) {
-        for (ProductDataModel item : $items) add(item);
+        items.addAll($items);
     }
 
     @Override public void set(int $index, ProductDataModel $item) {

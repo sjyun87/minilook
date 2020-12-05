@@ -11,6 +11,9 @@ public interface BrandPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    void onDestroy();
+
     void onBrandScrap(BrandDataModel data);
 
     void onResetClick();
@@ -34,5 +37,7 @@ public interface BrandPresenter extends LifecycleObserver {
         void showEmptyPanel();
 
         void hideEmptyPanel();
+
+        void clear();
     }
 }

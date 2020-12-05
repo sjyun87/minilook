@@ -21,9 +21,9 @@ public class MarketPreorderAdapter extends RecyclerView.Adapter<BaseViewHolder<P
     @NonNull @Override
     public BaseViewHolder<PreorderDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == PreorderType.ING.getValue()) {
-            return new MarketPreorderOpenItemVH(parent, items.size() == 1);
+            return new MarketPreorderOpenItemVH(parent, getSize() == 1);
         } else if (viewType == PreorderType.WILL.getValue()) {
-            return new MarketPreorderComingItemVH(parent, items.size() == 1);
+            return new MarketPreorderComingItemVH(parent, getSize() == 1);
         } else {
             throw new IllegalStateException("Market preorder module type is not matching = " + viewType);
         }

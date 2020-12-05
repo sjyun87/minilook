@@ -52,6 +52,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
 
     @Override public void onCreate() {
         view.setupClickAction();
+        view.setupScrollView();
         view.setupStyleRecyclerView();
         view.setupSortSelector();
         view.setupProductRecyclerView();
@@ -62,6 +63,10 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
 
     @Override public void onResume() {
         TrackingUtil.pageTracking("브랜드 상세페이지", BrandDetailActivity.class.getSimpleName());
+    }
+
+    @Override public void onDestroy() {
+        view.clear();
     }
 
     @Override public void onScrapClick() {
@@ -181,6 +186,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         totalPageSize = data.getTotal();
         productAdapter.set(data.getProducts());
         view.productRefresh();
+        view.scrollToTop();
     }
 
     private void getMoreProducts() {
@@ -200,6 +206,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         int start = productAdapter.getSize();
         int row = data.getProducts().size();
         productAdapter.addAll(data.getProducts());
+        view.productRefresh();
         view.productRefresh(start, row);
     }
 }

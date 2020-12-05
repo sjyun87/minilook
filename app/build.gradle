@@ -164,9 +164,4 @@ dependencies {
 
   // Loading View
   implementation "com.github.ybq:Android-SpinKit:$laodding_view_version"
-
-
-  //RecyclerView
-  implementation "androidx.recyclerview:recyclerview:1.2.0-beta01"
-
 }

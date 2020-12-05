@@ -13,6 +13,9 @@ public interface BrandDetailPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     void onResume();
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    void onDestroy();
+
     void onScrapClick();
 
     void onSortClick();
@@ -28,6 +31,8 @@ public interface BrandDetailPresenter extends LifecycleObserver {
     interface View {
 
         void setupClickAction();
+
+        void setupScrollView();
 
         void setupStyleRecyclerView();
 
@@ -71,5 +76,6 @@ public interface BrandDetailPresenter extends LifecycleObserver {
 
         void navigateToLogin();
 
+        void clear();
     }
 }

@@ -12,20 +12,29 @@ public interface EventDetailPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     void onResume();
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    void onDestroy();
+
     void onLoadMore();
 
     void onShareClick();
 
     interface View {
 
-        void setupEventImage(String url);
+        void setupClickAction();
 
         void setupRecyclerView();
 
+        void refresh();
+
         void refresh(int start, int rows);
 
-        void sendLink(String shareLink);
+        void setEventImage(String url);
 
-        void showErrorMessage();
+        void hideOtherEvents();
+
+        void showErrorDialog();
+
+        void clear();
     }
 }

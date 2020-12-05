@@ -16,6 +16,9 @@ public interface MarketPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     void onPause();
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    void onDestroyView();
+
     void onRefresh();
 
     interface View {
@@ -33,5 +36,7 @@ public interface MarketPresenter extends LifecycleObserver {
         void detachToWindow();
 
         void showErrorDialog();
+
+        void clear();
     }
 }

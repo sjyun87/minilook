@@ -6,6 +6,7 @@ import android.view.View;
 import androidx.annotation.ColorRes;
 import androidx.annotation.DimenRes;
 import androidx.annotation.DrawableRes;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +20,6 @@ import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.databinding.ActivityBrandDetailBinding;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
 import com.minilook.minilook.ui.brand_detail.adapter.BrandDetailProductAdapter;
 import com.minilook.minilook.ui.brand_detail.adapter.BrandDetailStyleAdapter;
 import com.minilook.minilook.ui.brand_detail.di.BrandDetailArguments;
@@ -46,6 +46,7 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
     @DrawableRes int ph_circle = R.drawable.ph_circle;
 
     @DimenRes int dp_2 = R.dimen.dp_2;
+    @DimenRes int dp_150 = R.dimen.dp_150;
 
     private ActivityBrandDetailBinding binding;
     private BrandDetailPresenter presenter;
@@ -54,6 +55,8 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
     private final BaseAdapterDataView<String> styleAdapterView = styleAdapter;
     private final BrandDetailProductAdapter productAdapter = new BrandDetailProductAdapter();
     private final BaseAdapterDataView<ProductDataModel> productAdapterView = productAdapter;
+
+    private boolean isLoading = false;
 
     @Override protected View getBindingView() {
         binding = ActivityBrandDetailBinding.inflate(getLayoutInflater());
@@ -79,6 +82,17 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
         binding.layoutBrandInfoPanel.setOnClickListener(view -> presenter.onBrandInfoClick());
         binding.imgShare.setOnClickListener(view -> presenter.onShareClick());
         binding.layoutScrapPanel.setOnClickListener(view -> presenter.onScrapClick());
+    }
+
+    @Override public void setupScrollView() {
+        binding.nsvContents.setOnScrollChangeListener(
+            (NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+                if (!isLoading && scrollY > ((v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())
+                    - (resources.getDimen(dp_150)))) {
+                    isLoading = true;
+                    presenter.onLoadMore();
+                }
+            });
     }
 
     @Override public void setupStyleRecyclerView() {
@@ -116,21 +130,16 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
         binding.rcvProduct.setHasFixedSize(true);
         binding.rcvProduct.setLayoutManager(new GridLayoutManager(this, 2));
         binding.rcvProduct.setAdapter(productAdapter);
-        EndlessOnScrollListener scrollListener =
-            EndlessOnScrollListener.builder()
-                .layoutManager(binding.rcvProduct.getLayoutManager())
-                .onLoadMoreListener(presenter::onLoadMore)
-                .visibleThreshold(6)
-                .build();
-        binding.rcvProduct.addOnScrollListener(scrollListener);
     }
 
     @Override public void productRefresh() {
         productAdapterView.refresh();
+        isLoading = false;
     }
 
     @Override public void productRefresh(int start, int row) {
         productAdapterView.refresh(start, row);
+        isLoading = false;
     }
 
     @Override public void setThumb(String url) {
@@ -178,7 +187,9 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
     }
 
     @Override public void scrollToTop() {
-        binding.rcvProduct.smoothScrollToPosition(0);
+        if (binding.nsvContents.getScrollY() > binding.layoutHeaderPanel.getY()) {
+            binding.nsvContents.setScrollY((int) binding.layoutHeaderPanel.getY());
+        }
     }
 
     @Override public void showErrorDialog() {
@@ -191,6 +202,15 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
 
     @Override public void navigateToLogin() {
         LoginActivity.start(this);
+    }
+
+    @Override public void clear() {
+        binding.layoutSortPanel.setOnClickListener(null);
+        binding.layoutBrandInfoPanel.setOnClickListener(null);
+        binding.imgShare.setOnClickListener(null);
+        binding.layoutScrapPanel.setOnClickListener(null);
+        binding.rcvStyle.setAdapter(null);
+        binding.rcvProduct.setAdapter(null);
     }
 
     @Override public void onBackPressed() {

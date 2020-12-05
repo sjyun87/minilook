@@ -49,6 +49,10 @@ public class BrandPresenterImpl extends BasePresenterImpl implements BrandPresen
         getBrands();
     }
 
+    @Override public void onDestroy() {
+        view.clear();
+    }
+
     @Override public void onBrandScrap(BrandDataModel data) {
         for (BrandDataModel brand : brandAdapter.get()) {
             if (brand.getBrandNo() == data.getBrandNo()) {

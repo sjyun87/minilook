@@ -2,29 +2,26 @@ package com.minilook.minilook.ui.event_detail;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.widget.ImageView;
-import android.widget.Toast;
+import android.view.View;
+import androidx.annotation.DimenRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindDimen;
-import butterknife.BindDrawable;
-import butterknife.BindString;
-import butterknife.BindView;
-import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.event.EventDataModel;
-import com.minilook.minilook.ui.base._BaseActivity;
+import com.minilook.minilook.databinding.ActivityEventDetailBinding;
+import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
+import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.event_detail.adapter.EventAdapter;
 import com.minilook.minilook.ui.event_detail.di.EventDetailArguments;
-import com.minilook.minilook.util.DynamicLinkUtil;
 
-public class EventDetailActivity extends _BaseActivity implements EventDetailPresenter.View {
+public class EventDetailActivity extends BaseActivity implements EventDetailPresenter.View {
 
     public static void start(Context context, int eventNo) {
         Intent intent = new Intent(context, EventDetailActivity.class);
@@ -33,22 +30,21 @@ public class EventDetailActivity extends _BaseActivity implements EventDetailPre
         context.startActivity(intent);
     }
 
-    @BindView(R.id.img_event) ImageView eventImageView;
-    @BindView(R.id.rcv_event) RecyclerView eventRecyclerView;
+    @DrawableRes int ph_square = R.drawable.ph_square;
 
-    @BindDrawable(R.drawable.ph_square) Drawable img_placeholder;
-    @BindDrawable(R.drawable.placeholder_image_wide) Drawable img_placeholder_wide;
+    @StringRes int str_error_msg = R.string.dialog_error_title;
 
-    @BindString(R.string.dialog_error_title) String str_error_msg;
+    @DimenRes int dp_2 = R.dimen.dp_2;
 
-    @BindDimen(R.dimen.dp_2) int dp_2;
-
+    private ActivityEventDetailBinding binding;
     private EventDetailPresenter presenter;
-    private EventAdapter adapter = new EventAdapter();
-    private BaseAdapterDataView<EventDataModel> adapterView = adapter;
 
-    @Override protected int getLayoutID() {
-        return R.layout.activity_event_detail;
+    private final EventAdapter adapter = new EventAdapter();
+    private final BaseAdapterDataView<EventDataModel> adapterView = adapter;
+
+    @Override protected View getBindingView() {
+        binding = ActivityEventDetailBinding.inflate(getLayoutInflater());
+        return binding.getRoot();
     }
 
     @Override protected void createPresenter() {
@@ -64,47 +60,55 @@ public class EventDetailActivity extends _BaseActivity implements EventDetailPre
             .build();
     }
 
+    @Override public void setupClickAction() {
+        binding.titlebar.getBinding().imgTitlebarShare.setOnClickListener(view -> presenter.onShareClick());
+    }
+
     @Override public void setupRecyclerView() {
-        eventRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        eventRecyclerView.setAdapter(adapter);
+        binding.rcvEvent.setHasFixedSize(true);
+        binding.rcvEvent.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        binding.rcvEvent.setAdapter(adapter);
         DividerDecoration.builder(this)
-            .size(dp_2)
+            .size(resources.getDimen(dp_2))
             .asSpace()
             .build()
-            .addTo(eventRecyclerView);
+            .addTo(binding.rcvEvent);
         EndlessOnScrollListener scrollListener =
             EndlessOnScrollListener.builder()
-                .layoutManager(eventRecyclerView.getLayoutManager())
+                .layoutManager(binding.rcvEvent.getLayoutManager())
                 .onLoadMoreListener(presenter::onLoadMore)
                 .visibleThreshold(4)
                 .build();
-        eventRecyclerView.addOnScrollListener(scrollListener);
+        binding.rcvEvent.addOnScrollListener(scrollListener);
+    }
+
+    @Override public void refresh() {
+        adapterView.refresh();
     }
 
     @Override public void refresh(int start, int rows) {
         adapterView.refresh(start, rows);
     }
 
-    @Override public void sendLink(String shareLink) {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, shareLink);
-        startActivity(Intent.createChooser(intent, "친구에게 공유하기"));
-    }
-
-    @Override public void showErrorMessage() {
-        Toast.makeText(this, str_error_msg, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override public void setupEventImage(String url) {
+    @Override public void setEventImage(String url) {
         Glide.with(this)
             .load(url)
+            .placeholder(ph_square)
+            .error(ph_square)
             .transition(new DrawableTransitionOptions().crossFade())
-            .into(eventImageView);
+            .into(binding.imgEvent);
     }
 
-    @OnClick(R.id.img_titlebar_share)
-    void onShareClick() {
-        presenter.onShareClick();
+    @Override public void hideOtherEvents() {
+        binding.layoutOtherPanel.setVisibility(View.GONE);
+    }
+
+    @Override public void showErrorDialog() {
+        DialogManager.showErrorDialog(this);
+    }
+
+    @Override public void clear() {
+        binding.rcvEvent.setLayoutManager(null);
+        binding.rcvEvent.setAdapter(null);
     }
 }

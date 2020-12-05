@@ -13,10 +13,10 @@ import java.util.List;
 public class EventAdapter extends RecyclerView.Adapter<EventItemVH>
     implements BaseAdapterDataModel<EventDataModel>, BaseAdapterDataView<EventDataModel> {
 
-    private List<EventDataModel> items = new ArrayList<>();
+    private final List<EventDataModel> items = new ArrayList<>();
 
     @NonNull @Override public EventItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new EventItemVH(parent);
+        return new EventItemVH(parent, getSize() == 1);
     }
 
     @Override public void onBindViewHolder(@NonNull EventItemVH holder, int position) {

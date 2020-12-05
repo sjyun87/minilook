@@ -15,9 +15,11 @@
         app:showHome="true"
         app:showShoppingBag="true" />
 
-    <me.didik.component.StickyNestedScrollView
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsv_contents"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titlebar">
 
@@ -285,7 +287,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/layout_header_panel" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </me.didik.component.StickyNestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <com.minilook.minilook.ui.base.widget.selector.sort.SortSelector
         android:id="@+id/sort_selector"

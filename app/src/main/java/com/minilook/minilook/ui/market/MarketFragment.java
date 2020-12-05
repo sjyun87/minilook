@@ -77,4 +77,8 @@ public class MarketFragment extends BaseFragment implements MarketPresenter.View
     @Override public void showErrorDialog() {
         DialogManager.showErrorDialog(getActivity());
     }
+
+    @Override public void clear() {
+        binding.rcvMarket.setAdapter(null);
+    }
 }

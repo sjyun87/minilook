@@ -5,7 +5,6 @@ import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
 import java.util.HashMap;
 import java.util.Map;
-import okhttp3.RequestBody;
 
 public class EventRequest extends BaseRequest<EventService> {
 
@@ -18,13 +17,13 @@ public class EventRequest extends BaseRequest<EventService> {
     }
 
     public Single<BaseDataModel> getEvents(int eventNo, int lastEventNo, int rows) {
-        return getApi().getEvents(createRequestBody(parseToJson(eventNo, lastEventNo, rows)));
+        return getApi().getEvents(createRequestBody(createGetEventsData(eventNo, lastEventNo, rows)));
     }
 
-    private Map<String, Object> parseToJson(int eventNo, int lastEventNo, int rows) {
+    private Map<String, Object> createGetEventsData(int eventNo, int lastEventNo, int rows) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("pageSize", rows);
-        jsonMap.put("pageEventNo", lastEventNo);
+        if (lastEventNo > 0) jsonMap.put("pageEventNo", lastEventNo);
         jsonMap.put("eventNo", eventNo);
         return jsonMap;
     }

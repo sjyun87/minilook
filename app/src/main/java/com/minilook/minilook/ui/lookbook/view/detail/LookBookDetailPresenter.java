@@ -9,6 +9,9 @@ public interface LookBookDetailPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreateView();
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    void onDestroyView();
+
     void onBackClick();
 
     interface View {
@@ -34,5 +37,7 @@ public interface LookBookDetailPresenter extends LifecycleObserver {
         void setSimpleInfo(String text);
 
         void scrollToTop();
+
+        void clear();
     }
 }
