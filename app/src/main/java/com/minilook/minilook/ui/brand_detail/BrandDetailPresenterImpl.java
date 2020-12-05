@@ -72,7 +72,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
             } else {
                 data.setScrapCount(data.getScrapCount() - 1);
             }
-            setupScrap();
+            setScrap();
             RxBus.send(new MainPresenterImpl.RxBusEventUpdateBrandScrap(data));
         } else {
             view.navigateToLogin();
@@ -127,24 +127,24 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     private void onResBrandDetail(BrandDataModel data) {
         this.data = data;
 
-        view.setupThumb(data.getImageUrl());
-        view.setupLogo(data.getBrandLogo());
-        setupScrap();
-        view.setupName(data.getBrandName());
-        view.setupTag(data.getBrandTag().replace(",", " "));
-        view.setupDesc(data.getBrandDesc());
+        view.setThumb(data.getImageUrl());
+        view.setLogo(data.getBrandLogo());
+        view.setName(data.getBrandName());
+        view.setTag(data.getBrandTag().replace(",", " "));
+        view.setDesc(data.getBrandDesc());
+        setScrap();
 
         styleAdapter.set(data.getStyleImages());
         view.styleRefresh();
     }
 
-    private void setupScrap() {
+    private void setScrap() {
         if (data.isScrap()) {
             view.scrapOn();
         } else {
             view.scrapOff();
         }
-        view.setupScrapCount(data.getScrapCount());
+        view.setScrapCount(data.getScrapCount());
     }
 
     private void initSortData() {

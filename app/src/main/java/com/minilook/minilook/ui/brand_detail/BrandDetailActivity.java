@@ -133,7 +133,7 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
         productAdapterView.refresh(start, row);
     }
 
-    @Override public void setupThumb(String url) {
+    @Override public void setThumb(String url) {
         Glide.with(this)
             .load(url)
             .placeholder(ph_square)
@@ -142,7 +142,7 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
             .into(binding.imgThumb);
     }
 
-    @Override public void setupLogo(String url) {
+    @Override public void setLogo(String url) {
         Glide.with(this)
             .load(url)
             .placeholder(ph_circle)
@@ -153,19 +153,19 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
             .into(binding.imgLogo);
     }
 
-    @Override public void setupScrapCount(int count) {
+    @Override public void setScrapCount(int count) {
         binding.txtScrapCount.setText(StringUtil.toDigit(count));
     }
 
-    @Override public void setupName(String name) {
+    @Override public void setName(String name) {
         binding.txtName.setText(name);
     }
 
-    @Override public void setupTag(String tag) {
+    @Override public void setTag(String tag) {
         binding.txtTag.setText(tag);
     }
 
-    @Override public void setupDesc(String desc) {
+    @Override public void setDesc(String desc) {
         binding.txtDesc.setText(desc);
     }
 

@@ -47,17 +47,17 @@ public interface BrandDetailPresenter extends LifecycleObserver {
 
         void productRefresh(int start, int row);
 
-        void setupThumb(String url);
+        void setThumb(String url);
 
-        void setupLogo(String url);
+        void setLogo(String url);
 
-        void setupScrapCount(int count);
+        void setScrapCount(int count);
 
-        void setupName(String name);
+        void setName(String name);
 
-        void setupTag(String tag);
+        void setTag(String tag);
 
-        void setupDesc(String desc);
+        void setDesc(String desc);
 
         void scrapOn();
 
