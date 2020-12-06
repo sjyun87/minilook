@@ -92,6 +92,7 @@ public class DynamicLinkUtil {
 
     private static void send(String link) {
         Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_TEXT, link);
         App.getInstance().startActivity(Intent.createChooser(intent, "친구에게 공유하기"));

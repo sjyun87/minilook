@@ -85,8 +85,8 @@
 
     <!--Promotion Detail-->
     <string name="promotion_detail_title">기획전</string>
-    <string name="promotion_total">총 %s개 상품</string>
-    <string name="promotion_total_b">%s개</string>
+    <string name="promotion_total">총 %d개 상품</string>
+    <string name="promotion_total_b">%d개</string>
     <string name="promotion_together">같이보면 좋은 기획전</string>
 
     <!--Event Detail-->

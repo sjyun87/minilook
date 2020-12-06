@@ -94,6 +94,5 @@ public class LookBookDetailFragment extends BaseFragment implements LookBookDeta
     @Override public void clear() {
         binding.rcvStyle.setAdapter(null);
         binding.rcvProduct.setAdapter(null);
-        binding.titlebar.getBinding().imgTitlebarBack.setOnClickListener(null);
     }
 }

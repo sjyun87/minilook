@@ -29,7 +29,7 @@ public class EventDetailPresenterImpl extends BasePresenterImpl implements Event
     private final Gson gson;
 
     private EventDataModel data;
-    private int latestEventId = -1;
+    private int latestEventNo = -1;
 
     public EventDetailPresenterImpl(EventDetailArguments args) {
         view = args.getView();
@@ -76,7 +76,7 @@ public class EventDetailPresenterImpl extends BasePresenterImpl implements Event
     }
 
     @Override public void onLoadMore() {
-        getMoreOtherEvents();
+        if (eventAdapter.getSize() >= ROWS) getMoreOtherEvents();
     }
 
     @Override public void onShareClick() {
@@ -84,13 +84,13 @@ public class EventDetailPresenterImpl extends BasePresenterImpl implements Event
     }
 
     private void getOtherEvents() {
-        addDisposable(eventRequest.getEvents(eventNo, latestEventId, ROWS)
+        addDisposable(eventRequest.getEvents(eventNo, ROWS)
             .compose(Transformer.applySchedulers())
             .filter(data -> {
                 String code = data.getCode();
                 if (code.equals(HttpCode.NO_DATA)) {
                     view.hideOtherEvents();
-                } else if (!code.equals(HttpCode.OK)){
+                } else if (!code.equals(HttpCode.OK)) {
                     view.showErrorDialog();
                 }
                 return data.getCode().equals(HttpCode.OK);
@@ -102,13 +102,13 @@ public class EventDetailPresenterImpl extends BasePresenterImpl implements Event
     }
 
     private void onResOtherEvents(List<EventDataModel> data) {
-        latestEventId = data.get(data.size() - 1).getEventNo();
+        latestEventNo = data.get(data.size() - 1).getEventNo();
         eventAdapter.set(data);
         view.refresh();
     }
 
     private void getMoreOtherEvents() {
-        addDisposable(eventRequest.getEvents(eventNo, latestEventId, ROWS)
+        addDisposable(eventRequest.getEvents(eventNo, ROWS, latestEventNo)
             .compose(Transformer.applySchedulers())
             .filter(data -> {
                 String code = data.getCode();
@@ -121,7 +121,7 @@ public class EventDetailPresenterImpl extends BasePresenterImpl implements Event
     }
 
     private void onResMoreOtherEvents(List<EventDataModel> data) {
-        latestEventId = data.get(data.size() - 1).getEventNo();
+        latestEventNo = data.get(data.size() - 1).getEventNo();
         int start = eventAdapter.getSize();
         eventAdapter.addAll(data);
         view.refresh(start, data.size());

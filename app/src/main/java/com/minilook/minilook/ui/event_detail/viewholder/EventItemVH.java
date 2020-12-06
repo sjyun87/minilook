@@ -31,9 +31,9 @@ public class EventItemVH extends BaseViewHolder<EventDataModel> {
     }
 
     private void setupItemSize(boolean isOnlyOne) {
-        ViewGroup.LayoutParams params = binding.imgThumb.getLayoutParams();
+        ViewGroup.LayoutParams params = binding.getRoot().getLayoutParams();
         params.width = isOnlyOne ? ViewGroup.LayoutParams.MATCH_PARENT : resources.getDimen(dp_148);
-        binding.imgThumb.setLayoutParams(params);
+        binding.getRoot().setLayoutParams(params);
     }
 
     @Override public void bind(EventDataModel $data) {

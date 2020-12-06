@@ -2,6 +2,7 @@ package com.minilook.minilook.ui.promotion_detail;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
@@ -27,11 +28,10 @@ public class PromotionDetailPresenterImpl extends BasePresenterImpl implements P
     private final BaseAdapterDataModel<ProductDataModel> productAdapter;
     private final BaseAdapterDataModel<PromotionDataModel> promotionAdapter;
     private final PromotionRequest promotionRequest;
+    private final Gson gson;
 
-    private Gson gson = new Gson();
     private PromotionDataModel data;
-
-    private int latestPromotionId = -1;
+    private int latestPromotionNo = -1;
 
     public PromotionDetailPresenterImpl(PromotionDetailArguments args) {
         view = args.getView();
@@ -39,22 +39,28 @@ public class PromotionDetailPresenterImpl extends BasePresenterImpl implements P
         productAdapter = args.getProductAdapter();
         promotionAdapter = args.getPromotionAdapter();
         promotionRequest = new PromotionRequest();
+        gson = App.getInstance().getGson();
     }
 
     @Override public void onCreate() {
+        view.setupClickAction();
         view.setupProductRecyclerView();
         view.setupPromotionRecyclerView();
 
-        reqPromotionDetail();
-        reqTogetherPromotion();
+        getPromotionDetail();
+        getOtherPromotion();
     }
 
     @Override public void onResume() {
         TrackingUtil.pageTracking("기획전 상세페이지", PromotionDetailActivity.class.getSimpleName());
     }
 
+    @Override public void onDestroy() {
+        view.clear();
+    }
+
     @Override public void onLoadMore() {
-        reqTogetherPromotion();
+        if (promotionAdapter.getSize() >= ROWS) getMoreOtherPromotion();
     }
 
     @Override public void onShareClick() {
@@ -62,39 +68,71 @@ public class PromotionDetailPresenterImpl extends BasePresenterImpl implements P
             data.getThumbUrl());
     }
 
-    private void reqPromotionDetail() {
+    private void getPromotionDetail() {
         addDisposable(promotionRequest.getPromotionDetail(promotionNo)
             .compose(Transformer.applySchedulers())
-            .filter(data -> data.getCode().equals(HttpCode.OK))
+            .filter(data -> {
+                String code = data.getCode();
+                if (!code.equals(HttpCode.OK)) {
+                    view.showErrorDialog();
+                }
+                return code.equals(HttpCode.OK);
+            })
             .map(data -> gson.fromJson(data.getData(), PromotionDataModel.class))
-            .subscribe(this::resPromotion, Timber::e)
+            .subscribe(this::onResPromotionDetail, Timber::e)
         );
     }
 
-    private void resPromotion(PromotionDataModel data) {
+    private void onResPromotionDetail(PromotionDataModel data) {
         this.data = data;
 
-        view.setupThumb(data.getThumbUrl());
-        view.setupEventImage(data.getEventUrl());
-        if (data.getProducts() != null && data.getProducts().size() > 0) {
-            productAdapter.set(data.getProducts());
-            view.productRefresh();
-            view.setupTotal(productAdapter.getSize());
-        }
+        view.setThumb(data.getThumbUrl());
+        view.setEventImage(data.getEventUrl());
+
+        productAdapter.set(data.getProducts());
+        view.productRefresh();
+        view.setTotal(productAdapter.getSize());
     }
 
-    private void reqTogetherPromotion() {
-        addDisposable(promotionRequest.getPromotions(promotionNo, ROWS, latestPromotionId)
+    private void getOtherPromotion() {
+        addDisposable(promotionRequest.getPromotions(promotionNo, ROWS)
             .compose(Transformer.applySchedulers())
-            .filter(data -> data.getCode().equals(HttpCode.OK))
+            .filter(data -> {
+                String code = data.getCode();
+                if (code.equals(HttpCode.NO_DATA)) {
+                    view.hideOtherPromotions();
+                } else if (!code.equals(HttpCode.OK)) {
+                    view.showErrorDialog();
+                }
+                return code.equals(HttpCode.OK);
+            })
             .map((Function<BaseDataModel, List<PromotionDataModel>>)
                 data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<PromotionDataModel>>() {
                 }.getType()))
-            .subscribe(this::resTogetherPromotion, Timber::e));
+            .subscribe(this::onResOtherPromotions, Timber::e));
     }
 
-    private void resTogetherPromotion(List<PromotionDataModel> data) {
-        latestPromotionId = data.get(data.size() - 1).getPromotionNo();
+    private void onResOtherPromotions(List<PromotionDataModel> data) {
+        latestPromotionNo = data.get(data.size() - 1).getPromotionNo();
+        promotionAdapter.set(data);
+        view.promotionRefresh();
+    }
+
+    private void getMoreOtherPromotion() {
+        addDisposable(promotionRequest.getPromotions(promotionNo, ROWS, latestPromotionNo)
+            .compose(Transformer.applySchedulers())
+            .filter(data -> {
+                String code = data.getCode();
+                return code.equals(HttpCode.OK);
+            })
+            .map((Function<BaseDataModel, List<PromotionDataModel>>)
+                data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<PromotionDataModel>>() {
+                }.getType()))
+            .subscribe(this::onResMoreOtherPromotions, Timber::e));
+    }
+
+    private void onResMoreOtherPromotions(List<PromotionDataModel> data) {
+        latestPromotionNo = data.get(data.size() - 1).getPromotionNo();
         int start = promotionAdapter.getSize();
         promotionAdapter.addAll(data);
         view.promotionRefresh(start, data.size());

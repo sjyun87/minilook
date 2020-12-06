@@ -26,15 +26,26 @@ public class PromotionRequest extends BaseRequest<PromotionService> {
         return createRequestBody(jsonMap);
     }
 
-    public Single<BaseDataModel> getPromotions(int promotionNo, int rows, int lastPromotionNo) {
-        return getApi().getPromotions(createRequestBody(parseToTogetherJson(promotionNo, rows, lastPromotionNo)));
+    public Single<BaseDataModel> getPromotions(int promotionNo, int rows) {
+        return getApi().getPromotions(createRequestBody(createGetPromotionsData(promotionNo, rows)));
     }
 
-    private Map<String, Object> parseToTogetherJson(int promotionNo, int rows, int lastPromotionNo) {
+    public Single<BaseDataModel> getPromotions(int promotionNo, int rows, int lastPromotionNo) {
+        return getApi().getPromotions(createRequestBody(createGetPromotionsData(promotionNo, rows, lastPromotionNo)));
+    }
+
+    private Map<String, Object> createGetPromotionsData(int promotionNo, int rows) {
         Map<String, Object> jsonMap = new HashMap<>();
-        if (lastPromotionNo != -1) jsonMap.put("pagePromotionNo", lastPromotionNo);
-        jsonMap.put("pageSize", rows);
         jsonMap.put("promotionNo", promotionNo);
+        jsonMap.put("pageSize", rows);
+        return jsonMap;
+    }
+
+    private Map<String, Object> createGetPromotionsData(int promotionNo, int rows, int lastPromotionNo) {
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("promotionNo", promotionNo);
+        jsonMap.put("pageSize", rows);
+        jsonMap.put("pagePromotionNo", lastPromotionNo);
         return jsonMap;
     }
 }

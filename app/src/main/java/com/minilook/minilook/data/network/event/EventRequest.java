@@ -16,15 +16,26 @@ public class EventRequest extends BaseRequest<EventService> {
         return getApi().getEventDetail(eventNo, createRequestBody(new HashMap<>()));
     }
 
-    public Single<BaseDataModel> getEvents(int eventNo, int lastEventNo, int rows) {
-        return getApi().getEvents(createRequestBody(createGetEventsData(eventNo, lastEventNo, rows)));
+    public Single<BaseDataModel> getEvents(int eventNo, int rows) {
+        return getApi().getEvents(createRequestBody(createGetEventsData(eventNo, rows)));
     }
 
-    private Map<String, Object> createGetEventsData(int eventNo, int lastEventNo, int rows) {
+    public Single<BaseDataModel> getEvents(int eventNo, int rows, int lastEventNo) {
+        return getApi().getEvents(createRequestBody(createGetEventsData(eventNo, rows, lastEventNo)));
+    }
+
+    private Map<String, Object> createGetEventsData(int eventNo, int rows) {
         Map<String, Object> jsonMap = new HashMap<>();
-        jsonMap.put("pageSize", rows);
-        if (lastEventNo > 0) jsonMap.put("pageEventNo", lastEventNo);
         jsonMap.put("eventNo", eventNo);
+        jsonMap.put("pageSize", rows);
+        return jsonMap;
+    }
+
+    private Map<String, Object> createGetEventsData(int eventNo, int rows, int lastEventNo) {
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("eventNo", eventNo);
+        jsonMap.put("pageSize", rows);
+        jsonMap.put("pageEventNo", lastEventNo);
         return jsonMap;
     }
 }

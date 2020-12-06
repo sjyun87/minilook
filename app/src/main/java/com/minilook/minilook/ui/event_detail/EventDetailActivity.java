@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.View;
 import androidx.annotation.DimenRes;
 import androidx.annotation.DrawableRes;
-import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
@@ -31,8 +30,6 @@ public class EventDetailActivity extends BaseActivity implements EventDetailPres
     }
 
     @DrawableRes int ph_square = R.drawable.ph_square;
-
-    @StringRes int str_error_msg = R.string.dialog_error_title;
 
     @DimenRes int dp_2 = R.dimen.dp_2;
 

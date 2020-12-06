@@ -1,25 +1,22 @@
 package com.minilook.minilook.ui.promotion_detail.adapter;
 
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.minilook.minilook.data.model.promotion.PromotionDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.promotion_detail.viewholder.PromotionItemVH;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class PromotionAdapter extends RecyclerView.Adapter<PromotionItemVH>
     implements BaseAdapterDataModel<PromotionDataModel>, BaseAdapterDataView<PromotionDataModel> {
 
-    private List<PromotionDataModel> items = new ArrayList<>();
+    private final List<PromotionDataModel> items = new ArrayList<>();
 
     @NonNull @Override public PromotionItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new PromotionItemVH(parent);
+        return new PromotionItemVH(parent, getSize() == 1);
     }
 
     @Override public void onBindViewHolder(@NonNull PromotionItemVH holder, int position) {
