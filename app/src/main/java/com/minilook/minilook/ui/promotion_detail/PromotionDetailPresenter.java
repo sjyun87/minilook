@@ -3,6 +3,7 @@ package com.minilook.minilook.ui.promotion_detail;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
+import com.minilook.minilook.data.model.product.ProductDataModel;
 
 public interface PromotionDetailPresenter extends LifecycleObserver {
 
@@ -16,6 +17,8 @@ public interface PromotionDetailPresenter extends LifecycleObserver {
     void onDestroy();
 
     void onLoadMore();
+
+    void onProductScrap(ProductDataModel data);
 
     void onShareClick();
 

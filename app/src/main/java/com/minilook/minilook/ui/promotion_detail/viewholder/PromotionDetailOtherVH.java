@@ -10,22 +10,22 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.promotion.PromotionDataModel;
-import com.minilook.minilook.databinding.ViewPromotionItemBinding;
+import com.minilook.minilook.databinding.ViewPromotionDetailOtherBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.promotion_detail.PromotionDetailActivity;
 
-public class PromotionItemVH extends BaseViewHolder<PromotionDataModel> {
+public class PromotionDetailOtherVH extends BaseViewHolder<PromotionDataModel> {
 
     @DrawableRes int ph_square = R.drawable.ph_square;
 
     @DimenRes int dp_148 = R.dimen.dp_148;
 
-    private final ViewPromotionItemBinding binding;
+    private final ViewPromotionDetailOtherBinding binding;
 
-    public PromotionItemVH(@NonNull View parent, boolean isOnlyOne) {
-        super(ViewPromotionItemBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,
+    public PromotionDetailOtherVH(@NonNull View parent, boolean isOnlyOne) {
+        super(ViewPromotionDetailOtherBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,
             false));
-        binding = ViewPromotionItemBinding.bind(itemView);
+        binding = ViewPromotionDetailOtherBinding.bind(itemView);
 
         setupItemSize(isOnlyOne);
     }

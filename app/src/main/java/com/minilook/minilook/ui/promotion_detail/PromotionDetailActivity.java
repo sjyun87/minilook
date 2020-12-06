@@ -22,7 +22,7 @@ import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
-import com.minilook.minilook.ui.promotion_detail.adapter.PromotionAdapter;
+import com.minilook.minilook.ui.promotion_detail.adapter.PromotionDetailAdapter;
 import com.minilook.minilook.ui.promotion_detail.di.PromotionDetailArguments;
 import com.minilook.minilook.util.SpannableUtil;
 
@@ -49,8 +49,8 @@ public class PromotionDetailActivity extends BaseActivity implements PromotionDe
 
     private final ProductAdapter productAdapter = new ProductAdapter();
     private final BaseAdapterDataView<ProductDataModel> productAdapterView = productAdapter;
-    private final PromotionAdapter promotionAdapter = new PromotionAdapter();
-    private final BaseAdapterDataView<PromotionDataModel> promotionAdapterView = promotionAdapter;
+    private final PromotionDetailAdapter promotionDetailAdapter = new PromotionDetailAdapter();
+    private final BaseAdapterDataView<PromotionDataModel> promotionAdapterView = promotionDetailAdapter;
 
     @Override protected View getBindingView() {
         binding = ActivityPromotionDetailBinding.inflate(getLayoutInflater());
@@ -67,8 +67,12 @@ public class PromotionDetailActivity extends BaseActivity implements PromotionDe
             .view(this)
             .promotionId(getIntent().getIntExtra("promotionNo", -1))
             .productAdapter(productAdapter)
-            .promotionAdapter(promotionAdapter)
+            .promotionAdapter(promotionDetailAdapter)
             .build();
+    }
+
+    @Override public void onProductScrap(ProductDataModel data) {
+        presenter.onProductScrap(data);
     }
 
     @Override public void setupClickAction() {
@@ -88,7 +92,7 @@ public class PromotionDetailActivity extends BaseActivity implements PromotionDe
 
     @Override public void setupPromotionRecyclerView() {
         binding.rcvPromotion.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        binding.rcvPromotion.setAdapter(promotionAdapter);
+        binding.rcvPromotion.setAdapter(promotionDetailAdapter);
         DividerDecoration.builder(this)
             .size(resources.getDimen(dp_2))
             .asSpace()

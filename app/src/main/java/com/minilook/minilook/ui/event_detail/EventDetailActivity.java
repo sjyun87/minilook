@@ -17,7 +17,7 @@ import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
-import com.minilook.minilook.ui.event_detail.adapter.EventAdapter;
+import com.minilook.minilook.ui.event_detail.adapter.EventDetailAdapter;
 import com.minilook.minilook.ui.event_detail.di.EventDetailArguments;
 
 public class EventDetailActivity extends BaseActivity implements EventDetailPresenter.View {
@@ -36,7 +36,7 @@ public class EventDetailActivity extends BaseActivity implements EventDetailPres
     private ActivityEventDetailBinding binding;
     private EventDetailPresenter presenter;
 
-    private final EventAdapter adapter = new EventAdapter();
+    private final EventDetailAdapter adapter = new EventDetailAdapter();
     private final BaseAdapterDataView<EventDataModel> adapterView = adapter;
 
     @Override protected View getBindingView() {

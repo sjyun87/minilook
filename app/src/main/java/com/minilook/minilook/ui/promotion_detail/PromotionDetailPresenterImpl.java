@@ -63,6 +63,10 @@ public class PromotionDetailPresenterImpl extends BasePresenterImpl implements P
         if (promotionAdapter.getSize() >= ROWS) getMoreOtherPromotion();
     }
 
+    @Override public void onProductScrap(ProductDataModel data) {
+        replaceData(data);
+    }
+
     @Override public void onShareClick() {
         DynamicLinkUtil.sendDynamicLink(DynamicLinkUtil.TYPE_PROMOTION, promotionNo, data.getTitle(),
             data.getThumbUrl());
@@ -136,5 +140,15 @@ public class PromotionDetailPresenterImpl extends BasePresenterImpl implements P
         int start = promotionAdapter.getSize();
         promotionAdapter.addAll(data);
         view.promotionRefresh(start, data.size());
+    }
+
+    private void replaceData(ProductDataModel data) {
+        for (ProductDataModel product : productAdapter.get()) {
+            if (product.getProductNo() == data.getProductNo()) {
+                product.setScrap(data.isScrap());
+                product.setScrapCount(data.getScrapCount());
+            }
+        }
+        view.productRefresh();
     }
 }

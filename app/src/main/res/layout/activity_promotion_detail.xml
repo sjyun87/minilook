@@ -104,7 +104,7 @@
                     android:layout_marginTop="@dimen/dp_10"
                     tools:itemCount="1"
                     tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/view_promotion_item"
+                    tools:listitem="@layout/view_promotion_detail_other"
                     tools:orientation="horizontal" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

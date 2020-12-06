@@ -56,15 +56,13 @@ public class PreorderDetailProductVH extends _BaseViewHolder<ProductDataModel> {
 
         productNameTextView.setText(data.getProductName());
 
-        if (data.getDisplayCode() != 0) {
-            if (data.getDisplayCode() == DisplayCode.DISPLAY.getValue()) {
-                hideCurtain();
-                hideDisplayLabel();
-            } else {
-                showCurtain();
-                showDisplayLabel();
-                displayLabelTextView.setText(data.getDisplayLabel());
-            }
+        if (data.getDisplayCode() == DisplayCode.DISPLAY.getValue()) {
+            hideCurtain();
+            hideDisplayLabel();
+        } else {
+            showCurtain();
+            showDisplayLabel();
+            displayLabelTextView.setText(data.getDisplayLabel());
         }
 
         if (data.isDiscount()) {

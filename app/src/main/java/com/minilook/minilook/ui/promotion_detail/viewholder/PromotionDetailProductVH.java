@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.brand_detail.viewholder;
+package com.minilook.minilook.ui.promotion_detail.viewholder;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,14 +13,14 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.code.DisplayCode;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.databinding.ViewBrandDetailProductItemBinding;
+import com.minilook.minilook.databinding.ViewPromotionDetailProductBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.main.MainPresenterImpl;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.StringUtil;
 
-public class BrandDetailProductVH extends BaseViewHolder<ProductDataModel> {
+public class PromotionDetailProductVH extends BaseViewHolder<ProductDataModel> {
 
     @DrawableRes int ph_square = R.drawable.ph_square;
     @DrawableRes int img_scrap_on = R.drawable.ic_scrap_on;
@@ -28,12 +28,12 @@ public class BrandDetailProductVH extends BaseViewHolder<ProductDataModel> {
 
     @StringRes int str_format_percent = R.string.base_price_percent;
 
-    private final ViewBrandDetailProductItemBinding binding;
+    private final ViewPromotionDetailProductBinding binding;
 
-    public BrandDetailProductVH(@NonNull View parent) {
-        super(ViewBrandDetailProductItemBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,
+    public PromotionDetailProductVH(@NonNull View parent) {
+        super(ViewPromotionDetailProductBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,
             false));
-        binding = ViewBrandDetailProductItemBinding.bind(itemView);
+        binding = ViewPromotionDetailProductBinding.bind(itemView);
         binding.imgScrap.setOnClickListener(view -> onScrapClick());
     }
 
@@ -47,7 +47,8 @@ public class BrandDetailProductVH extends BaseViewHolder<ProductDataModel> {
             .transition(new DrawableTransitionOptions().crossFade())
             .into(binding.imgThumb);
 
-        binding.txtName.setText(data.getProductName());
+        binding.txtBrandName.setText(data.getBrandName());
+        binding.txtProductName.setText(data.getProductName());
 
         if (data.getDisplayCode() == DisplayCode.DISPLAY.getValue()) {
             hideDisplayLabel();
@@ -79,13 +80,13 @@ public class BrandDetailProductVH extends BaseViewHolder<ProductDataModel> {
     }
 
     private void showDisplayLabel() {
-        binding.curtain.setVisibility(View.VISIBLE);
         binding.txtDisplayLabel.setVisibility(View.VISIBLE);
+        binding.curtain.setVisibility(View.VISIBLE);
     }
 
     private void hideDisplayLabel() {
-        binding.curtain.setVisibility(View.GONE);
         binding.txtDisplayLabel.setVisibility(View.GONE);
+        binding.curtain.setVisibility(View.GONE);
     }
 
     void onItemClick(View view) {

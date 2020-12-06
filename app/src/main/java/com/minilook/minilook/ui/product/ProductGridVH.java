@@ -15,10 +15,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.App;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.product.ProductDataModel;
-import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.data.rx.RxBusEvent;
 import com.minilook.minilook.data.code.DisplayCode;
+import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
@@ -67,15 +65,13 @@ public class ProductGridVH extends _BaseViewHolder<ProductDataModel> {
         }
         productNameTextView.setText(data.getProductName());
 
-        if (data.getDisplayCode() != 0) {
-            if (data.getDisplayCode() == DisplayCode.DISPLAY.getValue()) {
-                hideCurtain();
-                hideDisplayLabel();
-            } else {
-                showCurtain();
-                showDisplayLabel();
-                displayLabelTextView.setText(data.getDisplayLabel());
-            }
+        if (data.getDisplayCode() == DisplayCode.DISPLAY.getValue()) {
+            hideCurtain();
+            hideDisplayLabel();
+        } else {
+            showCurtain();
+            showDisplayLabel();
+            displayLabelTextView.setText(data.getDisplayLabel());
         }
 
         if (data.isDiscount()) {

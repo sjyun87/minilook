@@ -10,22 +10,22 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.event.EventDataModel;
-import com.minilook.minilook.databinding.ViewEventItemBinding;
+import com.minilook.minilook.databinding.ViewEventDetailOtherBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.event_detail.EventDetailActivity;
 
-public class EventItemVH extends BaseViewHolder<EventDataModel> {
+public class EventDetailOtherVH extends BaseViewHolder<EventDataModel> {
 
     @DrawableRes int ph_square = R.drawable.ph_square;
 
     @DimenRes int dp_148 = R.dimen.dp_148;
 
-    private final ViewEventItemBinding binding;
+    private final ViewEventDetailOtherBinding binding;
 
-    public EventItemVH(@NonNull View parent, boolean isOnlyOne) {
-        super(ViewEventItemBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,
+    public EventDetailOtherVH(@NonNull View parent, boolean isOnlyOne) {
+        super(ViewEventDetailOtherBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,
             false));
-        binding = ViewEventItemBinding.bind(itemView);
+        binding = ViewEventDetailOtherBinding.bind(itemView);
 
         setupItemSize(isOnlyOne);
     }

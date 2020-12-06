@@ -1,25 +1,25 @@
-package com.minilook.minilook.ui.promotion_detail.adapter;
+package com.minilook.minilook.ui.event_detail.adapter;
 
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.minilook.minilook.data.model.promotion.PromotionDataModel;
+import com.minilook.minilook.data.model.event.EventDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.promotion_detail.viewholder.PromotionItemVH;
+import com.minilook.minilook.ui.event_detail.viewholder.EventDetailOtherVH;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PromotionAdapter extends RecyclerView.Adapter<PromotionItemVH>
-    implements BaseAdapterDataModel<PromotionDataModel>, BaseAdapterDataView<PromotionDataModel> {
+public class EventDetailAdapter extends RecyclerView.Adapter<EventDetailOtherVH>
+    implements BaseAdapterDataModel<EventDataModel>, BaseAdapterDataView<EventDataModel> {
 
-    private final List<PromotionDataModel> items = new ArrayList<>();
+    private final List<EventDataModel> items = new ArrayList<>();
 
-    @NonNull @Override public PromotionItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new PromotionItemVH(parent, getSize() == 1);
+    @NonNull @Override public EventDetailOtherVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new EventDetailOtherVH(parent, getSize() == 1);
     }
 
-    @Override public void onBindViewHolder(@NonNull PromotionItemVH holder, int position) {
+    @Override public void onBindViewHolder(@NonNull EventDetailOtherVH holder, int position) {
         holder.bind(items.get(position));
     }
 
@@ -27,36 +27,36 @@ public class PromotionAdapter extends RecyclerView.Adapter<PromotionItemVH>
         return getSize();
     }
 
-    @Override public void add(PromotionDataModel $item) {
+    @Override public void add(EventDataModel $item) {
         items.add($item);
     }
 
-    @Override public void add(int $index, PromotionDataModel $item) {
+    @Override public void add(int $index, EventDataModel $item) {
         items.add($index, $item);
     }
 
-    @Override public void addAll(List<PromotionDataModel> $items) {
+    @Override public void addAll(List<EventDataModel> $items) {
         items.addAll($items);
     }
 
-    @Override public void set(int $index, PromotionDataModel $item) {
+    @Override public void set(int $index, EventDataModel $item) {
         items.set($index, $item);
     }
 
-    @Override public void set(List<PromotionDataModel> $items) {
+    @Override public void set(List<EventDataModel> $items) {
         items.clear();
         items.addAll($items);
     }
 
-    @Override public PromotionDataModel get(int $index) {
+    @Override public EventDataModel get(int $index) {
         return items.get($index);
     }
 
-    @Override public List<PromotionDataModel> get() {
+    @Override public List<EventDataModel> get() {
         return items;
     }
 
-    @Override public int get(PromotionDataModel $item) {
+    @Override public int get(EventDataModel $item) {
         return items.indexOf($item);
     }
 
@@ -64,7 +64,7 @@ public class PromotionAdapter extends RecyclerView.Adapter<PromotionItemVH>
         items.remove($index);
     }
 
-    @Override public void remove(PromotionDataModel $item) {
+    @Override public void remove(EventDataModel $item) {
         items.remove($item);
     }
 
