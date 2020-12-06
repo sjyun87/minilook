@@ -1,12 +1,9 @@
 package com.minilook.minilook.util;
 
-import android.content.Intent;
 import android.net.Uri;
-import android.widget.Toast;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.minilook.minilook.App;
-import com.minilook.minilook.R;
 
 public class DynamicLinkUtil {
 
@@ -16,7 +13,7 @@ public class DynamicLinkUtil {
     public static final String TYPE_PROMOTION = "promotion";
     public static final String TYPE_PREORDER = "preorder";
 
-    public static void sendDynamicLink(String type, int no, String desc, String imgUrl) {
+    public void createLink(String type, int no, String desc, String imgUrl, OnDynamicLinkListener listener) {
         createDynamicLink()
             .setLink(createDeepLink(type, no))
             .setSocialMetaTagParameters(createMetaData(type, desc, imgUrl))
@@ -25,17 +22,17 @@ public class DynamicLinkUtil {
                 if (task.isSuccessful() && task.getResult() != null) {
                     Uri shortLink = task.getResult().getShortLink();
                     if (shortLink != null) {
-                        send(shortLink.toString());
+                        listener.onSuccess(shortLink.toString());
                     } else {
-                        showErrorMessage();
+                        listener.onError();
                     }
                 } else {
-                    showErrorMessage();
+                    listener.onError();
                 }
             });
     }
 
-    private static DynamicLink.Builder createDynamicLink() {
+    private DynamicLink.Builder createDynamicLink() {
         DynamicLink.AndroidParameters androidParameters =
             new DynamicLink.AndroidParameters
                 .Builder(App.getInstance().getPackageName())
@@ -57,7 +54,7 @@ public class DynamicLinkUtil {
             .setNavigationInfoParameters(navigationInfoParameters);
     }
 
-    private static Uri createDeepLink(String type, int no) {
+    private Uri createDeepLink(String type, int no) {
         return new Uri.Builder()
             .scheme("https")
             .authority("www.minilook.co.kr")
@@ -66,7 +63,7 @@ public class DynamicLinkUtil {
             .build();
     }
 
-    private static DynamicLink.SocialMetaTagParameters createMetaData(String type, String desc, String imgUrl) {
+    private DynamicLink.SocialMetaTagParameters createMetaData(String type, String desc, String imgUrl) {
         return new DynamicLink.SocialMetaTagParameters.Builder()
             .setTitle(getTitle(type))
             .setDescription(desc)
@@ -74,7 +71,7 @@ public class DynamicLinkUtil {
             .build();
     }
 
-    private static String getTitle(String type) {
+    private String getTitle(String type) {
         switch (type) {
             default:
             case TYPE_PRODUCT:
@@ -90,16 +87,9 @@ public class DynamicLinkUtil {
         }
     }
 
-    private static void send(String link) {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, link);
-        App.getInstance().startActivity(Intent.createChooser(intent, "친구에게 공유하기"));
-    }
+    public interface OnDynamicLinkListener {
+        void onSuccess(String link);
 
-    private static void showErrorMessage() {
-        String message = App.getInstance().getResources().getString(R.string.dialog_error_title);
-        Toast.makeText(App.getInstance(), message, Toast.LENGTH_SHORT).show();
+        void onError();
     }
 }

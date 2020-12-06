@@ -28,6 +28,7 @@ public class PromotionDetailPresenterImpl extends BasePresenterImpl implements P
     private final BaseAdapterDataModel<ProductDataModel> productAdapter;
     private final BaseAdapterDataModel<PromotionDataModel> promotionAdapter;
     private final PromotionRequest promotionRequest;
+    private final DynamicLinkUtil dynamicLinkUtil;
     private final Gson gson;
 
     private PromotionDataModel data;
@@ -39,6 +40,7 @@ public class PromotionDetailPresenterImpl extends BasePresenterImpl implements P
         productAdapter = args.getProductAdapter();
         promotionAdapter = args.getPromotionAdapter();
         promotionRequest = new PromotionRequest();
+        dynamicLinkUtil = new DynamicLinkUtil();
         gson = App.getInstance().getGson();
     }
 
@@ -68,8 +70,16 @@ public class PromotionDetailPresenterImpl extends BasePresenterImpl implements P
     }
 
     @Override public void onShareClick() {
-        DynamicLinkUtil.sendDynamicLink(DynamicLinkUtil.TYPE_PROMOTION, promotionNo, data.getTitle(),
-            data.getThumbUrl());
+        dynamicLinkUtil.createLink(DynamicLinkUtil.TYPE_PROMOTION, promotionNo, data.getTitle(), data.getThumbUrl(),
+            new DynamicLinkUtil.OnDynamicLinkListener() {
+                @Override public void onSuccess(String link) {
+                    view.sendDynamicLink(link);
+                }
+
+                @Override public void onError() {
+                    view.showErrorDialog();
+                }
+            });
     }
 
     private void getPromotionDetail() {

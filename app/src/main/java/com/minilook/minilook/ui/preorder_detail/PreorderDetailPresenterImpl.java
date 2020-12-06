@@ -36,6 +36,7 @@ public class PreorderDetailPresenterImpl extends BasePresenterImpl implements Pr
     private final BaseAdapterDataModel<ProductDataModel> productAdapter;
 
     private final PreorderRequest preorderRequest;
+    private DynamicLinkUtil dynamicLinkUtil;
 
     private Gson gson = new Gson();
     private PreorderDataModel data;
@@ -46,6 +47,7 @@ public class PreorderDetailPresenterImpl extends BasePresenterImpl implements Pr
         imageAdapter = args.getImageAdapter();
         productAdapter = args.getProductAdapter();
         preorderRequest = new PreorderRequest();
+        dynamicLinkUtil = new DynamicLinkUtil();
     }
 
     @Override public void onCreate() {
@@ -92,7 +94,16 @@ public class PreorderDetailPresenterImpl extends BasePresenterImpl implements Pr
     @Override public void onShareClick() {
         String title =
             data.getTitle() + " (" + parseToDate(data.getStartDate()) + "~" + parseToDate(data.getEndDate()) + ")";
-        DynamicLinkUtil.sendDynamicLink(DynamicLinkUtil.TYPE_PREORDER, preorderNo, title, data.getImages().get(0));
+        dynamicLinkUtil.createLink(DynamicLinkUtil.TYPE_PREORDER, preorderNo, title, data.getImages().get(0),
+            new DynamicLinkUtil.OnDynamicLinkListener() {
+                @Override public void onSuccess(String link) {
+                    view.sendDynamicLink(link);
+                }
+
+                @Override public void onError() {
+                    view.showErrorDialog();
+                }
+            });
     }
 
     private String parseToDate(long date) {

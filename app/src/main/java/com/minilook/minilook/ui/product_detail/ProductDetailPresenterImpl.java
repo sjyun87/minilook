@@ -49,6 +49,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     private final OrderRequest orderRequest;
     private final ScrapRequest scrapRequest;
     private final ReviewRequest reviewRequest;
+    private final DynamicLinkUtil dynamicLinkUtil;
 
     private Gson gson = new Gson();
     private ProductDataModel data;
@@ -64,6 +65,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         orderRequest = new OrderRequest();
         scrapRequest = new ScrapRequest();
         reviewRequest = new ReviewRequest();
+        dynamicLinkUtil = new DynamicLinkUtil();
     }
 
     @Override public void onCreate() {
@@ -186,7 +188,16 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
 
     @Override public void onShareClick() {
         String title = data.getProductName() + " - " + data.getBrandName();
-        DynamicLinkUtil.sendDynamicLink(DynamicLinkUtil.TYPE_PRODUCT, productNo, title, data.getImages().get(0));
+        dynamicLinkUtil.createLink(DynamicLinkUtil.TYPE_PRODUCT, productNo, title, data.getImages().get(0),
+            new DynamicLinkUtil.OnDynamicLinkListener() {
+                @Override public void onSuccess(String link) {
+                    view.sendDynamicLink(link);
+                }
+
+                @Override public void onError() {
+                    view.showErrorDialog();
+                }
+            });
     }
 
     private void reqAddShoppingBag(List<ShoppingOptionDataModel> optionData) {

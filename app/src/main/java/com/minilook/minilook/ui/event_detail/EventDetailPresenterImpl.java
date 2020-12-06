@@ -26,6 +26,7 @@ public class EventDetailPresenterImpl extends BasePresenterImpl implements Event
     private final int eventNo;
     private final BaseAdapterDataModel<EventDataModel> eventAdapter;
     private final EventRequest eventRequest;
+    private final DynamicLinkUtil dynamicLinkUtil;
     private final Gson gson;
 
     private EventDataModel data;
@@ -36,6 +37,7 @@ public class EventDetailPresenterImpl extends BasePresenterImpl implements Event
         eventNo = args.getEventNo();
         eventAdapter = args.getAdapter();
         eventRequest = new EventRequest();
+        dynamicLinkUtil = new DynamicLinkUtil();
         gson = App.getInstance().getGson();
     }
 
@@ -80,7 +82,16 @@ public class EventDetailPresenterImpl extends BasePresenterImpl implements Event
     }
 
     @Override public void onShareClick() {
-        DynamicLinkUtil.sendDynamicLink(DynamicLinkUtil.TYPE_EVENT, eventNo, data.getTitle(), data.getThumbUrl());
+        dynamicLinkUtil.createLink(DynamicLinkUtil.TYPE_EVENT, eventNo, data.getTitle(), data.getThumbUrl(),
+            new DynamicLinkUtil.OnDynamicLinkListener() {
+                @Override public void onSuccess(String link) {
+                    view.sendDynamicLink(link);
+                }
+
+                @Override public void onError() {
+                    view.showErrorDialog();
+                }
+            });
     }
 
     private void getOtherEvents() {

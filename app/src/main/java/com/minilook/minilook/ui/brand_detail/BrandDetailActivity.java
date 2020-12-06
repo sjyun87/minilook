@@ -204,6 +204,14 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
         LoginActivity.start(this);
     }
 
+    @Override public void sendDynamicLink(String link) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, link);
+        startActivity(Intent.createChooser(intent, "친구에게 공유하기"));
+    }
+
     @Override public void clear() {
         binding.layoutSortPanel.setOnClickListener(null);
         binding.layoutBrandInfoPanel.setOnClickListener(null);

@@ -35,6 +35,8 @@ public interface EventDetailPresenter extends LifecycleObserver {
 
         void showErrorDialog();
 
+        void sendDynamicLink(String link);
+
         void clear();
     }
 }

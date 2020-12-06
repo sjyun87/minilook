@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
@@ -29,6 +28,7 @@ import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base._BaseActivity;
+import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.option_selector.OptionSelector;
 import com.minilook.minilook.ui.order.OrderActivity;
@@ -39,7 +39,6 @@ import com.minilook.minilook.ui.preorder_info.PreorderInfoActivity;
 import com.minilook.minilook.ui.preorder_product_detail.PreorderProductDetailActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.ui.product_detail.widget.ProductTabView;
-import com.minilook.minilook.util.DynamicLinkUtil;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 import java.util.List;
 import java.util.Objects;
@@ -264,15 +263,15 @@ public class PreorderDetailActivity extends _BaseActivity implements PreorderDet
         OrderActivity.start(this, ProductDetailActivity.class.getSimpleName());
     }
 
-    @Override public void sendLink(String shareLink) {
+    @Override public void sendDynamicLink(String link) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, shareLink);
+        intent.putExtra(Intent.EXTRA_TEXT, link);
         startActivity(Intent.createChooser(intent, "친구에게 공유하기"));
     }
 
-    @Override public void showErrorMessage() {
-        Toast.makeText(this, str_error_msg, Toast.LENGTH_SHORT).show();
+    @Override public void showErrorDialog() {
+        DialogManager.showErrorDialog(this);
     }
 
     @OnClick({ R.id.img_info, R.id.layout_shipping_n_refund_panel })

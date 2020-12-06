@@ -35,11 +35,12 @@ import com.minilook.minilook.data.model.product.ProductStockDataModel;
 import com.minilook.minilook.data.model.review.ReviewDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
-import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.widget.ColorView;
 import com.minilook.minilook.ui.base.widget.SizeView;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
+import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.event_detail.EventDetailActivity;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.order.OrderActivity;
@@ -54,7 +55,6 @@ import com.minilook.minilook.ui.question.QuestionActivity;
 import com.minilook.minilook.ui.review.ReviewActivity;
 import com.minilook.minilook.ui.shoppingbag.ShoppingBagActivity;
 import com.minilook.minilook.util.DimenUtil;
-import com.minilook.minilook.util.DynamicLinkUtil;
 import com.minilook.minilook.util.SpannableUtil;
 import com.minilook.minilook.util.StringUtil;
 import com.nex3z.flowlayout.FlowLayout;
@@ -541,15 +541,15 @@ public class ProductDetailActivity extends _BaseActivity implements ProductDetai
         QuestionActivity.start(this, productNo);
     }
 
-    @Override public void sendLink(String shareLink) {
+    @Override public void sendDynamicLink(String link) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, shareLink);
+        intent.putExtra(Intent.EXTRA_TEXT, link);
         startActivity(Intent.createChooser(intent, "친구에게 공유하기"));
     }
 
-    @Override public void showErrorMessage() {
-        Toast.makeText(this, str_error_msg, Toast.LENGTH_SHORT).show();
+    @Override public void showErrorDialog() {
+        DialogManager.showErrorDialog(this);
     }
 
     @OnClick(R.id.layout_expand_panel)

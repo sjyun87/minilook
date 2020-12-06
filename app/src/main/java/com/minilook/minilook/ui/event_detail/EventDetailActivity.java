@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
+import com.minilook.minilook.App;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.event.EventDataModel;
 import com.minilook.minilook.databinding.ActivityEventDetailBinding;
@@ -102,6 +103,14 @@ public class EventDetailActivity extends BaseActivity implements EventDetailPres
 
     @Override public void showErrorDialog() {
         DialogManager.showErrorDialog(this);
+    }
+
+    @Override public void sendDynamicLink(String link) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, link);
+        startActivity(Intent.createChooser(intent, "친구에게 공유하기"));
     }
 
     @Override public void clear() {

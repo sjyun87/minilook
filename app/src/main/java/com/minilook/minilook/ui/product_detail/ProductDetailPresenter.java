@@ -181,8 +181,8 @@ public interface ProductDetailPresenter extends LifecycleObserver {
 
         void navigateToQuestion(int productNo);
 
-        void sendLink(String shareLink);
+        void sendDynamicLink(String link);
 
-        void showErrorMessage();
+        void showErrorDialog();
     }
 }

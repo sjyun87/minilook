@@ -76,6 +76,8 @@ public interface BrandDetailPresenter extends LifecycleObserver {
 
         void navigateToLogin();
 
+        void sendDynamicLink(String link);
+
         void clear();
     }
 }

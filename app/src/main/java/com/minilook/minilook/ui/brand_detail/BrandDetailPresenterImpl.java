@@ -32,6 +32,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     private final BaseAdapterDataModel<ProductDataModel> productAdapter;
     private final BrandRequest brandRequest;
     private final SearchRequest searchRequest;
+    private final DynamicLinkUtil dynamicLinkUtil;
     private final Gson gson;
 
     private AtomicInteger page = new AtomicInteger(0);
@@ -47,6 +48,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         productAdapter = args.getProductAdapter();
         brandRequest = new BrandRequest();
         searchRequest = new SearchRequest();
+        dynamicLinkUtil = new DynamicLinkUtil();
         gson = App.getInstance().getGson();
     }
 
@@ -110,7 +112,16 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     }
 
     @Override public void onShareClick() {
-        DynamicLinkUtil.sendDynamicLink(DynamicLinkUtil.TYPE_BRAND, brandNo, data.getBrandName(), data.getImageUrl());
+        dynamicLinkUtil.createLink(DynamicLinkUtil.TYPE_BRAND, brandNo, data.getBrandName(), data.getImageUrl(),
+            new DynamicLinkUtil.OnDynamicLinkListener() {
+                @Override public void onSuccess(String link) {
+                    view.sendDynamicLink(link);
+                }
+
+                @Override public void onError() {
+                    view.showErrorDialog();
+                }
+            });
     }
 
     private void getBrandDetail() {

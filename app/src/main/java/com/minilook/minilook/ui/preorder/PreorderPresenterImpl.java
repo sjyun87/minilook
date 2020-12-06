@@ -18,9 +18,11 @@ import timber.log.Timber;
 public class PreorderPresenterImpl extends BasePresenterImpl implements PreorderPresenter {
 
     private final View view;
+    private final DynamicLinkUtil dynamicLinkUtil;
 
     public PreorderPresenterImpl(PreorderArguments args) {
         view = args.getView();
+        dynamicLinkUtil = new DynamicLinkUtil();
     }
 
     @Override public void onCreate() {
@@ -40,7 +42,16 @@ public class PreorderPresenterImpl extends BasePresenterImpl implements Preorder
     private void sendShareLink(PreorderDataModel data) {
         String title =
             data.getTitle() + " (" + parseToDate(data.getStartDate()) + "~" + parseToDate(data.getEndDate()) + ")";
-        DynamicLinkUtil.sendDynamicLink(DynamicLinkUtil.TYPE_PREORDER, data.getPreorderNo(), title, data.getThumbUrl());
+        dynamicLinkUtil.createLink(DynamicLinkUtil.TYPE_PREORDER, data.getPreorderNo(), title, data.getThumbUrl(),
+            new DynamicLinkUtil.OnDynamicLinkListener() {
+                @Override public void onSuccess(String link) {
+                    view.sendDynamicLink(link);
+                }
+
+                @Override public void onError() {
+                    view.showErrorDialog();
+                }
+            });
     }
 
     private String parseToDate(long date) {

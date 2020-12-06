@@ -1,7 +1,6 @@
 package com.minilook.minilook.ui.preorder;
 
 import android.content.Intent;
-import android.widget.Toast;
 import androidx.viewpager2.widget.ViewPager2;
 import butterknife.BindArray;
 import butterknife.BindString;
@@ -10,11 +9,11 @@ import com.google.android.material.tabs.TabLayout;
 import com.minilook.minilook.R;
 import com.minilook.minilook.ui.base._BaseFragment;
 import com.minilook.minilook.ui.base.widget.TabView;
+import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.preorder.adapter.PreorderPagerAdapter;
 import com.minilook.minilook.ui.preorder.di.PreorderArguments;
 import com.minilook.minilook.ui.preorder_detail.PreorderDetailActivity;
 import com.minilook.minilook.ui.preorder_info.PreorderInfoActivity;
-import com.minilook.minilook.util.DynamicLinkUtil;
 import java.util.Objects;
 
 public class PreorderFragment extends _BaseFragment implements PreorderPresenter.View {
@@ -104,18 +103,18 @@ public class PreorderFragment extends _BaseFragment implements PreorderPresenter
         tabLayout.removeTabAt(tabLayout.getTabCount() - 1);
     }
 
+    @Override public void showErrorDialog() {
+        DialogManager.showErrorDialog(getActivity());
+    }
+
     @Override public void navigateToPreorderDetail(int preorderNo) {
         PreorderDetailActivity.start(getContext(), preorderNo);
     }
 
-    @Override public void sendLink(String shareLink) {
+    @Override public void sendDynamicLink(String link) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, shareLink);
+        intent.putExtra(Intent.EXTRA_TEXT, link);
         startActivity(Intent.createChooser(intent, "친구에게 공유하기"));
-    }
-
-    @Override public void showErrorMessage() {
-        Toast.makeText(getContext(), str_error_msg, Toast.LENGTH_SHORT).show();
     }
 }
