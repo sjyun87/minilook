@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
-import androidx.core.view.ViewCompat;
 import androidx.viewpager2.widget.ViewPager2;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -17,7 +16,6 @@ import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.market.viewholder.commercial.adapter.MarketCommercialAdapter;
 import java.util.ArrayList;
 import java.util.List;
-import timber.log.Timber;
 
 public class MarketCommercialVH extends BaseViewHolder<MarketDataModel> {
 

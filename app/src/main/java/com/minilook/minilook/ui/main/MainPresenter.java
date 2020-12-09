@@ -3,8 +3,6 @@ package com.minilook.minilook.ui.main;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
-import com.minilook.minilook.data.model.brand.BrandDataModel;
-import com.minilook.minilook.data.model.product.ProductDataModel;
 
 public interface MainPresenter extends LifecycleObserver {
 

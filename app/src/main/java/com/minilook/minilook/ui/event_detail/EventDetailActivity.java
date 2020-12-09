@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
-import com.minilook.minilook.App;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.event.EventDataModel;
 import com.minilook.minilook.databinding.ActivityEventDetailBinding;

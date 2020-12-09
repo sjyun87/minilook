@@ -172,7 +172,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
 
     private void getProducts() {
         addDisposable(
-            searchRequest.getProducts(page.incrementAndGet(), ROWS, parseToModel())
+            searchRequest.getProducts(page.incrementAndGet(), ROWS, getOptions())
                 .compose(Transformer.applySchedulers())
                 .filter(data -> {
                     String code = data.getCode();
@@ -186,7 +186,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         );
     }
 
-    private SearchOptionDataModel parseToModel() {
+    private SearchOptionDataModel getOptions() {
         SearchOptionDataModel options = new SearchOptionDataModel();
         options.setBrandNo(brandNo);
         options.setSortCode(selectSortCode);
@@ -202,7 +202,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
 
     private void getMoreProducts() {
         addDisposable(
-            searchRequest.getProducts(page.incrementAndGet(), ROWS, parseToModel())
+            searchRequest.getProducts(page.incrementAndGet(), ROWS, getOptions())
                 .compose(Transformer.applySchedulers())
                 .filter(data -> {
                     String code = data.getCode();

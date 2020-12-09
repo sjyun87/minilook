@@ -1,7 +1,6 @@
 package com.minilook.minilook.ui.dialog.manager;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import com.minilook.minilook.ui.dialog.BrandCallDialog;
 import com.minilook.minilook.ui.dialog.DefaultShippingDialog;
 import com.minilook.minilook.ui.dialog.ErrorDialog;

@@ -2,7 +2,6 @@ package com.minilook.minilook.data.network.base;
 
 import android.os.Build;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.minilook.minilook.App;
 import com.minilook.minilook.BuildConfig;

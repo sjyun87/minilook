@@ -7,7 +7,6 @@ import io.reactivex.rxjava3.core.Single;
 import java.util.HashMap;
 import java.util.Map;
 import okhttp3.RequestBody;
-import timber.log.Timber;
 
 public class QuestionRequest extends BaseRequest<QuestionService> {
 

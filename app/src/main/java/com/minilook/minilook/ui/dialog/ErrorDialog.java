@@ -1,7 +1,6 @@
 package com.minilook.minilook.ui.dialog;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.SpannableString;

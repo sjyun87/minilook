@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.DimenRes;
 import androidx.annotation.NonNull;
-import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.gson.Gson;

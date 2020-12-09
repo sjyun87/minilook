@@ -3,7 +3,6 @@ package com.minilook.minilook.ui.preorder_detail.di;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.preorder_detail.PreorderDetailPresenter;
-import com.minilook.minilook.util.DynamicLinkUtil;
 import lombok.Builder;
 import lombok.Getter;
 

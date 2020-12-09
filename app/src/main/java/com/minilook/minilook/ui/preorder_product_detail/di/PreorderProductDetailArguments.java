@@ -1,7 +1,6 @@
 package com.minilook.minilook.ui.preorder_product_detail.di;
 
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
-import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.preorder_product_detail.PreorderProductDetailPresenter;
 import lombok.Builder;
 import lombok.Getter;

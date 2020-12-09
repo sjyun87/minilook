@@ -19,7 +19,6 @@ import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.market.viewholder.banner.adapter.MarketBannerAdapter;
 import java.util.ArrayList;
 import java.util.List;
-import timber.log.Timber;
 
 public class MarketBannerVH extends BaseViewHolder<MarketDataModel> {
 

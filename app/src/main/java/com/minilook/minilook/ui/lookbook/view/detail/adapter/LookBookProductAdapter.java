@@ -1,6 +1,5 @@
 package com.minilook.minilook.ui.lookbook.view.detail.adapter;
 
-import android.text.TextUtils;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
