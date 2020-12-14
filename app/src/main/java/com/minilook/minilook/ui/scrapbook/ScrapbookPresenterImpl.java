@@ -20,6 +20,10 @@ public class ScrapbookPresenterImpl extends BasePresenterImpl implements Scrapbo
         view.setupViewPager();
     }
 
+    @Override public void onDestroy() {
+        view.clear();
+    }
+
     @Override public void onTabClick(int position) {
         view.setupCurrentPage(position);
     }

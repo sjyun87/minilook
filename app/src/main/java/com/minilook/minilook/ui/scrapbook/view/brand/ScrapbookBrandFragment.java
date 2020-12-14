@@ -1,46 +1,44 @@
 package com.minilook.minilook.ui.scrapbook.view.brand;
 
 import android.view.View;
-import android.widget.LinearLayout;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DimenRes;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindColor;
-import butterknife.BindDimen;
-import butterknife.BindView;
-import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
+import com.minilook.minilook.databinding.FragmentScrapbookBrandBinding;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.base._BaseFragment;
+import com.minilook.minilook.ui.base.BaseFragment;
 import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
+import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.scrapbook.view.brand.adapter.ScrapbookBrandAdapter;
 import com.minilook.minilook.ui.scrapbook.view.brand.di.ScrapbookBrandArguments;
 
-public class ScrapbookBrandFragment extends _BaseFragment implements ScrapbookBrandPresenter.View {
+public class ScrapbookBrandFragment extends BaseFragment implements ScrapbookBrandPresenter.View {
 
     public static ScrapbookBrandFragment newInstance() {
         return new ScrapbookBrandFragment();
     }
 
-    @BindView(R.id.rcv_brand) RecyclerView recyclerView;
-    @BindView(R.id.layout_empty_panel) LinearLayout emptyPanel;
+    @DimenRes int dp_6 = R.dimen.dp_6;
 
-    @BindDimen(R.dimen.dp_6) int dp_6;
+    @ColorRes int color_FFF5F5F5 = R.color.color_FFF5F5F5;
 
-    @BindColor(R.color.color_FFF5F5F5) int color_FFF5F5F5;
-
+    private FragmentScrapbookBrandBinding binding;
     private ScrapbookBrandPresenter presenter;
-    private ScrapbookBrandAdapter adapter = new ScrapbookBrandAdapter();
-    private BaseAdapterDataView<BrandDataModel> adapterView = adapter;
 
-    @Override protected int getLayoutID() {
-        return R.layout.fragment_scrapbook_brand;
+    private final ScrapbookBrandAdapter adapter = new ScrapbookBrandAdapter();
+    private final BaseAdapterDataView<BrandDataModel> adapterView = adapter;
+
+    @Override protected View getBindingView() {
+        binding = FragmentScrapbookBrandBinding.inflate(getLayoutInflater());
+        return binding.getRoot();
     }
 
     @Override protected void createPresenter() {
         presenter = new ScrapbookBrandPresenterImpl(provideArguments());
-        getLifecycle().addObserver(presenter);
+        getViewLifecycleOwner().getLifecycle().addObserver(presenter);
     }
 
     private ScrapbookBrandArguments provideArguments() {
@@ -50,26 +48,30 @@ public class ScrapbookBrandFragment extends _BaseFragment implements ScrapbookBr
             .build();
     }
 
-    //@Override public void onBrandScrap(boolean isScrap, BrandDataModel brand) {
-    //    presenter.onBrandScrap(isScrap, brand);
-    //}
+    @Override public void onBrandScrap(BrandDataModel data) {
+        presenter.onBrandScrap(data);
+    }
+
+    @Override public void setupClickAction() {
+        binding.txtEmpty.setOnClickListener(view -> presenter.onEmptyClick());
+    }
 
     @Override public void setupRecyclerView() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+        binding.rcvBrand.setHasFixedSize(true);
+        binding.rcvBrand.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.rcvBrand.setAdapter(adapter);
         DividerDecoration.builder(requireContext())
-            .size(dp_6)
-            .color(color_FFF5F5F5)
+            .size(resources.getDimen(dp_6))
+            .color(resources.getColor(color_FFF5F5F5))
             .build()
-            .addTo(recyclerView);
+            .addTo(binding.rcvBrand);
         EndlessOnScrollListener scrollListener =
             EndlessOnScrollListener.builder()
-                .layoutManager(layoutManager)
+                .layoutManager(binding.rcvBrand.getLayoutManager())
                 .onLoadMoreListener(presenter::onLoadMore)
                 .visibleThreshold(5)
                 .build();
-        recyclerView.addOnScrollListener(scrollListener);
+        binding.rcvBrand.addOnScrollListener(scrollListener);
     }
 
     @Override public void refresh() {
@@ -77,7 +79,7 @@ public class ScrapbookBrandFragment extends _BaseFragment implements ScrapbookBr
     }
 
     @Override public void refresh(int position) {
-        adapter.notifyItemRemoved(position);
+        adapterView.refresh(position);
     }
 
     @Override public void refresh(int start, int rows) {
@@ -85,11 +87,14 @@ public class ScrapbookBrandFragment extends _BaseFragment implements ScrapbookBr
     }
 
     @Override public void showEmptyPanel() {
-        emptyPanel.setVisibility(View.VISIBLE);
+        binding.layoutEmptyPanel.setVisibility(View.VISIBLE);
     }
 
-    @OnClick(R.id.txt_empty)
-    void onEmptyClick() {
-        presenter.onEmptyClick();
+    @Override public void showErrorDialog() {
+        DialogManager.showErrorDialog(requireActivity());
+    }
+
+    @Override public void clear() {
+        binding.rcvBrand.setAdapter(null);
     }
 }

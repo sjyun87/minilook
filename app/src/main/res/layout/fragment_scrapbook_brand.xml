@@ -11,7 +11,7 @@
         android:clipToPadding="false"
         android:paddingBottom="@dimen/dp_50"
         tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_scrapbook_brand"
+        tools:listitem="@layout/view_scrapbook_brand"
         tools:visibility="gone" />
 
     <LinearLayout

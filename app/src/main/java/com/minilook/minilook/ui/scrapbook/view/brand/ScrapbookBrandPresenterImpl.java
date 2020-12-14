@@ -1,6 +1,7 @@
 package com.minilook.minilook.ui.scrapbook.view.brand;
 
 import com.google.gson.Gson;
+import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.scrap.ScrapBrandDataModel;
@@ -12,7 +13,6 @@ import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.base.widget.BottomBar;
 import com.minilook.minilook.ui.main.MainPresenterImpl;
 import com.minilook.minilook.ui.scrapbook.view.brand.di.ScrapbookBrandArguments;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import timber.log.Timber;
 
@@ -23,80 +23,92 @@ public class ScrapbookBrandPresenterImpl extends BasePresenterImpl implements Sc
     private final View view;
     private final BaseAdapterDataModel<BrandDataModel> adapter;
     private final ScrapRequest scrapRequest;
+    private final Gson gson;
 
-    private AtomicInteger page = new AtomicInteger(0);
-    private Gson gson = new Gson();
+    private AtomicInteger page;
 
     public ScrapbookBrandPresenterImpl(ScrapbookBrandArguments args) {
         view = args.getView();
         adapter = args.getAdapter();
         scrapRequest = new ScrapRequest();
+        gson = App.getInstance().getGson();
     }
 
-    @Override public void onCreate() {
+    @Override public void onCreateView() {
+        view.setupClickAction();
         view.setupRecyclerView();
 
-        reqScrapBrands();
+        getScrapBrands();
+    }
+
+    @Override public void onDestroyView() {
+        view.clear();
     }
 
     @Override public void onLoadMore() {
-        reqLoadMoreScrapBrands();
+        getMoreScrapBrands();
     }
 
     @Override public void onEmptyClick() {
         RxBus.send(new MainPresenterImpl.RxEventNavigateToPage(BottomBar.POSITION_MARKET));
     }
 
-    @Override public void onBrandScrap(boolean isScrap, BrandDataModel brand) {
-        int position = adapter.get(brand);
-        adapter.remove(brand);
-        view.refresh(position);
-        if (adapter.getSize() == 0) view.showEmptyPanel();
+    @Override public void onBrandScrap(BrandDataModel $data) {
+        replaceBrandScrapData($data);
     }
 
-    private void reqScrapBrands() {
+    private void getScrapBrands() {
+        page = new AtomicInteger(0);
         addDisposable(scrapRequest.getScrapBrands(page.incrementAndGet(), ROWS)
             .compose(Transformer.applySchedulers())
             .filter(data -> {
                 String code = data.getCode();
-                if (HttpCode.NO_DATA.equals(code)) {
+                if (code.equals(HttpCode.NO_DATA)) {
                     view.showEmptyPanel();
+                } else if (!code.equals(HttpCode.OK)) {
+                    view.showErrorDialog();
                 }
                 return code.equals(HttpCode.OK);
             })
             .map(data -> gson.fromJson(data.getData(), ScrapBrandDataModel.class))
-            .subscribe(this::resScrapBrands, Timber::e));
+            .subscribe(this::onResScrapBrands, Timber::e));
     }
 
-    private void resScrapBrands(ScrapBrandDataModel data) {
-        if (data.getBrands().size() > 0) {
-            adapter.set(parseToScrap(data.getBrands()));
-            view.refresh();
-        } else {
-            view.showEmptyPanel();
-        }
+    private void onResScrapBrands(ScrapBrandDataModel data) {
+        adapter.set(data.getBrands());
+        view.refresh();
     }
 
-    private void reqLoadMoreScrapBrands() {
+    private void getMoreScrapBrands() {
         addDisposable(scrapRequest.getScrapBrands(page.incrementAndGet(), ROWS)
             .compose(Transformer.applySchedulers())
             .filter(data -> data.getCode().equals(HttpCode.OK))
             .map(data -> gson.fromJson(data.getData(), ScrapBrandDataModel.class))
-            .subscribe(this::resLoadMoreScrapBrands, Timber::e));
+            .subscribe(this::onResMoreScrapBrands, Timber::e));
     }
 
-    private void resLoadMoreScrapBrands(ScrapBrandDataModel data) {
+    private void onResMoreScrapBrands(ScrapBrandDataModel data) {
         int start = adapter.getSize();
         int rows = data.getBrands().size();
 
-        adapter.addAll(parseToScrap(data.getBrands()));
+        adapter.addAll(data.getBrands());
         view.refresh(start, rows);
     }
 
-    private List<BrandDataModel> parseToScrap(List<BrandDataModel> brands) {
-        for (BrandDataModel model : brands) {
-            model.setScrap(true);
+    private void replaceBrandScrapData(BrandDataModel $data) {
+        BrandDataModel targetData = null;
+        for (BrandDataModel brand : adapter.get()) {
+            if (brand.getBrandNo() == $data.getBrandNo()) {
+                targetData = brand;
+                break;
+            }
         }
-        return brands;
+
+        if (targetData != null) {
+            int position = adapter.get(targetData);
+            adapter.remove(targetData);
+            view.refresh(position);
+            if (adapter.getSize() == 0) view.showEmptyPanel();
+        }
     }
 }
