@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.App;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.code.DisplayCode;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.databinding.ViewPromotionDetailProductBinding;
@@ -50,13 +49,6 @@ public class PromotionDetailProductVH extends BaseViewHolder<ProductDataModel> {
         binding.txtBrandName.setText(data.getBrandName());
         binding.txtProductName.setText(data.getProductName());
 
-        if (data.getDisplayCode() == DisplayCode.DISPLAY.getValue()) {
-            hideDisplayLabel();
-        } else {
-            showDisplayLabel();
-            binding.txtDisplayLabel.setText(data.getDisplayLabel());
-        }
-
         if (data.isDiscount()) {
             binding.txtDiscountPercent.setText(
                 String.format(resources.getString(str_format_percent), data.getDiscountPercent()));
@@ -77,16 +69,6 @@ public class PromotionDetailProductVH extends BaseViewHolder<ProductDataModel> {
         } else {
             binding.imgScrap.setImageResource(img_scrap_off);
         }
-    }
-
-    private void showDisplayLabel() {
-        binding.txtDisplayLabel.setVisibility(View.VISIBLE);
-        binding.curtain.setVisibility(View.VISIBLE);
-    }
-
-    private void hideDisplayLabel() {
-        binding.txtDisplayLabel.setVisibility(View.GONE);
-        binding.curtain.setVisibility(View.GONE);
     }
 
     void onItemClick(View view) {

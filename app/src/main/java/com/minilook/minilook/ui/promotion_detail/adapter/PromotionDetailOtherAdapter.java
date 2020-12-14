@@ -10,7 +10,7 @@ import com.minilook.minilook.ui.promotion_detail.viewholder.PromotionDetailOther
 import java.util.ArrayList;
 import java.util.List;
 
-public class PromotionProductAdapter extends RecyclerView.Adapter<PromotionDetailOtherVH>
+public class PromotionDetailOtherAdapter extends RecyclerView.Adapter<PromotionDetailOtherVH>
     implements BaseAdapterDataModel<PromotionDataModel>, BaseAdapterDataView<PromotionDataModel> {
 
     private final List<PromotionDataModel> items = new ArrayList<>();

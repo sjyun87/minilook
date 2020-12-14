@@ -22,11 +22,8 @@ import timber.log.Timber;
 public class ProductAdapter extends RecyclerView.Adapter<_BaseViewHolder<ProductDataModel>> implements
     BaseAdapterDataModel<ProductDataModel>, BaseAdapterDataView<ProductDataModel> {
 
-    public static final int VIEW_TYPE_FEED = 0;
     public static final int VIEW_TYPE_GRID = 1;
-    public static final int VIEW_TYPE_FULL = 2;
     public static final int VIEW_TYPE_SIZE_84 = 3;
-    public static final int VIEW_TYPE_IMAGE = 4;
     public static final int VIEW_TYPE_WIDE = 5;
     public static final int VIEW_TYPE_WIDE_32 = 6;
 
@@ -39,16 +36,10 @@ public class ProductAdapter extends RecyclerView.Adapter<_BaseViewHolder<Product
     @NonNull @Override
     public _BaseViewHolder<ProductDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (viewType) {
-            case VIEW_TYPE_FEED:
-                return new ProductFeedVH(parent);
             case VIEW_TYPE_GRID:
                 ProductGridVH productGridVH = new ProductGridVH(parent);
                 productGridVH.setShowBrand(isShowBrand);
                 return productGridVH;
-            case VIEW_TYPE_IMAGE:
-                return new ProductImageVH(parent);
-            case VIEW_TYPE_FULL:
-                return new ProductFullVH(parent);
             case VIEW_TYPE_SIZE_84:
                 return new ProductSize84VH(parent);
             case VIEW_TYPE_WIDE:

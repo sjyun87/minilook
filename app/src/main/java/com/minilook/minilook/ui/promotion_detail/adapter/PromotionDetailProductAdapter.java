@@ -3,23 +3,23 @@ package com.minilook.minilook.ui.promotion_detail.adapter;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.minilook.minilook.data.model.promotion.PromotionDataModel;
+import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.promotion_detail.viewholder.PromotionDetailOtherVH;
+import com.minilook.minilook.ui.promotion_detail.viewholder.PromotionDetailProductVH;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PromotionDetailAdapter extends RecyclerView.Adapter<PromotionDetailOtherVH>
-    implements BaseAdapterDataModel<PromotionDataModel>, BaseAdapterDataView<PromotionDataModel> {
+public class PromotionDetailProductAdapter extends RecyclerView.Adapter<PromotionDetailProductVH>
+    implements BaseAdapterDataModel<ProductDataModel>, BaseAdapterDataView<ProductDataModel> {
 
-    private final List<PromotionDataModel> items = new ArrayList<>();
+    private final List<ProductDataModel> items = new ArrayList<>();
 
-    @NonNull @Override public PromotionDetailOtherVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new PromotionDetailOtherVH(parent, getSize() == 1);
+    @NonNull @Override public PromotionDetailProductVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new PromotionDetailProductVH(parent);
     }
 
-    @Override public void onBindViewHolder(@NonNull PromotionDetailOtherVH holder, int position) {
+    @Override public void onBindViewHolder(@NonNull PromotionDetailProductVH holder, int position) {
         holder.bind(items.get(position));
     }
 
@@ -27,36 +27,36 @@ public class PromotionDetailAdapter extends RecyclerView.Adapter<PromotionDetail
         return getSize();
     }
 
-    @Override public void add(PromotionDataModel $item) {
+    @Override public void add(ProductDataModel $item) {
         items.add($item);
     }
 
-    @Override public void add(int $index, PromotionDataModel $item) {
+    @Override public void add(int $index, ProductDataModel $item) {
         items.add($index, $item);
     }
 
-    @Override public void addAll(List<PromotionDataModel> $items) {
+    @Override public void addAll(List<ProductDataModel> $items) {
         items.addAll($items);
     }
 
-    @Override public void set(int $index, PromotionDataModel $item) {
+    @Override public void set(int $index, ProductDataModel $item) {
         items.set($index, $item);
     }
 
-    @Override public void set(List<PromotionDataModel> $items) {
+    @Override public void set(List<ProductDataModel> $items) {
         items.clear();
         items.addAll($items);
     }
 
-    @Override public PromotionDataModel get(int $index) {
+    @Override public ProductDataModel get(int $index) {
         return items.get($index);
     }
 
-    @Override public List<PromotionDataModel> get() {
+    @Override public List<ProductDataModel> get() {
         return items;
     }
 
-    @Override public int get(PromotionDataModel $item) {
+    @Override public int get(ProductDataModel $item) {
         return items.indexOf($item);
     }
 
@@ -64,7 +64,7 @@ public class PromotionDetailAdapter extends RecyclerView.Adapter<PromotionDetail
         items.remove($index);
     }
 
-    @Override public void remove(PromotionDataModel $item) {
+    @Override public void remove(ProductDataModel $item) {
         items.remove($item);
     }
 

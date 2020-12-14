@@ -22,7 +22,8 @@ import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
-import com.minilook.minilook.ui.promotion_detail.adapter.PromotionDetailAdapter;
+import com.minilook.minilook.ui.promotion_detail.adapter.PromotionDetailOtherAdapter;
+import com.minilook.minilook.ui.promotion_detail.adapter.PromotionDetailProductAdapter;
 import com.minilook.minilook.ui.promotion_detail.di.PromotionDetailArguments;
 import com.minilook.minilook.util.SpannableUtil;
 
@@ -47,10 +48,10 @@ public class PromotionDetailActivity extends BaseActivity implements PromotionDe
     private ActivityPromotionDetailBinding binding;
     private PromotionDetailPresenter presenter;
 
-    private final ProductAdapter productAdapter = new ProductAdapter();
+    private final PromotionDetailProductAdapter productAdapter = new PromotionDetailProductAdapter();
     private final BaseAdapterDataView<ProductDataModel> productAdapterView = productAdapter;
-    private final PromotionDetailAdapter promotionDetailAdapter = new PromotionDetailAdapter();
-    private final BaseAdapterDataView<PromotionDataModel> promotionAdapterView = promotionDetailAdapter;
+    private final PromotionDetailOtherAdapter promotionDetailOtherAdapter = new PromotionDetailOtherAdapter();
+    private final BaseAdapterDataView<PromotionDataModel> promotionAdapterView = promotionDetailOtherAdapter;
 
     @Override protected View getBindingView() {
         binding = ActivityPromotionDetailBinding.inflate(getLayoutInflater());
@@ -67,7 +68,7 @@ public class PromotionDetailActivity extends BaseActivity implements PromotionDe
             .view(this)
             .promotionId(getIntent().getIntExtra("promotionNo", -1))
             .productAdapter(productAdapter)
-            .promotionAdapter(promotionDetailAdapter)
+            .promotionAdapter(promotionDetailOtherAdapter)
             .build();
     }
 
@@ -82,7 +83,6 @@ public class PromotionDetailActivity extends BaseActivity implements PromotionDe
     @Override public void setupProductRecyclerView() {
         binding.rcvProduct.setHasFixedSize(true);
         binding.rcvProduct.setLayoutManager(new GridLayoutManager(this, 2));
-        productAdapter.setViewType(ProductAdapter.VIEW_TYPE_GRID);
         binding.rcvProduct.setAdapter(productAdapter);
     }
 
@@ -92,7 +92,7 @@ public class PromotionDetailActivity extends BaseActivity implements PromotionDe
 
     @Override public void setupPromotionRecyclerView() {
         binding.rcvPromotion.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        binding.rcvPromotion.setAdapter(promotionDetailAdapter);
+        binding.rcvPromotion.setAdapter(promotionDetailOtherAdapter);
         DividerDecoration.builder(this)
             .size(resources.getDimen(dp_2))
             .asSpace()
