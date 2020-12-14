@@ -16,8 +16,10 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.App;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.login.LoginActivity;
+import com.minilook.minilook.ui.main.MainPresenterImpl;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.StringUtil;
 
@@ -83,8 +85,13 @@ public class ProductSize84VH extends _BaseViewHolder<ProductDataModel> {
     void onScrapClick() {
         if (App.getInstance().isLogin()) {
             data.setScrap(!data.isScrap());
+            if (data.isScrap()) {
+                data.setScrapCount(data.getScrapCount() + 1);
+            } else {
+                data.setScrapCount(data.getScrapCount() - 1);
+            }
             setupScrapImage();
-            //RxBus.send(new RxBusEvent.RxBusEventProductScrap(data.isScrap(), data));
+            RxBus.send(new MainPresenterImpl.RxBusEventUpdateProductScrap(data));
         } else {
             LoginActivity.start(context);
         }
