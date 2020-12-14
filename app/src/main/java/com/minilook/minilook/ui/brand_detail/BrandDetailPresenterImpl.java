@@ -71,6 +71,14 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         view.clear();
     }
 
+    @Override public void onBrandScrap(BrandDataModel $data) {
+        replaceBrandScrapData($data);
+    }
+
+    @Override public void onProductScrap(ProductDataModel $data) {
+        replaceProductScrapData($data);
+    }
+
     @Override public void onScrapClick() {
         if (App.getInstance().isLogin()) {
             data.setScrap(!data.isScrap());
@@ -219,5 +227,21 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         productAdapter.addAll(data.getProducts());
         view.productRefresh();
         view.productRefresh(start, row);
+    }
+
+    private void replaceBrandScrapData(BrandDataModel $data) {
+        data.setScrap($data.isScrap());
+        data.setScrapCount($data.getScrapCount());
+        setScrap();
+    }
+
+    private void replaceProductScrapData(ProductDataModel $data) {
+        for (ProductDataModel product : productAdapter.get()) {
+            if (product.getProductNo() == $data.getProductNo()) {
+                product.setScrap($data.isScrap());
+                product.setScrapCount($data.getScrapCount());
+            }
+        }
+        view.productRefresh();
     }
 }

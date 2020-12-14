@@ -16,6 +16,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.App;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.databinding.ActivityBrandDetailBinding;
 import com.minilook.minilook.ui.base.BaseActivity;
@@ -75,6 +76,14 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
             .styleAdapter(styleAdapter)
             .productAdapter(productAdapter)
             .build();
+    }
+
+    @Override public void onBrandScrap(BrandDataModel data) {
+        presenter.onBrandScrap(data);
+    }
+
+    @Override public void onProductScrap(ProductDataModel data) {
+        presenter.onProductScrap(data);
     }
 
     @Override public void setupClickAction() {

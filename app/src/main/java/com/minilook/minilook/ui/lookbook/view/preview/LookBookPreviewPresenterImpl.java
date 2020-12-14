@@ -60,8 +60,8 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
         if (dataPool.size() > 0) setupLoadMoreData();
     }
 
-    @Override public void onProductScrap(ProductDataModel data) {
-        replaceData(data);
+    @Override public void onProductScrap(ProductDataModel $data) {
+        replaceProductScrapData($data);
     }
 
     private void setupLoadMoreData() {
@@ -123,13 +123,13 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
         }
     }
 
-    private void replaceData(ProductDataModel data) {
+    private void replaceProductScrapData(ProductDataModel $data) {
         for (int i = 0; i < adapter.getSize(); i++) {
             for (ProductDataModel product : adapter.get(i).getProducts()) {
-                if (product.getProductNo() == data.getProductNo()) {
-                    product.setScrap(data.isScrap());
-                    product.setScrapCount(data.getScrapCount());
-                    product.setReviewCount(data.getReviewCount());
+                if (product.getProductNo() == $data.getProductNo()) {
+                    product.setScrap($data.isScrap());
+                    product.setScrapCount($data.getScrapCount());
+                    product.setReviewCount($data.getReviewCount());
 
                     if (i == currentPosition) {
                         RxBus.send(new LookBookDetailPresenterImpl.RxEventLookBookDetailUpdateScrap(adapter.get(i)));

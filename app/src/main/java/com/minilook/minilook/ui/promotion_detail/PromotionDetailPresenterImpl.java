@@ -65,8 +65,8 @@ public class PromotionDetailPresenterImpl extends BasePresenterImpl implements P
         if (promotionAdapter.getSize() >= ROWS) getMoreOtherPromotion();
     }
 
-    @Override public void onProductScrap(ProductDataModel data) {
-        replaceData(data);
+    @Override public void onProductScrap(ProductDataModel $data) {
+        replaceProductScrapData($data);
     }
 
     @Override public void onShareClick() {
@@ -152,11 +152,11 @@ public class PromotionDetailPresenterImpl extends BasePresenterImpl implements P
         view.promotionRefresh(start, data.size());
     }
 
-    private void replaceData(ProductDataModel data) {
+    private void replaceProductScrapData(ProductDataModel $data) {
         for (ProductDataModel product : productAdapter.get()) {
-            if (product.getProductNo() == data.getProductNo()) {
-                product.setScrap(data.isScrap());
-                product.setScrapCount(data.getScrapCount());
+            if (product.getProductNo() == $data.getProductNo()) {
+                product.setScrap($data.isScrap());
+                product.setScrapCount($data.getScrapCount());
             }
         }
         view.productRefresh();

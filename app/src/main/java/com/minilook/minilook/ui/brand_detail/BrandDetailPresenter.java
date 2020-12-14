@@ -3,7 +3,9 @@ package com.minilook.minilook.ui.brand_detail;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
+import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.common.CodeDataModel;
+import com.minilook.minilook.data.model.product.ProductDataModel;
 
 public interface BrandDetailPresenter extends LifecycleObserver {
 
@@ -15,6 +17,10 @@ public interface BrandDetailPresenter extends LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     void onDestroy();
+
+    void onBrandScrap(BrandDataModel data);
+
+    void onProductScrap(ProductDataModel data);
 
     void onScrapClick();
 

@@ -53,14 +53,8 @@ public class BrandPresenterImpl extends BasePresenterImpl implements BrandPresen
         view.clear();
     }
 
-    @Override public void onBrandScrap(BrandDataModel data) {
-        for (BrandDataModel brand : brandAdapter.get()) {
-            if (brand.getBrandNo() == data.getBrandNo()) {
-                brand.setScrap(data.isScrap());
-                brand.setScrapCount(data.getScrapCount());
-                view.brandRefresh();
-            }
-        }
+    @Override public void onBrandScrap(BrandDataModel $data) {
+        replaceBrandScrapData($data);
     }
 
     @Override public void onResetClick() {
@@ -133,5 +127,15 @@ public class BrandPresenterImpl extends BasePresenterImpl implements BrandPresen
         brandAdapter.set(data);
         view.brandRefresh();
         view.hideEmptyPanel();
+    }
+
+    private void replaceBrandScrapData(BrandDataModel $data) {
+        for (BrandDataModel brand : brandAdapter.get()) {
+            if (brand.getBrandNo() == $data.getBrandNo()) {
+                brand.setScrap($data.isScrap());
+                brand.setScrapCount($data.getScrapCount());
+                view.brandRefresh();
+            }
+        }
     }
 }
