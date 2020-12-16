@@ -70,6 +70,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
         binding.viewpager.setUserInputEnabled(false);
         binding.viewpager.setOffscreenPageLimit(5);
         binding.viewpager.registerOnPageChangeCallback(onPageChangeCallback);
+        binding.viewpager.setCurrentItem(BottomBar.POSITION_MARKET);
     }
 
     @Override public void setCurrentPage(int position) {
@@ -77,6 +78,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
     }
 
     @Override public void setupBottomBar() {
+        binding.bottombar.setCurrentPage(BottomBar.POSITION_MARKET);
         binding.bottombar.setOnBottomBarListener(presenter::onBottomBarClick);
     }
 

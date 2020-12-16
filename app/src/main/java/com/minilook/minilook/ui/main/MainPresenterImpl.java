@@ -2,7 +2,6 @@ package com.minilook.minilook.ui.main;
 
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.PrefsKey;
-import com.minilook.minilook.util.DynamicLinkUtil;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.network.member.MemberRequest;
@@ -14,6 +13,7 @@ import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.lookbook.LookBookPresenterImpl;
 import com.minilook.minilook.ui.lookbook.view.detail.LookBookDetailPresenterImpl;
 import com.minilook.minilook.ui.main.di.MainArguments;
+import com.minilook.minilook.util.DynamicLinkUtil;
 import com.pixplicity.easyprefs.library.Prefs;
 import java.util.Map;
 import lombok.AllArgsConstructor;
@@ -27,8 +27,6 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
     private final ScrapRequest scrapRequest;
 
     private int step = 0;
-    private boolean isLookBookReady = false;
-    private boolean isWaitingCoachMark = false;
 
     public MainPresenterImpl(MainArguments args) {
         view = args.getView();
@@ -66,6 +64,8 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
         if (position != 0) {
             RxBus.send(new LookBookPresenterImpl.RxEventScrollToPreview(false));
             RxBus.send(new LookBookDetailPresenterImpl.RxEventLookBookDetailScrollToTop());
+        } else {
+            checkCoachMark();
         }
         view.setCurrentPage(position);
     }
@@ -76,10 +76,7 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
                 checkMarketingDialog();
                 break;
             case 1:
-                checkCoachMark();
-                break;
-            case 2:
-                checkDynamicLink();
+                checkDeepLink();
                 break;
         }
     }
@@ -95,19 +92,13 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
 
     private void checkCoachMark() {
         if (!Prefs.getBoolean(PrefsKey.KEY_LOOKBOOK_COACH_VISIBLE, false)) {
-            if (isLookBookReady) {
-                view.showLookBookCoachMark();
-            } else {
-                isWaitingCoachMark = true;
-            }
-        } else {
-            checkAction(++step);
+            view.showLookBookCoachMark();
         }
     }
 
-    private void checkDynamicLink() {
-        if (App.getInstance().isDynamicLink()) {
-            Map<String, String> dynamicData = App.getInstance().getDynamicLinkData();
+    private void checkDeepLink() {
+        if (App.getInstance().isDeepLink()) {
+            Map<String, String> dynamicData = App.getInstance().getDeepLinkData();
             String type = dynamicData.get("type");
             int itemNo = Integer.parseInt(dynamicData.get("id"));
 
@@ -164,12 +155,6 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
         addDisposable(RxBus.toObservable().subscribe(o -> {
             if (o instanceof RxBusEventLookBookReady) {
                 view.hideLoadingView();
-                if (isWaitingCoachMark) {
-                    view.showLookBookCoachMark();
-                    isWaitingCoachMark = false;
-                } else {
-                    isLookBookReady = true;
-                }
             } else if (o instanceof RxEventChangeBottomBarTheme) {
                 boolean flag = ((RxEventChangeBottomBarTheme) o).isFlag();
                 view.setBottomBarTheme(flag);

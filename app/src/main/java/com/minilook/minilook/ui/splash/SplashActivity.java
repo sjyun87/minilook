@@ -32,6 +32,7 @@ public class SplashActivity extends BaseActivity implements SplashPresenter.View
     private SplashArguments provideArguments() {
         return SplashArguments.builder()
             .view(this)
+            .intent(getIntent())
             .build();
     }
 

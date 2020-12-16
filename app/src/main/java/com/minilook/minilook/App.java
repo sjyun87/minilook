@@ -29,8 +29,8 @@ public class App extends Application {
 
     @Getter @Setter private boolean isLogin = false;
 
-    @Getter private boolean isDynamicLink = false;
-    @Getter private Map<String, String> dynamicLinkData;
+    @Getter private boolean isDeepLink = false;
+    @Getter private Map<String, String> deepLinkData;
 
     @Getter @Setter private List<CodeDataModel> sortCodes;
 
@@ -87,11 +87,11 @@ public class App extends Application {
         isLogin = Prefs.contains(PrefsKey.KEY_MEMBER_NO);
     }
 
-    public void setDynamicLink(String type, String id) {
-        isDynamicLink = true;
-        dynamicLinkData = new HashMap<>();
-        dynamicLinkData.put("type", type);
-        dynamicLinkData.put("id", id);
+    public void setDeepLink(String type, String id) {
+        isDeepLink = true;
+        deepLinkData = new HashMap<>();
+        deepLinkData.put("type", type);
+        deepLinkData.put("id", id);
     }
 
     public void setPushToken(String token) {
@@ -153,14 +153,6 @@ public class App extends Application {
     public void clearSnsType() {
         Prefs.remove(PrefsKey.KEY_SNS_TYPE);
     }
-
-
-
-
-
-
-
-
 
     private List<ShoppingBrandDataModel> orderItems;
 

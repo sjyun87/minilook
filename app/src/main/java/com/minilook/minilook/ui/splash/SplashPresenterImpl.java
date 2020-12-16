@@ -1,10 +1,13 @@
 package com.minilook.minilook.ui.splash;
 
+import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.text.TextUtils;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.App;
 import com.minilook.minilook.BuildConfig;
@@ -27,6 +30,7 @@ import timber.log.Timber;
 public class SplashPresenterImpl extends BasePresenterImpl implements SplashPresenter {
 
     private final View view;
+    private final Intent intent;
     private final CommonRequest commonRequest;
     private final Gson gson;
 
@@ -34,9 +38,11 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
     private boolean isCommonDataGet = false;
     private boolean isTokenUpdate = false;
     private boolean isDynamicLinkCheck = false;
+    private boolean isNotificationCheck = false;
 
     public SplashPresenterImpl(SplashArguments args) {
         view = args.getView();
+        intent = args.getIntent();
         commonRequest = new CommonRequest();
         gson = App.getInstance().getGson();
     }
@@ -66,7 +72,7 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
                 String id = link.getQueryParameter("id");
 
                 if (!TextUtils.isEmpty(type) && !TextUtils.isEmpty(id)) {
-                    App.getInstance().setDynamicLink(type, id);
+                    App.getInstance().setDeepLink(type, id);
                 }
             }
         }
@@ -114,6 +120,7 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
 
     private void startApp() {
         getCommonData();
+        checkNotification();
     }
 
     private void updateToken(String token) {
@@ -141,8 +148,28 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
         checkToDo();
     }
 
+    private void checkNotification() {
+        Bundle bundle = intent.getExtras();
+        if (bundle != null) {
+            String pushData = bundle.getString("minilookData");
+            JsonObject json = gson.fromJson(pushData, JsonObject.class);
+            String type = json.get("type").getAsString();
+            String id = String.valueOf(json.get("id").getAsInt());
+
+            if (!TextUtils.isEmpty(type) && !TextUtils.isEmpty(id)) {
+                App.getInstance().setDeepLink(type, id);
+            }
+        }
+        isNotificationCheck = true;
+        checkToDo();
+    }
+
     private void checkToDo() {
-        if (isAnimationEnd && isCommonDataGet && isTokenUpdate && isDynamicLinkCheck) {
+        if (isAnimationEnd &&
+            isCommonDataGet &&
+            isTokenUpdate &&
+            isDynamicLinkCheck &&
+            isNotificationCheck) {
             navigateToPage();
         }
     }
