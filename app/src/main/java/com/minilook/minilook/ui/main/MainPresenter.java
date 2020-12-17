@@ -36,10 +36,6 @@ public interface MainPresenter extends LifecycleObserver {
 
         void showLookBookCoachMark();
 
-        void showLoadingView();
-
-        void hideLoadingView();
-
         void navigateToPromotionDetail(int promotionNo);
 
         void navigateToEventDetail(int eventNo);

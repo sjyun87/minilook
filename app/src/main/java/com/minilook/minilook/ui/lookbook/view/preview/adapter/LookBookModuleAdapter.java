@@ -27,7 +27,7 @@ public class LookBookModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<S
     }
 
     @Override public void onBindViewHolder(@NonNull BaseViewHolder<String> holder, int position) {
-        holder.bind(position, items.get(position).getBackgroundUrl());
+        holder.bind(items.get(position).getBackgroundUrl());
     }
 
     @Override public int getItemCount() {

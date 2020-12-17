@@ -36,7 +36,6 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
 
     @Override public void onCreate() {
         toRxObservable();
-        view.showLoadingView();
         view.setupViewPager();
         view.setupBottomBar();
 
@@ -153,9 +152,7 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
 
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
-            if (o instanceof RxBusEventLookBookReady) {
-                view.hideLoadingView();
-            } else if (o instanceof RxEventChangeBottomBarTheme) {
+            if (o instanceof RxEventChangeBottomBarTheme) {
                 boolean flag = ((RxEventChangeBottomBarTheme) o).isFlag();
                 view.setBottomBarTheme(flag);
             } else if (o instanceof RxEventNavigateToPage) {
@@ -169,9 +166,6 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
                 updateBrandScrap(data);
             }
         }, Timber::e));
-    }
-
-    @AllArgsConstructor @Getter public final static class RxBusEventLookBookReady {
     }
 
     @AllArgsConstructor @Getter public final static class RxEventChangeBottomBarTheme {

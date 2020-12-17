@@ -123,14 +123,6 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
         });
     }
 
-    @Override public void showLoadingView() {
-        binding.loadingView.show();
-    }
-
-    @Override public void hideLoadingView() {
-        binding.loadingView.hide();
-    }
-
     @Override public void navigateToPromotionDetail(int promotionNo) {
         PromotionDetailActivity.start(this, promotionNo);
     }
