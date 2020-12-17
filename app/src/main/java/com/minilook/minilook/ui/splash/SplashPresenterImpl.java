@@ -152,12 +152,14 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
             String pushData = bundle.getString("minilookData");
-            JsonObject json = gson.fromJson(pushData, JsonObject.class);
-            String type = json.get("type").getAsString();
-            String id = String.valueOf(json.get("id").getAsInt());
+            if (pushData != null && !TextUtils.isEmpty(pushData)) {
+                JsonObject json = gson.fromJson(pushData, JsonObject.class);
+                String type = json.get("type").getAsString();
+                String id = String.valueOf(json.get("id").getAsInt());
 
-            if (!TextUtils.isEmpty(type) && !TextUtils.isEmpty(id)) {
-                App.getInstance().setDeepLink(type, id);
+                if (!TextUtils.isEmpty(type) && !TextUtils.isEmpty(id)) {
+                    App.getInstance().setDeepLink(type, id);
+                }
             }
         }
         isNotificationCheck = true;

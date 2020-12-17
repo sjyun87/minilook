@@ -18,6 +18,10 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
 
+        <meta-data
+            android:name="com.facebook.sdk.CodelessDebugLogEnabled"
+            android:value="true" />
+
         <activity
             android:name=".ui.splash.SplashActivity"
             android:screenOrientation="portrait"

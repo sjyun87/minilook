@@ -25,10 +25,13 @@ ext {
   rxandroid_version = '3.0.0'
 
   // Firebase
-  firebase_analytics_version = "17.6.0"
-  firebase_crashlytics_version = "17.2.2"
+  firebase_analytics_version = '17.6.0'
+  firebase_crashlytics_version = '17.2.2'
   firebase_messaging_version = '20.3.0'
   firebase_dynamic_link_version = '19.1.1'
+
+  // Facebook
+  facebook_version = '[4,5)'
 
   // Butter Knife
   butterknife_version = '10.2.1'

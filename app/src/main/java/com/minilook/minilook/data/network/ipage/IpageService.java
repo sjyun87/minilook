@@ -15,7 +15,7 @@ public interface IpageService {
         @Path("memberNo") int memberNo
     );
 
-    @GET("/api/members/{user_id}/coupons") Single<BaseDataModel> getCoupons(
+    @GET("/api/members/{memberNo}/coupons") Single<BaseDataModel> getCoupons(
         @Path("memberNo") int memberNo
     );
 }
