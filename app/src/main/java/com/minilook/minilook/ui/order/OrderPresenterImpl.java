@@ -416,7 +416,6 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         addDisposable(orderRequest.setSafetyStock(orderId, orderItem)
             .compose(Transformer.applySchedulers())
             .filter(data -> {
-                Timber.e(data.toString());
                 String code = data.getCode();
                 if (code.equals(HttpCode.NO_STOCK)) {
                     view.setBootPayCancel();
@@ -531,6 +530,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
                         OrderCompleteOptionDataModel completeOptionModel = new OrderCompleteOptionDataModel();
                         completeOptionModel.setOption_id(optionData.getOptionNo());
                         completeOptionModel.setShoppingbag_id(optionData.getShoppingbagNo());
+                        completeOptionModel.setOptionRequestMemo(brandData.getOrderMemo());
 
                         if (brandIndex == (orderItem.size() - 1)
                             && productIndex == (normalProductData.size() - 1)

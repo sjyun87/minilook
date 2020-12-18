@@ -305,6 +305,7 @@
     <string name="order_point_review_caption">리뷰작성</string>
     <string name="order_info_check">주문하신 상품 및 결제, 주문정보를 확인하였으며, 이에 동의합니다.(필수)</string>
     <string name="order_confirm">결제하기</string>
+    <string name="order_memo_hint">주문 요청사항을 입력해주세요.</string>
 
     <!--Order Complete-->
     <string name="order_complete_title">주문 완료</string>
@@ -350,6 +351,7 @@
     <string name="order_detail_review">리뷰작성</string>
     <string name="order_detail_exchange_cancel">교환철회</string>
     <string name="order_detail_return_cancel">반품철회</string>
+    <string name="order_detail_order_memo_caption">주문 요청사항</string>
 
     <!--Order Cancel-->
     <string name="order_cancel_title">주문취소</string>
