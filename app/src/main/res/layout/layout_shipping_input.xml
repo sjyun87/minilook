@@ -63,7 +63,7 @@
         android:background="@drawable/bg_button_border_darkgray"
         android:fontFamily="@font/nanum_square_r"
         android:hint="@string/shipping_input_phone_hint"
-        android:inputType="phone"
+        android:inputType="number"
         android:paddingStart="@dimen/dp_8"
         android:paddingEnd="@dimen/dp_8"
         android:textColor="@color/color_FF232323"
