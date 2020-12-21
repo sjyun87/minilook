@@ -136,6 +136,13 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
     private void getCommonData() {
         addDisposable(commonRequest.getSortCode()
             .compose(Transformer.applySchedulers())
+            .filter(model -> {
+                String code = model.getCode();
+                if (!code.equals(HttpCode.OK)) {
+                    view.showErrorDialog();
+                }
+                return code.equals(HttpCode.OK);
+            })
             .map((Function<BaseDataModel, List<CodeDataModel>>)
                 data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<CodeDataModel>>() {
                 }.getType()))

@@ -97,9 +97,9 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
 
     private void checkDeepLink() {
         if (App.getInstance().isDeepLink()) {
-            Map<String, String> dynamicData = App.getInstance().getDeepLinkData();
-            String type = dynamicData.get("type");
-            int itemNo = Integer.parseInt(dynamicData.get("id"));
+            Map<String, String> deepLinkData = App.getInstance().getDeepLinkData();
+            String type = deepLinkData.get("type");
+            int itemNo = Integer.parseInt(deepLinkData.get("id"));
 
             switch (type) {
                 case DynamicLinkUtil.TYPE_PROMOTION:

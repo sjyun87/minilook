@@ -25,7 +25,7 @@ import com.minilook.minilook.ui.promotion_detail.PromotionDetailActivity;
 public class MainActivity extends BaseActivity implements MainPresenter.View {
 
     public static void start(Context context) {
-        start(context, 0);
+        start(context, 1);
     }
 
     public static void start(Context context, int position) {
@@ -55,7 +55,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
 
     @Override protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        int position = intent.getIntExtra("position", 0);
+        int position = intent.getIntExtra("position", 1);
         binding.bottombar.setCurrentPage(position);
     }
 
