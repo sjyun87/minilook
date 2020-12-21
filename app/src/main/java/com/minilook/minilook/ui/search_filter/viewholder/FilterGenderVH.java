@@ -13,10 +13,10 @@ import butterknife.BindFont;
 import butterknife.BindView;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.GenderDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import lombok.Setter;
 
-public class FilterGenderVH extends BaseViewHolder<GenderDataModel> {
+public class FilterGenderVH extends _BaseViewHolder<GenderDataModel> {
 
     @BindView(R.id.txt_gender) TextView textView;
 

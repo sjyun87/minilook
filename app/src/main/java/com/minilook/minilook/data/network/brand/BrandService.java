@@ -15,16 +15,16 @@ public interface BrandService {
         @Body RequestBody body
     );
 
-    @GET("api/brands/{brand_id}") Single<BaseDataModel> getBrandDetail(
-        @Path("brand_id") int brand_id
+    @GET("api/brands/{brandNo}") Single<BaseDataModel> getBrandDetail(
+        @Path("brandNo") int brandNo
     );
 
-    @GET("api/brands/{brand_id}") Single<BaseDataModel> getBrandDetail(
-        @Path("brand_id") int brand_id,
-        @Query("memberNo") int user_id
+    @GET("api/brands/{brandNo}") Single<BaseDataModel> getBrandDetail(
+        @Path("brandNo") int brandNo,
+        @Query("memberNo") int memberNo
     );
 
-    @GET("api/brands/{brand_id}/sellers") Single<BaseDataModel> getBrandInfo(
-        @Path("brand_id") int id
+    @GET("api/brands/{brandNo}/sellers") Single<BaseDataModel> getBrandInfo(
+        @Path("brandNo") int brandNo
     );
 }

@@ -3,50 +3,46 @@ package com.minilook.minilook.ui.brand;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import androidx.annotation.DimenRes;
+import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindDimen;
-import butterknife.BindString;
-import butterknife.BindView;
-import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.common.CodeDataModel;
-import com.minilook.minilook.ui.base._BaseActivity;
+import com.minilook.minilook.databinding.ActivityBrandBinding;
+import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.brand.adapter.BrandAdapter;
 import com.minilook.minilook.ui.brand.adapter.BrandStyleAdapter;
 import com.minilook.minilook.ui.brand.di.BrandArguments;
 
-public class BrandActivity extends _BaseActivity implements BrandPresenter.View {
+public class BrandActivity extends BaseActivity implements BrandPresenter.View {
 
     public static void start(Context context) {
         Intent intent = new Intent(context, BrandActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         context.startActivity(intent);
     }
 
-    @BindView(R.id.txt_selected_count) TextView selectedCountTextView;
-    @BindView(R.id.rcv_style) RecyclerView styleRecyclerView;
-    @BindView(R.id.rcv_brand) RecyclerView brandRecyclerView;
-    @BindView(R.id.layout_empty_panel) LinearLayout emptyPanel;
+    @StringRes int str_format_selected_count = R.string.brand_selected_count;
 
-    @BindString(R.string.brand_selected_count) String format_selected_count;
+    @DimenRes int dp_2 = R.dimen.dp_2;
+    @DimenRes int dp_4 = R.dimen.dp_4;
 
-    @BindDimen(R.dimen.dp_2) int dp_2;
-
+    private ActivityBrandBinding binding;
     private BrandPresenter presenter;
-    private BrandAdapter brandAdapter = new BrandAdapter();
-    private BaseAdapterDataView<BrandDataModel> brandAdapterView = brandAdapter;
-    private BrandStyleAdapter styleAdapter = new BrandStyleAdapter();
-    private BaseAdapterDataView<CodeDataModel> styleAdapterView = styleAdapter;
 
-    @Override protected int getLayoutID() {
-        return R.layout.activity_brand;
+    private final BrandAdapter brandAdapter = new BrandAdapter();
+    private final BaseAdapterDataView<BrandDataModel> brandAdapterView = brandAdapter;
+    private final BrandStyleAdapter styleAdapter = new BrandStyleAdapter();
+    private final BaseAdapterDataView<CodeDataModel> styleAdapterView = styleAdapter;
+
+    @Override protected View getBindingView() {
+        binding = ActivityBrandBinding.inflate(getLayoutInflater());
+        return binding.getRoot();
     }
 
     @Override protected void createPresenter() {
@@ -62,10 +58,24 @@ public class BrandActivity extends _BaseActivity implements BrandPresenter.View 
             .build();
     }
 
+    @Override public void onBrandScrap(BrandDataModel data) {
+        presenter.onBrandScrap(data);
+    }
+
+    @Override public void setupClickAction() {
+        binding.txtReset.setOnClickListener(view -> presenter.onResetClick());
+        binding.txtEmpty.setOnClickListener(view -> presenter.onResetClick());
+    }
+
     @Override public void setupStyleRecyclerView() {
-        styleRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        binding.rcvStyle.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         styleAdapter.setOnStyleClickListener(presenter::onStyleClick);
-        styleRecyclerView.setAdapter(styleAdapter);
+        binding.rcvStyle.setAdapter(styleAdapter);
+        DividerDecoration.builder(this)
+            .size(resources.getDimen(dp_4))
+            .asSpace()
+            .build()
+            .addTo(binding.rcvStyle);
     }
 
     @Override public void styleRefresh() {
@@ -73,13 +83,14 @@ public class BrandActivity extends _BaseActivity implements BrandPresenter.View 
     }
 
     @Override public void setupBrandRecyclerView() {
-        brandRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        brandRecyclerView.setAdapter(brandAdapter);
+        binding.rcvBrand.setHasFixedSize(true);
+        binding.rcvBrand.setLayoutManager(new LinearLayoutManager(this));
+        binding.rcvBrand.setAdapter(brandAdapter);
         DividerDecoration.builder(this)
-            .size(dp_2)
+            .size(resources.getDimen(dp_2))
             .asSpace()
             .build()
-            .addTo(styleRecyclerView);
+            .addTo(binding.rcvBrand);
     }
 
     @Override public void brandRefresh() {
@@ -87,24 +98,21 @@ public class BrandActivity extends _BaseActivity implements BrandPresenter.View 
     }
 
     @Override public void setupSelectedStyleCount(int count, int total) {
-        selectedCountTextView.setText(String.format(format_selected_count, count, total));
+        binding.txtSelectedCount.setText(String.format(getString(str_format_selected_count), count, total));
     }
 
     @Override public void showEmptyPanel() {
-        emptyPanel.setVisibility(View.VISIBLE);
+        binding.layoutEmptyPanel.setVisibility(View.VISIBLE);
     }
 
     @Override public void hideEmptyPanel() {
-        emptyPanel.setVisibility(View.GONE);
+        binding.layoutEmptyPanel.setVisibility(View.GONE);
     }
 
-    @OnClick(R.id.txt_reset)
-    void onResetClick() {
-        presenter.onResetClick();
-    }
-
-    @OnClick(R.id.txt_empty)
-    void onEmptyClick() {
-        presenter.onResetClick();
+    @Override public void clear() {
+        binding.txtReset.setOnClickListener(null);
+        binding.txtEmpty.setOnClickListener(null);
+        binding.rcvStyle.setAdapter(null);
+        binding.rcvBrand.setAdapter(null);
     }
 }

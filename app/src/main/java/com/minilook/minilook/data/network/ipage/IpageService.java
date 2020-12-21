@@ -7,15 +7,15 @@ import retrofit2.http.Path;
 
 public interface IpageService {
 
-    @GET("/api/members/{user_id}") Single<BaseDataModel> getIpage(
-        @Path("user_id") int userId
+    @GET("/api/members/{memberNo}") Single<BaseDataModel> getIpage(
+        @Path("memberNo") int memberNo
     );
 
-    @GET("/api/members/{user_id}/points/histories") Single<BaseDataModel> getPointHistory(
-        @Path("user_id") int userId
+    @GET("/api/members/{memberNo}/points/histories") Single<BaseDataModel> getPointHistory(
+        @Path("memberNo") int memberNo
     );
 
-    @GET("/api/members/{user_id}/coupons\n") Single<BaseDataModel> getCoupons(
-        @Path("user_id") int userId
+    @GET("/api/members/{memberNo}/coupons") Single<BaseDataModel> getCoupons(
+        @Path("memberNo") int memberNo
     );
 }

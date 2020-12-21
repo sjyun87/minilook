@@ -33,8 +33,4 @@ import lombok.Data;
     private List<String> styleImages;
     @Expose @SerializedName("products")
     private List<ProductDataModel> products;
-
-    // -- Optional Data
-    private int position;
-    private boolean isSelect;
 }

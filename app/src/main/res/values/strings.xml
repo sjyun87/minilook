@@ -85,8 +85,8 @@
 
     <!--Promotion Detail-->
     <string name="promotion_detail_title">기획전</string>
-    <string name="promotion_total">총 %s개 상품</string>
-    <string name="promotion_total_b">%s개</string>
+    <string name="promotion_total">총 %d개 상품</string>
+    <string name="promotion_total_b">%d개</string>
     <string name="promotion_together">같이보면 좋은 기획전</string>
 
     <!--Event Detail-->
@@ -443,6 +443,9 @@
     <string name="option_selector_product_index">상품 %s</string>
     <string name="option_selector_bonus_product_index">추가상품</string>
     <string name="option_selector_available_quantity">주문가능한 수량은 %s개 입니다.</string>
+
+    <!--Sort Selector-->
+    <string name="sort_selector_title">정렬</string>
 
     <!--Review-->
     <string name="review_title">상품리뷰</string>

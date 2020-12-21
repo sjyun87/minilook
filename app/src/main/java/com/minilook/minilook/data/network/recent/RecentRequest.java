@@ -6,6 +6,7 @@ import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
 import java.util.HashMap;
 import java.util.Map;
+import okhttp3.RequestBody;
 
 public class RecentRequest extends BaseRequest<RecentService> {
 
@@ -13,20 +14,20 @@ public class RecentRequest extends BaseRequest<RecentService> {
         return RecentService.class;
     }
 
-    public Single<BaseDataModel> getRecentProducts(int recent_id, int rows) {
-        int user_id = App.getInstance().getMemberNo();
-        return getApi().getRecentProducts(user_id, createRequestBody(parseToJson(recent_id, rows)));
+    public Single<BaseDataModel> getRecentProducts(int recentNo, int rows) {
+        int memberNo = App.getInstance().getMemberNo();
+        return getApi().getRecentProducts(memberNo, createRecentProductsData(recentNo, rows));
     }
 
-    private Map<String, Object> parseToJson(int recent_id, int rows) {
+    private RequestBody createRecentProductsData(int recentNo, int rows) {
         Map<String, Object> jsonMap = new HashMap<>();
-        if (recent_id != -1) jsonMap.put("lastRecentNo", recent_id);
+        if (recentNo != -1) jsonMap.put("lastRecentNo", recentNo);
         jsonMap.put("pageSize", rows);
-        return jsonMap;
+        return createRequestBody(jsonMap);
     }
 
-    public Single<BaseDataModel> deleteRecent(int recent_id) {
-        int user_id = App.getInstance().getMemberNo();
-        return getApi().deleteRecent(user_id, recent_id);
+    public Single<BaseDataModel> deleteRecent(int recentNo) {
+        int memberNo = App.getInstance().getMemberNo();
+        return getApi().deleteRecent(memberNo, recentNo);
     }
 }

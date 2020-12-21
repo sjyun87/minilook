@@ -1,18 +1,16 @@
 package com.minilook.minilook.ui.market.viewholder.banner.viewholder;
 
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
-import butterknife.BindDrawable;
-import butterknife.BindView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.code.CommercialType;
 import com.minilook.minilook.data.model.commercial.CommercialDataModel;
+import com.minilook.minilook.databinding.ViewMarketBannerItemBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.event_detail.EventDetailActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
@@ -20,13 +18,13 @@ import com.minilook.minilook.ui.promotion_detail.PromotionDetailActivity;
 
 public class MarketBannerItemVH extends BaseViewHolder<CommercialDataModel> {
 
-    @BindView(R.id.img_contents) ImageView contentsImageView;
+    @DrawableRes int ph_square = R.drawable.ph_square;
 
-    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    private final ViewMarketBannerItemBinding binding;
 
-    public MarketBannerItemVH(@NonNull View itemView) {
-        super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_market_banner_item, (ViewGroup) itemView, false));
+    public MarketBannerItemVH(@NonNull View parent) {
+        super(ViewMarketBannerItemBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent, false));
+        binding = ViewMarketBannerItemBinding.bind(itemView);
     }
 
     @Override public void bind(CommercialDataModel $data) {
@@ -34,21 +32,25 @@ public class MarketBannerItemVH extends BaseViewHolder<CommercialDataModel> {
 
         Glide.with(context)
             .load(data.getThumbUrl())
-            .placeholder(img_placeholder)
-            .error(img_placeholder)
+            .placeholder(ph_square)
+            .error(ph_square)
             .transition(new DrawableTransitionOptions().crossFade())
-            .into(contentsImageView);
+            .into(binding.imgContents);
 
         itemView.setOnClickListener(this::onItemClick);
     }
 
     void onItemClick(View view) {
-        if (data.getType().equals(CommercialType.PROMOTION.getValue())) {
-            PromotionDetailActivity.start(context, data.getNo());
-        } else if (data.getType().equals(CommercialType.EVENT.getValue())) {
-            EventDetailActivity.start(context, data.getNo());
-        } else if (data.getType().equals(CommercialType.PRODUCT.getValue())) {
-            ProductDetailActivity.start(context, data.getNo());
+        switch (CommercialType.toType(data.getType())) {
+            case PROMOTION:
+                PromotionDetailActivity.start(context, data.getNo());
+                break;
+            case EVENT:
+                EventDetailActivity.start(context, data.getNo());
+                break;
+            case PRODUCT:
+                ProductDetailActivity.start(context, data.getNo());
+                break;
         }
     }
 }

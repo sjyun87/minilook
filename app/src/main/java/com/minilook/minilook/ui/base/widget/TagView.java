@@ -1,19 +1,12 @@
 package com.minilook.minilook.ui.base.widget;
 
 import android.content.Context;
-import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import butterknife.BindColor;
-import butterknife.BindDrawable;
-import butterknife.BindFont;
-import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.common.CodeDataModel;
 import lombok.Builder;
 
 public class TagView extends FrameLayout {

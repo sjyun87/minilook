@@ -6,7 +6,7 @@ import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
 import java.util.HashMap;
 import java.util.Map;
-import timber.log.Timber;
+import okhttp3.RequestBody;
 
 public class QuestionRequest extends BaseRequest<QuestionService> {
 
@@ -15,27 +15,26 @@ public class QuestionRequest extends BaseRequest<QuestionService> {
     }
 
     public Single<BaseDataModel> getQuestions(int productNo, int rows, int lastQuestionNo) {
-        return getApi().getQuestions(productNo, createRequestBody(parseToHistoryJson(rows, lastQuestionNo)));
+        return getApi().getQuestions(productNo, createGetQuestionsData(rows, lastQuestionNo));
     }
 
-    private Map<String, Object> parseToHistoryJson(int rows, int lastQuestionNo) {
+    private RequestBody createGetQuestionsData(int rows, int lastQuestionNo) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("pageSize", rows);
         if (lastQuestionNo != 0) jsonMap.put("lastInquiryNo", lastQuestionNo);
-        return jsonMap;
+        return createRequestBody(jsonMap);
     }
 
     public Single<BaseDataModel> writeQuestion(int productNo, String contents, String type, boolean isSecret) {
-        return getApi().writeQuestion(productNo, createRequestBody(parseToWriteJson(contents, type, isSecret)));
+        return getApi().writeQuestion(productNo, createWriteQuestionData(contents, type, isSecret));
     }
 
-    private Map<String, Object> parseToWriteJson(String contents, String type, boolean isSecret) {
+    private RequestBody createWriteQuestionData(String contents, String type, boolean isSecret) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("content", contents);
         jsonMap.put("type", type);
         jsonMap.put("secret", isSecret);
-        Timber.e(jsonMap.toString());
-        return jsonMap;
+        return createRequestBody(jsonMap);
     }
 }

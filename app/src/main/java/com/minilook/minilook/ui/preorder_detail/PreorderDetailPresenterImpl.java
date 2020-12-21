@@ -1,6 +1,5 @@
 package com.minilook.minilook.ui.preorder_detail;
 
-import android.net.Uri;
 import com.google.gson.Gson;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.code.PreorderType;
@@ -19,8 +18,8 @@ import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.preorder_detail.di.PreorderDetailArguments;
 import com.minilook.minilook.ui.preorder_detail.viewholder.PreorderDetailProductVH;
-import com.minilook.minilook.util.DynamicLinkManager;
-import com.minilook.minilook.util.TrackingManager;
+import com.minilook.minilook.util.DynamicLinkUtil;
+import com.minilook.minilook.util.TrackingUtil;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,9 +34,9 @@ public class PreorderDetailPresenterImpl extends BasePresenterImpl implements Pr
     private final int preorderNo;
     private final BaseAdapterDataModel<String> imageAdapter;
     private final BaseAdapterDataModel<ProductDataModel> productAdapter;
-    private final DynamicLinkManager dynamicLinkManager;
 
     private final PreorderRequest preorderRequest;
+    private DynamicLinkUtil dynamicLinkUtil;
 
     private Gson gson = new Gson();
     private PreorderDataModel data;
@@ -47,8 +46,8 @@ public class PreorderDetailPresenterImpl extends BasePresenterImpl implements Pr
         preorderNo = args.getPreorderNo();
         imageAdapter = args.getImageAdapter();
         productAdapter = args.getProductAdapter();
-        dynamicLinkManager = args.getDynamicLinkManager();
         preorderRequest = new PreorderRequest();
+        dynamicLinkUtil = new DynamicLinkUtil();
     }
 
     @Override public void onCreate() {
@@ -61,7 +60,7 @@ public class PreorderDetailPresenterImpl extends BasePresenterImpl implements Pr
     }
 
     @Override public void onResume() {
-        TrackingManager.pageTracking("프리오더 상세페이지", PreorderDetailActivity.class.getSimpleName());
+        TrackingUtil.pageTracking("프리오더 상세페이지", PreorderDetailActivity.class.getSimpleName());
     }
 
     @Override public void onTabClick(int position) {
@@ -93,16 +92,16 @@ public class PreorderDetailPresenterImpl extends BasePresenterImpl implements Pr
     }
 
     @Override public void onShareClick() {
-        String title = data.getTitle() + " (" + parseToDate(data.getStartDate()) + "~" + parseToDate(data.getEndDate()) + ")";
-        dynamicLinkManager.createShareLink(DynamicLinkManager.TYPE_PREORDER, preorderNo, title,
-            data.getImages().get(0),
-            new DynamicLinkManager.OnCompletedListener() {
-                @Override public void onSuccess(Uri uri) {
-                    view.sendLink(uri.toString());
+        String title =
+            data.getTitle() + " (" + parseToDate(data.getStartDate()) + "~" + parseToDate(data.getEndDate()) + ")";
+        dynamicLinkUtil.createLink(DynamicLinkUtil.TYPE_PREORDER, preorderNo, title, data.getImages().get(0),
+            new DynamicLinkUtil.OnDynamicLinkListener() {
+                @Override public void onSuccess(String link) {
+                    view.sendDynamicLink(link);
                 }
 
-                @Override public void onFail() {
-                    view.showErrorMessage();
+                @Override public void onError() {
+                    view.showErrorDialog();
                 }
             });
     }

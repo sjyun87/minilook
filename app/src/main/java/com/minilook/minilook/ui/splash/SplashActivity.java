@@ -5,8 +5,8 @@ import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
-import com.airbnb.lottie.LottieAnimationView;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.minilook.minilook.databinding.ActivitySplashBinding;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
@@ -16,13 +16,11 @@ import com.minilook.minilook.ui.splash.di.SplashArguments;
 
 public class SplashActivity extends BaseActivity implements SplashPresenter.View {
 
-    private LottieAnimationView lottieView;
-
+    private ActivitySplashBinding binding;
     private SplashPresenter presenter;
 
     @Override protected View getBindingView() {
-        ActivitySplashBinding binding = ActivitySplashBinding.inflate(getLayoutInflater());
-        lottieView = binding.imgLogoSymbol;
+        binding = ActivitySplashBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
 
@@ -34,35 +32,42 @@ public class SplashActivity extends BaseActivity implements SplashPresenter.View
     private SplashArguments provideArguments() {
         return SplashArguments.builder()
             .view(this)
+            .intent(getIntent())
             .build();
     }
 
     @Override public void setupLottieView() {
-        lottieView.addAnimatorListener(new AnimatorListenerAdapter() {
+        binding.lottieLogo.addAnimatorListener(new AnimatorListenerAdapter() {
             @Override public void onAnimationEnd(Animator animation) {
                 presenter.onAnimationEnd();
-                lottieView.removeAllAnimatorListeners();
+                binding.lottieLogo.removeAnimatorListener(this);
             }
         });
     }
 
-    @Override public void checkDynamicLink() {
+    @Override public void setupDynamicLink() {
         FirebaseDynamicLinks.getInstance()
             .getDynamicLink(getIntent())
-            .addOnCompleteListener(this, presenter::onDynamicLinkCheckComplete);
+            .addOnCompleteListener(this, presenter::onDynamicLink);
+    }
+
+    @Override public void setupPushToken() {
+        FirebaseMessaging.getInstance()
+            .getToken()
+            .addOnCompleteListener(presenter::onPushToken);
     }
 
     @Override public void showUpdateDialog() {
-        DialogManager.showUpdateDialog(this, presenter::onUpdateDialogOkClick, presenter::onUpdateDialogCancelClick);
+        DialogManager.showUpdateDialog(this, presenter::onUpdateDialogOkClick);
     }
 
     @Override public void showErrorDialog() {
-        DialogManager.showErrorDialog(this, presenter::onErrorDialogOkClick);
+        DialogManager.showErrorDialog(this);
     }
 
     @Override public void navigateToPlayStore() {
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse("market://details?id=" + getPackageName()));
+        intent.setData(Uri.parse(String.format("market://details?id=%s", getPackageName())));
         startActivity(intent);
         finish();
     }

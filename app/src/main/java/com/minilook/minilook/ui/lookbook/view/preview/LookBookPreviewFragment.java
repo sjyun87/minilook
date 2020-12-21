@@ -1,11 +1,15 @@
 package com.minilook.minilook.ui.lookbook.view.preview;
 
+import android.view.View;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
-import butterknife.BindView;
-import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.lookbook.LookBookModuleDataModel;
+import com.minilook.minilook.data.model.product.ProductDataModel;
+import com.minilook.minilook.databinding.FragmentLookbookPreviewBinding;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseFragment;
+import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
+import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.lookbook.view.preview.adapter.LookBookModuleAdapter;
 import com.minilook.minilook.ui.lookbook.view.preview.di.LookBookPreviewArguments;
 
@@ -15,19 +19,22 @@ public class LookBookPreviewFragment extends BaseFragment implements LookBookPre
         return new LookBookPreviewFragment();
     }
 
-    @BindView(R.id.viewpager) ViewPager2 viewPager;
-
+    private FragmentLookbookPreviewBinding binding;
     private LookBookPreviewPresenter presenter;
-    private LookBookModuleAdapter adapter = new LookBookModuleAdapter();
-    private BaseAdapterDataView<LookBookModuleDataModel> adapterView = adapter;
 
-    @Override protected int getLayoutID() {
-        return R.layout.fragment_lookbook_preview;
+    private final LookBookModuleAdapter adapter = new LookBookModuleAdapter();
+    private final BaseAdapterDataView<LookBookModuleDataModel> adapterView = adapter;
+
+    private EndlessOnScrollListener scrollListener;
+
+    @Override protected View getBindingView() {
+        binding = FragmentLookbookPreviewBinding.inflate(getLayoutInflater());
+        return binding.getRoot();
     }
 
     @Override protected void createPresenter() {
         presenter = new LookBookPreviewPresenterImpl(provideArguments());
-        getLifecycle().addObserver(presenter);
+        getViewLifecycleOwner().getLifecycle().addObserver(presenter);
     }
 
     private LookBookPreviewArguments provideArguments() {
@@ -37,15 +44,24 @@ public class LookBookPreviewFragment extends BaseFragment implements LookBookPre
             .build();
     }
 
-    @Override public void onDestroyView() {
-        viewPager.unregisterOnPageChangeCallback(OnPageChangeCallback);
-        super.onDestroyView();
+    @Override public void onProductScrap(ProductDataModel data) {
+        presenter.onProductScrap(data);
     }
 
     @Override public void setupViewPager() {
-        viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(2);
-        viewPager.registerOnPageChangeCallback(OnPageChangeCallback);
+        binding.viewpager.setAdapter(adapter);
+        binding.viewpager.setOffscreenPageLimit(2);
+        binding.viewpager.registerOnPageChangeCallback(OnPageChangeCallback);
+        scrollListener = EndlessOnScrollListener.builder()
+            .layoutManager(getRecyclerView().getLayoutManager())
+            .onLoadMoreListener(presenter::onLoadMore)
+            .visibleThreshold(5)
+            .build();
+        getRecyclerView().addOnScrollListener(scrollListener);
+    }
+
+    private RecyclerView getRecyclerView() {
+        return (RecyclerView) binding.viewpager.getChildAt(0);
     }
 
     @Override public void refresh() {
@@ -56,11 +72,21 @@ public class LookBookPreviewFragment extends BaseFragment implements LookBookPre
         adapterView.refresh(start, rows);
     }
 
-    @Override public void scrollToNextPage() {
-        viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+    @Override public void scrollToNextModule() {
+        binding.viewpager.setCurrentItem(binding.viewpager.getCurrentItem() + 1);
     }
 
-    private ViewPager2.OnPageChangeCallback OnPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
+    @Override public void showErrorDialog() {
+        DialogManager.showErrorDialog(getActivity());
+    }
+
+    @Override public void clear() {
+        binding.viewpager.unregisterOnPageChangeCallback(OnPageChangeCallback);
+        getRecyclerView().removeOnScrollListener(scrollListener);
+        binding.viewpager.setAdapter(null);
+    }
+
+    private final ViewPager2.OnPageChangeCallback OnPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
         @Override public void onPageSelected(int position) {
             presenter.onPageSelected(position);
         }

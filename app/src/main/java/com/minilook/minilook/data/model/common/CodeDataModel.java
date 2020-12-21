@@ -13,6 +13,9 @@ import lombok.Data;
     private String iconUrl;
 
     // -- Optional Data
-    private int position;
     private boolean isSelected;
+
+
+
+    private int position;
 }

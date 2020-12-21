@@ -13,23 +13,23 @@ public interface SplashPresenter extends LifecycleObserver {
 
     void onAnimationEnd();
 
+    void onDynamicLink(Task<PendingDynamicLinkData> task);
+
+    void onPushToken(Task<String> task);
+
     void onUpdateDialogOkClick();
-
-    void onUpdateDialogCancelClick();
-
-    void onErrorDialogOkClick();
-
-    void onDynamicLinkCheckComplete(Task<PendingDynamicLinkData> task);
 
     interface View {
 
         void setupLottieView();
 
+        void setupDynamicLink();
+
+        void setupPushToken();
+
         void showUpdateDialog();
 
         void showErrorDialog();
-
-        void checkDynamicLink();
 
         void navigateToPlayStore();
 

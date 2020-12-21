@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor @Getter public enum VersionStatus {
-    FORCE(-1),
-    OPTIONAL(0),
-    NEWEST(1);
+    FORCE(-1),      // 강제 업데이트
+    OPTIONAL(0),    // 선택 업데이트
+    NEWEST(1);      // 최신버전
 
-    private int value;
+    private final int value;
 }

@@ -33,4 +33,5 @@ import lombok.Data;
     // Control Data
     private boolean isSelected = true;              // 선택여부
     private int brandNo;                            // 브랜드 아이디
+    private boolean isBonus;
 }

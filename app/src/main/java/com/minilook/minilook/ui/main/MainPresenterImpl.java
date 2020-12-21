@@ -7,12 +7,15 @@ import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.network.member.MemberRequest;
 import com.minilook.minilook.data.network.scrap.ScrapRequest;
 import com.minilook.minilook.data.rx.RxBus;
+import com.minilook.minilook.data.rx.RxBusEvent;
+import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.lookbook.LookBookPresenterImpl;
 import com.minilook.minilook.ui.lookbook.view.detail.LookBookDetailPresenterImpl;
 import com.minilook.minilook.ui.main.di.MainArguments;
-import com.minilook.minilook.util.DynamicLinkManager;
+import com.minilook.minilook.util.DynamicLinkUtil;
 import com.pixplicity.easyprefs.library.Prefs;
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import timber.log.Timber;
@@ -22,6 +25,8 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
     private final View view;
     private final MemberRequest memberRequest;
     private final ScrapRequest scrapRequest;
+
+    private int step = 0;
 
     public MainPresenterImpl(MainArguments args) {
         view = args.getView();
@@ -34,113 +39,148 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
         view.setupViewPager();
         view.setupBottomBar();
 
-        checkMarketingInfoDialog();
+        checkAction(step);
     }
 
-    @Override public void onTabChanged(int position) {
-        if (position != 0) {
-            RxBus.send(new LookBookPresenterImpl.RxEventScrollToPreview(false));
-            RxBus.send(new LookBookDetailPresenterImpl.RxEventLookBookDetailScrollToTop());
-        }
-        view.setupCurrentPage(position);
-    }
-
-    @Override public void onProductScrap(boolean isScrap, ProductDataModel product) {
-        reqProductScrap(isScrap, product);
-    }
-
-    @Override public void onBrandScrap(boolean isScrap, BrandDataModel brand) {
-        reqBrandScrap(isScrap, brand);
+    @Override public void onDestroy() {
+        view.clear();
     }
 
     @Override public void onMarketingAgree() {
-        reqUpdateMarketingInfo();
+        updateMarketingAgree(true);
     }
 
-    @Override public void onMarketingDismiss() {
-        checkCoachMark();
+    @Override public void onMarketingDisagree() {
+        updateMarketingAgree(false);
     }
 
     @Override public void onCoachMarkEnd() {
-        checkDynamicLink();
+        Prefs.putBoolean(PrefsKey.KEY_LOOKBOOK_COACH_VISIBLE, true);
+        checkAction(++step);
     }
 
-    private void checkMarketingInfoDialog() {
-        boolean isVisible = Prefs.getBoolean(PrefsKey.KEY_MARKETING_DIALOG_VISIBLE, false);
-        Prefs.putBoolean(PrefsKey.KEY_MARKETING_DIALOG_VISIBLE, true);
-        if (!App.getInstance().isLogin() && !isVisible) {
-            view.showMarketingDialog();
+    @Override public void onBottomBarClick(int position) {
+        if (position != 0) {
+            RxBus.send(new LookBookPresenterImpl.RxEventScrollToPreview(false));
+            RxBus.send(new LookBookDetailPresenterImpl.RxEventLookBookDetailScrollToTop());
         } else {
             checkCoachMark();
+        }
+        view.setCurrentPage(position);
+    }
+
+    private void checkAction(int step) {
+        switch (step) {
+            case 0:
+                checkMarketingDialog();
+                break;
+            case 1:
+                checkDeepLink();
+                break;
+        }
+    }
+
+    private void checkMarketingDialog() {
+        if (!Prefs.getBoolean(PrefsKey.KEY_MARKETING_DIALOG_VISIBLE, false)) {
+            view.showMarketingDialog();
+            Prefs.putBoolean(PrefsKey.KEY_MARKETING_DIALOG_VISIBLE, true);
+        } else {
+            checkAction(++step);
         }
     }
 
     private void checkCoachMark() {
-        boolean isVisible = Prefs.getBoolean(PrefsKey.KEY_LOOKBOOK_COACH_VISIBLE, false);
-        if (!isVisible) {
+        if (!Prefs.getBoolean(PrefsKey.KEY_LOOKBOOK_COACH_VISIBLE, false)) {
             view.showLookBookCoachMark();
-        } else {
-            checkDynamicLink();
         }
     }
 
-    private void checkDynamicLink() {
-        if (App.getInstance().isDynamicLink()) {
-            String type = App.getInstance().getDynamicLinkType();
-            int itemNo = App.getInstance().getDynamicLinkItemNo();
+    private void checkDeepLink() {
+        if (App.getInstance().isDeepLink()) {
+            Map<String, String> dynamicData = App.getInstance().getDeepLinkData();
+            String type = dynamicData.get("type");
+            int itemNo = Integer.parseInt(dynamicData.get("id"));
 
             switch (type) {
-                case DynamicLinkManager.TYPE_PROMOTION:
+                case DynamicLinkUtil.TYPE_PROMOTION:
                     view.navigateToPromotionDetail(itemNo);
                     break;
-                case DynamicLinkManager.TYPE_EVENT:
+                case DynamicLinkUtil.TYPE_EVENT:
                     view.navigateToEventDetail(itemNo);
                     break;
-                case DynamicLinkManager.TYPE_PRODUCT:
+                case DynamicLinkUtil.TYPE_PRODUCT:
                     view.navigateToProductDetail(itemNo);
                     break;
-                case DynamicLinkManager.TYPE_BRAND:
+                case DynamicLinkUtil.TYPE_BRAND:
                     view.navigateToBrandDetail(itemNo);
                     break;
-                case DynamicLinkManager.TYPE_PREORDER:
+                case DynamicLinkUtil.TYPE_PREORDER:
                     view.navigateToPreorderDetail(itemNo);
                     break;
             }
         }
     }
 
-    private void reqUpdateMarketingInfo() {
-        addDisposable(memberRequest.updateMarketingInfo(true)
-            .subscribe());
+    private void updateMarketingAgree(boolean enable) {
+        addDisposable(memberRequest.updateMarketingInfo(enable)
+            .compose(Transformer.applySchedulers())
+            .subscribe(model -> onResUpdateMarketingAgree(enable), Timber::e));
     }
 
-    private void reqProductScrap(boolean isScrap, ProductDataModel product) {
-        addDisposable(scrapRequest.updateProductScrap(isScrap, product.getProductNo())
-            .subscribe());
+    private void onResUpdateMarketingAgree(boolean enable) {
+        view.updateMarketingAgreeToast(enable);
+        checkAction(++step);
     }
 
-    private void reqBrandScrap(boolean isScrap, BrandDataModel brand) {
-        addDisposable(scrapRequest.updateBrandScrap(isScrap, brand.getBrandNo())
-            .subscribe());
+    private void updateProductScrap(ProductDataModel data) {
+        addDisposable(scrapRequest.updateProductScrap(data.isScrap(), data.getProductNo())
+            .subscribe(model -> onResUpdateProductScrap(data), Timber::e));
+    }
+
+    private void onResUpdateProductScrap(ProductDataModel data) {
+        RxBus.send(new RxBusEvent.RxBusEventProductScrap(data));
+    }
+
+    private void updateBrandScrap(BrandDataModel data) {
+        addDisposable(scrapRequest.updateBrandScrap(data.isScrap(), data.getBrandNo())
+            .subscribe(model -> onResUpdateBrandScrap(data), Timber::e));
+    }
+
+    private void onResUpdateBrandScrap(BrandDataModel data) {
+        RxBus.send(new RxBusEvent.RxBusEventBrandScrap(data));
     }
 
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
-            if (o instanceof RxEventLookBookPrePageChanged) {
-                int position = ((RxEventLookBookPrePageChanged) o).getPosition();
-                view.setupBottomBarTheme(position != 0);
+            if (o instanceof RxEventChangeBottomBarTheme) {
+                boolean flag = ((RxEventChangeBottomBarTheme) o).isFlag();
+                view.setBottomBarTheme(flag);
             } else if (o instanceof RxEventNavigateToPage) {
                 int position = ((RxEventNavigateToPage) o).getPosition();
-                view.setupCurrentPage(position);
+                view.setCurrentPage(position);
+            } else if (o instanceof RxBusEventUpdateProductScrap) {
+                ProductDataModel data = ((RxBusEventUpdateProductScrap) o).getData();
+                updateProductScrap(data);
+            } else if (o instanceof RxBusEventUpdateBrandScrap) {
+                BrandDataModel data = ((RxBusEventUpdateBrandScrap) o).getData();
+                updateBrandScrap(data);
             }
         }, Timber::e));
     }
 
-    @AllArgsConstructor @Getter public final static class RxEventLookBookPrePageChanged {
-        private int position;
+    @AllArgsConstructor @Getter public final static class RxEventChangeBottomBarTheme {
+        private final boolean flag;
     }
 
     @AllArgsConstructor @Getter public final static class RxEventNavigateToPage {
-        private int position;
+        private final int position;
+    }
+
+    @AllArgsConstructor @Getter public final static class RxBusEventUpdateProductScrap {
+        private final ProductDataModel data;
+    }
+
+    @AllArgsConstructor @Getter public final static class RxBusEventUpdateBrandScrap {
+        private final BrandDataModel data;
     }
 }

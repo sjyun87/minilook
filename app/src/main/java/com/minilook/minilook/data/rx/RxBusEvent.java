@@ -14,12 +14,10 @@ public final class RxBusEvent {
     }
 
     @AllArgsConstructor @Getter public final static class RxBusEventProductScrap {
-        boolean isScrap;
-        ProductDataModel product;
+        private final ProductDataModel data;
     }
 
     @AllArgsConstructor @Getter public final static class RxBusEventBrandScrap {
-        boolean isScrap;
-        BrandDataModel brand;
+        private final BrandDataModel data;
     }
 }

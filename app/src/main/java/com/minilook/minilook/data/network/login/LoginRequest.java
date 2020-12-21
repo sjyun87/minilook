@@ -7,7 +7,7 @@ import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
 import java.util.HashMap;
 import java.util.Map;
-import timber.log.Timber;
+import okhttp3.RequestBody;
 
 public class LoginRequest extends BaseRequest<LoginService> {
 
@@ -16,33 +16,33 @@ public class LoginRequest extends BaseRequest<LoginService> {
     }
 
     public Single<BaseDataModel> login(MemberDataModel model) {
-        return getApi().login(createRequestBody(parseToLoginJson(model)));
+        return getApi().login(createLoginData(model));
     }
 
-    private Map<String, Object> parseToLoginJson(MemberDataModel model) {
+    private RequestBody createLoginData(MemberDataModel model) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("snsAccount", model.getSnsId());
         jsonMap.put("snsTypeCode", model.getType());
         jsonMap.put("pushToken", App.getInstance().getPushToken());
-        return jsonMap;
+        return createRequestBody(jsonMap);
     }
 
     public Single<BaseDataModel> logout() {
-        int user_id = App.getInstance().getMemberNo();
-        return getApi().logout(user_id, createRequestBody(parseToLogoutJson()));
+        int memberNo = App.getInstance().getMemberNo();
+        return getApi().logout(memberNo, createLogoutData());
     }
 
-    private Map<String, Object> parseToLogoutJson() {
+    private RequestBody createLogoutData() {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("pushToken", App.getInstance().getPushToken());
-        return jsonMap;
+        return createRequestBody(jsonMap);
     }
 
     public Single<BaseDataModel> join(MemberDataModel model) {
-        return getApi().join(createRequestBody(parseToJoinJson(model)));
+        return getApi().join(parseToJoinJson(model));
     }
 
-    private Map<String, Object> parseToJoinJson(MemberDataModel model) {
+    private RequestBody parseToJoinJson(MemberDataModel model) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("snsAccount", model.getSnsId());
         jsonMap.put("snsTypeCode", model.getType());
@@ -53,16 +53,16 @@ public class LoginRequest extends BaseRequest<LoginService> {
         jsonMap.put("ci", model.getCi());
         jsonMap.put("pushToken", App.getInstance().getPushToken());
         jsonMap.put("isAgreeCommercial", model.isCommercialInfo());
-        return jsonMap;
+        return createRequestBody(jsonMap);
     }
 
     public Single<BaseDataModel> leave() {
-        int user_id = App.getInstance().getMemberNo();
-        return getApi().leave(user_id);
+        int memberNo = App.getInstance().getMemberNo();
+        return getApi().leave(memberNo);
     }
 
     public Single<BaseDataModel> getPointNCoupon() {
-        int user_id = App.getInstance().getMemberNo();
-        return getApi().getPointNCoupon(user_id);
+        int memberNo = App.getInstance().getMemberNo();
+        return getApi().getPointNCoupon(memberNo);
     }
 }

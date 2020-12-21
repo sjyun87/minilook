@@ -34,8 +34,8 @@ public class PreorderProductDetailActivity extends _BaseActivity implements Preo
 
     public static void start(Context context, String title, int preorderNo, int productNo) {
         Intent intent = new Intent(context, PreorderProductDetailActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("title", title);
         intent.putExtra("preorderNo", preorderNo);
         intent.putExtra("productNo", productNo);

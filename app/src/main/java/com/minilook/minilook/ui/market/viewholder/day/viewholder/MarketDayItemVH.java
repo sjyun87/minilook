@@ -1,42 +1,32 @@
 package com.minilook.minilook.ui.market.viewholder.day.viewholder;
 
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
-import butterknife.BindDrawable;
-import butterknife.BindString;
-import butterknife.BindView;
+import androidx.annotation.StringRes;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductDataModel;
+import com.minilook.minilook.databinding.ViewMarketDayItemBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.StringUtil;
 
 public class MarketDayItemVH extends BaseViewHolder<ProductDataModel> {
 
-    @BindView(R.id.img_thumb) ImageView thumbImageView;
-    @BindView(R.id.txt_brand_name) TextView brandNameTextView;
-    @BindView(R.id.txt_product_name) TextView productNameTextView;
-    @BindView(R.id.layout_discount_panel) LinearLayout discountPanel;
-    @BindView(R.id.txt_discount_percent) TextView discountPercentTextView;
-    @BindView(R.id.txt_price_origin) TextView priceOriginTextView;
-    @BindView(R.id.txt_price) TextView priceTextView;
+    @StringRes int str_format_percent = R.string.base_price_percent;
 
-    @BindString(R.string.base_price_percent) String format_percent;
+    @DrawableRes int vh_square = R.drawable.ph_square;
 
-    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    private final ViewMarketDayItemBinding binding;
 
-    public MarketDayItemVH(@NonNull View itemView) {
-        super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_market_day_item, (ViewGroup) itemView, false));
+    public MarketDayItemVH(@NonNull View parent) {
+        super(ViewMarketDayItemBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent, false));
+        binding = ViewMarketDayItemBinding.bind(itemView);
     }
 
     @Override public void bind(ProductDataModel $data) {
@@ -44,23 +34,24 @@ public class MarketDayItemVH extends BaseViewHolder<ProductDataModel> {
 
         Glide.with(context)
             .load(data.getImageUrl())
-            .placeholder(img_placeholder)
-            .error(img_placeholder)
+            .placeholder(vh_square)
+            .error(vh_square)
             .transition(new DrawableTransitionOptions().crossFade())
-            .into(thumbImageView);
+            .into(binding.imgThumb);
 
-        brandNameTextView.setText(data.getBrandName());
-        productNameTextView.setText(data.getProductName());
+        binding.txtBrandName.setText(data.getBrandName());
+        binding.txtProductName.setText(data.getProductName());
 
         if (data.isDiscount()) {
-            discountPercentTextView.setText(String.format(format_percent, data.getDiscountPercent()));
-            priceOriginTextView.setPaintFlags(priceOriginTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            priceOriginTextView.setText(StringUtil.toDigit(data.getPriceOrigin()));
-            discountPanel.setVisibility(View.VISIBLE);
+            binding.txtDiscountPercent.setText(
+                String.format(resources.getString(str_format_percent), data.getDiscountPercent()));
+            binding.txtPriceOrigin.setPaintFlags(binding.txtPriceOrigin.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            binding.txtPriceOrigin.setText(StringUtil.toDigit(data.getPriceOrigin()));
+            binding.layoutDiscountPanel.setVisibility(View.VISIBLE);
         } else {
-            discountPanel.setVisibility(View.GONE);
+            binding.layoutDiscountPanel.setVisibility(View.GONE);
         }
-        priceTextView.setText(StringUtil.toDigit(data.getPrice()));
+        binding.txtPrice.setText(StringUtil.toDigit(data.getPrice()));
 
         itemView.setOnClickListener(this::onItemClick);
     }

@@ -4,7 +4,8 @@ import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 
 public final class RxBus {
-    private static PublishSubject<Object> bus = PublishSubject.create();
+
+    private static final PublishSubject<Object> bus = PublishSubject.create();
 
     public static void send(Object o) {
         bus.onNext(o);

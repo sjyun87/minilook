@@ -10,11 +10,11 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.util.StringUtil;
 import lombok.Setter;
 
-public class ProductOptionSelectorOptionVH extends BaseViewHolder<ShoppingOptionDataModel> {
+public class ProductOptionSelectorOptionVH extends _BaseViewHolder<ShoppingOptionDataModel> {
 
     @BindView(R.id.txt_title) TextView titleTextView;
     @BindView(R.id.txt_count) TextView countTextView;

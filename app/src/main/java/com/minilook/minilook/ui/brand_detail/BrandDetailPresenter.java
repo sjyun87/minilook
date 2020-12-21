@@ -3,7 +3,9 @@ package com.minilook.minilook.ui.brand_detail;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
+import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.common.CodeDataModel;
+import com.minilook.minilook.data.model.product.ProductDataModel;
 
 public interface BrandDetailPresenter extends LifecycleObserver {
 
@@ -12,6 +14,13 @@ public interface BrandDetailPresenter extends LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     void onResume();
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    void onDestroy();
+
+    void onBrandScrap(BrandDataModel data);
+
+    void onProductScrap(ProductDataModel data);
 
     void onScrapClick();
 
@@ -27,21 +36,21 @@ public interface BrandDetailPresenter extends LifecycleObserver {
 
     interface View {
 
+        void setupClickAction();
+
         void setupScrollView();
 
         void setupStyleRecyclerView();
 
         void styleRefresh();
 
-        void setupSortRecyclerView();
+        void setupSortSelector();
 
-        void sortRefresh();
+        void showSortSelector();
+
+        void hideSortSelector();
 
         void setupSortText(String name);
-
-        void showSortPanel();
-
-        void hideSortPanel();
 
         void setupProductRecyclerView();
 
@@ -49,17 +58,17 @@ public interface BrandDetailPresenter extends LifecycleObserver {
 
         void productRefresh(int start, int row);
 
-        void setupThumb(String url);
+        void setThumb(String url);
 
-        void setupLogo(String url);
+        void setLogo(String url);
 
-        void setupScrapCount(int count);
+        void setScrapCount(int count);
 
-        void setupName(String name);
+        void setName(String name);
 
-        void setupTag(String tag);
+        void setTag(String tag);
 
-        void setupDesc(String desc);
+        void setDesc(String desc);
 
         void scrapOn();
 
@@ -67,12 +76,14 @@ public interface BrandDetailPresenter extends LifecycleObserver {
 
         void scrollToTop();
 
+        void showErrorDialog();
+
         void navigateToBrandInfo(int brandNo);
 
         void navigateToLogin();
 
-        void sendLink(String shareLink);
+        void sendDynamicLink(String link);
 
-        void showErrorMessage();
+        void clear();
     }
 }

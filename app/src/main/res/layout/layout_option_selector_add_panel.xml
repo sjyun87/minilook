@@ -122,7 +122,7 @@
                     android:id="@+id/img_product_thumb"
                     android:layout_width="@dimen/dp_30"
                     android:layout_height="@dimen/dp_30"
-                    android:src="@drawable/placeholder_image"
+                    android:src="@drawable/ph_square"
                     tools:ignore="ContentDescription" />
 
                 <FrameLayout

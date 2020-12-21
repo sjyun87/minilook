@@ -14,11 +14,11 @@ import butterknife.BindString;
 import butterknife.BindView;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.order.adapter.OrderProductAdapter;
 import com.minilook.minilook.util.StringUtil;
 
-public class OrderItemVH extends BaseViewHolder<ShoppingBrandDataModel> {
+public class OrderItemVH extends _BaseViewHolder<ShoppingBrandDataModel> {
 
     @BindView(R.id.txt_brand_name) TextView nameTextView;
     @BindView(R.id.rcv_product) RecyclerView recyclerView;

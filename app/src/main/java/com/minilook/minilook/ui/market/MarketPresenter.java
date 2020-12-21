@@ -3,15 +3,20 @@ package com.minilook.minilook.ui.market;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
-import com.minilook.minilook.data.model.search.SearchOptionDataModel;
 
 public interface MarketPresenter extends LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    void onCreate();
+    void onCreateView();
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     void onResume();
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    void onPause();
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    void onDestroyView();
 
     void onRefresh();
 
@@ -19,14 +24,18 @@ public interface MarketPresenter extends LifecycleObserver {
 
         void setupRefreshLayout();
 
-        void setRefreshing();
+        void setRefreshing(boolean flag);
 
         void setupRecyclerView();
 
         void refresh();
 
-        void navigateToProductBridge(SearchOptionDataModel model);
+        void attachedToWindow();
 
-        void navigateToPromotionDetail(int promotionNo);
+        void detachToWindow();
+
+        void showErrorDialog();
+
+        void clear();
     }
 }

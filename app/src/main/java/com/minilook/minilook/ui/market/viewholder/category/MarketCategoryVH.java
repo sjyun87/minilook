@@ -3,18 +3,18 @@ package com.minilook.minilook.ui.market.viewholder.category;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.annotation.DimenRes;
 import androidx.annotation.NonNull;
-import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindDimen;
-import butterknife.BindView;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.minilook.minilook.App;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.market.MarketDataModel;
+import com.minilook.minilook.databinding.ViewMarketCategoryBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.market.viewholder.category.adapter.MarketCategoryAdapter;
 import java.util.ArrayList;
@@ -22,29 +22,31 @@ import java.util.List;
 
 public class MarketCategoryVH extends BaseViewHolder<MarketDataModel> {
 
-    @BindView(R.id.rcv_category) RecyclerView recyclerView;
+    @DimenRes int dp_5 = R.dimen.dp_5;
 
-    @BindDimen(R.dimen.dp_5) int dp_5;
+    private final ViewMarketCategoryBinding binding;
+    private final Gson gson;
 
     private MarketCategoryAdapter adapter;
-    private Gson gson = new Gson();
 
-    public MarketCategoryVH(@NonNull View itemView) {
-        super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_market_category, (ViewGroup) itemView, false));
+    public MarketCategoryVH(@NonNull View parent) {
+        super(ViewMarketCategoryBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent, false));
+        binding = ViewMarketCategoryBinding.bind(itemView);
+        gson = App.getInstance().getGson();
+
         setupRecyclerView();
     }
 
     private void setupRecyclerView() {
+        binding.rcvCategory.setHasFixedSize(true);
+        binding.rcvCategory.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
         adapter = new MarketCategoryAdapter();
-        recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
-        recyclerView.setAdapter(adapter);
+        binding.rcvCategory.setAdapter(adapter);
         DividerDecoration.builder(context)
-            .size(dp_5)
+            .size(resources.getDimen(dp_5))
             .asSpace()
             .build()
-            .addTo(recyclerView);
-        ViewCompat.setNestedScrollingEnabled(recyclerView, false);
+            .addTo(binding.rcvCategory);
     }
 
     @Override public void bind(MarketDataModel $data) {

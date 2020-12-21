@@ -23,8 +23,8 @@ public class SearchZipActivity extends _BaseActivity implements SearchZipPresent
 
     public static void start(Context context) {
         Intent intent = new Intent(context, SearchZipActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         context.startActivity(intent);
     }
 

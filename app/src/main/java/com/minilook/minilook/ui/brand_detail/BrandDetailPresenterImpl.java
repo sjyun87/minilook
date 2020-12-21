@@ -1,7 +1,5 @@
 package com.minilook.minilook.ui.brand_detail;
 
-import android.net.Uri;
-import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
@@ -11,103 +9,110 @@ import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.search.SearchDataModel;
 import com.minilook.minilook.data.model.search.SearchOptionDataModel;
 import com.minilook.minilook.data.network.brand.BrandRequest;
-import com.minilook.minilook.data.network.scrap.ScrapRequest;
 import com.minilook.minilook.data.network.search.SearchRequest;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.brand_detail.di.BrandDetailArguments;
-import com.minilook.minilook.util.DynamicLinkManager;
-import com.minilook.minilook.util.TrackingManager;
+import com.minilook.minilook.ui.main.MainPresenterImpl;
+import com.minilook.minilook.util.DynamicLinkUtil;
+import com.minilook.minilook.util.TrackingUtil;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import timber.log.Timber;
 
 public class BrandDetailPresenterImpl extends BasePresenterImpl implements BrandDetailPresenter {
 
+    private static final int ROWS = 30;
+
     private final View view;
     private final int brandNo;
     private final BaseAdapterDataModel<String> styleAdapter;
-    private final BaseAdapterDataModel<CodeDataModel> sortAdapter;
     private final BaseAdapterDataModel<ProductDataModel> productAdapter;
-    private DynamicLinkManager dynamicLinkManager;
     private final BrandRequest brandRequest;
     private final SearchRequest searchRequest;
-    private final ScrapRequest scrapRequest;
-
-    private static final int ROWS = 30;
+    private final DynamicLinkUtil dynamicLinkUtil;
+    private final Gson gson;
 
     private AtomicInteger page = new AtomicInteger(0);
-    private Gson gson = new Gson();
-    private BrandDataModel data;
-    private boolean isScrap;
-    private int scrapCount = 0;
-    private boolean isSortPanelVisible = false;
-    private String sortCode;
     private int totalPageSize;
+    private String selectSortCode;
+
+    private BrandDataModel data;
 
     public BrandDetailPresenterImpl(BrandDetailArguments args) {
         view = args.getView();
         brandNo = args.getBrandNo();
         styleAdapter = args.getStyleAdapter();
-        sortAdapter = args.getSortAdapter();
         productAdapter = args.getProductAdapter();
-        dynamicLinkManager = args.getDynamicLinkManager();
         brandRequest = new BrandRequest();
         searchRequest = new SearchRequest();
-        scrapRequest = new ScrapRequest();
+        dynamicLinkUtil = new DynamicLinkUtil();
+        gson = App.getInstance().getGson();
     }
 
     @Override public void onCreate() {
+        view.setupClickAction();
         view.setupScrollView();
         view.setupStyleRecyclerView();
-        view.setupSortRecyclerView();
+        view.setupSortSelector();
         view.setupProductRecyclerView();
 
-        setupSortData();
-        reqBrandDetail();
+        getBrandDetail();
+        initSortData();
     }
 
     @Override public void onResume() {
-        TrackingManager.pageTracking("브랜드 상세페이지", BrandDetailActivity.class.getSimpleName());
+        TrackingUtil.pageTracking("브랜드 상세페이지", BrandDetailActivity.class.getSimpleName());
+    }
+
+    @Override public void onDestroy() {
+        view.clear();
+    }
+
+    @Override public void onBrandScrap(BrandDataModel $data) {
+        replaceBrandScrapData($data);
+    }
+
+    @Override public void onProductScrap(ProductDataModel $data) {
+        replaceProductScrapData($data);
     }
 
     @Override public void onScrapClick() {
-        if (!App.getInstance().isLogin()) {
+        if (App.getInstance().isLogin()) {
+            data.setScrap(!data.isScrap());
+            if (data.isScrap()) {
+                data.setScrapCount(data.getScrapCount() + 1);
+            } else {
+                data.setScrapCount(data.getScrapCount() - 1);
+            }
+            setScrap();
+            RxBus.send(new MainPresenterImpl.RxBusEventUpdateBrandScrap(data));
+        } else {
             view.navigateToLogin();
-            return;
         }
-
-        isScrap = !isScrap;
-        scrapCount = isScrap ? ++scrapCount : --scrapCount;
-        setupScrap();
-        //RxBus.send(new RxBusEvent.RxBusEventBrandScrap(isScrap, ));
-        reqBrandScrap(isScrap);
     }
 
     @Override public void onSortClick() {
-        isSortPanelVisible = !isSortPanelVisible;
-        if (isSortPanelVisible) {
-            view.showSortPanel();
-        } else {
-            view.hideSortPanel();
-        }
+        view.showSortSelector();
     }
 
     @Override public void onSortSelected(CodeDataModel data) {
-        if (!sortCode.equals(data.getCode())) {
-            sortCode = data.getCode();
+        view.hideSortSelector();
+
+        if (!selectSortCode.equals(data.getCode())) {
+            selectSortCode = data.getCode();
             view.setupSortText(data.getName());
 
             productAdapter.clear();
             page = new AtomicInteger(0);
-            reqProducts();
+            getProducts();
         }
-        view.hideSortPanel();
-        isSortPanelVisible = false;
     }
 
     @Override public void onLoadMore() {
-        reqProducts();
+        if (totalPageSize > page.get()) getMoreProducts();
     }
 
     @Override public void onBrandInfoClick() {
@@ -115,93 +120,128 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     }
 
     @Override public void onShareClick() {
-        dynamicLinkManager.createShareLink(DynamicLinkManager.TYPE_BRAND, brandNo, data.getBrandName(),
-            data.getImageUrl(),
-            new DynamicLinkManager.OnCompletedListener() {
-                @Override public void onSuccess(Uri uri) {
-                    view.sendLink(uri.toString());
+        dynamicLinkUtil.createLink(DynamicLinkUtil.TYPE_BRAND, brandNo, data.getBrandName(), data.getImageUrl(),
+            new DynamicLinkUtil.OnDynamicLinkListener() {
+                @Override public void onSuccess(String link) {
+                    view.sendDynamicLink(link);
                 }
 
-                @Override public void onFail() {
-                    view.showErrorMessage();
+                @Override public void onError() {
+                    view.showErrorDialog();
                 }
             });
     }
 
-    private void reqBrandDetail() {
+    private void getBrandDetail() {
         addDisposable(
             brandRequest.getBrandDetail(brandNo)
                 .compose(Transformer.applySchedulers())
-                .filter(data -> data.getCode().equals(HttpCode.OK))
+                .filter(data -> {
+                    String code = data.getCode();
+                    if (!code.equals(HttpCode.OK)) {
+                        view.showErrorDialog();
+                    }
+                    return code.equals(HttpCode.OK);
+                })
                 .map(data -> gson.fromJson(data.getData(), BrandDataModel.class))
-                .subscribe(this::resBrandDetail, Timber::e)
+                .subscribe(this::onResBrandDetail, Timber::e)
         );
     }
 
-    private void resBrandDetail(BrandDataModel data) {
+    private void onResBrandDetail(BrandDataModel data) {
         this.data = data;
 
-        view.setupThumb(data.getImageUrl());
-        view.setupLogo(data.getBrandLogo());
-        isScrap = data.isScrap();
-        setupScrap();
-        scrapCount = data.getScrapCount();
-        view.setupScrapCount(scrapCount);
-        view.setupName(data.getBrandName());
-        if (!TextUtils.isEmpty(data.getBrandTag())) view.setupTag(data.getBrandTag());
-        view.setupDesc(data.getBrandDesc());
+        view.setThumb(data.getImageUrl());
+        view.setLogo(data.getBrandLogo());
+        view.setName(data.getBrandName());
+        view.setTag(data.getBrandTag().replace(",", " "));
+        view.setDesc(data.getBrandDesc());
+        setScrap();
+
         styleAdapter.set(data.getStyleImages());
         view.styleRefresh();
     }
 
-    private void setupScrap() {
-        if (isScrap) {
+    private void setScrap() {
+        if (data.isScrap()) {
             view.scrapOn();
         } else {
             view.scrapOff();
         }
-        view.setupScrapCount(scrapCount);
+        view.setScrapCount(data.getScrapCount());
     }
 
-    private void reqBrandScrap(boolean isScrap) {
-        addDisposable(scrapRequest.updateBrandScrap(isScrap, brandNo)
-            .subscribe());
+    private void initSortData() {
+        List<CodeDataModel> sorts = App.getInstance().getSortCodes();
+        selectSortCode = sorts.get(0).getCode();
+        view.setupSortText(sorts.get(0).getName());
+        getProducts();
     }
 
-    private void setupSortData() {
-        sortAdapter.set(App.getInstance().getSortCodes());
-        view.sortRefresh();
-        sortCode = sortAdapter.get(0).getCode();
-        view.setupSortText(sortAdapter.get(0).getName());
-
-        reqProducts();
-    }
-
-    private void reqProducts() {
-        if (page.get() != 0 && page.get() >= totalPageSize) return;
+    private void getProducts() {
         addDisposable(
-            searchRequest.getProducts(page.incrementAndGet(), ROWS, parseToModel())
+            searchRequest.getProducts(page.incrementAndGet(), ROWS, getOptions())
                 .compose(Transformer.applySchedulers())
-                .filter(data -> data.getCode().equals(HttpCode.OK))
+                .filter(data -> {
+                    String code = data.getCode();
+                    if (code.equals(HttpCode.NO_DATA)) {
+                        //view.hideProducts();
+                    }
+                    return code.equals(HttpCode.OK);
+                })
                 .map(data -> gson.fromJson(data.getData(), SearchDataModel.class))
-                .subscribe(this::resProducts, Timber::e)
+                .subscribe(this::onResProducts, Timber::e)
         );
     }
 
-    private void resProducts(SearchDataModel data) {
-        totalPageSize = data.getTotal();
-        int start = productAdapter.getSize();
-        int row = data.getProducts().size();
-        productAdapter.addAll(data.getProducts());
-        view.productRefresh(start, row);
+    private SearchOptionDataModel getOptions() {
+        SearchOptionDataModel options = new SearchOptionDataModel();
+        options.setBrandNo(brandNo);
+        options.setSortCode(selectSortCode);
+        return options;
+    }
 
+    private void onResProducts(SearchDataModel data) {
+        totalPageSize = data.getTotal();
+        productAdapter.set(data.getProducts());
+        view.productRefresh();
         view.scrollToTop();
     }
 
-    private SearchOptionDataModel parseToModel() {
-        SearchOptionDataModel options = new SearchOptionDataModel();
-        options.setBrand_no(brandNo);
-        options.setSort_code(sortCode);
-        return options;
+    private void getMoreProducts() {
+        addDisposable(
+            searchRequest.getProducts(page.incrementAndGet(), ROWS, getOptions())
+                .compose(Transformer.applySchedulers())
+                .filter(data -> {
+                    String code = data.getCode();
+                    return code.equals(HttpCode.OK);
+                })
+                .map(data -> gson.fromJson(data.getData(), SearchDataModel.class))
+                .subscribe(this::onResMoreProducts, Timber::e)
+        );
+    }
+
+    private void onResMoreProducts(SearchDataModel data) {
+        int start = productAdapter.getSize();
+        int row = data.getProducts().size();
+        productAdapter.addAll(data.getProducts());
+        view.productRefresh();
+        view.productRefresh(start, row);
+    }
+
+    private void replaceBrandScrapData(BrandDataModel $data) {
+        data.setScrap($data.isScrap());
+        data.setScrapCount($data.getScrapCount());
+        setScrap();
+    }
+
+    private void replaceProductScrapData(ProductDataModel $data) {
+        for (ProductDataModel product : productAdapter.get()) {
+            if (product.getProductNo() == $data.getProductNo()) {
+                product.setScrap($data.isScrap());
+                product.setScrapCount($data.getScrapCount());
+            }
+        }
+        view.productRefresh();
     }
 }

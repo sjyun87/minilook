@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
@@ -21,58 +19,26 @@ import io.reactivex.rxjava3.disposables.Disposable;
 
 public abstract class BaseFragment extends Fragment implements OnLoginListener, OnScrapListener {
 
-    private CompositeDisposable disposable = new CompositeDisposable();
-    private Unbinder binder;
+    private final CompositeDisposable disposable = new CompositeDisposable();
+    protected ResourcesProvider resources;
 
     @Nullable @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
         @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(getLayoutID(), container, false);
-        binder = ButterKnife.bind(this, view);
+        View view = getBindingView();
+        resources = new ResourcesProvider(view.getContext());
+
         createPresenter();
         toRxBusObservable();
         return view;
     }
 
     @Override public void onDestroyView() {
-        if (binder != null) binder.unbind();
         clearDisposable();
         super.onDestroyView();
     }
 
-    private void toRxBusObservable() {
-        addDisposable(
-            RxBus.toObservable().observeOn(SchedulersFacade.ui()).subscribe(o -> {
-                if (o instanceof RxBusEvent.RxBusEventLogin) {
-                    onLogin();
-                } else if (o instanceof RxBusEvent.RxBusEventLogout) {
-                    onLogout();
-                } else if (o instanceof RxBusEvent.RxBusEventProductScrap) {
-                    boolean isScrap = ((RxBusEvent.RxBusEventProductScrap) o).isScrap();
-                    ProductDataModel product = ((RxBusEvent.RxBusEventProductScrap) o).getProduct();
-                    onProductScrap(isScrap, product);
-                } else if (o instanceof RxBusEvent.RxBusEventBrandScrap) {
-                    boolean isScrap = ((RxBusEvent.RxBusEventBrandScrap) o).isScrap();
-                    BrandDataModel brand_id = ((RxBusEvent.RxBusEventBrandScrap) o).getBrand();
-                    onBrandScrap(isScrap, brand_id);
-                }
-            })
-        );
-    }
-
-    @Override public void onLogin() {
-    }
-
-    @Override public void onLogout() {
-    }
-
-    @Override public void onProductScrap(boolean isScrap, ProductDataModel product) {
-    }
-
-    @Override public void onBrandScrap(boolean isScrap, BrandDataModel brand) {
-    }
-
-    protected abstract int getLayoutID();
+    protected abstract View getBindingView();
 
     protected abstract void createPresenter();
 
@@ -86,5 +52,35 @@ public abstract class BaseFragment extends Fragment implements OnLoginListener, 
 
     protected CompositeDisposable getDisposable() {
         return disposable;
+    }
+
+    private void toRxBusObservable() {
+        addDisposable(
+            RxBus.toObservable().observeOn(SchedulersFacade.ui()).subscribe(o -> {
+                if (o instanceof RxBusEvent.RxBusEventLogin) {
+                    onLogin();
+                } else if (o instanceof RxBusEvent.RxBusEventLogout) {
+                    onLogout();
+                } else if (o instanceof RxBusEvent.RxBusEventProductScrap) {
+                    ProductDataModel data = ((RxBusEvent.RxBusEventProductScrap) o).getData();
+                    onProductScrap(data);
+                } else if (o instanceof RxBusEvent.RxBusEventBrandScrap) {
+                    BrandDataModel data = ((RxBusEvent.RxBusEventBrandScrap) o).getData();
+                    onBrandScrap(data);
+                }
+            })
+        );
+    }
+
+    @Override public void onLogin() {
+    }
+
+    @Override public void onLogout() {
+    }
+
+    @Override public void onProductScrap(ProductDataModel data) {
+    }
+
+    @Override public void onBrandScrap(BrandDataModel data) {
     }
 }

@@ -12,17 +12,17 @@ public class IpageRequest extends BaseRequest<IpageService> {
     }
 
     public Single<BaseDataModel> getIpage() {
-        int user_id = App.getInstance().getMemberNo();
-        return getApi().getIpage(user_id);
+        int memberNo = App.getInstance().getMemberNo();
+        return getApi().getIpage(memberNo);
     }
 
     public Single<BaseDataModel> getPointHistory() {
-        int user_id = App.getInstance().getMemberNo();
-        return getApi().getPointHistory(user_id);
+        int memberNo = App.getInstance().getMemberNo();
+        return getApi().getPointHistory(memberNo);
     }
 
     public Single<BaseDataModel> getCoupons() {
-        int user_id = App.getInstance().getMemberNo();
-        return getApi().getCoupons(user_id);
+        int memberNo = App.getInstance().getMemberNo();
+        return getApi().getCoupons(memberNo);
     }
 }

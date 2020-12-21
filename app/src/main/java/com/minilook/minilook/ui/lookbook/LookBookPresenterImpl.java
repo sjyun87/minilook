@@ -4,7 +4,7 @@ import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.lookbook.di.LookBookArguments;
 import com.minilook.minilook.ui.main.MainPresenterImpl;
-import com.minilook.minilook.util.TrackingManager;
+import com.minilook.minilook.util.TrackingUtil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import timber.log.Timber;
@@ -17,17 +17,21 @@ public class LookBookPresenterImpl extends BasePresenterImpl implements LookBook
         view = args.getView();
     }
 
-    @Override public void onCreate() {
+    @Override public void onCreateView() {
         toRxObservable();
         view.setupViewPager();
     }
 
     @Override public void onResume() {
-        TrackingManager.pageTracking("룩북페이지", LookBookFragment.class.getSimpleName());
+        TrackingUtil.pageTracking("룩북페이지", LookBookFragment.class.getSimpleName());
+    }
+
+    @Override public void onDestroyView() {
+        view.clear();
     }
 
     @Override public void onPageSelected(int position) {
-        RxBus.send(new MainPresenterImpl.RxEventLookBookPrePageChanged(position));
+        RxBus.send(new MainPresenterImpl.RxEventChangeBottomBarTheme(position != 0));
     }
 
     private void toRxObservable() {
@@ -43,10 +47,10 @@ public class LookBookPresenterImpl extends BasePresenterImpl implements LookBook
     }
 
     @AllArgsConstructor @Getter public final static class RxEventScrollToPreview {
-        boolean smoothScroll;
+        private final boolean smoothScroll;
     }
 
     @AllArgsConstructor @Getter public final static class RxEventScrollToDetail {
-        boolean smoothScroll;
+        private final boolean smoothScroll;
     }
 }

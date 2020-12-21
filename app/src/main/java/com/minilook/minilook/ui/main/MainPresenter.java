@@ -3,37 +3,36 @@ package com.minilook.minilook.ui.main;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
-import com.minilook.minilook.data.model.brand.BrandDataModel;
-import com.minilook.minilook.data.model.product.ProductDataModel;
 
 public interface MainPresenter extends LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
-    void onTabChanged(int position);
-
-    void onProductScrap(boolean isScrap, ProductDataModel product);
-
-    void onBrandScrap(boolean isScrap, BrandDataModel brand);
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    void onDestroy();
 
     void onMarketingAgree();
 
-    void onMarketingDismiss();
+    void onMarketingDisagree();
 
     void onCoachMarkEnd();
+
+    void onBottomBarClick(int position);
 
     interface View {
 
         void setupViewPager();
 
-        void setupCurrentPage(int position);
+        void setCurrentPage(int position);
 
         void setupBottomBar();
 
-        void setupBottomBarTheme(boolean flag);
+        void setBottomBarTheme(boolean flag);
 
         void showMarketingDialog();
+
+        void updateMarketingAgreeToast(boolean enable);
 
         void showLookBookCoachMark();
 
@@ -46,5 +45,7 @@ public interface MainPresenter extends LifecycleObserver {
         void navigateToBrandDetail(int brandNo);
 
         void navigateToPreorderDetail(int preorderNo);
+
+        void clear();
     }
 }

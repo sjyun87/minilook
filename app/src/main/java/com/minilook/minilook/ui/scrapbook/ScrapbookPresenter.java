@@ -9,6 +9,9 @@ public interface ScrapbookPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    void onDestroy();
+
     void onTabClick(int position);
 
     interface View {
@@ -18,6 +21,8 @@ public interface ScrapbookPresenter extends LifecycleObserver {
         void setupViewPager();
 
         void setupCurrentPage(int position);
+
+        void clear();
 
         void finish();
     }

@@ -16,10 +16,10 @@ import butterknife.BindFont;
 import butterknife.BindView;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.ColorDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import lombok.Setter;
 
-public class FilterColorVH extends BaseViewHolder<ColorDataModel> {
+public class FilterColorVH extends _BaseViewHolder<ColorDataModel> {
 
     private static final String COLOR_SILVER = "#C0C0C0";
     private static final String COLOR_GOLD = "#FFD700";

@@ -20,12 +20,12 @@ import com.minilook.minilook.App;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.review.ReviewDataModel;
 import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.review.ReviewPresenterImpl;
 import com.minilook.minilook.util.SpannableUtil;
 
-public class ReviewItemVH extends BaseViewHolder<ReviewDataModel> {
+public class ReviewItemVH extends _BaseViewHolder<ReviewDataModel> {
 
     @BindView(R.id.txt_nick) TextView nickTextView;
     @BindView(R.id.txt_regist_date) TextView registDateTextView;

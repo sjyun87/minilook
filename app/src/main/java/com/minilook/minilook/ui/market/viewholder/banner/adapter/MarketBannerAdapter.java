@@ -4,16 +4,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.minilook.minilook.data.model.commercial.CommercialDataModel;
-import com.minilook.minilook.ui.market.viewholder.banner.viewholder.MarketBannerItemVH;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.ui.market.viewholder.banner.viewholder.MarketBannerItemVH;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MarketBannerAdapter extends RecyclerView.Adapter<MarketBannerItemVH> implements
     BaseAdapterDataModel<CommercialDataModel>, BaseAdapterDataView<CommercialDataModel> {
 
-    private List<CommercialDataModel> items = new ArrayList<>();
+    private final List<CommercialDataModel> items = new ArrayList<>();
 
     @NonNull @Override public MarketBannerItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new MarketBannerItemVH(parent);

@@ -25,8 +25,8 @@ public class ReviewWriteActivity extends _BaseActivity implements ReviewWritePre
 
     public static void start(Context context, String orderNo, OrderProductDataModel data) {
         Intent intent = new Intent(context, ReviewWriteActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("orderNo", orderNo);
         intent.putExtra("data", data);
         context.startActivity(intent);
@@ -45,7 +45,7 @@ public class ReviewWriteActivity extends _BaseActivity implements ReviewWritePre
     @BindColor(R.color.color_FFF5F5F5) int color_FFF5F5F5;
     @BindColor(R.color.color_FF8140E5) int color_FF8140E5;
 
-    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @BindDrawable(R.drawable.ph_square) Drawable img_placeholder;
 
     private ReviewWritePresenter presenter;
 

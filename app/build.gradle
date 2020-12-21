@@ -73,6 +73,10 @@ dependencies {
   implementation "com.google.firebase:firebase-crashlytics:$firebase_crashlytics_version"
   implementation "com.google.firebase:firebase-dynamic-links:$firebase_dynamic_link_version"
 
+  // Facebook
+  implementation "com.facebook.android:facebook-android-sdk:$facebook_version"
+  implementation "com.facebook.android:facebook-core:$facebook_version"
+  implementation "com.facebook.android:facebook-marketing:$facebook_version"
 
   // Butter Knife
   implementation "com.jakewharton:butterknife:$butterknife_version"
@@ -161,4 +165,7 @@ dependencies {
 
   // Shimmer placeholder
   implementation "com.facebook.shimmer:shimmer:$shimmer_version"
+
+  // Loading View
+  implementation "com.github.ybq:Android-SpinKit:$laodding_view_version"
 }

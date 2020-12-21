@@ -7,6 +7,7 @@ import io.reactivex.rxjava3.core.Single;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import okhttp3.RequestBody;
 
 public class BrandRequest extends BaseRequest<BrandService> {
 
@@ -15,26 +16,26 @@ public class BrandRequest extends BaseRequest<BrandService> {
     }
 
     public Single<BaseDataModel> getBrands(List<String> styles) {
-        return getApi().getBrands(createRequestBody(parseToJson(styles)));
+        return getApi().getBrands(createGetBrandsData(styles));
     }
 
-    private Map<String, Object> parseToJson(List<String> styles) {
+    private RequestBody createGetBrandsData(List<String> styles) {
         Map<String, Object> jsonMap = new HashMap<>();
         if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("styleCode", styles);
-        return jsonMap;
+        return createRequestBody(jsonMap);
     }
 
-    public Single<BaseDataModel> getBrandDetail(int brand_id) {
+    public Single<BaseDataModel> getBrandDetail(int brandNo) {
         if (App.getInstance().isLogin()) {
-            int user_id = App.getInstance().getMemberNo();
-            return getApi().getBrandDetail(brand_id, user_id);
+            int memberNo = App.getInstance().getMemberNo();
+            return getApi().getBrandDetail(brandNo, memberNo);
         } else {
-            return getApi().getBrandDetail(brand_id);
+            return getApi().getBrandDetail(brandNo);
         }
     }
 
-    public Single<BaseDataModel> getBrandInfo(int id) {
-        return getApi().getBrandInfo(id);
+    public Single<BaseDataModel> getBrandInfo(int brandNo) {
+        return getApi().getBrandInfo(brandNo);
     }
 }

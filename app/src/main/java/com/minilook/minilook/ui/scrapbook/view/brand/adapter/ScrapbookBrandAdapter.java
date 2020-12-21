@@ -86,7 +86,7 @@ public class ScrapbookBrandAdapter extends RecyclerView.Adapter<ScrapbookBrandIt
     }
 
     @Override public void refresh(int $position) {
-        notifyItemChanged($position);
+        notifyItemRemoved($position);
     }
 
     @Override public void refresh(int $start, int $row) {

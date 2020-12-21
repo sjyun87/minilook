@@ -6,6 +6,7 @@ import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
 import java.util.HashMap;
 import java.util.Map;
+import okhttp3.RequestBody;
 
 public class ReviewRequest extends BaseRequest<ReviewService> {
 
@@ -14,15 +15,15 @@ public class ReviewRequest extends BaseRequest<ReviewService> {
     }
 
     public Single<BaseDataModel> writeReview(String orderNo, int productNo, int optionNo, String text) {
-        return getApi().writeReview(productNo, optionNo, createRequestBody(parseToWriteJson(orderNo, text)));
+        return getApi().writeReview(productNo, optionNo, createWriteReviewData(orderNo, text));
     }
 
-    private Map<String, Object> parseToWriteJson(String orderNo, String text) {
+    private RequestBody createWriteReviewData(String orderNo, String text) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("mid", orderNo);
         jsonMap.put("review", text);
-        return jsonMap;
+        return createRequestBody(jsonMap);
     }
 
     public Single<BaseDataModel> updateHelp(boolean isHelp, int productNo, int reviewNo) {
@@ -35,14 +36,14 @@ public class ReviewRequest extends BaseRequest<ReviewService> {
     }
 
     public Single<BaseDataModel> getReviews(int productNo, int rows, int lastReviewNo) {
-        return getApi().getReviews(productNo, createRequestBody(parseToHistoryJson(rows, lastReviewNo)));
+        return getApi().getReviews(productNo, createGetReviewsData(rows, lastReviewNo));
     }
 
-    private Map<String, Object> parseToHistoryJson(int rows, int lastReviewNo) {
+    private RequestBody createGetReviewsData(int rows, int lastReviewNo) {
         Map<String, Object> jsonMap = new HashMap<>();
         if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("pageSize", rows);
         if (lastReviewNo != 0) jsonMap.put("lastReviewNo", lastReviewNo);
-        return jsonMap;
+        return createRequestBody(jsonMap);
     }
 }

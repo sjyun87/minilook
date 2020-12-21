@@ -8,11 +8,11 @@ import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
 import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-public class PreorderOpenHeaderVH extends BaseViewHolder<PreorderDataModel> {
+public class PreorderOpenHeaderVH extends _BaseViewHolder<PreorderDataModel> {
 
     public PreorderOpenHeaderVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())

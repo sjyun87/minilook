@@ -13,7 +13,7 @@ import java.util.List;
 public class MarketDayAdapter extends RecyclerView.Adapter<MarketDayItemVH> implements
     BaseAdapterDataModel<ProductDataModel>, BaseAdapterDataView<ProductDataModel> {
 
-    private List<ProductDataModel> items = new ArrayList<>();
+    private final List<ProductDataModel> items = new ArrayList<>();
 
     @NonNull @Override public MarketDayItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new MarketDayItemVH(parent);

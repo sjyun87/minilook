@@ -17,12 +17,12 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.order.OrderProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.code.OrderStatus;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.order_detail.OrderDetailPresenterImpl;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.StringUtil;
 
-public class DeliveryVH extends BaseViewHolder<OrderProductDataModel> {
+public class DeliveryVH extends _BaseViewHolder<OrderProductDataModel> {
 
     @BindView(R.id.txt_state) TextView stateTextView;
     @BindView(R.id.img_thumb) ImageView thumbImageView;
@@ -34,7 +34,7 @@ public class DeliveryVH extends BaseViewHolder<OrderProductDataModel> {
 
     @BindString(R.string.order_detail_option) String format_option;
 
-    @BindDrawable(R.drawable.placeholder_image) Drawable placeholder_image;
+    @BindDrawable(R.drawable.ph_square) Drawable placeholder_image;
 
     public DeliveryVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())

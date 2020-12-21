@@ -12,19 +12,30 @@ public class EventRequest extends BaseRequest<EventService> {
         return EventService.class;
     }
 
-    public Single<BaseDataModel> getEventDetail(int event_id) {
-        return getApi().getEventDetail(event_id, createRequestBody(new HashMap<>()));
+    public Single<BaseDataModel> getEventDetail(int eventNo) {
+        return getApi().getEventDetail(eventNo, createRequestBody(new HashMap<>()));
     }
 
-    public Single<BaseDataModel> getEvents(int event_id, int latest_id, int rows) {
-        return getApi().getEvents(createRequestBody(parseToJson(event_id, latest_id, rows)));
+    public Single<BaseDataModel> getEvents(int eventNo, int rows) {
+        return getApi().getEvents(createRequestBody(createGetEventsData(eventNo, rows)));
     }
 
-    private Map<String, Object> parseToJson(int event_id, int latest_id, int rows) {
+    public Single<BaseDataModel> getEvents(int eventNo, int rows, int lastEventNo) {
+        return getApi().getEvents(createRequestBody(createGetEventsData(eventNo, rows, lastEventNo)));
+    }
+
+    private Map<String, Object> createGetEventsData(int eventNo, int rows) {
         Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("eventNo", eventNo);
         jsonMap.put("pageSize", rows);
-        jsonMap.put("pageEventNo", latest_id);
-        jsonMap.put("eventNo", event_id);
+        return jsonMap;
+    }
+
+    private Map<String, Object> createGetEventsData(int eventNo, int rows, int lastEventNo) {
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("eventNo", eventNo);
+        jsonMap.put("pageSize", rows);
+        jsonMap.put("pageEventNo", lastEventNo);
         return jsonMap;
     }
 }

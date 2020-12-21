@@ -1,14 +1,13 @@
 package com.minilook.minilook.ui.preorder;
 
-import android.net.Uri;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.preorder.di.PreorderArguments;
 import com.minilook.minilook.ui.preorder.view.close.PreorderClosePresenterImpl;
 import com.minilook.minilook.ui.preorder.view.open.viewholder.PreorderOpenHeaderVH;
-import com.minilook.minilook.util.DynamicLinkManager;
-import com.minilook.minilook.util.TrackingManager;
+import com.minilook.minilook.util.DynamicLinkUtil;
+import com.minilook.minilook.util.TrackingUtil;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -19,11 +18,11 @@ import timber.log.Timber;
 public class PreorderPresenterImpl extends BasePresenterImpl implements PreorderPresenter {
 
     private final View view;
-    private final DynamicLinkManager dynamicLinkManager;
+    private final DynamicLinkUtil dynamicLinkUtil;
 
     public PreorderPresenterImpl(PreorderArguments args) {
         view = args.getView();
-        dynamicLinkManager = args.getDynamicLinkManager();
+        dynamicLinkUtil = new DynamicLinkUtil();
     }
 
     @Override public void onCreate() {
@@ -33,7 +32,7 @@ public class PreorderPresenterImpl extends BasePresenterImpl implements Preorder
     }
 
     @Override public void onResume() {
-        TrackingManager.pageTracking("프리오더페이지", PreorderFragment.class.getSimpleName());
+        TrackingUtil.pageTracking("프리오더페이지", PreorderFragment.class.getSimpleName());
     }
 
     @Override public void onTabClick(int position) {
@@ -41,16 +40,16 @@ public class PreorderPresenterImpl extends BasePresenterImpl implements Preorder
     }
 
     private void sendShareLink(PreorderDataModel data) {
-        String title = data.getTitle() + " (" + parseToDate(data.getStartDate()) + "~" + parseToDate(data.getEndDate()) + ")";
-        dynamicLinkManager.createShareLink(DynamicLinkManager.TYPE_PREORDER, data.getPreorderNo(), title,
-            data.getThumbUrl(),
-            new DynamicLinkManager.OnCompletedListener() {
-                @Override public void onSuccess(Uri uri) {
-                    view.sendLink(uri.toString());
+        String title =
+            data.getTitle() + " (" + parseToDate(data.getStartDate()) + "~" + parseToDate(data.getEndDate()) + ")";
+        dynamicLinkUtil.createLink(DynamicLinkUtil.TYPE_PREORDER, data.getPreorderNo(), title, data.getThumbUrl(),
+            new DynamicLinkUtil.OnDynamicLinkListener() {
+                @Override public void onSuccess(String link) {
+                    view.sendDynamicLink(link);
                 }
 
-                @Override public void onFail() {
-                    view.showErrorMessage();
+                @Override public void onError() {
+                    view.showErrorDialog();
                 }
             });
     }

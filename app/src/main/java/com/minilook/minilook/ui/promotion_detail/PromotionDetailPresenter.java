@@ -3,6 +3,7 @@ package com.minilook.minilook.ui.promotion_detail;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
+import com.minilook.minilook.data.model.product.ProductDataModel;
 
 public interface PromotionDetailPresenter extends LifecycleObserver {
 
@@ -12,17 +13,18 @@ public interface PromotionDetailPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     void onResume();
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    void onDestroy();
+
     void onLoadMore();
+
+    void onProductScrap(ProductDataModel data);
 
     void onShareClick();
 
     interface View {
 
-        void setupThumb(String url);
-
-        void setupEventImage(String url);
-
-        void setupTotal(int count);
+        void setupClickAction();
 
         void setupProductRecyclerView();
 
@@ -30,10 +32,22 @@ public interface PromotionDetailPresenter extends LifecycleObserver {
 
         void setupPromotionRecyclerView();
 
+        void promotionRefresh();
+
         void promotionRefresh(int start, int rows);
 
-        void sendLink(String shareLink);
+        void setThumb(String url);
 
-        void showErrorMessage();
+        void setEventImage(String url);
+
+        void setTotal(int count);
+
+        void hideOtherPromotions();
+
+        void showErrorDialog();
+
+        void sendDynamicLink(String link);
+
+        void clear();
     }
 }

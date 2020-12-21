@@ -23,7 +23,6 @@ import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.widget.BottomBar;
-import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.event_detail.EventDetailActivity;
 import com.minilook.minilook.ui.main.MainActivity;
 import com.minilook.minilook.ui.order.OrderActivity;
@@ -148,7 +147,7 @@ public class ShoppingBagActivity extends _BaseActivity implements ShoppingBagPre
     }
 
     @Override public void showTrialVersionDialog() {
-        DialogManager.showTrialVersionDialog(this, presenter::onTrialVersionDialogGoClick);
+        //DialogManager.showTrialVersionDialog(this, presenter::onTrialVersionDialogGoClick);
     }
 
     @Override public void navigateToMain() {

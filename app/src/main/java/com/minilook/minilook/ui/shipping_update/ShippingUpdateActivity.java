@@ -24,15 +24,15 @@ public class ShippingUpdateActivity extends _BaseActivity implements ShippingUpd
 
     public static void start(Context context) {
         Intent intent = new Intent(context, ShippingUpdateActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         context.startActivity(intent);
     }
 
     public static void start(Context context, ShippingDataModel data) {
         Intent intent = new Intent(context, ShippingUpdateActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("shipping", data);
         context.startActivity(intent);
     }

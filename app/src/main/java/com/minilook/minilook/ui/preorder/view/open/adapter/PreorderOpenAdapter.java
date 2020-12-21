@@ -6,19 +6,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.preorder.view.open.viewholder.PreorderOpenHeaderVH;
 import com.minilook.minilook.ui.preorder.view.open.viewholder.PreorderOpenItemVH;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PreorderOpenAdapter extends RecyclerView.Adapter<BaseViewHolder<PreorderDataModel>> implements
+public class PreorderOpenAdapter extends RecyclerView.Adapter<_BaseViewHolder<PreorderDataModel>> implements
     BaseAdapterDataModel<PreorderDataModel>, BaseAdapterDataView<PreorderDataModel> {
 
     private List<PreorderDataModel> items = new ArrayList<>();
 
     @NonNull @Override
-    public BaseViewHolder<PreorderDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public _BaseViewHolder<PreorderDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == 0) {
             return new PreorderOpenHeaderVH(parent);
         } else {
@@ -26,7 +26,7 @@ public class PreorderOpenAdapter extends RecyclerView.Adapter<BaseViewHolder<Pre
         }
     }
 
-    @Override public void onBindViewHolder(@NonNull BaseViewHolder<PreorderDataModel> holder, int position) {
+    @Override public void onBindViewHolder(@NonNull _BaseViewHolder<PreorderDataModel> holder, int position) {
         if (position != 0) {
             holder.bind(items.get(position - 1));
         }

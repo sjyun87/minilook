@@ -17,9 +17,7 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-    <include layout="@layout/layout_coach_lookbook1" />
-
-    <include layout="@layout/layout_coach_lookbook2" />
-
-    <include layout="@layout/layout_coach_lookbook3" />
+    <include
+        android:id="@+id/coach_lookbook"
+        layout="@layout/layout_coach_lookbook" />
 </androidx.constraintlayout.widget.ConstraintLayout>

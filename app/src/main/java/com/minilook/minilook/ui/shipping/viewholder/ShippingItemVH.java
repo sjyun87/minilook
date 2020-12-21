@@ -11,10 +11,10 @@ import butterknife.OnClick;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.shipping.ShippingDataModel;
 import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.shipping.ShippingPresenterImpl;
 
-public class ShippingItemVH extends BaseViewHolder<ShippingDataModel> {
+public class ShippingItemVH extends _BaseViewHolder<ShippingDataModel> {
 
     @BindView(R.id.txt_name) TextView nameTextView;
     @BindView(R.id.txt_default) TextView defaultTextView;

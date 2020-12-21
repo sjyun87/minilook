@@ -33,8 +33,8 @@ public class OrderExchangeNReturnActivity extends _BaseActivity implements Order
 
     public static void start(Context context, OrderProductDataModel data) {
         Intent intent = new Intent(context, OrderExchangeNReturnActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("data", data);
         context.startActivity(intent);
     }
@@ -65,7 +65,7 @@ public class OrderExchangeNReturnActivity extends _BaseActivity implements Order
 
     @BindDrawable(R.drawable.ic_arrow_down_black) Drawable img_arrow_down;
     @BindDrawable(R.drawable.ic_arrow_up_black) Drawable img_arrow_up;
-    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @BindDrawable(R.drawable.ph_square) Drawable img_placeholder;
 
     private OrderExchangeNReturnPresenter presenter;
     private ExchangeNReturnTypeAdapter typeAdapter = new ExchangeNReturnTypeAdapter();

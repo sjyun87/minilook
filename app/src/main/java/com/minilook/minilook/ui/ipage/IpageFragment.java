@@ -6,21 +6,20 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
-import com.minilook.minilook.ui.base.BaseFragment;
+import com.minilook.minilook.ui.base._BaseFragment;
 import com.minilook.minilook.ui.coupon.CouponActivity;
 import com.minilook.minilook.ui.ipage.di.IpageArguments;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.order_history.OrderHistoryActivity;
 import com.minilook.minilook.ui.point.PointActivity;
 import com.minilook.minilook.ui.profile.ProfileActivity;
-import com.minilook.minilook.ui.question.QuestionActivity;
 import com.minilook.minilook.ui.recent.RecentActivity;
 import com.minilook.minilook.ui.scrapbook.ScrapbookActivity;
 import com.minilook.minilook.ui.shoppingbag.ShoppingBagActivity;
 import com.minilook.minilook.ui.webview.WebViewActivity;
 import com.minilook.minilook.util.StringUtil;
 
-public class IpageFragment extends BaseFragment implements IpagePresenter.View {
+public class IpageFragment extends _BaseFragment implements IpagePresenter.View {
 
     public static IpageFragment newInstance() {
         return new IpageFragment();

@@ -9,32 +9,23 @@ import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.market.viewholder.preorder.viewholder.MarketPreorderComingItemVH;
-import com.minilook.minilook.ui.market.viewholder.preorder.viewholder.MarketPreorderComingOnly1ItemVH;
 import com.minilook.minilook.ui.market.viewholder.preorder.viewholder.MarketPreorderOpenItemVH;
-import com.minilook.minilook.ui.market.viewholder.preorder.viewholder.MarketPreorderOpenOnly1ItemVH;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class MarketPreorderAdapter extends RecyclerView.Adapter<BaseViewHolder<PreorderDataModel>> implements
     BaseAdapterDataModel<PreorderDataModel>, BaseAdapterDataView<PreorderDataModel> {
 
-    private List<PreorderDataModel> items = new ArrayList<>();
+    private final List<PreorderDataModel> items = new ArrayList<>();
 
     @NonNull @Override
     public BaseViewHolder<PreorderDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == PreorderType.ING.getValue()) {
-            if (items.size() > 1) {
-                return new MarketPreorderOpenItemVH(parent);
-            } else {
-                return new MarketPreorderOpenOnly1ItemVH(parent);
-            }
+            return new MarketPreorderOpenItemVH(parent, getSize() == 1);
+        } else if (viewType == PreorderType.WILL.getValue()) {
+            return new MarketPreorderComingItemVH(parent, getSize() == 1);
         } else {
-            if (items.size() > 1) {
-                return new MarketPreorderComingItemVH(parent);
-            } else {
-                return new MarketPreorderComingOnly1ItemVH(parent);
-            }
+            throw new IllegalStateException("Market preorder module type is not matching = " + viewType);
         }
     }
 

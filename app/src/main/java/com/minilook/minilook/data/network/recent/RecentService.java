@@ -10,13 +10,13 @@ import retrofit2.http.Path;
 
 public interface RecentService {
 
-    @POST("/api/members/{user_id}/recents") Single<BaseDataModel> getRecentProducts(
-        @Path("user_id") int user_id,
+    @POST("/api/members/{memberNo}/recents") Single<BaseDataModel> getRecentProducts(
+        @Path("memberNo") int memberNo,
         @Body RequestBody body
     );
 
-    @DELETE("/api/members/{user_id}/recents/{recent_id}") Single<BaseDataModel> deleteRecent(
-        @Path("user_id") int user_id,
-        @Path("recent_id") int recent_id
+    @DELETE("/api/members/{memberNo}/recents/{recentNo}") Single<BaseDataModel> deleteRecent(
+        @Path("memberNo") int memberNo,
+        @Path("recentNo") int recentNo
     );
 }

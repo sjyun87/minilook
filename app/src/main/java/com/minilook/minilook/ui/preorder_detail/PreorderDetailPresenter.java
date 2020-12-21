@@ -78,8 +78,8 @@ public interface PreorderDetailPresenter extends LifecycleObserver {
 
         void navigateToOrder(List<ShoppingBrandDataModel> brandData);
 
-        void sendLink(String shareLink);
+        void sendDynamicLink(String link);
 
-        void showErrorMessage();
+        void showErrorDialog();
     }
 }

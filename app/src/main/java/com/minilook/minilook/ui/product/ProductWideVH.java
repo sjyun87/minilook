@@ -16,13 +16,13 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.code.DisplayCode;
 import com.minilook.minilook.data.model.product.ProductDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.preorder_detail.PreorderDetailActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.util.StringUtil;
 import lombok.Setter;
 
-public class ProductWideVH extends BaseViewHolder<ProductDataModel> {
+public class ProductWideVH extends _BaseViewHolder<ProductDataModel> {
 
     @BindView(R.id.img_product_thumb) ImageView thumbImageView;
     @BindView(R.id.txt_brand_name) TextView brandNameTextView;
@@ -34,7 +34,7 @@ public class ProductWideVH extends BaseViewHolder<ProductDataModel> {
 
     @BindString(R.string.base_price_percent) String format_percent;
 
-    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @BindDrawable(R.drawable.ph_square) Drawable img_placeholder;
 
     @Setter private OnDeleteClickListener listener;
 

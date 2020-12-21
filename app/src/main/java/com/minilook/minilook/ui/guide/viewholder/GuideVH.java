@@ -1,99 +1,98 @@
 package com.minilook.minilook.ui.guide.viewholder;
 
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.FontRes;
 import androidx.annotation.NonNull;
-import butterknife.BindColor;
-import butterknife.BindDrawable;
-import butterknife.BindFont;
-import butterknife.BindString;
-import butterknife.BindView;
+import androidx.annotation.StringRes;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
+import com.minilook.minilook.databinding.ViewGuideBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.util.SpannableUtil;
 
 public class GuideVH extends BaseViewHolder<Integer> {
 
-    @BindView(R.id.img_guide) ImageView guideImageView;
-    @BindView(R.id.txt_desc) TextView descTextView;
+    @StringRes int str_desc1 = R.string.guide_desc1;
+    @StringRes int str_desc1_bold = R.string.guide_desc1_b;
+    @StringRes int str_desc2 = R.string.guide_desc2;
+    @StringRes int str_desc2_bold = R.string.guide_desc2_b;
+    @StringRes int str_desc3 = R.string.guide_desc3;
+    @StringRes int str_desc3_bold = R.string.guide_desc3_b;
+    @StringRes int str_desc4 = R.string.guide_desc4;
+    @StringRes int str_desc4_bold = R.string.guide_desc4_b;
 
-    @BindString(R.string.guide_desc1) String str_desc1;
-    @BindString(R.string.guide_desc1_b) String str_desc1_bold;
-    @BindString(R.string.guide_desc2) String str_desc2;
-    @BindString(R.string.guide_desc2_b) String str_desc2_bold;
-    @BindString(R.string.guide_desc3) String str_desc3;
-    @BindString(R.string.guide_desc3_b) String str_desc3_bold;
-    @BindString(R.string.guide_desc4) String str_desc4;
-    @BindString(R.string.guide_desc4_b) String str_desc4_bold;
+    @DrawableRes int img_guide1 = R.drawable.img_guide1;
+    @DrawableRes int img_guide2 = R.drawable.img_guide2;
+    @DrawableRes int img_guide3 = R.drawable.img_guide3;
+    @DrawableRes int img_guide4 = R.drawable.img_guide4;
+    @DrawableRes int ph_square = R.drawable.ph_square;
 
-    @BindDrawable(R.drawable.img_guide1) Drawable img_guide1;
-    @BindDrawable(R.drawable.img_guide2) Drawable img_guide2;
-    @BindDrawable(R.drawable.img_guide3) Drawable img_guide3;
-    @BindDrawable(R.drawable.img_guide4) Drawable img_guide4;
-    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @ColorRes int color_FF8140E5 = R.color.color_FF8140E5;
 
-    @BindFont(R.font.nanum_square_b) Typeface font_bold;
+    @FontRes int font_bold = R.font.nanum_square_b;
 
-    @BindColor(R.color.color_FF8140E5) int color_FF8140E5;
+    private final ViewGuideBinding binding;
 
-    public GuideVH(@NonNull View itemView) {
-        super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_guide, (ViewGroup) itemView, false));
+    public GuideVH(@NonNull View parent) {
+        super(ViewGuideBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent, false));
+        binding = ViewGuideBinding.bind(itemView);
     }
 
     @Override public void bind(Integer $data) {
         super.bind($data);
-        switch (data) {
+
+        Glide.with(context)
+            .load(getGuideImage(data))
+            .placeholder(ph_square)
+            .error(ph_square)
+            .transition(new DrawableTransitionOptions().crossFade())
+            .into(binding.imgGuide);
+        binding.txtDesc.setText(getDescText(data));
+    }
+
+    private int getGuideImage(int position) {
+        switch (position) {
+            default:
             case 0:
-                Glide.with(context)
-                    .load(img_guide1)
-                    .placeholder(img_placeholder)
-                    .error(img_placeholder)
-                    .transition(new DrawableTransitionOptions().crossFade())
-                    .into(guideImageView);
-                descTextView.setText(parseToSpan(str_desc1, str_desc1_bold));
-                break;
+                return img_guide1;
             case 1:
-                Glide.with(context)
-                    .load(img_guide2)
-                    .placeholder(img_placeholder)
-                    .error(img_placeholder)
-                    .transition(new DrawableTransitionOptions().crossFade())
-                    .into(guideImageView);
-                descTextView.setText(parseToSpan(str_desc2, str_desc2_bold));
-                break;
+                return img_guide2;
             case 2:
-                Glide.with(context)
-                    .load(img_guide3)
-                    .placeholder(img_placeholder)
-                    .error(img_placeholder)
-                    .transition(new DrawableTransitionOptions().crossFade())
-                    .into(guideImageView);
-                descTextView.setText(parseToSpan(str_desc3, str_desc3_bold));
-                break;
+                return img_guide3;
             case 3:
-                Glide.with(context)
-                    .load(img_guide4)
-                    .placeholder(img_placeholder)
-                    .error(img_placeholder)
-                    .transition(new DrawableTransitionOptions().crossFade())
-                    .into(guideImageView);
-                descTextView.setText(parseToSpan(str_desc4, str_desc4_bold));
-                break;
+                return img_guide4;
         }
     }
 
-    private SpannableString parseToSpan(String text, String target) {
-        SpannableString fontSpan = SpannableUtil.fontSpan(text, target, font_bold);
-        SpannableString colorSpan = SpannableUtil.foregroundColorSpan(fontSpan, target, color_FF8140E5);
+    private SpannableString getDescText(int position) {
+        switch (position) {
+            default:
+            case 0:
+                return getSpan(str_desc1, str_desc1_bold);
+            case 1:
+                return getSpan(str_desc2, str_desc2_bold);
+            case 2:
+                return getSpan(str_desc3, str_desc3_bold);
+            case 3:
+                return getSpan(str_desc4, str_desc4_bold);
+        }
+    }
+
+    private SpannableString getSpan(int textId, int targetId) {
+        Typeface font = resources.getFont(font_bold);
+        String text = resources.getString(textId);
+        String target = resources.getString(targetId);
+
+        SpannableString fontSpan = SpannableUtil.fontSpan(text, target, font);
+        SpannableString colorSpan =
+            SpannableUtil.foregroundColorSpan(fontSpan, target, resources.getColor(color_FF8140E5));
         return colorSpan;
     }
 }

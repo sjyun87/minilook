@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/txt_style"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/dp_16"
+    android:background="@drawable/bg_brand_style_off"
+    android:fontFamily="@font/nanum_square_r"
+    android:gravity="center"
+    android:paddingStart="@dimen/dp_6"
+    android:paddingEnd="@dimen/dp_6"
+    android:textColor="@color/color_FF232323"
+    android:textSize="@dimen/sp_6"
+    tools:text="#스트릿" />

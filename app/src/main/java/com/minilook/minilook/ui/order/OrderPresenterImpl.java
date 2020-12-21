@@ -31,7 +31,7 @@ import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.ipage.IpagePresenterImpl;
 import com.minilook.minilook.ui.order.di.OrderArguments;
 import com.minilook.minilook.ui.shipping.ShippingPresenterImpl;
-import com.minilook.minilook.util.TrackingManager;
+import com.minilook.minilook.util.TrackingUtil;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -104,7 +104,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
     }
 
     @Override public void onResume() {
-        TrackingManager.pageTracking("주문서 페이지", OrderActivity.class.getSimpleName());
+        TrackingUtil.pageTracking("주문서 페이지", OrderActivity.class.getSimpleName());
     }
 
     @Override public void onShippingClick() {
@@ -491,12 +491,40 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
         List<OrderCompleteOptionDataModel> completeOptionData = new ArrayList<>();
         for (int brandIndex = 0; brandIndex < orderItem.size(); brandIndex++) {
             ShoppingBrandDataModel brandData = orderItem.get(brandIndex);
+
+            List<ShoppingProductDataModel> bonusProductData = new ArrayList<>();
+            List<ShoppingProductDataModel> normalProductData = new ArrayList<>();
+
             for (int productIndex = 0; productIndex < brandData.getProducts().size(); productIndex++) {
-                ShoppingProductDataModel productData = brandData.getProducts().get(productIndex);
+                ShoppingProductDataModel targetProductData = brandData.getProducts().get(productIndex);
+                if (targetProductData.isBonus()) {
+                    bonusProductData.add(targetProductData);
+                } else {
+                    normalProductData.add(targetProductData);
+                }
+            }
+
+            int totalBonusPrice = 0;
+            for (ShoppingProductDataModel bonusProduct : bonusProductData) {
+                for (ShoppingOptionDataModel optionData : bonusProduct.getOptions()) {
+                    OrderCompleteOptionDataModel completeOptionModel = new OrderCompleteOptionDataModel();
+                    completeOptionModel.setOption_id(optionData.getOptionNo());
+                    completeOptionModel.setShoppingbag_id(optionData.getShoppingbagNo());
+
+                    completeOptionModel.setPer_point_value(0);
+                    completeOptionModel.setPer_coupon_value(0);
+                    completeOptionModel.setPer_payment_price(optionData.getPriceSum());
+                    completeOptionData.add(completeOptionModel);
+                    totalBonusPrice += optionData.getPriceSum();
+                }
+            }
+
+            for (int productIndex = 0; productIndex < normalProductData.size(); productIndex++) {
+                ShoppingProductDataModel productData = normalProductData.get(productIndex);
                 for (int optionIndex = 0; optionIndex < productData.getOptions().size(); optionIndex++) {
                     ShoppingOptionDataModel optionData = productData.getOptions().get(optionIndex);
 
-                    float per = (float) optionData.getPriceSum() / totalProductPrice;
+                    float per = (float) optionData.getPriceSum() / (totalProductPrice - totalBonusPrice);
                     for (int optionQuantityIndex = 0; optionQuantityIndex < optionData.getQuantity();
                         optionQuantityIndex++) {
                         OrderCompleteOptionDataModel completeOptionModel = new OrderCompleteOptionDataModel();
@@ -505,7 +533,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
                         completeOptionModel.setOptionRequestMemo(brandData.getOrderMemo());
 
                         if (brandIndex == (orderItem.size() - 1)
-                            && productIndex == (brandData.getProducts().size() - 1)
+                            && productIndex == (normalProductData.size() - 1)
                             && optionIndex == (productData.getOptions().size() - 1)
                             && optionQuantityIndex == (optionData.getQuantity() - 1)) {
                             int lastPerCouponValue = totalCouponValue - totalPerCouponValue;

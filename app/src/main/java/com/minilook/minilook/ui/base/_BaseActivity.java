@@ -44,13 +44,13 @@ public abstract class _BaseActivity extends AppCompatActivity implements OnLogin
                 } else if (o instanceof RxBusEvent.RxBusEventLogout) {
                     onLogout();
                 } else if (o instanceof RxBusEvent.RxBusEventProductScrap) {
-                    boolean isScrap = ((RxBusEvent.RxBusEventProductScrap) o).isScrap();
-                    ProductDataModel product = ((RxBusEvent.RxBusEventProductScrap) o).getProduct();
-                    onProductScrap(isScrap, product);
+                    //boolean isScrap = ((RxBusEvent.RxBusEventProductScrap) o).isScrap();
+                    //ProductDataModel product = ((RxBusEvent.RxBusEventProductScrap) o).getProduct();
+                    //onProductScrap(isScrap, product);
                 } else if (o instanceof RxBusEvent.RxBusEventBrandScrap) {
-                    boolean isScrap = ((RxBusEvent.RxBusEventBrandScrap) o).isScrap();
-                    BrandDataModel brand = ((RxBusEvent.RxBusEventBrandScrap) o).getBrand();
-                    onBrandScrap(isScrap, brand);
+                    //boolean isScrap = ((RxBusEvent.RxBusEventBrandScrap) o).isScrap();
+                    //BrandDataModel brand = ((RxBusEvent.RxBusEventBrandScrap) o).getBrand();
+                    //onBrandScrap(isScrap, brand);
                 }
             })
         );
@@ -62,10 +62,10 @@ public abstract class _BaseActivity extends AppCompatActivity implements OnLogin
     @Override public void onLogout() {
     }
 
-    @Override public void onProductScrap(boolean isScrap, ProductDataModel product) {
+    @Override public void onProductScrap(ProductDataModel data) {
     }
 
-    @Override public void onBrandScrap(boolean isScrap, BrandDataModel brand) {
+    @Override public void onBrandScrap(BrandDataModel data) {
     }
 
     protected abstract int getLayoutID();

@@ -16,13 +16,13 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.code.DisplayCode;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.util.StringUtil;
 import java.util.Locale;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-public class PreorderDetailProductVH extends BaseViewHolder<ProductDataModel> {
+public class PreorderDetailProductVH extends _BaseViewHolder<ProductDataModel> {
 
     @BindView(R.id.img_product_thumb) ImageView thumbImageView;
     @BindView(R.id.img_curtain) View curtain;
@@ -35,7 +35,7 @@ public class PreorderDetailProductVH extends BaseViewHolder<ProductDataModel> {
     @BindString(R.string.base_price_percent) String format_percent;
     @BindString(R.string.preorder_detail_product_detail_index) String format_index;
 
-    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @BindDrawable(R.drawable.ph_square) Drawable img_placeholder;
 
     public PreorderDetailProductVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
@@ -56,15 +56,13 @@ public class PreorderDetailProductVH extends BaseViewHolder<ProductDataModel> {
 
         productNameTextView.setText(data.getProductName());
 
-        if (data.getDisplayCode() != 0) {
-            if (data.getDisplayCode() == DisplayCode.DISPLAY.getValue()) {
-                hideCurtain();
-                hideDisplayLabel();
-            } else {
-                showCurtain();
-                showDisplayLabel();
-                displayLabelTextView.setText(data.getDisplayLabel());
-            }
+        if (data.getDisplayCode() == DisplayCode.DISPLAY.getValue()) {
+            hideCurtain();
+            hideDisplayLabel();
+        } else {
+            showCurtain();
+            showDisplayLabel();
+            displayLabelTextView.setText(data.getDisplayLabel());
         }
 
         if (data.isDiscount()) {

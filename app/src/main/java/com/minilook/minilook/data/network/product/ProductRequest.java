@@ -14,21 +14,21 @@ public class ProductRequest extends BaseRequest<ProductService> {
     }
 
     public Single<BaseDataModel> getProductDetail(int productNo) {
-        return getApi().getProductDetail(productNo, createRequestBody(parseToProductDetailJson(productNo)));
+        return getApi().getProductDetail(productNo, createRequestBody(createProductDetailData(productNo)));
     }
 
     public Single<BaseDataModel> getProductDetail(int productNo, int preorderNo) {
-        return getApi().getProductDetail(productNo, createRequestBody(parseToProductDetailJson(preorderNo, productNo)));
+        return getApi().getProductDetail(productNo, createRequestBody(createProductDetailData(preorderNo, productNo)));
     }
 
-    private Map<String, Object> parseToProductDetailJson(int productNo) {
+    private Map<String, Object> createProductDetailData(int productNo) {
         Map<String, Object> jsonMap = new HashMap<>();
         if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("productNo", productNo);
         return jsonMap;
     }
 
-    private Map<String, Object> parseToProductDetailJson(int preorderNo, int productNo) {
+    private Map<String, Object> createProductDetailData(int preorderNo, int productNo) {
         Map<String, Object> jsonMap = new HashMap<>();
         if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("preorderNo", preorderNo);

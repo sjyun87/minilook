@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import okhttp3.RequestBody;
 import timber.log.Timber;
 
 public class OrderRequest extends BaseRequest<OrderService> {
@@ -24,22 +25,22 @@ public class OrderRequest extends BaseRequest<OrderService> {
     }
 
     public Single<BaseDataModel> getShoppingBag() {
-        int user_id = App.getInstance().getMemberNo();
-        return getApi().getShoppingBag(user_id);
+        int memberNo = App.getInstance().getMemberNo();
+        return getApi().getShoppingBag(memberNo);
     }
 
     public Single<BaseDataModel> addShoppingBag(List<ShoppingOptionDataModel> goodsData) {
-        int user_id = App.getInstance().getMemberNo();
-        return getApi().addShoppingBag(user_id, createRequestBody(parseToAddJson(goodsData)));
+        int memberNo = App.getInstance().getMemberNo();
+        return getApi().addShoppingBag(memberNo, createAddShoppingBagData(goodsData));
     }
 
-    private Map<String, Object> parseToAddJson(List<ShoppingOptionDataModel> goodsData) {
+    private RequestBody createAddShoppingBagData(List<ShoppingOptionDataModel> goodsData) {
         Map<String, Object> jsonMap = new HashMap<>();
-        jsonMap.put("options", getOptions(goodsData));
-        return jsonMap;
+        jsonMap.put("options", getOptionsJson(goodsData));
+        return createRequestBody(jsonMap);
     }
 
-    private Object getOptions(List<ShoppingOptionDataModel> goodsData) {
+    private List<JsonObject> getOptionsJson(List<ShoppingOptionDataModel> goodsData) {
         List<JsonObject> options = new ArrayList<>();
         for (ShoppingOptionDataModel model : goodsData) {
             JsonObject json = new JsonObject();
@@ -50,38 +51,38 @@ public class OrderRequest extends BaseRequest<OrderService> {
         return options;
     }
 
-    public Single<BaseDataModel> updateGoodsQuantity(int shoppingbag_id, int quantity) {
-        int user_id = App.getInstance().getMemberNo();
-        return getApi().updateGoodsQuantity(user_id, shoppingbag_id, createRequestBody(parseToUpdateJson(quantity)));
+    public Single<BaseDataModel> updateGoodsQuantity(int shoppingbagNo, int quantity) {
+        int memberNo = App.getInstance().getMemberNo();
+        return getApi().updateGoodsQuantity(memberNo, shoppingbagNo, createUpdateGoodQuantityData(quantity));
     }
 
-    private Map<String, Object> parseToUpdateJson(int quantity) {
+    private RequestBody createUpdateGoodQuantityData(int quantity) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("quantity", quantity);
-        return jsonMap;
+        return createRequestBody(jsonMap);
     }
 
     public Single<BaseDataModel> deleteShoppingBag(List<Integer> deleteItem) {
-        int user_id = App.getInstance().getMemberNo();
-        return getApi().deleteShoppingBag(user_id, createRequestBody(parseToDeleteJson(deleteItem)));
+        int memberNo = App.getInstance().getMemberNo();
+        return getApi().deleteShoppingBag(memberNo, createDeleteShoppingBagData(deleteItem));
     }
 
-    private Map<String, Object> parseToDeleteJson(List<Integer> deleteItem) {
+    private RequestBody createDeleteShoppingBagData(List<Integer> deleteItem) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("carts", deleteItem);
-        return jsonMap;
+        return createRequestBody(jsonMap);
     }
 
     public Single<BaseDataModel> getOrderSheet() {
-        int user_id = App.getInstance().getMemberNo();
-        return getApi().getOrderSheet(user_id);
+        int memberNo = App.getInstance().getMemberNo();
+        return getApi().getOrderSheet(memberNo);
     }
 
     public Single<BaseDataModel> setSafetyStock(String orderId, List<ShoppingBrandDataModel> items) {
-        return getApi().setSafetyStock(createRequestBody(parseToSafetyStockJson(orderId, items)));
+        return getApi().setSafetyStock(createSafetyStockData(orderId, items));
     }
 
-    private Map<String, Object> parseToSafetyStockJson(String orderId, List<ShoppingBrandDataModel> items) {
+    private RequestBody createSafetyStockData(String orderId, List<ShoppingBrandDataModel> items) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("mid", orderId);
@@ -97,15 +98,14 @@ public class OrderRequest extends BaseRequest<OrderService> {
             }
         }
         jsonMap.put("options", options);
-        return jsonMap;
+        return createRequestBody(jsonMap);
     }
 
     public Single<BaseDataModel> orderComplete(OrderCompleteDataModel orderCompleteDataModel) {
-        //parseToOrderCompleteJson(orderCompleteDataModel);
-        return getApi().orderComplete(createRequestBody(parseToOrderCompleteJson(orderCompleteDataModel)));
+        return getApi().orderComplete(createOrderCompleteData(orderCompleteDataModel));
     }
 
-    private Map<String, Object> parseToOrderCompleteJson(OrderCompleteDataModel data) {
+    private RequestBody createOrderCompleteData(OrderCompleteDataModel data) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("address1", data.getAddress());
         jsonMap.put("address2", data.getAddress_detail());
@@ -130,31 +130,31 @@ public class OrderRequest extends BaseRequest<OrderService> {
         jsonMap.put("shippingTotalFee", data.getTotal_shipping_price());
         jsonMap.put("zipcode", data.getZip());
         Timber.e(jsonMap.toString());
-        return jsonMap;
+        return createRequestBody(jsonMap);
     }
 
     public Single<BaseDataModel> getOrderHistory(long lastOrderTime, int ROWS) {
-        return getApi().getOrderHistory(createRequestBody(parseToOrderHistoryJson(lastOrderTime, ROWS)));
+        return getApi().getOrderHistory(createOrderHistoryData(lastOrderTime, ROWS));
     }
 
-    private Map<String, Object> parseToOrderHistoryJson(long lastOrderTime, int rows) {
+    private RequestBody createOrderHistoryData(long lastOrderTime, int rows) {
         Map<String, Object> jsonMap = new HashMap<>();
         if (lastOrderTime != 0) jsonMap.put("lastItemOrderTime", lastOrderTime);
         jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("pageSize", rows);
-        return jsonMap;
+        return createRequestBody(jsonMap);
     }
 
-    public Single<BaseDataModel> getOrderDetail(String order_id, String receipt_id) {
-        return getApi().getOrderDetail(order_id, createRequestBody(parseToOrderDetailJson(order_id, receipt_id)));
+    public Single<BaseDataModel> getOrderDetail(String orderNo, String receiptId) {
+        return getApi().getOrderDetail(orderNo, createOrderDetailData(orderNo, receiptId));
     }
 
-    private Map<String, Object> parseToOrderDetailJson(String order_id, String receipt_id) {
+    private RequestBody createOrderDetailData(String orderNo, String receiptId) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("memberNo", App.getInstance().getMemberNo());
-        jsonMap.put("mid", order_id);
-        jsonMap.put("receiptId", receipt_id);
-        return jsonMap;
+        jsonMap.put("mid", orderNo);
+        jsonMap.put("receiptId", receiptId);
+        return createRequestBody(jsonMap);
     }
 
     public Single<BaseDataModel> setPurchaseConfirm(int orderOptionNo) {
@@ -163,29 +163,28 @@ public class OrderRequest extends BaseRequest<OrderService> {
 
     public Single<BaseDataModel> orderCancel(OrderCancelDataModel orderData) {
         if (orderData.isAllCancel()) {
-            return getApi().orderAllCancel(orderData.getOrderNo(), createRequestBody(parseToAllCancelJson(orderData)));
+            return getApi().orderAllCancel(orderData.getOrderNo(), createAllCancelData(orderData));
         } else {
             int orderOptionNo = orderData.getGoods().get(0).getOrderOptionNo();
-            return getApi().orderCancel(orderData.getOrderNo(), orderOptionNo,
-                createRequestBody(parseToCancelJson(orderData)));
+            return getApi().orderCancel(orderData.getOrderNo(), orderOptionNo, createCancelData(orderData));
         }
     }
 
-    private Map<String, Object> parseToAllCancelJson(OrderCancelDataModel orderData) {
+    private RequestBody createAllCancelData(OrderCancelDataModel orderData) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("mid", orderData.getOrderNo());
         if (!TextUtils.isEmpty(orderData.getReceiptId())) jsonMap.put("receiptId", orderData.getReceiptId());
-        return jsonMap;
+        return createRequestBody(jsonMap);
     }
 
-    private Map<String, Object> parseToCancelJson(OrderCancelDataModel orderData) {
+    private RequestBody createCancelData(OrderCancelDataModel orderData) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("mid", orderData.getOrderNo());
         jsonMap.put("orderNo", orderData.getGoods().get(0).getOrderOptionNo());
         if (!TextUtils.isEmpty(orderData.getReceiptId())) jsonMap.put("receiptId", orderData.getReceiptId());
-        return jsonMap;
+        return createRequestBody(jsonMap);
     }
 
     public Single<BaseDataModel> getExchangeNReturnCode() {
@@ -194,17 +193,16 @@ public class OrderRequest extends BaseRequest<OrderService> {
 
     public Single<BaseDataModel> exchangeNReturn(int orderOptionNo, String typeCode, String reasonCode,
         String reasonDetail) {
-        return getApi().exchangeNReturn(
-            createRequestBody(parseToExchangeNReturnJson(orderOptionNo, typeCode, reasonCode, reasonDetail)));
+        return getApi().exchangeNReturn(createExchangeNReturnData(orderOptionNo, typeCode, reasonCode, reasonDetail));
     }
 
-    private Map<String, Object> parseToExchangeNReturnJson(int orderOptionNo, String typeCode, String reasonCode,
+    private RequestBody createExchangeNReturnData(int orderOptionNo, String typeCode, String reasonCode,
         String reasonDetail) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("orderNo", orderOptionNo);
         jsonMap.put("refundTypeCode", typeCode);
         jsonMap.put("refundResonCode", reasonCode);
         jsonMap.put("memo", reasonDetail);
-        return jsonMap;
+        return createRequestBody(jsonMap);
     }
 }

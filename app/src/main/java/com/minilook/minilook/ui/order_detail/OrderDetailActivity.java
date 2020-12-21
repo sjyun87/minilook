@@ -29,8 +29,8 @@ public class OrderDetailActivity extends _BaseActivity implements OrderDetailPre
 
     public static void start(Context context, String orderNo, String receiptNo) {
         Intent intent = new Intent(context, OrderDetailActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("orderNo", orderNo);
         intent.putExtra("receiptNo", receiptNo);
         context.startActivity(intent);

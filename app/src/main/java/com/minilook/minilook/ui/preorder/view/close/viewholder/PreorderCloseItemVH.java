@@ -14,17 +14,17 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
 import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import com.minilook.minilook.ui.preorder.PreorderPresenterImpl;
 
-public class PreorderCloseItemVH extends BaseViewHolder<PreorderDataModel> {
+public class PreorderCloseItemVH extends _BaseViewHolder<PreorderDataModel> {
 
     @BindView(R.id.img_thumb) ImageView thumbImageView;
     @BindView(R.id.txt_brand) TextView brandTextView;
     @BindView(R.id.txt_title) TextView titleTextView;
     @BindView(R.id.txt_desc) TextView descTextView;
 
-    @BindDrawable(R.drawable.placeholder_image) Drawable img_placeholder;
+    @BindDrawable(R.drawable.ph_square) Drawable img_placeholder;
 
     public PreorderCloseItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())

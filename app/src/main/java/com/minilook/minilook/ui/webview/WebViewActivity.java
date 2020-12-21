@@ -17,8 +17,8 @@ public class WebViewActivity extends _BaseActivity implements WebViewPresenter.V
 
     public static void start(Context context, String url) {
         Intent intent = new Intent(context, WebViewActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("url", url);
         context.startActivity(intent);
     }

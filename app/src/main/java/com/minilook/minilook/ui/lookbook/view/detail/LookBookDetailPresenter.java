@@ -7,11 +7,16 @@ import androidx.lifecycle.OnLifecycleEvent;
 public interface LookBookDetailPresenter extends LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    void onCreate();
+    void onCreateView();
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    void onDestroyView();
 
     void onBackClick();
 
     interface View {
+
+        void setupTitleBar();
 
         void setupStyleRecyclerView();
 
@@ -21,16 +26,18 @@ public interface LookBookDetailPresenter extends LifecycleObserver {
 
         void productRefresh();
 
-        void setupLabel(String text);
+        void setLabel(String text);
 
-        void setupTitle(String text);
+        void setTitle(String text);
 
-        void setupTag(String text);
+        void setTag(String text);
 
-        void setupDesc(String text);
+        void setDesc(String text);
 
-        void setupSimpleInfo(String text);
+        void setSimpleInfo(String text);
 
         void scrollToTop();
+
+        void clear();
     }
 }

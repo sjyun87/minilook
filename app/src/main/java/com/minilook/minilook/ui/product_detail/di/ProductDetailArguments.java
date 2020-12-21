@@ -5,7 +5,6 @@ import com.minilook.minilook.data.model.review.ReviewDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.product_detail.ProductDetailPresenter;
 
-import com.minilook.minilook.util.DynamicLinkManager;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -16,5 +15,4 @@ public class ProductDetailArguments {
     private final BaseAdapterDataModel<String> productImageAdapter;
     private final BaseAdapterDataModel<ReviewDataModel> reviewAdapter;
     private final BaseAdapterDataModel<ProductDataModel> relatedProductAdapter;
-    private final DynamicLinkManager dynamicLinkManager;
 }

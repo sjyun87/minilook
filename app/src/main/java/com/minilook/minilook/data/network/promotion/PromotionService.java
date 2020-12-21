@@ -9,8 +9,8 @@ import retrofit2.http.Path;
 
 public interface PromotionService {
 
-    @POST("/api/markets/promotions/{promotion_id}") Single<BaseDataModel> getPromotionDetail(
-        @Path("promotion_id") int promotion_id,
+    @POST("/api/markets/promotions/{promotionNo}") Single<BaseDataModel> getPromotionDetail(
+        @Path("promotionNo") int promotionNo,
         @Body RequestBody body
     );
 

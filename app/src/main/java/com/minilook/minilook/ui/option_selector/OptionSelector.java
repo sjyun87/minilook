@@ -93,7 +93,7 @@ public class OptionSelector extends FrameLayout implements OptionSelectorShoppin
     @BindColor(R.color.color_FF424242) int color_FF424242;
     @BindColor(R.color.color_FF616161) int color_FF616161;
 
-    @BindDrawable(R.drawable.placeholder_image) Drawable placeholder_img;
+    @BindDrawable(R.drawable.ph_square) Drawable placeholder_img;
 
     @BindDimen(R.dimen.sp_6) int sp_6;
     @BindDimen(R.dimen.sp_7) int sp_7;
@@ -627,6 +627,7 @@ public class OptionSelector extends FrameLayout implements OptionSelectorShoppin
                 shoppingProductData.setDiscount(shoppingOptions.get(0).isDiscount());
                 shoppingProductData.setDiscountPercent(shoppingOptions.get(0).getDiscountPercent());
                 shoppingProductData.setPrice(shoppingOptions.get(0).getPrice());
+                shoppingProductData.setBonus(shoppingOptions.get(0).isBonus());
                 shoppingProductData.setAddPointPercent(1);
                 shoppingProductData.setOptions(shoppingOptions);
                 shoppingProducts.add(shoppingProductData);

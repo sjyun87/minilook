@@ -23,8 +23,8 @@ public class ShippingActivity extends _BaseActivity implements ShippingPresenter
 
     public static void start(Context context, String route) {
         Intent intent = new Intent(context, ShippingActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("route", route);
         context.startActivity(intent);
     }

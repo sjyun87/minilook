@@ -10,11 +10,11 @@ import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.base.BaseFragment;
+import com.minilook.minilook.ui.base._BaseFragment;
 import com.minilook.minilook.ui.preorder.view.open.adapter.PreorderOpenAdapter;
 import com.minilook.minilook.ui.preorder.view.open.di.PreorderOpenArguments;
 
-public class PreorderOpenFragment extends BaseFragment implements PreorderOpenPresenter.View {
+public class PreorderOpenFragment extends _BaseFragment implements PreorderOpenPresenter.View {
 
     public static PreorderOpenFragment newInstance() {
         return new PreorderOpenFragment();

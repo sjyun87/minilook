@@ -7,10 +7,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import butterknife.BindView;
 import com.minilook.minilook.R;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 import lombok.Setter;
 
-public class QuestionTypeItemVH extends BaseViewHolder<String> {
+public class QuestionTypeItemVH extends _BaseViewHolder<String> {
 
     @BindView(R.id.txt_type) TextView sizeTextView;
 

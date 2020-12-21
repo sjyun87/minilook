@@ -26,6 +26,6 @@ import lombok.Data;
     @Expose @SerializedName("products")
     private List<ProductDataModel> products;
 
-    // -- Optional Data
+    // for control
     private int type;
 }

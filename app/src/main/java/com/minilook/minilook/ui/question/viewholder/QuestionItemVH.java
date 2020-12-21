@@ -15,9 +15,9 @@ import butterknife.BindView;
 import com.minilook.minilook.App;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.question.QuestionDataModel;
-import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.base._BaseViewHolder;
 
-public class QuestionItemVH extends BaseViewHolder<QuestionDataModel> {
+public class QuestionItemVH extends _BaseViewHolder<QuestionDataModel> {
 
     @BindView(R.id.txt_type) TextView typeTextView;
     @BindView(R.id.img_my_secret) ImageView mySecretImageView;

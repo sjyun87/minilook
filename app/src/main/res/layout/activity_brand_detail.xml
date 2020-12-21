@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:descendantFocusability="blocksDescendants">
+    android:layout_height="match_parent">
 
     <com.minilook.minilook.ui.base.widget.TitleBar
         android:id="@+id/titlebar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_scrollFlags="noScroll"
         app:showBack="true"
         app:showHome="true"
         app:showShoppingBag="true" />
@@ -19,13 +19,13 @@
         android:id="@+id/nsv_contents"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titlebar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:descendantFocusability="blocksDescendants">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/img_thumb"
@@ -54,37 +54,41 @@
                 android:layout_marginTop="@dimen/dp_4"
                 android:padding="@dimen/dp_6"
                 android:src="@drawable/ic_share"
-                app:layout_constraintRight_toLeftOf="@+id/img_scrap"
+                app:layout_constraintRight_toLeftOf="@+id/layout_scrap_panel"
                 app:layout_constraintTop_toBottomOf="@+id/img_thumb"
                 tools:ignore="ContentDescription" />
 
-            <ImageView
-                android:id="@+id/img_scrap"
+            <LinearLayout
+                android:id="@+id/layout_scrap_panel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_4"
                 android:layout_marginEnd="@dimen/dp_4"
-                android:paddingStart="@dimen/dp_6"
-                android:paddingTop="@dimen/dp_6"
-                android:paddingEnd="@dimen/dp_6"
-                android:src="@drawable/ic_scrap_off"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/dp_6"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/img_thumb"
-                tools:ignore="ContentDescription" />
+                tools:ignore="UseCompoundDrawables">
 
-            <TextView
-                android:id="@+id/txt_scrap"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/nanum_square_r"
-                android:gravity="center_horizontal"
-                android:paddingTop="@dimen/dp_2"
-                android:textColor="@color/color_FF616161"
-                android:textSize="@dimen/sp_6"
-                app:layout_constraintLeft_toLeftOf="@+id/img_scrap"
-                app:layout_constraintRight_toRightOf="@+id/img_scrap"
-                app:layout_constraintTop_toBottomOf="@+id/img_scrap"
-                tools:text="1000" />
+                <ImageView
+                    android:id="@+id/img_scrap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_scrap_off"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/txt_scrap_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/color_FF616161"
+                    android:textSize="@dimen/sp_6"
+                    tools:text="1000" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/txt_name"
@@ -102,7 +106,7 @@
 
             <TextView
                 android:id="@+id/txt_tag"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_6"
@@ -111,7 +115,6 @@
                 android:textColor="@color/color_FF616161"
                 android:textSize="@dimen/sp_6"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_name"
                 tools:text="#스트릿 #밀리터리 #빈티지" />
 
@@ -143,7 +146,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/txt_desc"
                 tools:itemCount="10"
                 tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_brand_detail_style"
+                tools:listitem="@layout/view_brand_detail_style"
                 tools:orientation="horizontal" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -223,15 +226,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_24"
+                android:background="@color/color_FFFFFFFF"
                 android:orientation="vertical"
+                android:tag="sticky"
                 app:layout_constraintTop_toBottomOf="@+id/layout_brand_info_panel">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/dp_30"
                     android:layout_marginStart="@dimen/dp_10"
-                    android:layout_marginTop="@dimen/dp_9"
                     android:fontFamily="@font/nanum_square_eb"
+                    android:gravity="center_vertical"
                     android:text="@string/brand_detail_product_title"
                     android:textColor="@color/color_FF232323"
                     android:textSize="@dimen/sp_12" />
@@ -239,7 +244,6 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/dp_8"
                     android:background="@color/color_FFF5F5F5" />
 
                 <LinearLayout
@@ -278,84 +282,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
                 android:paddingBottom="@dimen/dp_50"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/layout_header_panel" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcv_sort"
-                android:layout_width="@dimen/dp_80"
-                android:layout_height="wrap_content"
-                android:background="@color/color_FFFFFFFF"
-                android:visibility="gone"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layout_header_panel"
-                tools:visibility="visible" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <LinearLayout
-        android:id="@+id/layout_sticky_panel"
+    <com.minilook.minilook.ui.base.widget.selector.sort.SortSelector
+        android:id="@+id/sort_selector"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/color_FFFFFFFF"
-        android:orientation="vertical"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/titlebar">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_10"
-            android:layout_marginTop="@dimen/dp_9"
-            android:fontFamily="@font/nanum_square_eb"
-            android:text="@string/brand_detail_product_title"
-            android:textColor="@color/color_FF232323"
-            android:textSize="@dimen/sp_12" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/dp_8"
-            android:background="@color/color_FFF5F5F5" />
-
-        <LinearLayout
-            android:id="@+id/layout_sticky_sort_panel"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_22"
-            android:layout_gravity="end"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="@dimen/dp_10"
-            android:paddingEnd="@dimen/dp_10"
-            tools:ignore="UseCompoundDrawables">
-
-            <TextView
-                android:id="@+id/txt_sticky_sort"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/nanum_square_r"
-                android:includeFontPadding="false"
-                android:textColor="@color/color_FF616161"
-                android:textSize="@dimen/sp_6"
-                tools:text="최신등록순" />
-
-            <ImageView
-                android:id="@+id/img_sticky_sort_arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_4"
-                android:src="@drawable/ic_arrow_down_xs"
-                tools:ignore="ContentDescription" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_sticky_sort"
-        android:layout_width="@dimen/dp_80"
-        android:layout_height="wrap_content"
-        android:background="@color/color_FFFFFFFF"
-        android:visibility="gone"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_sticky_panel" />
+        android:layout_height="match_parent"
+        tools:visibility="gone" />
 </androidx.constraintlayout.widget.ConstraintLayout>

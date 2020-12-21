@@ -19,12 +19,17 @@ import com.minilook.minilook.ui.market.viewholder.recommend.MarketRecommendVH;
 import com.minilook.minilook.ui.market.viewholder.theme.MarketThemeVH;
 import com.minilook.minilook.ui.market.viewholder.trend.MarketTrendVH;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MarketModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<MarketDataModel>> implements
     BaseAdapterDataModel<MarketDataModel>, BaseAdapterDataView<MarketDataModel> {
 
-    private List<MarketDataModel> items = new ArrayList<>();
+    private final List<MarketDataModel> items = new ArrayList<>();
+    private final Map<Integer, BaseViewHolder<MarketDataModel>> viewHolders = new HashMap<>();
+
+    private boolean isAttached = false;
 
     @NonNull @Override
     public BaseViewHolder<MarketDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -49,13 +54,14 @@ public class MarketModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<Mar
         } else if (viewType == MarketModuleType.TYPE_DAY.getType()) {
             return new MarketDayVH(parent);
         } else {
-            return new BaseViewHolder<>(parent);
+            throw new IllegalStateException("Market module type is not matching = " + viewType);
         }
     }
 
     @SuppressWarnings("unchecked")
     @Override public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
         holder.bind(items.get(position));
+        viewHolders.put(position, holder);
     }
 
     @Override public int getItemCount() {
@@ -132,10 +138,28 @@ public class MarketModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<Mar
     }
 
     @Override public void onViewAttachedToWindow(@NonNull BaseViewHolder<MarketDataModel> holder) {
-        holder.onAttach();
+        if (isAttached) holder.onAttach();
     }
 
     @Override public void onViewDetachedFromWindow(@NonNull BaseViewHolder<MarketDataModel> holder) {
-        holder.onDetach();
+        if (isAttached) holder.onDetach();
+    }
+
+    public BaseViewHolder<MarketDataModel> getViewHolder(int position) {
+        return viewHolders.get(position);
+    }
+
+    public void onAttach() {
+        isAttached = true;
+        for (Integer position : viewHolders.keySet()) {
+            viewHolders.get(position).onAttach();
+        }
+    }
+
+    public void onDetach() {
+        isAttached = false;
+        for (Integer position : viewHolders.keySet()) {
+            viewHolders.get(position).onDetach();
+        }
     }
 }

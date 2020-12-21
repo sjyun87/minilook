@@ -8,15 +8,20 @@ import com.minilook.minilook.data.model.product.ProductDataModel;
 public interface ScrapbookProductPresenter extends LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    void onCreate();
+    void onCreateView();
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    void onDestroyView();
 
     void onLoadMore();
 
     void onEmptyClick();
 
-    void onProductScrap(boolean isScrap, ProductDataModel product);
+    void onProductScrap(ProductDataModel data);
 
     interface View {
+
+        void setupClickAction();
 
         void setupRecyclerView();
 
@@ -27,5 +32,9 @@ public interface ScrapbookProductPresenter extends LifecycleObserver {
         void refresh(int start, int rows);
 
         void showEmptyPanel();
+
+        void showErrorDialog();
+
+        void clear();
     }
 }

@@ -9,8 +9,8 @@ import retrofit2.http.Path;
 
 public interface EventService {
 
-    @POST("/api/markets/events/{event_id}") Single<BaseDataModel> getEventDetail(
-        @Path("event_id") int event_id,
+    @POST("/api/markets/events/{eventNo}") Single<BaseDataModel> getEventDetail(
+        @Path("eventNo") int eventNo,
         @Body RequestBody body
     );
 
