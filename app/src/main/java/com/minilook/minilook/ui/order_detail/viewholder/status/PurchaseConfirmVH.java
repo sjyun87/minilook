@@ -43,11 +43,13 @@ public class PurchaseConfirmVH extends _BaseViewHolder<OrderProductDataModel> {
     @Override public void bind(OrderProductDataModel $data) {
         super.bind($data);
 
-        if (data.isPreorder()) {
-            reviewWriteTextView.setVisibility(View.GONE);
-        } else {
-            reviewWriteTextView.setVisibility(data.isReviewed() ? View.GONE : View.VISIBLE);
-        }
+        //if (data.isPreorder()) {
+        //    reviewWriteTextView.setVisibility(View.GONE);
+        //} else {
+        //    reviewWriteTextView.setVisibility(data.isReviewed() ? View.GONE : View.VISIBLE);
+        //}
+
+        reviewWriteTextView.setVisibility(View.VISIBLE);
 
         stateTextView.setText(OrderStatus.toName(data.getStatusCode()));
 

@@ -161,7 +161,7 @@ public class OrderDetailPresenterImpl extends BasePresenterImpl implements Order
                 view.showPurchaseConfirmDialog(orderOptionNo);
             } else if (o instanceof RxBusEventWriteReviewClick) {
                 OrderProductDataModel data = ((RxBusEventWriteReviewClick) o).getData();
-                view.navigateToReviewWrite(orderNo, data);
+                view.navigateToReviewWrite(orderData.getOrderNo(), orderData.getOrderDate(), data);
             } else if (o instanceof RxBusEventStatusRefresh) {
                 reqOrderDetail();
             } else if (o instanceof RxBusEventCancelQuestionClick) {

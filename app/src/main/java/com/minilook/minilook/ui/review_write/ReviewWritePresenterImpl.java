@@ -1,5 +1,8 @@
 package com.minilook.minilook.ui.review_write;
 
+import com.minilook.minilook.data.code.GenderCode;
+import com.minilook.minilook.data.code.ReviewSatisfactions;
+import com.minilook.minilook.data.code.ReviewSizes;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.order.OrderProductDataModel;
@@ -16,24 +19,63 @@ public class ReviewWritePresenterImpl extends BasePresenterImpl implements Revie
 
     private final View view;
     private final String orderNo;
+    private final String orderDate;
     private final OrderProductDataModel data;
     private final ReviewRequest reviewRequest;
+
+    private int satisfactionCode = -1;
+    private int sizeRatingCode = -1;
+    private int genderCode = -1;
 
     private String review;
 
     public ReviewWritePresenterImpl(ReviewWriteArguments args) {
         view = args.getView();
         orderNo = args.getOrderNo();
+        orderDate = args.getOrderDate();
         data = args.getData();
         reviewRequest = new ReviewRequest();
     }
 
     @Override public void onCreate() {
+        view.setupClickAction();
+
+        view.setOrderNo(orderNo);
+        view.setOrderDate(orderDate);
         view.setThumb(data.getThumbUrl());
         view.setBrandName(data.getBrandName());
         view.setProductName(data.getName());
         view.setOption(data.getColorName(), data.getSizeName());
+
         view.setupReviewEditText();
+    }
+
+    @Override public void onSatisfactionClick(int code) {
+        if (satisfactionCode != code) {
+            if (satisfactionCode != -1) unselectSatisfactionButton(satisfactionCode);
+            satisfactionCode = code;
+            selectSatisfactionButton(satisfactionCode);
+        }
+    }
+
+    @Override public void onSizeClick(int code) {
+        if (sizeRatingCode != code) {
+            if (sizeRatingCode != -1) unselectSizeRatingButton(sizeRatingCode);
+            sizeRatingCode = code;
+            selectSizeRatingButton(sizeRatingCode);
+        }
+    }
+
+    @Override public void onGenderClick(int code) {
+        if (genderCode != code) {
+            if (genderCode != -1) unselectGenderButton(genderCode);
+            genderCode = code;
+            selectGenderButton(genderCode);
+        }
+    }
+
+    @Override public void onAgeInputClick() {
+        view.showAgePicker();
     }
 
     @Override public void onTextChanged(String text) {
@@ -47,6 +89,70 @@ public class ReviewWritePresenterImpl extends BasePresenterImpl implements Revie
 
     @Override public void onApplyClick() {
         reqWriteReview();
+    }
+
+    private void selectSatisfactionButton(int code) {
+        if (code == ReviewSatisfactions.GOOD.getCode()) {
+            view.selectGoodButton();
+        } else if (code == ReviewSatisfactions.NORMAL.getCode()) {
+            view.selectNormalButton();
+        } else if (code == ReviewSatisfactions.BAD.getCode()) {
+            view.selectBadButton();
+        }
+    }
+
+    private void unselectSatisfactionButton(int code) {
+        if (code == ReviewSatisfactions.GOOD.getCode()) {
+            view.unselectGoodButton();
+        } else if (code == ReviewSatisfactions.NORMAL.getCode()) {
+            view.unselectNormalButton();
+        } else if (code == ReviewSatisfactions.BAD.getCode()) {
+            view.unselectBadButton();
+        }
+    }
+
+    private void selectSizeRatingButton(int code) {
+        if (code == ReviewSizes.VERY_BIG.getCode()) {
+            view.selectVeryBigButton();
+        } else if (code == ReviewSizes.LITTLE_BIG.getCode()) {
+            view.selectLittleBigButton();
+        } else if (code == ReviewSizes.PERFECTLY.getCode()) {
+            view.selectPerfectlyButton();
+        } else if (code == ReviewSizes.LITTLE_SMALL.getCode()) {
+            view.selectLittleSmallButton();
+        } else if (code == ReviewSizes.VERY_SMALL.getCode()) {
+            view.selectVerySmallButton();
+        }
+    }
+
+    private void unselectSizeRatingButton(int code) {
+        if (code == ReviewSizes.VERY_BIG.getCode()) {
+            view.unselectVeryBigButton();
+        } else if (code == ReviewSizes.LITTLE_BIG.getCode()) {
+            view.unselectLittleBigButton();
+        } else if (code == ReviewSizes.PERFECTLY.getCode()) {
+            view.unselectPerfectlyButton();
+        } else if (code == ReviewSizes.LITTLE_SMALL.getCode()) {
+            view.unselectLittleSmallButton();
+        } else if (code == ReviewSizes.VERY_SMALL.getCode()) {
+            view.unselectVerySmallButton();
+        }
+    }
+
+    private void selectGenderButton(int code) {
+        if (code == GenderCode.MALE.getCode()) {
+            view.selectMaleButton();
+        } else if (code == GenderCode.FEMALE.getCode()) {
+            view.selectFemaleButton();
+        }
+    }
+
+    private void unselectGenderButton(int code) {
+        if (code == GenderCode.MALE.getCode()) {
+            view.unselectMaleButton();
+        } else if (code == GenderCode.FEMALE.getCode()) {
+            view.unselectFemaleButton();
+        }
     }
 
     private void reqWriteReview() {

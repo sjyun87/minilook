@@ -455,12 +455,45 @@
     <string name="review_empty">등록된 리뷰가 없습니다.</string>
 
     <!--Review Write-->
-    <string name="review_write_title">리뷰 작성</string>
+    <string name="review_write_title">리뷰쓰기</string>
+    <string name="review_write_order_no_caption">주문번호</string>
+    <string name="review_write_order_date_caption">주문일자</string>
     <string name="review_write_option">%s / %s</string>
-    <string name="review_write_contents">리뷰내용</string>
-    <string name="review_write_contents_hint">내용은 최소 5자 이상 입력해 주세요.</string>
+    <string name="review_write_satisfaction_title">만족도를 선택해주세요</string>
+    <string name="review_write_satisfaction_good">좋아요</string>
+    <string name="review_write_satisfaction_normal">보통이에요</string>
+    <string name="review_write_satisfaction_bad">별로에요</string>
+    <string name="review_write_size_rating_title">사이즈를 평가해주세요</string>
+    <string name="review_write_size_very_big">많이커요</string>
+    <string name="review_write_size_little_big">조금커요</string>
+    <string name="review_write_size_perfectly">딱 맞아요</string>
+    <string name="review_write_size_little_small">조금 작아요</string>
+    <string name="review_write_size_very_small">많이 작아요</string>
+    <string name="review_write_add_info_title">추가 정보를 기입해 주시면 큰 도움이 됩니다.</string>
+    <string name="review_write_add_info_gender_caption">성별</string>
+    <string name="review_write_add_info_gender_female">여아</string>
+    <string name="review_write_add_info_gender_male">남아</string>
+    <string name="review_write_add_info_age_caption">연령(한국나이)</string>
+    <string name="review_write_add_info_age_unit">세</string>
+    <string name="review_write_add_info_height_caption">키</string>
+    <string name="review_write_add_info_height_unit">cm</string>
+    <string name="review_write_add_info_weight_caption">몸무게</string>
+    <string name="review_write_add_info_weight_unit">kg</string>
+    <string name="review_write_add_info_hint">0</string>
+    <string name="review_write_photo_empty_title">사진을 등록해 주세요</string>
+    <string name="review_write_photo_empty_point">사진 첨부시 200 포인트 추가 적립!</string>
+    <string name="review_write_photo_empty_desc">상품과 무관한 사진을 첨부한 리뷰는 통보없\n삭제 및 적립 혜택이 회수됩니다.</string>
+    <string name="review_write_photo_empty_desc_bold">무관한 사진을</string>
+    <string name="review_write_photo_empty_regist">등록하기</string>
+
+
+    <string name="review_write_contents">이 상품의 리뷰를 남겨주세요</string>
+    <string name="review_write_contents_hint">상품 리뷰를 남겨주세요 (최소 10자 이상) </string>
     <string name="review_write_info">※ 해당 상품과 무관한 내용이나 동일 문자의 반복 등 부적합한 내용은 삭제될 수 있습니다.</string>
     <string name="review_write_apply">등록하기</string>
+
+    <!--Age Picker-->
+    <string name="age_picker_format">%s세</string>
 
     <!--Pre-Order-->
     <string name="preorder_title">PRE-ORDER</string>

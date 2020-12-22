@@ -61,5 +61,6 @@
     <dimen name="dp_148">296dp</dimen>
     <dimen name="dp_150">300dp</dimen>
     <dimen name="dp_160">320dp</dimen>
+    <dimen name="dp_175">350dp</dimen>
     <dimen name="dp_200">400dp</dimen>
 </resources>

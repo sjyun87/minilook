@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:parentTag="android.widget.FrameLayout">
+
+    <View
+        android:id="@+id/curtain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_80000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <LinearLayout
+        android:id="@+id/layout_picker_panel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_200"
+        android:layout_gravity="bottom"
+        android:background="@color/color_FFFFFFFF"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_30"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/dp_10"
+            android:paddingEnd="@dimen/dp_10"
+            android:text="@string/review_write_add_info_age_caption"
+            android:textColor="@color/color_FF424242"
+            android:textSize="@dimen/sp_7" />
+
+        <TextView
+            android:id="@+id/txt_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/nanum_square_b"
+            android:textColor="@color/color_FF232323"
+            android:textSize="@dimen/sp_32"
+            tools:text="1세" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="@dimen/dp_10"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/color_FF8140E5" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_picker"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false" />
+    </LinearLayout>
+</merge>

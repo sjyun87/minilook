@@ -15,8 +15,8 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.order.OrderBrandDataModel;
 import com.minilook.minilook.data.model.order.OrderCancelDataModel;
 import com.minilook.minilook.data.model.order.OrderProductDataModel;
-import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.order_cancel.OrderCancelActivity;
 import com.minilook.minilook.ui.order_detail.adapter.OrderDetailAdapter;
@@ -165,8 +165,8 @@ public class OrderDetailActivity extends _BaseActivity implements OrderDetailPre
         startActivity(intent);
     }
 
-    @Override public void navigateToReviewWrite(String orderNo, OrderProductDataModel data) {
-        ReviewWriteActivity.start(this, orderNo, data);
+    @Override public void navigateToReviewWrite(String orderNo, String orderDate, OrderProductDataModel data) {
+        ReviewWriteActivity.start(this, orderNo, orderDate, data);
     }
 
     @OnClick(R.id.txt_order_cancel)

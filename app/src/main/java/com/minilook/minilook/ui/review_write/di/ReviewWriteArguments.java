@@ -9,5 +9,6 @@ import lombok.Getter;
 public class ReviewWriteArguments {
     private final ReviewWritePresenter.View view;
     private final String orderNo;
+    private final String orderDate;
     private final OrderProductDataModel data;
 }

@@ -9,11 +9,25 @@ public interface ReviewWritePresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
+    void onSatisfactionClick(int code);
+
+    void onSizeClick(int code);
+
+    void onGenderClick(int code);
+
+    void onAgeInputClick();
+
     void onTextChanged(String text);
 
     void onApplyClick();
 
     interface View {
+
+        void setupClickAction();
+
+        void setOrderNo(String orderNo);
+
+        void setOrderDate(String orderDate);
 
         void setThumb(String url);
 
@@ -22,6 +36,54 @@ public interface ReviewWritePresenter extends LifecycleObserver {
         void setProductName(String name);
 
         void setOption(String color, String size);
+
+        void selectGoodButton();
+
+        void unselectGoodButton();
+
+        void selectNormalButton();
+
+        void unselectNormalButton();
+
+        void selectBadButton();
+
+        void unselectBadButton();
+
+        void selectVeryBigButton();
+
+        void selectLittleBigButton();
+
+        void selectPerfectlyButton();
+
+        void selectLittleSmallButton();
+
+        void selectVerySmallButton();
+
+        void unselectVeryBigButton();
+
+        void unselectLittleBigButton();
+
+        void unselectPerfectlyButton();
+
+        void unselectLittleSmallButton();
+
+        void unselectVerySmallButton();
+
+        void selectMaleButton();
+
+        void unselectMaleButton();
+
+        void selectFemaleButton();
+
+        void unselectFemaleButton();
+
+
+
+
+
+        void showAgePicker();
+
+        void hideAgePicker();
 
         void setupReviewEditText();
 
