@@ -25,7 +25,7 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
     private static final int ROWS = 30;
 
     private final View view;
-    private SearchOptionDataModel options;
+    private final SearchOptionDataModel options;
     private final BaseAdapterDataModel<CodeDataModel> sortAdapter;
     private final BaseAdapterDataModel<ProductDataModel> productAdapter;
     private final SearchRequest searchRequest;

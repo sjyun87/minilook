@@ -17,6 +17,13 @@ public interface ReviewWritePresenter extends LifecycleObserver {
 
     void onAgeInputClick();
 
+    void onPhotoAddClick();
+
+    void onStoragePermissionGranted();
+
+
+
+
     void onTextChanged(String text);
 
     void onApplyClick();
@@ -77,13 +84,16 @@ public interface ReviewWritePresenter extends LifecycleObserver {
 
         void unselectFemaleButton();
 
-
-
-
-
         void showAgePicker();
 
         void hideAgePicker();
+
+        void checkStoragePermission();
+
+
+
+
+
 
         void setupReviewEditText();
 
@@ -92,6 +102,8 @@ public interface ReviewWritePresenter extends LifecycleObserver {
         void disableApplyButton();
 
         void showReviewWriteToast();
+
+        void navigateToAlbum();
 
         void finish();
     }

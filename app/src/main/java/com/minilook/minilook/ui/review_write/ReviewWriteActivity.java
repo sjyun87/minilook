@@ -11,14 +11,18 @@ import androidx.annotation.StringRes;
 import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.gun0912.tedpermission.PermissionListener;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.code.GenderCode;
 import com.minilook.minilook.data.code.ReviewSatisfactions;
 import com.minilook.minilook.data.code.ReviewSizes;
 import com.minilook.minilook.data.model.order.OrderProductDataModel;
 import com.minilook.minilook.databinding.ActivityReviewWriteBinding;
+import com.minilook.minilook.ui.album.AlbumActivity;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.review_write.di.ReviewWriteArguments;
+import com.minilook.minilook.util.PermissionUtil;
+import java.util.List;
 
 public class ReviewWriteActivity extends BaseActivity implements ReviewWritePresenter.View {
 
@@ -92,6 +96,8 @@ public class ReviewWriteActivity extends BaseActivity implements ReviewWritePres
         binding.txtGenderFemale.setOnClickListener(view -> presenter.onGenderClick(GenderCode.FEMALE.getCode()));
 
         binding.txtAge.setOnClickListener(view -> presenter.onAgeInputClick());
+
+        binding.layoutPhotoEmptyPanel.setOnClickListener(view -> presenter.onPhotoAddClick());
     }
 
     @Override public void setOrderNo(String orderNo) {
@@ -251,6 +257,17 @@ public class ReviewWriteActivity extends BaseActivity implements ReviewWritePres
         binding.pickerAge.hide();
     }
 
+    @Override public void checkStoragePermission() {
+        PermissionUtil.checkStoragePermission(this, new PermissionListener() {
+            @Override public void onPermissionGranted() {
+                presenter.onStoragePermissionGranted();
+            }
+
+            @Override public void onPermissionDenied(List<String> deniedPermissions) {
+            }
+        });
+    }
+
     @Override public void setupReviewEditText() {
         //reviewEditText.addTextChangedListener(new TextWatcher() {
         //    @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -277,6 +294,10 @@ public class ReviewWriteActivity extends BaseActivity implements ReviewWritePres
 
     @Override public void showReviewWriteToast() {
         Toast.makeText(this, str_review_write, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override public void navigateToAlbum() {
+        AlbumActivity.start(this);
     }
 
     @OnClick(R.id.txt_apply)

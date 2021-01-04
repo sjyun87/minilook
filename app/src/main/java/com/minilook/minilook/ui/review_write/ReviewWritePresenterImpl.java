@@ -78,6 +78,14 @@ public class ReviewWritePresenterImpl extends BasePresenterImpl implements Revie
         view.showAgePicker();
     }
 
+    @Override public void onPhotoAddClick() {
+        view.checkStoragePermission();
+    }
+
+    @Override public void onStoragePermissionGranted() {
+        view.navigateToAlbum();
+    }
+
     @Override public void onTextChanged(String text) {
         review = text;
         if (review.length() >= 5) {

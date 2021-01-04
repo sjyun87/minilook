@@ -1,15 +1,12 @@
 package com.minilook.minilook.ui.market.viewholder.commercial.adapter;
 
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.minilook.minilook.data.model.commercial.CommercialDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.market.viewholder.commercial.viewholder.MarketCommercialItemVH;
-
 import java.util.ArrayList;
 import java.util.List;
 
