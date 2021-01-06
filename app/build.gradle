@@ -168,4 +168,6 @@ dependencies {
 
   // Loading View
   implementation "com.github.ybq:Android-SpinKit:$laodding_view_version"
+
+  implementation 'com.yanzhenjie:album:2.1.3'
 }

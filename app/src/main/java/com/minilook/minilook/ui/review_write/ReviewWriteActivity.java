@@ -18,7 +18,7 @@ import com.minilook.minilook.data.code.ReviewSatisfactions;
 import com.minilook.minilook.data.code.ReviewSizes;
 import com.minilook.minilook.data.model.order.OrderProductDataModel;
 import com.minilook.minilook.databinding.ActivityReviewWriteBinding;
-import com.minilook.minilook.ui.album.AlbumActivity;
+import com.minilook.minilook.ui.album.GalleryActivity;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.review_write.di.ReviewWriteArguments;
 import com.minilook.minilook.util.PermissionUtil;
@@ -297,7 +297,7 @@ public class ReviewWriteActivity extends BaseActivity implements ReviewWritePres
     }
 
     @Override public void navigateToAlbum() {
-        AlbumActivity.start(this);
+        GalleryActivity.start(this);
     }
 
     @OnClick(R.id.txt_apply)

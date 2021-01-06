@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".App"
@@ -15,6 +15,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
+        android:requestLegacyExternalStorage="false"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
@@ -254,7 +255,7 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name=".ui.album.AlbumActivity"
+            android:name=".ui.album.GalleryActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
