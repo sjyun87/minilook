@@ -1,14 +1,19 @@
 package com.minilook.minilook.ui.album;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.provider.MediaStore;
 import android.view.View;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.DimenRes;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
+import com.gun0912.tedpermission.PermissionListener;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.gallery.AlbumDataModel;
 import com.minilook.minilook.databinding.ActivityGalleryBinding;
@@ -17,6 +22,8 @@ import com.minilook.minilook.ui.album.adapter.GalleryAdapter;
 import com.minilook.minilook.ui.album.di.GalleryArguments;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.util.PermissionUtil;
+import java.util.List;
 
 public class GalleryActivity extends BaseActivity implements GalleryPresenter.View {
 
@@ -115,4 +122,28 @@ public class GalleryActivity extends BaseActivity implements GalleryPresenter.Vi
             .withLayer()
             .start();
     }
+
+    @Override public void checkCameraPermission() {
+        PermissionUtil.checkCameraPermission(this, new PermissionListener() {
+            @Override public void onPermissionGranted() {
+                presenter.onCameraPermissionGranted();
+            }
+
+            @Override public void onPermissionDenied(List<String> deniedPermissions) {
+            }
+        });
+    }
+
+    @Override public void navigateToCamera() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        launcher.launch(intent);
+    }
+
+    private final ActivityResultLauncher<Intent> launcher =
+        registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    presenter.onCameraCallback();
+                }
+            });
 }

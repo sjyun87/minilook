@@ -14,4 +14,12 @@ public class PermissionUtil {
             .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE)
             .check();
     }
+
+    public static void checkCameraPermission(Context context, PermissionListener listener) {
+        TedPermission.with(context)
+            .setPermissionListener(listener)
+            .setDeniedMessage("권한을 거부하면 서비스를 사용할 수 없습니다.")
+            .setPermissions(Manifest.permission.CAMERA)
+            .check();
+    }
 }

@@ -9,6 +9,7 @@ import com.minilook.minilook.data.model.gallery.AlbumDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.album.di.GalleryArguments;
 import com.minilook.minilook.ui.album.viewholder.AlbumItemVH;
+import com.minilook.minilook.ui.album.viewholder.GalleryHeaderItemVH;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import java.util.ArrayList;
@@ -55,6 +56,14 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
 
     @Override public void onCancelClick() {
         view.finish();
+    }
+
+    @Override public void onCameraPermissionGranted() {
+        view.navigateToCamera();
+    }
+
+    @Override public void onCameraCallback() {
+        setupGallery();
     }
 
     private void setupAlbums() {
@@ -210,6 +219,8 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
                 setupGallery();
                 view.setTitle(parseToKr(data.getName()));
                 handleAlbumPanel();
+            } else if (o instanceof GalleryHeaderItemVH.RxBusEventNavigateToCamera) {
+                view.checkCameraPermission();
             }
         }, Timber::e));
     }

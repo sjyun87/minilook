@@ -13,6 +13,10 @@ public interface GalleryPresenter extends LifecycleObserver {
 
     void onCancelClick();
 
+    void onCameraPermissionGranted();
+
+    void onCameraCallback();
+
     interface View {
 
         void setupClickAction();
@@ -30,6 +34,10 @@ public interface GalleryPresenter extends LifecycleObserver {
         void openAlbumSelectPanel();
 
         void closeAlbumSelectPanel();
+
+        void checkCameraPermission();
+
+        void navigateToCamera();
 
         void finish();
     }
