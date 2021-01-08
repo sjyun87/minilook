@@ -88,7 +88,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/btn_bottombar_preorder"
+        android:id="@+id/btn_bottombar_challenge"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -97,19 +97,19 @@
         tools:ignore="UseCompoundDrawables">
 
         <ImageView
-            android:id="@+id/img_bottombar_preorder"
+            android:id="@+id/img_bottombar_challenge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_bottombar_preorder_gray"
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/txt_bottombar_preorder"
+            android:id="@+id/txt_bottombar_challenge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_4"
             android:fontFamily="@font/nanum_square_b"
-            android:text="@string/bottombar_preorder"
+            android:text="@string/bottombar_challenge"
             android:textColor="@color/color_FFA9A9A9"
             android:textSize="@dimen/sp_6" />
     </LinearLayout>

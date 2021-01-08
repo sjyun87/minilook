@@ -20,7 +20,7 @@ public class BottomBar extends LinearLayout {
     public static final int POSITION_LOOKBOOK = 0;
     public static final int POSITION_MARKET = 1;
     public static final int POSITION_CATEGORY = 2;
-    public static final int POSITION_PREORDER = 3;
+    public static final int POSITION_CHALLENGE = 3;
     public static final int POSITION_IPAGE = 4;
 
     @DrawableRes int bg_white = R.drawable.bg_bottombar_white;
@@ -95,7 +95,7 @@ public class BottomBar extends LinearLayout {
         binding.btnBottombarLookbook.setOnClickListener(view -> onLookBookClick());
         binding.btnBottombarMarket.setOnClickListener(view -> onMarketClick());
         binding.btnBottombarCategory.setOnClickListener(view -> onCategoryClick());
-        binding.btnBottombarPreorder.setOnClickListener(view -> onPreorderClick());
+        binding.btnBottombarChallenge.setOnClickListener(view -> onChallengeClick());
         binding.btnBottombarIpage.setOnClickListener(view -> onIpageClick());
     }
 
@@ -108,25 +108,25 @@ public class BottomBar extends LinearLayout {
                     binding.imgBottombarLookbook.setImageResource(icon_lookbook_purple);
                     binding.imgBottombarMarket.setImageResource(icon_market_gray);
                     binding.imgBottombarCategory.setImageResource(icon_category_gray);
-                    binding.imgBottombarPreorder.setImageResource(icon_preorder_gray);
+                    binding.imgBottombarChallenge.setImageResource(icon_preorder_gray);
                     binding.imgBottombarIpage.setImageResource(icon_ipage_gray);
 
                     binding.txtBottombarLookbook.setTextColor(resources.getColor(color_FF8140E5));
                     binding.txtBottombarMarket.setTextColor(resources.getColor(color_FFA9A9A9));
                     binding.txtBottombarCategory.setTextColor(resources.getColor(color_FFA9A9A9));
-                    binding.txtBottombarPreorder.setTextColor(resources.getColor(color_FFA9A9A9));
+                    binding.txtBottombarChallenge.setTextColor(resources.getColor(color_FFA9A9A9));
                     binding.txtBottombarIpage.setTextColor(resources.getColor(color_FFA9A9A9));
                 } else {
                     binding.imgBottombarLookbook.setImageResource(icon_lookbook_white);
                     binding.imgBottombarMarket.setImageResource(icon_market_white);
                     binding.imgBottombarCategory.setImageResource(icon_category_white);
-                    binding.imgBottombarPreorder.setImageResource(icon_preorder_white);
+                    binding.imgBottombarChallenge.setImageResource(icon_preorder_white);
                     binding.imgBottombarIpage.setImageResource(icon_ipage_white);
 
                     binding.txtBottombarLookbook.setTextColor(resources.getColor(color_FFFFFFFF));
                     binding.txtBottombarMarket.setTextColor(resources.getColor(color_FFFFFFFF));
                     binding.txtBottombarCategory.setTextColor(resources.getColor(color_FFFFFFFF));
-                    binding.txtBottombarPreorder.setTextColor(resources.getColor(color_FFFFFFFF));
+                    binding.txtBottombarChallenge.setTextColor(resources.getColor(color_FFFFFFFF));
                     binding.txtBottombarIpage.setTextColor(resources.getColor(color_FFFFFFFF));
                 }
                 break;
@@ -135,13 +135,13 @@ public class BottomBar extends LinearLayout {
                 binding.imgBottombarLookbook.setImageResource(icon_lookbook_gray);
                 binding.imgBottombarMarket.setImageResource(icon_market_purple);
                 binding.imgBottombarCategory.setImageResource(icon_category_gray);
-                binding.imgBottombarPreorder.setImageResource(icon_preorder_gray);
+                binding.imgBottombarChallenge.setImageResource(icon_preorder_gray);
                 binding.imgBottombarIpage.setImageResource(icon_ipage_gray);
 
                 binding.txtBottombarLookbook.setTextColor(resources.getColor(color_FFA9A9A9));
                 binding.txtBottombarMarket.setTextColor(resources.getColor(color_FF8140E5));
                 binding.txtBottombarCategory.setTextColor(resources.getColor(color_FFA9A9A9));
-                binding.txtBottombarPreorder.setTextColor(resources.getColor(color_FFA9A9A9));
+                binding.txtBottombarChallenge.setTextColor(resources.getColor(color_FFA9A9A9));
                 binding.txtBottombarIpage.setTextColor(resources.getColor(color_FFA9A9A9));
                 break;
 
@@ -149,27 +149,27 @@ public class BottomBar extends LinearLayout {
                 binding.imgBottombarLookbook.setImageResource(icon_lookbook_gray);
                 binding.imgBottombarMarket.setImageResource(icon_market_gray);
                 binding.imgBottombarCategory.setImageResource(icon_category_purple);
-                binding.imgBottombarPreorder.setImageResource(icon_preorder_gray);
+                binding.imgBottombarChallenge.setImageResource(icon_preorder_gray);
                 binding.imgBottombarIpage.setImageResource(icon_ipage_gray);
 
                 binding.txtBottombarLookbook.setTextColor(resources.getColor(color_FFA9A9A9));
                 binding.txtBottombarMarket.setTextColor(resources.getColor(color_FFA9A9A9));
                 binding.txtBottombarCategory.setTextColor(resources.getColor(color_FF8140E5));
-                binding.txtBottombarPreorder.setTextColor(resources.getColor(color_FFA9A9A9));
+                binding.txtBottombarChallenge.setTextColor(resources.getColor(color_FFA9A9A9));
                 binding.txtBottombarIpage.setTextColor(resources.getColor(color_FFA9A9A9));
                 break;
 
-            case POSITION_PREORDER:
+            case POSITION_CHALLENGE:
                 binding.imgBottombarLookbook.setImageResource(icon_lookbook_gray);
                 binding.imgBottombarMarket.setImageResource(icon_market_gray);
                 binding.imgBottombarCategory.setImageResource(icon_category_gray);
-                binding.imgBottombarPreorder.setImageResource(icon_preorder_purple);
+                binding.imgBottombarChallenge.setImageResource(icon_preorder_purple);
                 binding.imgBottombarIpage.setImageResource(icon_ipage_gray);
 
                 binding.txtBottombarLookbook.setTextColor(resources.getColor(color_FFA9A9A9));
                 binding.txtBottombarMarket.setTextColor(resources.getColor(color_FFA9A9A9));
                 binding.txtBottombarCategory.setTextColor(resources.getColor(color_FFA9A9A9));
-                binding.txtBottombarPreorder.setTextColor(resources.getColor(color_FF8140E5));
+                binding.txtBottombarChallenge.setTextColor(resources.getColor(color_FF8140E5));
                 binding.txtBottombarIpage.setTextColor(resources.getColor(color_FFA9A9A9));
                 break;
 
@@ -177,13 +177,13 @@ public class BottomBar extends LinearLayout {
                 binding.imgBottombarLookbook.setImageResource(icon_lookbook_gray);
                 binding.imgBottombarMarket.setImageResource(icon_market_gray);
                 binding.imgBottombarCategory.setImageResource(icon_category_gray);
-                binding.imgBottombarPreorder.setImageResource(icon_preorder_gray);
+                binding.imgBottombarChallenge.setImageResource(icon_preorder_gray);
                 binding.imgBottombarIpage.setImageResource(icon_ipage_purple);
 
                 binding.txtBottombarLookbook.setTextColor(resources.getColor(color_FFA9A9A9));
                 binding.txtBottombarMarket.setTextColor(resources.getColor(color_FFA9A9A9));
                 binding.txtBottombarCategory.setTextColor(resources.getColor(color_FFA9A9A9));
-                binding.txtBottombarPreorder.setTextColor(resources.getColor(color_FFA9A9A9));
+                binding.txtBottombarChallenge.setTextColor(resources.getColor(color_FFA9A9A9));
                 binding.txtBottombarIpage.setTextColor(resources.getColor(color_FF8140E5));
                 break;
         }
@@ -205,8 +205,8 @@ public class BottomBar extends LinearLayout {
             case POSITION_CATEGORY:
                 onCategoryClick();
                 break;
-            case POSITION_PREORDER:
-                onPreorderClick();
+            case POSITION_CHALLENGE:
+                onChallengeClick();
                 break;
             case POSITION_IPAGE:
                 onIpageClick();
@@ -242,9 +242,9 @@ public class BottomBar extends LinearLayout {
         if (onBottomBarListener != null) onBottomBarListener.onBottomTabClick(position);
     }
 
-    void onPreorderClick() {
-        if (position == POSITION_PREORDER) return;
-        position = POSITION_PREORDER;
+    void onChallengeClick() {
+        if (position == POSITION_CHALLENGE) return;
+        position = POSITION_CHALLENGE;
         isWhiteTheme = true;
         updateUI();
         if (onBottomBarListener != null) onBottomBarListener.onBottomTabClick(position);

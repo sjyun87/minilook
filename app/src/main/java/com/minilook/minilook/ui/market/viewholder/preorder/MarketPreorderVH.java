@@ -14,12 +14,10 @@ import com.minilook.minilook.App;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.market.MarketDataModel;
 import com.minilook.minilook.data.model.preorder.PreorderDataModel;
-import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.databinding.ViewMarketPreorderBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
-import com.minilook.minilook.ui.base.widget.BottomBar;
-import com.minilook.minilook.ui.main.MainPresenterImpl;
 import com.minilook.minilook.ui.market.viewholder.preorder.adapter.MarketPreorderAdapter;
+import com.minilook.minilook.ui.preorder.PreorderActivity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,6 +67,6 @@ public class MarketPreorderVH extends BaseViewHolder<MarketDataModel> {
     }
 
     void onMoreClick(View view) {
-        RxBus.send(new MainPresenterImpl.RxEventNavigateToPage(BottomBar.POSITION_PREORDER));
+        PreorderActivity.start(context);
     }
 }
