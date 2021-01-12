@@ -7,4 +7,6 @@ import lombok.Data;
     private String code;
     private String message;
     private JsonElement data;
+    private int totalCount;
+    private int totalPage;
 }

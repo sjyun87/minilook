@@ -49,6 +49,7 @@ public class TabView extends LinearLayout {
         initView();
         setupName();
         if (width != 0) setupWidth(width);
+        setupUnselected();
     }
 
     public TabView(@NonNull Context context) {

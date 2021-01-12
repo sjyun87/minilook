@@ -225,7 +225,6 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         int start = productAdapter.getSize();
         int row = data.getProducts().size();
         productAdapter.addAll(data.getProducts());
-        view.productRefresh();
         view.productRefresh(start, row);
     }
 

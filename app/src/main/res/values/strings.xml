@@ -507,6 +507,19 @@
     <string name="preorder_detail_product_detail_index">상품 %s</string>
     <string name="preorder_detail_product_detail_desc">상품 이미지를 터치하여 자세히 보세요</string>
 
+    <!--Challenge-->
+    <string name="challenge_title">CHALLENGE</string>
+    <string name="challenge_desc">챌린지는 미니룩의 신개념 협찬 플랫폼입니다.</string>
+    <string name="challenge_enter_label">참여인원</string>
+    <string name="challenge_enter_slash">/</string>
+    <string name="challenge_winner_label">당첨인원</string>
+    <string name="challenge_unit">%s명</string>
+    <string name="challenge_enter">참여완료</string>
+    <string name="challenge_end_date">%s일남음</string>
+    <string name="challenge_end_date_today">오늘마감</string>
+    <string name="challenge_start_date">%s일 후 오픈</string>
+    <string name="challenge_start_date_tomorrow">내일오픈</string>
+
     <!--Brand Detail-->
     <string name="brand_detail_info_caption">브랜드 정보</string>
     <string name="brand_detail_info_desc">고객센터/배송·교환·환불</string>

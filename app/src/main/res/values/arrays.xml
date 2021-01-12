@@ -13,6 +13,12 @@
         <item>주문종료</item>
     </string-array>
 
+    <string-array name="tab_challenge">
+        <item>진행중</item>
+        <item>오픈예정</item>
+        <item>마감</item>
+    </string-array>
+
     <string-array name="tab_preorder_detail">
         <item>소개</item>
         <item>상품</item>
