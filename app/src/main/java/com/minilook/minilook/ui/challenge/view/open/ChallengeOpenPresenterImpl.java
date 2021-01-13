@@ -46,6 +46,16 @@ public class ChallengeOpenPresenterImpl extends BasePresenterImpl implements Cha
         view.clear();
     }
 
+    @Override public void onLogin() {
+        view.scrollToTop();
+        getChallenges();
+    }
+
+    @Override public void onLogout() {
+        view.scrollToTop();
+        getChallenges();
+    }
+
     @Override public void onLoadMore() {
         if (totalPageSize > page.get()) getMoreChallenges();
     }

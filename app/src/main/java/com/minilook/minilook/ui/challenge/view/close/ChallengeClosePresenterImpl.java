@@ -42,6 +42,16 @@ public class ChallengeClosePresenterImpl extends BasePresenterImpl implements Ch
         view.clear();
     }
 
+    @Override public void onLogin() {
+        view.scrollToTop();
+        getChallenges();
+    }
+
+    @Override public void onLogout() {
+        view.scrollToTop();
+        getChallenges();
+    }
+
     private void getChallenges() {
         addDisposable(challengeRequest.getCloseChallenge(ROWS)
             .compose(Transformer.applySchedulers())

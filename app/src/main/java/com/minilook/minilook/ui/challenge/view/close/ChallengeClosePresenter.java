@@ -12,6 +12,10 @@ public interface ChallengeClosePresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     void onDestroyView();
 
+    void onLogin();
+
+    void onLogout();
+
     interface View {
 
         void setupRecyclerView();
@@ -23,6 +27,8 @@ public interface ChallengeClosePresenter extends LifecycleObserver {
         void showEmptyPanel();
 
         void hideEmptyPanel();
+
+        void scrollToTop();
 
         void clear();
     }

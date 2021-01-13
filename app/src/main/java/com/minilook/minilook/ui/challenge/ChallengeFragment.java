@@ -51,6 +51,14 @@ public class ChallengeFragment extends BaseFragment implements ChallengePresente
             .build();
     }
 
+    @Override public void onLogin() {
+        presenter.onLogin();
+    }
+
+    @Override public void onLogout() {
+        presenter.onLogout();
+    }
+
     @Override public void setupTabLayout() {
         for (String tabName : resources.getStringArray(tab_challenge)) {
             TabView tabView = TabView.builder()
@@ -98,6 +106,10 @@ public class ChallengeFragment extends BaseFragment implements ChallengePresente
         binding.vpChallenge.setOffscreenPageLimit(2);
         binding.vpChallenge.setCurrentItem(0);
         binding.vpChallenge.setUserInputEnabled(false);
+    }
+
+    @Override public void setHeaderExpand() {
+        binding.appBar.setExpanded(true);
     }
 
     @Override public void navigateToChallengeDetail(int challengeNo) {

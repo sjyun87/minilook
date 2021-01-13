@@ -12,6 +12,7 @@ import com.minilook.minilook.databinding.ActivityMainBinding;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.widget.BottomBar;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
+import com.minilook.minilook.ui.challenge_detail.ChallengeDetailActivity;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.event_detail.EventDetailActivity;
 import com.minilook.minilook.ui.lookbook.LookBookPresenterImpl;
@@ -141,6 +142,10 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
 
     @Override public void navigateToPreorderDetail(int preorderNo) {
         PreorderDetailActivity.start(this, preorderNo);
+    }
+
+    @Override public void navigateToChallengeDetail(int challengeNo) {
+        ChallengeDetailActivity.start(this, challengeNo);
     }
 
     @Override public void clear() {

@@ -46,6 +46,8 @@ public interface MainPresenter extends LifecycleObserver {
 
         void navigateToPreorderDetail(int preorderNo);
 
+        void navigateToChallengeDetail(int challengeNo);
+
         void clear();
     }
 }

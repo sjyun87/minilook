@@ -11,6 +11,7 @@ import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.challenge_detail.di.ChallengeDetailArguments;
+import com.minilook.minilook.util.DynamicLinkUtil;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -24,6 +25,7 @@ public class ChallengeDetailPresenterImpl extends BasePresenterImpl implements C
     private final int challengeNo;
     private final BaseAdapterDataModel<String> imageAdapter;
     private final ChallengeRequest challengeRequest;
+    private final DynamicLinkUtil dynamicLinkUtil;
     private final Gson gson;
 
     private ChallengeDataModel data;
@@ -35,6 +37,7 @@ public class ChallengeDetailPresenterImpl extends BasePresenterImpl implements C
         challengeNo = args.getChallengeNo();
         imageAdapter = args.getImageAdapter();
         challengeRequest = new ChallengeRequest();
+        dynamicLinkUtil = new DynamicLinkUtil();
         gson = App.getInstance().getGson();
     }
 
@@ -54,6 +57,15 @@ public class ChallengeDetailPresenterImpl extends BasePresenterImpl implements C
     }
 
     @Override public void onDestroy() {
+        view.clear();
+    }
+
+    @Override public void onLogin() {
+        getChallengeDetail();
+    }
+
+    @Override public void onLogout() {
+        getChallengeDetail();
     }
 
     @Override public void onEnterClick() {
@@ -62,6 +74,20 @@ public class ChallengeDetailPresenterImpl extends BasePresenterImpl implements C
         } else {
             view.navigateToLogin();
         }
+    }
+
+    @Override public void onShareClick() {
+        dynamicLinkUtil.createLink(DynamicLinkUtil.TYPE_CHALLENGE, challengeNo, data.getProductName(),
+            data.getImages().get(0),
+            new DynamicLinkUtil.OnDynamicLinkListener() {
+                @Override public void onSuccess(String link) {
+                    view.sendDynamicLink(link);
+                }
+
+                @Override public void onError() {
+                    view.showErrorDialog();
+                }
+            });
     }
 
     private void getChallengeDetail() {

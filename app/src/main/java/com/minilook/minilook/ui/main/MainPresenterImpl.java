@@ -117,6 +117,9 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
                 case DynamicLinkUtil.TYPE_PREORDER:
                     view.navigateToPreorderDetail(itemNo);
                     break;
+                case DynamicLinkUtil.TYPE_CHALLENGE:
+                    view.navigateToChallengeDetail(itemNo);
+                    break;
             }
         }
     }

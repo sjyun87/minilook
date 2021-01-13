@@ -12,6 +12,10 @@ public interface ChallengeComingPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     void onDestroyView();
 
+    void onLogin();
+
+    void onLogout();
+
     void onLoadMore();
 
     interface View {
@@ -25,6 +29,8 @@ public interface ChallengeComingPresenter extends LifecycleObserver {
         void showEmptyPanel();
 
         void hideEmptyPanel();
+
+        void scrollToTop();
 
         void clear();
     }

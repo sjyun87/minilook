@@ -38,6 +38,14 @@ public class ChallengeCloseFragment extends BaseFragment implements ChallengeClo
             .build();
     }
 
+    @Override public void onLogin() {
+        presenter.onLogin();
+    }
+
+    @Override public void onLogout() {
+        presenter.onLogout();
+    }
+
     @Override public void setupRecyclerView() {
         binding.rcvChallenge.setHasFixedSize(true);
         binding.rcvChallenge.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -58,6 +66,10 @@ public class ChallengeCloseFragment extends BaseFragment implements ChallengeClo
 
     @Override public void hideEmptyPanel() {
         binding.layoutEmptyPanel.setVisibility(View.GONE);
+    }
+
+    @Override public void scrollToTop() {
+        binding.rcvChallenge.scrollToPosition(0);
     }
 
     @Override public void clear() {

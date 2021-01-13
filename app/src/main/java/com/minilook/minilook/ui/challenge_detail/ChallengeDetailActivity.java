@@ -65,8 +65,17 @@ public class ChallengeDetailActivity extends BaseActivity implements ChallengeDe
             .build();
     }
 
+    @Override public void onLogin() {
+        presenter.onLogin();
+    }
+
+    @Override public void onLogout() {
+        presenter.onLogout();
+    }
+
     @Override public void setupClickAction() {
         binding.txtEnterButton.setOnClickListener(view -> presenter.onEnterClick());
+        binding.imgShare.setOnClickListener(view -> presenter.onShareClick());
     }
 
     @Override public void setupViewPager() {
@@ -191,6 +200,18 @@ public class ChallengeDetailActivity extends BaseActivity implements ChallengeDe
         binding.txtEnterButton.setEnabled(false);
     }
 
+    @Override public void sendDynamicLink(String link) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, link);
+        startActivity(Intent.createChooser(intent, "친구에게 공유하기"));
+    }
+
+    @Override public void showErrorDialog() {
+        DialogManager.showErrorDialog(this);
+    }
+
     @Override public void navigateToChallengeEnter() {
         ////
     }
@@ -199,7 +220,9 @@ public class ChallengeDetailActivity extends BaseActivity implements ChallengeDe
         LoginActivity.start(this);
     }
 
-    @Override public void showErrorDialog() {
-        DialogManager.showErrorDialog(this);
+    @Override public void clear() {
+        binding.txtEnterButton.setOnClickListener(null);
+        binding.imgShare.setOnClickListener(null);
+        binding.vpImage.setAdapter(null);
     }
 }

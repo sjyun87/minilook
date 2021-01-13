@@ -18,7 +18,13 @@ public interface ChallengeDetailPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     void onDestroy();
 
+    void onLogin();
+
+    void onLogout();
+
     void onEnterClick();
+
+    void onShareClick();
 
     interface View {
 
@@ -64,8 +70,12 @@ public interface ChallengeDetailPresenter extends LifecycleObserver {
 
         void showEndButton();
 
+        void sendDynamicLink(String link);
+
         void navigateToChallengeEnter();
 
         void navigateToLogin();
+
+        void clear();
     }
 }
