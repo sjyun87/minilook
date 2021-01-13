@@ -35,17 +35,7 @@ public class ChallengeClosePresenterImpl extends BasePresenterImpl implements Ch
     @Override public void onCreateView() {
         view.setupRecyclerView();
 
-        List<ChallengeDataModel> items = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
-            ChallengeDataModel model = new ChallengeDataModel();
-            model.setProduct(i + " 번쩨 아이템");
-            items.add(model);
-        }
-
-        adapter.set(items);
-        view.refresh();
-
-        //getChallenges();
+        getChallenges();
     }
 
     @Override public void onDestroyView() {
@@ -56,7 +46,6 @@ public class ChallengeClosePresenterImpl extends BasePresenterImpl implements Ch
         addDisposable(challengeRequest.getCloseChallenge(ROWS)
             .compose(Transformer.applySchedulers())
             .filter(data -> {
-                Timber.e(data.toString());
                 String code = data.getCode();
                 if (code.equals(HttpCode.NO_DATA)) {
                     view.showEmptyPanel();

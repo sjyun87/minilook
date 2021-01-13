@@ -55,8 +55,8 @@ public class ChallengeComingItemVH extends BaseViewHolder<ChallengeDataModel> {
             binding.txtLabel.setText(getStartDate(data.getStartDate()));
         }
 
-        binding.txtBrand.setText(data.getBrand());
-        binding.txtProduct.setText(data.getProduct());
+        binding.txtBrandName.setText(data.getBrandName());
+        binding.txtProductName.setText(data.getProductName());
 
         binding.txtWinner.setText(
             String.format(resources.getString(str_unit), StringUtil.toDigit(data.getWinnerCount())));

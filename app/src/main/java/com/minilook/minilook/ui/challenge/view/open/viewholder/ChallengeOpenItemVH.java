@@ -9,14 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.minilook.minilook.App;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.challenge.ChallengeDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.databinding.ViewChallengeOpenItemBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.challenge.ChallengePresenterImpl;
-import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.util.StringUtil;
 import java.util.Calendar;
 import java.util.Date;
@@ -59,8 +57,8 @@ public class ChallengeOpenItemVH extends BaseViewHolder<ChallengeDataModel> {
             binding.txtLabel.setText(getEndDate(data.getEndDate()));
         }
 
-        binding.txtBrand.setText(data.getBrand());
-        binding.txtProduct.setText(data.getProduct());
+        binding.txtBrandName.setText(data.getBrandName());
+        binding.txtProductName.setText(data.getProductName());
 
         binding.txtEnter.setText(
             String.format(resources.getString(str_unit), StringUtil.toDigit(data.getEnterCount())));
@@ -83,10 +81,6 @@ public class ChallengeOpenItemVH extends BaseViewHolder<ChallengeDataModel> {
     }
 
     private void onItemClick(View view) {
-        if (App.getInstance().isLogin()) {
-            RxBus.send(new ChallengePresenterImpl.RxEventNavigateToChallengeDetail(data.getChallengeNo()));
-        } else {
-            LoginActivity.start(context);
-        }
+        RxBus.send(new ChallengePresenterImpl.RxEventNavigateToChallengeDetail(data.getChallengeNo()));
     }
 }

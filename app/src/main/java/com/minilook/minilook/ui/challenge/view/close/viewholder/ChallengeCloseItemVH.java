@@ -8,14 +8,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.minilook.minilook.App;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.challenge.ChallengeDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.databinding.ViewChallengeCloseItemBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.challenge.ChallengePresenterImpl;
-import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.util.StringUtil;
 
 public class ChallengeCloseItemVH extends BaseViewHolder<ChallengeDataModel> {
@@ -23,6 +21,7 @@ public class ChallengeCloseItemVH extends BaseViewHolder<ChallengeDataModel> {
     @DrawableRes int ph_square = R.drawable.ph_square;
 
     @StringRes int str_unit = R.string.challenge_unit;
+    @StringRes int str_term_date = R.string.challenge_term_date;
 
     private final ViewChallengeCloseItemBinding binding;
 
@@ -48,21 +47,20 @@ public class ChallengeCloseItemVH extends BaseViewHolder<ChallengeDataModel> {
             binding.txtLabel.setVisibility(View.GONE);
         }
 
-        binding.txtBrand.setText(data.getBrand());
-        binding.txtProduct.setText(data.getProduct());
+        binding.txtBrandName.setText(data.getBrandName());
+        binding.txtProductName.setText(data.getProductName());
 
         binding.txtEnter.setText(
             String.format(resources.getString(str_unit), StringUtil.toDigit(data.getEnterCount())));
         binding.txtWinner.setText(String.valueOf(data.getWinnerCount()));
 
+        binding.txtTerm.setText(
+            String.format(resources.getString(str_term_date), data.getStartDateName(), data.getEndDateName()));
+
         itemView.setOnClickListener(this::onItemClick);
     }
 
     private void onItemClick(View view) {
-        if (App.getInstance().isLogin()) {
-            RxBus.send(new ChallengePresenterImpl.RxEventNavigateToChallengeDetail(data.getChallengeNo()));
-        } else {
-            LoginActivity.start(context);
-        }
+        RxBus.send(new ChallengePresenterImpl.RxEventNavigateToChallengeDetail(data.getChallengeNo()));
     }
 }

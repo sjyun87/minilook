@@ -40,6 +40,7 @@
     <dimen name="dp_32">64dp</dimen>
     <dimen name="dp_34">68dp</dimen>
     <dimen name="dp_36">72dp</dimen>
+    <dimen name="dp_38">76dp</dimen>
     <dimen name="dp_40">80dp</dimen>
     <dimen name="dp_44">88dp</dimen>
     <dimen name="dp_48">96dp</dimen>

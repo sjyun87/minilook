@@ -46,6 +46,15 @@
                 tools:ignore="ContentDescription"
                 tools:src="@drawable/ph_square" />
 
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/color_99FFFFFF"
+                app:layout_constraintBottom_toBottomOf="@+id/img_thumb"
+                app:layout_constraintLeft_toLeftOf="@+id/img_thumb"
+                app:layout_constraintRight_toRightOf="@+id/img_thumb"
+                app:layout_constraintTop_toTopOf="@+id/img_thumb" />
+
             <TextView
                 android:id="@+id/txt_label"
                 android:layout_width="wrap_content"
@@ -63,7 +72,7 @@
                 tools:visibility="visible" />
 
             <TextView
-                android:id="@+id/txt_brand"
+                android:id="@+id/txt_brand_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_8"
@@ -78,7 +87,7 @@
                 tools:text="브랜드" />
 
             <TextView
-                android:id="@+id/txt_product"
+                android:id="@+id/txt_product_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_6"
@@ -88,9 +97,9 @@
                 android:maxLines="2"
                 android:textColor="@color/color_FF424242"
                 android:textSize="@dimen/sp_7"
-                app:layout_constraintLeft_toLeftOf="@+id/txt_brand"
-                app:layout_constraintRight_toRightOf="@+id/txt_brand"
-                app:layout_constraintTop_toBottomOf="@+id/txt_brand"
+                app:layout_constraintLeft_toLeftOf="@+id/txt_brand_name"
+                app:layout_constraintRight_toRightOf="@+id/txt_brand_name"
+                app:layout_constraintTop_toBottomOf="@+id/txt_brand_name"
                 tools:text="써클 로고 팬츠 박스 로고 맨투맨" />
 
             <View
@@ -100,8 +109,8 @@
                 android:layout_marginBottom="@dimen/dp_8"
                 android:background="@color/color_FFDBDBDB"
                 app:layout_constraintBottom_toTopOf="@+id/txt_enter_label"
-                app:layout_constraintLeft_toLeftOf="@+id/txt_brand"
-                app:layout_constraintRight_toRightOf="@+id/txt_brand" />
+                app:layout_constraintLeft_toLeftOf="@+id/txt_brand_name"
+                app:layout_constraintRight_toRightOf="@+id/txt_brand_name" />
 
             <TextView
                 android:id="@+id/txt_enter_label"
@@ -113,7 +122,7 @@
                 android:textColor="@color/color_FF424242"
                 android:textSize="@dimen/sp_6"
                 app:layout_constraintBottom_toTopOf="@id/txt_enter"
-                app:layout_constraintLeft_toLeftOf="@+id/txt_brand" />
+                app:layout_constraintLeft_toLeftOf="@+id/txt_brand_name" />
 
             <TextView
                 android:id="@+id/txt_enter"

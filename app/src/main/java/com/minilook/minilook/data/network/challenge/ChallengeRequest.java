@@ -23,7 +23,7 @@ public class ChallengeRequest extends BaseRequest<ChallengeService> {
     }
 
     public Single<BaseDataModel> getCloseChallenge(int rows) {
-        return getApi().getComingChallenge(createGetChallengeData(1, rows));
+        return getApi().getCloseChallenge(createGetChallengeData(1, rows));
     }
 
     private RequestBody createGetChallengeData(int page, int rows) {
@@ -35,13 +35,12 @@ public class ChallengeRequest extends BaseRequest<ChallengeService> {
     }
 
     public Single<BaseDataModel> getChallengeDetail(int challengeNo) {
-        return getApi().getChallengeDetail(createGetChallengeDetailData(challengeNo));
+        return getApi().getChallengeDetail(challengeNo, createGetChallengeDetailData());
     }
 
-    private RequestBody createGetChallengeDetailData(int challengeNo) {
+    private RequestBody createGetChallengeDetailData() {
         Map<String, Object> jsonMap = new HashMap<>();
-        jsonMap.put("memberNo", App.getInstance().getMemberNo());
-        jsonMap.put("challengeNo", challengeNo);
+        if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getMemberNo());
         return createRequestBody(jsonMap);
     }
 }

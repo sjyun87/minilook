@@ -11,9 +11,9 @@ import lombok.Data;
     @Expose @SerializedName("challengeNo")
     private int challengeNo;
     @Expose @SerializedName("title")
-    private String brand;
+    private String brandName;
     @Expose @SerializedName("description")
-    private String product;
+    private String productName;
     @Expose @SerializedName("image")
     private String thumbUrl;
     @Expose @SerializedName("images")
@@ -30,6 +30,10 @@ import lombok.Data;
     private long endDate;
     @Expose @SerializedName("endDateName")
     private String endDateName;
+    @Expose @SerializedName("winningDatetimeName")
+    private String winDate;
+    @Expose @SerializedName("reviewLimitDateName")
+    private String reviewDate;
     @Expose @SerializedName("winning")
     private int winnerCount;
     @Expose @SerializedName("applyTotal")
@@ -37,8 +41,4 @@ import lombok.Data;
     @Expose @SerializedName("isApplied")
     @JsonAdapter(BooleanDeserializer.class)
     private boolean isEnter;
-    @Expose @SerializedName("winningDatetime")
-    private long winDate;
-    @Expose @SerializedName("reviewLimitDate")
-    private long reviewDate;
 }

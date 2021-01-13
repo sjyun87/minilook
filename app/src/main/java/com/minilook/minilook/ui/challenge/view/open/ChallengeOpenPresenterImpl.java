@@ -55,7 +55,6 @@ public class ChallengeOpenPresenterImpl extends BasePresenterImpl implements Cha
         addDisposable(challengeRequest.getOpenChallenge(page.incrementAndGet(), ROWS)
             .compose(Transformer.applySchedulers())
             .filter(data -> {
-                Timber.e(data.toString());
                 String code = data.getCode();
                 if (code.equals(HttpCode.NO_DATA)) {
                     view.showEmptyPanel();

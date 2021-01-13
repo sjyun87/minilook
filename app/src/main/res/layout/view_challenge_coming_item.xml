@@ -45,7 +45,7 @@
                 tools:text="오늘마감" />
 
             <TextView
-                android:id="@+id/txt_brand"
+                android:id="@+id/txt_brand_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_8"
@@ -60,7 +60,7 @@
                 tools:text="브랜드" />
 
             <TextView
-                android:id="@+id/txt_product"
+                android:id="@+id/txt_product_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_6"
@@ -70,9 +70,9 @@
                 android:maxLines="2"
                 android:textColor="@color/color_FF424242"
                 android:textSize="@dimen/sp_7"
-                app:layout_constraintLeft_toLeftOf="@+id/txt_brand"
-                app:layout_constraintRight_toRightOf="@+id/txt_brand"
-                app:layout_constraintTop_toBottomOf="@+id/txt_brand"
+                app:layout_constraintLeft_toLeftOf="@+id/txt_brand_name"
+                app:layout_constraintRight_toRightOf="@+id/txt_brand_name"
+                app:layout_constraintTop_toBottomOf="@+id/txt_brand_name"
                 tools:text="써클 로고 팬츠 박스 로고 맨투맨" />
 
             <View
@@ -81,8 +81,8 @@
                 android:layout_marginBottom="@dimen/dp_8"
                 android:background="@color/color_FFDBDBDB"
                 app:layout_constraintBottom_toTopOf="@+id/txt_winner_label"
-                app:layout_constraintLeft_toLeftOf="@+id/txt_brand"
-                app:layout_constraintRight_toRightOf="@+id/txt_brand" />
+                app:layout_constraintLeft_toLeftOf="@+id/txt_brand_name"
+                app:layout_constraintRight_toRightOf="@+id/txt_brand_name" />
 
             <TextView
                 android:id="@+id/txt_winner_label"
@@ -94,7 +94,7 @@
                 android:textColor="@color/color_FF424242"
                 android:textSize="@dimen/sp_6"
                 app:layout_constraintBottom_toTopOf="@id/txt_winner"
-                app:layout_constraintLeft_toLeftOf="@+id/txt_brand" />
+                app:layout_constraintLeft_toLeftOf="@+id/txt_brand_name" />
 
             <TextView
                 android:id="@+id/txt_winner"

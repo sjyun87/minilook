@@ -5,6 +5,7 @@ import io.reactivex.rxjava3.core.Single;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface ChallengeService {
 
@@ -20,7 +21,8 @@ public interface ChallengeService {
         @Body RequestBody body
     );
 
-    @POST("/api/commons/appversions") Single<BaseDataModel> getChallengeDetail(
+    @POST("/api/challenges/{challengeNo}") Single<BaseDataModel> getChallengeDetail(
+        @Path("challengeNo") int challengeNo,
         @Body RequestBody body
     );
 }
