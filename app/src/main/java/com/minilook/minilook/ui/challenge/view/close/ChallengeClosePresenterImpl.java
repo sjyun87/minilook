@@ -57,9 +57,6 @@ public class ChallengeClosePresenterImpl extends BasePresenterImpl implements Ch
             .compose(Transformer.applySchedulers())
             .filter(data -> {
                 String code = data.getCode();
-                if (code.equals(HttpCode.NO_DATA)) {
-                    view.showEmptyPanel();
-                }
                 return code.equals(HttpCode.OK);
             })
             .map((Function<BaseDataModel, List<ChallengeDataModel>>)

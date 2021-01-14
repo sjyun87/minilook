@@ -521,6 +521,9 @@
     <string name="challenge_end_date_today">오늘마감</string>
     <string name="challenge_start_date">%s일 후 오픈</string>
     <string name="challenge_start_date_tomorrow">내일오픈</string>
+    <string name="challenge_empty_coming_soon">COMING SOON</string>
+    <string name="challenge_empty_opening_soon">OPENING SOON</string>
+    <string name="challenge_empty_desc">새로운 챌린지를 준비 중 입니다!\n잠시만 기다려 주세요.</string>
 
     <!--Challenge Detail-->
     <string name="challenge_detail_end_date_day_unit">%d일</string>
@@ -671,7 +674,7 @@
     <string name="dialog_challenge_complete_title">THANK YOU</string>
     <string name="dialog_challenge_complete_desc1">신청해주셔서 감사합니다.</string>
     <string name="dialog_challenge_complete_desc2">당첨자는 개별 안내 드립니다.</string>
-    <string name="dialog_challenge_complete_marketing_desc">할인쿠폰, 세일, 이벤트, 추천상품 등 유용한 정보를 알려드립니다.</string>
+    <string name="dialog_challenge_complete_marketing_desc">챌린지 당첨 정보 및 이벤트 소식을 알려 드립니다.</string>
 
     <!--Support Email-->
     <string name="support_email">support@minilook.co.kr</string>

@@ -60,14 +60,6 @@ public class ChallengeCloseFragment extends BaseFragment implements ChallengeClo
         adapterView.refresh(start, rows);
     }
 
-    @Override public void showEmptyPanel() {
-        binding.layoutEmptyPanel.setVisibility(View.VISIBLE);
-    }
-
-    @Override public void hideEmptyPanel() {
-        binding.layoutEmptyPanel.setVisibility(View.GONE);
-    }
-
     @Override public void scrollToTop() {
         binding.rcvChallenge.scrollToPosition(0);
     }

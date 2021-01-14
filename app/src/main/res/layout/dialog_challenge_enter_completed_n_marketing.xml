@@ -33,7 +33,7 @@
         android:id="@+id/txt_contents"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginTop="@dimen/dp_12"
         android:fontFamily="@font/nanum_square_b"
         android:text="@string/dialog_challenge_complete_desc2"
         android:textColor="@color/color_FF232323"
@@ -42,11 +42,24 @@
         app:layout_constraintTop_toBottomOf="@+id/txt_title" />
 
     <TextView
-        android:id="@+id/txt_marketing"
+        android:id="@+id/txt_marketing_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_24"
+        android:fontFamily="@font/nanum_square_b"
+        android:text="@string/dialog_marketing_info_title"
+        android:textColor="@color/color_FF232323"
+        android:textSize="@dimen/sp_7"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_contents" />
+
+    <TextView
+        android:id="@+id/txt_marketing_content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_16"
-        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_4"
         android:layout_marginEnd="@dimen/dp_16"
         android:fontFamily="@font/nanum_square_r"
         android:lineSpacingMultiplier="1.5"
@@ -55,15 +68,31 @@
         android:textSize="@dimen/sp_7"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_contents" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_marketing_title" />
+
+    <TextView
+        android:id="@+id/txt_marketing_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_4"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:fontFamily="@font/nanum_square_b"
+        android:lineSpacingMultiplier="1.5"
+        android:text="@string/dialog_marketing_info_desc"
+        android:textColor="@color/color_FF232323"
+        android:textSize="@dimen/sp_6"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_marketing_content" />
 
     <View
         android:id="@+id/line_horizontal"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginTop="@dimen/dp_20"
         android:background="@color/color_FFDBDBDB"
-        app:layout_constraintTop_toBottomOf="@+id/txt_marketing" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_marketing_desc" />
 
     <TextView
         android:id="@+id/txt_later"

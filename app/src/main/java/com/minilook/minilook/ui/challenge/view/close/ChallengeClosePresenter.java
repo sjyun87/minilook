@@ -24,10 +24,6 @@ public interface ChallengeClosePresenter extends LifecycleObserver {
 
         void refresh(int start, int rows);
 
-        void showEmptyPanel();
-
-        void hideEmptyPanel();
-
         void scrollToTop();
 
         void clear();
