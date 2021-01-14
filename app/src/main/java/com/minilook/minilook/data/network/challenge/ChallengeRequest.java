@@ -1,7 +1,9 @@
 package com.minilook.minilook.data.network.challenge;
 
+import android.text.TextUtils;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.model.base.BaseDataModel;
+import com.minilook.minilook.data.model.member.MemberDataModel;
 import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
 import java.util.HashMap;
@@ -41,6 +43,30 @@ public class ChallengeRequest extends BaseRequest<ChallengeService> {
     private RequestBody createGetChallengeDetailData() {
         Map<String, Object> jsonMap = new HashMap<>();
         if (App.getInstance().isLogin()) jsonMap.put("memberNo", App.getInstance().getMemberNo());
+        return createRequestBody(jsonMap);
+    }
+
+    public Single<BaseDataModel> checkPhoneNumber() {
+        return getApi().checkPhoneNumber(App.getInstance().getMemberNo());
+    }
+
+    public Single<BaseDataModel> enterChallenge(int challengeNo, MemberDataModel memberData) {
+        return getApi().enterChallenge(challengeNo, App.getInstance().getMemberNo(),
+            createChallengeEnterData(memberData));
+    }
+
+    private RequestBody createChallengeEnterData(MemberDataModel memberData) {
+        Map<String, Object> jsonMap = new HashMap<>();
+        Map<String, Object> contactMap = new HashMap<>();
+        contactMap.put("ci", memberData.getCi());
+        contactMap.put("name", memberData.getName());
+        contactMap.put("phone", memberData.getPhone());
+        jsonMap.put("contact", contactMap);
+        jsonMap.put("isAgreeTermsOfService", true);
+        Map<String, Object> snsMap = new HashMap<>();
+        if (!TextUtils.isEmpty(memberData.getInstagram())) snsMap.put("instagramAccount", memberData.getInstagram());
+        if (!TextUtils.isEmpty(memberData.getBlog())) snsMap.put("blogAddress", memberData.getBlog());
+        jsonMap.put("memberSns", snsMap);
         return createRequestBody(jsonMap);
     }
 }

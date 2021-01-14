@@ -7,12 +7,16 @@ import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.challenge.ChallengeDataModel;
 import com.minilook.minilook.data.network.challenge.ChallengeRequest;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.challenge_detail.di.ChallengeDetailArguments;
+import com.minilook.minilook.ui.challenge_enter.ChallengeEnterPresenterImpl;
 import com.minilook.minilook.util.DynamicLinkUtil;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.Timer;
@@ -42,6 +46,7 @@ public class ChallengeDetailPresenterImpl extends BasePresenterImpl implements C
     }
 
     @Override public void onCreate() {
+        toRxObservable();
         view.setupClickAction();
         view.setupViewPager();
 
@@ -61,23 +66,26 @@ public class ChallengeDetailPresenterImpl extends BasePresenterImpl implements C
     }
 
     @Override public void onLogin() {
+        view.scrollToTop();
         getChallengeDetail();
     }
 
     @Override public void onLogout() {
+        view.scrollToTop();
         getChallengeDetail();
     }
 
     @Override public void onEnterClick() {
         if (App.getInstance().isLogin()) {
-            view.navigateToChallengeEnter();
+            view.navigateToChallengeEnter(challengeNo);
         } else {
             view.navigateToLogin();
         }
     }
 
     @Override public void onShareClick() {
-        dynamicLinkUtil.createLink(DynamicLinkUtil.TYPE_CHALLENGE, challengeNo, data.getProductName(),
+        String title = data.getProductName() + " (" + parseToDate(data.getStartDate()) + "~" + parseToDate(data.getEndDate()) + ")";
+        dynamicLinkUtil.createLink(DynamicLinkUtil.TYPE_CHALLENGE, challengeNo, title,
             data.getImages().get(0),
             new DynamicLinkUtil.OnDynamicLinkListener() {
                 @Override public void onSuccess(String link) {
@@ -88,6 +96,12 @@ public class ChallengeDetailPresenterImpl extends BasePresenterImpl implements C
                     view.showErrorDialog();
                 }
             });
+    }
+
+    private String parseToDate(long date) {
+        Date endDate = new Date(date);
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd", Locale.KOREA);
+        return format.format(endDate);
     }
 
     private void getChallengeDetail() {
@@ -196,5 +210,14 @@ public class ChallengeDetailPresenterImpl extends BasePresenterImpl implements C
             timer.cancel();
             timer = null;
         }
+    }
+
+    private void toRxObservable() {
+        addDisposable(RxBus.toObservable().subscribe(o -> {
+            if (o instanceof ChallengeEnterPresenterImpl.RxEventEnterChallenge) {
+                view.scrollToTop();
+                getChallengeDetail();
+            }
+        }, Timber::e));
     }
 }

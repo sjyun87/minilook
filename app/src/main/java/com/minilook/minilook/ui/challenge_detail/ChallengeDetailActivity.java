@@ -12,6 +12,7 @@ import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.challenge_detail.adapter.ChallengeDetailImageAdapter;
 import com.minilook.minilook.ui.challenge_detail.di.ChallengeDetailArguments;
+import com.minilook.minilook.ui.challenge_enter.ChallengeEnterActivity;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.login.LoginActivity;
 
@@ -200,6 +201,10 @@ public class ChallengeDetailActivity extends BaseActivity implements ChallengeDe
         binding.txtEnterButton.setEnabled(false);
     }
 
+    @Override public void scrollToTop() {
+        binding.scrollView.fullScroll(View.FOCUS_UP);
+    }
+
     @Override public void sendDynamicLink(String link) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -212,8 +217,8 @@ public class ChallengeDetailActivity extends BaseActivity implements ChallengeDe
         DialogManager.showErrorDialog(this);
     }
 
-    @Override public void navigateToChallengeEnter() {
-        ////
+    @Override public void navigateToChallengeEnter(int challengeNo) {
+        ChallengeEnterActivity.start(this, challengeNo);
     }
 
     @Override public void navigateToLogin() {

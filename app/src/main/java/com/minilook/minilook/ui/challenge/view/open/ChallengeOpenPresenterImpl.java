@@ -7,10 +7,12 @@ import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.challenge.ChallengeDataModel;
 import com.minilook.minilook.data.network.challenge.ChallengeRequest;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.challenge.view.open.di.ChallengeOpenArguments;
+import com.minilook.minilook.ui.challenge_enter.ChallengeEnterPresenterImpl;
 import io.reactivex.rxjava3.functions.Function;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,7 @@ public class ChallengeOpenPresenterImpl extends BasePresenterImpl implements Cha
     }
 
     @Override public void onCreateView() {
+        toRxObservable();
         view.setupRecyclerView();
 
         getChallenges();
@@ -104,5 +107,14 @@ public class ChallengeOpenPresenterImpl extends BasePresenterImpl implements Cha
         int rows = data.size();
         adapter.addAll(data);
         view.refresh(start, rows);
+    }
+
+    private void toRxObservable() {
+        addDisposable(RxBus.toObservable().subscribe(o -> {
+            if (o instanceof ChallengeEnterPresenterImpl.RxEventEnterChallenge) {
+                view.scrollToTop();
+                getChallenges();
+            }
+        }, Timber::e));
     }
 }

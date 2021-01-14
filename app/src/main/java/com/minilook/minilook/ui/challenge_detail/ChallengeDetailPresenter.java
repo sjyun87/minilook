@@ -70,9 +70,11 @@ public interface ChallengeDetailPresenter extends LifecycleObserver {
 
         void showEndButton();
 
+        void scrollToTop();
+
         void sendDynamicLink(String link);
 
-        void navigateToChallengeEnter();
+        void navigateToChallengeEnter(int challengeNo);
 
         void navigateToLogin();
 
