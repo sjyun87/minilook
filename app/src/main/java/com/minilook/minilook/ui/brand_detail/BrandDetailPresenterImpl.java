@@ -183,14 +183,16 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
             searchRequest.getProducts(page.incrementAndGet(), ROWS, getOptions())
                 .compose(Transformer.applySchedulers())
                 .filter(data -> {
-                    Timber.e(data.toString());
                     String code = data.getCode();
                     if (code.equals(HttpCode.NO_DATA)) {
                         //view.hideProducts();
                     }
                     return code.equals(HttpCode.OK);
                 })
-                .map(data -> gson.fromJson(data.getData(), SearchDataModel.class))
+                .map(data -> {
+                    totalPageSize = data.getTotalPage();
+                    return gson.fromJson(data.getData(), SearchDataModel.class);
+                })
                 .subscribe(this::onResProducts, Timber::e)
         );
     }
@@ -203,7 +205,6 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
     }
 
     private void onResProducts(SearchDataModel data) {
-        totalPageSize = data.getTotal();
         productAdapter.set(data.getProducts());
         view.productRefresh();
         view.scrollToTop();

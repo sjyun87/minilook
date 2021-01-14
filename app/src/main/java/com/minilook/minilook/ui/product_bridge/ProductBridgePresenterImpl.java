@@ -34,7 +34,7 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
     private Gson gson = new Gson();
     private AtomicInteger page = new AtomicInteger(0);
 
-    private int totalPage;
+    private int totalPageSize;
 
     private boolean isVisibleCategoryDepth1;
     private List<CodeDataModel> categoryOptions = new ArrayList<>();
@@ -58,7 +58,7 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
     }
 
     @Override public void onLoadMore() {
-        if (totalPage > page.get()) {
+        if (totalPageSize > page.get()) {
             reqLoadMoreProducts();
         }
     }
@@ -165,13 +165,14 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
                 return code.equals(HttpCode.OK);
             })
             .map((Function<BaseDataModel, SearchResultDataModel>)
-                data -> gson.fromJson(data.getData(), SearchResultDataModel.class))
+                data -> {
+                    totalPageSize = data.getTotalPage();
+                    return gson.fromJson(data.getData(), SearchResultDataModel.class);
+                })
             .subscribe(this::resProducts, Timber::e));
     }
 
     private void resProducts(SearchResultDataModel data) {
-        totalPage = data.getTotal();
-
         productAdapter.set(data.getProducts());
         view.productRefresh();
         view.hideEmptyPanel();

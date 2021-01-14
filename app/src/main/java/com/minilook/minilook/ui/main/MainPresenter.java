@@ -12,6 +12,8 @@ public interface MainPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     void onDestroy();
 
+    void onNewIntent();
+
     void onMarketingAgree();
 
     void onMarketingDisagree();

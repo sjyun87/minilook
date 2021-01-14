@@ -22,6 +22,8 @@ import com.minilook.minilook.ui.main.di.MainArguments;
 import com.minilook.minilook.ui.preorder_detail.PreorderDetailActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.ui.promotion_detail.PromotionDetailActivity;
+import java.util.Timer;
+import timber.log.Timber;
 
 public class MainActivity extends BaseActivity implements MainPresenter.View {
 
@@ -58,6 +60,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
         super.onNewIntent(intent);
         int position = intent.getIntExtra("position", 1);
         binding.bottombar.setCurrentPage(position);
+        presenter.onNewIntent();
     }
 
     private MainArguments provideArguments() {

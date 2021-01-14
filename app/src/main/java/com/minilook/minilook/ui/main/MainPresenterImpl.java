@@ -46,6 +46,10 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
         view.clear();
     }
 
+    @Override public void onNewIntent() {
+        checkDeepLink();
+    }
+
     @Override public void onMarketingAgree() {
         updateMarketingAgree(true);
     }

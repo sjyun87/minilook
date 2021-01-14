@@ -13,8 +13,8 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.member.MemberDataModel;
 import com.minilook.minilook.data.code.LoginType;
+import com.minilook.minilook.data.model.member.MemberDataModel;
 import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.widget.BottomBar;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
@@ -193,7 +193,7 @@ public class JoinActivity extends _BaseActivity implements JoinPresenter.View {
         presenter.onJoinClick();
     }
 
-    @OnClick(R.id.img_back)
+    @OnClick(R.id.img_titlebar_back)
     void onBackClick() {
         presenter.onBackClick();
     }

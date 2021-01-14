@@ -47,7 +47,7 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/layout_tab_panel"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:paddingStart="@dimen/dp_10"
@@ -55,7 +55,7 @@
             app:tabIndicatorColor="@color/color_FF8140E5"
             app:tabIndicatorFullWidth="false"
             app:tabIndicatorHeight="@dimen/dp_1"
-            app:tabMode="scrollable"
+            app:tabMode="fixed"
             app:tabPaddingEnd="0dp"
             app:tabPaddingStart="0dp"
             app:tabRippleColor="@android:color/transparent" />

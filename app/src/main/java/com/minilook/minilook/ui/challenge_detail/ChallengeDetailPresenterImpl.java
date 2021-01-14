@@ -21,6 +21,8 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import timber.log.Timber;
 
 public class ChallengeDetailPresenterImpl extends BasePresenterImpl implements ChallengeDetailPresenter {
@@ -217,7 +219,12 @@ public class ChallengeDetailPresenterImpl extends BasePresenterImpl implements C
             if (o instanceof ChallengeEnterPresenterImpl.RxEventEnterChallenge) {
                 view.scrollToTop();
                 getChallengeDetail();
+            } else if (o instanceof RxEventChallengeEnterFinish) {
+                view.finish();
             }
         }, Timber::e));
+    }
+
+    @AllArgsConstructor @Getter public final static class RxEventChallengeEnterFinish {
     }
 }

@@ -79,5 +79,7 @@ public interface ChallengeDetailPresenter extends LifecycleObserver {
         void navigateToLogin();
 
         void clear();
+
+        void finish();
     }
 }

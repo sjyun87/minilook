@@ -49,6 +49,7 @@
         android:layout_marginTop="@dimen/dp_32"
         android:layout_marginBottom="@dimen/dp_30"
         android:src="@drawable/img_banner_video"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="H,360:90"
         tools:ignore="ContentDescription" />

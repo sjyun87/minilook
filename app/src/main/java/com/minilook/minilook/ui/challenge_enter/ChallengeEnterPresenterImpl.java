@@ -14,6 +14,7 @@ import com.minilook.minilook.data.network.member.MemberRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
+import com.minilook.minilook.ui.challenge_detail.ChallengeDetailPresenterImpl;
 import com.minilook.minilook.ui.challenge_enter.di.ChallengeEnterArguments;
 import com.minilook.minilook.ui.verify.VerifyActivity;
 import io.reactivex.rxjava3.functions.Function;
@@ -50,10 +51,6 @@ public class ChallengeEnterPresenterImpl extends BasePresenterImpl implements Ch
         checkPhoneNumber();
     }
 
-    @Override public void onDestroy() {
-
-    }
-
     private void checkPhoneNumber() {
         addDisposable(challengeRequest.checkPhoneNumber()
             .compose(Transformer.applySchedulers())
@@ -67,6 +64,9 @@ public class ChallengeEnterPresenterImpl extends BasePresenterImpl implements Ch
     }
 
     private void onCheckPhoneNumber(MemberDataModel data) {
+        memberData.setPhone(data.getPhone());
+        memberData.setCi(data.getCi());
+
         view.setPhoneNumber(data.getPhone());
         isVerifyComplete = true;
     }
@@ -105,10 +105,12 @@ public class ChallengeEnterPresenterImpl extends BasePresenterImpl implements Ch
 
     @Override public void onDialogCloseClick() {
         view.finish();
+        RxBus.send(new ChallengeDetailPresenterImpl.RxEventChallengeEnterFinish());
     }
 
     @Override public void onDialogLaterClick() {
         view.finish();
+        RxBus.send(new ChallengeDetailPresenterImpl.RxEventChallengeEnterFinish());
     }
 
     @Override public void onDialogAgreeClick() {
@@ -188,6 +190,7 @@ public class ChallengeEnterPresenterImpl extends BasePresenterImpl implements Ch
 
     private void onResUpdateMarketingAgree(BaseDataModel data) {
         view.finish();
+        RxBus.send(new ChallengeDetailPresenterImpl.RxEventChallengeEnterFinish());
     }
 
     private void toRxObservable() {

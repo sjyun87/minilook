@@ -5,6 +5,7 @@ import androidx.annotation.ArrayRes;
 import androidx.annotation.ColorRes;
 import androidx.annotation.DimenRes;
 import androidx.annotation.FontRes;
+import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.tabs.TabLayout;
 import com.minilook.minilook.R;
 import com.minilook.minilook.databinding.FragmentChallengeBinding;
@@ -23,7 +24,7 @@ public class ChallengeFragment extends BaseFragment implements ChallengePresente
 
     @ArrayRes int tab_challenge = R.array.tab_challenge;
 
-    @DimenRes int dp_36 = R.dimen.dp_36;
+    @DimenRes int dp_48 = R.dimen.dp_48;
 
     @ColorRes int color_FF8140E5 = R.color.color_FF8140E5;
     @ColorRes int color_FF000000 = R.color.color_FF000000;
@@ -64,7 +65,7 @@ public class ChallengeFragment extends BaseFragment implements ChallengePresente
             TabView tabView = TabView.builder()
                 .context(getContext())
                 .name(tabName)
-                .width(resources.getDimen(dp_36))
+                .width(resources.getDimen(dp_48))
                 .selectedTextColor(resources.getColor(color_FF8140E5))
                 .unselectedTextColor(resources.getColor(color_FF000000))
                 .selectedTextFont(resources.getFont(font_regular))
@@ -105,7 +106,11 @@ public class ChallengeFragment extends BaseFragment implements ChallengePresente
         binding.vpChallenge.setAdapter(adapter);
         binding.vpChallenge.setOffscreenPageLimit(2);
         binding.vpChallenge.setCurrentItem(0);
-        binding.vpChallenge.setUserInputEnabled(false);
+        binding.vpChallenge.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override public void onPageSelected(int position) {
+                binding.layoutTabPanel.selectTab(binding.layoutTabPanel.getTabAt(position));
+            }
+        });
     }
 
     @Override public void setHeaderExpand() {

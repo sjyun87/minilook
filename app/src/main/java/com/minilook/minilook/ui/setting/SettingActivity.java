@@ -162,7 +162,7 @@ public class SettingActivity extends _BaseActivity implements SettingPresenter.V
     }
 
     @Override public void navigateToMain() {
-        MainActivity.start(this, BottomBar.POSITION_LOOKBOOK);
+        MainActivity.start(this, BottomBar.POSITION_MARKET);
     }
 
     @Override public void navigateToSendEmail() {
