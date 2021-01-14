@@ -545,7 +545,9 @@
     <string name="challenge_detail_notice1">1. 입력하신 SNS 계정과 콘텐츠가 등록되는 SNS 계정은 동일해야 합니다.</string>
     <string name="challenge_detail_notice2">2. 제공받은 제품으로 재판매는 절대 불가하며, 적발 시 참여 제한 등의 불이익이 발생할 수 있습니다.</string>
     <string name="challenge_detail_notice3">3. 콘텐츠 등록기간 내 콘텐츠를 등록하지 않거나, 콘텐츠 최소 유지 기간 (3개월) 미달성 시 참여 제한 등의 불이익이 발생할 수 있습니다.</string>
-    <string name="challenge_detail_notice4">4. 챌린지에 참여하는 경우, 위 유의사항에 대해 인지하고 동의한 것으로 간주합니다.</string>
+    <string name="challenge_detail_notice4">4. 제공받은 제품이 안내된 내용과 다르거나 불량인 경우, 당첨자 선정 후 7일 이내 미배송 시 고객센터로 연락 바랍니다.</string>
+    <string name="challenge_detail_notice5">5. 제공 업체 사정에 의해 당첨자 수가 변경될 수 있습니다.</string>
+    <string name="challenge_detail_notice6">6. 챌린지에 참여하는 경우, 위 유의사항에 대해 인지하고 동의한 것으로 간주합니다.</string>
 
     <string name="challenge_detail_button_enter">신청하기</string>
     <string name="challenge_detail_button_enter_completed">신청완료</string>

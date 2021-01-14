@@ -252,12 +252,21 @@
                 tools:text="20명" />
 
             <ImageView
-                android:id="@+id/img_detail"
+                android:id="@+id/img_challenge_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_12"
                 android:adjustViewBounds="true"
+                android:src="@drawable/img_challenge_banner"
                 app:layout_constraintTop_toBottomOf="@+id/txt_winner_count_caption"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/img_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                app:layout_constraintTop_toBottomOf="@+id/img_challenge_desc"
                 tools:ignore="ContentDescription" />
 
             <ImageView
@@ -325,6 +334,26 @@
                     android:fontFamily="@font/nanum_square_r"
                     android:lineSpacingMultiplier="1.5"
                     android:text="@string/challenge_detail_notice4"
+                    android:textColor="@color/color_FFFFFFFF"
+                    android:textSize="@dimen/sp_7" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:lineSpacingMultiplier="1.5"
+                    android:text="@string/challenge_detail_notice5"
+                    android:textColor="@color/color_FFFFFFFF"
+                    android:textSize="@dimen/sp_7" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:lineSpacingMultiplier="1.5"
+                    android:text="@string/challenge_detail_notice6"
                     android:textColor="@color/color_FFFFFFFF"
                     android:textSize="@dimen/sp_7" />
             </LinearLayout>
