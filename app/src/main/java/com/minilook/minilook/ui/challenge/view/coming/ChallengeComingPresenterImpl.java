@@ -7,9 +7,11 @@ import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.challenge.ChallengeDataModel;
 import com.minilook.minilook.data.network.challenge.ChallengeRequest;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
+import com.minilook.minilook.ui.challenge.ChallengePresenterImpl;
 import com.minilook.minilook.ui.challenge.view.coming.di.ChallengeComingArguments;
 import io.reactivex.rxjava3.functions.Function;
 import java.util.ArrayList;
@@ -37,6 +39,8 @@ public class ChallengeComingPresenterImpl extends BasePresenterImpl implements C
     }
 
     @Override public void onCreateView() {
+        toRxObservable();
+        view.setupSwipeRefresh();
         view.setupRecyclerView();
 
         getChallenges();
@@ -58,6 +62,10 @@ public class ChallengeComingPresenterImpl extends BasePresenterImpl implements C
 
     @Override public void onLoadMore() {
         if (totalPageSize > page.get()) getMoreChallenges();
+    }
+
+    @Override public void onSwipeRefresh() {
+        RxBus.send(new ChallengePresenterImpl.RxBusEventSwipeRefresh());
     }
 
     private void getChallenges() {
@@ -82,6 +90,7 @@ public class ChallengeComingPresenterImpl extends BasePresenterImpl implements C
     private void onResChallenge(List<ChallengeDataModel> data) {
         adapter.set(data);
         view.refresh();
+        view.setRefreshing(false);
     }
 
     private void getMoreChallenges() {
@@ -104,5 +113,14 @@ public class ChallengeComingPresenterImpl extends BasePresenterImpl implements C
         int rows = data.size();
         adapter.addAll(data);
         view.refresh(start, rows);
+    }
+
+    private void toRxObservable() {
+        addDisposable(RxBus.toObservable().subscribe(o -> {
+            if (o instanceof ChallengePresenterImpl.RxBusEventSwipeRefresh) {
+                view.scrollToTop();
+                getChallenges();
+            }
+        }, Timber::e));
     }
 }

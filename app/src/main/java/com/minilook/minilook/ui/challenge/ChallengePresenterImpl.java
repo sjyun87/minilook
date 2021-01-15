@@ -46,4 +46,7 @@ public class ChallengePresenterImpl extends BasePresenterImpl implements Challen
     @AllArgsConstructor @Getter public final static class RxEventNavigateToChallengeDetail {
         private final int challengeNo;
     }
+
+    @AllArgsConstructor @Getter public final static class RxBusEventSwipeRefresh {
+    }
 }

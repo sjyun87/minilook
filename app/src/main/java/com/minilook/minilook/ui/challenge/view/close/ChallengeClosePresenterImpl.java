@@ -7,9 +7,11 @@ import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.challenge.ChallengeDataModel;
 import com.minilook.minilook.data.network.challenge.ChallengeRequest;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
+import com.minilook.minilook.ui.challenge.ChallengePresenterImpl;
 import com.minilook.minilook.ui.challenge.view.close.di.ChallengeCloseArguments;
 import io.reactivex.rxjava3.functions.Function;
 import java.util.ArrayList;
@@ -33,6 +35,8 @@ public class ChallengeClosePresenterImpl extends BasePresenterImpl implements Ch
     }
 
     @Override public void onCreateView() {
+        toRxObservable();
+        view.setupSwipeRefresh();
         view.setupRecyclerView();
 
         getChallenges();
@@ -52,6 +56,10 @@ public class ChallengeClosePresenterImpl extends BasePresenterImpl implements Ch
         getChallenges();
     }
 
+    @Override public void onSwipeRefresh() {
+        RxBus.send(new ChallengePresenterImpl.RxBusEventSwipeRefresh());
+    }
+
     private void getChallenges() {
         addDisposable(challengeRequest.getCloseChallenge(ROWS)
             .compose(Transformer.applySchedulers())
@@ -68,5 +76,15 @@ public class ChallengeClosePresenterImpl extends BasePresenterImpl implements Ch
     private void onResChallenge(List<ChallengeDataModel> data) {
         adapter.set(data);
         view.refresh();
+        view.setRefreshing(false);
+    }
+
+    private void toRxObservable() {
+        addDisposable(RxBus.toObservable().subscribe(o -> {
+            if (o instanceof ChallengePresenterImpl.RxBusEventSwipeRefresh) {
+                view.scrollToTop();
+                getChallenges();
+            }
+        }, Timber::e));
     }
 }

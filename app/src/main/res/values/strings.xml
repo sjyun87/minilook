@@ -535,9 +535,9 @@
     <string name="challenge_detail_label">진행중</string>
     <string name="challenge_detail_term_date_caption">신청 기간</string>
     <string name="challenge_detail_term_date">%s ~ %s</string>
-    <string name="challenge_detail_win_date_caption">당첨 발표일</string>
-    <string name="challenge_detail_review_date_caption">등록 기한</string>
-    <string name="challenge_detail_review_date">%s까지 (총 3달간 게시물 유지 필수)</string>
+    <string name="challenge_detail_win_date_caption">당첨 발표</string>
+    <string name="challenge_detail_review_date_caption">작성 기한</string>
+    <string name="challenge_detail_review_date">~ %s</string>
     <string name="challenge_detail_winner_count_caption">당첨 인원</string>
     <string name="challenge_detail_winner_count">%d명</string>
 

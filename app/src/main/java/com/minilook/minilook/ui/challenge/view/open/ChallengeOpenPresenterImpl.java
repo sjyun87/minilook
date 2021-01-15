@@ -11,6 +11,7 @@ import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
+import com.minilook.minilook.ui.challenge.ChallengePresenterImpl;
 import com.minilook.minilook.ui.challenge.view.open.di.ChallengeOpenArguments;
 import com.minilook.minilook.ui.challenge_enter.ChallengeEnterPresenterImpl;
 import io.reactivex.rxjava3.functions.Function;
@@ -40,6 +41,7 @@ public class ChallengeOpenPresenterImpl extends BasePresenterImpl implements Cha
 
     @Override public void onCreateView() {
         toRxObservable();
+        view.setupSwipeRefresh();
         view.setupRecyclerView();
 
         getChallenges();
@@ -61,6 +63,10 @@ public class ChallengeOpenPresenterImpl extends BasePresenterImpl implements Cha
 
     @Override public void onLoadMore() {
         if (totalPageSize > page.get()) getMoreChallenges();
+    }
+
+    @Override public void onSwipeRefresh() {
+        RxBus.send(new ChallengePresenterImpl.RxBusEventSwipeRefresh());
     }
 
     private void getChallenges() {
@@ -85,6 +91,7 @@ public class ChallengeOpenPresenterImpl extends BasePresenterImpl implements Cha
     private void onResChallenge(List<ChallengeDataModel> data) {
         adapter.set(data);
         view.refresh();
+        view.setRefreshing(false);
     }
 
     private void getMoreChallenges() {
@@ -112,6 +119,9 @@ public class ChallengeOpenPresenterImpl extends BasePresenterImpl implements Cha
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
             if (o instanceof ChallengeEnterPresenterImpl.RxEventEnterChallenge) {
+                view.scrollToTop();
+                getChallenges();
+            } else if (o instanceof ChallengePresenterImpl.RxBusEventSwipeRefresh) {
                 view.scrollToTop();
                 getChallenges();
             }

@@ -46,6 +46,14 @@ public class ChallengeCloseFragment extends BaseFragment implements ChallengeClo
         presenter.onLogout();
     }
 
+    @Override public void setupSwipeRefresh() {
+        binding.layoutSwipeRefresh.setOnRefreshListener(presenter::onSwipeRefresh);
+    }
+
+    @Override public void setRefreshing(boolean flag) {
+        if (binding.layoutSwipeRefresh.isRefreshing() != flag) binding.layoutSwipeRefresh.setRefreshing(flag);
+    }
+
     @Override public void setupRecyclerView() {
         binding.rcvChallenge.setHasFixedSize(true);
         binding.rcvChallenge.setLayoutManager(new LinearLayoutManager(requireContext()));

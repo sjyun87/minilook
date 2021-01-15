@@ -40,8 +40,7 @@
                     android:fontFamily="@font/nanum_square_r"
                     android:text="@string/base_slogan"
                     android:textColor="@color/color_FF232323"
-                    android:textSize="@dimen/sp_6"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_title" />
+                    android:textSize="@dimen/sp_6" />
             </LinearLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 

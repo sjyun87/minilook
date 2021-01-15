@@ -6,6 +6,9 @@ import android.view.View;
 import androidx.annotation.ColorRes;
 import androidx.annotation.StringRes;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.minilook.minilook.R;
 import com.minilook.minilook.databinding.ActivityChallengeDetailBinding;
 import com.minilook.minilook.ui.base.BaseActivity;
@@ -174,12 +177,20 @@ public class ChallengeDetailActivity extends BaseActivity implements ChallengeDe
     @Override public void setDetailContent(String url) {
         Glide.with(this)
             .load(url)
+            .apply(new RequestOptions()
+                .fitCenter()
+                .format(DecodeFormat.PREFER_ARGB_8888)
+                .override(Target.SIZE_ORIGINAL))
             .into(binding.imgDetail);
     }
 
     @Override public void setChallengeContent(String url) {
         Glide.with(this)
             .load(url)
+            .apply(new RequestOptions()
+                .fitCenter()
+                .format(DecodeFormat.PREFER_ARGB_8888)
+                .override(Target.SIZE_ORIGINAL))
             .into(binding.imgChallenge);
     }
 

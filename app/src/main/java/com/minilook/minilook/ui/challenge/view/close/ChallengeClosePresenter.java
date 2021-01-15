@@ -16,7 +16,13 @@ public interface ChallengeClosePresenter extends LifecycleObserver {
 
     void onLogout();
 
+    void onSwipeRefresh();
+
     interface View {
+
+        void setupSwipeRefresh();
+
+        void setRefreshing(boolean flag);
 
         void setupRecyclerView();
 
