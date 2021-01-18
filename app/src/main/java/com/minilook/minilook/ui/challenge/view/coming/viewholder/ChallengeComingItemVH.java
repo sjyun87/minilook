@@ -11,10 +11,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.challenge.ChallengeDataModel;
-import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.databinding.ViewChallengeComingItemBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
-import com.minilook.minilook.ui.challenge.ChallengePresenterImpl;
 import com.minilook.minilook.util.StringUtil;
 import java.util.Calendar;
 import java.util.Date;
@@ -62,12 +60,6 @@ public class ChallengeComingItemVH extends BaseViewHolder<ChallengeDataModel> {
 
         binding.txtWinner.setText(
             String.format(resources.getString(str_unit), StringUtil.toDigit(data.getWinnerCount())));
-
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                RxBus.send(new ChallengePresenterImpl.RxEventNavigateToChallengeDetail(data.getChallengeNo()));
-            }
-        });
     }
 
     private String getStartDate(long date) {
@@ -77,7 +69,7 @@ public class ChallengeComingItemVH extends BaseViewHolder<ChallengeDataModel> {
         long count = targetDay - todayDay;
 
         if (count > 1) {
-            return String.format(resources.getString(str_start_date), count);
+            return String.format(resources.getString(str_start_date), (count + 1));
         } else {
             return resources.getString(str_start_date_tomorrow);
         }
