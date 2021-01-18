@@ -37,6 +37,10 @@ public interface ChallengeEnterPresenter extends LifecycleObserver {
 
         void setPhoneNumber(String phone);
 
+        void setBlog(String blog);
+
+        void setInstagram(String instagram);
+
         void checkTerms();
 
         void uncheckTerms();
@@ -50,6 +54,10 @@ public interface ChallengeEnterPresenter extends LifecycleObserver {
         void showFinishDialog();
 
         void showFinishAndMarketingInfoDialog();
+
+        void showAlreadyEnterDialog();
+
+        void showChallengeEndDialog();
 
         void navigateToVerify();
 

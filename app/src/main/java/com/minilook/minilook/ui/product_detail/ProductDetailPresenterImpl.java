@@ -362,11 +362,6 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         }
     }
 
-    private void reqScrap() {
-        addDisposable(scrapRequest.updateProductScrap(data.isScrap(), productNo)
-            .subscribe());
-    }
-
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
             if (o instanceof RxEventProductDetailReviewHelpClick) {

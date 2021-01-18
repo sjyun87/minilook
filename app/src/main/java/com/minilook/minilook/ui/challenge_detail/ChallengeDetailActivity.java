@@ -10,6 +10,7 @@ import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.code.ChallengeType;
 import com.minilook.minilook.databinding.ActivityChallengeDetailBinding;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
@@ -38,9 +39,14 @@ public class ChallengeDetailActivity extends BaseActivity implements ChallengeDe
     @StringRes int str_review_date = R.string.challenge_detail_review_date;
     @StringRes int str_winner_unit = R.string.challenge_detail_winner_count;
 
+    @StringRes int str_open_label = R.string.challenge_detail_open_label;
+    @StringRes int str_coming_label = R.string.challenge_detail_coming_label;
+    @StringRes int str_end_time = R.string.challenge_detail_end;
+
     @StringRes int str_enter_button = R.string.challenge_detail_button_enter;
     @StringRes int str_enter_completed_button = R.string.challenge_detail_button_enter_completed;
     @StringRes int str_end_button = R.string.challenge_detail_button_end;
+    @StringRes int str_coming_button = R.string.challenge_detail_button_coming;
 
     @ColorRes int color_FF8A8A8A = R.color.color_FF8A8A8A;
     @ColorRes int color_FF8140E5 = R.color.color_FF8140E5;
@@ -100,62 +106,53 @@ public class ChallengeDetailActivity extends BaseActivity implements ChallengeDe
     }
 
     @Override public void showRemainTime(int day, int hour, int minute) {
-        showDay(day);
-        showTime(hour, minute);
-        binding.txtDateEnd.setVisibility(View.GONE);
+        setDay(day);
+        setTime(hour, minute);
+        binding.txtEndTime.setVisibility(View.GONE);
         binding.layoutRemainDatePanel.setVisibility(View.VISIBLE);
     }
 
-    @Override public void showRemainTime(int hour, int minute) {
-        hideDay();
-        showTime(hour, minute);
-        binding.txtDateEnd.setVisibility(View.GONE);
-        binding.layoutRemainDatePanel.setVisibility(View.VISIBLE);
+    private void setDay(int day) {
+        if (day > 0) {
+            String strDay = String.format(resources.getString(str_date_day), day);
+            binding.txtDateDay.setText(strDay);
+            binding.txtDateDay.setVisibility(View.VISIBLE);
+        } else {
+            binding.txtDateDay.setVisibility(View.GONE);
+        }
     }
 
-    @Override public void showRemainTime(int minute) {
-        hideDay();
-        showTime(minute);
-        binding.txtDateEnd.setVisibility(View.GONE);
-        binding.layoutRemainDatePanel.setVisibility(View.VISIBLE);
-    }
-
-    private void showDay(int day) {
-        String strDay = String.format(resources.getString(str_date_day), day);
-        binding.txtDateDay.setText(strDay);
-        binding.txtDateDay.setVisibility(View.VISIBLE);
-    }
-
-    private void hideDay() {
-        binding.txtDateDay.setVisibility(View.GONE);
-    }
-
-    private void showTime(int hour, int minute) {
-        String strHour = String.format(resources.getString(str_date_hour), hour);
-        String strMinute = String.format(resources.getString(str_date_minute), minute);
-        binding.txtDateTime.setText(String.format(resources.getString(str_date_time), strHour, strMinute));
-    }
-
-    private void showTime(int minute) {
-        String strMinute = String.format(resources.getString(str_date_minute), minute);
-        binding.txtDateTime.setText(strMinute);
-    }
-
-    private void hideTime() {
-        binding.txtDateTime.setVisibility(View.GONE);
+    private void setTime(int hour, int minute) {
+        if (hour > 0) {
+            String strHour = String.format(resources.getString(str_date_hour), hour);
+            String strMinute = String.format(resources.getString(str_date_minute), minute);
+            binding.txtDateTime.setText(String.format(resources.getString(str_date_time), strHour, strMinute));
+        } else {
+            String strMinute = String.format(resources.getString(str_date_minute), minute);
+            binding.txtDateTime.setText(strMinute);
+        }
     }
 
     @Override public void showEndTime() {
         binding.layoutRemainDatePanel.setVisibility(View.GONE);
-        binding.txtDateEnd.setVisibility(View.VISIBLE);
+        binding.txtEndTime.setText(resources.getString(str_end_time));
+        binding.txtEndTime.setVisibility(View.VISIBLE);
     }
 
-    @Override public void showLabel() {
-        binding.txtLabel.setVisibility(View.VISIBLE);
-    }
-
-    @Override public void hideLabel() {
-        binding.txtLabel.setVisibility(View.GONE);
+    @Override public void setLabel(int status) {
+        switch (ChallengeType.toType(status)) {
+            case OPEN:
+                binding.txtLabel.setText(resources.getString(str_open_label));
+                binding.txtLabel.setVisibility(View.VISIBLE);
+                break;
+            case COMING:
+                binding.txtLabel.setText(resources.getString(str_coming_label));
+                binding.txtLabel.setVisibility(View.VISIBLE);
+                break;
+            case END:
+                binding.txtLabel.setVisibility(View.GONE);
+                break;
+        }
     }
 
     @Override public void setTermDate(String start, String end) {
@@ -196,18 +193,30 @@ public class ChallengeDetailActivity extends BaseActivity implements ChallengeDe
 
     @Override public void showEnterButton() {
         binding.txtEnterButton.setText(resources.getString(str_enter_button));
-        binding.txtEnterButton.setBackgroundColor(resources.getColor(color_FF8140E5));
-        binding.txtEnterButton.setEnabled(true);
+        enableEnterButton();
     }
 
     @Override public void showEnterCompletedButton() {
         binding.txtEnterButton.setText(resources.getString(str_enter_completed_button));
-        binding.txtEnterButton.setBackgroundColor(resources.getColor(color_FF8A8A8A));
-        binding.txtEnterButton.setEnabled(false);
+        disableEnterButton();
     }
 
     @Override public void showEndButton() {
         binding.txtEnterButton.setText(resources.getString(str_end_button));
+        disableEnterButton();
+    }
+
+    @Override public void showComingButton() {
+        binding.txtEnterButton.setText(resources.getString(str_coming_button));
+        disableEnterButton();
+    }
+
+    @Override public void enableEnterButton() {
+        binding.txtEnterButton.setBackgroundColor(resources.getColor(color_FF8140E5));
+        binding.txtEnterButton.setEnabled(true);
+    }
+
+    @Override public void disableEnterButton() {
         binding.txtEnterButton.setBackgroundColor(resources.getColor(color_FF8A8A8A));
         binding.txtEnterButton.setEnabled(false);
     }

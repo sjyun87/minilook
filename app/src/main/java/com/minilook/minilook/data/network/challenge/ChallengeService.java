@@ -27,7 +27,7 @@ public interface ChallengeService {
         @Body RequestBody body
     );
 
-    @GET("/api/challenges/members/{memberNo}") Single<BaseDataModel> checkPhoneNumber(
+    @GET("/api/challenges/members/{memberNo}") Single<BaseDataModel> getMemberData(
         @Path("memberNo") int memberNo
     );
 

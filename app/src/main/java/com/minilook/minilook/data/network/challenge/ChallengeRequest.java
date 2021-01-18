@@ -46,8 +46,8 @@ public class ChallengeRequest extends BaseRequest<ChallengeService> {
         return createRequestBody(jsonMap);
     }
 
-    public Single<BaseDataModel> checkPhoneNumber() {
-        return getApi().checkPhoneNumber(App.getInstance().getMemberNo());
+    public Single<BaseDataModel> getMemberData() {
+        return getApi().getMemberData(App.getInstance().getMemberNo());
     }
 
     public Single<BaseDataModel> enterChallenge(int challengeNo, MemberDataModel memberData) {

@@ -16,4 +16,7 @@ import lombok.Getter;
     public static final String ALREADY_USED = "525";
     public static final String NO_STOCK = "526";
     public static final String NO_CANCEL = "527";
+
+    public static final String OVERLAP_DATA = "533";
+    public static final String EXPIRED_DATE = "534";
 }

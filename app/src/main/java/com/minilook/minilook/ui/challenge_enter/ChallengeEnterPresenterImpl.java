@@ -48,11 +48,11 @@ public class ChallengeEnterPresenterImpl extends BasePresenterImpl implements Ch
         view.setupInstargramEditText();
         view.setupBlogEditText();
 
-        checkPhoneNumber();
+        getMemberData();
     }
 
-    private void checkPhoneNumber() {
-        addDisposable(challengeRequest.checkPhoneNumber()
+    private void getMemberData() {
+        addDisposable(challengeRequest.getMemberData()
             .compose(Transformer.applySchedulers())
             .filter(data -> {
                 String code = data.getCode();
@@ -68,6 +68,8 @@ public class ChallengeEnterPresenterImpl extends BasePresenterImpl implements Ch
         memberData.setCi(data.getCi());
 
         view.setPhoneNumber(data.getPhone());
+        if (!TextUtils.isEmpty(data.getBlog())) view.setBlog(data.getBlog());
+        if (!TextUtils.isEmpty(data.getInstagram())) view.setInstagram(data.getInstagram());
         isVerifyComplete = true;
     }
 
@@ -146,7 +148,11 @@ public class ChallengeEnterPresenterImpl extends BasePresenterImpl implements Ch
             .compose(Transformer.applySchedulers())
             .filter(data -> {
                 String code = data.getCode();
-                if (!code.equals(HttpCode.OK)) {
+                if (code.equals(HttpCode.OVERLAP_DATA)) {
+                    view.showAlreadyEnterDialog();
+                } else if (code.equals(HttpCode.EXPIRED_DATE)) {
+                    view.showChallengeEndDialog();
+                } else if (!code.equals(HttpCode.OK)) {
                     view.showErrorDialog();
                 }
                 return code.equals(HttpCode.OK);

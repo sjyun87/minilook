@@ -2,6 +2,8 @@ package com.minilook.minilook.ui.dialog.manager;
 
 import android.app.Activity;
 import com.minilook.minilook.ui.dialog.BrandCallDialog;
+import com.minilook.minilook.ui.dialog.ChallengeAlreadyEnterDialog;
+import com.minilook.minilook.ui.dialog.ChallengeEndDialog;
 import com.minilook.minilook.ui.dialog.ChallengeEnterCompletedDialog;
 import com.minilook.minilook.ui.dialog.ChallengeEnterCompletedNMarketingDialog;
 import com.minilook.minilook.ui.dialog.DefaultShippingDialog;
@@ -122,6 +124,18 @@ public final class DialogManager {
         ChallengeEnterCompletedNMarketingDialog dialog = new ChallengeEnterCompletedNMarketingDialog(activity);
         dialog.setOnPositiveClickListener(onPositiveClickListener);
         dialog.setOnNegativeClickListener(onNegativeClickListener);
+        dialog.show();
+    }
+
+    @Builder
+    public static void showChallengeEndDialog(Activity activity) {
+        ChallengeEndDialog dialog = new ChallengeEndDialog(activity);
+        dialog.show();
+    }
+
+    @Builder
+    public static void showChallengeAlreadyEnterDialog(Activity activity) {
+        ChallengeAlreadyEnterDialog dialog = new ChallengeAlreadyEnterDialog(activity);
         dialog.show();
     }
 }

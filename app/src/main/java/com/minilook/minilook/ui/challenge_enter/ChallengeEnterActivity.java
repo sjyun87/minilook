@@ -94,6 +94,16 @@ public class ChallengeEnterActivity extends BaseActivity implements ChallengeEnt
         binding.txtCertify.setText(resources.getString(str_phone_edit));
     }
 
+    @Override public void setBlog(String blog) {
+        binding.editBlog.setText(blog);
+        binding.editBlog.setSelection(blog.length());
+    }
+
+    @Override public void setInstagram(String instagram) {
+        binding.editInstagram.setText(instagram);
+        binding.editInstagram.setSelection(instagram.length());
+    }
+
     @Override public void checkTerms() {
         binding.imgCheckbox.setImageResource(img_checkbox_on);
     }
@@ -125,6 +135,14 @@ public class ChallengeEnterActivity extends BaseActivity implements ChallengeEnt
         DialogManager.showChallengeEnterCompletedNMarketingDialog(this,
             presenter::onDialogAgreeClick,
             presenter::onDialogLaterClick);
+    }
+
+    @Override public void showAlreadyEnterDialog() {
+        DialogManager.showChallengeAlreadyEnterDialog(this);
+    }
+
+    @Override public void showChallengeEndDialog() {
+        DialogManager.showChallengeEndDialog(this);
     }
 
     @Override public void navigateToVerify() {

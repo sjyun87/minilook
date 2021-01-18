@@ -65,8 +65,10 @@ public class ChallengePresenterImpl extends BasePresenterImpl implements Challen
                 checkRefreshCompleted();
             } else if (o instanceof ChallengeComingPresenterImpl.RxBusEventSwipeRefreshCompleted) {
                 isRefreshComingChallenge = true;
+                checkRefreshCompleted();
             } else if (o instanceof ChallengeClosePresenterImpl.RxBusEventSwipeRefreshCompleted) {
                 isRefreshCloseChallenge = true;
+                checkRefreshCompleted();
             }
         }, Timber::e));
     }

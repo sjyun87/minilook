@@ -42,15 +42,9 @@ public interface ChallengeDetailPresenter extends LifecycleObserver {
 
         void showRemainTime(int day, int hour, int minute);
 
-        void showRemainTime(int hour, int minute);
-
-        void showRemainTime(int minute);
-
         void showEndTime();
 
-        void showLabel();
-
-        void hideLabel();
+        void setLabel(int status);
 
         void setTermDate(String start, String end);
 
@@ -69,6 +63,12 @@ public interface ChallengeDetailPresenter extends LifecycleObserver {
         void showEnterCompletedButton();
 
         void showEndButton();
+
+        void showComingButton();
+
+        void enableEnterButton();
+
+        void disableEnterButton();
 
         void scrollToTop();
 

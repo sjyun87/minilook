@@ -73,7 +73,7 @@ public class ChallengeOpenItemVH extends BaseViewHolder<ChallengeDataModel> {
         long targetDay = endDate.getTime() / (24 * 60 * 60 * 1000);
         long count = (targetDay - todayDay) + 1;
 
-        if (count > 1) {
+        if (count > 0) {
             return String.format(resources.getString(str_end_date), count);
         } else {
             return resources.getString(str_end_date_today);

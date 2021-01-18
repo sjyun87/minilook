@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 import com.google.gson.Gson;
 import com.minilook.minilook.App;
+import com.minilook.minilook.data.code.ChallengeType;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.challenge.ChallengeDataModel;
 import com.minilook.minilook.data.network.challenge.ChallengeRequest;
@@ -35,6 +36,7 @@ public class ChallengeDetailPresenterImpl extends BasePresenterImpl implements C
     private final Gson gson;
 
     private ChallengeDataModel data;
+    private int status;
     private Timer timer;
     private TimerTask timerTask;
 
@@ -56,7 +58,9 @@ public class ChallengeDetailPresenterImpl extends BasePresenterImpl implements C
     }
 
     @Override public void onResume() {
-        if (data != null) startTimer();
+        if (data != null && status != ChallengeType.END.getValue()) {
+            startTimer();
+        }
     }
 
     @Override public void onPause() {
@@ -86,7 +90,12 @@ public class ChallengeDetailPresenterImpl extends BasePresenterImpl implements C
     }
 
     @Override public void onShareClick() {
-        String title = data.getProductName() + " (" + parseToDate(data.getStartDate()) + "~" + parseToDate(data.getEndDate()) + ")";
+        String title = data.getProductName()
+            + " ("
+            + parseToDate(data.getStartDate())
+            + "~"
+            + parseToDate(data.getEndDate())
+            + ")";
         dynamicLinkUtil.createLink(DynamicLinkUtil.TYPE_CHALLENGE, challengeNo, title,
             data.getImages().get(0),
             new DynamicLinkUtil.OnDynamicLinkListener() {
@@ -122,6 +131,7 @@ public class ChallengeDetailPresenterImpl extends BasePresenterImpl implements C
 
     private void onResChallengeDetail(ChallengeDataModel data) {
         this.data = data;
+        this.status = getStatus(data.getStartDate(), data.getEndDate());
 
         imageAdapter.set(data.getImages());
         view.imageRefresh();
@@ -137,46 +147,60 @@ public class ChallengeDetailPresenterImpl extends BasePresenterImpl implements C
         view.setDetailContent(data.getDetailUrl());
         view.setChallengeContent(data.getChallengeUrl());
 
-        handleEnterButton();
-        startTimer();
-    }
-
-    private void handleEnterButton() {
-        if (isEnd(data.getEndDate())) {
-            view.showEndButton();
+        handleButton();
+        if (status != ChallengeType.END.getValue()) {
+            startTimer();
         } else {
-            if (App.getInstance().isLogin() && data.isEnter()) {
-                view.showEnterCompletedButton();
-            } else {
-                view.showEnterButton();
-            }
+            view.showEndTime();
+            view.setLabel(status);
         }
     }
 
-    private boolean isEnd(long endTime) {
+    private void handleButton() {
+        switch (ChallengeType.toType(status)) {
+            case OPEN:
+                if (App.getInstance().isLogin() && data.isEnter()) {
+                    view.showEnterCompletedButton();
+                } else {
+                    view.showEnterButton();
+                }
+                break;
+            case COMING:
+                view.showComingButton();
+                break;
+            case END:
+                view.showEndButton();
+                break;
+        }
+    }
+
+    private int getStatus(long startTime, long endTime) {
+        Calendar startCal = Calendar.getInstance();
+        startCal.setTimeInMillis(startTime);
         Calendar endCal = Calendar.getInstance();
         endCal.setTimeInMillis(endTime);
         endCal.add(Calendar.DATE, 1);
+
         Calendar currentCal = Calendar.getInstance();
-        return currentCal.after(endCal);
+
+        if (currentCal.before(startCal)) {
+            return ChallengeType.COMING.getValue();
+        } else if (currentCal.after(endCal)) {
+            return ChallengeType.END.getValue();
+        } else {
+            return ChallengeType.OPEN.getValue();
+        }
     }
 
     private void handleRemainTime(int day, int hour, int minute) {
-        if (day > 0) {
+        if (day >= 0) {
             view.showRemainTime(day, hour, minute);
-            view.showLabel();
-        } else if (day == 0) {
-            if (hour > 0) {
-                view.showRemainTime(hour, minute);
-            } else {
-                view.showRemainTime(minute);
-            }
-            view.showLabel();
         } else {
             view.showEndTime();
-            view.hideLabel();
+            stopTimer();
         }
-        handleEnterButton();
+        view.setLabel(status);
+        handleButton();
     }
 
     private void startTimer() {
@@ -184,13 +208,21 @@ public class ChallengeDetailPresenterImpl extends BasePresenterImpl implements C
         timer = new Timer();
         timerTask = new TimerTask() {
             @Override public void run() {
+                Calendar targetCal = Calendar.getInstance();
+                if (status == ChallengeType.COMING.getValue()) {
+                    targetCal.setTimeInMillis(data.getStartDate());
+                } else {
+                    targetCal.setTimeInMillis(data.getEndDate());
+                    targetCal.add(Calendar.DATE, 1);
+                }
+
                 long currentTime = Calendar.getInstance().getTimeInMillis();
-                long remainTime = data.getEndDate() - currentTime;
+                long remainTime = targetCal.getTimeInMillis() - currentTime;
 
                 Calendar remainCal = Calendar.getInstance(TimeZone.getTimeZone("GMT"), Locale.getDefault());
                 remainCal.setTimeInMillis(remainTime);
 
-                int day = (int) remainTime / (24 * 60 * 60 * 1000);
+                int day = ((int) remainTime / (24 * 60 * 60 * 1000));
                 int hour = remainCal.get(Calendar.HOUR_OF_DAY);
                 int minute = (int) remainCal.get(Calendar.MINUTE);
 
