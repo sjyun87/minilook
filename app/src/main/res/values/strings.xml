@@ -2,6 +2,7 @@
     <string name="app_name">minilook</string>
 
     <!--Base-->
+    <string name="base_slogan">소중한 아이를 위한 특별한 선물</string>
     <string name="base_yes">네</string>
     <string name="base_no">아니오</string>
     <string name="base_price_percent">%d%%</string>
@@ -29,7 +30,7 @@
     <string name="bottombar_lookbook">룩북</string>
     <string name="bottombar_market">마켓</string>
     <string name="bottombar_category">카테고리</string>
-    <string name="bottombar_preorder">프리오더</string>
+    <string name="bottombar_challenge">챌린지</string>
     <string name="bottombar_ipage">아이페이지</string>
 
     <!--Guide-->
@@ -545,6 +546,69 @@
     <string name="preorder_detail_product_detail_index">상품 %s</string>
     <string name="preorder_detail_product_detail_desc">상품 이미지를 터치하여 자세히 보세요</string>
 
+    <!--Challenge-->
+    <string name="challenge_title">CHALLENGE</string>
+    <string name="challenge_desc">챌린지는 미니룩의 신개념 협찬 플랫폼입니다.</string>
+    <string name="challenge_enter_label">참여인원</string>
+    <string name="challenge_enter_slash">/</string>
+    <string name="challenge_winner_label">당첨인원</string>
+    <string name="challenge_unit">%s명</string>
+    <string name="challenge_term_date">%s ~ %s</string>
+    <string name="challenge_enter">참여완료</string>
+    <string name="challenge_end_date">%s일남음</string>
+    <string name="challenge_end_date_today">오늘마감</string>
+    <string name="challenge_start_date">%s일 후 오픈</string>
+    <string name="challenge_start_date_tomorrow">내일오픈</string>
+    <string name="challenge_empty_coming_soon">COMING SOON</string>
+    <string name="challenge_empty_opening_soon">OPENING SOON</string>
+    <string name="challenge_empty_desc">새로운 챌린지를 준비 중 입니다!\n잠시만 기다려 주세요.</string>
+
+    <!--Challenge Detail-->
+    <string name="challenge_detail_end_date_day_unit">%d일</string>
+    <string name="challenge_detail_end_date_hour_unit">%d시간</string>
+    <string name="challenge_detail_end_date_minute_unit">%d분</string>
+    <string name="challenge_detail_end_date_time">%s %s</string>
+    <string name="challenge_detail_end_date_unit">남음</string>
+    <string name="challenge_detail_end">마감</string>
+    <string name="challenge_detail_coming_label">오픈예정</string>
+    <string name="challenge_detail_open_label">진행중</string>
+    <string name="challenge_detail_term_date_caption">신청 기간</string>
+    <string name="challenge_detail_term_date">%s ~ %s</string>
+    <string name="challenge_detail_win_date_caption">당첨 발표</string>
+    <string name="challenge_detail_review_date_caption">작성 기한</string>
+    <string name="challenge_detail_review_date">~ %s</string>
+    <string name="challenge_detail_winner_count_caption">당첨 인원</string>
+    <string name="challenge_detail_winner_count">%d명</string>
+
+    <string name="challenge_detail_notice_title">유의사항</string>
+    <string name="challenge_detail_notice1">1. 입력하신 SNS 계정과 콘텐츠가 등록되는 SNS 계정은 동일해야 합니다.</string>
+    <string name="challenge_detail_notice2">2. 제공받은 제품으로 재판매는 절대 불가하며, 적발 시 참여 제한 등의 불이익이 발생할 수 있습니다.</string>
+    <string name="challenge_detail_notice3">3. 콘텐츠 등록기간 내 콘텐츠를 등록하지 않거나, 콘텐츠 최소 유지 기간 (3개월) 미달성 시 참여 제한 등의 불이익이 발생할 수 있습니다.</string>
+    <string name="challenge_detail_notice4">4. 제공받은 제품이 안내된 내용과 다르거나 불량인 경우, 당첨자 선정 후 7일 이내 미배송 시 고객센터로 연락 바랍니다.</string>
+    <string name="challenge_detail_notice5">5. 제공 업체 사정에 의해 당첨자 수가 변경될 수 있습니다.</string>
+    <string name="challenge_detail_notice6">6. 챌린지에 참여하는 경우, 위 유의사항에 대해 인지하고 동의한 것으로 간주합니다.</string>
+
+    <string name="challenge_detail_button_enter">신청하기</string>
+    <string name="challenge_detail_button_enter_completed">신청완료</string>
+    <string name="challenge_detail_button_end">신청마감</string>
+    <string name="challenge_detail_button_coming">오픈예정</string>
+
+    <!--Challenge Enter-->
+    <string name="challenge_enter_title">신청하기</string>
+    <string name="challenge_enter_tel_caption">연락처</string>
+    <string name="challenge_enter_tel_hint">등록된 연락처가 없습니다.</string>
+    <string name="challenge_enter_tel_certify">인증하기</string>
+    <string name="challenge_enter_tel_edit">변경하기</string>
+    <string name="challenge_enter_sns_caption">SNS 주소 및 계정</string>
+    <string name="challenge_enter_sns_desc">후기를 남겨주실 SNS정보를  하나 이상 적어주세요.</string>
+    <string name="challenge_enter_sns_instagram">인스타그램</string>
+    <string name="challenge_enter_sns_instagram_hint">계정을 입력하세요.</string>
+    <string name="challenge_enter_sns_blog">블로그</string>
+    <string name="challenge_enter_sns_blog_hint">주소를 입력하세요.</string>
+    <string name="challenge_enter_notice">챌린지 서비스 약관 (제3장) 및 유의사항을 확인했습니다.</string>
+    <string name="challenge_enter_notice_more">약관보기</string>
+    <string name="challenge_enter_apply">신청하기</string>
+
     <!--Brand Detail-->
     <string name="brand_detail_info_caption">브랜드 정보</string>
     <string name="brand_detail_info_desc">고객센터/배송·교환·환불</string>
@@ -625,7 +689,6 @@
     <string name="dialog_join_completed_welcome">WELCOME</string>
     <string name="dialog_join_completed_title">가입해주셔서 감사합니다.</string>
     <string name="dialog_join_completed_contents">미니룩에서 유니크하고 트렌디한\n디자이너 브랜드 상품들을 만나보세요.</string>
-    <string name="dialog_join_completed_slogan">소중한 아이를 위한 특별한 선물</string>
 
     <string name="dialog_marketing_info_title">마케팅 알림</string>
     <string name="dialog_marketing_info_contents">할인쿠폰, 세일, 이벤트, 추천상품 등\n유용한 정보를 알려드립니다.</string>
@@ -649,6 +712,19 @@
 
     <string name="dialog_brand_call_title">%s 고객센터</string>
     <string name="dialog_brand_call_desc">전화를 연결하시겠습니까?</string>
+
+    <string name="dialog_challenge_complete_title">THANK YOU</string>
+    <string name="dialog_challenge_complete_desc1">신청해주셔서 감사합니다.</string>
+    <string name="dialog_challenge_complete_desc2">당첨자는 개별 안내 드립니다.</string>
+    <string name="dialog_challenge_complete_marketing_desc">챌린지 당첨 정보 및 이벤트 소식을 알려 드립니다.</string>
+
+    <string name="dialog_challenge_end_title">챌린지 마감 안내문</string>
+    <string name="dialog_challenge_end_subtitle">챌린지가 마감되었습니다.</string>
+    <string name="dialog_challenge_end_desc">이번 챌린지는 아쉽게도 마감되었습니다. 다음 챌린지는 \'오픈예정\' 페이지에 미리 공개됩니다. 챌린저님들의 열렬한 참여를 기다립니다.</string>
+
+    <string name="dialog_challenge_already_enter_title">챌린지 안내문</string>
+    <string name="dialog_challenge_already_enter_subtitle">이미 참여한 챌린지입니다.</string>
+    <string name="dialog_challenge_already_enter_desc">다음 이벤트는 \'오픈예정\' 페이지에 미리 공개됩니다. 챌린저님들의 열렬한 참여를 기다립니다.</string>
 
     <!--Support Email-->
     <string name="support_email">support@minilook.co.kr</string>

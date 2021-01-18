@@ -100,7 +100,7 @@ public class ProfileActivity extends _BaseActivity implements ProfilePresenter.V
     }
 
     @Override public void setupPhone(String text) {
-        phoneTextView.setText(text);
+        runOnUiThread(() -> phoneTextView.setText(text));
     }
 
     @Override public void setupEmail(String text) {

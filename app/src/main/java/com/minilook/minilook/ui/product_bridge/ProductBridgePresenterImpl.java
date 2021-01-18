@@ -1,6 +1,7 @@
 package com.minilook.minilook.ui.product_bridge;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
@@ -8,7 +9,6 @@ import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.search.FilterDataModel;
 import com.minilook.minilook.data.model.search.SearchOptionDataModel;
-import com.minilook.minilook.data.model.search.SearchResultDataModel;
 import com.minilook.minilook.data.network.search.SearchRequest;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
@@ -34,7 +34,7 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
     private Gson gson = new Gson();
     private AtomicInteger page = new AtomicInteger(0);
 
-    private int totalPage;
+    private int totalPageSize;
 
     private boolean isVisibleCategoryDepth1;
     private List<CodeDataModel> categoryOptions = new ArrayList<>();
@@ -58,7 +58,7 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
     }
 
     @Override public void onLoadMore() {
-        if (totalPage > page.get()) {
+        if (totalPageSize > page.get()) {
             reqLoadMoreProducts();
         }
     }
@@ -164,15 +164,17 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
                 }
                 return code.equals(HttpCode.OK);
             })
-            .map((Function<BaseDataModel, SearchResultDataModel>)
-                data -> gson.fromJson(data.getData(), SearchResultDataModel.class))
+            .map((Function<BaseDataModel, List<ProductDataModel>>)
+                data -> {
+                    totalPageSize = data.getTotalPage();
+                    return gson.fromJson(data.getData(), new TypeToken<ArrayList<ProductDataModel>>() {
+                    }.getType());
+                })
             .subscribe(this::resProducts, Timber::e));
     }
 
-    private void resProducts(SearchResultDataModel data) {
-        totalPage = data.getTotal();
-
-        productAdapter.set(data.getProducts());
+    private void resProducts(List<ProductDataModel> data) {
+        productAdapter.set(data);
         view.productRefresh();
         view.hideEmptyPanel();
     }
@@ -181,15 +183,16 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
         addDisposable(searchRequest.getProducts(page.incrementAndGet(), ROWS, options)
             .compose(Transformer.applySchedulers())
             .filter(data -> data.getCode().equals(HttpCode.OK))
-            .map((Function<BaseDataModel, SearchResultDataModel>)
-                data -> gson.fromJson(data.getData(), SearchResultDataModel.class))
+            .map((Function<BaseDataModel, List<ProductDataModel>>)
+                data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<ProductDataModel>>() {
+                }.getType()))
             .subscribe(this::resLoadMoreProducts, Timber::e));
     }
 
-    private void resLoadMoreProducts(SearchResultDataModel data) {
+    private void resLoadMoreProducts(List<ProductDataModel> data) {
         int start = productAdapter.getSize();
-        int rows = data.getProducts().size();
-        productAdapter.addAll(data.getProducts());
+        int rows = data.size();
+        productAdapter.addAll(data);
         view.productRefresh(start, rows);
     }
 }

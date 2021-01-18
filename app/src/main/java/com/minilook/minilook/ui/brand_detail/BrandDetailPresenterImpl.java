@@ -1,12 +1,13 @@
 package com.minilook.minilook.ui.brand_detail;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
+import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
 import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
-import com.minilook.minilook.data.model.search.SearchDataModel;
 import com.minilook.minilook.data.model.search.SearchOptionDataModel;
 import com.minilook.minilook.data.network.brand.BrandRequest;
 import com.minilook.minilook.data.network.search.SearchRequest;
@@ -18,6 +19,8 @@ import com.minilook.minilook.ui.brand_detail.di.BrandDetailArguments;
 import com.minilook.minilook.ui.main.MainPresenterImpl;
 import com.minilook.minilook.util.DynamicLinkUtil;
 import com.minilook.minilook.util.TrackingUtil;
+import io.reactivex.rxjava3.functions.Function;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import timber.log.Timber;
@@ -189,7 +192,11 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
                     }
                     return code.equals(HttpCode.OK);
                 })
-                .map(data -> gson.fromJson(data.getData(), SearchDataModel.class))
+                .map((Function<BaseDataModel, List<ProductDataModel>>) data -> {
+                    totalPageSize = data.getTotalPage();
+                    return gson.fromJson(data.getData(), new TypeToken<ArrayList<ProductDataModel>>() {
+                    }.getType());
+                })
                 .subscribe(this::onResProducts, Timber::e)
         );
     }
@@ -201,9 +208,8 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         return options;
     }
 
-    private void onResProducts(SearchDataModel data) {
-        totalPageSize = data.getTotal();
-        productAdapter.set(data.getProducts());
+    private void onResProducts(List<ProductDataModel> data) {
+        productAdapter.set(data);
         view.productRefresh();
         view.scrollToTop();
     }
@@ -216,16 +222,17 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
                     String code = data.getCode();
                     return code.equals(HttpCode.OK);
                 })
-                .map(data -> gson.fromJson(data.getData(), SearchDataModel.class))
+                .map((Function<BaseDataModel, List<ProductDataModel>>) data ->
+                    gson.fromJson(data.getData(), new TypeToken<ArrayList<ProductDataModel>>() {
+                    }.getType()))
                 .subscribe(this::onResMoreProducts, Timber::e)
         );
     }
 
-    private void onResMoreProducts(SearchDataModel data) {
+    private void onResMoreProducts(List<ProductDataModel> data) {
         int start = productAdapter.getSize();
-        int row = data.getProducts().size();
-        productAdapter.addAll(data.getProducts());
-        view.productRefresh();
+        int row = data.size();
+        productAdapter.addAll(data);
         view.productRefresh(start, row);
     }
 

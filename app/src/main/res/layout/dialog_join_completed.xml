@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_54"
         android:fontFamily="@font/nanum_square_r"
-        android:text="@string/dialog_join_completed_slogan"
+        android:text="@string/base_slogan"
         android:textColor="@color/color_FF616161"
         android:textSize="@dimen/sp_6"
         app:layout_constraintLeft_toLeftOf="parent"

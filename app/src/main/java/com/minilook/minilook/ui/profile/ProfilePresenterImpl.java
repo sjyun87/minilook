@@ -121,8 +121,8 @@ public class ProfilePresenterImpl extends BasePresenterImpl implements ProfilePr
         String phone = data.get("phoneNumber").getAsString();
         String name = data.get("name").getAsString();
         String ci = data.get("ci").getAsString();
-        view.setupPhone(phone);
         reqUpdatePhone(phone, name, ci);
+        view.setupPhone(phone);
     }
 
     private void reqUpdatePhone(String phone, String name, String ci) {

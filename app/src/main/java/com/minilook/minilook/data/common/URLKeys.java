@@ -11,5 +11,5 @@ public class URLKeys {
     public static final String URL_POINT = "https://minilook.co.kr/pointguide-app/";
     public static final String URL_COUPON = "https://minilook.co.kr/couponguide-app/";
 
-    public static final String URL_YOUTUBE = "https://youtu.be/3kMNSBKQwRw";
+    public static final String URL_YOUTUBE = "https://youtu.be/7_CCW5tV_mo";
 }

@@ -38,4 +38,8 @@ import lombok.Data;
     private String shippingAddress;
     @Expose @SerializedName("shippingAddress2")
     private String shippingAddressDetail;
+    @Expose @SerializedName("instagramAccount")
+    private String instagram;
+    @Expose @SerializedName("blogAddress")
+    private String blog;
 }

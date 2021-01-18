@@ -12,6 +12,7 @@ public class DynamicLinkUtil {
     public static final String TYPE_EVENT = "event";
     public static final String TYPE_PROMOTION = "promotion";
     public static final String TYPE_PREORDER = "preorder";
+    public static final String TYPE_CHALLENGE = "challenge";
 
     public void createLink(String type, int no, String desc, String imgUrl, OnDynamicLinkListener listener) {
         createDynamicLink()

@@ -4,11 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+import com.minilook.minilook.ui.base.widget.BottomBar;
 import com.minilook.minilook.ui.category.CategoryFragment;
+import com.minilook.minilook.ui.challenge.ChallengeFragment;
 import com.minilook.minilook.ui.ipage.IpageFragment;
 import com.minilook.minilook.ui.lookbook.LookBookFragment;
 import com.minilook.minilook.ui.market.MarketFragment;
-import com.minilook.minilook.ui.preorder.PreorderFragment;
 
 public class MainPagerAdapter extends FragmentStateAdapter {
 
@@ -19,15 +20,15 @@ public class MainPagerAdapter extends FragmentStateAdapter {
     @NonNull @Override public Fragment createFragment(int position) {
         switch (position) {
             default:
-            case 0:
+            case BottomBar.POSITION_LOOKBOOK:
                 return LookBookFragment.newInstance();
-            case 1:
+            case BottomBar.POSITION_MARKET:
                 return MarketFragment.newInstance();
-            case 2:
+            case BottomBar.POSITION_CATEGORY:
                 return CategoryFragment.newInstance();
-            case 3:
-                return PreorderFragment.newInstance();
-            case 4:
+            case BottomBar.POSITION_CHALLENGE:
+                return ChallengeFragment.newInstance();
+            case BottomBar.POSITION_IPAGE:
                 return IpageFragment.newInstance();
         }
     }

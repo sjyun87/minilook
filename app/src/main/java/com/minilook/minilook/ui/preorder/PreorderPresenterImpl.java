@@ -32,7 +32,7 @@ public class PreorderPresenterImpl extends BasePresenterImpl implements Preorder
     }
 
     @Override public void onResume() {
-        TrackingUtil.pageTracking("프리오더페이지", PreorderFragment.class.getSimpleName());
+        TrackingUtil.pageTracking("프리오더페이지", PreorderActivity.class.getSimpleName());
     }
 
     @Override public void onTabClick(int position) {
@@ -77,10 +77,10 @@ public class PreorderPresenterImpl extends BasePresenterImpl implements Preorder
     }
 
     @AllArgsConstructor @Getter public final static class RxBusEventPreorderClick {
-        int preorderNo;
+        private final int preorderNo;
     }
 
     @AllArgsConstructor @Getter public final static class RxEventPreorderShareClick {
-        private PreorderDataModel data;
+        private final PreorderDataModel data;
     }
 }

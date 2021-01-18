@@ -46,6 +46,10 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
         view.clear();
     }
 
+    @Override public void onNewIntent() {
+        checkDeepLink();
+    }
+
     @Override public void onMarketingAgree() {
         updateMarketingAgree(true);
     }
@@ -116,6 +120,9 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
                     break;
                 case DynamicLinkUtil.TYPE_PREORDER:
                     view.navigateToPreorderDetail(itemNo);
+                    break;
+                case DynamicLinkUtil.TYPE_CHALLENGE:
+                    view.navigateToChallengeDetail(itemNo);
                     break;
             }
         }

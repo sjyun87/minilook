@@ -115,6 +115,16 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
+            android:name=".ui.challenge_detail.ChallengeDetailActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name=".ui.challenge_enter.ChallengeEnterActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
             android:name=".ui.profile.ProfileActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
@@ -211,6 +221,11 @@
 
         <activity
             android:name=".ui.setting.SettingActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name=".ui.preorder.PreorderActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
