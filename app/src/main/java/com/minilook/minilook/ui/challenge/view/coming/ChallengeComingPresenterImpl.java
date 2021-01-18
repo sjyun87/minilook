@@ -17,6 +17,8 @@ import io.reactivex.rxjava3.functions.Function;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import timber.log.Timber;
 
 public class ChallengeComingPresenterImpl extends BasePresenterImpl implements ChallengeComingPresenter {
@@ -40,7 +42,6 @@ public class ChallengeComingPresenterImpl extends BasePresenterImpl implements C
 
     @Override public void onCreateView() {
         toRxObservable();
-        view.setupSwipeRefresh();
         view.setupRecyclerView();
 
         getChallenges();
@@ -64,10 +65,6 @@ public class ChallengeComingPresenterImpl extends BasePresenterImpl implements C
         if (totalPageSize > page.get()) getMoreChallenges();
     }
 
-    @Override public void onSwipeRefresh() {
-        RxBus.send(new ChallengePresenterImpl.RxBusEventSwipeRefresh());
-    }
-
     private void getChallenges() {
         page = new AtomicInteger(0);
         addDisposable(challengeRequest.getComingChallenge(page.incrementAndGet(), ROWS)
@@ -76,6 +73,7 @@ public class ChallengeComingPresenterImpl extends BasePresenterImpl implements C
                 String code = data.getCode();
                 if (code.equals(HttpCode.NO_DATA)) {
                     view.showEmptyPanel();
+                    RxBus.send(new RxBusEventSwipeRefreshCompleted());
                 }
                 return code.equals(HttpCode.OK);
             })
@@ -90,7 +88,7 @@ public class ChallengeComingPresenterImpl extends BasePresenterImpl implements C
     private void onResChallenge(List<ChallengeDataModel> data) {
         adapter.set(data);
         view.refresh();
-        view.setRefreshing(false);
+        RxBus.send(new RxBusEventSwipeRefreshCompleted());
     }
 
     private void getMoreChallenges() {
@@ -122,5 +120,8 @@ public class ChallengeComingPresenterImpl extends BasePresenterImpl implements C
                 getChallenges();
             }
         }, Timber::e));
+    }
+
+    @AllArgsConstructor @Getter public final static class RxBusEventSwipeRefreshCompleted {
     }
 }

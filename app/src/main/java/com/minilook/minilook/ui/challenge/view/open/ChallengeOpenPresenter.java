@@ -18,13 +18,7 @@ public interface ChallengeOpenPresenter extends LifecycleObserver {
 
     void onLoadMore();
 
-    void onSwipeRefresh();
-
     interface View {
-
-        void setupSwipeRefresh();
-
-        void setRefreshing(boolean flag);
 
         void setupRecyclerView();
 

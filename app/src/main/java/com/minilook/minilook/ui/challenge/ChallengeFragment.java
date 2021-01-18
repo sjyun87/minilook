@@ -60,6 +60,14 @@ public class ChallengeFragment extends BaseFragment implements ChallengePresente
         presenter.onLogout();
     }
 
+    @Override public void setupSwipeRefresh() {
+        binding.layoutSwipeRefresh.setOnRefreshListener(presenter::onSwipeRefresh);
+    }
+
+    @Override public void setRefreshing(boolean flag) {
+        if (binding.layoutSwipeRefresh.isRefreshing() != flag) binding.layoutSwipeRefresh.setRefreshing(flag);
+    }
+
     @Override public void setupTabLayout() {
         for (String tabName : resources.getStringArray(tab_challenge)) {
             TabView tabView = TabView.builder()

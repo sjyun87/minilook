@@ -16,6 +16,8 @@ import com.minilook.minilook.ui.challenge.view.close.di.ChallengeCloseArguments;
 import io.reactivex.rxjava3.functions.Function;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import timber.log.Timber;
 
 public class ChallengeClosePresenterImpl extends BasePresenterImpl implements ChallengeClosePresenter {
@@ -36,7 +38,6 @@ public class ChallengeClosePresenterImpl extends BasePresenterImpl implements Ch
 
     @Override public void onCreateView() {
         toRxObservable();
-        view.setupSwipeRefresh();
         view.setupRecyclerView();
 
         getChallenges();
@@ -56,15 +57,14 @@ public class ChallengeClosePresenterImpl extends BasePresenterImpl implements Ch
         getChallenges();
     }
 
-    @Override public void onSwipeRefresh() {
-        RxBus.send(new ChallengePresenterImpl.RxBusEventSwipeRefresh());
-    }
-
     private void getChallenges() {
         addDisposable(challengeRequest.getCloseChallenge(ROWS)
             .compose(Transformer.applySchedulers())
             .filter(data -> {
                 String code = data.getCode();
+                if (code.equals(HttpCode.NO_DATA)) {
+                    RxBus.send(new RxBusEventSwipeRefreshCompleted());
+                }
                 return code.equals(HttpCode.OK);
             })
             .map((Function<BaseDataModel, List<ChallengeDataModel>>)
@@ -76,7 +76,7 @@ public class ChallengeClosePresenterImpl extends BasePresenterImpl implements Ch
     private void onResChallenge(List<ChallengeDataModel> data) {
         adapter.set(data);
         view.refresh();
-        view.setRefreshing(false);
+        RxBus.send(new RxBusEventSwipeRefreshCompleted());
     }
 
     private void toRxObservable() {
@@ -86,5 +86,8 @@ public class ChallengeClosePresenterImpl extends BasePresenterImpl implements Ch
                 getChallenges();
             }
         }, Timber::e));
+    }
+
+    @AllArgsConstructor @Getter public final static class RxBusEventSwipeRefreshCompleted {
     }
 }
