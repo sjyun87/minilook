@@ -1,8 +1,12 @@
 package com.minilook.minilook.ui.album;
 
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
+import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import com.minilook.minilook.data.model.gallery.AlbumDataModel;
@@ -12,6 +16,10 @@ import com.minilook.minilook.ui.album.viewholder.AlbumItemVH;
 import com.minilook.minilook.ui.album.viewholder.GalleryHeaderItemVH;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
+import com.minilook.minilook.ui.cropper.CropperPresenterImpl;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,8 +54,11 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
         view.setupGalleryRecyclerView();
         view.setupAlbumRecyclerView();
 
-        setupAlbums();
-        setupGallery();
+        setInit();
+    }
+
+    @Override public void onDestroy() {
+        view.clear();
     }
 
     @Override public void onSelectAlbumClick() {
@@ -62,7 +73,12 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
         view.navigateToCamera();
     }
 
-    @Override public void onCameraCallback() {
+    @Override public void onCameraCallback(File file) {
+        view.navigateToCropper(file);
+    }
+
+    private void setInit() {
+        setupAlbums();
         setupGallery();
     }
 
@@ -103,7 +119,7 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
             selection = MediaStore.Images.Media.BUCKET_DISPLAY_NAME + " = ?";
             selectionArgs = new String[] { folder };
         }
-        String order = MediaStore.Images.ImageColumns.DATE_TAKEN + " DESC";
+        String order = MediaStore.Images.ImageColumns.DATE_ADDED + " DESC";
 
         Cursor cursor = contentResolver.query(URI_EXTERNAL_STORAGE, projection, selection, selectionArgs, order);
 
@@ -132,7 +148,7 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
             MediaStore.Images.Media.BUCKET_DISPLAY_NAME,
             MediaStore.Images.Media._ID
         };
-        String order = MediaStore.Images.ImageColumns.DATE_TAKEN + " DESC";
+        String order = MediaStore.Images.ImageColumns.DATE_ADDED + " DESC";
 
         Cursor cursor = contentResolver.query(URI_EXTERNAL_STORAGE, projection, null, null, order);
 
@@ -211,6 +227,40 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
         return count;
     }
 
+    private void insertImage(String fileName, Bitmap bitmap) {
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.DISPLAY_NAME, fileName);
+        values.put(MediaStore.Images.Media.MIME_TYPE, "image/*");
+        values.put(MediaStore.Images.Media.RELATIVE_PATH, "DCIM/미니룩");
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            values.put(MediaStore.Images.Media.IS_PENDING, 1);
+        }
+
+        Uri target = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+        try {
+            ParcelFileDescriptor pdf = contentResolver.openFileDescriptor(target, "w", null);
+
+            if (pdf == null) {
+                Timber.e("ParcelFileDescriptor is null");
+                return;
+            }
+
+            FileOutputStream fos = new FileOutputStream(pdf.getFileDescriptor());
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.close();
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                values.clear();
+                values.put(MediaStore.Images.Media.IS_PENDING, 0);
+                contentResolver.update(target, values, null, null);
+            }
+        } catch (IOException e) {
+            Timber.e(e);
+        }
+    }
+
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
             if (o instanceof AlbumItemVH.RxBusEventAlbumSelected) {
@@ -221,6 +271,12 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
                 handleAlbumPanel();
             } else if (o instanceof GalleryHeaderItemVH.RxBusEventNavigateToCamera) {
                 view.checkCameraPermission();
+            } else if (o instanceof CropperPresenterImpl.RxEventCropCompleted) {
+                String fileName = ((CropperPresenterImpl.RxEventCropCompleted) o).getFileName();
+                Bitmap cropImage = ((CropperPresenterImpl.RxEventCropCompleted) o).getCropImage();
+
+                insertImage(fileName, cropImage);
+                setInit();
             }
         }, Timber::e));
     }

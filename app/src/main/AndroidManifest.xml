@@ -21,6 +21,17 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
 
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.minilook.minilook.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_path" />
+        </provider>
+
         <meta-data
             android:name="com.facebook.sdk.CodelessDebugLogEnabled"
             android:value="true" />
@@ -271,6 +282,11 @@
 
         <activity
             android:name=".ui.album.GalleryActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name=".ui.cropper.CropperActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 

@@ -501,6 +501,12 @@
     <!--Age Picker-->
     <string name="age_picker_format">%s세</string>
 
+    <!--Crop-->
+    <string name="crop_free">free</string>
+    <string name="crop_1_1">1:1</string>
+    <string name="crop_3_4">3:4</string>
+    <string name="crop_4_3">4:3</string>
+
     <!--Pre-Order-->
     <string name="preorder_title">PRE-ORDER</string>
     <string name="preorder_desc">미니룩 프리오더에서만 만나볼 수 있는\n유니크하고 트렌디한\n디자이너 브랜드 제품을 소개합니다.</string>

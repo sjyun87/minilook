@@ -12,4 +12,6 @@
 
     <string name="bootpay_key_debug">5f5115420627a8002a564ccd</string>
     <string name="bootpay_key_release">5f51d7bd0627a8001e564ec1</string>
+
+    <string name="file_provider">com.minilook.minilook.fileprovider</string>
 </resources>

@@ -3,11 +3,14 @@ package com.minilook.minilook.ui.album;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.view.View;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.DimenRes;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.daimajia.androidanimations.library.Techniques;
@@ -22,8 +25,15 @@ import com.minilook.minilook.ui.album.adapter.GalleryAdapter;
 import com.minilook.minilook.ui.album.di.GalleryArguments;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.ui.cropper.CropperActivity;
 import com.minilook.minilook.util.PermissionUtil;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import timber.log.Timber;
 
 public class GalleryActivity extends BaseActivity implements GalleryPresenter.View {
 
@@ -43,6 +53,8 @@ public class GalleryActivity extends BaseActivity implements GalleryPresenter.Vi
     private final BaseAdapterDataView<String> galleryAdapterView = galleryAdapter;
     private final AlbumAdapter albumAdapter = new AlbumAdapter();
     private final BaseAdapterDataView<AlbumDataModel> albumAdapterView = albumAdapter;
+
+    private String cache_path;
 
     @Override protected View getBindingView() {
         binding = ActivityGalleryBinding.inflate(getLayoutInflater());
@@ -136,14 +148,41 @@ public class GalleryActivity extends BaseActivity implements GalleryPresenter.Vi
 
     @Override public void navigateToCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        launcher.launch(intent);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            File file = createCacheFile();
+            if (file != null) {
+                this.cache_path = file.getAbsolutePath();
+                Uri uri = FileProvider.getUriForFile(this, resources.getString(R.string.file_provider), file);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                launcher.launch(intent);
+            }
+        }
+    }
+
+    private File createCacheFile() {
+        try {
+            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+            return File.createTempFile(timeStamp, ".jpg", getCacheDir());
+        } catch (IOException e) {
+            Timber.e(e);
+        }
+        return null;
+    }
+
+    @Override public void navigateToCropper(File file) {
+        CropperActivity.start(this, file);
+    }
+
+    @Override public void clear() {
+        launcher.unregister();
     }
 
     private final ActivityResultLauncher<Intent> launcher =
         registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
-                    presenter.onCameraCallback();
+                    File file = new File(cache_path);
+                    presenter.onCameraCallback(file);
                 }
             });
 }

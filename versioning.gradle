@@ -113,4 +113,7 @@ ext {
 
   // Loading View
   laodding_view_version = '1.4.0'
+
+  // Cropper
+  cropper_version = '2.8.0'
 }

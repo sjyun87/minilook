@@ -3,11 +3,15 @@ package com.minilook.minilook.ui.album;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
+import java.io.File;
 
 public interface GalleryPresenter extends LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    void onDestroy();
 
     void onSelectAlbumClick();
 
@@ -15,7 +19,7 @@ public interface GalleryPresenter extends LifecycleObserver {
 
     void onCameraPermissionGranted();
 
-    void onCameraCallback();
+    void onCameraCallback(File file);
 
     interface View {
 
@@ -38,6 +42,10 @@ public interface GalleryPresenter extends LifecycleObserver {
         void checkCameraPermission();
 
         void navigateToCamera();
+
+        void navigateToCropper(File file);
+
+        void clear();
 
         void finish();
     }
