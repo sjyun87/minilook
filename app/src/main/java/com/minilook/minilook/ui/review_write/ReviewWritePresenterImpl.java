@@ -5,12 +5,15 @@ import com.minilook.minilook.data.code.ReviewSatisfactions;
 import com.minilook.minilook.data.code.ReviewSizes;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
+import com.minilook.minilook.data.model.gallery.GalleryDataModel;
 import com.minilook.minilook.data.model.order.OrderProductDataModel;
 import com.minilook.minilook.data.network.review.ReviewRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
+import com.minilook.minilook.ui.album.GalleryPresenterImpl;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.review_write.di.ReviewWriteArguments;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import timber.log.Timber;
@@ -38,6 +41,7 @@ public class ReviewWritePresenterImpl extends BasePresenterImpl implements Revie
     }
 
     @Override public void onCreate() {
+        toRxObservable();
         view.setupClickAction();
 
         view.setOrderNo(orderNo);
@@ -177,6 +181,14 @@ public class ReviewWritePresenterImpl extends BasePresenterImpl implements Revie
         view.showReviewWriteToast();
         RxBus.send(new RxEventReviewWrite());
         view.finish();
+    }
+
+    private void toRxObservable() {
+        addDisposable(RxBus.toObservable().subscribe(o -> {
+            if (o instanceof GalleryPresenterImpl.RxEventGallerySelectedCompleted) {
+                List<GalleryDataModel> images = ((GalleryPresenterImpl.RxEventGallerySelectedCompleted) o).getItems();
+            }
+        }, Timber::e));
     }
 
     @AllArgsConstructor @Getter public final static class RxEventReviewWrite {

@@ -497,6 +497,7 @@
 
     <!--Album-->
     <string name="album_select_album">변경하려면 여기를 누르세요</string>
+    <string name="album_select_limit">최대 4장까지만 선택 가능합니다.</string>
 
     <!--Age Picker-->
     <string name="age_picker_format">%s세</string>

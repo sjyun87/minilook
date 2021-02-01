@@ -3,25 +3,32 @@ package com.minilook.minilook.ui.album;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.ColorRes;
 import androidx.annotation.DimenRes;
+import androidx.annotation.FontRes;
+import androidx.annotation.StringRes;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.gun0912.tedpermission.PermissionListener;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.gallery.AlbumDataModel;
+import com.minilook.minilook.data.model.gallery.GalleryDataModel;
 import com.minilook.minilook.databinding.ActivityGalleryBinding;
 import com.minilook.minilook.ui.album.adapter.AlbumAdapter;
 import com.minilook.minilook.ui.album.adapter.GalleryAdapter;
+import com.minilook.minilook.ui.album.adapter.SelectedAdapter;
 import com.minilook.minilook.ui.album.di.GalleryArguments;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
@@ -44,15 +51,25 @@ public class GalleryActivity extends BaseActivity implements GalleryPresenter.Vi
         context.startActivity(intent);
     }
 
-    @DimenRes int dp_4 = R.dimen.dp_4;
+    @DimenRes int dp_2 = R.dimen.dp_2;
+
+    @ColorRes int color_FFA9A9A9 = R.color.color_FFA9A9A9;
+    @ColorRes int color_FF8140E5 = R.color.color_FF8140E5;
+
+    @FontRes int font_regular = R.font.nanum_square_r;
+    @FontRes int font_bold = R.font.nanum_square_b;
+
+    @StringRes int str_select_limit = R.string.album_select_limit;
 
     private ActivityGalleryBinding binding;
     private GalleryPresenter presenter;
 
-    private final GalleryAdapter galleryAdapter = new GalleryAdapter();
-    private final BaseAdapterDataView<String> galleryAdapterView = galleryAdapter;
     private final AlbumAdapter albumAdapter = new AlbumAdapter();
     private final BaseAdapterDataView<AlbumDataModel> albumAdapterView = albumAdapter;
+    private final GalleryAdapter galleryAdapter = new GalleryAdapter();
+    private final BaseAdapterDataView<GalleryDataModel> galleryAdapterView = galleryAdapter;
+    private final SelectedAdapter selectedAdapter = new SelectedAdapter();
+    private final BaseAdapterDataView<GalleryDataModel> selectedAdapterView = selectedAdapter;
 
     private String cache_path;
 
@@ -70,13 +87,15 @@ public class GalleryActivity extends BaseActivity implements GalleryPresenter.Vi
         return GalleryArguments.builder()
             .view(this)
             .contentResolver(getContentResolver())
-            .galleryAdapter(galleryAdapter)
             .albumAdapter(albumAdapter)
+            .galleryAdapter(galleryAdapter)
+            .selectedAdapter(selectedAdapter)
             .build();
     }
 
     @Override public void setupClickAction() {
         binding.layoutTitlePanel.setOnClickListener(view -> presenter.onSelectAlbumClick());
+        binding.txtOk.setOnClickListener(view -> presenter.onOkClick());
         binding.txtCancel.setOnClickListener(view -> presenter.onCancelClick());
     }
 
@@ -85,7 +104,7 @@ public class GalleryActivity extends BaseActivity implements GalleryPresenter.Vi
         binding.rcvGallery.setLayoutManager(new GridLayoutManager(this, 3));
         binding.rcvGallery.setAdapter(galleryAdapter);
         DividerDecoration.builder(this)
-            .size(resources.getDimen(dp_4))
+            .size(resources.getDimen(dp_2))
             .asSpace()
             .build()
             .addTo(binding.rcvGallery);
@@ -103,6 +122,25 @@ public class GalleryActivity extends BaseActivity implements GalleryPresenter.Vi
 
     @Override public void albumRefresh() {
         albumAdapterView.refresh();
+    }
+
+    @Override public void setupSelectImageRecyclerView() {
+        binding.rcvSelectImage.setHasFixedSize(true);
+        binding.rcvSelectImage.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        binding.rcvSelectImage.setAdapter(selectedAdapter);
+        DividerDecoration.builder(this)
+            .size(resources.getDimen(dp_2))
+            .asSpace()
+            .build()
+            .addTo(binding.rcvSelectImage);
+    }
+
+    @Override public void selectedImageRefresh() {
+        selectedAdapterView.refresh();
+    }
+
+    @Override public void showLimitToast() {
+        Toast.makeText(this, resources.getString(str_select_limit), Toast.LENGTH_SHORT).show();
     }
 
     @Override public void setTitle(String name) {
@@ -146,6 +184,26 @@ public class GalleryActivity extends BaseActivity implements GalleryPresenter.Vi
         });
     }
 
+    @Override public void showSelectedPanel() {
+        binding.rcvSelectImage.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void hideSelectedPanel() {
+        binding.rcvSelectImage.setVisibility(View.GONE);
+    }
+
+    @Override public void enableApplyButton() {
+        binding.txtOk.setTextColor(resources.getColor(color_FF8140E5));
+        binding.txtOk.setTypeface(resources.getFont(font_bold));
+        binding.txtOk.setEnabled(true);
+    }
+
+    @Override public void disableApplyButton() {
+        binding.txtOk.setTextColor(resources.getColor(color_FFA9A9A9));
+        binding.txtOk.setTypeface(resources.getFont(font_regular));
+        binding.txtOk.setEnabled(false);
+    }
+
     @Override public void navigateToCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (intent.resolveActivity(getPackageManager()) != null) {
@@ -169,12 +227,25 @@ public class GalleryActivity extends BaseActivity implements GalleryPresenter.Vi
         return null;
     }
 
+    private void deleteCacheFile() {
+        if (!TextUtils.isEmpty(cache_path)) new File(cache_path).deleteOnExit();
+    }
+
     @Override public void navigateToCropper(File file) {
         CropperActivity.start(this, file);
     }
 
     @Override public void clear() {
         launcher.unregister();
+        binding.rcvAlbum.setAdapter(null);
+        binding.rcvGallery.setAdapter(null);
+        binding.rcvSelectImage.setAdapter(null);
+
+        binding.layoutTitlePanel.setOnClickListener(null);
+        binding.txtOk.setOnClickListener(null);
+        binding.txtCancel.setOnClickListener(null);
+
+        deleteCacheFile();
     }
 
     private final ActivityResultLauncher<Intent> launcher =

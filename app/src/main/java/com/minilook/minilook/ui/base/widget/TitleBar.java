@@ -15,13 +15,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.minilook.minilook.App;
 import com.minilook.minilook.R;
 import com.minilook.minilook.databinding.LayoutTitlebarBinding;
+import com.minilook.minilook.ui.album.GalleryActivity;
+import com.minilook.minilook.ui.base.ResourcesProvider;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.main.MainActivity;
 import com.minilook.minilook.ui.question_write.QuestionWriteActivity;
 import com.minilook.minilook.ui.search_filter.SearchFilterActivity;
 import com.minilook.minilook.ui.setting.SettingActivity;
 import com.minilook.minilook.ui.shoppingbag.ShoppingBagActivity;
-import com.minilook.minilook.ui.base.ResourcesProvider;
 import com.minilook.minilook.util.StringUtil;
 import lombok.Getter;
 import lombok.Setter;
@@ -209,6 +210,7 @@ public class TitleBar extends ConstraintLayout {
     }
 
     private void onLogoClick() {
+        if (activity != null) GalleryActivity.start(activity);
     }
 
     private void onBackClick() {

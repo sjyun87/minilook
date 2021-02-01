@@ -21,6 +21,8 @@ public interface GalleryPresenter extends LifecycleObserver {
 
     void onCameraCallback(File file);
 
+    void onOkClick();
+
     interface View {
 
         void setupClickAction();
@@ -33,6 +35,12 @@ public interface GalleryPresenter extends LifecycleObserver {
 
         void albumRefresh();
 
+        void setupSelectImageRecyclerView();
+
+        void selectedImageRefresh();
+
+        void showLimitToast();
+
         void setTitle(String name);
 
         void openAlbumSelectPanel();
@@ -40,6 +48,14 @@ public interface GalleryPresenter extends LifecycleObserver {
         void closeAlbumSelectPanel();
 
         void checkCameraPermission();
+
+        void showSelectedPanel();
+
+        void hideSelectedPanel();
+
+        void enableApplyButton();
+
+        void disableApplyButton();
 
         void navigateToCamera();
 

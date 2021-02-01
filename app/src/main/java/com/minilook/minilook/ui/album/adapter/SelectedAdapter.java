@@ -4,41 +4,28 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.minilook.minilook.data.model.gallery.GalleryDataModel;
-import com.minilook.minilook.ui.album.viewholder.GalleryContentsItemVH;
-import com.minilook.minilook.ui.album.viewholder.GalleryHeaderItemVH;
+import com.minilook.minilook.ui.album.viewholder.SelectedItemVH;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.base.BaseViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GalleryAdapter extends RecyclerView.Adapter<BaseViewHolder<GalleryDataModel>> implements
+public class SelectedAdapter extends RecyclerView.Adapter<SelectedItemVH> implements
     BaseAdapterDataModel<GalleryDataModel>, BaseAdapterDataView<GalleryDataModel> {
-
-    private static final int TYPE_HEADER = 0;
-    private static final int TYPE_CONTENTS = 1;
 
     private final List<GalleryDataModel> items = new ArrayList<>();
 
     @NonNull @Override
-    public BaseViewHolder<GalleryDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == TYPE_HEADER) {
-            return new GalleryHeaderItemVH(parent);
-        } else {
-            return new GalleryContentsItemVH(parent);
-        }
+    public SelectedItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new SelectedItemVH(parent);
     }
 
-    @Override public void onBindViewHolder(@NonNull BaseViewHolder<GalleryDataModel> holder, int position) {
+    @Override public void onBindViewHolder(@NonNull SelectedItemVH holder, int position) {
         holder.bind(items.get(position));
     }
 
     @Override public int getItemCount() {
         return getSize();
-    }
-
-    @Override public int getItemViewType(int position) {
-        return position == 0 ? TYPE_HEADER : TYPE_CONTENTS;
     }
 
     @Override public void add(GalleryDataModel $item) {

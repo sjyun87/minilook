@@ -6,14 +6,20 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import com.minilook.minilook.data.model.gallery.AlbumDataModel;
+import com.minilook.minilook.data.model.gallery.GalleryDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.album.di.GalleryArguments;
 import com.minilook.minilook.ui.album.viewholder.AlbumItemVH;
+import com.minilook.minilook.ui.album.viewholder.GalleryContentsItemVH;
 import com.minilook.minilook.ui.album.viewholder.GalleryHeaderItemVH;
+import com.minilook.minilook.ui.album.viewholder.SelectedItemVH;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.cropper.CropperPresenterImpl;
@@ -24,6 +30,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import timber.log.Timber;
 
 public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPresenter {
@@ -32,20 +40,22 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
 
     private final View view;
     private final ContentResolver contentResolver;
-    private final BaseAdapterDataModel<String> galleryAdapter;
     private final BaseAdapterDataModel<AlbumDataModel> albumAdapter;
+    private final BaseAdapterDataModel<GalleryDataModel> galleryAdapter;
+    private final BaseAdapterDataModel<GalleryDataModel> selectedAdapter;
 
     private String folder = "";
     private List<AlbumDataModel> albums;
-    private List<String> images;
+    private List<GalleryDataModel> gallery;
 
     private boolean isAlbumSelectOpen = false;
 
     public GalleryPresenterImpl(GalleryArguments args) {
         view = args.getView();
         contentResolver = args.getContentResolver();
-        galleryAdapter = args.getGalleryAdapter();
         albumAdapter = args.getAlbumAdapter();
+        galleryAdapter = args.getGalleryAdapter();
+        selectedAdapter = args.getSelectedAdapter();
     }
 
     @Override public void onCreate() {
@@ -53,6 +63,7 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
         view.setupClickAction();
         view.setupGalleryRecyclerView();
         view.setupAlbumRecyclerView();
+        view.setupSelectImageRecyclerView();
 
         setInit();
     }
@@ -77,22 +88,31 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
         view.navigateToCropper(file);
     }
 
+    @Override public void onOkClick() {
+        RxBus.send(new RxEventGallerySelectedCompleted(selectedAdapter.get()));
+        view.finish();
+    }
+
     private void setInit() {
         setupAlbums();
         setupGallery();
     }
 
     private void setupAlbums() {
-        albums = getAlbums();
-        albumAdapter.set(albums);
-        view.albumRefresh();
-        view.setTitle(albums.get(0).getName());
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            albums = getAlbums();
+            albumAdapter.set(albums);
+            view.albumRefresh();
+            view.setTitle(albums.get(0).getName());
+        }, 30);
     }
 
     private void setupGallery() {
-        images = getGallery();
-        galleryAdapter.set(images);
-        view.galleryRefresh();
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            gallery = getGallery();
+            galleryAdapter.set(gallery);
+            view.galleryRefresh();
+        }, 30);
     }
 
     private void handleAlbumPanel() {
@@ -104,9 +124,9 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
         isAlbumSelectOpen = !isAlbumSelectOpen;
     }
 
-    private List<String> getGallery() {
-        List<String> images = new ArrayList<>();
-        images.add("header");
+    private List<GalleryDataModel> getGallery() {
+        List<GalleryDataModel> gallery = new ArrayList<>();
+        gallery.add(new GalleryDataModel());
 
         String[] projection = new String[] {
             MediaStore.Images.Media._ID,
@@ -119,9 +139,19 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
             selection = MediaStore.Images.Media.BUCKET_DISPLAY_NAME + " = ?";
             selectionArgs = new String[] { folder };
         }
-        String order = MediaStore.Images.ImageColumns.DATE_ADDED + " DESC";
+        String order = MediaStore.Images.ImageColumns.DATE_MODIFIED;
 
-        Cursor cursor = contentResolver.query(URI_EXTERNAL_STORAGE, projection, selection, selectionArgs, order);
+        Cursor cursor;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            Bundle bundle = new Bundle();
+            bundle.putStringArray(ContentResolver.QUERY_ARG_SORT_COLUMNS, new String[] { order });
+            bundle.putInt(ContentResolver.QUERY_ARG_SORT_DIRECTION, ContentResolver.QUERY_SORT_DIRECTION_DESCENDING);
+            bundle.putString(ContentResolver.QUERY_ARG_SQL_SELECTION, selection);
+            bundle.putStringArray(ContentResolver.QUERY_ARG_SQL_SELECTION_ARGS, selectionArgs);
+            cursor = contentResolver.query(URI_EXTERNAL_STORAGE, projection, bundle, null);
+        } else {
+            cursor = contentResolver.query(URI_EXTERNAL_STORAGE, projection, selection, selectionArgs, order + " DESC");
+        }
 
         if (cursor == null || !cursor.moveToFirst()) {
             Timber.e("cursor null or cursor is empty");
@@ -129,14 +159,30 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
         }
 
         int idColumn = cursor.getColumnIndex(MediaStore.Images.Media._ID);
+        int nameColumn = cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME);
 
         do {
             String id = cursor.getString(idColumn);
-            images.add(Uri.withAppendedPath(URI_EXTERNAL_STORAGE, id).toString());
+            String name = cursor.getString(nameColumn);
+
+            GalleryDataModel model = new GalleryDataModel();
+            model.setName(name);
+            model.setPath(Uri.withAppendedPath(URI_EXTERNAL_STORAGE, id).toString());
+            model.setSelect(false);
+
+            for (int i = 0; i < selectedAdapter.getSize(); i++) {
+                GalleryDataModel selectItem = selectedAdapter.get(i);
+                if (selectItem.getName().equals(name)) {
+                    model.setSelect(true);
+                    model.setSelectPosition(i + 1);
+                    break;
+                }
+            }
+            gallery.add(model);
         } while (cursor.moveToNext());
 
         cursor.close();
-        return images;
+        return gallery;
     }
 
     private List<AlbumDataModel> getAlbums() {
@@ -146,11 +192,22 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
         String[] projection = new String[] {
             MediaStore.Images.Media.BUCKET_ID,
             MediaStore.Images.Media.BUCKET_DISPLAY_NAME,
-            MediaStore.Images.Media._ID
+            MediaStore.Images.Media._ID,
+            MediaStore.Images.Media.CONTENT_TYPE
         };
-        String order = MediaStore.Images.ImageColumns.DATE_ADDED + " DESC";
+        String order = MediaStore.Images.ImageColumns.DATE_MODIFIED;
 
-        Cursor cursor = contentResolver.query(URI_EXTERNAL_STORAGE, projection, null, null, order);
+        Cursor cursor;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            Bundle bundle = new Bundle();
+            bundle.putString(ContentResolver.QUERY_ARG_SQL_GROUP_BY, MediaStore.Images.Media.BUCKET_ID);
+            bundle.putStringArray(ContentResolver.QUERY_ARG_SORT_COLUMNS, new String[] { order });
+            bundle.putInt(ContentResolver.QUERY_ARG_SORT_DIRECTION, ContentResolver.QUERY_SORT_DIRECTION_DESCENDING);
+            cursor = contentResolver.query(URI_EXTERNAL_STORAGE, projection, bundle, null);
+        } else {
+            cursor = contentResolver.query(URI_EXTERNAL_STORAGE, projection, null, null,
+                order + " DESC");
+        }
 
         if (cursor == null || !cursor.moveToFirst()) {
             Timber.e("cursor null or cursor is empty");
@@ -164,7 +221,6 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
         do {
             String bucketId = cursor.getString(bucketIdColumn);
             String bucketName = cursor.getString(bucketNameColumn);
-            int count = getCount(bucketId);
             String id = cursor.getString(idColumn);
 
             if (cursor.isFirst()) {
@@ -181,7 +237,7 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
                 AlbumDataModel model = new AlbumDataModel();
                 model.setName(parseToKr(bucketName));
                 model.setFolder(bucketName);
-                model.setCount(count);
+                model.setCount(getCount(bucketId));
                 model.setRecentImage(Uri.withAppendedPath(URI_EXTERNAL_STORAGE, id).toString());
                 albumMap.put(bucketId, model);
             }
@@ -261,6 +317,45 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
         }
     }
 
+    private void handleSelectedImage(GalleryDataModel data) {
+        if (data.isSelect()) {
+            selectedAdapter.remove(data);
+
+            data.setSelect(false);
+            for (int i = 0; i < selectedAdapter.getSize(); i++) {
+                GalleryDataModel model = selectedAdapter.get(i);
+                model.setSelectPosition(i + 1);
+            }
+        } else {
+            if (selectedAdapter.getSize() >= 4) {
+                view.showLimitToast();
+                return;
+            }
+
+            selectedAdapter.add(data);
+            data.setSelect(true);
+            data.setSelectPosition(selectedAdapter.getSize());
+        }
+
+        if (selectedAdapter.getSize() > 0) {
+            view.showSelectedPanel();
+        } else {
+            view.hideSelectedPanel();
+        }
+        view.selectedImageRefresh();
+        view.galleryRefresh();
+
+        handleApplyButton();
+    }
+
+    private void handleApplyButton() {
+        if (selectedAdapter.getSize() > 0) {
+            view.enableApplyButton();
+        } else {
+            view.disableApplyButton();
+        }
+    }
+
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
             if (o instanceof AlbumItemVH.RxBusEventAlbumSelected) {
@@ -277,7 +372,17 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
 
                 insertImage(fileName, cropImage);
                 setInit();
+            } else if (o instanceof GalleryContentsItemVH.RxEventGalleryImageClick) {
+                GalleryDataModel data = ((GalleryContentsItemVH.RxEventGalleryImageClick) o).getModel();
+                handleSelectedImage(data);
+            } else if (o instanceof SelectedItemVH.RxEventGallerySelectedImageClick) {
+                GalleryDataModel data = ((SelectedItemVH.RxEventGallerySelectedImageClick) o).getModel();
+                handleSelectedImage(data);
             }
         }, Timber::e));
+    }
+
+    @AllArgsConstructor @Getter public final static class RxEventGallerySelectedCompleted {
+        private final List<GalleryDataModel> items;
     }
 }

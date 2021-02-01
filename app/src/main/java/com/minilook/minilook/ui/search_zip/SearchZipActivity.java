@@ -91,7 +91,6 @@ public class SearchZipActivity extends _BaseActivity implements SearchZipPresent
     private class AndroidBridgeInterface {
         @JavascriptInterface
         public void addressResult(String json) {
-            Timber.e(json);
             RxBus.send(new RxEventSearchAddressComplete(json));
             finish();
         }
