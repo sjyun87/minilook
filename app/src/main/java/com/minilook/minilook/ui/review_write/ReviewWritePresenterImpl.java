@@ -1,12 +1,17 @@
 package com.minilook.minilook.ui.review_write;
 
+import com.google.gson.Gson;
+import com.minilook.minilook.App;
 import com.minilook.minilook.data.code.GenderCode;
 import com.minilook.minilook.data.code.ReviewSatisfactions;
 import com.minilook.minilook.data.code.ReviewSizes;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
+import com.minilook.minilook.data.model.common.KeyDataModel;
 import com.minilook.minilook.data.model.gallery.GalleryDataModel;
 import com.minilook.minilook.data.model.order.OrderProductDataModel;
+import com.minilook.minilook.data.network.common.CommonRequest;
+import com.minilook.minilook.data.network.naver.NCloudRequest;
 import com.minilook.minilook.data.network.review.ReviewRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
@@ -16,6 +21,7 @@ import com.minilook.minilook.ui.review_write.di.ReviewWriteArguments;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import okhttp3.ResponseBody;
 import timber.log.Timber;
 
 public class ReviewWritePresenterImpl extends BasePresenterImpl implements ReviewWritePresenter {
@@ -24,20 +30,27 @@ public class ReviewWritePresenterImpl extends BasePresenterImpl implements Revie
     private final String orderNo;
     private final String orderDate;
     private final OrderProductDataModel data;
+    private final CommonRequest commonRequest;
     private final ReviewRequest reviewRequest;
+    private final NCloudRequest nCloudRequest;
+    private final Gson gson;
 
     private int satisfactionCode = -1;
     private int sizeRatingCode = -1;
     private int genderCode = -1;
 
     private String review;
+    private List<GalleryDataModel> images;
 
     public ReviewWritePresenterImpl(ReviewWriteArguments args) {
         view = args.getView();
         orderNo = args.getOrderNo();
         orderDate = args.getOrderDate();
         data = args.getData();
+        commonRequest = new CommonRequest();
         reviewRequest = new ReviewRequest();
+        nCloudRequest = new NCloudRequest();
+        gson = App.getInstance().getGson();
     }
 
     @Override public void onCreate() {
@@ -100,7 +113,7 @@ public class ReviewWritePresenterImpl extends BasePresenterImpl implements Revie
     }
 
     @Override public void onApplyClick() {
-        reqWriteReview();
+        //reqWriteReview();
     }
 
     private void selectSatisfactionButton(int code) {
@@ -183,10 +196,37 @@ public class ReviewWritePresenterImpl extends BasePresenterImpl implements Revie
         view.finish();
     }
 
+    private void reqGetKeys() {
+        addDisposable(commonRequest.getKeys()
+            .compose(Transformer.applySchedulers())
+            .filter(data -> {
+                String code = data.getCode();
+                return code.equals(HttpCode.OK);
+            })
+            .map(model -> gson.fromJson(model.getData(), KeyDataModel.class))
+            .subscribe(this::resKeys, Timber::e)
+        );
+    }
+
+    private void resKeys(KeyDataModel model) {
+        reqPutImage(model, images);
+    }
+
+    private void reqPutImage(KeyDataModel keys, List<GalleryDataModel> images) {
+        addDisposable(nCloudRequest.putImage(NCloudRequest.TYPE_REVIEW, keys, data.getProductNo(), images.get(0))
+            .subscribe(this::resPutImage, Timber::e));
+    }
+
+    private void resPutImage(ResponseBody body) {
+        Timber.e(body.toString());
+    }
+
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
             if (o instanceof GalleryPresenterImpl.RxEventGallerySelectedCompleted) {
-                List<GalleryDataModel> images = ((GalleryPresenterImpl.RxEventGallerySelectedCompleted) o).getItems();
+                images = ((GalleryPresenterImpl.RxEventGallerySelectedCompleted) o).getItems();
+
+
             }
         }, Timber::e));
     }

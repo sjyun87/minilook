@@ -21,7 +21,7 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public abstract class BaseRequest<T> {
-    private final static int TIMEOUT_SECONDS = 5;
+    private final static int TIMEOUT_SECONDS = 10;
 
     public T getApi() {
         return createRetrofit().create(getService());
@@ -100,7 +100,8 @@ public abstract class BaseRequest<T> {
     @AllArgsConstructor @Getter protected enum EndPoint {
         BASE_URL(BuildConfig.DEBUG ?
             "http://dev.app.api.minilook.co.kr:8080" :
-            "http://app.api.minilook.co.kr");
+            "http://app.api.minilook.co.kr"),
+        NAVER_CLOUD_URL("https://kr.object.ncloudstorage.com");
 
         private final String value;
     }

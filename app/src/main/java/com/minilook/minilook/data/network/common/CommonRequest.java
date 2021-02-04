@@ -40,4 +40,14 @@ public class CommonRequest extends BaseRequest<CommonService> {
         jsonMap.put("pushToken", token);
         return createRequestBody(jsonMap);
     }
+
+    public Single<BaseDataModel> getKeys() {
+        return getApi().getKeys(createGetKeyData());
+    }
+
+    private RequestBody createGetKeyData() {
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("accessToken", "dkdlrkxmrqufgowlsmswnans");
+        return createRequestBody(jsonMap);
+    }
 }

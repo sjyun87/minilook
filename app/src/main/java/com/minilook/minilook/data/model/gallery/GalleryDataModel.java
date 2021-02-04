@@ -4,7 +4,8 @@ import lombok.Data;
 
 @Data public class GalleryDataModel {
     private String name;
-    private String path;
+    private String uriPath;
+    private String filePath;
     private boolean isSelect;
     private int selectPosition;
 }

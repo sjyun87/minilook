@@ -19,4 +19,8 @@ public interface CommonService {
     @PUT("/api/commons/tokens") Single<BaseDataModel> updateToken(
         @Body RequestBody body
     );
+
+    @POST("/api/commons/keys") Single<BaseDataModel> getKeys(
+        @Body RequestBody body
+    );
 }

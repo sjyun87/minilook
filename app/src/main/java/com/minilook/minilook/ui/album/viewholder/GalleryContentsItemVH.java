@@ -33,7 +33,7 @@ public class GalleryContentsItemVH extends BaseViewHolder<GalleryDataModel> {
         super.bind($data);
 
         Glide.with(context)
-            .load(data.getPath())
+            .load(data.getUriPath())
             .placeholder(ph_square)
             .error(ph_square)
             .transition(new DrawableTransitionOptions().crossFade())

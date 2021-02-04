@@ -128,11 +128,6 @@ public class GalleryActivity extends BaseActivity implements GalleryPresenter.Vi
         binding.rcvSelectImage.setHasFixedSize(true);
         binding.rcvSelectImage.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         binding.rcvSelectImage.setAdapter(selectedAdapter);
-        DividerDecoration.builder(this)
-            .size(resources.getDimen(dp_2))
-            .asSpace()
-            .build()
-            .addTo(binding.rcvSelectImage);
     }
 
     @Override public void selectedImageRefresh() {

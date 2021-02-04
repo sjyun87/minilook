@@ -131,6 +131,7 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
         String[] projection = new String[] {
             MediaStore.Images.Media._ID,
             MediaStore.Images.Media.DISPLAY_NAME,
+            MediaStore.Images.Media.DATA,
             MediaStore.Images.Media.MIME_TYPE
         };
         String selection = null;
@@ -160,14 +161,17 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
 
         int idColumn = cursor.getColumnIndex(MediaStore.Images.Media._ID);
         int nameColumn = cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME);
+        int dataColumn = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
 
         do {
             String id = cursor.getString(idColumn);
             String name = cursor.getString(nameColumn);
+            String path = cursor.getString(dataColumn);
 
             GalleryDataModel model = new GalleryDataModel();
             model.setName(name);
-            model.setPath(Uri.withAppendedPath(URI_EXTERNAL_STORAGE, id).toString());
+            model.setUriPath(Uri.withAppendedPath(URI_EXTERNAL_STORAGE, id).toString());
+            model.setFilePath(path);
             model.setSelect(false);
 
             for (int i = 0; i < selectedAdapter.getSize(); i++) {
@@ -192,8 +196,7 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
         String[] projection = new String[] {
             MediaStore.Images.Media.BUCKET_ID,
             MediaStore.Images.Media.BUCKET_DISPLAY_NAME,
-            MediaStore.Images.Media._ID,
-            MediaStore.Images.Media.CONTENT_TYPE
+            MediaStore.Images.Media._ID
         };
         String order = MediaStore.Images.ImageColumns.DATE_MODIFIED;
 
