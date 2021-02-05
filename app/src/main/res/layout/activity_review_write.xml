@@ -662,7 +662,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingTop="@dimen/dp_16"
-                android:paddingBottom="@dimen/dp_26">
+                android:paddingBottom="@dimen/dp_26"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/txt_limit_caption"
@@ -682,18 +683,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_4"
+                    android:bufferType="spannable"
                     android:fontFamily="@font/nanum_square_r"
-                    android:textColor="@color/color_FF8140E5"
+                    android:textColor="@color/color_FFA9A9A9"
                     android:textSize="@dimen/sp_7"
                     app:layout_constraintLeft_toRightOf="@+id/txt_limit_caption"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="@string/review_write_photo_selected_count" />
 
-<!--                <androidx.recyclerview.widget.RecyclerView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="@dimen/dp_24"/>-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcv_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_24"
+                    android:clipToPadding="false"
+                    android:paddingStart="@dimen/dp_4"
+                    android:paddingEnd="@dimen/dp_4"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_limit_caption"
+                    tools:orientation="horizontal" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View

@@ -35,9 +35,9 @@ public interface GalleryPresenter extends LifecycleObserver {
 
         void albumRefresh();
 
-        void setupSelectImageRecyclerView();
+        void setupSelectPhotoRecyclerView();
 
-        void selectedImageRefresh();
+        void selectedPhotoRefresh();
 
         void showLimitToast();
 

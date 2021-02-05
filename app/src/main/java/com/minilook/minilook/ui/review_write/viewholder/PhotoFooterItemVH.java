@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.album.viewholder;
+package com.minilook.minilook.ui.review_write.viewholder;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,30 +7,28 @@ import androidx.annotation.DimenRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.gallery.PhotoDataModel;
 import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.databinding.ViewGallerySelectedItemBinding;
+import com.minilook.minilook.databinding.ViewPhotoFooterItemBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.util.DeviceUtil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-public class SelectedItemVH extends BaseViewHolder<PhotoDataModel> {
+public class PhotoFooterItemVH extends BaseViewHolder<PhotoDataModel> {
 
     @DrawableRes int ph_square = R.drawable.ph_square;
 
     @DimenRes int dp_10 = R.dimen.dp_10;
     @DimenRes int dp_4 = R.dimen.dp_4;
 
-    private final ViewGallerySelectedItemBinding binding;
+    private final ViewPhotoFooterItemBinding binding;
 
-    public SelectedItemVH(@NonNull View parent) {
-        super(ViewGallerySelectedItemBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,
+    public PhotoFooterItemVH(@NonNull View parent) {
+        super(ViewPhotoFooterItemBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,
             false));
-        binding = ViewGallerySelectedItemBinding.bind(itemView);
+        binding = ViewPhotoFooterItemBinding.bind(itemView);
         setItemSize();
     }
 
@@ -44,29 +42,21 @@ public class SelectedItemVH extends BaseViewHolder<PhotoDataModel> {
         binding.getRoot().setLayoutParams(params);
 
         int imageSize = itemSize - resources.getDimen(dp_10);
-        ConstraintLayout.LayoutParams imageParams = (ConstraintLayout.LayoutParams) binding.imgThumb.getLayoutParams();
+        ConstraintLayout.LayoutParams imageParams = (ConstraintLayout.LayoutParams) binding.viewBg.getLayoutParams();
         imageParams.width = imageSize;
         imageParams.height = imageSize;
-        binding.imgThumb.setLayoutParams(imageParams);
+        binding.viewBg.setLayoutParams(imageParams);
     }
 
     @Override public void bind(PhotoDataModel $data) {
         super.bind($data);
-
-        Glide.with(context)
-            .load(data.getUriPath())
-            .placeholder(ph_square)
-            .error(ph_square)
-            .transition(new DrawableTransitionOptions().crossFade())
-            .into(binding.imgThumb);
         itemView.setOnClickListener(this::onItemClick);
     }
 
     void onItemClick(View view) {
-        RxBus.send(new RxEventGallerySelectedImageClick(data));
+        RxBus.send(new RxEventReviewPhotoFooterClick());
     }
 
-    @AllArgsConstructor @Getter public final static class RxEventGallerySelectedImageClick {
-        private final PhotoDataModel model;
+    @AllArgsConstructor @Getter public final static class RxEventReviewPhotoFooterClick {
     }
 }

@@ -8,6 +8,8 @@ import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.FontRes;
 import androidx.annotation.StringRes;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
@@ -16,12 +18,16 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.code.GenderCode;
 import com.minilook.minilook.data.code.ReviewSatisfactions;
 import com.minilook.minilook.data.code.ReviewSizes;
+import com.minilook.minilook.data.model.gallery.PhotoDataModel;
 import com.minilook.minilook.data.model.order.OrderProductDataModel;
 import com.minilook.minilook.databinding.ActivityReviewWriteBinding;
 import com.minilook.minilook.ui.album.GalleryActivity;
 import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.ui.review_write.adapter.PhotoAdapter;
 import com.minilook.minilook.ui.review_write.di.ReviewWriteArguments;
 import com.minilook.minilook.util.PermissionUtil;
+import com.minilook.minilook.util.SpannableUtil;
 import java.util.List;
 
 public class ReviewWriteActivity extends BaseActivity implements ReviewWritePresenter.View {
@@ -38,6 +44,7 @@ public class ReviewWriteActivity extends BaseActivity implements ReviewWritePres
 
     @StringRes int str_format_option = R.string.review_write_option;
     @StringRes int str_review_write = R.string.toast_review_write;
+    @StringRes int str_selected_count = R.string.review_write_photo_selected_count;
 
     @ColorRes int color_FFA9A9A9 = R.color.color_FFA9A9A9;
     @ColorRes int color_FF8140E5 = R.color.color_FF8140E5;
@@ -59,6 +66,9 @@ public class ReviewWriteActivity extends BaseActivity implements ReviewWritePres
     private ActivityReviewWriteBinding binding;
     private ReviewWritePresenter presenter;
 
+    private final PhotoAdapter adapter = new PhotoAdapter();
+    private final BaseAdapterDataView<PhotoDataModel> adapterView = adapter;
+
     @Override protected View getBindingView() {
         binding = ActivityReviewWriteBinding.inflate(getLayoutInflater());
         return binding.getRoot();
@@ -75,6 +85,7 @@ public class ReviewWriteActivity extends BaseActivity implements ReviewWritePres
             .orderNo(getIntent().getStringExtra("orderNo"))
             .orderDate(getIntent().getStringExtra("orderDate"))
             .data((OrderProductDataModel) getIntent().getSerializableExtra("data"))
+            .adapter(adapter)
             .build();
     }
 
@@ -98,6 +109,30 @@ public class ReviewWriteActivity extends BaseActivity implements ReviewWritePres
         binding.txtAge.setOnClickListener(view -> presenter.onAgeInputClick());
 
         binding.layoutPhotoEmptyPanel.setOnClickListener(view -> presenter.onPhotoAddClick());
+    }
+
+    @Override public void setupReviewEditText() {
+        //reviewEditText.addTextChangedListener(new TextWatcher() {
+        //    @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        //    }
+        //
+        //    @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+        //        presenter.onTextChanged(s.toString());
+        //    }
+        //
+        //    @Override public void afterTextChanged(Editable s) {
+        //    }
+        //});
+    }
+
+    @Override public void setupRecyclerView() {
+        binding.rcvPhoto.setHasFixedSize(true);
+        binding.rcvPhoto.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        binding.rcvPhoto.setAdapter(adapter);
+    }
+
+    @Override public void refresh() {
+        adapterView.refresh();
     }
 
     @Override public void setOrderNo(String orderNo) {
@@ -268,18 +303,26 @@ public class ReviewWriteActivity extends BaseActivity implements ReviewWritePres
         });
     }
 
-    @Override public void setupReviewEditText() {
-        //reviewEditText.addTextChangedListener(new TextWatcher() {
-        //    @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        //    }
-        //
-        //    @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
-        //        presenter.onTextChanged(s.toString());
-        //    }
-        //
-        //    @Override public void afterTextChanged(Editable s) {
-        //    }
-        //});
+    @Override public void setSelectedPhotoCount(int size) {
+        String count = String.valueOf(size);
+        String total = String.format(resources.getString(str_selected_count), count);
+        if (size < 4) {
+            binding.txtSelectedCount.setTextColor(resources.getColor(color_FFA9A9A9));
+            binding.txtSelectedCount.setText(SpannableUtil.foregroundColorSpan(total, count, color_FF8140E5));
+        } else {
+            binding.txtSelectedCount.setTextColor(resources.getColor(color_FF8140E5));
+            binding.txtSelectedCount.setText(total);
+        }
+    }
+
+    @Override public void showPhotoPanel() {
+        binding.layoutPhotoEmptyPanel.setVisibility(View.GONE);
+        binding.layoutPhotoPanel.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void hidePhotoPanel() {
+        binding.layoutPhotoEmptyPanel.setVisibility(View.VISIBLE);
+        binding.layoutPhotoPanel.setVisibility(View.GONE);
     }
 
     @Override public void enableApplyButton() {
@@ -296,8 +339,8 @@ public class ReviewWriteActivity extends BaseActivity implements ReviewWritePres
         Toast.makeText(this, str_review_write, Toast.LENGTH_SHORT).show();
     }
 
-    @Override public void navigateToAlbum() {
-        GalleryActivity.start(this);
+    @Override public void navigateToGallery(List<PhotoDataModel> images) {
+        GalleryActivity.start(this, images);
     }
 
     @OnClick(R.id.txt_apply)

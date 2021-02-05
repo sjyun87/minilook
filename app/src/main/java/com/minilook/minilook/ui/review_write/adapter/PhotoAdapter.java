@@ -1,31 +1,32 @@
-package com.minilook.minilook.ui.album.adapter;
+package com.minilook.minilook.ui.review_write.adapter;
 
+import android.text.TextUtils;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.minilook.minilook.data.model.gallery.PhotoDataModel;
-import com.minilook.minilook.ui.album.viewholder.GalleryContentsItemVH;
-import com.minilook.minilook.ui.album.viewholder.GalleryHeaderItemVH;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.review_write.viewholder.PhotoContentItemVH;
+import com.minilook.minilook.ui.review_write.viewholder.PhotoFooterItemVH;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GalleryAdapter extends RecyclerView.Adapter<BaseViewHolder<PhotoDataModel>> implements
+public class PhotoAdapter extends RecyclerView.Adapter<BaseViewHolder<PhotoDataModel>> implements
     BaseAdapterDataModel<PhotoDataModel>, BaseAdapterDataView<PhotoDataModel> {
 
-    private static final int TYPE_HEADER = 0;
-    private static final int TYPE_CONTENTS = 1;
+    private static final int TYPE_CONTENT = 0;
+    private static final int TYPE_FOOTER = 1;
 
     private final List<PhotoDataModel> items = new ArrayList<>();
 
     @NonNull @Override
     public BaseViewHolder<PhotoDataModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == TYPE_HEADER) {
-            return new GalleryHeaderItemVH(parent);
+        if (viewType == TYPE_CONTENT) {
+            return new PhotoContentItemVH(parent);
         } else {
-            return new GalleryContentsItemVH(parent);
+            return new PhotoFooterItemVH(parent);
         }
     }
 
@@ -38,7 +39,10 @@ public class GalleryAdapter extends RecyclerView.Adapter<BaseViewHolder<PhotoDat
     }
 
     @Override public int getItemViewType(int position) {
-        return position == 0 ? TYPE_HEADER : TYPE_CONTENTS;
+        if (TextUtils.isEmpty(items.get(position).getName())) {
+            return TYPE_FOOTER;
+        }
+        return TYPE_CONTENT;
     }
 
     @Override public void add(PhotoDataModel $item) {

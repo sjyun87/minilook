@@ -24,7 +24,7 @@ import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.gun0912.tedpermission.PermissionListener;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.gallery.AlbumDataModel;
-import com.minilook.minilook.data.model.gallery.GalleryDataModel;
+import com.minilook.minilook.data.model.gallery.PhotoDataModel;
 import com.minilook.minilook.databinding.ActivityGalleryBinding;
 import com.minilook.minilook.ui.album.adapter.AlbumAdapter;
 import com.minilook.minilook.ui.album.adapter.GalleryAdapter;
@@ -37,6 +37,7 @@ import com.minilook.minilook.util.PermissionUtil;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -44,10 +45,11 @@ import timber.log.Timber;
 
 public class GalleryActivity extends BaseActivity implements GalleryPresenter.View {
 
-    public static void start(Context context) {
+    public static void start(Context context, List<PhotoDataModel> images) {
         Intent intent = new Intent(context, GalleryActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        if (images != null && images.size() > 0) intent.putParcelableArrayListExtra("photos", new ArrayList<>(images));
         context.startActivity(intent);
     }
 
@@ -67,9 +69,9 @@ public class GalleryActivity extends BaseActivity implements GalleryPresenter.Vi
     private final AlbumAdapter albumAdapter = new AlbumAdapter();
     private final BaseAdapterDataView<AlbumDataModel> albumAdapterView = albumAdapter;
     private final GalleryAdapter galleryAdapter = new GalleryAdapter();
-    private final BaseAdapterDataView<GalleryDataModel> galleryAdapterView = galleryAdapter;
+    private final BaseAdapterDataView<PhotoDataModel> galleryAdapterView = galleryAdapter;
     private final SelectedAdapter selectedAdapter = new SelectedAdapter();
-    private final BaseAdapterDataView<GalleryDataModel> selectedAdapterView = selectedAdapter;
+    private final BaseAdapterDataView<PhotoDataModel> selectedAdapterView = selectedAdapter;
 
     private String cache_path;
 
@@ -86,6 +88,7 @@ public class GalleryActivity extends BaseActivity implements GalleryPresenter.Vi
     private GalleryArguments provideArguments() {
         return GalleryArguments.builder()
             .view(this)
+            .photos(getIntent().getParcelableArrayListExtra("photos"))
             .contentResolver(getContentResolver())
             .albumAdapter(albumAdapter)
             .galleryAdapter(galleryAdapter)
@@ -124,13 +127,13 @@ public class GalleryActivity extends BaseActivity implements GalleryPresenter.Vi
         albumAdapterView.refresh();
     }
 
-    @Override public void setupSelectImageRecyclerView() {
-        binding.rcvSelectImage.setHasFixedSize(true);
-        binding.rcvSelectImage.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        binding.rcvSelectImage.setAdapter(selectedAdapter);
+    @Override public void setupSelectPhotoRecyclerView() {
+        binding.rcvSelectedPhoto.setHasFixedSize(true);
+        binding.rcvSelectedPhoto.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        binding.rcvSelectedPhoto.setAdapter(selectedAdapter);
     }
 
-    @Override public void selectedImageRefresh() {
+    @Override public void selectedPhotoRefresh() {
         selectedAdapterView.refresh();
     }
 
@@ -180,11 +183,11 @@ public class GalleryActivity extends BaseActivity implements GalleryPresenter.Vi
     }
 
     @Override public void showSelectedPanel() {
-        binding.rcvSelectImage.setVisibility(View.VISIBLE);
+        binding.rcvSelectedPhoto.setVisibility(View.VISIBLE);
     }
 
     @Override public void hideSelectedPanel() {
-        binding.rcvSelectImage.setVisibility(View.GONE);
+        binding.rcvSelectedPhoto.setVisibility(View.GONE);
     }
 
     @Override public void enableApplyButton() {
@@ -234,7 +237,7 @@ public class GalleryActivity extends BaseActivity implements GalleryPresenter.Vi
         launcher.unregister();
         binding.rcvAlbum.setAdapter(null);
         binding.rcvGallery.setAdapter(null);
-        binding.rcvSelectImage.setAdapter(null);
+        binding.rcvSelectedPhoto.setAdapter(null);
 
         binding.layoutTitlePanel.setOnClickListener(null);
         binding.txtOk.setOnClickListener(null);

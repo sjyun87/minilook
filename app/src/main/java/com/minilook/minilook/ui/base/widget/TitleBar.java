@@ -15,7 +15,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.minilook.minilook.App;
 import com.minilook.minilook.R;
 import com.minilook.minilook.databinding.LayoutTitlebarBinding;
-import com.minilook.minilook.ui.album.GalleryActivity;
 import com.minilook.minilook.ui.base.ResourcesProvider;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.main.MainActivity;
@@ -210,7 +209,6 @@ public class TitleBar extends ConstraintLayout {
     }
 
     private void onLogoClick() {
-        if (activity != null) GalleryActivity.start(activity);
     }
 
     private void onBackClick() {

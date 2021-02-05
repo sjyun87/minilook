@@ -2,7 +2,7 @@ package com.minilook.minilook.data.network.naver;
 
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.model.common.KeyDataModel;
-import com.minilook.minilook.data.model.gallery.GalleryDataModel;
+import com.minilook.minilook.data.model.gallery.PhotoDataModel;
 import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
 import java.io.File;
@@ -47,7 +47,7 @@ public class NCloudRequest extends BaseRequest<NCloudService> {
         return EndPoint.NAVER_CLOUD_URL.getValue();
     }
 
-    public Single<ResponseBody> putImage(String type, KeyDataModel keys, int productNo, GalleryDataModel imageData) {
+    public Single<ResponseBody> putImage(String type, KeyDataModel keys, int productNo, PhotoDataModel imageData) {
         Date now = new Date();
         int memberNo = App.getInstance().getMemberNo();
         String objectName = createObjectName(now, productNo);

@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.album.viewholder;
+package com.minilook.minilook.ui.review_write.viewholder;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,25 +12,25 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.gallery.PhotoDataModel;
 import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.databinding.ViewGallerySelectedItemBinding;
+import com.minilook.minilook.databinding.ViewPhotoContentItemBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.util.DeviceUtil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-public class SelectedItemVH extends BaseViewHolder<PhotoDataModel> {
+public class PhotoContentItemVH extends BaseViewHolder<PhotoDataModel> {
 
     @DrawableRes int ph_square = R.drawable.ph_square;
 
     @DimenRes int dp_10 = R.dimen.dp_10;
     @DimenRes int dp_4 = R.dimen.dp_4;
 
-    private final ViewGallerySelectedItemBinding binding;
+    private final ViewPhotoContentItemBinding binding;
 
-    public SelectedItemVH(@NonNull View parent) {
-        super(ViewGallerySelectedItemBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,
+    public PhotoContentItemVH(@NonNull View parent) {
+        super(ViewPhotoContentItemBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,
             false));
-        binding = ViewGallerySelectedItemBinding.bind(itemView);
+        binding = ViewPhotoContentItemBinding.bind(itemView);
         setItemSize();
     }
 
@@ -63,10 +63,10 @@ public class SelectedItemVH extends BaseViewHolder<PhotoDataModel> {
     }
 
     void onItemClick(View view) {
-        RxBus.send(new RxEventGallerySelectedImageClick(data));
+        RxBus.send(new RxEventReviewPhotoClick(data));
     }
 
-    @AllArgsConstructor @Getter public final static class RxEventGallerySelectedImageClick {
+    @AllArgsConstructor @Getter public final static class RxEventReviewPhotoClick {
         private final PhotoDataModel model;
     }
 }

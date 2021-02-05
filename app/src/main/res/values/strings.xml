@@ -489,7 +489,7 @@
     <string name="review_write_photo_empty_desc_bold">무관한 사진을</string>
     <string name="review_write_photo_empty_regist">등록하기</string>
     <string name="review_write_photo_limit_caption">등록 가능한 사진 갯수</string>
-    <string name="review_write_photo_selected_count">%d / 4</string>
+    <string name="review_write_photo_selected_count">%s / 4</string>
 
 
     <string name="review_write_contents">이 상품의 리뷰를 남겨주세요</string>

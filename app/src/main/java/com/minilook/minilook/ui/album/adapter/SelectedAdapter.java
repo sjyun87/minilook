@@ -3,7 +3,7 @@ package com.minilook.minilook.ui.album.adapter;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.minilook.minilook.data.model.gallery.GalleryDataModel;
+import com.minilook.minilook.data.model.gallery.PhotoDataModel;
 import com.minilook.minilook.ui.album.viewholder.SelectedItemVH;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SelectedAdapter extends RecyclerView.Adapter<SelectedItemVH> implements
-    BaseAdapterDataModel<GalleryDataModel>, BaseAdapterDataView<GalleryDataModel> {
+    BaseAdapterDataModel<PhotoDataModel>, BaseAdapterDataView<PhotoDataModel> {
 
-    private final List<GalleryDataModel> items = new ArrayList<>();
+    private final List<PhotoDataModel> items = new ArrayList<>();
 
     @NonNull @Override
     public SelectedItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -28,36 +28,36 @@ public class SelectedAdapter extends RecyclerView.Adapter<SelectedItemVH> implem
         return getSize();
     }
 
-    @Override public void add(GalleryDataModel $item) {
+    @Override public void add(PhotoDataModel $item) {
         items.add($item);
     }
 
-    @Override public void add(int $index, GalleryDataModel $item) {
+    @Override public void add(int $index, PhotoDataModel $item) {
         items.add($index, $item);
     }
 
-    @Override public void addAll(List<GalleryDataModel> $items) {
+    @Override public void addAll(List<PhotoDataModel> $items) {
         items.addAll($items);
     }
 
-    @Override public void set(int $index, GalleryDataModel $item) {
+    @Override public void set(int $index, PhotoDataModel $item) {
         items.set($index, $item);
     }
 
-    @Override public void set(List<GalleryDataModel> $items) {
+    @Override public void set(List<PhotoDataModel> $items) {
         items.clear();
         items.addAll($items);
     }
 
-    @Override public GalleryDataModel get(int $index) {
+    @Override public PhotoDataModel get(int $index) {
         return items.get($index);
     }
 
-    @Override public List<GalleryDataModel> get() {
+    @Override public List<PhotoDataModel> get() {
         return items;
     }
 
-    @Override public int get(GalleryDataModel $item) {
+    @Override public int get(PhotoDataModel $item) {
         return items.indexOf($item);
     }
 
@@ -65,7 +65,7 @@ public class SelectedAdapter extends RecyclerView.Adapter<SelectedItemVH> implem
         items.remove($index);
     }
 
-    @Override public void remove(GalleryDataModel $item) {
+    @Override public void remove(PhotoDataModel $item) {
         items.remove($item);
     }
 

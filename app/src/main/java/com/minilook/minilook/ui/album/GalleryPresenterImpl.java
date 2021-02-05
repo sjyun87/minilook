@@ -13,7 +13,7 @@ import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import com.minilook.minilook.data.model.gallery.AlbumDataModel;
-import com.minilook.minilook.data.model.gallery.GalleryDataModel;
+import com.minilook.minilook.data.model.gallery.PhotoDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.ui.album.di.GalleryArguments;
 import com.minilook.minilook.ui.album.viewholder.AlbumItemVH;
@@ -39,14 +39,15 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
     private static final Uri URI_EXTERNAL_STORAGE = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
 
     private final View view;
+    private final List<PhotoDataModel> selectedPhotos;
     private final ContentResolver contentResolver;
     private final BaseAdapterDataModel<AlbumDataModel> albumAdapter;
-    private final BaseAdapterDataModel<GalleryDataModel> galleryAdapter;
-    private final BaseAdapterDataModel<GalleryDataModel> selectedAdapter;
+    private final BaseAdapterDataModel<PhotoDataModel> galleryAdapter;
+    private final BaseAdapterDataModel<PhotoDataModel> selectedAdapter;
 
     private String folder = "";
     private List<AlbumDataModel> albums;
-    private List<GalleryDataModel> gallery;
+    private List<PhotoDataModel> photos;
 
     private boolean isAlbumSelectOpen = false;
 
@@ -56,6 +57,7 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
         albumAdapter = args.getAlbumAdapter();
         galleryAdapter = args.getGalleryAdapter();
         selectedAdapter = args.getSelectedAdapter();
+        selectedPhotos = args.getPhotos();
     }
 
     @Override public void onCreate() {
@@ -63,7 +65,7 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
         view.setupClickAction();
         view.setupGalleryRecyclerView();
         view.setupAlbumRecyclerView();
-        view.setupSelectImageRecyclerView();
+        view.setupSelectPhotoRecyclerView();
 
         setInit();
     }
@@ -94,8 +96,25 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
     }
 
     private void setInit() {
+        setupSelectedPhotos();
         setupAlbums();
-        setupGallery();
+        setupPhotos();
+    }
+
+    private void setupSelectedPhotos() {
+        if (selectedPhotos != null && selectedPhotos.size() > 0) {
+            for (int i = 0; i < selectedPhotos.size(); i++) {
+                selectedPhotos.get(i).setSelectPosition(i + 1);
+            }
+            selectedAdapter.set(selectedPhotos);
+            view.selectedPhotoRefresh();
+            if (selectedAdapter.getSize() > 0) {
+                view.showSelectedPanel();
+            } else {
+                view.hideSelectedPanel();
+            }
+            handleApplyButton();
+        }
     }
 
     private void setupAlbums() {
@@ -107,10 +126,10 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
         }, 30);
     }
 
-    private void setupGallery() {
+    private void setupPhotos() {
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            gallery = getGallery();
-            galleryAdapter.set(gallery);
+            photos = getPhotos();
+            galleryAdapter.set(photos);
             view.galleryRefresh();
         }, 30);
     }
@@ -124,9 +143,9 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
         isAlbumSelectOpen = !isAlbumSelectOpen;
     }
 
-    private List<GalleryDataModel> getGallery() {
-        List<GalleryDataModel> gallery = new ArrayList<>();
-        gallery.add(new GalleryDataModel());
+    private List<PhotoDataModel> getPhotos() {
+        List<PhotoDataModel> gallery = new ArrayList<>();
+        gallery.add(new PhotoDataModel());
 
         String[] projection = new String[] {
             MediaStore.Images.Media._ID,
@@ -168,14 +187,14 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
             String name = cursor.getString(nameColumn);
             String path = cursor.getString(dataColumn);
 
-            GalleryDataModel model = new GalleryDataModel();
+            PhotoDataModel model = new PhotoDataModel();
             model.setName(name);
             model.setUriPath(Uri.withAppendedPath(URI_EXTERNAL_STORAGE, id).toString());
             model.setFilePath(path);
             model.setSelect(false);
 
             for (int i = 0; i < selectedAdapter.getSize(); i++) {
-                GalleryDataModel selectItem = selectedAdapter.get(i);
+                PhotoDataModel selectItem = selectedAdapter.get(i);
                 if (selectItem.getName().equals(name)) {
                     model.setSelect(true);
                     model.setSelectPosition(i + 1);
@@ -320,13 +339,13 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
         }
     }
 
-    private void handleSelectedImage(GalleryDataModel data) {
+    private void handleSelectedPhoto(PhotoDataModel data) {
         if (data.isSelect()) {
             selectedAdapter.remove(data);
 
             data.setSelect(false);
             for (int i = 0; i < selectedAdapter.getSize(); i++) {
-                GalleryDataModel model = selectedAdapter.get(i);
+                PhotoDataModel model = selectedAdapter.get(i);
                 model.setSelectPosition(i + 1);
             }
         } else {
@@ -345,7 +364,7 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
         } else {
             view.hideSelectedPanel();
         }
-        view.selectedImageRefresh();
+        view.selectedPhotoRefresh();
         view.galleryRefresh();
 
         handleApplyButton();
@@ -364,7 +383,7 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
             if (o instanceof AlbumItemVH.RxBusEventAlbumSelected) {
                 AlbumDataModel data = ((AlbumItemVH.RxBusEventAlbumSelected) o).getData();
                 folder = data.getFolder();
-                setupGallery();
+                setupPhotos();
                 view.setTitle(parseToKr(data.getName()));
                 handleAlbumPanel();
             } else if (o instanceof GalleryHeaderItemVH.RxBusEventNavigateToCamera) {
@@ -376,16 +395,16 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
                 insertImage(fileName, cropImage);
                 setInit();
             } else if (o instanceof GalleryContentsItemVH.RxEventGalleryImageClick) {
-                GalleryDataModel data = ((GalleryContentsItemVH.RxEventGalleryImageClick) o).getModel();
-                handleSelectedImage(data);
+                PhotoDataModel data = ((GalleryContentsItemVH.RxEventGalleryImageClick) o).getModel();
+                handleSelectedPhoto(data);
             } else if (o instanceof SelectedItemVH.RxEventGallerySelectedImageClick) {
-                GalleryDataModel data = ((SelectedItemVH.RxEventGallerySelectedImageClick) o).getModel();
-                handleSelectedImage(data);
+                PhotoDataModel data = ((SelectedItemVH.RxEventGallerySelectedImageClick) o).getModel();
+                handleSelectedPhoto(data);
             }
         }, Timber::e));
     }
 
     @AllArgsConstructor @Getter public final static class RxEventGallerySelectedCompleted {
-        private final List<GalleryDataModel> items;
+        private final List<PhotoDataModel> items;
     }
 }

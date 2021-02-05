@@ -3,6 +3,8 @@ package com.minilook.minilook.ui.review_write;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
+import com.minilook.minilook.data.model.gallery.PhotoDataModel;
+import java.util.List;
 
 public interface ReviewWritePresenter extends LifecycleObserver {
 
@@ -31,6 +33,12 @@ public interface ReviewWritePresenter extends LifecycleObserver {
     interface View {
 
         void setupClickAction();
+
+        void setupReviewEditText();
+
+        void setupRecyclerView();
+
+        void refresh();
 
         void setOrderNo(String orderNo);
 
@@ -90,12 +98,11 @@ public interface ReviewWritePresenter extends LifecycleObserver {
 
         void checkStoragePermission();
 
+        void setSelectedPhotoCount(int size);
 
+        void showPhotoPanel();
 
-
-
-
-        void setupReviewEditText();
+        void hidePhotoPanel();
 
         void enableApplyButton();
 
@@ -103,7 +110,7 @@ public interface ReviewWritePresenter extends LifecycleObserver {
 
         void showReviewWriteToast();
 
-        void navigateToAlbum();
+        void navigateToGallery(List<PhotoDataModel> photos);
 
         void finish();
     }
