@@ -48,21 +48,29 @@ public interface IpagePresenter extends LifecycleObserver {
 
     interface View {
 
-        void setupLogin();
+        void setupClickAction();
 
-        void setupNick(String nick);
+        void setLoginButton();
 
-        void setupPoint(int point);
+        void setNick(String nick);
 
-        void setupCoupon(int coupon);
+        void setPoint(int point);
 
-        void setupOrderComplete(int count);
+        void setCoupon(int coupon);
 
-        void setupPacking(int count);
+        void setOrderComplete(int count);
 
-        void setupDelivery(int count);
+        void setPacking(int count);
 
-        void setupDeliveryComplete(int count);
+        void setDelivery(int count);
+
+        void setDeliveryComplete(int count);
+
+        void setShoppingBagCount(int count);
+
+        void setReviewCount(int count);
+
+        void setQuestionCount(int count);
 
         void showCurtain();
 

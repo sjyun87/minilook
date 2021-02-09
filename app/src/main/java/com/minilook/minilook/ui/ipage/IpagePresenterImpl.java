@@ -21,21 +21,19 @@ public class IpagePresenterImpl extends BasePresenterImpl implements IpagePresen
 
     private final View view;
     private final IpageRequest ipageRequest;
-
-    private Gson gson = new Gson();
+    private final Gson gson;
 
     public IpagePresenterImpl(IpageArguments args) {
         view = args.getView();
         ipageRequest = new IpageRequest();
+        gson = App.getInstance().getGson();
     }
 
     @Override public void onCreate() {
         toRxObservable();
-        if (App.getInstance().isLogin()) {
-            setupUser();
-        } else {
-            setupNonUser();
-        }
+        view.setupClickAction();
+
+        handlePage();
     }
 
     @Override public void onResume() {
@@ -50,38 +48,49 @@ public class IpagePresenterImpl extends BasePresenterImpl implements IpagePresen
         setupNonUser();
     }
 
+    private void handlePage() {
+        if (App.getInstance().isLogin()) {
+            setupUser();
+        } else {
+            setupNonUser();
+        }
+    }
+
     private void setupUser() {
         view.hideCurtain();
-        reqIpage();
+        getIpage();
     }
 
     private void setupNonUser() {
         view.showCurtain();
-        view.setupLogin();
-        view.setupPoint(0);
-        view.setupCoupon(0);
-        view.setupOrderComplete(0);
-        view.setupPacking(0);
-        view.setupDelivery(0);
-        view.setupDeliveryComplete(0);
+        view.setLoginButton();
+        view.setPoint(0);
+        view.setCoupon(0);
+        view.setOrderComplete(0);
+        view.setPacking(0);
+        view.setDelivery(0);
+        view.setDeliveryComplete(0);
     }
 
-    private void reqIpage() {
+    private void getIpage() {
         addDisposable(ipageRequest.getIpage()
             .compose(Transformer.applySchedulers())
             .filter(data -> data.getCode().equals(HttpCode.OK))
             .map(data -> gson.fromJson(data.getData(), IpageDataModel.class))
-            .subscribe(this::resIpage, Timber::e));
+            .subscribe(this::onResIpage, Timber::e));
     }
 
-    private void resIpage(IpageDataModel data) {
-        view.setupNick(data.getNick());
-        view.setupPoint(data.getPoint());
-        view.setupCoupon(data.getCoupon());
-        view.setupOrderComplete(data.getOrder_complete());
-        view.setupPacking(data.getPacking());
-        view.setupDelivery(data.getDelivery());
-        view.setupDeliveryComplete(data.getDelivery_complete());
+    private void onResIpage(IpageDataModel data) {
+        view.setNick(data.getNick());
+        view.setPoint(data.getPoint());
+        view.setCoupon(data.getCoupon());
+        view.setOrderComplete(data.getOrder_complete());
+        view.setPacking(data.getPacking());
+        view.setDelivery(data.getDelivery());
+        view.setDeliveryComplete(data.getDelivery_complete());
+        if (data.getShoppingbagCount() > 0) view.setShoppingBagCount(data.getShoppingbagCount());
+        if (data.getReviewCount() > 0) view.setReviewCount(data.getReviewCount());
+        if (data.getQuestionCount() > 0) view.setQuestionCount(data.getQuestionCount());
     }
 
     @Override public void onCurtainClick() {
@@ -148,13 +157,13 @@ public class IpagePresenterImpl extends BasePresenterImpl implements IpagePresen
         addDisposable(RxBus.toObservable().subscribe(o -> {
             if (o instanceof RxBusEventNickChanged) {
                 String nick = ((RxBusEventNickChanged) o).getNick();
-                view.setupNick(nick);
+                view.setNick(nick);
             } else if (o instanceof RxBusEventDataChanged) {
                 setupUser();
             } else if (o instanceof ReviewWritePresenterImpl.RxEventReviewWrite) {
-                reqIpage();
+                getIpage();
             } else if (o instanceof OrderCancelPresenterImpl.RxBusEventOrderCancelCompleted) {
-                reqIpage();
+                getIpage();
             }
         }, Timber::e));
     }

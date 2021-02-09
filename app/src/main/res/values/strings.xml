@@ -107,6 +107,9 @@
     <string name="ipage_shopping_scrap">스크랩</string>
     <string name="ipage_shopping_basket">장바구니</string>
     <string name="ipage_shopping_recent">최근 본 상품</string>
+    <string name="ipage_shopping_question">상품문의</string>
+    <string name="ipage_shopping_review">상품리뷰</string>
+    <string name="ipage_shopping_max_count">99+</string>
     <string name="ipage_shopping_order_title">주문/배송</string>
     <string name="ipage_shopping_order_more">전체보기</string>
     <string name="ipage_shopping_order_complete_caption">주문완료</string>

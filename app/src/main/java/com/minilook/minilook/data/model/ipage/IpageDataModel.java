@@ -21,4 +21,10 @@ import lombok.Data;
     private int delivery;
     @Expose @SerializedName("completeCount")
     private int delivery_complete;
+    @Expose @SerializedName("shoppingbagCount")
+    private int shoppingbagCount;
+    @Expose @SerializedName("reviewCount")
+    private int reviewCount;
+    @Expose @SerializedName("questionCount")
+    private int questionCount;
 }

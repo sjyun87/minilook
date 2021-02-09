@@ -77,7 +77,7 @@
             android:id="@+id/img_review"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_review"
+            android:src="@drawable/ic_lookbook_review"
             tools:ignore="ContentDescription" />
 
         <TextView
