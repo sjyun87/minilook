@@ -66,10 +66,14 @@ public class ChallengeDetailPresenterImpl extends BasePresenterImpl implements C
         if (data != null && status != ChallengeType.END.getValue()) {
             startTimer();
         }
+        view.registPageChangeCallback();
+        view.startAutoSlide();
     }
 
     @Override public void onPause() {
         stopTimer();
+        view.removePageChangeCallback();
+        view.cancelAutoSlide();
     }
 
     @Override public void onDestroy() {
@@ -165,6 +169,8 @@ public class ChallengeDetailPresenterImpl extends BasePresenterImpl implements C
             relationProductAdapter.set(relationProducts);
             view.relationProductRefresh();
             view.showRelationProductPanel();
+            view.setRelationUserInputEnabled(relationProducts.size() > 1);
+            view.startAutoSlide();
         }
     }
 
@@ -257,8 +263,6 @@ public class ChallengeDetailPresenterImpl extends BasePresenterImpl implements C
             timer = null;
         }
     }
-
-
 
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {

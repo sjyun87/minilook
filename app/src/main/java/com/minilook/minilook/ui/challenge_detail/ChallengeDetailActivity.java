@@ -7,7 +7,7 @@ import android.os.Looper;
 import android.view.View;
 import androidx.annotation.ColorRes;
 import androidx.annotation.StringRes;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.viewpager2.widget.ViewPager2;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.request.RequestOptions;
@@ -108,22 +108,35 @@ public class ChallengeDetailActivity extends BaseActivity implements ChallengeDe
     }
 
     @Override public void setupRelationProductViewPager() {
-        binding.rcvRelationProduct.setLayoutManager(
-            new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        binding.rcvRelationProduct.setAdapter(relationProductAdapter);
+        binding.vpRelationProduct.setAdapter(relationProductAdapter);
+    }
 
+    @Override public void registPageChangeCallback() {
+        binding.vpRelationProduct.registerOnPageChangeCallback(callback);
+    }
+
+    @Override public void removePageChangeCallback() {
+        binding.vpRelationProduct.unregisterOnPageChangeCallback(callback);
     }
 
     @Override public void relationProductRefresh() {
         relationProductAdapterView.refresh();
     }
 
+    @Override public void setRelationUserInputEnabled(boolean enable) {
+        binding.vpRelationProduct.setUserInputEnabled(enable);
+    }
+
     @Override public void startAutoSlide() {
-        if (relationProductAdapter.getRealItemCount() > 1) handler.postDelayed(nextPageRunnable, 3000);
+        if (relationProductAdapter.getRealItemCount() > 1) {
+            handler.postDelayed(nextPageRunnable, 3000);
+        }
     }
 
     @Override public void cancelAutoSlide() {
-        if (relationProductAdapter.getRealItemCount() > 1) handler.removeCallbacks(nextPageRunnable);
+        if (relationProductAdapter.getRealItemCount() > 1) {
+            handler.removeCallbacks(nextPageRunnable);
+        }
     }
 
     @Override public void setBrandName(String brandName) {
@@ -291,11 +304,26 @@ public class ChallengeDetailActivity extends BaseActivity implements ChallengeDe
     private final Runnable nextPageRunnable = new Runnable() {
         @Override
         public void run() {
-            //if (binding.rcvRelationProduct.get.getCurrentItem() != adapter.getSize() - 1) {
-            //    binding.viewpager.setCurrentItem(binding.viewpager.getCurrentItem() + 1, true);
-            //} else {
-            //    binding.viewpager.setCurrentItem(0, false);
-            //}
+            if (binding.vpRelationProduct.getCurrentItem() != relationProductAdapter.getSize() - 1) {
+                binding.vpRelationProduct.setCurrentItem(binding.vpRelationProduct.getCurrentItem() + 1, true);
+            } else {
+                binding.vpRelationProduct.setCurrentItem(0, false);
+            }
+        }
+    };
+
+    private final ViewPager2.OnPageChangeCallback callback = new ViewPager2.OnPageChangeCallback() {
+        @Override public void onPageSelected(int position) {
+            cancelAutoSlide();
+            startAutoSlide();
+        }
+
+        @Override public void onPageScrollStateChanged(int state) {
+            if (state == ViewPager2.SCROLL_STATE_DRAGGING) {
+                cancelAutoSlide();
+            } else if (state == ViewPager2.SCROLL_STATE_IDLE) {
+                startAutoSlide();
+            }
         }
     };
 }

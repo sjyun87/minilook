@@ -297,8 +297,8 @@
                     android:textColor="@color/color_FF424242"
                     android:textSize="@dimen/sp_9" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rcv_relation_product"
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/vp_relation_product"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/sp_6"

@@ -40,6 +40,8 @@ public interface ChallengeDetailPresenter extends LifecycleObserver {
 
         void relationProductRefresh();
 
+        void setRelationUserInputEnabled(boolean enable);
+
         void startAutoSlide();
 
         void cancelAutoSlide();
@@ -93,5 +95,9 @@ public interface ChallengeDetailPresenter extends LifecycleObserver {
         void clear();
 
         void finish();
+
+        void registPageChangeCallback();
+
+        void removePageChangeCallback();
     }
 }
