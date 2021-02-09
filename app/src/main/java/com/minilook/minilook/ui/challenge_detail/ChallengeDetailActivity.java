@@ -2,19 +2,24 @@ package com.minilook.minilook.ui.challenge_detail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import androidx.annotation.ColorRes;
 import androidx.annotation.StringRes;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.code.ChallengeType;
+import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.databinding.ActivityChallengeDetailBinding;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.challenge_detail.adapter.ChallengeDetailImageAdapter;
+import com.minilook.minilook.ui.challenge_detail.adapter.ChallengeRelationProductAdapter;
 import com.minilook.minilook.ui.challenge_detail.di.ChallengeDetailArguments;
 import com.minilook.minilook.ui.challenge_enter.ChallengeEnterActivity;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
@@ -56,6 +61,10 @@ public class ChallengeDetailActivity extends BaseActivity implements ChallengeDe
 
     private final ChallengeDetailImageAdapter imageAdapter = new ChallengeDetailImageAdapter();
     private final BaseAdapterDataView<String> imageAdapterView = imageAdapter;
+    private final ChallengeRelationProductAdapter relationProductAdapter = new ChallengeRelationProductAdapter();
+    private final BaseAdapterDataView<ProductDataModel> relationProductAdapterView = relationProductAdapter;
+
+    private final Handler handler = new Handler(Looper.getMainLooper());
 
     @Override protected View getBindingView() {
         binding = ActivityChallengeDetailBinding.inflate(getLayoutInflater());
@@ -72,6 +81,7 @@ public class ChallengeDetailActivity extends BaseActivity implements ChallengeDe
             .view(this)
             .challengeNo(getIntent().getIntExtra("challengeNo", -1))
             .imageAdapter(imageAdapter)
+            .relationProductAdapter(relationProductAdapter)
             .build();
     }
 
@@ -88,13 +98,32 @@ public class ChallengeDetailActivity extends BaseActivity implements ChallengeDe
         binding.imgShare.setOnClickListener(view -> presenter.onShareClick());
     }
 
-    @Override public void setupViewPager() {
+    @Override public void setupImageViewPager() {
         binding.vpImage.setAdapter(imageAdapter);
         binding.indicator.setViewPager2(binding.vpImage);
     }
 
     @Override public void imageRefresh() {
         imageAdapterView.refresh();
+    }
+
+    @Override public void setupRelationProductViewPager() {
+        binding.rcvRelationProduct.setLayoutManager(
+            new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        binding.rcvRelationProduct.setAdapter(relationProductAdapter);
+
+    }
+
+    @Override public void relationProductRefresh() {
+        relationProductAdapterView.refresh();
+    }
+
+    @Override public void startAutoSlide() {
+        if (relationProductAdapter.getRealItemCount() > 1) handler.postDelayed(nextPageRunnable, 3000);
+    }
+
+    @Override public void cancelAutoSlide() {
+        if (relationProductAdapter.getRealItemCount() > 1) handler.removeCallbacks(nextPageRunnable);
     }
 
     @Override public void setBrandName(String brandName) {
@@ -221,6 +250,14 @@ public class ChallengeDetailActivity extends BaseActivity implements ChallengeDe
         binding.txtEnterButton.setEnabled(false);
     }
 
+    @Override public void showRelationProductPanel() {
+        binding.layoutRelationPanel.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void hideRelationProductPanel() {
+        binding.layoutRelationPanel.setVisibility(View.GONE);
+    }
+
     @Override public void scrollToTop() {
         binding.scrollView.fullScroll(View.FOCUS_UP);
     }
@@ -250,4 +287,15 @@ public class ChallengeDetailActivity extends BaseActivity implements ChallengeDe
         binding.imgShare.setOnClickListener(null);
         binding.vpImage.setAdapter(null);
     }
+
+    private final Runnable nextPageRunnable = new Runnable() {
+        @Override
+        public void run() {
+            //if (binding.rcvRelationProduct.get.getCurrentItem() != adapter.getSize() - 1) {
+            //    binding.viewpager.setCurrentItem(binding.viewpager.getCurrentItem() + 1, true);
+            //} else {
+            //    binding.viewpager.setCurrentItem(0, false);
+            //}
+        }
+    };
 }

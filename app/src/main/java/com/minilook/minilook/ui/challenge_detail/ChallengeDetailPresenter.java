@@ -32,9 +32,17 @@ public interface ChallengeDetailPresenter extends LifecycleObserver {
 
         void showErrorDialog();
 
-        void setupViewPager();
+        void setupImageViewPager();
 
         void imageRefresh();
+
+        void setupRelationProductViewPager();
+
+        void relationProductRefresh();
+
+        void startAutoSlide();
+
+        void cancelAutoSlide();
 
         void setBrandName(String brandName);
 
@@ -69,6 +77,10 @@ public interface ChallengeDetailPresenter extends LifecycleObserver {
         void enableEnterButton();
 
         void disableEnterButton();
+
+        void showRelationProductPanel();
+
+        void hideRelationProductPanel();
 
         void scrollToTop();
 
