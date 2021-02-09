@@ -5,25 +5,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.text.SpannableString;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.ArrayRes;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
-import butterknife.BindArray;
-import butterknife.BindColor;
-import butterknife.BindDrawable;
-import butterknife.BindString;
-import butterknife.BindView;
 import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.android.material.tabs.TabLayout;
@@ -35,8 +28,9 @@ import com.minilook.minilook.data.model.product.ProductStockDataModel;
 import com.minilook.minilook.data.model.review.ReviewDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
+import com.minilook.minilook.databinding.ActivityProductDetailBinding;
+import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.widget.ColorView;
 import com.minilook.minilook.ui.base.widget.SizeView;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
@@ -57,13 +51,10 @@ import com.minilook.minilook.ui.shoppingbag.ShoppingBagActivity;
 import com.minilook.minilook.util.DimenUtil;
 import com.minilook.minilook.util.SpannableUtil;
 import com.minilook.minilook.util.StringUtil;
-import com.nex3z.flowlayout.FlowLayout;
-import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 import java.util.List;
 import java.util.Objects;
-import me.didik.component.StickyNestedScrollView;
 
-public class ProductDetailActivity extends _BaseActivity implements ProductDetailPresenter.View {
+public class ProductDetailActivity extends BaseActivity implements ProductDetailPresenter.View {
 
     public static void start(Context context, int productNo) {
         Intent intent = new Intent(context, ProductDetailActivity.class);
@@ -71,91 +62,43 @@ public class ProductDetailActivity extends _BaseActivity implements ProductDetai
         context.startActivity(intent);
     }
 
-    @BindView(R.id.nsv_root) StickyNestedScrollView scrollView;
-    @BindView(R.id.vp_product_image) ViewPager2 productImageViewPager;
-    @BindView(R.id.indicator) DotsIndicator indicator;
-    @BindView(R.id.txt_brand_name) TextView brandNameTextView;
-    @BindView(R.id.txt_product_name) TextView productNameTextView;
-    @BindView(R.id.layout_option_color_panel) FlowLayout colorPanel;
-    @BindView(R.id.layout_option_size_panel) FlowLayout sizePanel;
-    @BindView(R.id.txt_price_origin) TextView priceOriginTextView;
-    @BindView(R.id.txt_discount_percent) TextView discountPercentTextView;
-    @BindView(R.id.txt_price) TextView priceTextView;
-    @BindView(R.id.txt_display_label) TextView displayLabelTextView;
-    @BindView(R.id.txt_point_save) TextView pointTextView;
-    @BindView(R.id.txt_shipping) TextView shippingTextView;
-    @BindView(R.id.txt_shipping_conditional) TextView shippingConditionalTextView;
-    @BindView(R.id.txt_shipping_add) TextView shippingAddTextView;
-    @BindView(R.id.layout_tab_panel) TabLayout tabLayout;
-    @BindView(R.id.web_product_detail) WebView productDetailWebView;
-    @BindView(R.id.layout_review_contents_panel) LinearLayout reviewContentsPanel;
-    @BindView(R.id.txt_review_more) TextView reviewMoreTextView;
-    @BindView(R.id.rcv_review) RecyclerView reviewRecyclerView;
-    @BindView(R.id.txt_info_style_no) TextView infoStyleNoTextView;
-    @BindView(R.id.txt_info_kc_auth) TextView infoKcAuthTextView;
-    @BindView(R.id.txt_info_weight) TextView infoWeightTextView;
-    @BindView(R.id.txt_info_color) TextView infoColorTextView;
-    @BindView(R.id.txt_info_material) TextView infoMaterialTextView;
-    @BindView(R.id.txt_info_age) TextView infoAgeTextView;
-    @BindView(R.id.txt_info_release_date) TextView infoReleaseDateTextView;
-    @BindView(R.id.txt_info_manufacturer) TextView infoManufacturerTextView;
-    @BindView(R.id.txt_info_country) TextView infoCountryTextView;
-    @BindView(R.id.txt_info_caution) TextView infoCautionTextView;
-    @BindView(R.id.txt_info_warranty) TextView infoWarrantyTextView;
-    @BindView(R.id.txt_info_damage) TextView infoDamageTextView;
-    @BindView(R.id.txt_info_service_center) TextView infoServiceCenterTextView;
-    @BindView(R.id.layout_info_more_panel) LinearLayout infoMorePanel;
-    @BindView(R.id.txt_expand) TextView expandTextView;
-    @BindView(R.id.img_expand) ImageView expandImageView;
+    @StringRes int format_percent = R.string.base_price_percent;
+    @StringRes int format_point = R.string.product_detail_point;
+    @StringRes int format_point_save = R.string.product_detail_point_save;
+    @StringRes int format_review_more = R.string.product_detail_review_more;
+    @StringRes int str_error_msg = R.string.dialog_error_title;
+    @ArrayRes int tabNames = R.array.tab_product_detail;
 
-    @BindView(R.id.layout_review_panel) LinearLayout reviewPanel;
-    @BindView(R.id.txt_review_count) TextView reviewCountTextView;
+    @StringRes int str_shipping_free = R.string.product_detail_shipping_free;
+    @StringRes int format_shipping = R.string.product_detail_shipping;
+    @StringRes int format_shipping_conditional = R.string.product_detail_shipping_conditional;
 
-    @BindView(R.id.layout_question_panel) LinearLayout questionPanel;
-    @BindView(R.id.txt_question_count) TextView questionCountTextView;
-    @BindView(R.id.layout_shipping_n_refund_panel) LinearLayout shippingNRefundPanel;
-    @BindView(R.id.layout_related_panel) LinearLayout relatedPanel;
-    @BindView(R.id.rcv_related_product) RecyclerView relatedProductRecyclerView;
+    @StringRes int str_expand = R.string.product_detail_info_expand;
+    @StringRes int str_collapse = R.string.product_detail_info_collapse;
+    @StringRes int str_add_shoppingbag = R.string.toast_add_shoppingbag;
 
-    @BindView(R.id.img_scrap) ImageView scrapImageView;
-    @BindView(R.id.txt_buy) TextView buyTextView;
+    @DrawableRes int img_arrow_down = R.drawable.ic_arrow_down_xs;
+    @DrawableRes int img_arrow_up = R.drawable.ic_arrow_up_xs;
+    @DrawableRes int img_scrap_off = R.drawable.ic_scrap_off;
+    @DrawableRes int img_scrap_on = R.drawable.ic_scrap_on;
 
-    @BindView(R.id.option_selector) ProductOptionSelector productOptionSelector;
+    @ColorRes int color_FF8140E5 = R.color.color_FF8140E5;
+    @ColorRes int color_FFA9A9A9 = R.color.color_FFA9A9A9;
+    @ColorRes int color_FFDBDBDB = R.color.color_FFDBDBDB;
 
-    @BindString(R.string.base_price_percent) String format_percent;
-    @BindString(R.string.product_detail_point) String format_point;
-    @BindString(R.string.product_detail_point_save) String format_point_save;
-    @BindString(R.string.product_detail_review_more) String format_review_more;
-    @BindString(R.string.dialog_error_title) String str_error_msg;
-    @BindArray(R.array.tab_product_detail) String[] tabNames;
-
-    @BindString(R.string.product_detail_shipping_free) String str_shipping_free;
-    @BindString(R.string.product_detail_shipping) String format_shipping;
-    @BindString(R.string.product_detail_shipping_conditional) String format_shipping_conditional;
-
-    @BindString(R.string.product_detail_info_expand) String str_expand;
-    @BindString(R.string.product_detail_info_collapse) String str_collapse;
-    @BindString(R.string.toast_add_shoppingbag) String str_add_shoppingbag;
-
-    @BindDrawable(R.drawable.ic_arrow_down_xs) Drawable img_arrow_down;
-    @BindDrawable(R.drawable.ic_arrow_up_xs) Drawable img_arrow_up;
-    @BindDrawable(R.drawable.ic_scrap_off) Drawable img_scrap_off;
-    @BindDrawable(R.drawable.ic_scrap_on) Drawable img_scrap_on;
-
-    @BindColor(R.color.color_FF8140E5) int color_FF8140E5;
-    @BindColor(R.color.color_FFA9A9A9) int color_FFA9A9A9;
-    @BindColor(R.color.color_FFDBDBDB) int color_FFDBDBDB;
-
+    private ActivityProductDetailBinding binding;
     private ProductDetailPresenter presenter;
-    private ProductDetailImageAdapter productImageAdapter = new ProductDetailImageAdapter();
-    private BaseAdapterDataView<String> productImageAdapterView = productImageAdapter;
-    private ProductAdapter relatedProductAdapter = new ProductAdapter();
-    private BaseAdapterDataView<ProductDataModel> relatedProductAdapterView = relatedProductAdapter;
-    private ProductDetailReviewAdapter reviewAdapter = new ProductDetailReviewAdapter();
-    private BaseAdapterDataView<ReviewDataModel> reviewAdapterView = reviewAdapter;
 
-    @Override protected int getLayoutID() {
-        return R.layout.activity_product_detail;
+    private final ProductDetailImageAdapter productImageAdapter = new ProductDetailImageAdapter();
+    private final BaseAdapterDataView<String> productImageAdapterView = productImageAdapter;
+    private final ProductAdapter relatedProductAdapter = new ProductAdapter();
+    private final BaseAdapterDataView<ProductDataModel> relatedProductAdapterView = relatedProductAdapter;
+    private final ProductDetailReviewAdapter reviewAdapter = new ProductDetailReviewAdapter();
+    private final BaseAdapterDataView<ReviewDataModel> reviewAdapterView = reviewAdapter;
+
+    @Override protected View getBindingView() {
+        binding = ActivityProductDetailBinding.inflate(getLayoutInflater());
+        return binding.getRoot();
     }
 
     @Override protected void createPresenter() {
@@ -174,8 +117,8 @@ public class ProductDetailActivity extends _BaseActivity implements ProductDetai
     }
 
     @Override public void setupProductImageViewPager() {
-        productImageViewPager.setAdapter(productImageAdapter);
-        indicator.setViewPager2(productImageViewPager);
+        binding.vpProductImage.setAdapter(productImageAdapter);
+        binding.indicator.setViewPager2(binding.vpProductImage);
     }
 
     @Override public void productImageRefresh() {
@@ -183,18 +126,18 @@ public class ProductDetailActivity extends _BaseActivity implements ProductDetai
     }
 
     @Override public void setupTabLayout() {
-        for (String tabName : tabNames) {
+        for (String tabName : resources.getStringArray(tabNames)) {
             ProductTabView tabView = ProductTabView.builder()
                 .context(this)
                 .name(tabName)
                 .build();
 
-            TabLayout.Tab tab = tabLayout.newTab();
+            TabLayout.Tab tab = binding.layoutTabPanel.newTab();
             tab.setCustomView(tabView);
-            tabLayout.addTab(tab);
+            binding.layoutTabPanel.addTab(tab);
         }
 
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        binding.layoutTabPanel.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override public void onTabSelected(TabLayout.Tab tab) {
                 presenter.onTabClick(tab.getPosition());
                 getTabView(tab).setupSelected();
@@ -217,28 +160,29 @@ public class ProductDetailActivity extends _BaseActivity implements ProductDetai
     }
 
     public ProductTabView getTabView(int position) {
-        return (ProductTabView) Objects.requireNonNull(tabLayout.getTabAt(position)).getCustomView();
+        return (ProductTabView) Objects.requireNonNull(binding.layoutTabPanel.getTabAt(position)).getCustomView();
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override public void setupWebView() {
-        productDetailWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-        productDetailWebView.getSettings().setJavaScriptEnabled(false);
-        productDetailWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(false);
-        productDetailWebView.getSettings().setAppCacheEnabled(true);
-        productDetailWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-        productDetailWebView.getSettings().setDomStorageEnabled(true);
-        productDetailWebView.getSettings().setSupportMultipleWindows(false);
-        productDetailWebView.getSettings().setSupportZoom(true);
-        productDetailWebView.getSettings().setBuiltInZoomControls(true);
-        productDetailWebView.setWebViewClient(new WebViewClient());
-        productDetailWebView.setWebChromeClient(new WebChromeClient());
+        binding.webProductDetail.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        binding.webProductDetail.getSettings().setJavaScriptEnabled(false);
+        binding.webProductDetail.getSettings().setJavaScriptCanOpenWindowsAutomatically(false);
+        binding.webProductDetail.getSettings().setAppCacheEnabled(true);
+        binding.webProductDetail.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        binding.webProductDetail.getSettings().setDomStorageEnabled(true);
+        binding.webProductDetail.getSettings().setSupportMultipleWindows(false);
+        binding.webProductDetail.getSettings().setSupportZoom(true);
+        binding.webProductDetail.getSettings().setBuiltInZoomControls(true);
+        binding.webProductDetail.setWebViewClient(new WebViewClient());
+        binding.webProductDetail.setWebChromeClient(new WebChromeClient());
     }
 
     @Override public void setupRelatedProductRecyclerView() {
-        relatedProductRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        binding.rcvRelatedProduct.setHasFixedSize(true);
+        binding.rcvRelatedProduct.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         relatedProductAdapter.setViewType(ProductAdapter.VIEW_TYPE_SIZE_84);
-        relatedProductRecyclerView.setAdapter(relatedProductAdapter);
+        binding.rcvRelatedProduct.setAdapter(relatedProductAdapter);
     }
 
     @Override public void relatedProductRefresh() {
@@ -246,14 +190,14 @@ public class ProductDetailActivity extends _BaseActivity implements ProductDetai
     }
 
     @Override public void setupReviewRecyclerView() {
-        reviewRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        reviewRecyclerView.setAdapter(reviewAdapter);
+        binding.rcvReview.setLayoutManager(new LinearLayoutManager(this));
+        binding.rcvReview.setAdapter(reviewAdapter);
         DividerDecoration.builder(this)
             .size(DimenUtil.dpToPx(this, 1))
             .color(color_FFDBDBDB)
             .showFirstDivider()
             .build()
-            .addTo(reviewRecyclerView);
+            .addTo(binding.rcvReview);
     }
 
     @Override public void reviewRefresh() {
@@ -261,19 +205,19 @@ public class ProductDetailActivity extends _BaseActivity implements ProductDetai
     }
 
     @Override public void showRelatedPanel() {
-        relatedPanel.setVisibility(View.VISIBLE);
+        binding.layoutRelatedPanel.setVisibility(View.VISIBLE);
     }
 
     @Override public void hideRelatedPanel() {
-        relatedPanel.setVisibility(View.GONE);
+        binding.layoutRelatedPanel.setVisibility(View.GONE);
     }
 
     @Override public void setupBrandName(String text) {
-        brandNameTextView.setText(text);
+        binding.txtBrandName.setText(text);
     }
 
     @Override public void setupProductName(String text) {
-        productNameTextView.setText(text);
+        binding.txtBrandName.setText(text);
     }
 
     @Override public void addColorView(ProductStockDataModel model) {
@@ -281,7 +225,7 @@ public class ProductDetailActivity extends _BaseActivity implements ProductDetai
             .context(this)
             .model(model)
             .build();
-        colorPanel.addView(colorView);
+        binding.layoutOptionColorPanel.addView(colorView);
     }
 
     @Override public void addSizeView(ProductStockDataModel model) {
@@ -289,104 +233,107 @@ public class ProductDetailActivity extends _BaseActivity implements ProductDetai
             .context(this)
             .model(model)
             .build();
-        sizePanel.addView(sizeView);
+        binding.layoutOptionSizePanel.addView(sizeView);
     }
 
     @Override public void setupPriceOrigin(String text) {
-        priceOriginTextView.setPaintFlags(priceOriginTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        priceOriginTextView.setText(text);
+        binding.txtPriceOrigin.setPaintFlags(binding.txtPriceOrigin.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        binding.txtPriceOrigin.setText(text);
     }
 
     @Override public void showPriceOrigin() {
-        priceOriginTextView.setVisibility(View.VISIBLE);
+        binding.txtPriceOrigin.setVisibility(View.VISIBLE);
     }
 
     @Override public void hidePriceOrigin() {
-        priceOriginTextView.setVisibility(View.GONE);
+        binding.txtPriceOrigin.setVisibility(View.GONE);
     }
 
     @Override public void setupDiscountPercent(int percent) {
-        discountPercentTextView.setText(String.format(format_percent, percent));
+        binding.txtDiscountPercent.setText(String.format(resources.getString(format_percent), percent));
     }
 
     @Override public void showDiscountPercent() {
-        discountPercentTextView.setVisibility(View.VISIBLE);
+        binding.txtDiscountPercent.setVisibility(View.VISIBLE);
     }
 
     @Override public void hideDiscountPercent() {
-        discountPercentTextView.setVisibility(View.GONE);
+        binding.txtDiscountPercent.setVisibility(View.GONE);
     }
 
     @Override public void setupPrice(String text) {
-        priceTextView.setText(text);
+        binding.txtPrice.setText(text);
     }
 
     @Override public void setupPoint(int point) {
-        String pointText = String.format(format_point, point);
-        String totalText = String.format(format_point_save, pointText);
+        String pointText = String.format(resources.getString(format_point), point);
+        String totalText = String.format(resources.getString(format_point_save), pointText);
         SpannableString span = new SpannableString(totalText);
         SpannableUtil.styleSpan(span, pointText, Typeface.BOLD);
-        pointTextView.setText(span);
+        binding.txtPointSave.setText(span);
     }
 
     @Override public void setupShippingFree() {
-        shippingTextView.setText(str_shipping_free);
+        binding.txtShipping.setText(str_shipping_free);
     }
 
     @Override public void setupShippingPrice(int price) {
-        shippingTextView.setText(String.format(format_shipping, StringUtil.toDigit(price)));
+        binding.txtShipping.setText(String.format(resources.getString(format_shipping), StringUtil.toDigit(price)));
     }
 
     @Override public void setupShippingCondition(int price) {
-        shippingConditionalTextView.setText(String.format(format_shipping_conditional, StringUtil.toDigit(price)));
+        binding.txtShippingConditional.setText(
+            String.format(resources.getString(format_shipping_conditional), StringUtil.toDigit(price)));
     }
 
     @Override public void showShippingCondition() {
-        shippingConditionalTextView.setVisibility(View.VISIBLE);
+        binding.txtShippingConditional.setVisibility(View.VISIBLE);
     }
 
     @Override public void hideShippingCondition() {
-        shippingConditionalTextView.setVisibility(View.GONE);
+        binding.txtShippingConditional.setVisibility(View.GONE);
     }
 
     @Override public void scrollToProductInfo() {
-        scrollView.smoothScrollTo(0, (int) productDetailWebView.getY() - tabLayout.getHeight());
+        binding.nsvRoot.smoothScrollTo(0, (int) binding.webProductDetail.getY() - binding.layoutTabPanel.getHeight());
     }
 
     @Override public void scrollToReview() {
-        scrollView.smoothScrollTo(0, (int) reviewPanel.getY() - tabLayout.getHeight());
+        binding.nsvRoot.smoothScrollTo(0, (int) binding.layoutReviewPanel.getY() - binding.layoutTabPanel.getHeight());
     }
 
     @Override public void scrollToQuestion() {
-        scrollView.smoothScrollTo(0, (int) questionPanel.getY() - tabLayout.getHeight());
+        binding.nsvRoot.smoothScrollTo(0,
+            (int) binding.layoutQuestionPanel.getY() - binding.layoutTabPanel.getHeight());
     }
 
     @Override public void scrollToShippingNRefund() {
-        scrollView.smoothScrollTo(0, (int) shippingNRefundPanel.getY() - tabLayout.getHeight());
+        binding.nsvRoot.smoothScrollTo(0,
+            (int) binding.layoutShippingNRefundPanel.getY() - binding.layoutTabPanel.getHeight());
     }
 
     @Override public void setupProductDetail(String url) {
-        productDetailWebView.loadUrl(url);
+        binding.webProductDetail.loadUrl(url);
     }
 
     @Override public void setupReviewCount(String text) {
-        reviewCountTextView.setText(text);
+        binding.txtReviewCount.setText(text);
         getTabView(1).setupCount(text);
-        reviewMoreTextView.setText(String.format(format_review_more, text));
+        binding.txtReviewMore.setText(String.format(resources.getString(format_review_more), text));
     }
 
     @Override public void showReviewContentsPanel() {
-        reviewContentsPanel.setVisibility(View.VISIBLE);
+        binding.layoutReviewContentsPanel.setVisibility(View.VISIBLE);
     }
 
     @Override public void setupQuestionCount(String text) {
-        questionCountTextView.setText(text);
+        binding.txtQuestionCount.setText(text);
         getTabView(2).setupCount(text);
     }
 
     @Override public void setupOptionSelector(int price, List<OptionColorDataModel> options) {
-        productOptionSelector.setupData(price, options);
-        productOptionSelector.setOnButtonClickListener(new ProductOptionSelector.OnButtonClickListener() {
+        binding.optionSelector.setupData(price, options);
+        binding.optionSelector.setOnButtonClickListener(new ProductOptionSelector.OnButtonClickListener() {
             @Override public void onShoppingBagClick(List<ShoppingOptionDataModel> optionData) {
                 presenter.onOptionSelectorShoppingBagClick(optionData);
             }
@@ -398,110 +345,110 @@ public class ProductDetailActivity extends _BaseActivity implements ProductDetai
     }
 
     @Override public void showOptionSelector() {
-        productOptionSelector.show();
+        binding.optionSelector.show();
     }
 
     @Override public void hideOptionSelector() {
-        productOptionSelector.hide();
+        binding.optionSelector.hide();
     }
 
     @Override public void setupInfoStyleNo(String text) {
-        infoStyleNoTextView.setText(text);
+        binding.txtInfoStyleNo.setText(text);
     }
 
     @Override public void setupInfoKcAuth(String text) {
-        infoKcAuthTextView.setText(text);
+        binding.txtInfoKcAuth.setText(text);
     }
 
     @Override public void setupInfoWeight(String text) {
-        infoWeightTextView.setText(text);
+        binding.txtInfoWeight.setText(text);
     }
 
     @Override public void setupInfoColor(String text) {
-        infoColorTextView.setText(text);
+        binding.txtInfoColor.setText(text);
     }
 
     @Override public void setupInfoMaterial(String text) {
-        infoMaterialTextView.setText(text);
+        binding.txtInfoMaterial.setText(text);
     }
 
     @Override public void setupInfoAge(String text) {
-        infoAgeTextView.setText(text);
+        binding.txtInfoAge.setText(text);
     }
 
     @Override public void setupInfoReleaseDate(String text) {
-        infoReleaseDateTextView.setText(text);
+        binding.txtInfoReleaseDate.setText(text);
     }
 
     @Override public void setupInfoManufacturer(String text) {
-        infoManufacturerTextView.setText(text);
+        binding.txtInfoManufacturer.setText(text);
     }
 
     @Override public void setupInfoCountry(String text) {
-        infoCountryTextView.setText(text);
+        binding.txtInfoCountry.setText(text);
     }
 
     @Override public void setupInfoCaution(String text) {
-        infoCautionTextView.setText(text);
+        binding.txtInfoCaution.setText(text);
     }
 
     @Override public void setupInfoWarranty(String text) {
-        infoWarrantyTextView.setText(text);
+        binding.txtInfoWarranty.setText(text);
     }
 
     @Override public void setupInfoDamage(String text) {
-        infoDamageTextView.setText(text);
+        binding.txtInfoDamage.setText(text);
     }
 
     @Override public void setupInfoServiceCenter(String text) {
-        infoServiceCenterTextView.setText(text);
+        binding.txtInfoServiceCenter.setText(text);
     }
 
     @Override public void expandInfoMorePanel() {
-        infoMorePanel.setVisibility(View.VISIBLE);
-        expandTextView.setText(str_collapse);
-        expandImageView.setImageDrawable(img_arrow_up);
+        binding.layoutInfoMorePanel.setVisibility(View.VISIBLE);
+        binding.txtExpand.setText(str_collapse);
+        binding.imgExpand.setImageDrawable(resources.getDrawable(img_arrow_up));
     }
 
     @Override public void collapseInfoMorePanel() {
-        infoMorePanel.setVisibility(View.GONE);
-        expandTextView.setText(str_expand);
-        expandImageView.setImageDrawable(img_arrow_down);
+        binding.layoutInfoMorePanel.setVisibility(View.GONE);
+        binding.txtExpand.setText(str_expand);
+        binding.imgExpand.setImageDrawable(resources.getDrawable(img_arrow_down));
     }
 
     @Override public void showDisplayLabel(String label) {
-        displayLabelTextView.setText(label);
-        displayLabelTextView.setVisibility(View.VISIBLE);
+        binding.txtDisplayLabel.setText(label);
+        binding.txtDisplayLabel.setVisibility(View.VISIBLE);
     }
 
     @Override public void disableBuyButton(String label) {
-        buyTextView.setText(label);
-        buyTextView.setBackgroundColor(color_FFDBDBDB);
-        buyTextView.setEnabled(false);
+        binding.txtBuy.setText(label);
+        binding.txtBuy.setBackgroundColor(resources.getColor(color_FFDBDBDB));
+        binding.txtBuy.setEnabled(false);
     }
 
     @Override public void setupPriceOriginNoDisplayColor() {
-        priceOriginTextView.setTextColor(color_FFA9A9A9);
+        binding.txtPriceOrigin.setTextColor(resources.getColor(color_FFA9A9A9));
     }
 
     @Override public void setupDiscountPercentNoDisplayColor() {
-        discountPercentTextView.setTextColor(color_FFA9A9A9);
+        binding.txtDiscountPercent.setTextColor(resources.getColor(color_FFA9A9A9));
     }
 
     @Override public void setupPriceNoDisplayColor() {
-        priceTextView.setTextColor(color_FFA9A9A9);
+        binding.txtPrice.setTextColor(resources.getColor(color_FFA9A9A9));
     }
 
     @Override public void checkScrap() {
-        scrapImageView.setImageDrawable(img_scrap_on);
+        binding.imgScrap.setImageDrawable(resources.getDrawable(img_scrap_on));
     }
 
     @Override public void uncheckScrap() {
-        scrapImageView.setImageDrawable(img_scrap_off);
+        binding.imgScrap.setImageDrawable(resources.getDrawable(img_scrap_off));
     }
 
     @Override public void hideScrap() {
-        scrapImageView.setVisibility(View.GONE);
+        binding.imgScrap.setVisibility(View.GONE);
     }
 
     @Override public void navigateToProductInfo(int brand_id) {

@@ -147,6 +147,8 @@ public interface ReviewWritePresenter extends LifecycleObserver {
 
         void hideLoadingView();
 
+        void showErrorDialog();
+
         void showReviewCompletedDialog(boolean isPhotoReview, int point);
 
         void navigateToGallery(List<PhotoDataModel> photos);

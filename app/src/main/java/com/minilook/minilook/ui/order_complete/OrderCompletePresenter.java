@@ -13,5 +13,7 @@ public interface OrderCompletePresenter extends LifecycleObserver {
         void navigateToOrderHistory();
 
         void navigateToMain();
+
+        void finish();
     }
 }

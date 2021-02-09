@@ -302,6 +302,10 @@ public class ReviewWritePresenterImpl extends BasePresenterImpl implements Revie
             .compose(Transformer.applySchedulers())
             .filter(data -> {
                 String code = data.getCode();
+                if (!code.equals(HttpCode.OK)) {
+                    view.hideLoadingView();
+                    view.showErrorDialog();
+                }
                 return code.equals(HttpCode.OK);
             })
             .map(model -> gson.fromJson(model.getData(), ReviewWriteCompletedDataModel.class))
@@ -326,8 +330,10 @@ public class ReviewWritePresenterImpl extends BasePresenterImpl implements Revie
 
     private List<String> parseToPhotoData() {
         List<String> items = new ArrayList<>();
-        for (PhotoDataModel photo : photos) {
-            items.add(photo.getName());
+        if (photos != null && photos.size() > 0) {
+            for (PhotoDataModel photo : photos) {
+                items.add(photo.getName());
+            }
         }
         return items;
     }

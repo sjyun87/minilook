@@ -13,9 +13,11 @@ public class OrderCompletePresenterImpl extends BasePresenterImpl implements Ord
 
     @Override public void onOrderHistoryClick() {
         view.navigateToOrderHistory();
+        view.finish();
     }
 
     @Override public void onShoppingClick() {
         view.navigateToMain();
+        view.finish();
     }
 }

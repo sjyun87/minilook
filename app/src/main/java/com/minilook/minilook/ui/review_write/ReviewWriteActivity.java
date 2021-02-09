@@ -105,7 +105,8 @@ public class ReviewWriteActivity extends BaseActivity implements ReviewWritePres
         binding.txtVeryBig.setOnClickListener(view -> presenter.onSizeClick(ReviewSizeRatings.VERY_BIG.getCode()));
         binding.txtLittleBig.setOnClickListener(view -> presenter.onSizeClick(ReviewSizeRatings.LITTLE_BIG.getCode()));
         binding.txtPerfectly.setOnClickListener(view -> presenter.onSizeClick(ReviewSizeRatings.PERFECTLY.getCode()));
-        binding.txtLittleSmall.setOnClickListener(view -> presenter.onSizeClick(ReviewSizeRatings.LITTLE_SMALL.getCode()));
+        binding.txtLittleSmall.setOnClickListener(
+            view -> presenter.onSizeClick(ReviewSizeRatings.LITTLE_SMALL.getCode()));
         binding.txtVerySmall.setOnClickListener(view -> presenter.onSizeClick(ReviewSizeRatings.VERY_SMALL.getCode()));
 
         binding.txtGenderMale.setOnClickListener(view -> presenter.onGenderClick(GenderCode.MALE.getCode()));
@@ -413,6 +414,10 @@ public class ReviewWriteActivity extends BaseActivity implements ReviewWritePres
 
     @Override public void hideLoadingView() {
         binding.loadingView.hide();
+    }
+
+    @Override public void showErrorDialog() {
+        DialogManager.showErrorDialog(this);
     }
 
     @Override public void showReviewCompletedDialog(boolean isPhotoReview, int point) {

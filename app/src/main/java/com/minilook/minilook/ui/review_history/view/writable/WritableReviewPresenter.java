@@ -4,7 +4,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
-public interface ReviewWritablePresenter extends LifecycleObserver {
+public interface WritableReviewPresenter extends LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreateView();
@@ -25,6 +25,8 @@ public interface ReviewWritablePresenter extends LifecycleObserver {
         void showEmptyPanel();
 
         void hideEmptyPanel();
+
+        void showErrorDialog();
 
         void scrollToTop();
 

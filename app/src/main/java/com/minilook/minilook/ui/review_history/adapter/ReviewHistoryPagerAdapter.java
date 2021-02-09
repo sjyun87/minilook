@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-import com.minilook.minilook.ui.review_history.view.writable.ReviewWritableFragment;
+import com.minilook.minilook.ui.review_history.view.writable.WritableReviewFragment;
 import com.minilook.minilook.ui.review_history.view.written.WrittenReviewFragment;
 
 public class ReviewHistoryPagerAdapter extends FragmentStateAdapter {
@@ -23,7 +23,7 @@ public class ReviewHistoryPagerAdapter extends FragmentStateAdapter {
             case PAGE_WRITTEN:
                 return WrittenReviewFragment.newInstance();
             case PAGE_WRITABLE:
-                return ReviewWritableFragment.newInstance();
+                return WritableReviewFragment.newInstance();
         }
     }
 

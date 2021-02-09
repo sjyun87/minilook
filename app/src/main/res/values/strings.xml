@@ -517,6 +517,10 @@
     <string name="review_history_written_weight_unit">%dkg</string>
     <string name="review_history_written_review_more">더보기</string>
 
+    <string name="review_history_writable_order_no_caption">주문번호</string>
+    <string name="review_history_writable_order_date_caption">주문일자</string>
+    <string name="review_history_writable_review_write">리뷰쓰기</string>
+
     <!--Album-->
     <string name="album_select_album">변경하려면 여기를 누르세요</string>
     <string name="album_select_limit">최대 4장까지만 선택 가능합니다.</string>

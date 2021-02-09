@@ -36,16 +36,6 @@ public class OrderCompleteActivity extends _BaseActivity implements OrderComplet
             .build();
     }
 
-    @OnClick(R.id.txt_order_history)
-    void onOrderHistoryClick() {
-        presenter.onOrderHistoryClick();
-    }
-
-    @OnClick(R.id.txt_shopping)
-    void onShoppingClick() {
-        presenter.onShoppingClick();
-    }
-
     @Override public void navigateToOrderHistory() {
         OrderHistoryActivity.start(this);
     }
@@ -55,5 +45,15 @@ public class OrderCompleteActivity extends _BaseActivity implements OrderComplet
     }
 
     @Override public void onBackPressed() {
+    }
+
+    @OnClick(R.id.txt_order_history)
+    void onOrderHistoryClick() {
+        presenter.onOrderHistoryClick();
+    }
+
+    @OnClick(R.id.txt_shopping)
+    void onShoppingClick() {
+        presenter.onShoppingClick();
     }
 }
