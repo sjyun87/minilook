@@ -5,7 +5,7 @@ import com.google.gson.Gson;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.code.GenderCode;
 import com.minilook.minilook.data.code.ReviewSatisfactions;
-import com.minilook.minilook.data.code.ReviewSizes;
+import com.minilook.minilook.data.code.ReviewSizeRatings;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.common.KeyDataModel;
 import com.minilook.minilook.data.model.gallery.PhotoDataModel;
@@ -205,7 +205,7 @@ public class ReviewWritePresenterImpl extends BasePresenterImpl implements Revie
     }
 
     private void selectSizeRatingButton(String code) {
-        switch (ReviewSizes.toType(code)) {
+        switch (ReviewSizeRatings.toType(code)) {
             case VERY_BIG:
                 view.selectVeryBigButton();
                 break;
@@ -225,7 +225,7 @@ public class ReviewWritePresenterImpl extends BasePresenterImpl implements Revie
     }
 
     private void unselectSizeRatingButton(String code) {
-        switch (ReviewSizes.toType(code)) {
+        switch (ReviewSizeRatings.toType(code)) {
             case VERY_BIG:
                 view.unselectVeryBigButton();
                 break;

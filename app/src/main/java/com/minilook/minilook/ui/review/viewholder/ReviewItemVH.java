@@ -60,7 +60,7 @@ public class ReviewItemVH extends _BaseViewHolder<ReviewDataModel> {
 
         nickTextView.setText(data.getNickname());
         registDateTextView.setText(data.getRegistDate());
-        contentsTextView.setText(data.getContents());
+        contentsTextView.setText(data.getReview());
 
         handleHelpData();
     }

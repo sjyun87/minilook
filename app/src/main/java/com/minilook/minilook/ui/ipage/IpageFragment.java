@@ -11,7 +11,9 @@ import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.order_history.OrderHistoryActivity;
 import com.minilook.minilook.ui.point.PointActivity;
 import com.minilook.minilook.ui.profile.ProfileActivity;
+import com.minilook.minilook.ui.question_history.QuestionHistoryActivity;
 import com.minilook.minilook.ui.recent.RecentActivity;
+import com.minilook.minilook.ui.review_history.ReviewHistoryActivity;
 import com.minilook.minilook.ui.scrapbook.ScrapbookActivity;
 import com.minilook.minilook.ui.shoppingbag.ShoppingBagActivity;
 import com.minilook.minilook.ui.webview.WebViewActivity;
@@ -175,11 +177,11 @@ public class IpageFragment extends BaseFragment implements IpagePresenter.View {
     }
 
     @Override public void navigateToQuestionHistory() {
-        //QuestionActivity.start(getContext());
+        QuestionHistoryActivity.start(getContext());
     }
 
     @Override public void navigateToReviewHistory() {
-
+        ReviewHistoryActivity.start(getContext());
     }
 
     @Override public void navigateToWebView(String url) {

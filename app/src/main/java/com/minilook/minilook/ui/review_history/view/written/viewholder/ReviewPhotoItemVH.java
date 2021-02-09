@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.review_write.viewholder;
+package com.minilook.minilook.ui.review_history.view.written.viewholder;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,64 +10,51 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.gallery.PhotoDataModel;
-import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.databinding.ViewPhotoContentItemBinding;
+import com.minilook.minilook.data.model.image.ImageDataModel;
+import com.minilook.minilook.databinding.ViewReviewPhotoItemBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.util.DeviceUtil;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
-public class PhotoContentItemVH extends BaseViewHolder<PhotoDataModel> {
+public class ReviewPhotoItemVH extends BaseViewHolder<ImageDataModel> {
 
     @DrawableRes int ph_square = R.drawable.ph_square;
 
-    @DimenRes int dp_10 = R.dimen.dp_10;
+    @DimenRes int dp_8 = R.dimen.dp_8;
     @DimenRes int dp_4 = R.dimen.dp_4;
 
-    private final ViewPhotoContentItemBinding binding;
+    private final ViewReviewPhotoItemBinding binding;
 
-    public PhotoContentItemVH(@NonNull View parent) {
-        super(ViewPhotoContentItemBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,
+    public ReviewPhotoItemVH(@NonNull View parent) {
+        super(ViewReviewPhotoItemBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,
             false));
-        binding = ViewPhotoContentItemBinding.bind(itemView);
+        binding = ViewReviewPhotoItemBinding.bind(itemView);
         setItemSize();
     }
 
     private void setItemSize() {
         int width = DeviceUtil.getDeviceWidth(context);
-        int panelWidth = width - (resources.getDimen(dp_4) * 2);
+        int panelWidth = width - (resources.getDimen(dp_8) * 2);
         int itemSize = panelWidth / 4;
+        int imageSize = itemSize - resources.getDimen(dp_4);
         ViewGroup.LayoutParams params = binding.getRoot().getLayoutParams();
         params.width = itemSize;
-        params.height = itemSize;
+        params.height = imageSize;
         binding.getRoot().setLayoutParams(params);
 
-        int imageSize = itemSize - resources.getDimen(dp_10);
         ConstraintLayout.LayoutParams imageParams = (ConstraintLayout.LayoutParams) binding.imgThumb.getLayoutParams();
         imageParams.width = imageSize;
         imageParams.height = imageSize;
         binding.imgThumb.setLayoutParams(imageParams);
     }
 
-    @Override public void bind(PhotoDataModel $data) {
+    @Override public void bind(ImageDataModel $data) {
         super.bind($data);
 
         Glide.with(context)
-            .load(data.getUriPath())
+            .load(data.getThumbUrl())
             .placeholder(ph_square)
             .error(ph_square)
             .transition(new DrawableTransitionOptions().crossFade())
             .into(binding.imgThumb);
-
-        itemView.setOnClickListener(this::onItemClick);
-    }
-
-    void onItemClick(View view) {
-        RxBus.send(new RxEventReviewPhotoClick(data));
-    }
-
-    @AllArgsConstructor @Getter public final static class RxEventReviewPhotoClick {
-        private final PhotoDataModel model;
     }
 }

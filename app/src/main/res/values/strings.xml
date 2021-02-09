@@ -497,6 +497,26 @@
     <string name="review_write_info">※ 해당 상품과 무관한 내용이나 동일 문자의 반복 등 부적합한 내용은 삭제될 수 있습니다.</string>
     <string name="review_write_apply">등록하기</string>
 
+    <!--Review History-->
+    <string name="review_history_title">나의 리뷰</string>
+    <string name="review_history_written">작성한 리뷰</string>
+    <string name="review_history_writable">작성 가능한 리뷰</string>
+    <string name="review_history_written_empty">작성한 리뷰가 없습니다.</string>
+    <string name="review_history_writable_empty">작성 가능한 리뷰가 없습니다.</string>
+    <string name="review_history_written_regist_date_caption">작성일자</string>
+    <string name="review_history_written_order_date_caption">주문일자</string>
+    <string name="review_history_written_option">%s / %s</string>
+    <string name="review_history_written_color_caption">색상</string>
+    <string name="review_history_written_size_caption">사이즈</string>
+    <string name="review_history_written_gender_caption">성별</string>
+    <string name="review_history_written_age_caption">연령(한국나이)</string>
+    <string name="review_history_written_age_unit">%d세</string>
+    <string name="review_history_written_height_caption">키</string>
+    <string name="review_history_written_height_unit">%dcm</string>
+    <string name="review_history_written_weight_caption">몸무게</string>
+    <string name="review_history_written_weight_unit">%dkg</string>
+    <string name="review_history_written_review_more">더보기</string>
+
     <!--Album-->
     <string name="album_select_album">변경하려면 여기를 누르세요</string>
     <string name="album_select_limit">최대 4장까지만 선택 가능합니다.</string>

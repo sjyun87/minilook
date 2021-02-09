@@ -17,7 +17,7 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.code.GenderCode;
 import com.minilook.minilook.data.code.ReviewSatisfactions;
-import com.minilook.minilook.data.code.ReviewSizes;
+import com.minilook.minilook.data.code.ReviewSizeRatings;
 import com.minilook.minilook.data.model.gallery.PhotoDataModel;
 import com.minilook.minilook.data.model.order.OrderProductDataModel;
 import com.minilook.minilook.databinding.ActivityReviewWriteBinding;
@@ -102,11 +102,11 @@ public class ReviewWriteActivity extends BaseActivity implements ReviewWritePres
         binding.imgBad.setOnClickListener(
             view -> presenter.onSatisfactionClick(ReviewSatisfactions.BAD.getCode()));
 
-        binding.txtVeryBig.setOnClickListener(view -> presenter.onSizeClick(ReviewSizes.VERY_BIG.getCode()));
-        binding.txtLittleBig.setOnClickListener(view -> presenter.onSizeClick(ReviewSizes.LITTLE_BIG.getCode()));
-        binding.txtPerfectly.setOnClickListener(view -> presenter.onSizeClick(ReviewSizes.PERFECTLY.getCode()));
-        binding.txtLittleSmall.setOnClickListener(view -> presenter.onSizeClick(ReviewSizes.LITTLE_SMALL.getCode()));
-        binding.txtVerySmall.setOnClickListener(view -> presenter.onSizeClick(ReviewSizes.VERY_SMALL.getCode()));
+        binding.txtVeryBig.setOnClickListener(view -> presenter.onSizeClick(ReviewSizeRatings.VERY_BIG.getCode()));
+        binding.txtLittleBig.setOnClickListener(view -> presenter.onSizeClick(ReviewSizeRatings.LITTLE_BIG.getCode()));
+        binding.txtPerfectly.setOnClickListener(view -> presenter.onSizeClick(ReviewSizeRatings.PERFECTLY.getCode()));
+        binding.txtLittleSmall.setOnClickListener(view -> presenter.onSizeClick(ReviewSizeRatings.LITTLE_SMALL.getCode()));
+        binding.txtVerySmall.setOnClickListener(view -> presenter.onSizeClick(ReviewSizeRatings.VERY_SMALL.getCode()));
 
         binding.txtGenderMale.setOnClickListener(view -> presenter.onGenderClick(GenderCode.MALE.getCode()));
         binding.txtGenderFemale.setOnClickListener(view -> presenter.onGenderClick(GenderCode.FEMALE.getCode()));

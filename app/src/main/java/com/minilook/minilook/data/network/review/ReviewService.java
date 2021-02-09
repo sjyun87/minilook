@@ -32,4 +32,9 @@ public interface ReviewService {
         @Path("productNo") int productNo,
         @Body RequestBody body
     );
+
+    @POST("/api/members/{memberNo}/reviews") Single<BaseDataModel> getWrittenReviews(
+        @Path("memberNo") int memberNo,
+        @Body RequestBody body
+    );
 }
