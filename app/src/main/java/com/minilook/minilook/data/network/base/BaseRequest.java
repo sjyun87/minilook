@@ -21,7 +21,7 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public abstract class BaseRequest<T> {
-    private final static int TIMEOUT_SECONDS = 10;
+    private final static int TIMEOUT_SECONDS = 30;
 
     public T getApi() {
         return createRetrofit().create(getService());

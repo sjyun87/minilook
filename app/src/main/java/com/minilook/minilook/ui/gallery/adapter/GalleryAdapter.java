@@ -1,11 +1,11 @@
-package com.minilook.minilook.ui.album.adapter;
+package com.minilook.minilook.ui.gallery.adapter;
 
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.minilook.minilook.data.model.gallery.PhotoDataModel;
-import com.minilook.minilook.ui.album.viewholder.GalleryContentsItemVH;
-import com.minilook.minilook.ui.album.viewholder.GalleryHeaderItemVH;
+import com.minilook.minilook.ui.gallery.viewholder.GalleryContentsItemVH;
+import com.minilook.minilook.ui.gallery.viewholder.GalleryHeaderItemVH;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseViewHolder;

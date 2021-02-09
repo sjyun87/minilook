@@ -11,28 +11,61 @@ public interface ReviewWritePresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
-    void onSatisfactionClick(int code);
+    void onSatisfactionClick(String code);
 
-    void onSizeClick(int code);
+    void onSizeClick(String code);
 
-    void onGenderClick(int code);
+    void onGenderClick(String code);
 
     void onAgeInputClick();
+
+    void onHeightInputClick();
+
+    void onWeightInputClick();
 
     void onPhotoAddClick();
 
     void onStoragePermissionGranted();
 
+    void onAgePick(int age);
 
+    void onHeightPick(int height);
 
+    void onWeightPick(int weight);
 
     void onTextChanged(String text);
 
     void onApplyClick();
 
+    void onReviewCompletedDialogOk();
+
     interface View {
 
         void setupClickAction();
+
+        void setupAgePicker(List<Integer> ageData);
+
+        void setAgePicker(int age);
+
+        void showAgePicker();
+
+        void hideAgePicker();
+
+        void setupHeightPicker(List<Integer> heightData);
+
+        void setHeightPicker(int height);
+
+        void showHeightPicker();
+
+        void hideHeightPicker();
+
+        void setupWeightPicker(List<Integer> weightData);
+
+        void setWeightPicker(int weight);
+
+        void showWeightPicker();
+
+        void hideWeightPicker();
 
         void setupReviewEditText();
 
@@ -92,9 +125,11 @@ public interface ReviewWritePresenter extends LifecycleObserver {
 
         void unselectFemaleButton();
 
-        void showAgePicker();
+        void setAge(int age);
 
-        void hideAgePicker();
+        void setHeight(int height);
+
+        void setWeight(int weight);
 
         void checkStoragePermission();
 
@@ -108,7 +143,11 @@ public interface ReviewWritePresenter extends LifecycleObserver {
 
         void disableApplyButton();
 
-        void showReviewWriteToast();
+        void showLoadingView();
+
+        void hideLoadingView();
+
+        void showReviewCompletedDialog(boolean isPhotoReview, int point);
 
         void navigateToGallery(List<PhotoDataModel> photos);
 

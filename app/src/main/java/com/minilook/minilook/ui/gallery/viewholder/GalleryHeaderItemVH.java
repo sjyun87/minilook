@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.album.viewholder;
+package com.minilook.minilook.ui.gallery.viewholder;
 
 import android.view.LayoutInflater;
 import android.view.View;

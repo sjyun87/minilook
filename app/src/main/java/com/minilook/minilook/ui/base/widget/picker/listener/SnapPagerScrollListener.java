@@ -1,9 +1,9 @@
-package com.minilook.minilook.ui.base.widget.picker;
+package com.minilook.minilook.ui.base.widget.picker.listener;
 
 import android.view.View;
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 
 public class SnapPagerScrollListener extends RecyclerView.OnScrollListener {
 
@@ -11,11 +11,11 @@ public class SnapPagerScrollListener extends RecyclerView.OnScrollListener {
         void onSnapped(int position);
     }
 
-    private final PagerSnapHelper snapHelper;
+    private final SnapHelper snapHelper;
     private final OnChangeListener listener;
     private int snapPosition;
 
-    public SnapPagerScrollListener(PagerSnapHelper snapHelper, OnChangeListener listener) {
+    public SnapPagerScrollListener(SnapHelper snapHelper, OnChangeListener listener) {
         this.snapHelper = snapHelper;
         this.listener = listener;
         this.snapPosition = RecyclerView.NO_POSITION;

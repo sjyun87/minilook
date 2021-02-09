@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.album;
+package com.minilook.minilook.ui.gallery;
 
 import android.app.Activity;
 import android.content.Context;
@@ -26,10 +26,10 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.gallery.AlbumDataModel;
 import com.minilook.minilook.data.model.gallery.PhotoDataModel;
 import com.minilook.minilook.databinding.ActivityGalleryBinding;
-import com.minilook.minilook.ui.album.adapter.AlbumAdapter;
-import com.minilook.minilook.ui.album.adapter.GalleryAdapter;
-import com.minilook.minilook.ui.album.adapter.SelectedAdapter;
-import com.minilook.minilook.ui.album.di.GalleryArguments;
+import com.minilook.minilook.ui.gallery.adapter.AlbumAdapter;
+import com.minilook.minilook.ui.gallery.adapter.GalleryAdapter;
+import com.minilook.minilook.ui.gallery.adapter.SelectedAdapter;
+import com.minilook.minilook.ui.gallery.di.GalleryArguments;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.cropper.CropperActivity;

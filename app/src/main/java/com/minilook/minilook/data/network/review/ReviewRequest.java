@@ -1,7 +1,9 @@
 package com.minilook.minilook.data.network.review;
 
+import android.text.TextUtils;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.model.base.BaseDataModel;
+import com.minilook.minilook.data.model.review.ReviewWriteDataModel;
 import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
 import java.util.HashMap;
@@ -14,15 +16,24 @@ public class ReviewRequest extends BaseRequest<ReviewService> {
         return ReviewService.class;
     }
 
-    public Single<BaseDataModel> writeReview(String orderNo, int productNo, int optionNo, String text) {
-        return getApi().writeReview(productNo, optionNo, createWriteReviewData(orderNo, text));
+    public Single<BaseDataModel> writeReview(ReviewWriteDataModel model) {
+        return getApi().writeReview(model.getProductNo(), model.getOptionNo(), createWriteReviewData(model));
     }
 
-    private RequestBody createWriteReviewData(String orderNo, String text) {
+    private RequestBody createWriteReviewData(ReviewWriteDataModel model) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("memberNo", App.getInstance().getMemberNo());
-        jsonMap.put("mid", orderNo);
-        jsonMap.put("review", text);
+        jsonMap.put("mid", model.getOrderNo());
+        if (model.getPhotos() != null && model.getPhotos().size() > 0) jsonMap.put("photos", model.getPhotos());
+        jsonMap.put("review", model.getReview());
+        Map<String, Object> detailMap = new HashMap<>();
+        detailMap.put("reviewSatisfactionCode", model.getSatisfactionCode());
+        detailMap.put("reviewSizeCode", model.getSizeRatingCode());
+        if (!TextUtils.isEmpty(model.getGenderCode())) detailMap.put("reviewSexCode", model.getGenderCode());
+        if (model.getAge() != -1) detailMap.put("age", model.getAge());
+        if (model.getHeight() != -1) detailMap.put("height", model.getHeight());
+        if (model.getWeight() != -1) detailMap.put("weight", model.getWeight());
+        jsonMap.put("reviewDetail", detailMap);
         return createRequestBody(jsonMap);
     }
 

@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.album;
+package com.minilook.minilook.ui.gallery;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -15,11 +15,11 @@ import android.text.TextUtils;
 import com.minilook.minilook.data.model.gallery.AlbumDataModel;
 import com.minilook.minilook.data.model.gallery.PhotoDataModel;
 import com.minilook.minilook.data.rx.RxBus;
-import com.minilook.minilook.ui.album.di.GalleryArguments;
-import com.minilook.minilook.ui.album.viewholder.AlbumItemVH;
-import com.minilook.minilook.ui.album.viewholder.GalleryContentsItemVH;
-import com.minilook.minilook.ui.album.viewholder.GalleryHeaderItemVH;
-import com.minilook.minilook.ui.album.viewholder.SelectedItemVH;
+import com.minilook.minilook.ui.gallery.di.GalleryArguments;
+import com.minilook.minilook.ui.gallery.viewholder.AlbumItemVH;
+import com.minilook.minilook.ui.gallery.viewholder.GalleryContentsItemVH;
+import com.minilook.minilook.ui.gallery.viewholder.GalleryHeaderItemVH;
+import com.minilook.minilook.ui.gallery.viewholder.SelectedItemVH;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.cropper.CropperPresenterImpl;

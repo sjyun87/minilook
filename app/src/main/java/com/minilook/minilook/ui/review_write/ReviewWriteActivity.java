@@ -2,15 +2,15 @@ package com.minilook.minilook.ui.review_write;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Toast;
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.FontRes;
 import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.gun0912.tedpermission.PermissionListener;
@@ -21,9 +21,10 @@ import com.minilook.minilook.data.code.ReviewSizes;
 import com.minilook.minilook.data.model.gallery.PhotoDataModel;
 import com.minilook.minilook.data.model.order.OrderProductDataModel;
 import com.minilook.minilook.databinding.ActivityReviewWriteBinding;
-import com.minilook.minilook.ui.album.GalleryActivity;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.ui.dialog.manager.DialogManager;
+import com.minilook.minilook.ui.gallery.GalleryActivity;
 import com.minilook.minilook.ui.review_write.adapter.PhotoAdapter;
 import com.minilook.minilook.ui.review_write.di.ReviewWriteArguments;
 import com.minilook.minilook.util.PermissionUtil;
@@ -43,11 +44,15 @@ public class ReviewWriteActivity extends BaseActivity implements ReviewWritePres
     }
 
     @StringRes int str_format_option = R.string.review_write_option;
-    @StringRes int str_review_write = R.string.toast_review_write;
     @StringRes int str_selected_count = R.string.review_write_photo_selected_count;
+    @StringRes int str_picker_age_unit = R.string.picker_age_unit;
+    @StringRes int str_picker_height_unit = R.string.picker_height_unit;
+    @StringRes int str_picker_weight_unit = R.string.picker_weight_unit;
 
     @ColorRes int color_FFA9A9A9 = R.color.color_FFA9A9A9;
     @ColorRes int color_FF8140E5 = R.color.color_FF8140E5;
+    @ColorRes int color_FFF5F5F5 = R.color.color_FFF5F5F5;
+    @ColorRes int color_FFFFFFFF = R.color.color_FFFFFFFF;
 
     @DrawableRes int ph_square = R.drawable.ph_square;
     @DrawableRes int img_good_on = R.drawable.ic_review_good_on;
@@ -107,22 +112,83 @@ public class ReviewWriteActivity extends BaseActivity implements ReviewWritePres
         binding.txtGenderFemale.setOnClickListener(view -> presenter.onGenderClick(GenderCode.FEMALE.getCode()));
 
         binding.txtAge.setOnClickListener(view -> presenter.onAgeInputClick());
+        binding.txtHeight.setOnClickListener(view -> presenter.onHeightInputClick());
+        binding.txtWeight.setOnClickListener(view -> presenter.onWeightInputClick());
 
         binding.layoutPhotoEmptyPanel.setOnClickListener(view -> presenter.onPhotoAddClick());
+
+        binding.txtApply.setOnClickListener(view -> presenter.onApplyClick());
+    }
+
+    @Override public void setupAgePicker(List<Integer> ageData) {
+        binding.pickerAge.setTitle(binding.txtAgeCaption.getText().toString());
+        binding.pickerAge.setUnit(resources.getString(str_picker_age_unit));
+        binding.pickerAge.setData(ageData);
+        binding.pickerAge.setOnPickChangeListener(age -> presenter.onAgePick(age));
+    }
+
+    @Override public void setAgePicker(int age) {
+        binding.pickerAge.setItem(age);
+    }
+
+    @Override public void showAgePicker() {
+        binding.pickerAge.show();
+    }
+
+    @Override public void hideAgePicker() {
+        binding.pickerAge.hide();
+    }
+
+    @Override public void setupHeightPicker(List<Integer> heightData) {
+        binding.pickerHeight.setTitle(binding.txtHeightCaption.getText().toString());
+        binding.pickerHeight.setUnit(resources.getString(str_picker_height_unit));
+        binding.pickerHeight.setData(heightData);
+        binding.pickerHeight.setOnPickChangeListener(height -> presenter.onHeightPick(height));
+    }
+
+    @Override public void setHeightPicker(int height) {
+        binding.pickerHeight.setItem(height);
+    }
+
+    @Override public void showHeightPicker() {
+        binding.pickerHeight.show();
+    }
+
+    @Override public void hideHeightPicker() {
+        binding.pickerHeight.hide();
+    }
+
+    @Override public void setupWeightPicker(List<Integer> weightData) {
+        binding.pickerWeight.setTitle(binding.txtWeightCaption.getText().toString());
+        binding.pickerWeight.setUnit(resources.getString(str_picker_weight_unit));
+        binding.pickerWeight.setData(weightData);
+        binding.pickerWeight.setOnPickChangeListener(weight -> presenter.onWeightPick(weight));
+    }
+
+    @Override public void setWeightPicker(int weight) {
+        binding.pickerWeight.setItem(weight);
+    }
+
+    @Override public void showWeightPicker() {
+        binding.pickerWeight.show();
+    }
+
+    @Override public void hideWeightPicker() {
+        binding.pickerWeight.hide();
     }
 
     @Override public void setupReviewEditText() {
-        //reviewEditText.addTextChangedListener(new TextWatcher() {
-        //    @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        //    }
-        //
-        //    @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
-        //        presenter.onTextChanged(s.toString());
-        //    }
-        //
-        //    @Override public void afterTextChanged(Editable s) {
-        //    }
-        //});
+        binding.editReview.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                presenter.onTextChanged(s.toString());
+            }
+
+            @Override public void afterTextChanged(Editable s) {
+            }
+        });
     }
 
     @Override public void setupRecyclerView() {
@@ -284,12 +350,16 @@ public class ReviewWriteActivity extends BaseActivity implements ReviewWritePres
         binding.txtGenderFemale.setBackgroundResource(img_button_off);
     }
 
-    @Override public void showAgePicker() {
-        binding.pickerAge.show();
+    @Override public void setAge(int age) {
+        binding.txtAge.setText(String.valueOf(age));
     }
 
-    @Override public void hideAgePicker() {
-        binding.pickerAge.hide();
+    @Override public void setHeight(int height) {
+        binding.txtHeight.setText(String.valueOf(height));
+    }
+
+    @Override public void setWeight(int weight) {
+        binding.txtWeight.setText(String.valueOf(weight));
     }
 
     @Override public void checkStoragePermission() {
@@ -326,25 +396,30 @@ public class ReviewWriteActivity extends BaseActivity implements ReviewWritePres
     }
 
     @Override public void enableApplyButton() {
-        //applyTextView.setEnabled(true);
-        //applyTextView.setBackgroundColor(color_FF8140E5);
+        binding.txtApply.setEnabled(true);
+        binding.txtApply.setBackgroundColor(resources.getColor(color_FF8140E5));
+        binding.txtApply.setTextColor(resources.getColor(color_FFFFFFFF));
     }
 
     @Override public void disableApplyButton() {
-        //applyTextView.setEnabled(false);
-        //applyTextView.setBackgroundColor(color_FFF5F5F5);
+        binding.txtApply.setEnabled(false);
+        binding.txtApply.setBackgroundColor(resources.getColor(color_FFF5F5F5));
+        binding.txtApply.setTextColor(resources.getColor(color_FFA9A9A9));
     }
 
-    @Override public void showReviewWriteToast() {
-        Toast.makeText(this, str_review_write, Toast.LENGTH_SHORT).show();
+    @Override public void showLoadingView() {
+        binding.loadingView.show();
+    }
+
+    @Override public void hideLoadingView() {
+        binding.loadingView.hide();
+    }
+
+    @Override public void showReviewCompletedDialog(boolean isPhotoReview, int point) {
+        DialogManager.showReviewCompletedDialog(this, isPhotoReview, point, presenter::onReviewCompletedDialogOk);
     }
 
     @Override public void navigateToGallery(List<PhotoDataModel> images) {
         GalleryActivity.start(this, images);
-    }
-
-    @OnClick(R.id.txt_apply)
-    void onApplyClick() {
-        presenter.onApplyClick();
     }
 }

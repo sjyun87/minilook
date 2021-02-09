@@ -1,27 +1,33 @@
 package com.minilook.minilook.ui.review_write;
 
+import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.code.GenderCode;
 import com.minilook.minilook.data.code.ReviewSatisfactions;
 import com.minilook.minilook.data.code.ReviewSizes;
 import com.minilook.minilook.data.common.HttpCode;
-import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.common.KeyDataModel;
 import com.minilook.minilook.data.model.gallery.PhotoDataModel;
 import com.minilook.minilook.data.model.order.OrderProductDataModel;
+import com.minilook.minilook.data.model.review.ReviewWriteCompletedDataModel;
+import com.minilook.minilook.data.model.review.ReviewWriteDataModel;
 import com.minilook.minilook.data.network.common.CommonRequest;
 import com.minilook.minilook.data.network.naver.NCloudRequest;
 import com.minilook.minilook.data.network.review.ReviewRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
-import com.minilook.minilook.ui.album.GalleryPresenterImpl;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
+import com.minilook.minilook.ui.gallery.GalleryPresenterImpl;
 import com.minilook.minilook.ui.review_write.di.ReviewWriteArguments;
 import com.minilook.minilook.ui.review_write.viewholder.PhotoContentItemVH;
 import com.minilook.minilook.ui.review_write.viewholder.PhotoFooterItemVH;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import okhttp3.ResponseBody;
@@ -39,12 +45,16 @@ public class ReviewWritePresenterImpl extends BasePresenterImpl implements Revie
     private final NCloudRequest nCloudRequest;
     private final Gson gson;
 
-    private int satisfactionCode = -1;
-    private int sizeRatingCode = -1;
-    private int genderCode = -1;
+    private String satisfactionCode = "";
+    private String sizeRatingCode = "";
+    private String genderCode = "";
+    private int age = -1;
+    private int height = -1;
+    private int weight = -1;
 
     private String review;
     private List<PhotoDataModel> photos;
+    private int uploadCount = 0;
 
     public ReviewWritePresenterImpl(ReviewWriteArguments args) {
         view = args.getView();
@@ -61,6 +71,9 @@ public class ReviewWritePresenterImpl extends BasePresenterImpl implements Revie
     @Override public void onCreate() {
         toRxObservable();
         view.setupClickAction();
+        view.setupAgePicker(getData(1, 16, 1));
+        view.setupHeightPicker(getData(50, 180, 1));
+        view.setupWeightPicker(getData(3, 70, 1));
 
         view.setOrderNo(orderNo);
         view.setOrderDate(orderDate);
@@ -73,32 +86,45 @@ public class ReviewWritePresenterImpl extends BasePresenterImpl implements Revie
         view.setupRecyclerView();
     }
 
-    @Override public void onSatisfactionClick(int code) {
-        if (satisfactionCode != code) {
-            if (satisfactionCode != -1) unselectSatisfactionButton(satisfactionCode);
+    @Override public void onSatisfactionClick(String code) {
+        if (!satisfactionCode.equals(code)) {
+            if (!TextUtils.isEmpty(satisfactionCode)) unselectSatisfactionButton(satisfactionCode);
             satisfactionCode = code;
             selectSatisfactionButton(satisfactionCode);
+            handleApplyButton();
         }
     }
 
-    @Override public void onSizeClick(int code) {
-        if (sizeRatingCode != code) {
-            if (sizeRatingCode != -1) unselectSizeRatingButton(sizeRatingCode);
+    @Override public void onSizeClick(String code) {
+        if (!sizeRatingCode.equals(code)) {
+            if (!TextUtils.isEmpty(sizeRatingCode)) unselectSizeRatingButton(sizeRatingCode);
             sizeRatingCode = code;
             selectSizeRatingButton(sizeRatingCode);
+            handleApplyButton();
         }
     }
 
-    @Override public void onGenderClick(int code) {
-        if (genderCode != code) {
-            if (genderCode != -1) unselectGenderButton(genderCode);
+    @Override public void onGenderClick(String code) {
+        if (!genderCode.equals(code)) {
+            if (!TextUtils.isEmpty(genderCode)) unselectGenderButton(genderCode);
             genderCode = code;
             selectGenderButton(genderCode);
         }
     }
 
     @Override public void onAgeInputClick() {
+        view.setAgePicker(age != -1 ? age : 6);
         view.showAgePicker();
+    }
+
+    @Override public void onHeightInputClick() {
+        view.setHeightPicker(height != -1 ? height : 110);
+        view.showHeightPicker();
+    }
+
+    @Override public void onWeightInputClick() {
+        view.setWeightPicker(weight != -1 ? weight : 20);
+        view.showWeightPicker();
     }
 
     @Override public void onPhotoAddClick() {
@@ -109,80 +135,134 @@ public class ReviewWritePresenterImpl extends BasePresenterImpl implements Revie
         view.navigateToGallery(photos);
     }
 
+    @Override public void onAgePick(int age) {
+        this.age = age;
+        view.setAge(age);
+    }
+
+    @Override public void onHeightPick(int height) {
+        this.height = height;
+        view.setHeight(height);
+    }
+
+    @Override public void onWeightPick(int weight) {
+        this.weight = weight;
+        view.setWeight(weight);
+    }
+
     @Override public void onTextChanged(String text) {
         review = text;
-        if (review.length() >= 5) {
-            view.enableApplyButton();
-        } else {
-            view.disableApplyButton();
-        }
+        handleApplyButton();
     }
 
     @Override public void onApplyClick() {
-        //reqWriteReview();
-    }
-
-    private void selectSatisfactionButton(int code) {
-        if (code == ReviewSatisfactions.GOOD.getCode()) {
-            view.selectGoodButton();
-        } else if (code == ReviewSatisfactions.NORMAL.getCode()) {
-            view.selectNormalButton();
-        } else if (code == ReviewSatisfactions.BAD.getCode()) {
-            view.selectBadButton();
+        view.showLoadingView();
+        if (photos != null && photos.size() > 0) {
+            getUploadKeys();
+        } else {
+            writeReview();
         }
     }
 
-    private void unselectSatisfactionButton(int code) {
-        if (code == ReviewSatisfactions.GOOD.getCode()) {
-            view.unselectGoodButton();
-        } else if (code == ReviewSatisfactions.NORMAL.getCode()) {
-            view.unselectNormalButton();
-        } else if (code == ReviewSatisfactions.BAD.getCode()) {
-            view.unselectBadButton();
+    @Override public void onReviewCompletedDialogOk() {
+        view.finish();
+    }
+
+    private List<Integer> getData(int minValue, int maxValue, int step) {
+        List<Integer> items = new ArrayList<>();
+        for (int i = minValue; i <= maxValue; i += step) {
+            items.add(i);
+        }
+        return items;
+    }
+
+    private void selectSatisfactionButton(String code) {
+        switch (ReviewSatisfactions.toType(code)) {
+            case GOOD:
+                view.selectGoodButton();
+                break;
+            case NORMAL:
+                view.selectNormalButton();
+                break;
+            case BAD:
+                view.selectBadButton();
+                break;
         }
     }
 
-    private void selectSizeRatingButton(int code) {
-        if (code == ReviewSizes.VERY_BIG.getCode()) {
-            view.selectVeryBigButton();
-        } else if (code == ReviewSizes.LITTLE_BIG.getCode()) {
-            view.selectLittleBigButton();
-        } else if (code == ReviewSizes.PERFECTLY.getCode()) {
-            view.selectPerfectlyButton();
-        } else if (code == ReviewSizes.LITTLE_SMALL.getCode()) {
-            view.selectLittleSmallButton();
-        } else if (code == ReviewSizes.VERY_SMALL.getCode()) {
-            view.selectVerySmallButton();
+    private void unselectSatisfactionButton(String code) {
+        switch (ReviewSatisfactions.toType(code)) {
+            case GOOD:
+                view.unselectGoodButton();
+                break;
+            case NORMAL:
+                view.unselectNormalButton();
+                break;
+            case BAD:
+                view.unselectBadButton();
+                break;
         }
     }
 
-    private void unselectSizeRatingButton(int code) {
-        if (code == ReviewSizes.VERY_BIG.getCode()) {
-            view.unselectVeryBigButton();
-        } else if (code == ReviewSizes.LITTLE_BIG.getCode()) {
-            view.unselectLittleBigButton();
-        } else if (code == ReviewSizes.PERFECTLY.getCode()) {
-            view.unselectPerfectlyButton();
-        } else if (code == ReviewSizes.LITTLE_SMALL.getCode()) {
-            view.unselectLittleSmallButton();
-        } else if (code == ReviewSizes.VERY_SMALL.getCode()) {
-            view.unselectVerySmallButton();
+    private void selectSizeRatingButton(String code) {
+        switch (ReviewSizes.toType(code)) {
+            case VERY_BIG:
+                view.selectVeryBigButton();
+                break;
+            case LITTLE_BIG:
+                view.selectLittleBigButton();
+                break;
+            case PERFECTLY:
+                view.selectPerfectlyButton();
+                break;
+            case LITTLE_SMALL:
+                view.selectLittleSmallButton();
+                break;
+            case VERY_SMALL:
+                view.selectVerySmallButton();
+                break;
         }
     }
 
-    private void selectGenderButton(int code) {
-        if (code == GenderCode.MALE.getCode()) {
-            view.selectMaleButton();
-        } else if (code == GenderCode.FEMALE.getCode()) {
-            view.selectFemaleButton();
+    private void unselectSizeRatingButton(String code) {
+        switch (ReviewSizes.toType(code)) {
+            case VERY_BIG:
+                view.unselectVeryBigButton();
+                break;
+            case LITTLE_BIG:
+                view.unselectLittleBigButton();
+                break;
+            case PERFECTLY:
+                view.unselectPerfectlyButton();
+                break;
+            case LITTLE_SMALL:
+                view.unselectLittleSmallButton();
+                break;
+            case VERY_SMALL:
+                view.unselectVerySmallButton();
+                break;
         }
     }
 
-    private void unselectGenderButton(int code) {
-        if (code == GenderCode.MALE.getCode()) {
-            view.unselectMaleButton();
-        } else if (code == GenderCode.FEMALE.getCode()) {
-            view.unselectFemaleButton();
+    private void selectGenderButton(String code) {
+        switch (GenderCode.toType(code)) {
+            case MALE:
+                view.selectMaleButton();
+                break;
+            case FEMALE:
+                view.selectFemaleButton();
+                break;
+        }
+    }
+
+    private void unselectGenderButton(String code) {
+        switch (GenderCode.toType(code)) {
+            case MALE:
+                view.unselectMaleButton();
+                break;
+            case FEMALE:
+                view.unselectFemaleButton();
+                break;
         }
     }
 
@@ -206,23 +286,59 @@ public class ReviewWritePresenterImpl extends BasePresenterImpl implements Revie
         view.setSelectedPhotoCount(photos.size());
     }
 
-    private void reqWriteReview() {
-        addDisposable(reviewRequest.writeReview(orderNo, data.getProductNo(), data.getOptionNo(), review)
+    private void handleApplyButton() {
+        if (!TextUtils.isEmpty(satisfactionCode)
+            && !TextUtils.isEmpty(sizeRatingCode)
+            && !TextUtils.isEmpty(review)
+            && review.length() >= 10) {
+            view.enableApplyButton();
+        } else {
+            view.disableApplyButton();
+        }
+    }
+
+    private void writeReview() {
+        addDisposable(reviewRequest.writeReview(getWriteData())
             .compose(Transformer.applySchedulers())
             .filter(data -> {
                 String code = data.getCode();
                 return code.equals(HttpCode.OK);
             })
-            .subscribe(this::resWriteReview, Timber::e));
+            .map(model -> gson.fromJson(model.getData(), ReviewWriteCompletedDataModel.class))
+            .subscribe(this::onResWriteReview, Timber::e));
     }
 
-    private void resWriteReview(BaseDataModel data) {
-        view.showReviewWriteToast();
+    private ReviewWriteDataModel getWriteData() {
+        ReviewWriteDataModel model = new ReviewWriteDataModel();
+        model.setOrderNo(orderNo);
+        model.setProductNo(data.getProductNo());
+        model.setOptionNo(data.getOptionNo());
+        model.setSatisfactionCode(satisfactionCode);
+        model.setSizeRatingCode(sizeRatingCode);
+        model.setGenderCode(genderCode);
+        model.setAge(age);
+        model.setHeight(height);
+        model.setWeight(weight);
+        model.setPhotos(parseToPhotoData());
+        model.setReview(review);
+        return model;
+    }
+
+    private List<String> parseToPhotoData() {
+        List<String> items = new ArrayList<>();
+        for (PhotoDataModel photo : photos) {
+            items.add(photo.getName());
+        }
+        return items;
+    }
+
+    private void onResWriteReview(ReviewWriteCompletedDataModel data) {
+        view.hideLoadingView();
+        view.showReviewCompletedDialog(data.isPhotoReview(), data.getPoint());
         RxBus.send(new RxEventReviewWrite());
-        view.finish();
     }
 
-    private void reqGetKeys() {
+    private void getUploadKeys() {
         addDisposable(commonRequest.getKeys()
             .compose(Transformer.applySchedulers())
             .filter(data -> {
@@ -230,21 +346,41 @@ public class ReviewWritePresenterImpl extends BasePresenterImpl implements Revie
                 return code.equals(HttpCode.OK);
             })
             .map(model -> gson.fromJson(model.getData(), KeyDataModel.class))
-            .subscribe(this::resKeys, Timber::e)
+            .subscribe(this::onResUploadKeys, Timber::e)
         );
     }
 
-    private void resKeys(KeyDataModel model) {
-        reqPutImage(model, photos);
+    private void onResUploadKeys(KeyDataModel model) {
+        for (PhotoDataModel photo : photos) {
+            photo.setName(createObjectName());
+            putImage(model, photo);
+        }
     }
 
-    private void reqPutImage(KeyDataModel keys, List<PhotoDataModel> images) {
-        addDisposable(nCloudRequest.putImage(NCloudRequest.TYPE_REVIEW, keys, data.getProductNo(), images.get(0))
-            .subscribe(this::resPutImage, Timber::e));
+    private String createObjectName() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("P");
+        sb.append(data.getProductNo());
+        sb.append("_");
+        sb.append(new SimpleDateFormat("yyyyMMddHHmmssSSSS", Locale.getDefault()).format(new Date()));
+        sb.append(".png");
+        return sb.toString();
     }
 
-    private void resPutImage(ResponseBody body) {
-        Timber.e(body.toString());
+    private void putImage(KeyDataModel keys, PhotoDataModel photo) {
+        addDisposable(nCloudRequest.putImage(NCloudRequest.TYPE_REVIEW, keys, data.getProductNo(), photo)
+            .subscribe(this::onResPutImage, Timber::e));
+    }
+
+    private void onResPutImage(ResponseBody body) {
+        uploadCount++;
+        checkUploadCompleted();
+    }
+
+    private void checkUploadCompleted() {
+        if (photos.size() == uploadCount) {
+            writeReview();
+        }
     }
 
     private void toRxObservable() {

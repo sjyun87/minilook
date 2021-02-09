@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.album;
+package com.minilook.minilook.ui.gallery;
 
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;

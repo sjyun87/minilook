@@ -16,6 +16,7 @@ import com.minilook.minilook.ui.dialog.MarketingInfoDialog;
 import com.minilook.minilook.ui.dialog.NoEmailDialog;
 import com.minilook.minilook.ui.dialog.OutOfStockDialog;
 import com.minilook.minilook.ui.dialog.PurchaseConfirmDialog;
+import com.minilook.minilook.ui.dialog.ReviewCompletedDialog;
 import com.minilook.minilook.ui.dialog.UpdateDialog;
 import com.minilook.minilook.ui.dialog.listener.OnCloseClickListener;
 import com.minilook.minilook.ui.dialog.listener.OnNegativeClickListener;
@@ -136,6 +137,16 @@ public final class DialogManager {
     @Builder
     public static void showChallengeAlreadyEnterDialog(Activity activity) {
         ChallengeAlreadyEnterDialog dialog = new ChallengeAlreadyEnterDialog(activity);
+        dialog.show();
+    }
+
+    @Builder
+    public static void showReviewCompletedDialog(Activity activity, boolean isPhotoReview, int point,
+        OnPositiveClickListener listener) {
+        ReviewCompletedDialog dialog = new ReviewCompletedDialog(activity);
+        dialog.setPhotoReview(isPhotoReview);
+        dialog.setPoint(point);
+        dialog.setOnPositiveClickListener(listener);
         dialog.show();
     }
 }

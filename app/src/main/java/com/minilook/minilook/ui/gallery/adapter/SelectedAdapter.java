@@ -1,24 +1,26 @@
-package com.minilook.minilook.ui.base.widget.picker.age.adapter;
+package com.minilook.minilook.ui.gallery.adapter;
 
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.minilook.minilook.data.model.gallery.PhotoDataModel;
+import com.minilook.minilook.ui.gallery.viewholder.SelectedItemVH;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.base.widget.picker.age.viewholder.AgePickerItemVH;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AgePickerAdapter extends RecyclerView.Adapter<AgePickerItemVH>
-    implements BaseAdapterDataModel<String>, BaseAdapterDataView<String> {
+public class SelectedAdapter extends RecyclerView.Adapter<SelectedItemVH> implements
+    BaseAdapterDataModel<PhotoDataModel>, BaseAdapterDataView<PhotoDataModel> {
 
-    private final List<String> items = new ArrayList<>();
+    private final List<PhotoDataModel> items = new ArrayList<>();
 
-    @NonNull @Override public AgePickerItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new AgePickerItemVH(parent);
+    @NonNull @Override
+    public SelectedItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new SelectedItemVH(parent);
     }
 
-    @Override public void onBindViewHolder(@NonNull AgePickerItemVH holder, int position) {
+    @Override public void onBindViewHolder(@NonNull SelectedItemVH holder, int position) {
         holder.bind(items.get(position));
     }
 
@@ -26,36 +28,36 @@ public class AgePickerAdapter extends RecyclerView.Adapter<AgePickerItemVH>
         return getSize();
     }
 
-    @Override public void add(String $item) {
+    @Override public void add(PhotoDataModel $item) {
         items.add($item);
     }
 
-    @Override public void add(int $index, String $item) {
+    @Override public void add(int $index, PhotoDataModel $item) {
         items.add($index, $item);
     }
 
-    @Override public void addAll(List<String> $items) {
+    @Override public void addAll(List<PhotoDataModel> $items) {
         items.addAll($items);
     }
 
-    @Override public void set(int $index, String $item) {
+    @Override public void set(int $index, PhotoDataModel $item) {
         items.set($index, $item);
     }
 
-    @Override public void set(List<String> $items) {
+    @Override public void set(List<PhotoDataModel> $items) {
         items.clear();
         items.addAll($items);
     }
 
-    @Override public String get(int $index) {
+    @Override public PhotoDataModel get(int $index) {
         return items.get($index);
     }
 
-    @Override public List<String> get() {
+    @Override public List<PhotoDataModel> get() {
         return items;
     }
 
-    @Override public int get(String $item) {
+    @Override public int get(PhotoDataModel $item) {
         return items.indexOf($item);
     }
 
@@ -63,7 +65,7 @@ public class AgePickerAdapter extends RecyclerView.Adapter<AgePickerItemVH>
         items.remove($index);
     }
 
-    @Override public void remove(String $item) {
+    @Override public void remove(PhotoDataModel $item) {
         items.remove($item);
     }
 

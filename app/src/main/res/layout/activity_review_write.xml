@@ -779,9 +779,27 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <com.minilook.minilook.ui.base.widget.picker.age.AgePicker
+    <com.minilook.minilook.ui.base.widget.picker.SnapPicker
         android:id="@+id/picker_age"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:visibility="gone" />
+
+    <com.minilook.minilook.ui.base.widget.picker.SnapPicker
+        android:id="@+id/picker_height"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:visibility="gone" />
+
+    <com.minilook.minilook.ui.base.widget.picker.SnapPicker
+        android:id="@+id/picker_weight"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:visibility="gone" />
+
+    <com.minilook.minilook.ui.base.widget.LoadingView
+        android:id="@+id/loading_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 </androidx.constraintlayout.widget.ConstraintLayout>

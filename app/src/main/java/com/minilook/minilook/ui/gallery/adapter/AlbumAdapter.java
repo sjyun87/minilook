@@ -1,26 +1,26 @@
-package com.minilook.minilook.ui.album.adapter;
+package com.minilook.minilook.ui.gallery.adapter;
 
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.minilook.minilook.data.model.gallery.PhotoDataModel;
-import com.minilook.minilook.ui.album.viewholder.SelectedItemVH;
+import com.minilook.minilook.data.model.gallery.AlbumDataModel;
+import com.minilook.minilook.ui.gallery.viewholder.AlbumItemVH;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectedAdapter extends RecyclerView.Adapter<SelectedItemVH> implements
-    BaseAdapterDataModel<PhotoDataModel>, BaseAdapterDataView<PhotoDataModel> {
+public class AlbumAdapter extends RecyclerView.Adapter<AlbumItemVH> implements
+    BaseAdapterDataModel<AlbumDataModel>, BaseAdapterDataView<AlbumDataModel> {
 
-    private final List<PhotoDataModel> items = new ArrayList<>();
+    private final List<AlbumDataModel> items = new ArrayList<>();
 
     @NonNull @Override
-    public SelectedItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new SelectedItemVH(parent);
+    public AlbumItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new AlbumItemVH(parent);
     }
 
-    @Override public void onBindViewHolder(@NonNull SelectedItemVH holder, int position) {
+    @Override public void onBindViewHolder(@NonNull AlbumItemVH holder, int position) {
         holder.bind(items.get(position));
     }
 
@@ -28,36 +28,36 @@ public class SelectedAdapter extends RecyclerView.Adapter<SelectedItemVH> implem
         return getSize();
     }
 
-    @Override public void add(PhotoDataModel $item) {
+    @Override public void add(AlbumDataModel $item) {
         items.add($item);
     }
 
-    @Override public void add(int $index, PhotoDataModel $item) {
+    @Override public void add(int $index, AlbumDataModel $item) {
         items.add($index, $item);
     }
 
-    @Override public void addAll(List<PhotoDataModel> $items) {
+    @Override public void addAll(List<AlbumDataModel> $items) {
         items.addAll($items);
     }
 
-    @Override public void set(int $index, PhotoDataModel $item) {
+    @Override public void set(int $index, AlbumDataModel $item) {
         items.set($index, $item);
     }
 
-    @Override public void set(List<PhotoDataModel> $items) {
+    @Override public void set(List<AlbumDataModel> $items) {
         items.clear();
         items.addAll($items);
     }
 
-    @Override public PhotoDataModel get(int $index) {
+    @Override public AlbumDataModel get(int $index) {
         return items.get($index);
     }
 
-    @Override public List<PhotoDataModel> get() {
+    @Override public List<AlbumDataModel> get() {
         return items;
     }
 
-    @Override public int get(PhotoDataModel $item) {
+    @Override public int get(AlbumDataModel $item) {
         return items.indexOf($item);
     }
 
@@ -65,7 +65,7 @@ public class SelectedAdapter extends RecyclerView.Adapter<SelectedItemVH> implem
         items.remove($index);
     }
 
-    @Override public void remove(PhotoDataModel $item) {
+    @Override public void remove(AlbumDataModel $item) {
         items.remove($item);
     }
 

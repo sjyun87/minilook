@@ -4,8 +4,18 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor @Getter public enum GenderCode {
-    MALE(1),
-    FEMALE(2);
+    NONE(""),
+    MALE("boy"),
+    FEMALE("girl");
 
-    private final int code;
+    private final String code;
+
+    public static GenderCode toType(String $code) {
+        for (GenderCode gender : GenderCode.values()) {
+            if (gender.getCode().equals($code)) {
+                return gender;
+            }
+        }
+        return NONE;
+    }
 }

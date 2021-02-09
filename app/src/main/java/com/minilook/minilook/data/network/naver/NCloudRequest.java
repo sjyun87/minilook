@@ -48,22 +48,11 @@ public class NCloudRequest extends BaseRequest<NCloudService> {
     }
 
     public Single<ResponseBody> putImage(String type, KeyDataModel keys, int productNo, PhotoDataModel imageData) {
-        Date now = new Date();
         int memberNo = App.getInstance().getMemberNo();
-        String objectName = createObjectName(now, productNo);
+        String objectName = imageData.getName();
         String uploadPath = getUploadPath(type, memberNo, objectName);
-        return getApi().putReviewImage(createAuthHeaders(keys, uploadPath, now), memberNo, objectName,
+        return getApi().putReviewImage(createAuthHeaders(keys, uploadPath), memberNo, objectName,
             createImageData(new File(imageData.getFilePath())));
-    }
-
-    private static String createObjectName(Date date, int productNo) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("P");
-        sb.append(productNo);
-        sb.append("_");
-        sb.append(new SimpleDateFormat("yyyyMMddHHmmssSSSS", Locale.getDefault()).format(date));
-        sb.append(".png");
-        return sb.toString();
     }
 
     private RequestBody createImageData(File file) {
@@ -74,7 +63,8 @@ public class NCloudRequest extends BaseRequest<NCloudService> {
         return "/minilook/" + type + "/" + memberNo + "/" + objectName;
     }
 
-    private Map<String, String> createAuthHeaders(KeyDataModel keys, String uploadPath, Date now) {
+    private Map<String, String> createAuthHeaders(KeyDataModel keys, String uploadPath) {
+        Date now = new Date();
         Map<String, String> headers = new HashMap<>();
         headers.put("Host", HOST);
         headers.put("X-Amz-Date", getTimeStamp(now));

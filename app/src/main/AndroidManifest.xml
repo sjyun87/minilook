@@ -284,7 +284,7 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name=".ui.album.GalleryActivity"
+            android:name=".ui.gallery.GalleryActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
