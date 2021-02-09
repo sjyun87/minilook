@@ -142,7 +142,11 @@ public class IpagePresenterImpl extends BasePresenterImpl implements IpagePresen
     }
 
     @Override public void onQuestionClick() {
-        view.navigateToQuestion();
+        view.navigateToQuestionHistory();
+    }
+
+    @Override public void onReviewClick() {
+        view.navigateToReviewHistory();
     }
 
     @Override public void onNoticeClick() {

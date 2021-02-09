@@ -69,6 +69,7 @@ public class IpageFragment extends BaseFragment implements IpagePresenter.View {
         binding.layoutDeliveryPanel.setOnClickListener(view -> presenter.onDeliveryClick());
         binding.layoutDeliveryCompletePanel.setOnClickListener(view -> presenter.onDeliveryCompleteClick());
         binding.layoutQuestionPanel.setOnClickListener(view -> presenter.onQuestionClick());
+        binding.layoutReviewPanel.setOnClickListener(view -> presenter.onReviewClick());
         binding.txtServiceNotice.setOnClickListener(view -> presenter.onNoticeClick());
         binding.txtServiceFaq.setOnClickListener(view -> presenter.onFAQClick());
         binding.layoutOrderPanel.setOnClickListener(view -> presenter.onOrderMoreClick());
@@ -173,8 +174,12 @@ public class IpageFragment extends BaseFragment implements IpagePresenter.View {
         OrderHistoryActivity.start(getContext());
     }
 
-    @Override public void navigateToQuestion() {
+    @Override public void navigateToQuestionHistory() {
         //QuestionActivity.start(getContext());
+    }
+
+    @Override public void navigateToReviewHistory() {
+
     }
 
     @Override public void navigateToWebView(String url) {

@@ -42,6 +42,8 @@ public interface IpagePresenter extends LifecycleObserver {
 
     void onQuestionClick();
 
+    void onReviewClick();
+
     void onNoticeClick();
 
     void onFAQClick();
@@ -92,7 +94,9 @@ public interface IpagePresenter extends LifecycleObserver {
 
         void navigateToOrderMore();
 
-        void navigateToQuestion();
+        void navigateToQuestionHistory();
+
+        void navigateToReviewHistory();
 
         void navigateToWebView(String url);
     }

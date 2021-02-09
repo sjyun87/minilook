@@ -159,6 +159,11 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
+            android:name=".ui.question_history.QuestionHistoryActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
             android:name=".ui.question_write.QuestionWriteActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
@@ -185,6 +190,11 @@
 
         <activity
             android:name=".ui.review.ReviewActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name=".ui.review_history.ReviewHistoryActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
