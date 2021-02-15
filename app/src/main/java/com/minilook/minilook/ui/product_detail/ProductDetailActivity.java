@@ -37,7 +37,7 @@ import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base._BaseActivity;
-import com.minilook.minilook.ui.base.widget.ColorView;
+import com.minilook.minilook.ui.base.widget.ColorChip;
 import com.minilook.minilook.ui.base.widget.SizeView;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
@@ -277,11 +277,11 @@ public class ProductDetailActivity extends _BaseActivity implements ProductDetai
     }
 
     @Override public void addColorView(ProductStockDataModel model) {
-        ColorView colorView = ColorView.builder()
+        ColorChip colorChip = ColorChip.builder()
             .context(this)
             .model(model)
             .build();
-        colorPanel.addView(colorView);
+        colorPanel.addView(colorChip);
     }
 
     @Override public void addSizeView(ProductStockDataModel model) {

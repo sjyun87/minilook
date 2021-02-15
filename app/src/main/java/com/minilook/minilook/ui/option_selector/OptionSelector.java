@@ -250,6 +250,7 @@ public class OptionSelector extends FrameLayout implements OptionSelectorShoppin
     private void resetSelectedProduct() {
         productBoxHintTextView.setVisibility(VISIBLE);
         selectedProductPanel.setVisibility(GONE);
+        productThumbImageView.setImageDrawable(placeholder_img);
     }
 
     private void onColorSelected(OptionColorDataModel data) {
