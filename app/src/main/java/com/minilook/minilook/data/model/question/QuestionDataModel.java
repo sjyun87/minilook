@@ -29,4 +29,12 @@ import lombok.Data;
     private String answerDate;
     @Expose @SerializedName("isSecret")
     private boolean isSecret;
+    @Expose @SerializedName("productNo")
+    private int productNo;
+    @Expose @SerializedName("productName")
+    private String productName;
+    @Expose @SerializedName("brandName")
+    private String brandName;
+    @Expose @SerializedName("image")
+    private String thumbUrl;
 }

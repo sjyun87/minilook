@@ -39,4 +39,16 @@ public class QuestionRequest extends BaseRequest<QuestionService> {
         jsonMap.put("secret", model.isSecret());
         return createRequestBody(jsonMap);
     }
+
+    public Single<BaseDataModel> getQuestionHistory(int row, int lastQuestionNo) {
+        int memberNo = App.getInstance().getMemberNo();
+        return getApi().getQuestionHistory(memberNo, createQuestionHistoryData(row, lastQuestionNo));
+    }
+
+    private RequestBody createQuestionHistoryData(int rows, int lastQuestionNo) {
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("pageSize", rows);
+        if (lastQuestionNo != 0) jsonMap.put("lastInquiryNo", lastQuestionNo);
+        return createRequestBody(jsonMap);
+    }
 }

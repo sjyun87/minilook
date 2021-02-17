@@ -25,6 +25,6 @@ import lombok.Data;
     private int shoppingbagCount;
     @Expose @SerializedName("reviewCount")
     private int reviewCount;
-    @Expose @SerializedName("questionCount")
+    @Expose @SerializedName("noReplyInquiryCount")
     private int questionCount;
 }

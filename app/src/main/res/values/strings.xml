@@ -176,6 +176,7 @@
     <string name="question_secret">비밀글입니다.</string>
     <string name="question_answering">판매자님이 답변 중입니다.</string>
     <string name="question_edit">수정</string>
+    <string name="question_delete">삭제</string>
     <string name="question_empty">등록된 문의가 없습니다.</string>
     <string name="question_empty_button">문의하기</string>
 
@@ -191,6 +192,9 @@
     <string name="question_write_guide1_b">아이페이지>주문/배송내역</string>
     <string name="question_write_guide2">작성된 문의는 답변이 등록되기 전까지만 내용 수정 또는 삭제가 가능하며, 답변이 등록되면 공개글 <![CDATA[<->]]> 비밀글 전환만 가능합니다.</string>
     <string name="question_write_guide2_b">공개글 <![CDATA[<->]]> 비밀글 전환만</string>
+
+    <!--Question History-->
+    <string name="question_history_title">나의 문의</string>
 
     <!--Point-->
     <string name="point_title">포인트</string>

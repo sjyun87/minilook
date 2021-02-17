@@ -19,4 +19,9 @@ public interface QuestionService {
         @Path("productNo") int productNo,
         @Body RequestBody body
     );
+
+    @POST("/api/members/{memberNo}/inquiries") Single<BaseDataModel> getQuestionHistory(
+        @Path("memberNo") int memberNo,
+        @Body RequestBody body
+    );
 }

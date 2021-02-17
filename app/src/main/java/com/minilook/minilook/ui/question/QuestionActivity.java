@@ -31,8 +31,9 @@ public class QuestionActivity extends BaseActivity implements QuestionPresenter.
 
     private ActivityQuestionBinding binding;
     private QuestionPresenter presenter;
-    private QuestionAdapter adapter = new QuestionAdapter();
-    private BaseAdapterDataView<QuestionDataModel> adapterView = adapter;
+
+    private final QuestionAdapter adapter = new QuestionAdapter();
+    private final BaseAdapterDataView<QuestionDataModel> adapterView = adapter;
 
     @Override protected View getBindingView() {
         binding = ActivityQuestionBinding.inflate(getLayoutInflater());
