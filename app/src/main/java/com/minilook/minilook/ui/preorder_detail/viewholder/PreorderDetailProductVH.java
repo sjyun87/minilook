@@ -32,7 +32,7 @@ public class PreorderDetailProductVH extends _BaseViewHolder<ProductDataModel> {
     @BindView(R.id.txt_discount_percent) TextView discountPercentTextView;
     @BindView(R.id.txt_price) TextView priceTextView;
 
-    @BindString(R.string.base_price_percent) String format_percent;
+    @BindString(R.string.base_percent) String format_percent;
     @BindString(R.string.preorder_detail_product_detail_index) String format_index;
 
     @BindDrawable(R.drawable.ph_square) Drawable img_placeholder;

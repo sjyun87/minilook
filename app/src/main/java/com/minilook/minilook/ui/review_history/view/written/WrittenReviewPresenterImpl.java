@@ -6,10 +6,12 @@ import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.review.ReviewDataModel;
 import com.minilook.minilook.data.model.review.ReviewHistoryDataModel;
 import com.minilook.minilook.data.network.review.ReviewRequest;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.review_history.view.written.di.ReviewWrittenArguments;
+import com.minilook.minilook.ui.review_write.ReviewWritePresenterImpl;
 import java.util.List;
 import timber.log.Timber;
 
@@ -32,6 +34,7 @@ public class WrittenReviewPresenterImpl extends BasePresenterImpl implements Wri
     }
 
     @Override public void onCreateView() {
+        toRxObservable();
         view.setupRecyclerView();
 
         getWrittenReviews();
@@ -86,5 +89,14 @@ public class WrittenReviewPresenterImpl extends BasePresenterImpl implements Wri
         int row = reviews.size();
         adapter.addAll(reviews);
         view.refresh(start, row);
+    }
+
+    private void toRxObservable() {
+        addDisposable(RxBus.toObservable().subscribe(o -> {
+            if (o instanceof ReviewWritePresenterImpl.RxEventReviewWrite) {
+                lastReviewNo = -1;
+                getWrittenReviews();
+            }
+        }, Timber::e));
     }
 }

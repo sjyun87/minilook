@@ -129,7 +129,7 @@ public class LookBookPreviewPresenterImpl extends BasePresenterImpl implements L
                 if (product.getProductNo() == $data.getProductNo()) {
                     product.setScrap($data.isScrap());
                     product.setScrapCount($data.getScrapCount());
-                    product.setReviewCount($data.getReviewCount());
+                    product.getReview().setReviewCount($data.getReview().getReviewCount());
 
                     if (i == currentPosition) {
                         RxBus.send(new LookBookDetailPresenterImpl.RxEventLookBookDetailUpdateScrap(adapter.get(i)));

@@ -20,7 +20,7 @@ public class MarketBrandProductVH extends BaseViewHolder<ProductDataModel> {
 
     @DrawableRes int ph_square = R.drawable.ph_square;
 
-    @StringRes int str_format_percent = R.string.base_price_percent;
+    @StringRes int str_format_percent = R.string.base_percent;
 
     private final ViewMarketBrandProductBinding binding;
 

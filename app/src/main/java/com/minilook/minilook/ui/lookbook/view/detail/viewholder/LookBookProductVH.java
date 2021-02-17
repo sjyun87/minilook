@@ -63,7 +63,7 @@ public class LookBookProductVH extends BaseViewHolder<ProductDataModel> {
             .transition(new DrawableTransitionOptions().crossFade())
             .into(binding.imgProductThumb);
 
-        binding.txtReview.setText(StringUtil.toDigit(data.getReviewCount()));
+        //binding.txtReview.setText(StringUtil.toDigit(data.getReview().getReviewCount()));
         binding.txtCategory.setText(data.getCategory());
         binding.txtProductName.setText(data.getProductName());
         binding.txtProductDesc.setText(data.getProductDesc());

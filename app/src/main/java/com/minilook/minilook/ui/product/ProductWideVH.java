@@ -32,7 +32,7 @@ public class ProductWideVH extends _BaseViewHolder<ProductDataModel> {
     @BindView(R.id.curtain) View curtainView;
     @BindView(R.id.txt_display_label) TextView displayLabelTextView;
 
-    @BindString(R.string.base_price_percent) String format_percent;
+    @BindString(R.string.base_percent) String format_percent;
 
     @BindDrawable(R.drawable.ph_square) Drawable img_placeholder;
 

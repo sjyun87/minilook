@@ -1,69 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/color_FFFFFFFF"
-    android:paddingStart="@dimen/dp_10"
-    android:paddingTop="@dimen/dp_8"
-    android:paddingEnd="@dimen/dp_10"
-    android:paddingBottom="@dimen/dp_8">
+    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/img_product_thumb"
-        android:layout_width="@dimen/dp_32"
-        android:layout_height="@dimen/dp_32"
-        android:scaleType="centerCrop"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
-
-    <TextView
-        android:id="@+id/txt_brand_name"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_product_panel"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_6"
-        android:fontFamily="@font/nanum_square_r"
-        android:textColor="@color/color_FF232323"
-        android:textSize="@dimen/sp_6"
-        app:layout_constraintLeft_toRightOf="@+id/img_product_thumb"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/img_product_thumb"
-        app:layout_constraintVertical_chainStyle="packed"
-        tools:text="아델리" />
+        android:paddingStart="@dimen/dp_10"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingEnd="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_8">
 
-    <TextView
-        android:id="@+id/txt_product_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_5"
-        android:fontFamily="@font/nanum_square_b"
-        android:textColor="@color/color_FF232323"
-        android:textSize="@dimen/sp_7"
-        app:layout_constraintLeft_toLeftOf="@+id/txt_brand_name"
-        app:layout_constraintRight_toRightOf="@+id/txt_brand_name"
-        app:layout_constraintTop_toBottomOf="@+id/txt_brand_name"
-        tools:text="경량 비치 후드집업 점퍼" />
+        <ImageView
+            android:id="@+id/img_product_thumb"
+            android:layout_width="@dimen/dp_32"
+            android:layout_height="@dimen/dp_32"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/txt_option"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_6"
-        android:fontFamily="@font/nanum_square_r"
-        android:textColor="@color/color_FF616161"
-        android:textSize="@dimen/sp_6"
-        app:layout_constraintLeft_toLeftOf="@+id/txt_brand_name"
-        app:layout_constraintRight_toRightOf="@+id/txt_brand_name"
-        app:layout_constraintTop_toBottomOf="@+id/txt_product_name"
-        tools:text="그린 / XL" />
+        <TextView
+            android:id="@+id/txt_brand_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_6"
+            android:fontFamily="@font/nanum_square_r"
+            android:textColor="@color/color_FF232323"
+            android:textSize="@dimen/sp_6"
+            app:layout_constraintLeft_toRightOf="@+id/img_product_thumb"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/img_product_thumb"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="아델리" />
+
+        <TextView
+            android:id="@+id/txt_product_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
+            android:fontFamily="@font/nanum_square_b"
+            android:textColor="@color/color_FF232323"
+            android:textSize="@dimen/sp_7"
+            app:layout_constraintLeft_toLeftOf="@+id/txt_brand_name"
+            app:layout_constraintRight_toRightOf="@+id/txt_brand_name"
+            app:layout_constraintTop_toBottomOf="@+id/txt_brand_name"
+            tools:text="경량 비치 후드집업 점퍼" />
+
+        <TextView
+            android:id="@+id/txt_option"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_6"
+            android:fontFamily="@font/nanum_square_r"
+            android:textColor="@color/color_FF616161"
+            android:textSize="@dimen/sp_6"
+            app:layout_constraintLeft_toLeftOf="@+id/txt_brand_name"
+            app:layout_constraintRight_toRightOf="@+id/txt_brand_name"
+            app:layout_constraintTop_toBottomOf="@+id/txt_product_name"
+            tools:text="그린 / XL" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/txt_write"
         android:layout_width="@dimen/dp_44"
         android:layout_height="@dimen/dp_16"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_gravity="end"
+        android:layout_marginTop="@dimen/dp_2"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_8"
         android:background="@drawable/bg_button_border_purple"
         android:fontFamily="@font/nanum_square_r"
         android:gravity="center"
@@ -72,4 +83,4 @@
         android:textSize="@dimen/sp_6"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_product_thumb" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

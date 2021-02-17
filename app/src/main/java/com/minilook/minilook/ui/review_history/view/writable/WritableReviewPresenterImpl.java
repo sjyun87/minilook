@@ -6,10 +6,12 @@ import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.order.OrderHistoryDataModel;
 import com.minilook.minilook.data.model.review.WritableReviewHistoryDataModel;
 import com.minilook.minilook.data.network.review.ReviewRequest;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.review_history.view.writable.di.WritableReviewArguments;
+import com.minilook.minilook.ui.review_write.ReviewWritePresenterImpl;
 import java.util.List;
 import timber.log.Timber;
 
@@ -22,7 +24,7 @@ public class WritableReviewPresenterImpl extends BasePresenterImpl implements Wr
     private final ReviewRequest reviewRequest;
     private final Gson gson;
 
-    private String lastOrderTime;
+    private long lastOrderTime;
 
     public WritableReviewPresenterImpl(WritableReviewArguments args) {
         view = args.getView();
@@ -32,6 +34,7 @@ public class WritableReviewPresenterImpl extends BasePresenterImpl implements Wr
     }
 
     @Override public void onCreateView() {
+        toRxObservable();
         view.setupRecyclerView();
 
         getWritableReviews();
@@ -63,7 +66,7 @@ public class WritableReviewPresenterImpl extends BasePresenterImpl implements Wr
 
     private void onResWrittenReviews(WritableReviewHistoryDataModel data) {
         List<OrderHistoryDataModel> orders = data.getOrders();
-        //lastReviewNo = data.get
+        lastOrderTime = orders.get(orders.size() - 1).getRegistDate();
         adapter.set(orders);
         view.refresh();
     }
@@ -80,6 +83,20 @@ public class WritableReviewPresenterImpl extends BasePresenterImpl implements Wr
     }
 
     private void onResMoreWrittenReviews(WritableReviewHistoryDataModel data) {
+        List<OrderHistoryDataModel> orders = data.getOrders();
+        lastOrderTime = orders.get(orders.size() - 1).getRegistDate();
+        int start = adapter.getSize();
+        int row = orders.size();
+        adapter.addAll(orders);
+        view.refresh(start, row);
+    }
 
+    private void toRxObservable() {
+        addDisposable(RxBus.toObservable().subscribe(o -> {
+            if (o instanceof ReviewWritePresenterImpl.RxEventReviewWrite) {
+                lastOrderTime = -1;
+                getWritableReviews();
+            }
+        }, Timber::e));
     }
 }

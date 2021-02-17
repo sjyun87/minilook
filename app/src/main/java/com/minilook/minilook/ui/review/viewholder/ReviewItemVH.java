@@ -52,7 +52,7 @@ public class ReviewItemVH extends _BaseViewHolder<ReviewDataModel> {
 
     public ReviewItemVH(@NonNull View itemView) {
         super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_review, (ViewGroup) itemView, false));
+            .inflate(R.layout.view_review_item, (ViewGroup) itemView, false));
     }
 
     @Override public void bind(ReviewDataModel $data) {

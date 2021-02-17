@@ -1,6 +1,5 @@
 package com.minilook.minilook.ui.preorder_product_detail;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
@@ -70,7 +69,7 @@ public class PreorderProductDetailActivity extends _BaseActivity implements Preo
     @BindView(R.id.txt_expand) TextView expandTextView;
     @BindView(R.id.img_expand) ImageView expandImageView;
 
-    @BindString(R.string.base_price_percent) String format_percent;
+    @BindString(R.string.base_percent) String format_percent;
     @BindString(R.string.product_detail_info_expand) String str_expand;
     @BindString(R.string.product_detail_info_collapse) String str_collapse;
 
@@ -166,7 +165,6 @@ public class PreorderProductDetailActivity extends _BaseActivity implements Preo
         priceTextView.setText(text);
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
     @Override public void setupWebView() {
         productDetailWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
         productDetailWebView.getSettings().setJavaScriptEnabled(false);

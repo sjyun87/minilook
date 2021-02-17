@@ -19,7 +19,7 @@ public class ChallengeRelationProductItemVH extends BaseViewHolder<ProductDataMo
 
     @DrawableRes int ph_square = R.drawable.ph_square;
 
-    @StringRes int format_percent = R.string.base_price_percent;
+    @StringRes int format_percent = R.string.base_percent;
 
     private final ViewChallengeRelationProductItemBinding binding;
 

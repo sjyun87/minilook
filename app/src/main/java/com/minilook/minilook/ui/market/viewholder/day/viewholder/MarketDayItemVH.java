@@ -18,7 +18,7 @@ import com.minilook.minilook.util.StringUtil;
 
 public class MarketDayItemVH extends BaseViewHolder<ProductDataModel> {
 
-    @StringRes int str_format_percent = R.string.base_price_percent;
+    @StringRes int str_format_percent = R.string.base_percent;
 
     @DrawableRes int vh_square = R.drawable.ph_square;
 

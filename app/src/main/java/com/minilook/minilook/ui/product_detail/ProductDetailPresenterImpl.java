@@ -8,17 +8,19 @@ import com.minilook.minilook.data.code.ShippingCode;
 import com.minilook.minilook.data.code.StockType;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
+import com.minilook.minilook.data.model.image.ImageDataModel;
 import com.minilook.minilook.data.model.product.OptionColorDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.product.ProductStockDataModel;
 import com.minilook.minilook.data.model.review.ReviewDataModel;
+import com.minilook.minilook.data.model.review.ReviewHistoryDataModel;
+import com.minilook.minilook.data.model.review.ReviewRatingDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingProductDataModel;
 import com.minilook.minilook.data.network.order.OrderRequest;
 import com.minilook.minilook.data.network.product.ProductRequest;
 import com.minilook.minilook.data.network.review.ReviewRequest;
-import com.minilook.minilook.data.network.scrap.ScrapRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
@@ -44,10 +46,10 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     private final int productNo;
     private final BaseAdapterDataModel<String> productImageAdapter;
     private final BaseAdapterDataModel<ReviewDataModel> reviewAdapter;
+    private final BaseAdapterDataModel<ImageDataModel> photoReviewAdapter;
     private final BaseAdapterDataModel<ProductDataModel> relatedProductsAdapter;
     private final ProductRequest productRequest;
     private final OrderRequest orderRequest;
-    private final ScrapRequest scrapRequest;
     private final ReviewRequest reviewRequest;
     private final DynamicLinkUtil dynamicLinkUtil;
     private final Gson gson;
@@ -60,10 +62,10 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         productNo = args.getProductNo();
         productImageAdapter = args.getProductImageAdapter();
         reviewAdapter = args.getReviewAdapter();
+        photoReviewAdapter = args.getPhotoReviewAdapter();
         relatedProductsAdapter = args.getRelatedProductAdapter();
         productRequest = new ProductRequest();
         orderRequest = new OrderRequest();
-        scrapRequest = new ScrapRequest();
         reviewRequest = new ReviewRequest();
         dynamicLinkUtil = new DynamicLinkUtil();
         gson = App.getInstance().getGson();
@@ -75,6 +77,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         view.setupProductImageViewPager();
         view.setupTabLayout();
         view.setupWebView();
+        view.setupPhotoReviewRecyclerView();
         view.setupReviewRecyclerView();
         view.setupRelatedProductRecyclerView();
 
@@ -284,13 +287,28 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         view.setupInfoDamage(data.getInfoDamage());
         view.setupInfoServiceCenter(data.getInfoServiceCenter());
 
-        view.setupReviewCount(StringUtil.toDigit(data.getReviewCount()));
-
-        List<ReviewDataModel> reviews = data.getReviews();
+        ReviewHistoryDataModel reviewData = data.getReview();
+        view.setupReviewCount(StringUtil.toDigit(reviewData.getReviewCount()));
+        List<ReviewDataModel> reviews = reviewData.getReviews();
         if (reviews != null) {
-            reviewAdapter.set(data.getReviews());
+            reviewAdapter.set(reviewData.getReviews());
             view.reviewRefresh();
             view.showReviewContentsPanel();
+        }
+
+        ReviewRatingDataModel reviewRatingData = reviewData.getRating();
+        if (reviewRatingData != null) {
+            view.showReviewRatingPanel();
+            view.setSatisfaction(reviewRatingData.getSatisfaction());
+            view.setSizeRating(reviewRatingData.getSizeRating());
+            view.setSizeRatingDetail(reviewRatingData.getSizeRatingDetail());
+        }
+
+        List<ImageDataModel> photoReviews = reviewData.getPhotos();
+        if (photoReviews != null && photoReviews.size() > 0) {
+            photoReviewAdapter.set(photoReviews);
+            view.photoReviewRefresh();
+            view.showPhotoReviews();
         }
 
         view.setupQuestionCount(StringUtil.toDigit(data.getQuestionCount()));

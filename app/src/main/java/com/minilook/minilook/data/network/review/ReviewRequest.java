@@ -67,20 +67,20 @@ public class ReviewRequest extends BaseRequest<ReviewService> {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("pageSize", rows);
-        if (lastReviewNo != 0) jsonMap.put("lastReviewNo", lastReviewNo);
+        if (lastReviewNo > 0) jsonMap.put("lastReviewNo", lastReviewNo);
         return createRequestBody(jsonMap);
     }
 
-    public Single<BaseDataModel> getWritableReviews(int rows, String lastOrderTime) {
+    public Single<BaseDataModel> getWritableReviews(int rows, long lastOrderTime) {
         int memberNo = App.getInstance().getMemberNo();
         return getApi().getWritableReviews(memberNo, createGetWritableReviewsData(rows, lastOrderTime));
     }
 
-    private RequestBody createGetWritableReviewsData(int rows, String lastOrderTime) {
+    private RequestBody createGetWritableReviewsData(int rows, long lastOrderTime) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("pageSize", rows);
-        if (!TextUtils.isEmpty(lastOrderTime)) jsonMap.put("lastItemOrderTime", lastOrderTime);
+        if (lastOrderTime > 0) jsonMap.put("lastItemOrderTime", lastOrderTime);
         return createRequestBody(jsonMap);
     }
 }

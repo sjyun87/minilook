@@ -26,7 +26,7 @@ public class BrandDetailProductVH extends BaseViewHolder<ProductDataModel> {
     @DrawableRes int img_scrap_on = R.drawable.ic_scrap_on;
     @DrawableRes int img_scrap_off = R.drawable.ic_scrap_off;
 
-    @StringRes int str_format_percent = R.string.base_price_percent;
+    @StringRes int str_format_percent = R.string.base_percent;
 
     private final ViewBrandDetailProductItemBinding binding;
 

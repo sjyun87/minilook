@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.minilook.minilook.data.model.base.BooleanDeserializer;
-import com.minilook.minilook.data.model.review.ReviewDataModel;
+import com.minilook.minilook.data.model.review.ReviewHistoryDataModel;
 import java.util.List;
 import lombok.Data;
 
@@ -42,10 +42,8 @@ import lombok.Data;
     private int displayCode;
     @Expose @SerializedName("detailUrl")
     private String detailUrl;
-    @Expose @SerializedName("reviewCount")
-    private int reviewCount;
-    @Expose @SerializedName("reviews")
-    private List<ReviewDataModel> reviews;
+    @Expose @SerializedName("reviewInfo")
+    private ReviewHistoryDataModel review;
     @Expose @SerializedName("scrapCount")
     private int scrapCount;
     @Expose @SerializedName("isScrap")

@@ -12,30 +12,30 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 import androidx.annotation.ArrayRes;
 import androidx.annotation.ColorRes;
+import androidx.annotation.DimenRes;
 import androidx.annotation.DrawableRes;
+import androidx.annotation.FontRes;
 import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.google.android.material.tabs.TabLayout;
 import com.minilook.minilook.App;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.code.ReviewSatisfactions;
+import com.minilook.minilook.data.code.ReviewSizeRatings;
+import com.minilook.minilook.data.model.image.ImageDataModel;
 import com.minilook.minilook.data.model.product.OptionColorDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.product.ProductStockDataModel;
+import com.minilook.minilook.data.model.review.RatingDataModel;
 import com.minilook.minilook.data.model.review.ReviewDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
 import com.minilook.minilook.databinding.ActivityProductDetailBinding;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-<<<<<<< HEAD
-import com.minilook.minilook.ui.base.widget.ColorView;
-=======
-import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.widget.ColorChip;
->>>>>>> minilook/feature/challenge
 import com.minilook.minilook.ui.base.widget.SizeView;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
@@ -44,6 +44,7 @@ import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.order.OrderActivity;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.product_detail.adapter.ProductDetailImageAdapter;
+import com.minilook.minilook.ui.product_detail.adapter.ProductDetailPhotoReviewAdapter;
 import com.minilook.minilook.ui.product_detail.adapter.ProductDetailReviewAdapter;
 import com.minilook.minilook.ui.product_detail.di.ProductDetailArguments;
 import com.minilook.minilook.ui.product_detail.widget.ProductTabView;
@@ -66,11 +67,10 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         context.startActivity(intent);
     }
 
-    @StringRes int format_percent = R.string.base_price_percent;
+    @StringRes int format_percent = R.string.base_percent;
     @StringRes int format_point = R.string.product_detail_point;
     @StringRes int format_point_save = R.string.product_detail_point_save;
     @StringRes int format_review_more = R.string.product_detail_review_more;
-    @StringRes int str_error_msg = R.string.dialog_error_title;
     @ArrayRes int tabNames = R.array.tab_product_detail;
 
     @StringRes int str_shipping_free = R.string.product_detail_shipping_free;
@@ -81,14 +81,26 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     @StringRes int str_collapse = R.string.product_detail_info_collapse;
     @StringRes int str_add_shoppingbag = R.string.toast_add_shoppingbag;
 
+    @StringRes int format_size_rating = R.string.product_detail_review_rating_size;
+    @StringRes int format_size_rating_bold = R.string.product_detail_review_rating_size_bold;
+
     @DrawableRes int img_arrow_down = R.drawable.ic_arrow_down_xs;
     @DrawableRes int img_arrow_up = R.drawable.ic_arrow_up_xs;
     @DrawableRes int img_scrap_off = R.drawable.ic_scrap_off;
     @DrawableRes int img_scrap_on = R.drawable.ic_scrap_on;
+    @DrawableRes int img_review_good = R.drawable.ic_review_good_s;
+    @DrawableRes int img_review_normal = R.drawable.ic_review_normal_s;
+    @DrawableRes int img_review_bad = R.drawable.ic_review_bad_s;
 
     @ColorRes int color_FF8140E5 = R.color.color_FF8140E5;
     @ColorRes int color_FFA9A9A9 = R.color.color_FFA9A9A9;
     @ColorRes int color_FFDBDBDB = R.color.color_FFDBDBDB;
+    @ColorRes int color_FFF5F5F5 = R.color.color_FFF5F5F5;
+
+    @DimenRes int dp_4 = R.dimen.dp_4;
+    @DimenRes int dp_10 = R.dimen.dp_10;
+
+    @FontRes int font_bold = R.font.nanum_square_b;
 
     private ActivityProductDetailBinding binding;
     private ProductDetailPresenter presenter;
@@ -99,6 +111,8 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     private final BaseAdapterDataView<ProductDataModel> relatedProductAdapterView = relatedProductAdapter;
     private final ProductDetailReviewAdapter reviewAdapter = new ProductDetailReviewAdapter();
     private final BaseAdapterDataView<ReviewDataModel> reviewAdapterView = reviewAdapter;
+    private final ProductDetailPhotoReviewAdapter photoReviewAdapter = new ProductDetailPhotoReviewAdapter();
+    private final BaseAdapterDataView<ImageDataModel> photoReviewAdapterView = photoReviewAdapter;
 
     @Override protected View getBindingView() {
         binding = ActivityProductDetailBinding.inflate(getLayoutInflater());
@@ -116,11 +130,20 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
             .productNo(getIntent().getIntExtra("productNo", -1))
             .productImageAdapter(productImageAdapter)
             .reviewAdapter(reviewAdapter)
+            .photoReviewAdapter(photoReviewAdapter)
             .relatedProductAdapter(relatedProductAdapter)
             .build();
     }
 
     @Override public void setupClickAction() {
+        binding.layoutExpandPanel.setOnClickListener(view -> presenter.onExpandClick());
+        binding.layoutBrandPanel.setOnClickListener(view -> presenter.onBrandClick());
+        binding.layoutReviewPanel.setOnClickListener(view -> presenter.onReviewMoreClick());
+        binding.txtReviewMore.setOnClickListener(view -> presenter.onReviewMoreClick());
+        binding.layoutQuestionPanel.setOnClickListener(view -> presenter.onQuestionClick());
+        binding.layoutShippingNRefundPanel.setOnClickListener(view -> presenter.onShippingNRefundClick());
+        binding.imgShare.setOnClickListener(view -> presenter.onShareClick());
+        binding.imgScrap.setOnClickListener(view -> presenter.onScrapClick());
         binding.txtBuy.setOnClickListener(view -> presenter.onBuyClick());
     }
 
@@ -201,7 +224,8 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         binding.rcvReview.setAdapter(reviewAdapter);
         DividerDecoration.builder(this)
             .size(DimenUtil.dpToPx(this, 1))
-            .color(color_FFDBDBDB)
+            .color(resources.getColor(color_FFF5F5F5))
+            .insets(resources.getDimen(dp_10), resources.getDimen(dp_10))
             .showFirstDivider()
             .build()
             .addTo(binding.rcvReview);
@@ -209,6 +233,20 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 
     @Override public void reviewRefresh() {
         reviewAdapterView.refresh();
+    }
+
+    @Override public void setupPhotoReviewRecyclerView() {
+        binding.rcvPhotoReview.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        binding.rcvPhotoReview.setAdapter(photoReviewAdapter);
+        DividerDecoration.builder(this)
+            .size(resources.getDimen(dp_4))
+            .asSpace()
+            .build()
+            .addTo(binding.rcvPhotoReview);
+    }
+
+    @Override public void photoReviewRefresh() {
+        photoReviewAdapterView.refresh();
     }
 
     @Override public void showRelatedPanel() {
@@ -232,11 +270,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
             .context(this)
             .model(model)
             .build();
-<<<<<<< HEAD
-        binding.layoutOptionColorPanel.addView(colorView);
-=======
-        colorPanel.addView(colorChip);
->>>>>>> minilook/feature/challenge
+        binding.layoutOptionColorPanel.addView(colorChip);
     }
 
     @Override public void addSizeView(ProductStockDataModel model) {
@@ -335,6 +369,55 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 
     @Override public void showReviewContentsPanel() {
         binding.layoutReviewContentsPanel.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void showReviewRatingPanel() {
+        binding.layoutReviewRatingPanel.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void setSatisfaction(String satisfactionCode) {
+        ReviewSatisfactions satisfactions = ReviewSatisfactions.toType(satisfactionCode);
+        switch (satisfactions) {
+            case GOOD:
+                binding.imgSatisfaction.setImageDrawable(resources.getDrawable(img_review_good));
+                break;
+            case NORMAL:
+                binding.imgSatisfaction.setImageDrawable(resources.getDrawable(img_review_normal));
+                break;
+            case BAD:
+                binding.imgSatisfaction.setImageDrawable(resources.getDrawable(img_review_bad));
+                break;
+        }
+        binding.txtSatisfaction.setText(satisfactions.getValue());
+    }
+
+    @Override public void setSizeRating(RatingDataModel sizeRating) {
+        String rating_bold = String.format(resources.getString(format_size_rating_bold),
+            ReviewSizeRatings.toType(sizeRating.getCode()).getValue(),
+            String.format(resources.getString(format_percent), sizeRating.getValue()));
+        String rating = String.format(resources.getString(format_size_rating), rating_bold);
+        binding.txtSizeRating.setText(SpannableUtil.fontSpan(rating, rating_bold, resources.getFont(font_bold)));
+    }
+
+    @Override public void setSizeRatingDetail(List<RatingDataModel> sizeRatings) {
+        binding.txtVeryBigPercent.setText(findPercent(sizeRatings, ReviewSizeRatings.VERY_BIG.getCode()));
+        binding.txtLittleBigPercent.setText(findPercent(sizeRatings, ReviewSizeRatings.LITTLE_BIG.getCode()));
+        binding.txtGoodPercent.setText(findPercent(sizeRatings, ReviewSizeRatings.PERFECTLY.getCode()));
+        binding.txtLittleSmallPercent.setText(findPercent(sizeRatings, ReviewSizeRatings.LITTLE_SMALL.getCode()));
+        binding.txtVerySmallPercent.setText(findPercent(sizeRatings, ReviewSizeRatings.VERY_SMALL.getCode()));
+    }
+
+    @Override public void showPhotoReviews() {
+        binding.rcvPhotoReview.setVisibility(View.VISIBLE);
+    }
+
+    private String findPercent(List<RatingDataModel> sizeRatingList, String sizeCode) {
+        for (RatingDataModel rating : sizeRatingList) {
+            if (sizeCode.equals(rating.getCode())) {
+                return String.format(resources.getString(format_percent), rating.getValue());
+            }
+        }
+        return "-";
     }
 
     @Override public void setupQuestionCount(String text) {
@@ -508,45 +591,5 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 
     @Override public void showErrorDialog() {
         DialogManager.showErrorDialog(this);
-    }
-
-    @OnClick(R.id.layout_expand_panel)
-    void onExpandClick() {
-        presenter.onExpandClick();
-    }
-
-    @OnClick(R.id.layout_brand_panel)
-    void onBrandClick() {
-        presenter.onBrandClick();
-    }
-
-    @OnClick({ R.id.layout_review_panel, R.id.txt_review_more })
-    void onReviewMoreClick() {
-        presenter.onReviewMoreClick();
-    }
-
-    @OnClick(R.id.layout_question_panel)
-    void onQuestionClick() {
-        presenter.onQuestionClick();
-    }
-
-    @OnClick(R.id.layout_shipping_n_refund_panel)
-    void onShippingNRefundClick() {
-        presenter.onShippingNRefundClick();
-    }
-
-    @OnClick(R.id.img_share)
-    void onShareClick() {
-        presenter.onShareClick();
-    }
-
-    @OnClick(R.id.img_scrap)
-    void onScrapClick() {
-        presenter.onScrapClick();
-    }
-
-    @OnClick(R.id.txt_buy)
-    void onBuyClick() {
-        presenter.onBuyClick();
     }
 }

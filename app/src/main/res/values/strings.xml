@@ -5,7 +5,7 @@
     <string name="base_slogan">소중한 아이를 위한 특별한 선물</string>
     <string name="base_yes">네</string>
     <string name="base_no">아니오</string>
-    <string name="base_price_percent">%d%%</string>
+    <string name="base_percent">%d%%</string>
     <string name="base_brand_shop">브랜드샵</string>
     <string name="base_tag">#%s</string>
     <string name="base_pattern">^[ㄱ-ㅣ가-힣]*$</string>
@@ -403,6 +403,10 @@
     <string name="product_detail_shipping_add">제주도 포함 도서/산간지역은 추가배송비가 발생할 수 있습니다.</string>
     <string name="product_detail_review_title">상품리뷰</string>
     <string name="product_detail_review_more">상품리뷰 전체보기(%s)</string>
+    <string name="product_detail_review_rating_satisfaction_caption">만족도</string>
+    <string name="product_detail_review_rating_size_caption">사이즈</string>
+    <string name="product_detail_review_rating_size">이 상품은 %s</string>
+    <string name="product_detail_review_rating_size_bold">%s (%s)</string>
     <string name="product_detail_question_title">상품문의</string>
     <string name="product_detail_shipping_n_refund_title">배송/환불/교환 안내</string>
     <string name="product_detail_related_products_title">함께 구매하면 좋은 상품</string>
@@ -469,7 +473,7 @@
     <string name="review_write_satisfaction_normal">보통이에요</string>
     <string name="review_write_satisfaction_bad">별로에요</string>
     <string name="review_write_size_rating_title">사이즈를 평가해주세요</string>
-    <string name="review_write_size_very_big">많이커요</string>
+    <string name="review_write_size_very_big">많이커요</string>이
     <string name="review_write_size_little_big">조금커요</string>
     <string name="review_write_size_perfectly">딱 맞아요</string>
     <string name="review_write_size_little_small">조금 작아요</string>

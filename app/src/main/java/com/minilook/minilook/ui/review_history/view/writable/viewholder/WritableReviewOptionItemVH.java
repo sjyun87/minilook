@@ -12,6 +12,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.order.OrderProductDataModel;
 import com.minilook.minilook.databinding.ViewWritableReviewOptionItemBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import lombok.Setter;
 
 public class WritableReviewOptionItemVH extends BaseViewHolder<OrderProductDataModel> {
@@ -27,6 +28,7 @@ public class WritableReviewOptionItemVH extends BaseViewHolder<OrderProductDataM
         super(ViewWritableReviewOptionItemBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,
             false));
         binding = ViewWritableReviewOptionItemBinding.bind(itemView);
+        binding.layoutProductPanel.setOnClickListener(view -> onProductClick());
         binding.txtWrite.setOnClickListener(view -> onWriteClick());
     }
 
@@ -44,6 +46,10 @@ public class WritableReviewOptionItemVH extends BaseViewHolder<OrderProductDataM
         binding.txtProductName.setText(data.getProductName());
         binding.txtOption.setText(
             String.format(resources.getString(str_format_option), data.getColorName(), data.getSizeName()));
+    }
+
+    private void onProductClick() {
+        ProductDetailActivity.start(context, data.getProductNo());
     }
 
     private void onWriteClick() {

@@ -5,6 +5,7 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import com.minilook.minilook.data.model.product.OptionColorDataModel;
 import com.minilook.minilook.data.model.product.ProductStockDataModel;
+import com.minilook.minilook.data.model.review.RatingDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingBrandDataModel;
 import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
 import java.util.List;
@@ -59,6 +60,10 @@ public interface ProductDetailPresenter extends LifecycleObserver {
 
         void reviewRefresh();
 
+        void setupPhotoReviewRecyclerView();
+
+        void photoReviewRefresh();
+
         void showRelatedPanel();
 
         void hideRelatedPanel();
@@ -110,6 +115,16 @@ public interface ProductDetailPresenter extends LifecycleObserver {
         void setupReviewCount(String text);
 
         void showReviewContentsPanel();
+
+        void showReviewRatingPanel();
+
+        void setSatisfaction(String satisfactionCode);
+
+        void setSizeRating(RatingDataModel sizeRating);
+
+        void setSizeRatingDetail(List<RatingDataModel> sizeRatings);
+
+        void showPhotoReviews();
 
         void setupQuestionCount(String text);
 

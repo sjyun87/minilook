@@ -70,7 +70,7 @@ public class ProductFeedVH extends _BaseViewHolder<ProductDataModel> {
             .transition(new DrawableTransitionOptions().crossFade())
             .into(thumbImageView);
 
-        reviewTextView.setText(StringUtil.toDigit(data.getReviewCount()));
+        reviewTextView.setText(StringUtil.toDigit(data.getReview().getReviewCount()));
         categoryTextView.setText(data.getCategory());
         nameTextView.setText(data.getProductName());
         descTextView.setText(data.getProductDesc());
