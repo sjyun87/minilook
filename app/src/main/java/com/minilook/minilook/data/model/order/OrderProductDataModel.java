@@ -10,10 +10,12 @@ import lombok.Data;
 @Data public class OrderProductDataModel implements Serializable {
     @Expose @SerializedName("orderNo")
     private int orderOptionNo;
+    @Expose @SerializedName("brandName")
+    private String brandName;
     @Expose @SerializedName("productNo")
     private int productNo;
     @Expose @SerializedName("productName")
-    private String name;
+    private String productName;
     @Expose @SerializedName("image")
     private String thumbUrl;
     @Expose @SerializedName("optionNo")
@@ -40,6 +42,4 @@ import lombok.Data;
     @Expose @SerializedName("ispreorder")
     @JsonAdapter(BooleanDeserializer.class)
     private boolean isPreorder;
-
-    private String brandName;
 }

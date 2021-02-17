@@ -17,4 +17,6 @@ import lombok.Data;
     private long registDate;
     @Expose @SerializedName("products")
     private List<ProductDataModel> products;
+    @Expose @SerializedName("options")
+    private List<OrderProductDataModel> options;
 }

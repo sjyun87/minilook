@@ -1,6 +1,5 @@
 package com.minilook.minilook.ui.product_detail;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
@@ -116,6 +115,10 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
             .build();
     }
 
+    @Override public void setupClickAction() {
+        binding.txtBuy.setOnClickListener(view -> presenter.onBuyClick());
+    }
+
     @Override public void setupProductImageViewPager() {
         binding.vpProductImage.setAdapter(productImageAdapter);
         binding.indicator.setViewPager2(binding.vpProductImage);
@@ -163,7 +166,6 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         return (ProductTabView) Objects.requireNonNull(binding.layoutTabPanel.getTabAt(position)).getCustomView();
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
     @Override public void setupWebView() {
         binding.webProductDetail.setLayerType(View.LAYER_TYPE_HARDWARE, null);
         binding.webProductDetail.getSettings().setJavaScriptEnabled(false);

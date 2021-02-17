@@ -79,7 +79,7 @@ public class ReviewWritePresenterImpl extends BasePresenterImpl implements Revie
         view.setOrderDate(orderDate);
         view.setThumb(data.getThumbUrl());
         view.setBrandName(data.getBrandName());
-        view.setProductName(data.getName());
+        view.setProductName(data.getProductName());
         view.setOption(data.getColorName(), data.getSizeName());
 
         view.setupReviewEditText();

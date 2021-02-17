@@ -376,7 +376,7 @@
                         android:gravity="center"
                         android:minWidth="@dimen/dp_8"
                         android:textColor="@color/color_FFFFFFFF"
-                        android:textSize="@dimen/sp_5"
+                        android:textSize="@dimen/sp_4"
                         android:visibility="gone"
                         app:layout_constraintBottom_toTopOf="@+id/img_scrap"
                         app:layout_constraintLeft_toRightOf="@+id/img_scrap"
@@ -432,7 +432,7 @@
                         android:gravity="center"
                         android:minWidth="@dimen/dp_8"
                         android:textColor="@color/color_FFFFFFFF"
-                        android:textSize="@dimen/sp_5"
+                        android:textSize="@dimen/sp_4"
                         android:visibility="gone"
                         app:layout_constraintBottom_toTopOf="@+id/img_shoppingbag"
                         app:layout_constraintLeft_toRightOf="@+id/img_shoppingbag"
@@ -488,7 +488,7 @@
                         android:gravity="center"
                         android:minWidth="@dimen/dp_8"
                         android:textColor="@color/color_FFFFFFFF"
-                        android:textSize="@dimen/sp_5"
+                        android:textSize="@dimen/sp_4"
                         android:visibility="gone"
                         app:layout_constraintBottom_toTopOf="@+id/img_recent"
                         app:layout_constraintLeft_toRightOf="@+id/img_recent"
@@ -546,7 +546,7 @@
                         android:gravity="center"
                         android:minWidth="@dimen/dp_8"
                         android:textColor="@color/color_FFFFFFFF"
-                        android:textSize="@dimen/sp_5"
+                        android:textSize="@dimen/sp_4"
                         android:visibility="gone"
                         app:layout_constraintBottom_toTopOf="@+id/img_question"
                         app:layout_constraintLeft_toRightOf="@+id/img_question"
@@ -602,7 +602,7 @@
                         android:gravity="center"
                         android:minWidth="@dimen/dp_8"
                         android:textColor="@color/color_FFFFFFFF"
-                        android:textSize="@dimen/sp_5"
+                        android:textSize="@dimen/sp_4"
                         android:visibility="gone"
                         app:layout_constraintBottom_toTopOf="@+id/img_review"
                         app:layout_constraintLeft_toRightOf="@+id/img_review"
@@ -688,20 +688,16 @@
                 android:lineSpacingMultiplier="1.5"
                 android:text="@string/ipage_app_info"
                 android:textColor="@color/color_FFA9A9A9"
-                android:textSize="@dimen/sp_6"
-                app:layout_constraintLeft_toRightOf="@+id/txt_service_notice"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_service_notice" />
-
-            <View
-                android:id="@+id/curtain"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@+id/txt_service_notice"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="@dimen/sp_6" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <View
+        android:id="@+id/curtain"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titlebar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

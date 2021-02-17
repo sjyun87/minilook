@@ -41,6 +41,8 @@ public interface ProductDetailPresenter extends LifecycleObserver {
 
     interface View {
 
+        void setupClickAction();
+
         void setupProductImageViewPager();
 
         void productImageRefresh();

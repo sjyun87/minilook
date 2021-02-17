@@ -58,7 +58,7 @@ public class PurchaseConfirmVH extends _BaseViewHolder<OrderProductDataModel> {
             .transition(new DrawableTransitionOptions().crossFade())
             .into(thumbImageView);
 
-        nameTextView.setText(data.getName());
+        nameTextView.setText(data.getProductName());
         optionTextView.setText(String.format(format_option, data.getColorName(), data.getSizeName()));
         priceTextView.setText(StringUtil.toDigit(data.getProductPrice()));
     }

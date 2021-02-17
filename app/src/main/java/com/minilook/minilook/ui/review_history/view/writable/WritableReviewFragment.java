@@ -1,14 +1,17 @@
 package com.minilook.minilook.ui.review_history.view.writable;
 
 import android.view.View;
+import androidx.annotation.DimenRes;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import com.minilook.minilook.data.model.challenge.ChallengeDataModel;
+import com.fondesa.recyclerviewdivider.DividerDecoration;
+import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.order.OrderHistoryDataModel;
 import com.minilook.minilook.databinding.FragmentWritableReviewBinding;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.BaseFragment;
 import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
-import com.minilook.minilook.ui.challenge.view.open.adapter.ChallengeOpenAdapter;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
+import com.minilook.minilook.ui.review_history.view.writable.adapter.WritableReviewAdapter;
 import com.minilook.minilook.ui.review_history.view.writable.di.WritableReviewArguments;
 
 public class WritableReviewFragment extends BaseFragment implements WritableReviewPresenter.View {
@@ -17,11 +20,13 @@ public class WritableReviewFragment extends BaseFragment implements WritableRevi
         return new WritableReviewFragment();
     }
 
+    @DimenRes int dp_6 = R.dimen.dp_6;
+
     private FragmentWritableReviewBinding binding;
     private WritableReviewPresenter presenter;
 
-    private final ChallengeOpenAdapter adapter = new ChallengeOpenAdapter();
-    private final BaseAdapterDataView<ChallengeDataModel> adapterView = adapter;
+    private final WritableReviewAdapter adapter = new WritableReviewAdapter();
+    private final BaseAdapterDataView<OrderHistoryDataModel> adapterView = adapter;
 
     private EndlessOnScrollListener scrollListener;
 
@@ -38,12 +43,18 @@ public class WritableReviewFragment extends BaseFragment implements WritableRevi
     private WritableReviewArguments provideArguments() {
         return WritableReviewArguments.builder()
             .view(this)
+            .adapter(adapter)
             .build();
     }
 
     @Override public void setupRecyclerView() {
         binding.rcvOrder.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rcvOrder.setAdapter(adapter);
+        DividerDecoration.builder(requireContext())
+            .size(resources.getDimen(dp_6))
+            .asSpace()
+            .build()
+            .addTo(binding.rcvOrder);
         scrollListener = EndlessOnScrollListener.builder()
             .layoutManager(binding.rcvOrder.getLayoutManager())
             .onLoadMoreListener(presenter::onLoadMore)

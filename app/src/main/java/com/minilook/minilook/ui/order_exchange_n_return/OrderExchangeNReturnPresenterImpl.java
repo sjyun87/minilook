@@ -49,7 +49,7 @@ public class OrderExchangeNReturnPresenterImpl extends BasePresenterImpl impleme
         view.setupReasonDetailEditText();
 
         view.setThumbImage(data.getThumbUrl());
-        view.setProductName(data.getName());
+        view.setProductName(data.getProductName());
         view.setOption(data.getColorName(), data.getSizeName());
         view.setProductPrice(data.getProductPrice());
 

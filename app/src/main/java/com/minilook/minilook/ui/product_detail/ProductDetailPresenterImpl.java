@@ -50,8 +50,8 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
     private final ScrapRequest scrapRequest;
     private final ReviewRequest reviewRequest;
     private final DynamicLinkUtil dynamicLinkUtil;
+    private final Gson gson;
 
-    private Gson gson = new Gson();
     private ProductDataModel data;
     private boolean isInfoPanelExpanded = false;
 
@@ -66,17 +66,19 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         scrapRequest = new ScrapRequest();
         reviewRequest = new ReviewRequest();
         dynamicLinkUtil = new DynamicLinkUtil();
+        gson = App.getInstance().getGson();
     }
 
     @Override public void onCreate() {
         toRxObservable();
+        view.setupClickAction();
         view.setupProductImageViewPager();
         view.setupTabLayout();
         view.setupWebView();
         view.setupReviewRecyclerView();
         view.setupRelatedProductRecyclerView();
 
-        reqProductDetail();
+        getProductDetail();
     }
 
     @Override public void onResume() {
@@ -210,7 +212,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
         view.showAddShoppingBagToast();
     }
 
-    private void reqProductDetail() {
+    private void getProductDetail() {
         addDisposable(productRequest.getProductDetail(productNo)
             .compose(Transformer.applySchedulers())
             .filter(data -> data.getCode().equals(HttpCode.OK))
