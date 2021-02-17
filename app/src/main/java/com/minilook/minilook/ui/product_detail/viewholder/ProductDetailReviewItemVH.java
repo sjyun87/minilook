@@ -22,6 +22,7 @@ import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.databinding.ViewReviewItemBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.login.LoginActivity;
+import com.minilook.minilook.ui.photo.PhotoActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailPresenterImpl;
 import com.minilook.minilook.ui.review_history.view.written.adapter.ReviewPhotoAdapter;
 import com.minilook.minilook.util.SpannableUtil;
@@ -57,6 +58,7 @@ public class ProductDetailReviewItemVH extends BaseViewHolder<ReviewDataModel> {
             false));
         binding = ViewReviewItemBinding.bind(itemView);
         binding.layoutHelpPanel.setOnClickListener(view -> onHelpClick());
+        adapter.setOnPhotoClickListener(this::onPhotoClick);
 
         setupRecyclerView();
     }
@@ -186,5 +188,9 @@ public class ProductDetailReviewItemVH extends BaseViewHolder<ReviewDataModel> {
         handleHelpData();
         RxBus.send(
             new ProductDetailPresenterImpl.RxEventProductDetailReviewHelpClick(data.isHelp(), data.getReviewNo()));
+    }
+
+    private void onPhotoClick(int position) {
+        PhotoActivity.start(context, data.getPhotos(), position);
     }
 }

@@ -9,11 +9,13 @@ import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.product_detail.viewholder.ProductDetailPhotoReviewVH;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Setter;
 
 public class ProductDetailPhotoReviewAdapter extends RecyclerView.Adapter<ProductDetailPhotoReviewVH>
     implements BaseAdapterDataModel<ImageDataModel>, BaseAdapterDataView<ImageDataModel> {
 
     private List<ImageDataModel> items = new ArrayList<>();
+    @Setter private ProductDetailPhotoReviewVH.OnPhotoClickListener onPhotoClickListener;
 
     @NonNull @Override public ProductDetailPhotoReviewVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ProductDetailPhotoReviewVH(parent);
@@ -21,6 +23,7 @@ public class ProductDetailPhotoReviewAdapter extends RecyclerView.Adapter<Produc
 
     @Override public void onBindViewHolder(@NonNull ProductDetailPhotoReviewVH holder, int position) {
         holder.bind(items.get(position));
+        if (onPhotoClickListener != null) holder.setOnPhotoClickListener(onPhotoClickListener);
     }
 
     @Override public int getItemCount() {
