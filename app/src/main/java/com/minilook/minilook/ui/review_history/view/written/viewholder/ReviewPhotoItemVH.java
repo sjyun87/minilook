@@ -14,6 +14,7 @@ import com.minilook.minilook.data.model.image.ImageDataModel;
 import com.minilook.minilook.databinding.ViewReviewPhotoItemBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.util.DeviceUtil;
+import lombok.Setter;
 
 public class ReviewPhotoItemVH extends BaseViewHolder<ImageDataModel> {
 
@@ -23,6 +24,8 @@ public class ReviewPhotoItemVH extends BaseViewHolder<ImageDataModel> {
     @DimenRes int dp_4 = R.dimen.dp_4;
 
     private final ViewReviewPhotoItemBinding binding;
+
+    @Setter private OnPhotoClickListener onPhotoClickListener;
 
     public ReviewPhotoItemVH(@NonNull View parent) {
         super(ViewReviewPhotoItemBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,
@@ -47,8 +50,8 @@ public class ReviewPhotoItemVH extends BaseViewHolder<ImageDataModel> {
         binding.imgThumb.setLayoutParams(imageParams);
     }
 
-    @Override public void bind(ImageDataModel $data) {
-        super.bind($data);
+    @Override public void bind(int $position, ImageDataModel $data) {
+        super.bind($position, $data);
 
         Glide.with(context)
             .load(data.getThumbUrl())
@@ -56,5 +59,15 @@ public class ReviewPhotoItemVH extends BaseViewHolder<ImageDataModel> {
             .error(ph_square)
             .transition(new DrawableTransitionOptions().crossFade())
             .into(binding.imgThumb);
+
+        itemView.setOnClickListener(this::onItemClick);
+    }
+
+    private void onItemClick(View view) {
+        if (onPhotoClickListener != null) onPhotoClickListener.onPhotoClick(position);
+    }
+
+    public interface OnPhotoClickListener {
+        void onPhotoClick(int position);
     }
 }

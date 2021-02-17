@@ -99,9 +99,6 @@ ext {
   // BootPay
   bootpay_version = '3.3.0'
 
-  // Material
-  material_version = '1.2.1'
-
   // Permission
   permission_version = '2.2.3'
 
@@ -116,4 +113,7 @@ ext {
 
   // Cropper
   cropper_version = '2.8.0'
+
+  // PhotoView
+  photoview_version = '2.0.0'
 }

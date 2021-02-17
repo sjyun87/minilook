@@ -25,7 +25,10 @@ public class BaseViewHolder<T> extends RecyclerView.ViewHolder {
     }
 
     // Optional
+    @CallSuper
     public void bind(int position, T $data) {
+        this.position = position;
+        this.data = $data;
     }
 
     public void onAttach() {
