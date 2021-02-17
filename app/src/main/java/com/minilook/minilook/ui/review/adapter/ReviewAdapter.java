@@ -4,15 +4,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.minilook.minilook.data.model.review.ReviewDataModel;
+import com.minilook.minilook.data.model.review.ReviewRatingDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.review.viewholder.ReviewItemVH;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Setter;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewItemVH>
     implements BaseAdapterDataModel<ReviewDataModel>, BaseAdapterDataView<ReviewDataModel> {
 
+    @Setter public ReviewRatingDataModel headerItem;
     private List<ReviewDataModel> items = new ArrayList<>();
 
     @NonNull @Override public ReviewItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

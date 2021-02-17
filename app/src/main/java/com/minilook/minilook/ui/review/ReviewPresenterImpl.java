@@ -4,12 +4,14 @@ import com.google.gson.Gson;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.review.ReviewDataModel;
 import com.minilook.minilook.data.model.review.ReviewHistoryDataModel;
+import com.minilook.minilook.data.model.review.ReviewRatingDataModel;
 import com.minilook.minilook.data.network.review.ReviewRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.review.di.ReviewArguments;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import timber.log.Timber;
@@ -51,7 +53,7 @@ public class ReviewPresenterImpl extends BasePresenterImpl implements ReviewPres
             .filter(data -> {
                 String code = data.getCode();
                 if (code.equals(HttpCode.NO_DATA)) {
-                    view.emptyPanel();
+                    view.showEmptyPanel();
                 }
                 return code.equals(HttpCode.OK);
             })
@@ -60,11 +62,18 @@ public class ReviewPresenterImpl extends BasePresenterImpl implements ReviewPres
     }
 
     private void resReviews(ReviewHistoryDataModel data) {
-        view.setTotalCount(data.getReviewCount());
-
-        adapter.set(data.getReviews());
+        List<ReviewDataModel> reviews = data.getReviews();
+        lastReviewNo = reviews.get(reviews.size() - 1).getReviewNo();
+        adapter.set(reviews);
         view.refresh();
-        lastReviewNo = adapter.get(adapter.getSize() - 1).getReviewNo();
+
+        ReviewRatingDataModel reviewRatingData = data.getRating();
+        if (reviewRatingData != null) {
+            view.showReviewRatingPanel();
+            view.setSatisfaction(reviewRatingData.getSatisfaction());
+            view.setSizeRating(reviewRatingData.getSizeRating());
+            view.setSizeRatingDetail(reviewRatingData.getSizeRatingDetail());
+        }
     }
 
     private void reqLoadMoreReviews() {
@@ -79,10 +88,12 @@ public class ReviewPresenterImpl extends BasePresenterImpl implements ReviewPres
     }
 
     private void resLoadMoreReviews(ReviewHistoryDataModel data) {
+        List<ReviewDataModel> reviews = data.getReviews();
+        lastReviewNo = reviews.get(reviews.size() - 1).getReviewNo();
         int start = adapter.getSize();
-        adapter.addAll(data.getReviews());
-        view.refresh(start, data.getReviews().size());
-        lastReviewNo = adapter.get(adapter.getSize() - 1).getReviewNo();
+        int row = reviews.size();
+        adapter.addAll(reviews);
+        view.refresh(start, row);
     }
 
     private void reqUpdateHelp(boolean isHelp, int reviewNo) {
