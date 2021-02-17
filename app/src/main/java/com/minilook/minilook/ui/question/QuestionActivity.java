@@ -3,25 +3,21 @@ package com.minilook.minilook.ui.question;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
-import android.widget.LinearLayout;
+import androidx.annotation.DimenRes;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindDimen;
-import butterknife.BindView;
-import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.question.QuestionDataModel;
-import com.minilook.minilook.ui.base._BaseActivity;
+import com.minilook.minilook.databinding.ActivityQuestionBinding;
+import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
-import com.minilook.minilook.ui.base.widget.TitleBar;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.question.adapter.QuestionAdapter;
 import com.minilook.minilook.ui.question.di.QuestionArguments;
 import com.minilook.minilook.ui.question_write.QuestionWriteActivity;
 
-public class QuestionActivity extends _BaseActivity implements QuestionPresenter.View {
+public class QuestionActivity extends BaseActivity implements QuestionPresenter.View {
 
     public static void start(Context context, int productNo) {
         Intent intent = new Intent(context, QuestionActivity.class);
@@ -31,18 +27,16 @@ public class QuestionActivity extends _BaseActivity implements QuestionPresenter
         context.startActivity(intent);
     }
 
-    @BindView(R.id.titlebar) TitleBar titleBar;
-    @BindView(R.id.rcv_question) RecyclerView recyclerView;
-    @BindView(R.id.layout_empty_panel) LinearLayout emptyPanel;
+    @DimenRes int dp_6 = R.dimen.dp_6;
 
-    @BindDimen(R.dimen.dp_4) int dp_4;
-
+    private ActivityQuestionBinding binding;
     private QuestionPresenter presenter;
     private QuestionAdapter adapter = new QuestionAdapter();
     private BaseAdapterDataView<QuestionDataModel> adapterView = adapter;
 
-    @Override protected int getLayoutID() {
-        return R.layout.activity_question;
+    @Override protected View getBindingView() {
+        binding = ActivityQuestionBinding.inflate(getLayoutInflater());
+        return binding.getRoot();
     }
 
     @Override protected void createPresenter() {
@@ -58,30 +52,31 @@ public class QuestionActivity extends _BaseActivity implements QuestionPresenter
             .build();
     }
 
-    @Override public void setupTitleBar(int productNo) {
-        titleBar.setProductNo(productNo);
+    @Override public void setupClickAction() {
+        binding.titlebar.getBinding().imgTitlebarWrite.setOnClickListener(view -> presenter.onWriteClick());
+        binding.txtEmpty.setOnClickListener(view -> presenter.onEmptyClick());
     }
 
     @Override public void setTotalCount(int count) {
-        titleBar.setCount(count);
-        titleBar.setShowCount(true);
+        binding.titlebar.setCount(count);
+        binding.titlebar.setShowCount(true);
     }
 
     @Override public void setupRecyclerView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
+        binding.rcvQuestion.setLayoutManager(new LinearLayoutManager(this));
+        binding.rcvQuestion.setAdapter(adapter);
         DividerDecoration.builder(this)
-            .size(dp_4)
+            .size(resources.getDimen(dp_6))
             .asSpace()
             .build()
-            .addTo(recyclerView);
+            .addTo(binding.rcvQuestion);
         EndlessOnScrollListener scrollListener =
             EndlessOnScrollListener.builder()
-                .layoutManager(recyclerView.getLayoutManager())
+                .layoutManager(binding.rcvQuestion.getLayoutManager())
                 .onLoadMoreListener(presenter::onLoadMore)
                 .visibleThreshold(10)
                 .build();
-        recyclerView.addOnScrollListener(scrollListener);
+        binding.rcvQuestion.addOnScrollListener(scrollListener);
     }
 
     @Override public void refresh() {
@@ -93,11 +88,11 @@ public class QuestionActivity extends _BaseActivity implements QuestionPresenter
     }
 
     @Override public void showEmptyPanel() {
-        emptyPanel.setVisibility(View.VISIBLE);
+        binding.layoutEmptyPanel.setVisibility(View.VISIBLE);
     }
 
     @Override public void hideEmptyPanel() {
-        emptyPanel.setVisibility(View.GONE);
+        binding.layoutEmptyPanel.setVisibility(View.GONE);
     }
 
     @Override public void navigateToQuestionWrite(int productNo) {
@@ -106,10 +101,5 @@ public class QuestionActivity extends _BaseActivity implements QuestionPresenter
 
     @Override public void navigateToLogin() {
         LoginActivity.start(this);
-    }
-
-    @OnClick(R.id.txt_empty)
-    void onEmptyClick() {
-        presenter.onEmptyClick();
     }
 }

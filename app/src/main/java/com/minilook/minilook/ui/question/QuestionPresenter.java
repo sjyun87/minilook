@@ -9,13 +9,15 @@ public interface QuestionPresenter extends LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
 
+    void onWriteClick();
+
     void onLoadMore();
 
     void onEmptyClick();
 
     interface View {
 
-        void setupTitleBar(int productNo);
+        void setupClickAction();
 
         void setTotalCount(int count);
 

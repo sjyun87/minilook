@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:shape="oval"
-    tools:keep="@drawable/dot_gray">
+    android:shape="oval">
     <size
-        android:width="@dimen/dp_5"
-        android:height="@dimen/dp_5" />
+        android:width="@dimen/dp_4"
+        android:height="@dimen/dp_4" />
     <solid android:color="@color/color_FFDBDBDB" />
 </shape>

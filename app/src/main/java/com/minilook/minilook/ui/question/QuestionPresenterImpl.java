@@ -22,8 +22,8 @@ public class QuestionPresenterImpl extends BasePresenterImpl implements Question
     private final int productNo;
     private final BaseAdapterDataModel<QuestionDataModel> adapter;
     private final QuestionRequest questionRequest;
+    private final Gson gson;
 
-    private Gson gson = new Gson();
     private int lastQuestionNo = 0;
 
     public QuestionPresenterImpl(QuestionArguments args) {
@@ -31,14 +31,19 @@ public class QuestionPresenterImpl extends BasePresenterImpl implements Question
         productNo = args.getProductNo();
         adapter = args.getAdapter();
         questionRequest = new QuestionRequest();
+        gson = App.getInstance().getGson();
     }
 
     @Override public void onCreate() {
         toRxObservable();
-        view.setupTitleBar(productNo);
+        view.setupClickAction();
         view.setupRecyclerView();
 
         reqQuestions();
+    }
+
+    @Override public void onWriteClick() {
+        view.navigateToQuestionWrite(productNo);
     }
 
     @Override public void onLoadMore() {

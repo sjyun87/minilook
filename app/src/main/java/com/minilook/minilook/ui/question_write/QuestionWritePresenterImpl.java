@@ -74,7 +74,7 @@ public class QuestionWritePresenterImpl extends BasePresenterImpl implements Que
 
     @Override public void onTextChanged(String text) {
         question = text;
-        if (question.length() >= 5) {
+        if (question.length() >= 10) {
             view.enableApplyButton();
         } else {
             view.disableApplyButton();

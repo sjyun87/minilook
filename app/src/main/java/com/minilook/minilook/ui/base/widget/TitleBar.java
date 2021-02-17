@@ -18,13 +18,11 @@ import com.minilook.minilook.databinding.LayoutTitlebarBinding;
 import com.minilook.minilook.ui.base.ResourcesProvider;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.main.MainActivity;
-import com.minilook.minilook.ui.question_write.QuestionWriteActivity;
 import com.minilook.minilook.ui.search_filter.SearchFilterActivity;
 import com.minilook.minilook.ui.setting.SettingActivity;
 import com.minilook.minilook.ui.shoppingbag.ShoppingBagActivity;
 import com.minilook.minilook.util.StringUtil;
 import lombok.Getter;
-import lombok.Setter;
 
 public class TitleBar extends ConstraintLayout {
 
@@ -51,8 +49,6 @@ public class TitleBar extends ConstraintLayout {
     private boolean isShowShare;
     private String title;
     private int count;
-
-    @Setter private int productNo;
 
     public TitleBar(@NonNull Context context) {
         this(context, null);
@@ -245,13 +241,6 @@ public class TitleBar extends ConstraintLayout {
     }
 
     private void onWriteClick() {
-        if (activity != null) {
-            if (App.getInstance().isLogin()) {
-                QuestionWriteActivity.start(activity, productNo);
-            } else {
-                LoginActivity.start(activity);
-            }
-        }
     }
 
     private void onShareClick() {

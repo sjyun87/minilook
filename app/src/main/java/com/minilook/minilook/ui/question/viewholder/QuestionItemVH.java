@@ -1,50 +1,49 @@
 package com.minilook.minilook.ui.question.viewholder;
 
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import butterknife.BindColor;
-import butterknife.BindDrawable;
-import butterknife.BindString;
-import butterknife.BindView;
+import androidx.annotation.StringRes;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.minilook.minilook.App;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.question.QuestionDataModel;
-import com.minilook.minilook.ui.base._BaseViewHolder;
+import com.minilook.minilook.databinding.ViewQuestionItemBinding;
+import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.question.adapter.QuestionPhotoAdapter;
 
-public class QuestionItemVH extends _BaseViewHolder<QuestionDataModel> {
+public class QuestionItemVH extends BaseViewHolder<QuestionDataModel> {
 
-    @BindView(R.id.txt_type) TextView typeTextView;
-    @BindView(R.id.img_my_secret) ImageView mySecretImageView;
-    @BindView(R.id.img_state) ImageView stateImageView;
-    @BindView(R.id.txt_state) TextView stateTextView;
-    @BindView(R.id.layout_question_panel) ConstraintLayout questionPanel;
-    @BindView(R.id.txt_question) TextView questionTextView;
-    @BindView(R.id.txt_regist_date) TextView registDateTextView;
-    @BindView(R.id.txt_nick) TextView nickTextView;
-    @BindView(R.id.layout_answer_panel) ConstraintLayout answerPanel;
-    @BindView(R.id.txt_answer) TextView answerTextView;
-    @BindView(R.id.txt_answer_date) TextView answerDateTextView;
-    @BindView(R.id.layout_secret_panel) ConstraintLayout secretPanel;
+    @DrawableRes int dot_purple = R.drawable.dot_purple;
+    @DrawableRes int dot_gray = R.drawable.dot_gray;
 
-    @BindDrawable(R.drawable.dot_purple) Drawable dot_purple;
-    @BindDrawable(R.drawable.dot_gray) Drawable dot_gray;
+    @StringRes int format_type = R.string.question_type;
+    @StringRes int str_my_question = R.string.question_my_question;
+    @StringRes int str_unanswered = R.string.question_unanswered;
+    @StringRes int str_answer_completed = R.string.question_answer_completed;
+    @StringRes int str_answering = R.string.question_answering;
 
-    @BindString(R.string.question_my_question) String str_my_question;
-    @BindString(R.string.question_unanswered) String str_unanswered;
-    @BindString(R.string.question_answer_completed) String str_answer_completed;
+    @ColorRes int color_FF616161 = R.color.color_FF616161;
+    @ColorRes int color_FF6200EA = R.color.color_FF6200EA;
 
-    @BindColor(R.color.color_FF616161) int color_FF616161;
-    @BindColor(R.color.color_FF6200EA) int color_FF6200EA;
+    private final ViewQuestionItemBinding binding;
+    private final QuestionPhotoAdapter adapter = new QuestionPhotoAdapter();
 
-    public QuestionItemVH(@NonNull View itemView) {
-        super(LayoutInflater.from(itemView.getContext())
-            .inflate(R.layout.item_question, (ViewGroup) itemView, false));
+    public QuestionItemVH(@NonNull View parent) {
+        super(ViewQuestionItemBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent, false));
+        binding = ViewQuestionItemBinding.bind(itemView);
+
+        setupRecyclerView();
+    }
+
+    private void setupRecyclerView() {
+        binding.rcvPhoto.setHasFixedSize(true);
+        binding.rcvPhoto.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
+        binding.rcvPhoto.setAdapter(adapter);
     }
 
     @Override public void bind(QuestionDataModel $data) {
@@ -52,44 +51,89 @@ public class QuestionItemVH extends _BaseViewHolder<QuestionDataModel> {
 
         boolean isMyQuestion = data.getMemberNo() == App.getInstance().getMemberNo();
 
-        typeTextView.setText(data.getType());
-        questionTextView.setText(data.getQuestion());
-        questionPanel.setVisibility(View.VISIBLE);
-        registDateTextView.setText(data.getRegistDate());
+        binding.txtRegistDate.setText(data.getRegistDate());
+        setNick(isMyQuestion);
+        binding.txtType.setText(String.format(resources.getString(format_type), data.getType()));
+        setAnswerState();
 
-        if (data.isAnswer()) {
-            stateImageView.setImageDrawable(dot_purple);
-            stateTextView.setText(str_answer_completed);
-
-            answerTextView.setText(data.getAnswer());
-            answerDateTextView.setText(data.getAnswerDate());
-            answerPanel.setVisibility(View.VISIBLE);
+        if (data.isSecret() && !isMyQuestion) {
+            setSecret();
+        } else if (data.isSecret() && isMyQuestion) {
+            setMySecret();
         } else {
-            stateImageView.setImageDrawable(dot_gray);
-            stateTextView.setText(str_unanswered);
-            answerPanel.setVisibility(View.GONE);
+            setNormal();
         }
 
-        if (isMyQuestion) {
-            nickTextView.setText(str_my_question);
-            nickTextView.setTextColor(color_FF6200EA);
+        //handleEditButton(isMyQuestion);
+    }
 
-            if (data.isSecret()) {
-                mySecretImageView.setVisibility(View.VISIBLE);
-            } else {
-                mySecretImageView.setVisibility(View.GONE);
-            }
+    private void setSecret() {
+        binding.imgSecret.setVisibility(View.VISIBLE);
+        binding.layoutContentsPanel.setVisibility(View.GONE);
+        binding.txtSecret.setVisibility(View.VISIBLE);
+        binding.txtEdit.setVisibility(View.GONE);
+    }
+
+    private void setMySecret() {
+        binding.imgSecret.setVisibility(View.VISIBLE);
+        binding.layoutContentsPanel.setVisibility(View.VISIBLE);
+        binding.txtSecret.setVisibility(View.GONE);
+        setContents();
+    }
+
+    private void setNormal() {
+        binding.imgSecret.setVisibility(View.GONE);
+        binding.layoutContentsPanel.setVisibility(View.VISIBLE);
+        binding.txtSecret.setVisibility(View.GONE);
+        setContents();
+    }
+
+    private void setAnswerState() {
+        if (data.isAnswer()) {
+            binding.imgState.setImageDrawable(resources.getDrawable(dot_purple));
+            binding.txtState.setText(resources.getString(str_answer_completed));
         } else {
-            nickTextView.setText(data.getNick());
-            nickTextView.setTextColor(color_FF616161);
+            binding.imgState.setImageDrawable(resources.getDrawable(dot_gray));
+            binding.txtState.setText(resources.getString(str_unanswered));
+        }
+    }
 
-            if (data.isSecret()) {
-                questionPanel.setVisibility(View.GONE);
-                answerPanel.setVisibility(View.GONE);
-                secretPanel.setVisibility(View.VISIBLE);
-            } else {
-                secretPanel.setVisibility(View.GONE);
-            }
+    private void setNick(boolean isMyQuestion) {
+        if (isMyQuestion) {
+            binding.txtNick.setText(resources.getString(str_my_question));
+            binding.txtNick.setTextColor(resources.getColor(color_FF6200EA));
+        } else {
+            binding.txtNick.setText(data.getNick());
+            binding.txtNick.setTextColor(resources.getColor(color_FF616161));
+        }
+    }
+
+    private void setContents() {
+        binding.txtQuestion.setText(data.getQuestion());
+
+        if (data.getPhotos() != null && data.getPhotos().size() > 0) {
+            adapter.set(data.getPhotos());
+            adapter.refresh();
+            binding.rcvPhoto.setVisibility(View.VISIBLE);
+        } else {
+            binding.rcvPhoto.setVisibility(View.GONE);
+        }
+
+        if (data.isAnswer()) {
+            binding.txtAnswer.setText(data.getAnswer());
+            binding.txtAnswerDate.setText(data.getAnswerDate());
+            binding.txtAnswerDate.setVisibility(View.VISIBLE);
+        } else {
+            binding.txtAnswer.setText(resources.getString(str_answering));
+            binding.txtAnswerDate.setVisibility(View.GONE);
+        }
+    }
+
+    private void handleEditButton(boolean isMyQuestion) {
+        if (isMyQuestion && !data.isAnswer()) {
+            binding.txtEdit.setVisibility(View.VISIBLE);
+        } else {
+            binding.txtEdit.setVisibility(View.GONE);
         }
     }
 }

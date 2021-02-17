@@ -2,6 +2,8 @@ package com.minilook.minilook.data.model.question;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.minilook.minilook.data.model.image.ImageDataModel;
+import java.util.List;
 import lombok.Data;
 
 @Data public class QuestionDataModel {
@@ -15,6 +17,8 @@ import lombok.Data;
     private String type;
     @Expose @SerializedName("regDate")
     private String registDate;
+    @Expose @SerializedName("photos")
+    private List<ImageDataModel> photos;
     @Expose @SerializedName("question")
     private String question;
     @Expose @SerializedName("isAnswer")
