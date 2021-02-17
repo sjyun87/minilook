@@ -7,10 +7,12 @@ import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.question.QuestionDataModel;
 import com.minilook.minilook.data.network.question.QuestionRequest;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.question_history.di.QuestionHistoryArguments;
+import com.minilook.minilook.ui.question_write.QuestionWritePresenterImpl;
 import io.reactivex.rxjava3.functions.Function;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +37,7 @@ public class QuestionHistoryPresenterImpl extends BasePresenterImpl implements Q
     }
 
     @Override public void onCreate() {
+        toRxObservable();
         view.setupRecyclerView();
 
         getQuestionHistory();
@@ -89,5 +92,14 @@ public class QuestionHistoryPresenterImpl extends BasePresenterImpl implements Q
         int row = data.size();
         adapter.addAll(data);
         view.refresh(start, row);
+    }
+
+    private void toRxObservable() {
+        addDisposable(RxBus.toObservable().subscribe(o -> {
+            if (o instanceof QuestionWritePresenterImpl.RxEventQuestionWrite) {
+                lastQuestionNo = -1;
+                getQuestionHistory();
+            }
+        }, Timber::e));
     }
 }
