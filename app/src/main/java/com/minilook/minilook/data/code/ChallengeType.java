@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor @Getter public enum ChallengeType {
+    NONE(-1),         // 진행중
     OPEN(0),         // 진행중
     COMING(1),       // 오픈예정
     END(2);          // 종료
@@ -16,6 +17,6 @@ import lombok.Getter;
                 return type;
             }
         }
-        return null;
+        return NONE;
     }
 }

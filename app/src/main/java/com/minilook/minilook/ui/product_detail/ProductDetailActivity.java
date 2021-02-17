@@ -30,7 +30,12 @@ import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
 import com.minilook.minilook.databinding.ActivityProductDetailBinding;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
+<<<<<<< HEAD
 import com.minilook.minilook.ui.base.widget.ColorView;
+=======
+import com.minilook.minilook.ui.base._BaseActivity;
+import com.minilook.minilook.ui.base.widget.ColorChip;
+>>>>>>> minilook/feature/challenge
 import com.minilook.minilook.ui.base.widget.SizeView;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
@@ -223,11 +228,15 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     }
 
     @Override public void addColorView(ProductStockDataModel model) {
-        ColorView colorView = ColorView.builder()
+        ColorChip colorChip = ColorChip.builder()
             .context(this)
             .model(model)
             .build();
+<<<<<<< HEAD
         binding.layoutOptionColorPanel.addView(colorView);
+=======
+        colorPanel.addView(colorChip);
+>>>>>>> minilook/feature/challenge
     }
 
     @Override public void addSizeView(ProductStockDataModel model) {

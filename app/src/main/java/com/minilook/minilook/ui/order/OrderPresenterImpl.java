@@ -514,6 +514,7 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
                     completeOptionModel.setPer_point_value(0);
                     completeOptionModel.setPer_coupon_value(0);
                     completeOptionModel.setPer_payment_price(optionData.getPriceSum());
+                    completeOptionModel.setOptionRequestMemo(brandData.getOrderMemo());
                     completeOptionData.add(completeOptionModel);
                     totalBonusPrice += optionData.getPriceSum();
                 }

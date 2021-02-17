@@ -616,6 +616,8 @@
     <string name="challenge_detail_winner_count_caption">당첨 인원</string>
     <string name="challenge_detail_winner_count">%d명</string>
 
+    <string name="challenge_detail_relation_product_title">이 상품 어때요?</string>
+
     <string name="challenge_detail_notice_title">유의사항</string>
     <string name="challenge_detail_notice1">1. 입력하신 SNS 계정과 콘텐츠가 등록되는 SNS 계정은 동일해야 합니다.</string>
     <string name="challenge_detail_notice2">2. 제공받은 제품으로 재판매는 절대 불가하며, 적발 시 참여 제한 등의 불이익이 발생할 수 있습니다.</string>

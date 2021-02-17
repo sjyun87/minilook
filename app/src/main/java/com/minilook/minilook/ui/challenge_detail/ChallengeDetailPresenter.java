@@ -32,9 +32,19 @@ public interface ChallengeDetailPresenter extends LifecycleObserver {
 
         void showErrorDialog();
 
-        void setupViewPager();
+        void setupImageViewPager();
 
         void imageRefresh();
+
+        void setupRelationProductViewPager();
+
+        void relationProductRefresh();
+
+        void setRelationUserInputEnabled(boolean enable);
+
+        void startAutoSlide();
+
+        void cancelAutoSlide();
 
         void setBrandName(String brandName);
 
@@ -70,6 +80,10 @@ public interface ChallengeDetailPresenter extends LifecycleObserver {
 
         void disableEnterButton();
 
+        void showRelationProductPanel();
+
+        void hideRelationProductPanel();
+
         void scrollToTop();
 
         void sendDynamicLink(String link);
@@ -81,5 +95,9 @@ public interface ChallengeDetailPresenter extends LifecycleObserver {
         void clear();
 
         void finish();
+
+        void registPageChangeCallback();
+
+        void removePageChangeCallback();
     }
 }

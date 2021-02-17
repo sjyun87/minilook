@@ -16,6 +16,7 @@ import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.util.StringUtil;
 import java.util.Calendar;
 import java.util.Date;
+import timber.log.Timber;
 
 public class ChallengeComingItemVH extends BaseViewHolder<ChallengeDataModel> {
 
@@ -68,7 +69,7 @@ public class ChallengeComingItemVH extends BaseViewHolder<ChallengeDataModel> {
         long targetDay = startDate.getTime() / (24 * 60 * 60 * 1000);
         long count = targetDay - todayDay;
 
-        if (count > 1) {
+        if (count > 0) {
             return String.format(resources.getString(str_start_date), (count + 1));
         } else {
             return resources.getString(str_start_date_tomorrow);

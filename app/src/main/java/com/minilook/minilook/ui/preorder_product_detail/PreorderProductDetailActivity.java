@@ -22,7 +22,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.ProductStockDataModel;
 import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.base.widget.ColorView;
+import com.minilook.minilook.ui.base.widget.ColorChip;
 import com.minilook.minilook.ui.base.widget.SizeView;
 import com.minilook.minilook.ui.base.widget.TitleBar;
 import com.minilook.minilook.ui.preorder_product_detail.adapter.PreorderProductDetailImageAdapter;
@@ -122,11 +122,11 @@ public class PreorderProductDetailActivity extends _BaseActivity implements Preo
     }
 
     @Override public void addColorView(ProductStockDataModel model) {
-        ColorView colorView = ColorView.builder()
+        ColorChip colorChip = ColorChip.builder()
             .context(this)
             .model(model)
             .build();
-        colorPanel.addView(colorView);
+        colorPanel.addView(colorChip);
     }
 
     @Override public void addSizeView(ProductStockDataModel model) {

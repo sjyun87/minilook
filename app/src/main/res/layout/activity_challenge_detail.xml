@@ -279,6 +279,33 @@
                 tools:ignore="ContentDescription" />
 
             <LinearLayout
+                android:id="@+id/layout_relation_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/img_challenge"
+                tools:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_22"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:text="@string/challenge_detail_relation_product_title"
+                    android:textColor="@color/color_FF424242"
+                    android:textSize="@dimen/sp_9" />
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/vp_relation_product"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/sp_6"
+                    android:layout_marginBottom="@dimen/dp_22" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/color_FF5C5C5C"
@@ -288,7 +315,7 @@
                 android:paddingTop="@dimen/dp_20"
                 android:paddingEnd="@dimen/dp_10"
                 android:paddingBottom="@dimen/dp_34"
-                app:layout_constraintTop_toBottomOf="@+id/img_challenge">
+                app:layout_constraintTop_toBottomOf="@+id/layout_relation_panel">
 
                 <TextView
                     android:layout_width="wrap_content"

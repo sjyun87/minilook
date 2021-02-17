@@ -13,12 +13,12 @@ import butterknife.BindView;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.product.OptionColorDataModel;
 import com.minilook.minilook.ui.base._BaseViewHolder;
-import com.minilook.minilook.ui.base.widget.ColorView;
+import com.minilook.minilook.ui.base.widget.ColorChip;
 import lombok.Setter;
 
 public class OptionSelectorColorVH extends _BaseViewHolder<OptionColorDataModel> {
 
-    @BindView(R.id.view_color) ColorView colorView;
+    @BindView(R.id.view_color) ColorChip colorChip;
     @BindView(R.id.txt_color) TextView colorTextView;
     @BindView(R.id.txt_color_sold_out) TextView soldOutTextView;
 
@@ -38,7 +38,7 @@ public class OptionSelectorColorVH extends _BaseViewHolder<OptionColorDataModel>
     @Override public void bind(OptionColorDataModel $data) {
         super.bind($data);
 
-        colorView.setupColor(data.getColorCode());
+        colorChip.setColor(data.getColorCode());
         colorTextView.setText(data.getColorName());
 
         if (data.getColorStock() == 0) {

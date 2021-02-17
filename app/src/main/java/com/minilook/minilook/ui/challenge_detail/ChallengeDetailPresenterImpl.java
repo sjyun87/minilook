@@ -7,6 +7,7 @@ import com.minilook.minilook.App;
 import com.minilook.minilook.data.code.ChallengeType;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.challenge.ChallengeDataModel;
+import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.network.challenge.ChallengeRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
@@ -18,6 +19,7 @@ import com.minilook.minilook.util.DynamicLinkUtil;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.Timer;
@@ -31,6 +33,7 @@ public class ChallengeDetailPresenterImpl extends BasePresenterImpl implements C
     private final View view;
     private final int challengeNo;
     private final BaseAdapterDataModel<String> imageAdapter;
+    private final BaseAdapterDataModel<ProductDataModel> relationProductAdapter;
     private final ChallengeRequest challengeRequest;
     private final DynamicLinkUtil dynamicLinkUtil;
     private final Gson gson;
@@ -44,6 +47,7 @@ public class ChallengeDetailPresenterImpl extends BasePresenterImpl implements C
         view = args.getView();
         challengeNo = args.getChallengeNo();
         imageAdapter = args.getImageAdapter();
+        relationProductAdapter = args.getRelationProductAdapter();
         challengeRequest = new ChallengeRequest();
         dynamicLinkUtil = new DynamicLinkUtil();
         gson = App.getInstance().getGson();
@@ -52,7 +56,8 @@ public class ChallengeDetailPresenterImpl extends BasePresenterImpl implements C
     @Override public void onCreate() {
         toRxObservable();
         view.setupClickAction();
-        view.setupViewPager();
+        view.setupImageViewPager();
+        view.setupRelationProductViewPager();
 
         getChallengeDetail();
     }
@@ -61,10 +66,14 @@ public class ChallengeDetailPresenterImpl extends BasePresenterImpl implements C
         if (data != null && status != ChallengeType.END.getValue()) {
             startTimer();
         }
+        view.registPageChangeCallback();
+        view.startAutoSlide();
     }
 
     @Override public void onPause() {
         stopTimer();
+        view.removePageChangeCallback();
+        view.cancelAutoSlide();
     }
 
     @Override public void onDestroy() {
@@ -153,6 +162,15 @@ public class ChallengeDetailPresenterImpl extends BasePresenterImpl implements C
         } else {
             view.showEndTime();
             view.setLabel(status);
+        }
+
+        List<ProductDataModel> relationProducts = data.getRelationProducts();
+        if (relationProducts != null && relationProducts.size() > 0) {
+            relationProductAdapter.set(relationProducts);
+            view.relationProductRefresh();
+            view.showRelationProductPanel();
+            view.setRelationUserInputEnabled(relationProducts.size() > 1);
+            view.startAutoSlide();
         }
     }
 
