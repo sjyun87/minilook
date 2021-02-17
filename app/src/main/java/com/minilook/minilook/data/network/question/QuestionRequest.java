@@ -2,6 +2,7 @@ package com.minilook.minilook.data.network.question;
 
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.model.base.BaseDataModel;
+import com.minilook.minilook.data.model.question.QuestionWriteDataModel;
 import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
 import java.util.HashMap;
@@ -25,16 +26,17 @@ public class QuestionRequest extends BaseRequest<QuestionService> {
         return createRequestBody(jsonMap);
     }
 
-    public Single<BaseDataModel> writeQuestion(int productNo, String contents, String type, boolean isSecret) {
-        return getApi().writeQuestion(productNo, createWriteQuestionData(contents, type, isSecret));
+    public Single<BaseDataModel> writeQuestion(QuestionWriteDataModel model) {
+        return getApi().writeQuestion(model.getProductNo(), createWriteQuestionData(model));
     }
 
-    private RequestBody createWriteQuestionData(String contents, String type, boolean isSecret) {
+    private RequestBody createWriteQuestionData(QuestionWriteDataModel model) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("memberNo", App.getInstance().getMemberNo());
-        jsonMap.put("content", contents);
-        jsonMap.put("type", type);
-        jsonMap.put("secret", isSecret);
+        jsonMap.put("type", model.getType());
+        jsonMap.put("content", model.getQuestion());
+        if (model.getPhotos() != null && model.getPhotos().size() > 0) jsonMap.put("photos", model.getPhotos());
+        jsonMap.put("secret", model.isSecret());
         return createRequestBody(jsonMap);
     }
 }

@@ -11,13 +11,9 @@ import retrofit2.http.Path;
 
 public interface NCloudService {
 
-    @PUT("{path}") Single<ResponseBody> putImage(
+    @PUT("/minilook/{type}/{memberNo}/{objectName}") Single<ResponseBody> putObject(
         @HeaderMap Map<String, String> headers,
-        @Path("path") String path
-    );
-
-    @PUT("/minilook/reviews/{memberNo}/{objectName}") Single<ResponseBody> putReviewImage(
-        @HeaderMap Map<String, String> headers,
+        @Path("type") String type,
         @Path("memberNo") int memberNo,
         @Path("objectName") String objectName,
         @Body RequestBody body

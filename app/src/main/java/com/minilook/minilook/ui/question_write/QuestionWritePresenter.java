@@ -3,6 +3,8 @@ package com.minilook.minilook.ui.question_write;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
+import com.minilook.minilook.data.model.gallery.PhotoDataModel;
+import java.util.List;
 
 public interface QuestionWritePresenter extends LifecycleObserver {
 
@@ -21,7 +23,13 @@ public interface QuestionWritePresenter extends LifecycleObserver {
 
     interface View {
 
-        void setupRecyclerView();
+        void setupClickAction();
+
+        void setupTypeRecyclerView();
+
+        void setupPhotoRecyclerView();
+
+        void photoRefresh();
 
         void showTypeBox();
 
@@ -31,6 +39,8 @@ public interface QuestionWritePresenter extends LifecycleObserver {
 
         void setupQuestionEditText();
 
+        void setSelectedPhotoCount(int size);
+
         void checkSecretCheckBox();
 
         void uncheckSecretCheckBox();
@@ -39,7 +49,17 @@ public interface QuestionWritePresenter extends LifecycleObserver {
 
         void disableApplyButton();
 
+        void setupGuideText();
+
         void showQuestionWriteToast();
+
+        void showLoadingView();
+
+        void hideLoadingView();
+
+        void showErrorDialog();
+
+        void navigateToGallery(List<PhotoDataModel> photos);
 
         void finish();
     }

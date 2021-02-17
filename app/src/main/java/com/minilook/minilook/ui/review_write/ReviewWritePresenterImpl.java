@@ -374,7 +374,7 @@ public class ReviewWritePresenterImpl extends BasePresenterImpl implements Revie
     }
 
     private void putImage(KeyDataModel keys, PhotoDataModel photo) {
-        addDisposable(nCloudRequest.putImage(NCloudRequest.TYPE_REVIEW, keys, data.getProductNo(), photo)
+        addDisposable(nCloudRequest.uploadImage(NCloudRequest.TYPE_REVIEW, keys, photo)
             .subscribe(this::onResPutImage, Timber::e));
     }
 

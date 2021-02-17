@@ -47,11 +47,11 @@ public class NCloudRequest extends BaseRequest<NCloudService> {
         return EndPoint.NAVER_CLOUD_URL.getValue();
     }
 
-    public Single<ResponseBody> putImage(String type, KeyDataModel keys, int productNo, PhotoDataModel imageData) {
+    public Single<ResponseBody> uploadImage(String type, KeyDataModel keys, PhotoDataModel imageData) {
         int memberNo = App.getInstance().getMemberNo();
         String objectName = imageData.getName();
         String uploadPath = getUploadPath(type, memberNo, objectName);
-        return getApi().putReviewImage(createAuthHeaders(keys, uploadPath), memberNo, objectName,
+        return getApi().putObject(createAuthHeaders(keys, uploadPath), type, memberNo, objectName,
             createImageData(new File(imageData.getFilePath())));
     }
 

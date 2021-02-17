@@ -2,31 +2,34 @@ package com.minilook.minilook.ui.question_write;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.ArrayRes;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.FontRes;
+import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindArray;
-import butterknife.BindColor;
-import butterknife.BindDrawable;
-import butterknife.BindString;
-import butterknife.BindView;
-import butterknife.OnClick;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
-import com.minilook.minilook.ui.base._BaseActivity;
+import com.minilook.minilook.data.model.gallery.PhotoDataModel;
+import com.minilook.minilook.databinding.ActivityQuestionWriteBinding;
+import com.minilook.minilook.ui.base.BaseActivity;
+import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.ui.dialog.manager.DialogManager;
+import com.minilook.minilook.ui.gallery.GalleryActivity;
 import com.minilook.minilook.ui.question_write.adapter.QuestionTypeAdapter;
 import com.minilook.minilook.ui.question_write.di.QuestionWriteArguments;
+import com.minilook.minilook.ui.review_write.adapter.PhotoAdapter;
 import com.minilook.minilook.util.DimenUtil;
+import com.minilook.minilook.util.SpannableUtil;
 import java.util.Arrays;
+import java.util.List;
 
-public class QuestionWriteActivity extends _BaseActivity implements QuestionWritePresenter.View {
+public class QuestionWriteActivity extends BaseActivity implements QuestionWritePresenter.View {
 
     public static void start(Context context, int productNo) {
         Intent intent = new Intent(context, QuestionWriteActivity.class);
@@ -36,31 +39,36 @@ public class QuestionWriteActivity extends _BaseActivity implements QuestionWrit
         context.startActivity(intent);
     }
 
-    @BindView(R.id.txt_selected_type) TextView selectedTypeTextView;
-    @BindView(R.id.img_type_arrow) ImageView arrowImageView;
-    @BindView(R.id.rcv_type) RecyclerView recyclerView;
-    @BindView(R.id.edit_question) EditText questionEditText;
-    @BindView(R.id.img_secret_check) ImageView secretCheckBoxImageView;
-    @BindView(R.id.txt_apply) TextView applyTextView;
+    @ArrayRes int types = R.array.question_type;
 
-    @BindArray(R.array.question_type) String[] types;
+    @StringRes int str_selected_count = R.string.review_write_photo_selected_count;
+    @StringRes int str_guide1 = R.string.question_write_guide1;
+    @StringRes int str_guide1_bold = R.string.question_write_guide1_b;
+    @StringRes int str_guide2 = R.string.question_write_guide2;
+    @StringRes int str_guide2_bold = R.string.question_write_guide2_b;
+    @StringRes int str_question_write = R.string.toast_question_write;
 
-    @BindColor(R.color.color_FFA9A9A9) int color_FFA9A9A9;
-    @BindColor(R.color.color_FFF5F5F5) int color_FFF5F5F5;
-    @BindColor(R.color.color_FF8140E5) int color_FF8140E5;
+    @ColorRes int color_FFA9A9A9 = R.color.color_FFA9A9A9;
+    @ColorRes int color_FFF5F5F5 = R.color.color_FFF5F5F5;
+    @ColorRes int color_FF8140E5 = R.color.color_FF8140E5;
 
-    @BindDrawable(R.drawable.ic_arrow_down_black) Drawable img_arrow_down;
-    @BindDrawable(R.drawable.ic_arrow_up_black) Drawable img_arrow_up;
-    @BindDrawable(R.drawable.ic_checkbox1_off) Drawable img_checkbox_off;
-    @BindDrawable(R.drawable.ic_checkbox1_on) Drawable img_checkbox_on;
+    @DrawableRes int img_arrow_down = R.drawable.ic_arrow_down_black;
+    @DrawableRes int img_arrow_up = R.drawable.ic_arrow_up_black;
+    @DrawableRes int img_checkbox_off = R.drawable.ic_checkbox1_off;
+    @DrawableRes int img_checkbox_on = R.drawable.ic_checkbox1_on;
 
-    @BindString(R.string.toast_question_write) String str_question_write;
+    @FontRes int font_bold = R.font.nanum_square_b;
 
+    private ActivityQuestionWriteBinding binding;
     private QuestionWritePresenter presenter;
-    private QuestionTypeAdapter adapter;
+    private QuestionTypeAdapter typeAdapter;
 
-    @Override protected int getLayoutID() {
-        return R.layout.activity_question_write;
+    private final PhotoAdapter photoAdapter = new PhotoAdapter();
+    private final BaseAdapterDataView<PhotoDataModel> photoAdapterView = photoAdapter;
+
+    @Override protected View getBindingView() {
+        binding = ActivityQuestionWriteBinding.inflate(getLayoutInflater());
+        return binding.getRoot();
     }
 
     @Override protected void createPresenter() {
@@ -72,42 +80,59 @@ public class QuestionWriteActivity extends _BaseActivity implements QuestionWrit
         return QuestionWriteArguments.builder()
             .view(this)
             .productNo(getIntent().getIntExtra("productNo", -1))
+            .photoAdapter(photoAdapter)
             .build();
     }
 
-    @Override public void setupRecyclerView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new QuestionTypeAdapter();
-        adapter.setOnTypeSelectedListener(data -> presenter.onTypeSelected(data));
-        recyclerView.setAdapter(adapter);
+    @Override public void setupClickAction() {
+        binding.layoutTypeBoxPanel.setOnClickListener(view -> presenter.onTypeBoxClick());
+        binding.layoutSecretPanel.setOnClickListener(view -> presenter.onSecretClick());
+        binding.txtApply.setOnClickListener(view -> presenter.onApplyClick());
+    }
+
+    @Override public void setupTypeRecyclerView() {
+        binding.rcvType.setLayoutManager(new LinearLayoutManager(this));
+        typeAdapter = new QuestionTypeAdapter();
+        typeAdapter.setOnTypeSelectedListener(data -> presenter.onTypeSelected(data));
+        binding.rcvType.setAdapter(typeAdapter);
         DividerDecoration.builder(this)
             .size(DimenUtil.dpToPx(this, 1))
-            .color(color_FFA9A9A9)
+            .color(resources.getColor(color_FFA9A9A9))
             .showLastDivider()
             .build()
-            .addTo(recyclerView);
+            .addTo(binding.rcvType);
 
-        adapter.set(Arrays.asList(types));
-        adapter.refresh();
-        presenter.onTypeSelected(adapter.get(0));
+        typeAdapter.set(Arrays.asList(resources.getStringArray(types)));
+        typeAdapter.refresh();
+        presenter.onTypeSelected(typeAdapter.get(0));
+    }
+
+    @Override public void setupPhotoRecyclerView() {
+        binding.rcvPhoto.setHasFixedSize(true);
+        binding.rcvPhoto.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        binding.rcvPhoto.setAdapter(photoAdapter);
+    }
+
+    @Override public void photoRefresh() {
+        photoAdapterView.refresh();
     }
 
     @Override public void showTypeBox() {
-        recyclerView.setVisibility(View.VISIBLE);
-        arrowImageView.setImageDrawable(img_arrow_up);
+        binding.rcvType.setVisibility(View.VISIBLE);
+        binding.imgTypeArrow.setImageDrawable(resources.getDrawable(img_arrow_up));
     }
 
     @Override public void hideTypeBox() {
-        recyclerView.setVisibility(View.GONE);
-        arrowImageView.setImageDrawable(img_arrow_down);
+        binding.rcvType.setVisibility(View.GONE);
+        binding.imgTypeArrow.setImageDrawable(resources.getDrawable(img_arrow_down));
     }
 
     @Override public void setSelectedType(String type) {
-        selectedTypeTextView.setText(type);
+        binding.txtSelectedType.setText(type);
     }
 
     @Override public void setupQuestionEditText() {
-        questionEditText.addTextChangedListener(new TextWatcher() {
+        binding.editQuestion.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
@@ -120,40 +145,63 @@ public class QuestionWriteActivity extends _BaseActivity implements QuestionWrit
         });
     }
 
+    @Override public void setSelectedPhotoCount(int size) {
+        String count = String.valueOf(size);
+        String total = String.format(resources.getString(str_selected_count), count);
+        if (size < 4) {
+            binding.txtSelectedCount.setTextColor(resources.getColor(color_FFA9A9A9));
+            binding.txtSelectedCount.setText(SpannableUtil.foregroundColorSpan(total, count, color_FF8140E5));
+        } else {
+            binding.txtSelectedCount.setTextColor(resources.getColor(color_FF8140E5));
+            binding.txtSelectedCount.setText(total);
+        }
+    }
+
     @Override public void checkSecretCheckBox() {
-        secretCheckBoxImageView.setImageDrawable(img_checkbox_on);
+        binding.imgSecretCheck.setImageDrawable(resources.getDrawable(img_checkbox_on));
     }
 
     @Override public void uncheckSecretCheckBox() {
-        secretCheckBoxImageView.setImageDrawable(img_checkbox_off);
+        binding.imgSecretCheck.setImageDrawable(resources.getDrawable(img_checkbox_off));
     }
 
     @Override public void enableApplyButton() {
-        applyTextView.setEnabled(true);
-        applyTextView.setBackgroundColor(color_FF8140E5);
+        binding.txtApply.setEnabled(true);
+        binding.txtApply.setBackgroundColor(resources.getColor(color_FF8140E5));
     }
 
     @Override public void disableApplyButton() {
-        applyTextView.setEnabled(false);
-        applyTextView.setBackgroundColor(color_FFF5F5F5);
+        binding.txtApply.setEnabled(false);
+        binding.txtApply.setBackgroundColor(resources.getColor(color_FFF5F5F5));
+    }
+
+    @Override public void setupGuideText() {
+        binding.txtGuide1.setText(
+            SpannableUtil.fontSpan(resources.getString(str_guide1), resources.getString(str_guide1_bold),
+                resources.getFont(font_bold)));
+
+        binding.txtGuide2.setText(
+            SpannableUtil.fontSpan(resources.getString(str_guide2), resources.getString(str_guide2_bold),
+                resources.getFont(font_bold)));
     }
 
     @Override public void showQuestionWriteToast() {
         Toast.makeText(this, str_question_write, Toast.LENGTH_SHORT).show();
     }
 
-    @OnClick(R.id.layout_type_box_panel)
-    void onTypeBoxClick() {
-        presenter.onTypeBoxClick();
+    @Override public void showLoadingView() {
+        binding.loadingView.show();
     }
 
-    @OnClick(R.id.layout_secret_panel)
-    void onSecretClick() {
-        presenter.onSecretClick();
+    @Override public void hideLoadingView() {
+        binding.loadingView.hide();
     }
 
-    @OnClick(R.id.txt_apply)
-    void onApplyClick() {
-        presenter.onApplyClick();
+    @Override public void showErrorDialog() {
+        DialogManager.showErrorDialog(this);
+    }
+
+    @Override public void navigateToGallery(List<PhotoDataModel> photos) {
+        GalleryActivity.start(this, photos);
     }
 }
