@@ -89,6 +89,6 @@ public class ShoppingBagAdapter extends RecyclerView.Adapter<ShoppingBagItemVH>
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

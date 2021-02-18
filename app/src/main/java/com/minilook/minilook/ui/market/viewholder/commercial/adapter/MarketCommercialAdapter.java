@@ -94,6 +94,6 @@ public class MarketCommercialAdapter extends RecyclerView.Adapter<MarketCommerci
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

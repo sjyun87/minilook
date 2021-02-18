@@ -101,6 +101,6 @@ public class SnapPickerAdapter extends RecyclerView.Adapter<SnapPickerItemVH>
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

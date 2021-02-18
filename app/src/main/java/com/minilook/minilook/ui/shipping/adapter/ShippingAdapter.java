@@ -90,6 +90,6 @@ public class ShippingAdapter extends RecyclerView.Adapter<ShippingItemVH> implem
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

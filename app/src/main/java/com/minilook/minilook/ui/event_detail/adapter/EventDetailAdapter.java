@@ -89,6 +89,6 @@ public class EventDetailAdapter extends RecyclerView.Adapter<EventDetailOtherVH>
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

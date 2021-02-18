@@ -89,6 +89,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderItemVH>
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

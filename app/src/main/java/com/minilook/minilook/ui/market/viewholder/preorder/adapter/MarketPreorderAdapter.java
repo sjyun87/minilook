@@ -103,6 +103,6 @@ public class MarketPreorderAdapter extends RecyclerView.Adapter<BaseViewHolder<P
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

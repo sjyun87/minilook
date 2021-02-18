@@ -89,6 +89,6 @@ public class OrderCancelAdapter extends RecyclerView.Adapter<OrderCancelItemVH>
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

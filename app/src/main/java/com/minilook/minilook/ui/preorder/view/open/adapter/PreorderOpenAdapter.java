@@ -102,6 +102,6 @@ public class PreorderOpenAdapter extends RecyclerView.Adapter<_BaseViewHolder<Pr
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

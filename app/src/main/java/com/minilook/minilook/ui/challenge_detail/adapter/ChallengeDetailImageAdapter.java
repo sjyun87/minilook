@@ -88,6 +88,6 @@ public class ChallengeDetailImageAdapter extends RecyclerView.Adapter<PreorderDe
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

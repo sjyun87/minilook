@@ -30,6 +30,7 @@ import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.util.DimenUtil;
 import com.minilook.minilook.util.StringUtil;
 import jp.wasabeef.glide.transformations.CropCircleWithBorderTransformation;
+import timber.log.Timber;
 
 public class BrandDetailActivity extends BaseActivity implements BrandDetailPresenter.View {
 
@@ -100,6 +101,7 @@ public class BrandDetailActivity extends BaseActivity implements BrandDetailPres
                     - (resources.getDimen(dp_150)))) {
                     isLoading = true;
                     presenter.onLoadMore();
+                    Timber.e("onLoadMore");
                 }
             });
     }

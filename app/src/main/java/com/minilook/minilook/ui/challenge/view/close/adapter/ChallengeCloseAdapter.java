@@ -89,6 +89,6 @@ public class ChallengeCloseAdapter extends RecyclerView.Adapter<ChallengeCloseIt
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

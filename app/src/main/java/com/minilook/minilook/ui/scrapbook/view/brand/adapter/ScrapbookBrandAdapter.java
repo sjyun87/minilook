@@ -90,6 +90,6 @@ public class ScrapbookBrandAdapter extends RecyclerView.Adapter<ScrapbookBrandIt
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

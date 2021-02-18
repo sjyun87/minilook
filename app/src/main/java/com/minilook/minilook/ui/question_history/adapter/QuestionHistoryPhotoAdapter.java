@@ -93,6 +93,6 @@ public class QuestionHistoryPhotoAdapter extends RecyclerView.Adapter<QuestionHi
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

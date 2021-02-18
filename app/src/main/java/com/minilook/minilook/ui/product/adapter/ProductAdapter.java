@@ -125,6 +125,6 @@ public class ProductAdapter extends RecyclerView.Adapter<_BaseViewHolder<Product
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

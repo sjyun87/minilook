@@ -89,6 +89,6 @@ public class PromotionDetailOtherAdapter extends RecyclerView.Adapter<PromotionD
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

@@ -107,6 +107,6 @@ public class PhotoAdapter extends RecyclerView.Adapter<BaseViewHolder<PhotoDataM
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

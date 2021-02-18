@@ -88,6 +88,6 @@ public class PreorderProductDetailImageAdapter extends RecyclerView.Adapter<Preo
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

@@ -100,6 +100,6 @@ public class LookBookModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<S
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

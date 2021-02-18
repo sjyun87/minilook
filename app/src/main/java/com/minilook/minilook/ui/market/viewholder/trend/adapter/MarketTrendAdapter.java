@@ -89,6 +89,6 @@ public class MarketTrendAdapter extends RecyclerView.Adapter<MarketTrendItemVH> 
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

@@ -88,6 +88,6 @@ public class ProductDetailImageAdapter extends RecyclerView.Adapter<ProductDetai
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

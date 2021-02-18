@@ -89,6 +89,6 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponItemVH>
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

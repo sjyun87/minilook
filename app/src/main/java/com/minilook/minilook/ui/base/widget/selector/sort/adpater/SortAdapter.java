@@ -93,6 +93,6 @@ public class SortAdapter extends RecyclerView.Adapter<SortItemVH>
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

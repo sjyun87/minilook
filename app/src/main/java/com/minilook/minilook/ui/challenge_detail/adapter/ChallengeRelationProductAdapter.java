@@ -95,6 +95,6 @@ public class ChallengeRelationProductAdapter extends RecyclerView.Adapter<Challe
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

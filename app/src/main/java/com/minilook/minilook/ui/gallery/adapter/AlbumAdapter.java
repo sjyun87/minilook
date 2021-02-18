@@ -90,6 +90,6 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumItemVH> implements
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

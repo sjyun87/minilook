@@ -88,7 +88,7 @@ public class ReviewRequest extends BaseRequest<ReviewService> {
         return getApi().getPhotoReviews(productNo, createPhotoReviewsData(rows, lastReviewNo));
     }
 
-    private RequestBody createPhotoReviewsData(int rows, long lastReviewNo) {
+    private RequestBody createPhotoReviewsData(int rows, int lastReviewNo) {
         Map<String, Object> jsonMap = new HashMap<>();
         //jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("pageSize", rows);

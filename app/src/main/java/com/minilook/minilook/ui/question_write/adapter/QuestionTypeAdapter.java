@@ -91,6 +91,6 @@ public class QuestionTypeAdapter extends RecyclerView.Adapter<QuestionTypeItemVH
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

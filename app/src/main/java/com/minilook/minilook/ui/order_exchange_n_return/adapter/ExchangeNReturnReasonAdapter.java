@@ -89,6 +89,6 @@ public class ExchangeNReturnReasonAdapter extends RecyclerView.Adapter<ExchangeN
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

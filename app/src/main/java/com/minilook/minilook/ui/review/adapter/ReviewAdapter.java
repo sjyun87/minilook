@@ -92,6 +92,6 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewItemVH>
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

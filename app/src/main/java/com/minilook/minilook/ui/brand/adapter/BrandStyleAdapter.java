@@ -93,6 +93,6 @@ public class BrandStyleAdapter extends RecyclerView.Adapter<BrandStyleVH> implem
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

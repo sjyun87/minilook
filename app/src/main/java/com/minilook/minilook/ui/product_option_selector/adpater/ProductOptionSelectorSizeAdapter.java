@@ -92,6 +92,6 @@ public class ProductOptionSelectorSizeAdapter extends RecyclerView.Adapter<Produ
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

@@ -96,6 +96,6 @@ public class BrandDetailSortAdapter extends RecyclerView.Adapter<BrandDetailSort
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

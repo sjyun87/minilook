@@ -89,6 +89,6 @@ public class ChallengeComingAdapter extends RecyclerView.Adapter<ChallengeComing
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

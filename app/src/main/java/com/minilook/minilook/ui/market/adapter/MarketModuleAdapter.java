@@ -134,7 +134,7 @@ public class MarketModuleAdapter extends RecyclerView.Adapter<BaseViewHolder<Mar
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 
     @Override public void onViewAttachedToWindow(@NonNull BaseViewHolder<MarketDataModel> holder) {

@@ -92,6 +92,6 @@ public class ProductOptionSelectorColorAdapter extends RecyclerView.Adapter<Prod
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

@@ -140,6 +140,6 @@ public class OrderDetailGoodsAdapter extends RecyclerView.Adapter<_BaseViewHolde
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

@@ -92,6 +92,6 @@ public class FilterGenderAdapter extends RecyclerView.Adapter<FilterGenderVH>
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

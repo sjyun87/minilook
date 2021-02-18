@@ -88,6 +88,6 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoItemVH>
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }

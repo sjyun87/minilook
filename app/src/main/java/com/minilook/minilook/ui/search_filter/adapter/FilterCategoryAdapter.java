@@ -92,6 +92,6 @@ public class FilterCategoryAdapter extends RecyclerView.Adapter<FilterCategoryVH
     }
 
     @Override public void refresh(int $start, int $row) {
-        notifyItemRangeChanged($start, $row);
+        notifyItemRangeInserted($start, $row);
     }
 }
