@@ -144,6 +144,8 @@ public class ProductDetailReviewItemVH extends BaseViewHolder<ReviewDataModel> {
             int lineCount = binding.txtReview.getLineCount();
             if (lineCount > binding.txtReview.getMaxLines()) {
                 binding.layoutMorePanel.setVisibility(View.VISIBLE);
+            } else {
+                binding.layoutMorePanel.setVisibility(View.GONE);
             }
         });
 

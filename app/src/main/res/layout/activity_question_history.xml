@@ -12,6 +12,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:setTitle="@string/question_history_title"
         app:showBack="true"
+        app:showCount="true"
         app:showTitle="true" />
 
     <androidx.recyclerview.widget.RecyclerView
