@@ -277,7 +277,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
     }
 
     @Override public void setupProductName(String text) {
-        binding.txtBrandName.setText(text);
+        binding.txtProductName.setText(text);
     }
 
     @Override public void addColorView(ProductStockDataModel model) {
