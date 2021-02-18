@@ -10,10 +10,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.image.ImageDataModel;
+import com.minilook.minilook.data.model.common.ImageDataModel;
 import com.minilook.minilook.databinding.ViewReviewPhotoItemBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.util.DeviceUtil;
+import lombok.Setter;
 
 public class QuestionHistoryPhotoItemVH extends BaseViewHolder<ImageDataModel> {
 
@@ -23,6 +24,8 @@ public class QuestionHistoryPhotoItemVH extends BaseViewHolder<ImageDataModel> {
     @DimenRes int dp_4 = R.dimen.dp_4;
 
     private final ViewReviewPhotoItemBinding binding;
+
+    @Setter private OnPhotoClickListener onPhotoClickListener;
 
     public QuestionHistoryPhotoItemVH(@NonNull View parent) {
         super(ViewReviewPhotoItemBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,
@@ -56,5 +59,15 @@ public class QuestionHistoryPhotoItemVH extends BaseViewHolder<ImageDataModel> {
             .error(ph_square)
             .transition(new DrawableTransitionOptions().crossFade())
             .into(binding.imgThumb);
+
+        itemView.setOnClickListener(this::onItemClick);
+    }
+
+    private void onItemClick(View view) {
+        if (onPhotoClickListener != null) onPhotoClickListener.onPhotoClick(position);
+    }
+
+    public interface OnPhotoClickListener {
+        void onPhotoClick(int position);
     }
 }

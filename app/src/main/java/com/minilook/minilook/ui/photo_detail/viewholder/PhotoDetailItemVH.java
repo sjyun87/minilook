@@ -1,4 +1,4 @@
-package com.minilook.minilook.ui.photo.viewholder;
+package com.minilook.minilook.ui.photo_detail.viewholder;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,17 +8,17 @@ import androidx.annotation.NonNull;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.image.ImageDataModel;
+import com.minilook.minilook.data.model.common.ImageDataModel;
 import com.minilook.minilook.databinding.ViewPhotoItemBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 
-public class PhotoItemVH extends BaseViewHolder<ImageDataModel> {
+public class PhotoDetailItemVH extends BaseViewHolder<ImageDataModel> {
 
     @DrawableRes int ph_square = R.drawable.ph_square;
 
     private final ViewPhotoItemBinding binding;
 
-    public PhotoItemVH(@NonNull View parent) {
+    public PhotoDetailItemVH(@NonNull View parent) {
         super(ViewPhotoItemBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,
             false));
         binding = ViewPhotoItemBinding.bind(itemView);
@@ -30,7 +30,6 @@ public class PhotoItemVH extends BaseViewHolder<ImageDataModel> {
 
         Glide.with(context)
             .load(data.getOriginUrl())
-            .placeholder(ph_square)
             .error(ph_square)
             .transition(new DrawableTransitionOptions().crossFade())
             .into(binding.imgContents);

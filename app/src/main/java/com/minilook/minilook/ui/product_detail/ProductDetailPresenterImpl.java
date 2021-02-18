@@ -8,7 +8,7 @@ import com.minilook.minilook.data.code.ShippingCode;
 import com.minilook.minilook.data.code.StockType;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
-import com.minilook.minilook.data.model.image.ImageDataModel;
+import com.minilook.minilook.data.model.common.ImageDataModel;
 import com.minilook.minilook.data.model.product.OptionColorDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.product.ProductStockDataModel;

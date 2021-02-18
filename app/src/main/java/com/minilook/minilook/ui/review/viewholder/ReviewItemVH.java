@@ -17,15 +17,19 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.code.GenderCode;
 import com.minilook.minilook.data.code.ReviewSatisfactions;
 import com.minilook.minilook.data.code.ReviewSizeRatings;
+import com.minilook.minilook.data.model.common.ImageDataModel;
+import com.minilook.minilook.data.model.common.PhotoDetailDataModel;
 import com.minilook.minilook.data.model.review.ReviewDataModel;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.databinding.ViewReviewItemBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.login.LoginActivity;
-import com.minilook.minilook.ui.photo.PhotoActivity;
+import com.minilook.minilook.ui.photo_detail.PhotoDetailActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailPresenterImpl;
 import com.minilook.minilook.ui.review_history.view.written.adapter.ReviewPhotoAdapter;
 import com.minilook.minilook.util.SpannableUtil;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReviewItemVH extends BaseViewHolder<ReviewDataModel> {
 
@@ -191,6 +195,11 @@ public class ReviewItemVH extends BaseViewHolder<ReviewDataModel> {
     }
 
     private void onPhotoClick(int position) {
-        PhotoActivity.start(context, data.getPhotos(), position);
+        PhotoDetailDataModel model = new PhotoDetailDataModel();
+        model.setContents(data.getReview());
+        model.setPhotos(data.getPhotos());
+        model.setPosition(position);
+
+        PhotoDetailActivity.start(context, model);
     }
 }

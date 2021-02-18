@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.minilook.minilook.App;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.common.PhotoDetailDataModel;
 import com.minilook.minilook.data.model.question.QuestionDataModel;
 import com.minilook.minilook.databinding.ViewQuestionItemBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.photo_detail.PhotoDetailActivity;
 import com.minilook.minilook.ui.question.adapter.QuestionPhotoAdapter;
 
 public class QuestionItemVH extends BaseViewHolder<QuestionDataModel> {
@@ -36,6 +38,7 @@ public class QuestionItemVH extends BaseViewHolder<QuestionDataModel> {
     public QuestionItemVH(@NonNull View parent) {
         super(ViewQuestionItemBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent, false));
         binding = ViewQuestionItemBinding.bind(itemView);
+        adapter.setOnPhotoClickListener(this::onPhotoClick);
 
         setupRecyclerView();
     }
@@ -135,5 +138,13 @@ public class QuestionItemVH extends BaseViewHolder<QuestionDataModel> {
         } else {
             binding.txtEdit.setVisibility(View.GONE);
         }
+    }
+
+    private void onPhotoClick(int position) {
+        PhotoDetailDataModel model = new PhotoDetailDataModel();
+        model.setPhotos(data.getPhotos());
+        model.setPosition(position);
+
+        PhotoDetailActivity.start(context, model);
     }
 }

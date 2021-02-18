@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.image.ImageDataModel;
+import com.minilook.minilook.data.model.common.ImageDataModel;
 import com.minilook.minilook.databinding.ViewProductDetailPhotoReviewItemBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import lombok.Setter;

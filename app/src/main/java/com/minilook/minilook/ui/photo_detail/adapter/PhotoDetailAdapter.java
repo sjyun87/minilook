@@ -1,25 +1,25 @@
-package com.minilook.minilook.ui.photo.adapter;
+package com.minilook.minilook.ui.photo_detail.adapter;
 
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.minilook.minilook.data.model.image.ImageDataModel;
+import com.minilook.minilook.data.model.common.ImageDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
-import com.minilook.minilook.ui.photo.viewholder.PhotoItemVH;
+import com.minilook.minilook.ui.photo_detail.viewholder.PhotoDetailItemVH;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PhotoAdapter extends RecyclerView.Adapter<PhotoItemVH>
+public class PhotoDetailAdapter extends RecyclerView.Adapter<PhotoDetailItemVH>
     implements BaseAdapterDataModel<ImageDataModel>, BaseAdapterDataView<ImageDataModel> {
 
     private final List<ImageDataModel> items = new ArrayList<>();
 
-    @NonNull @Override public PhotoItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new PhotoItemVH(parent);
+    @NonNull @Override public PhotoDetailItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new PhotoDetailItemVH(parent);
     }
 
-    @Override public void onBindViewHolder(@NonNull PhotoItemVH holder, int position) {
+    @Override public void onBindViewHolder(@NonNull PhotoDetailItemVH holder, int position) {
         holder.bind(items.get(position));
     }
 

@@ -3,17 +3,19 @@ package com.minilook.minilook.ui.question.adapter;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.minilook.minilook.data.model.image.ImageDataModel;
+import com.minilook.minilook.data.model.common.ImageDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.question.viewholder.QuestionPhotoItemVH;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Setter;
 
 public class QuestionPhotoAdapter extends RecyclerView.Adapter<QuestionPhotoItemVH> implements
     BaseAdapterDataModel<ImageDataModel>, BaseAdapterDataView<ImageDataModel> {
 
     private final List<ImageDataModel> items = new ArrayList<>();
+    @Setter private QuestionPhotoItemVH.OnPhotoClickListener onPhotoClickListener;
 
     @NonNull @Override
     public QuestionPhotoItemVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -22,6 +24,7 @@ public class QuestionPhotoAdapter extends RecyclerView.Adapter<QuestionPhotoItem
 
     @Override public void onBindViewHolder(@NonNull QuestionPhotoItemVH holder, int position) {
         holder.bind(items.get(position));
+        if (onPhotoClickListener != null) holder.setOnPhotoClickListener(onPhotoClickListener);
     }
 
     @Override public int getItemCount() {

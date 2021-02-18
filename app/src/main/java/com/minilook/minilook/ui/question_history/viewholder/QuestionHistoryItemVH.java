@@ -11,10 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.common.ImageDataModel;
+import com.minilook.minilook.data.model.common.PhotoDetailDataModel;
 import com.minilook.minilook.data.model.question.QuestionDataModel;
 import com.minilook.minilook.databinding.ViewQuestionHistoryItemBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
+import com.minilook.minilook.ui.photo_detail.PhotoDetailActivity;
+import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.ui.question_history.adapter.QuestionHistoryPhotoAdapter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class QuestionHistoryItemVH extends BaseViewHolder<QuestionDataModel> {
 
@@ -34,6 +40,8 @@ public class QuestionHistoryItemVH extends BaseViewHolder<QuestionDataModel> {
         super(ViewQuestionHistoryItemBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent,
             false));
         binding = ViewQuestionHistoryItemBinding.bind(itemView);
+        binding.layoutProductPanel.setOnClickListener(view -> onProductClick());
+        adapter.setOnPhotoClickListener(this::onPhotoClick);
 
         setupRecyclerView();
     }
@@ -101,5 +109,17 @@ public class QuestionHistoryItemVH extends BaseViewHolder<QuestionDataModel> {
         } else {
             binding.txtEdit.setVisibility(View.GONE);
         }
+    }
+
+    private void onProductClick() {
+        ProductDetailActivity.start(context, data.getProductNo());
+    }
+
+    private void onPhotoClick(int position) {
+        PhotoDetailDataModel model = new PhotoDetailDataModel();
+        model.setPhotos(data.getPhotos());
+        model.setPosition(position);
+
+        PhotoDetailActivity.start(context, model);
     }
 }

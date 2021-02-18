@@ -700,8 +700,10 @@
     <string name="bridge_total">총 %s개 상품</string>
     <string name="bridge_total_b">%s개</string>
 
-    <!--Photo-->
+    <!--Photo Detail-->
     <string name="photo_page">%d/%d</string>
+    <string name="photo_expand">더보기</string>
+    <string name="photo_collapse">접기</string>
 
     <!--Setting-->
     <string name="setting_title">설정</string>

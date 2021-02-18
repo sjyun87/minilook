@@ -172,7 +172,7 @@ public class QuestionWritePresenterImpl extends BasePresenterImpl implements Que
     private void onResUploadKeys(KeyDataModel model) {
         for (PhotoDataModel photo : photos) {
             photo.setName(createObjectName());
-            putImage(model, photo);
+            uploadImage(model, photo);
         }
     }
 
@@ -186,14 +186,22 @@ public class QuestionWritePresenterImpl extends BasePresenterImpl implements Que
         return sb.toString();
     }
 
-    private void putImage(KeyDataModel keys, PhotoDataModel photo) {
+    private void uploadImage(KeyDataModel keys, PhotoDataModel photo) {
         addDisposable(nCloudRequest.uploadImage(NCloudRequest.TYPE_QUESTION, keys, photo)
-            .subscribe(this::onResPutImage, Timber::e));
+            .compose(Transformer.applySchedulers())
+            .subscribe(this::onResPutImage, this::onUploadError));
     }
 
     private void onResPutImage(ResponseBody body) {
         uploadCount++;
         checkUploadCompleted();
+    }
+
+    private void onUploadError(Throwable e) {
+        Timber.e(e);
+        uploadCount = 0;
+        view.hideLoadingView();
+        view.showErrorDialog();
     }
 
     private void checkUploadCompleted() {

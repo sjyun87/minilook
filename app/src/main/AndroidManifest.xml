@@ -304,7 +304,7 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name=".ui.photo.PhotoActivity"
+            android:name=".ui.photo_detail.PhotoDetailActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
