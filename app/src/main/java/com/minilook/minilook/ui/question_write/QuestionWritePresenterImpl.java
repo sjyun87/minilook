@@ -99,6 +99,10 @@ public class QuestionWritePresenterImpl extends BasePresenterImpl implements Que
         }
     }
 
+    @Override public void onStoragePermissionGranted() {
+        view.navigateToGallery(photos);
+    }
+
     @Override public void onTypeSelected(String data) {
         type = data;
         view.setSelectedType(type);
@@ -237,7 +241,7 @@ public class QuestionWritePresenterImpl extends BasePresenterImpl implements Que
                 PhotoDataModel data = ((PhotoContentItemVH.RxEventReviewPhotoClick) o).getModel();
                 removePhoto(data);
             } else if (o instanceof PhotoFooterItemVH.RxEventReviewPhotoFooterClick) {
-                view.navigateToGallery(photos);
+                view.checkStoragePermission();
             }
         }, Timber::e));
     }

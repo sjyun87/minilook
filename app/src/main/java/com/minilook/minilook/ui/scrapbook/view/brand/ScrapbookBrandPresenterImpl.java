@@ -1,10 +1,11 @@
 package com.minilook.minilook.ui.scrapbook.view.brand;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
+import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.brand.BrandDataModel;
-import com.minilook.minilook.data.model.scrap.ScrapBrandDataModel;
 import com.minilook.minilook.data.network.scrap.ScrapRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
@@ -13,6 +14,9 @@ import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.base.widget.BottomBar;
 import com.minilook.minilook.ui.main.MainPresenterImpl;
 import com.minilook.minilook.ui.scrapbook.view.brand.di.ScrapbookBrandArguments;
+import io.reactivex.rxjava3.functions.Function;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import timber.log.Timber;
 
@@ -26,6 +30,8 @@ public class ScrapbookBrandPresenterImpl extends BasePresenterImpl implements Sc
     private final Gson gson;
 
     private AtomicInteger page;
+
+    private int totalPageSize;
 
     public ScrapbookBrandPresenterImpl(ScrapbookBrandArguments args) {
         view = args.getView();
@@ -46,7 +52,7 @@ public class ScrapbookBrandPresenterImpl extends BasePresenterImpl implements Sc
     }
 
     @Override public void onLoadMore() {
-        getMoreScrapBrands();
+        if (totalPageSize > page.get()) getMoreScrapBrands();
     }
 
     @Override public void onEmptyClick() {
@@ -70,12 +76,16 @@ public class ScrapbookBrandPresenterImpl extends BasePresenterImpl implements Sc
                 }
                 return code.equals(HttpCode.OK);
             })
-            .map(data -> gson.fromJson(data.getData(), ScrapBrandDataModel.class))
+            .map((Function<BaseDataModel, List<BrandDataModel>>) data -> {
+                totalPageSize = data.getTotalPage();
+                return gson.fromJson(data.getData(), new TypeToken<ArrayList<BrandDataModel>>() {
+                }.getType());
+            })
             .subscribe(this::onResScrapBrands, Timber::e));
     }
 
-    private void onResScrapBrands(ScrapBrandDataModel data) {
-        adapter.set(data.getBrands());
+    private void onResScrapBrands(List<BrandDataModel> data) {
+        adapter.set(data);
         view.refresh();
     }
 
@@ -83,15 +93,17 @@ public class ScrapbookBrandPresenterImpl extends BasePresenterImpl implements Sc
         addDisposable(scrapRequest.getScrapBrands(page.incrementAndGet(), ROWS)
             .compose(Transformer.applySchedulers())
             .filter(data -> data.getCode().equals(HttpCode.OK))
-            .map(data -> gson.fromJson(data.getData(), ScrapBrandDataModel.class))
+            .map((Function<BaseDataModel, List<BrandDataModel>>)
+                data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<BrandDataModel>>() {
+                }.getType()))
             .subscribe(this::onResMoreScrapBrands, Timber::e));
     }
 
-    private void onResMoreScrapBrands(ScrapBrandDataModel data) {
+    private void onResMoreScrapBrands(List<BrandDataModel> data) {
         int start = adapter.getSize();
-        int rows = data.getBrands().size();
+        int rows = data.size();
 
-        adapter.addAll(data.getBrands());
+        adapter.addAll(data);
         view.refresh(start, rows);
     }
 

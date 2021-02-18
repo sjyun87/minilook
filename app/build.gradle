@@ -171,4 +171,7 @@ dependencies {
 
   // PhotoView
   implementation "com.github.chrisbanes:PhotoView:$photoview_version"
+
+  // UpdateManager
+  implementation "com.google.android.play:core:$update_manager_version"
 }

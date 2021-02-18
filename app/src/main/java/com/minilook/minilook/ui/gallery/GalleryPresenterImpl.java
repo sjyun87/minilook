@@ -15,14 +15,14 @@ import android.text.TextUtils;
 import com.minilook.minilook.data.model.gallery.AlbumDataModel;
 import com.minilook.minilook.data.model.gallery.PhotoDataModel;
 import com.minilook.minilook.data.rx.RxBus;
+import com.minilook.minilook.ui.base.BaseAdapterDataModel;
+import com.minilook.minilook.ui.base.BasePresenterImpl;
+import com.minilook.minilook.ui.cropper.CropperPresenterImpl;
 import com.minilook.minilook.ui.gallery.di.GalleryArguments;
 import com.minilook.minilook.ui.gallery.viewholder.AlbumItemVH;
 import com.minilook.minilook.ui.gallery.viewholder.GalleryContentsItemVH;
 import com.minilook.minilook.ui.gallery.viewholder.GalleryHeaderItemVH;
 import com.minilook.minilook.ui.gallery.viewholder.SelectedItemVH;
-import com.minilook.minilook.ui.base.BaseAdapterDataModel;
-import com.minilook.minilook.ui.base.BasePresenterImpl;
-import com.minilook.minilook.ui.cropper.CropperPresenterImpl;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -120,17 +120,21 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
     private void setupAlbums() {
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             albums = getAlbums();
-            albumAdapter.set(albums);
-            view.albumRefresh();
-            view.setTitle(albums.get(0).getName());
+            if (albums != null && !albums.isEmpty()) {
+                albumAdapter.set(albums);
+                view.albumRefresh();
+                view.setTitle(albums.get(0).getName());
+            }
         }, 30);
     }
 
     private void setupPhotos() {
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             photos = getPhotos();
-            galleryAdapter.set(photos);
-            view.galleryRefresh();
+            if (photos != null && !photos.isEmpty()) {
+                galleryAdapter.set(photos);
+                view.galleryRefresh();
+            }
         }, 30);
     }
 

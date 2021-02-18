@@ -3,7 +3,7 @@ ext {
   // Versioning
   versionMajor = 1
   versionMinor = 2
-  versionPatch = 5 
+  versionPatch = 5
 
   // Android
   compile_sdk_version = 30
@@ -116,4 +116,7 @@ ext {
 
   // PhotoView
   photoview_version = '2.0.0'
+
+  // UpdateManager
+  update_manager_version = '1.9.1'
 }

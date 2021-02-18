@@ -14,6 +14,7 @@ import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
+import com.gun0912.tedpermission.PermissionListener;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.gallery.PhotoDataModel;
 import com.minilook.minilook.databinding.ActivityQuestionWriteBinding;
@@ -25,6 +26,7 @@ import com.minilook.minilook.ui.question_write.adapter.QuestionTypeAdapter;
 import com.minilook.minilook.ui.question_write.di.QuestionWriteArguments;
 import com.minilook.minilook.ui.review_write.adapter.PhotoAdapter;
 import com.minilook.minilook.util.DimenUtil;
+import com.minilook.minilook.util.PermissionUtil;
 import com.minilook.minilook.util.SpannableUtil;
 import java.util.Arrays;
 import java.util.List;
@@ -203,5 +205,16 @@ public class QuestionWriteActivity extends BaseActivity implements QuestionWrite
 
     @Override public void navigateToGallery(List<PhotoDataModel> photos) {
         GalleryActivity.start(this, photos);
+    }
+
+    @Override public void checkStoragePermission() {
+        PermissionUtil.checkStoragePermission(this, new PermissionListener() {
+            @Override public void onPermissionGranted() {
+                presenter.onStoragePermissionGranted();
+            }
+
+            @Override public void onPermissionDenied(List<String> deniedPermissions) {
+            }
+        });
     }
 }

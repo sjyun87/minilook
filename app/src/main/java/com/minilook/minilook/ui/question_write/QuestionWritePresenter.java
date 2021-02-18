@@ -21,6 +21,8 @@ public interface QuestionWritePresenter extends LifecycleObserver {
 
     void onApplyClick();
 
+    void onStoragePermissionGranted();
+
     interface View {
 
         void setupClickAction();
@@ -58,6 +60,8 @@ public interface QuestionWritePresenter extends LifecycleObserver {
         void hideLoadingView();
 
         void showErrorDialog();
+
+        void checkStoragePermission();
 
         void navigateToGallery(List<PhotoDataModel> photos);
 

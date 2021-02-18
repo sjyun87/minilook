@@ -1,10 +1,11 @@
 package com.minilook.minilook.ui.scrapbook.view.product;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
+import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
-import com.minilook.minilook.data.model.scrap.ScrapProductDataModel;
 import com.minilook.minilook.data.network.scrap.ScrapRequest;
 import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
@@ -13,6 +14,9 @@ import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.base.widget.BottomBar;
 import com.minilook.minilook.ui.main.MainPresenterImpl;
 import com.minilook.minilook.ui.scrapbook.view.product.di.ScrapbookProductArguments;
+import io.reactivex.rxjava3.functions.Function;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import timber.log.Timber;
 
@@ -26,6 +30,8 @@ public class ScrapbookProductPresenterImpl extends BasePresenterImpl implements 
     private final Gson gson;
 
     private AtomicInteger page;
+
+    private int totalPageSize;
 
     public ScrapbookProductPresenterImpl(ScrapbookProductArguments args) {
         view = args.getView();
@@ -46,7 +52,7 @@ public class ScrapbookProductPresenterImpl extends BasePresenterImpl implements 
     }
 
     @Override public void onLoadMore() {
-        getMoreScrapProduct();
+        if (totalPageSize > page.get()) getMoreScrapProduct();
     }
 
     @Override public void onEmptyClick() {
@@ -87,12 +93,16 @@ public class ScrapbookProductPresenterImpl extends BasePresenterImpl implements 
                 }
                 return code.equals(HttpCode.OK);
             })
-            .map(data -> gson.fromJson(data.getData(), ScrapProductDataModel.class))
+            .map((Function<BaseDataModel, List<ProductDataModel>>) data -> {
+                totalPageSize = data.getTotalPage();
+                return gson.fromJson(data.getData(), new TypeToken<ArrayList<ProductDataModel>>() {
+                }.getType());
+            })
             .subscribe(this::onResScrapProducts, Timber::e));
     }
 
-    private void onResScrapProducts(ScrapProductDataModel data) {
-        adapter.set(data.getProducts());
+    private void onResScrapProducts(List<ProductDataModel> data) {
+        adapter.set(data);
         view.refresh();
     }
 
@@ -103,15 +113,17 @@ public class ScrapbookProductPresenterImpl extends BasePresenterImpl implements 
                 String code = data.getCode();
                 return code.equals(HttpCode.OK);
             })
-            .map(data -> gson.fromJson(data.getData(), ScrapProductDataModel.class))
+            .map((Function<BaseDataModel, List<ProductDataModel>>)
+                data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<ProductDataModel>>() {
+                }.getType()))
             .subscribe(this::onResMoreScrapProducts, Timber::e));
     }
 
-    private void onResMoreScrapProducts(ScrapProductDataModel data) {
+    private void onResMoreScrapProducts(List<ProductDataModel> data) {
         int start = adapter.getSize();
-        int rows = data.getProducts().size();
+        int rows = data.size();
 
-        adapter.addAll(data.getProducts());
+        adapter.addAll(data);
         view.refresh(start, rows);
     }
 }
