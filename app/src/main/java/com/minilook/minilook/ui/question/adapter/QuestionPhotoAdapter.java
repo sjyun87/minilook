@@ -23,7 +23,7 @@ public class QuestionPhotoAdapter extends RecyclerView.Adapter<QuestionPhotoItem
     }
 
     @Override public void onBindViewHolder(@NonNull QuestionPhotoItemVH holder, int position) {
-        holder.bind(items.get(position));
+        holder.bind(position, items.get(position));
         if (onPhotoClickListener != null) holder.setOnPhotoClickListener(onPhotoClickListener);
     }
 
