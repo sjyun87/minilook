@@ -25,6 +25,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.code.ReviewSatisfactions;
 import com.minilook.minilook.data.code.ReviewSizeRatings;
 import com.minilook.minilook.data.model.common.ImageDataModel;
+import com.minilook.minilook.data.model.common.PhotoDetailDataModel;
 import com.minilook.minilook.data.model.product.OptionColorDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.product.ProductStockDataModel;
@@ -35,6 +36,7 @@ import com.minilook.minilook.data.model.shopping.ShoppingOptionDataModel;
 import com.minilook.minilook.databinding.ActivityProductDetailBinding;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
 import com.minilook.minilook.ui.base.widget.ColorChip;
 import com.minilook.minilook.ui.base.widget.SizeView;
 import com.minilook.minilook.ui.brand_detail.BrandDetailActivity;
@@ -42,6 +44,7 @@ import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.event_detail.EventDetailActivity;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.order.OrderActivity;
+import com.minilook.minilook.ui.photo_review_detail.PhotoReviewDetailActivity;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.product_detail.adapter.ProductDetailImageAdapter;
 import com.minilook.minilook.ui.product_detail.adapter.ProductDetailPhotoReviewAdapter;
@@ -145,6 +148,7 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
         binding.imgShare.setOnClickListener(view -> presenter.onShareClick());
         binding.imgScrap.setOnClickListener(view -> presenter.onScrapClick());
         binding.txtBuy.setOnClickListener(view -> presenter.onBuyClick());
+        photoReviewAdapter.setOnPhotoClickListener(presenter::onPhotoReviewClick);
     }
 
     @Override public void setupProductImageViewPager() {
@@ -243,10 +247,21 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
             .asSpace()
             .build()
             .addTo(binding.rcvPhotoReview);
+        EndlessOnScrollListener scrollListener =
+            EndlessOnScrollListener.builder()
+                .layoutManager(binding.rcvPhotoReview.getLayoutManager())
+                .onLoadMoreListener(presenter::onLoadMore)
+                .visibleThreshold(5)
+                .build();
+        binding.rcvPhotoReview.addOnScrollListener(scrollListener);
     }
 
     @Override public void photoReviewRefresh() {
         photoReviewAdapterView.refresh();
+    }
+
+    @Override public void photoReviewRefresh(int start, int row) {
+        photoReviewAdapterView.refresh(start, row);
     }
 
     @Override public void showRelatedPanel() {
@@ -591,5 +606,9 @@ public class ProductDetailActivity extends BaseActivity implements ProductDetail
 
     @Override public void showErrorDialog() {
         DialogManager.showErrorDialog(this);
+    }
+
+    @Override public void navigateToPhotoReviewDetail(int productNo, PhotoDetailDataModel model) {
+        PhotoReviewDetailActivity.start(this, productNo, model);
     }
 }

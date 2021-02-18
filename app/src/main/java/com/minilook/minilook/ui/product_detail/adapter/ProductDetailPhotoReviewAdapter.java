@@ -22,7 +22,7 @@ public class ProductDetailPhotoReviewAdapter extends RecyclerView.Adapter<Produc
     }
 
     @Override public void onBindViewHolder(@NonNull ProductDetailPhotoReviewVH holder, int position) {
-        holder.bind(items.get(position));
+        holder.bind(position, items.get(position));
         if (onPhotoClickListener != null) holder.setOnPhotoClickListener(onPhotoClickListener);
     }
 

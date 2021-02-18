@@ -9,6 +9,7 @@ import com.minilook.minilook.data.code.StockType;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.common.ImageDataModel;
+import com.minilook.minilook.data.model.common.PhotoDetailDataModel;
 import com.minilook.minilook.data.model.product.OptionColorDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.product.ProductStockDataModel;
@@ -42,6 +43,8 @@ import timber.log.Timber;
 
 public class ProductDetailPresenterImpl extends BasePresenterImpl implements ProductDetailPresenter {
 
+    private static final int ROWS = 30;
+
     private final View view;
     private final int productNo;
     private final BaseAdapterDataModel<String> productImageAdapter;
@@ -56,6 +59,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
 
     private ProductDataModel data;
     private boolean isInfoPanelExpanded = false;
+    private int lastPhotoReviewNo;
 
     public ProductDetailPresenterImpl(ProductDetailArguments args) {
         view = args.getView();
@@ -205,6 +209,40 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
             });
     }
 
+    @Override public void onLoadMore() {
+        getMorePhotoReview();
+    }
+
+    @Override public void onPhotoReviewClick(int position) {
+        PhotoDetailDataModel model = new PhotoDetailDataModel();
+        model.setPhotos(photoReviewAdapter.get());
+        model.setPosition(position);
+
+        view.navigateToPhotoReviewDetail(productNo, model);
+    }
+
+    private void getMorePhotoReview() {
+        addDisposable(reviewRequest.getPhotoReviews(ROWS, productNo, lastPhotoReviewNo)
+            .compose(Transformer.applySchedulers())
+            .filter(data -> {
+                String code = data.getCode();
+                return code.equals(HttpCode.OK);
+            })
+            .map((Function<BaseDataModel, List<ImageDataModel>>)
+                data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<ImageDataModel>>() {
+                }.getType()))
+            .subscribe(this::onResMorePhotoReviews, Timber::e)
+        );
+    }
+
+    private void onResMorePhotoReviews(List<ImageDataModel> data) {
+        lastPhotoReviewNo = data.get(data.size() - 1).getItemNo();
+        int start = photoReviewAdapter.getSize();
+        int row = data.size();
+        photoReviewAdapter.addAll(data);
+        view.photoReviewRefresh(start, row);
+    }
+
     private void reqAddShoppingBag(List<ShoppingOptionDataModel> optionData) {
         addDisposable(orderRequest.addShoppingBag(optionData)
             .compose(Transformer.applySchedulers())
@@ -306,6 +344,7 @@ public class ProductDetailPresenterImpl extends BasePresenterImpl implements Pro
 
         List<ImageDataModel> photoReviews = reviewData.getPhotos();
         if (photoReviews != null && photoReviews.size() > 0) {
+            lastPhotoReviewNo = photoReviews.get(photoReviews.size() - 1).getItemNo();
             photoReviewAdapter.set(photoReviews);
             view.photoReviewRefresh();
             view.showPhotoReviews();

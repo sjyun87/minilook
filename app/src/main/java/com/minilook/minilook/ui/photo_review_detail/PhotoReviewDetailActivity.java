@@ -1,9 +1,10 @@
-package com.minilook.minilook.ui.photo_detail;
+package com.minilook.minilook.ui.photo_review_detail;
 
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import androidx.annotation.StringRes;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.ImageDataModel;
@@ -11,15 +12,17 @@ import com.minilook.minilook.data.model.common.PhotoDetailDataModel;
 import com.minilook.minilook.databinding.ActivityPhotoDetailBinding;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
 import com.minilook.minilook.ui.photo_detail.adapter.PhotoDetailAdapter;
-import com.minilook.minilook.ui.photo_detail.di.PhotoDetailArguments;
+import com.minilook.minilook.ui.photo_review_detail.di.PhotoReviewDetailArguments;
 
-public class PhotoDetailActivity extends BaseActivity implements PhotoDetailPresenter.View {
+public class PhotoReviewDetailActivity extends BaseActivity implements PhotoReviewDetailPresenter.View {
 
-    public static void start(Context context, PhotoDetailDataModel data) {
-        Intent intent = new Intent(context, PhotoDetailActivity.class);
+    public static void start(Context context, int productNo, PhotoDetailDataModel data) {
+        Intent intent = new Intent(context, PhotoReviewDetailActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.putExtra("productNo", productNo);
         intent.putExtra("data", data);
         context.startActivity(intent);
     }
@@ -30,7 +33,7 @@ public class PhotoDetailActivity extends BaseActivity implements PhotoDetailPres
     @StringRes int str_collapse = R.string.photo_collapse;
 
     private ActivityPhotoDetailBinding binding;
-    private PhotoDetailPresenter presenter;
+    private PhotoReviewDetailPresenter presenter;
 
     private final PhotoDetailAdapter adapter = new PhotoDetailAdapter();
     private final BaseAdapterDataView<ImageDataModel> adapterView = adapter;
@@ -41,13 +44,14 @@ public class PhotoDetailActivity extends BaseActivity implements PhotoDetailPres
     }
 
     @Override protected void createPresenter() {
-        presenter = new PhotoDetailPresenterImpl(provideArguments());
+        presenter = new PhotoReviewDetailPresenterImpl(provideArguments());
         getLifecycle().addObserver(presenter);
     }
 
-    private PhotoDetailArguments provideArguments() {
-        return PhotoDetailArguments.builder()
+    private PhotoReviewDetailArguments provideArguments() {
+        return PhotoReviewDetailArguments.builder()
             .view(this)
+            .productNo(getIntent().getIntExtra("productNo", 0))
             .data((PhotoDetailDataModel) getIntent().getSerializableExtra("data"))
             .adapter(adapter)
             .build();
@@ -62,10 +66,24 @@ public class PhotoDetailActivity extends BaseActivity implements PhotoDetailPres
         binding.vpPhoto.setAdapter(adapter);
         binding.vpPhoto.setOffscreenPageLimit(2);
         binding.vpPhoto.registerOnPageChangeCallback(callback);
+        EndlessOnScrollListener scrollListener = EndlessOnScrollListener.builder()
+            .layoutManager(getRecyclerView().getLayoutManager())
+            .onLoadMoreListener(presenter::onLoadMore)
+            .visibleThreshold(10)
+            .build();
+        getRecyclerView().addOnScrollListener(scrollListener);
+    }
+
+    private RecyclerView getRecyclerView() {
+        return (RecyclerView) binding.vpPhoto.getChildAt(0);
     }
 
     @Override public void refresh() {
         adapterView.refresh();
+    }
+
+    @Override public void refresh(int start, int row) {
+        adapterView.refresh(start, row);
     }
 
     @Override public void setCurrentItem(int position) {
@@ -106,14 +124,6 @@ public class PhotoDetailActivity extends BaseActivity implements PhotoDetailPres
             .setDuration(150)
             .withLayer()
             .start();
-    }
-
-    @Override public void showContentsPanel() {
-        binding.layoutContentsPanel.setVisibility(View.VISIBLE);
-    }
-
-    @Override public void hideContentsPanel() {
-        binding.layoutContentsPanel.setVisibility(View.GONE);
     }
 
     @Override public void clear() {

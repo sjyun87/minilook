@@ -1,5 +1,6 @@
 package com.minilook.minilook.ui.photo_detail;
 
+import android.text.TextUtils;
 import com.minilook.minilook.data.model.common.ImageDataModel;
 import com.minilook.minilook.data.model.common.PhotoDetailDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
@@ -30,7 +31,12 @@ public class PhotoDetailPresenterImpl extends BasePresenterImpl implements Photo
         view.setCurrentItem(data.getPosition());
         setSelectedPage(data.getPosition());
 
-        view.setContents(data.getContents());
+        if (!TextUtils.isEmpty(data.getContents())) {
+            view.setContents(data.getContents());
+            view.showContentsPanel();
+        } else {
+            view.hideContentsPanel();
+        }
     }
 
     @Override public void onDestroy() {

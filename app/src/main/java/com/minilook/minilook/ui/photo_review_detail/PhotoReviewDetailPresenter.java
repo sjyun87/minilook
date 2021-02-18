@@ -1,10 +1,10 @@
-package com.minilook.minilook.ui.photo_detail;
+package com.minilook.minilook.ui.photo_review_detail;
 
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
-public interface PhotoDetailPresenter extends LifecycleObserver {
+public interface PhotoReviewDetailPresenter extends LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate();
@@ -16,6 +16,8 @@ public interface PhotoDetailPresenter extends LifecycleObserver {
 
     void onMoreClick();
 
+    void onLoadMore();
+
     interface View {
 
         void setupClickAction();
@@ -23,6 +25,8 @@ public interface PhotoDetailPresenter extends LifecycleObserver {
         void setupViewPager();
 
         void refresh();
+
+        void refresh(int start, int row);
 
         void setCurrentItem(int position);
 
@@ -33,10 +37,6 @@ public interface PhotoDetailPresenter extends LifecycleObserver {
         void setExpandButton();
 
         void collapseButton();
-
-        void showContentsPanel();
-
-        void hideContentsPanel();
 
         void clear();
     }

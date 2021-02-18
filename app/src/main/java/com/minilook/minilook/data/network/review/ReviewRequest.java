@@ -83,4 +83,16 @@ public class ReviewRequest extends BaseRequest<ReviewService> {
         if (lastOrderTime > 0) jsonMap.put("lastItemOrderTime", lastOrderTime);
         return createRequestBody(jsonMap);
     }
+
+    public Single<BaseDataModel> getPhotoReviews(int rows, int productNo, int lastReviewNo) {
+        return getApi().getPhotoReviews(productNo, createPhotoReviewsData(rows, lastReviewNo));
+    }
+
+    private RequestBody createPhotoReviewsData(int rows, long lastReviewNo) {
+        Map<String, Object> jsonMap = new HashMap<>();
+        //jsonMap.put("memberNo", App.getInstance().getMemberNo());
+        jsonMap.put("pageSize", rows);
+        if (lastReviewNo > 0) jsonMap.put("lastReviewPhotoNo", lastReviewNo);
+        return createRequestBody(jsonMap);
+    }
 }

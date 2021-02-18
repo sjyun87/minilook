@@ -2,7 +2,7 @@
 <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/img_photo"
-    android:layout_width="@dimen/dp_36"
-    android:layout_height="@dimen/dp_36"
+    android:layout_width="@dimen/dp_60"
+    android:layout_height="@dimen/dp_60"
     android:scaleType="centerCrop"
     tools:ignore="ContentDescription" />

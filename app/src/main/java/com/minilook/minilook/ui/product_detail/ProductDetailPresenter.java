@@ -3,6 +3,7 @@ package com.minilook.minilook.ui.product_detail;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
+import com.minilook.minilook.data.model.common.PhotoDetailDataModel;
 import com.minilook.minilook.data.model.product.OptionColorDataModel;
 import com.minilook.minilook.data.model.product.ProductStockDataModel;
 import com.minilook.minilook.data.model.review.RatingDataModel;
@@ -40,6 +41,10 @@ public interface ProductDetailPresenter extends LifecycleObserver {
 
     void onShareClick();
 
+    void onLoadMore();
+
+    void onPhotoReviewClick(int position);
+
     interface View {
 
         void setupClickAction();
@@ -63,6 +68,8 @@ public interface ProductDetailPresenter extends LifecycleObserver {
         void setupPhotoReviewRecyclerView();
 
         void photoReviewRefresh();
+
+        void photoReviewRefresh(int start, int row);
 
         void showRelatedPanel();
 
@@ -201,5 +208,7 @@ public interface ProductDetailPresenter extends LifecycleObserver {
         void sendDynamicLink(String link);
 
         void showErrorDialog();
+
+        void navigateToPhotoReviewDetail(int productNo, PhotoDetailDataModel model);
     }
 }

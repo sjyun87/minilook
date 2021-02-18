@@ -27,8 +27,8 @@ public class ProductDetailPhotoReviewVH extends BaseViewHolder<ImageDataModel> {
         binding = ViewProductDetailPhotoReviewItemBinding.bind(itemView);
     }
 
-    @Override public void bind(ImageDataModel $data) {
-        super.bind($data);
+    @Override public void bind(int $position, ImageDataModel $data) {
+        super.bind($position, $data);
 
         Glide.with(context)
             .load(data.getThumbUrl())
