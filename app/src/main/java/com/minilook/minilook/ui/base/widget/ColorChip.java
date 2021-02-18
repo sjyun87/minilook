@@ -20,10 +20,12 @@ public class ColorChip extends FrameLayout {
     private static final String COLOR_SILVER = "#C0C0C0";
     private static final String COLOR_GOLD = "#FFD700";
     private static final String COLOR_MULTI = "multi";
+    private static final String COLOR_NONE = "none";
 
     @DrawableRes int color_silver = R.drawable.color_silver_circle;
     @DrawableRes int color_gold = R.drawable.color_gold_circle;
     @DrawableRes int color_multi = R.drawable.color_multi_circle;
+    @DrawableRes int color_none = R.drawable.color_none_circle;
 
     private ViewColorChipBinding binding;
     private ProductStockDataModel model;
@@ -72,6 +74,9 @@ public class ColorChip extends FrameLayout {
                 break;
             case COLOR_MULTI:
                 binding.imgColor.setImageResource(color_multi);
+                break;
+            case COLOR_NONE:
+                binding.imgColor.setImageResource(color_none);
                 break;
             default:
                 setColor(Color.parseColor(color));

@@ -24,6 +24,7 @@ public class FilterColorVH extends _BaseViewHolder<ColorDataModel> {
     private static final String COLOR_SILVER = "#C0C0C0";
     private static final String COLOR_GOLD = "#FFD700";
     private static final String COLOR_MULTI = "multi";
+    private static final String COLOR_NONE = "none";
 
     @BindView(R.id.img_icon) ImageView iconImageView;
     @BindView(R.id.img_check) ImageView checkImageView;
@@ -36,6 +37,7 @@ public class FilterColorVH extends _BaseViewHolder<ColorDataModel> {
     @BindDrawable(R.drawable.color_silver_square) Drawable color_silver;
     @BindDrawable(R.drawable.color_gold_square) Drawable color_gold;
     @BindDrawable(R.drawable.color_multi_square) Drawable color_multi;
+    @BindDrawable(R.drawable.color_none_square) Drawable color_none;
 
     @Setter private OnColorListener listener;
 
@@ -66,6 +68,9 @@ public class FilterColorVH extends _BaseViewHolder<ColorDataModel> {
                 break;
             case COLOR_MULTI:
                 iconImageView.setImageDrawable(color_multi);
+                break;
+            case COLOR_NONE:
+                iconImageView.setImageDrawable(color_none);
                 break;
             default:
                 iconImageView.setImageDrawable(new ColorDrawable(Color.parseColor(data.getCode())));
