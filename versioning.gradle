@@ -6,10 +6,10 @@ ext {
   versionPatch = 6
 
   // Android
-  compile_sdk_version = 30
+  compile_sdk_version = 29
   application_id = 'com.minilook.minilook'
   min_sdk_version = 23
-  target_sdk_version = 30
+  target_sdk_version = 29
 
   // test
   junit_version = '4.12'

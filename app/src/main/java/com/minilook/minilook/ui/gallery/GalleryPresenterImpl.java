@@ -226,7 +226,7 @@ public class GalleryPresenterImpl extends BasePresenterImpl implements GalleryPr
         Cursor cursor;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             Bundle bundle = new Bundle();
-            bundle.putString(ContentResolver.QUERY_ARG_SQL_GROUP_BY, MediaStore.Images.Media.BUCKET_ID);
+            //bundle.putString(ContentResolver.QUERY_ARG_SQL_GROUP_BY, MediaStore.Images.Media.BUCKET_ID);
             bundle.putStringArray(ContentResolver.QUERY_ARG_SORT_COLUMNS, new String[] { order });
             bundle.putInt(ContentResolver.QUERY_ARG_SORT_DIRECTION, ContentResolver.QUERY_SORT_DIRECTION_DESCENDING);
             cursor = contentResolver.query(URI_EXTERNAL_STORAGE, projection, bundle, null);
