@@ -11,7 +11,9 @@ import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
+import com.minilook.minilook.ui.question_edit.QuestionEditPresenterImpl;
 import com.minilook.minilook.ui.question_history.di.QuestionHistoryArguments;
+import com.minilook.minilook.ui.question_history.viewholder.QuestionHistoryItemVH;
 import com.minilook.minilook.ui.question_write.QuestionWritePresenterImpl;
 import io.reactivex.rxjava3.functions.Function;
 import java.util.ArrayList;
@@ -47,6 +49,28 @@ public class QuestionHistoryPresenterImpl extends BasePresenterImpl implements Q
         getMoreQuestionHistory();
     }
 
+    @Override public void onQuestionDelete(int productNo, int questionNo) {
+        deleteQuestion(productNo, questionNo);
+    }
+
+    private void deleteQuestion(int productNo, int questionNo) {
+        addDisposable(questionRequest.deleteQuestion(productNo, questionNo)
+            .compose(Transformer.applySchedulers())
+            .filter(data -> {
+                String code = data.getCode();
+                if (!code.equals(HttpCode.OK)) {
+                    view.showErrorDialog();
+                }
+                return code.equals(HttpCode.OK);
+            })
+            .subscribe(this::onResDeleteQuestion, Timber::e)
+        );
+    }
+
+    private void onResDeleteQuestion(BaseDataModel model) {
+        RxBus.send(new QuestionWritePresenterImpl.RxEventQuestionWrite());
+    }
+
     private void getQuestionHistory() {
         addDisposable(questionRequest.getQuestionHistory(ROWS, lastQuestionNo)
             .compose(Transformer.applySchedulers())
@@ -70,6 +94,7 @@ public class QuestionHistoryPresenterImpl extends BasePresenterImpl implements Q
         lastQuestionNo = data.get(data.size() - 1).getQuestionNo();
         adapter.set(data);
         view.refresh();
+        view.scrollToTop();
     }
 
     private void getMoreQuestionHistory() {
@@ -96,9 +121,15 @@ public class QuestionHistoryPresenterImpl extends BasePresenterImpl implements Q
 
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
-            if (o instanceof QuestionWritePresenterImpl.RxEventQuestionWrite) {
+            if (o instanceof QuestionWritePresenterImpl.RxEventQuestionWrite
+                || o instanceof QuestionEditPresenterImpl.RxEventQuestionEdit) {
                 lastQuestionNo = -1;
                 getQuestionHistory();
+            } else if (o instanceof QuestionHistoryItemVH.RxEventQuestionDeleteClick) {
+                int productNo = ((QuestionHistoryItemVH.RxEventQuestionDeleteClick) o).getProductNo();
+                int questionNo = ((QuestionHistoryItemVH.RxEventQuestionDeleteClick) o).getQuestionNo();
+
+                view.showQuestionDeleteDialog(productNo, questionNo);
             }
         }, Timber::e));
     }

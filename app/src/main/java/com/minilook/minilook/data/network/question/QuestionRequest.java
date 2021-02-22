@@ -56,4 +56,8 @@ public class QuestionRequest extends BaseRequest<QuestionService> {
         ///////
         return getApi().editQuestion(model.getProductNo(), createWriteQuestionData(model));
     }
+
+    public Single<BaseDataModel> deleteQuestion(int productNo, int questionNo) {
+        return getApi().deleteQuestion(productNo, questionNo);
+    }
 }

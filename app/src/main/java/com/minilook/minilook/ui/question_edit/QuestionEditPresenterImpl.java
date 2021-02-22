@@ -182,7 +182,7 @@ public class QuestionEditPresenterImpl extends BasePresenterImpl implements Ques
     private void onResWriteQuestion(BaseDataModel data) {
         view.hideLoadingView();
         view.showQuestionWriteToast();
-        RxBus.send(new RxEventQuestionWrite());
+        RxBus.send(new RxEventQuestionEdit());
         view.finish();
     }
 
@@ -273,6 +273,6 @@ public class QuestionEditPresenterImpl extends BasePresenterImpl implements Ques
         }, Timber::e));
     }
 
-    @AllArgsConstructor @Getter public final static class RxEventQuestionWrite {
+    @AllArgsConstructor @Getter public final static class RxEventQuestionEdit {
     }
 }

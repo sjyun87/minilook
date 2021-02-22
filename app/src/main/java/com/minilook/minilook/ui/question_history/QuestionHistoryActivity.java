@@ -82,4 +82,12 @@ public class QuestionHistoryActivity extends BaseActivity implements QuestionHis
     @Override public void showErrorDialog() {
         DialogManager.showErrorDialog(this);
     }
+
+    @Override public void showQuestionDeleteDialog(int productNo, int questionNo) {
+        DialogManager.showQuestionDeleteDialog(this, () -> presenter.onQuestionDelete(productNo, questionNo));
+    }
+
+    @Override public void scrollToTop() {
+        binding.rcvQuestion.scrollToPosition(0);
+    }
 }

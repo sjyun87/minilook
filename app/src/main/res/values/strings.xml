@@ -741,6 +741,8 @@
 
     <string name="dialog_join_cancel_contents">회원가입 절차가 초기화 됩니다.\n계속 진행하시겠습니까?</string>
 
+    <string name="dialog_question_delete_contents">작성한 문의를 삭제하시겠습니까?</string>
+
     <string name="dialog_limit_join_contents">미니룩 회원탈퇴일로부터\n31일 경과 후 가입이 가능합니다.</string>
 
     <string name="dialog_leave_contents">정말 탈퇴하시겠습니까?</string>

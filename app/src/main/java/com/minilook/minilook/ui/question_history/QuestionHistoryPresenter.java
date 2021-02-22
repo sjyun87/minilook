@@ -11,6 +11,8 @@ public interface QuestionHistoryPresenter extends LifecycleObserver {
 
     void onLoadMore();
 
+    void onQuestionDelete(int productNo, int questionNo);
+
     interface View {
 
         void setupRecyclerView();
@@ -22,5 +24,9 @@ public interface QuestionHistoryPresenter extends LifecycleObserver {
         void showEmptyPanel();
 
         void showErrorDialog();
+
+        void showQuestionDeleteDialog(int productNo, int questionNo);
+
+        void scrollToTop();
     }
 }

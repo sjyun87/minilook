@@ -13,12 +13,15 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.PhotoDetailDataModel;
 import com.minilook.minilook.data.model.question.QuestionDataModel;
+import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.databinding.ViewQuestionHistoryItemBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.photo_detail.PhotoDetailActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
 import com.minilook.minilook.ui.question_edit.QuestionEditActivity;
 import com.minilook.minilook.ui.question_history.adapter.QuestionHistoryPhotoAdapter;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 public class QuestionHistoryItemVH extends BaseViewHolder<QuestionDataModel> {
 
@@ -132,6 +135,11 @@ public class QuestionHistoryItemVH extends BaseViewHolder<QuestionDataModel> {
     }
 
     private void onDeleteClick(View view) {
+        RxBus.send(new RxEventQuestionDeleteClick(data.getProductNo(), data.getQuestionNo()));
+    }
 
+    @AllArgsConstructor @Getter public final static class RxEventQuestionDeleteClick {
+        private final int productNo;
+        private final int questionNo;
     }
 }

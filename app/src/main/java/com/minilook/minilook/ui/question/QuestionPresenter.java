@@ -15,6 +15,8 @@ public interface QuestionPresenter extends LifecycleObserver {
 
     void onEmptyClick();
 
+    void onQuestionDelete(int productNo, int questionNo);
+
     interface View {
 
         void setupClickAction();
@@ -34,5 +36,11 @@ public interface QuestionPresenter extends LifecycleObserver {
         void navigateToQuestionWrite(int productNo);
 
         void navigateToLogin();
+
+        void showQuestionDeleteDialog(int productNo, int questionNo);
+
+        void showErrorDialog();
+
+        void scrollToTop();
     }
 }

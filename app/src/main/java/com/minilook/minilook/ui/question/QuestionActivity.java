@@ -12,6 +12,7 @@ import com.minilook.minilook.databinding.ActivityQuestionBinding;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
+import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.question.adapter.QuestionAdapter;
 import com.minilook.minilook.ui.question.di.QuestionArguments;
@@ -102,5 +103,17 @@ public class QuestionActivity extends BaseActivity implements QuestionPresenter.
 
     @Override public void navigateToLogin() {
         LoginActivity.start(this);
+    }
+
+    @Override public void showQuestionDeleteDialog(int productNo, int questionNo) {
+        DialogManager.showQuestionDeleteDialog(this, () -> presenter.onQuestionDelete(productNo, questionNo));
+    }
+
+    @Override public void showErrorDialog() {
+        DialogManager.showErrorDialog(this);
+    }
+
+    @Override public void scrollToTop() {
+        binding.rcvQuestion.scrollToPosition(0);
     }
 }
