@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import com.google.android.gms.tasks.Task;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -33,6 +35,7 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
     private final Intent intent;
     private final CommonRequest commonRequest;
     private final Gson gson;
+    private final AppUpdateManager appUpdateManager;
 
     private boolean isAnimationEnd = false;
     private boolean isCommonDataGet = false;
@@ -43,6 +46,7 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
     public SplashPresenterImpl(SplashArguments args) {
         view = args.getView();
         intent = args.getIntent();
+        appUpdateManager = args.getUpdateManager();
         commonRequest = new CommonRequest();
         gson = App.getInstance().getGson();
     }
@@ -55,7 +59,7 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
         if (BuildConfig.DEBUG) {
             startApp();
         } else {
-            checkVersion();
+            checkStoreVersion();
         }
     }
 
@@ -96,7 +100,18 @@ public class SplashPresenterImpl extends BasePresenterImpl implements SplashPres
         view.finish();
     }
 
-    private void checkVersion() {
+    private void checkStoreVersion() {
+        appUpdateManager.getAppUpdateInfo().addOnCompleteListener(task -> {
+            if (task.isSuccessful()
+                && task.getResult().updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
+                checkForceUpdate();
+            } else {
+                startApp();
+            }
+        });
+    }
+
+    private void checkForceUpdate() {
         addDisposable(commonRequest.checkVersion()
             .compose(Transformer.applySchedulers())
             .filter(data -> {

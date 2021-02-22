@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.minilook.minilook.databinding.ActivitySplashBinding;
@@ -33,6 +34,7 @@ public class SplashActivity extends BaseActivity implements SplashPresenter.View
         return SplashArguments.builder()
             .view(this)
             .intent(getIntent())
+            .updateManager(AppUpdateManagerFactory.create(this))
             .build();
     }
 
