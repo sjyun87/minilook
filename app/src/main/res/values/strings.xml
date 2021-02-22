@@ -196,6 +196,10 @@
     <!--Question History-->
     <string name="question_history_title">나의 문의</string>
 
+    <!--Question Edit-->
+    <string name="question_edit_title">문의 수정</string>
+    <string name="question_edit_apply">수정하기</string>
+
     <!--Point-->
     <string name="point_title">포인트</string>
     <string name="point_caption">포인트</string>

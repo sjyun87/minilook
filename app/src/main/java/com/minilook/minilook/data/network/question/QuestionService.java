@@ -24,4 +24,9 @@ public interface QuestionService {
         @Path("memberNo") int memberNo,
         @Body RequestBody body
     );
+
+    @POST("/api/products/{productNo}/inquiries") Single<BaseDataModel> editQuestion(
+        @Path("productNo") int productNo,
+        @Body RequestBody body
+    );
 }

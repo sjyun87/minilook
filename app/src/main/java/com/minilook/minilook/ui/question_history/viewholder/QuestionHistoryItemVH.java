@@ -11,16 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.minilook.minilook.R;
-import com.minilook.minilook.data.model.common.ImageDataModel;
 import com.minilook.minilook.data.model.common.PhotoDetailDataModel;
 import com.minilook.minilook.data.model.question.QuestionDataModel;
 import com.minilook.minilook.databinding.ViewQuestionHistoryItemBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.photo_detail.PhotoDetailActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
+import com.minilook.minilook.ui.question_edit.QuestionEditActivity;
 import com.minilook.minilook.ui.question_history.adapter.QuestionHistoryPhotoAdapter;
-import java.util.ArrayList;
-import java.util.List;
 
 public class QuestionHistoryItemVH extends BaseViewHolder<QuestionDataModel> {
 
@@ -42,6 +40,8 @@ public class QuestionHistoryItemVH extends BaseViewHolder<QuestionDataModel> {
         binding = ViewQuestionHistoryItemBinding.bind(itemView);
         binding.layoutProductPanel.setOnClickListener(view -> onProductClick());
         adapter.setOnPhotoClickListener(this::onPhotoClick);
+        binding.txtEdit.setOnClickListener(this::onEditClick);
+        binding.txtDelete.setOnClickListener(this::onDeleteClick);
 
         setupRecyclerView();
     }
@@ -90,7 +90,11 @@ public class QuestionHistoryItemVH extends BaseViewHolder<QuestionDataModel> {
             binding.txtAnswerDate.setVisibility(View.GONE);
         }
 
-        //handleEditButton(isMyQuestion);
+        if (!data.isAnswer()) {
+            binding.txtDelete.setVisibility(View.VISIBLE);
+        } else {
+            binding.txtDelete.setVisibility(View.GONE);
+        }
     }
 
     private void setAnswerState() {
@@ -121,5 +125,13 @@ public class QuestionHistoryItemVH extends BaseViewHolder<QuestionDataModel> {
         model.setPosition(position);
 
         PhotoDetailActivity.start(context, model);
+    }
+
+    private void onEditClick(View view) {
+        QuestionEditActivity.start(context, data);
+    }
+
+    private void onDeleteClick(View view) {
+
     }
 }

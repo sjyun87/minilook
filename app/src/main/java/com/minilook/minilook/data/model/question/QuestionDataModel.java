@@ -3,10 +3,11 @@ package com.minilook.minilook.data.model.question;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.minilook.minilook.data.model.common.ImageDataModel;
+import java.io.Serializable;
 import java.util.List;
 import lombok.Data;
 
-@Data public class QuestionDataModel {
+@Data public class QuestionDataModel implements Serializable {
     @Expose @SerializedName("inquiryNo")
     private int questionNo;
     @Expose @SerializedName("memberNo")

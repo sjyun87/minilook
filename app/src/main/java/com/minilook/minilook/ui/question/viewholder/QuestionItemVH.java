@@ -39,6 +39,8 @@ public class QuestionItemVH extends BaseViewHolder<QuestionDataModel> {
         super(ViewQuestionItemBinding.inflate(LayoutInflater.from(parent.getContext()), (ViewGroup) parent, false));
         binding = ViewQuestionItemBinding.bind(itemView);
         adapter.setOnPhotoClickListener(this::onPhotoClick);
+        binding.txtEdit.setOnClickListener(this::onEditClick);
+        binding.txtDelete.setOnClickListener(this::onDeleteClick);
 
         setupRecyclerView();
     }
@@ -67,7 +69,17 @@ public class QuestionItemVH extends BaseViewHolder<QuestionDataModel> {
             setNormal();
         }
 
-        //handleEditButton(isMyQuestion);
+        if (isMyQuestion) {
+            binding.txtEdit.setVisibility(View.VISIBLE);
+            if (!data.isAnswer()) {
+                binding.txtDelete.setVisibility(View.VISIBLE);
+            } else {
+                binding.txtDelete.setVisibility(View.GONE);
+            }
+        } else {
+            binding.txtEdit.setVisibility(View.GONE);
+            binding.txtDelete.setVisibility(View.GONE);
+        }
     }
 
     private void setSecret() {
@@ -132,19 +144,19 @@ public class QuestionItemVH extends BaseViewHolder<QuestionDataModel> {
         }
     }
 
-    private void handleEditButton(boolean isMyQuestion) {
-        if (isMyQuestion && !data.isAnswer()) {
-            binding.txtEdit.setVisibility(View.VISIBLE);
-        } else {
-            binding.txtEdit.setVisibility(View.GONE);
-        }
-    }
-
     private void onPhotoClick(int position) {
         PhotoDetailDataModel model = new PhotoDetailDataModel();
         model.setPhotos(data.getPhotos());
         model.setPosition(position);
 
         PhotoDetailActivity.start(context, model);
+    }
+
+    private void onEditClick(View view) {
+
+    }
+
+    private void onDeleteClick(View view) {
+
     }
 }

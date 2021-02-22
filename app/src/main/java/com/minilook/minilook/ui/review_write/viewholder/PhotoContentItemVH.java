@@ -60,14 +60,27 @@ public class PhotoContentItemVH extends BaseViewHolder<PhotoDataModel> {
             .transition(new DrawableTransitionOptions().crossFade())
             .into(binding.imgThumb);
 
+        if (data.isSelect()) {
+            binding.imgDelete.setVisibility(View.VISIBLE);
+        } else {
+            binding.imgDelete.setVisibility(View.GONE);
+        }
+
         itemView.setOnClickListener(this::onItemClick);
     }
 
     void onItemClick(View view) {
-        RxBus.send(new RxEventReviewPhotoClick(data));
+        if (data.isSelect()) {
+            RxBus.send(new RxEventReviewPhotoClick(data));
+        } else {
+            RxBus.send(new RxEventDummyPhotoClick());
+        }
     }
 
     @AllArgsConstructor @Getter public final static class RxEventReviewPhotoClick {
         private final PhotoDataModel model;
+    }
+
+    @AllArgsConstructor @Getter public final static class RxEventDummyPhotoClick {
     }
 }

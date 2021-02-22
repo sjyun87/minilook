@@ -51,4 +51,9 @@ public class QuestionRequest extends BaseRequest<QuestionService> {
         if (lastQuestionNo != 0) jsonMap.put("lastInquiryNo", lastQuestionNo);
         return createRequestBody(jsonMap);
     }
+
+    public Single<BaseDataModel> editQuestion(QuestionWriteDataModel model) {
+        ///////
+        return getApi().editQuestion(model.getProductNo(), createWriteQuestionData(model));
+    }
 }

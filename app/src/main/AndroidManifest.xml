@@ -169,6 +169,11 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
+            android:name=".ui.question_edit.QuestionEditActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
             android:name=".ui.point.PointActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
