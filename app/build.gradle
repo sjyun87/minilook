@@ -174,4 +174,7 @@ dependencies {
 
   // UpdateManager
   implementation "com.google.android.play:core:$update_manager_version"
+
+  // QR code
+  implementation "com.journeyapps:zxing-android-embedded:$qr_code_version"
 }

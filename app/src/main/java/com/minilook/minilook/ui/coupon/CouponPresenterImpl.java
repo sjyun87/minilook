@@ -2,6 +2,7 @@ package com.minilook.minilook.ui.coupon;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.google.zxing.integration.android.IntentIntegrator;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.common.URLKeys;
 import com.minilook.minilook.data.model.base.BaseDataModel;
@@ -20,6 +21,7 @@ public class CouponPresenterImpl extends BasePresenterImpl implements CouponPres
 
     private final View view;
     private final BaseAdapterDataModel<CouponDataModel> adapter;
+    private final IntentIntegrator integrator;
     private final IpageRequest ipageRequest;
 
     private Gson gson = new Gson();
@@ -27,6 +29,7 @@ public class CouponPresenterImpl extends BasePresenterImpl implements CouponPres
     public CouponPresenterImpl(CouponArguments args) {
         view = args.getView();
         adapter = args.getAdapter();
+        integrator = args.getIntegrator();
         ipageRequest = new IpageRequest();
     }
 
@@ -38,6 +41,12 @@ public class CouponPresenterImpl extends BasePresenterImpl implements CouponPres
 
     @Override public void onCouponInfoClick() {
         view.navigateToWebView(URLKeys.URL_COUPON);
+    }
+
+    @Override public void onCouponRegistClick() {
+        integrator.setBeepEnabled(false);
+        integrator.setPrompt("테스트 중이다 이자식아");
+        integrator.initiateScan();
     }
 
     private void reqCoupons() {

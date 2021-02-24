@@ -11,6 +11,8 @@ public interface CouponPresenter extends LifecycleObserver {
 
     void onCouponInfoClick();
 
+    void onCouponRegistClick();
+
     interface View {
 
         void setupRecyclerView();
