@@ -7,10 +7,11 @@ import com.minilook.minilook.data.code.GenderCode;
 import com.minilook.minilook.data.code.ReviewSatisfactions;
 import com.minilook.minilook.data.code.ReviewSizeRatings;
 import com.minilook.minilook.data.common.HttpCode;
+import com.minilook.minilook.data.model.base.BaseDataModel;
+import com.minilook.minilook.data.model.common.ImageDataModel;
 import com.minilook.minilook.data.model.common.KeyDataModel;
 import com.minilook.minilook.data.model.gallery.PhotoDataModel;
 import com.minilook.minilook.data.model.review.ReviewDataModel;
-import com.minilook.minilook.data.model.review.ReviewWriteCompletedDataModel;
 import com.minilook.minilook.data.model.review.ReviewWriteDataModel;
 import com.minilook.minilook.data.network.common.CommonRequest;
 import com.minilook.minilook.data.network.naver.NCloudRequest;
@@ -38,6 +39,7 @@ public class ReviewEditPresenterImpl extends BasePresenterImpl implements Review
     private final View view;
     private final ReviewDataModel data;
     private final BaseAdapterDataModel<PhotoDataModel> adapter;
+    private final BaseAdapterDataModel<ImageDataModel> selectPhotoAdapter;
     private final CommonRequest commonRequest;
     private final ReviewRequest reviewRequest;
     private final NCloudRequest nCloudRequest;
@@ -53,11 +55,13 @@ public class ReviewEditPresenterImpl extends BasePresenterImpl implements Review
     private String review;
     private List<PhotoDataModel> photos;
     private int uploadCount = 0;
+    private boolean isPhotoEdit = false;
 
     public ReviewEditPresenterImpl(ReviewEditArguments args) {
         view = args.getView();
         data = args.getData();
         adapter = args.getAdapter();
+        selectPhotoAdapter = args.getSelectPhotoAdapter();
         commonRequest = new CommonRequest();
         reviewRequest = new ReviewRequest();
         nCloudRequest = new NCloudRequest();
@@ -73,6 +77,56 @@ public class ReviewEditPresenterImpl extends BasePresenterImpl implements Review
 
         view.setupReviewEditText();
         view.setupRecyclerView();
+
+        setData();
+    }
+
+    private void setData() {
+        this.satisfactionCode = data.getSatisfactionCode();
+        selectSatisfactionButton(satisfactionCode);
+        this.sizeRatingCode = data.getSizeRatingCode();
+        selectSizeRatingButton(sizeRatingCode);
+
+        if (!TextUtils.isEmpty(data.getGenderCode())) {
+            this.genderCode = data.getGenderCode();
+            selectGenderButton(genderCode);
+        }
+
+        if (data.getAge() > 0) {
+            this.age = data.getAge();
+            view.setAge(age);
+        }
+
+        if (data.getHeight() > 0) {
+            this.height = data.getHeight();
+            view.setHeight(height);
+        }
+
+        if (data.getWeight() > 0) {
+            this.weight = data.getWeight();
+            view.setWeight(weight);
+        }
+
+        List<ImageDataModel> images = data.getPhotos();
+        if (images != null && images.size() > 0) {
+            selectPhotoAdapter.set(data.getPhotos());
+            view.selectPhotoRefresh();
+
+            view.setSelectedPhotoCount(images.size());
+            view.showSelectedPhotos();
+            view.showEditPhotoButton();
+        } else {
+            adapter.add(new PhotoDataModel());
+            view.refresh();
+            view.setSelectedPhotoCount(0);
+
+            view.hideSelectedPhotos();
+            view.hideEditPhotoButton();
+        }
+        view.showPhotoPanel();
+
+        view.setReview(data.getReview());
+        handleApplyButton();
     }
 
     @Override public void onSatisfactionClick(String code) {
@@ -149,12 +203,16 @@ public class ReviewEditPresenterImpl extends BasePresenterImpl implements Review
         if (photos != null && photos.size() > 0) {
             getUploadKeys();
         } else {
-            writeReview();
+            editReview();
         }
     }
 
     @Override public void onReviewCompletedDialogOk() {
         view.finish();
+    }
+
+    @Override public void onEditPhotoClick() {
+        view.navigateToGallery(photos);
     }
 
     private List<Integer> getData(int minValue, int maxValue, int step) {
@@ -262,6 +320,8 @@ public class ReviewEditPresenterImpl extends BasePresenterImpl implements Review
         view.refresh();
 
         view.setSelectedPhotoCount(photos.size());
+        view.hideSelectedPhotos();
+        view.hideEditPhotoButton();
         view.showPhotoPanel();
     }
 
@@ -286,8 +346,8 @@ public class ReviewEditPresenterImpl extends BasePresenterImpl implements Review
         }
     }
 
-    private void writeReview() {
-        addDisposable(reviewRequest.writeReview(getWriteData())
+    private void editReview() {
+        addDisposable(reviewRequest.editReview(getEditData())
             .compose(Transformer.applySchedulers())
             .filter(data -> {
                 String code = data.getCode();
@@ -297,15 +357,13 @@ public class ReviewEditPresenterImpl extends BasePresenterImpl implements Review
                 }
                 return code.equals(HttpCode.OK);
             })
-            .map(model -> gson.fromJson(model.getData(), ReviewWriteCompletedDataModel.class))
-            .subscribe(this::onResWriteReview, Timber::e));
+            .subscribe(this::onResEditReview, Timber::e));
     }
 
-    private ReviewWriteDataModel getWriteData() {
+    private ReviewWriteDataModel getEditData() {
         ReviewWriteDataModel model = new ReviewWriteDataModel();
-        //model.setOrderNo(orderNo);
-        //model.setProductNo(data.getProductNo());
-        //model.setOptionNo(data.getOptionNo());
+        model.setReviewNo(data.getReviewNo());
+        model.setMid(data.getMid());
         model.setSatisfactionCode(satisfactionCode);
         model.setSizeRatingCode(sizeRatingCode);
         model.setGenderCode(genderCode);
@@ -313,6 +371,7 @@ public class ReviewEditPresenterImpl extends BasePresenterImpl implements Review
         model.setHeight(height);
         model.setWeight(weight);
         model.setPhotos(parseToPhotoData());
+        model.setPhotoEdit(isPhotoEdit);
         model.setReview(review);
         return model;
     }
@@ -327,10 +386,10 @@ public class ReviewEditPresenterImpl extends BasePresenterImpl implements Review
         return items;
     }
 
-    private void onResWriteReview(ReviewWriteCompletedDataModel data) {
+    private void onResEditReview(BaseDataModel data) {
         view.hideLoadingView();
-        view.showReviewCompletedDialog(data.isPhotoReview(), data.getPoint());
-        RxBus.send(new RxEventReviewWrite());
+        RxBus.send(new RxEventReviewEdit());
+        view.finish();
     }
 
     private void getUploadKeys() {
@@ -382,7 +441,7 @@ public class ReviewEditPresenterImpl extends BasePresenterImpl implements Review
 
     private void checkUploadCompleted() {
         if (photos.size() == uploadCount) {
-            writeReview();
+            editReview();
         }
     }
 
@@ -390,6 +449,7 @@ public class ReviewEditPresenterImpl extends BasePresenterImpl implements Review
         addDisposable(RxBus.toObservable().subscribe(o -> {
             if (o instanceof GalleryPresenterImpl.RxEventGallerySelectedCompleted) {
                 List<PhotoDataModel> images = ((GalleryPresenterImpl.RxEventGallerySelectedCompleted) o).getItems();
+                isPhotoEdit = true;
                 setPhotos(images);
             } else if (o instanceof PhotoContentItemVH.RxEventReviewPhotoClick) {
                 PhotoDataModel data = ((PhotoContentItemVH.RxEventReviewPhotoClick) o).getModel();
@@ -400,6 +460,6 @@ public class ReviewEditPresenterImpl extends BasePresenterImpl implements Review
         }, Timber::e));
     }
 
-    @AllArgsConstructor @Getter public final static class RxEventReviewWrite {
+    @AllArgsConstructor @Getter public final static class RxEventReviewEdit {
     }
 }

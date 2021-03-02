@@ -314,7 +314,7 @@ public class ReviewWritePresenterImpl extends BasePresenterImpl implements Revie
 
     private ReviewWriteDataModel getWriteData() {
         ReviewWriteDataModel model = new ReviewWriteDataModel();
-        model.setOrderNo(orderNo);
+        model.setMid(orderNo);
         model.setProductNo(data.getProductNo());
         model.setOptionNo(data.getOptionNo());
         model.setSatisfactionCode(satisfactionCode);

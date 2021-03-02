@@ -10,6 +10,7 @@ import com.minilook.minilook.data.rx.RxBus;
 import com.minilook.minilook.data.rx.Transformer;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
+import com.minilook.minilook.ui.review_edit.ReviewEditPresenterImpl;
 import com.minilook.minilook.ui.review_history.view.written.di.ReviewWrittenArguments;
 import com.minilook.minilook.ui.review_write.ReviewWritePresenterImpl;
 import java.util.List;
@@ -93,7 +94,8 @@ public class WrittenReviewPresenterImpl extends BasePresenterImpl implements Wri
 
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
-            if (o instanceof ReviewWritePresenterImpl.RxEventReviewWrite) {
+            if (o instanceof ReviewWritePresenterImpl.RxEventReviewWrite
+                || o instanceof ReviewEditPresenterImpl.RxEventReviewEdit) {
                 lastReviewNo = -1;
                 getWrittenReviews();
             }

@@ -62,7 +62,7 @@ public class QuestionRequest extends BaseRequest<QuestionService> {
         jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("type", model.getType());
         jsonMap.put("content", model.getQuestion());
-        jsonMap.put("editedPhotos", model.isPhotoEdit());
+        jsonMap.put("isEditedPhotos", model.isPhotoEdit());
         if (model.getPhotos() != null && model.getPhotos().size() > 0) jsonMap.put("photos", model.getPhotos());
         jsonMap.put("secret", model.isSecret());
         return createRequestBody(jsonMap);

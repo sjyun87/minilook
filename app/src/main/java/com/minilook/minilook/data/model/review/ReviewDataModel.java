@@ -14,6 +14,8 @@ import lombok.Data;
     private int reviewNo;
     @Expose @SerializedName("nickname")
     private String nickname;
+    @Expose @SerializedName("mid")
+    private String mid;
     @Expose @SerializedName("orderDate")
     private String orderDate;
     @Expose @SerializedName("regDate")

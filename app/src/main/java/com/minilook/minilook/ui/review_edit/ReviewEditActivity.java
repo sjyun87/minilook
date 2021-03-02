@@ -16,6 +16,7 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.code.GenderCode;
 import com.minilook.minilook.data.code.ReviewSatisfactions;
 import com.minilook.minilook.data.code.ReviewSizeRatings;
+import com.minilook.minilook.data.model.common.ImageDataModel;
 import com.minilook.minilook.data.model.gallery.PhotoDataModel;
 import com.minilook.minilook.data.model.review.ReviewDataModel;
 import com.minilook.minilook.databinding.ActivityReviewEditBinding;
@@ -23,6 +24,7 @@ import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.gallery.GalleryActivity;
+import com.minilook.minilook.ui.question_edit.adapter.SelectPhotoAdapter;
 import com.minilook.minilook.ui.review_edit.di.ReviewEditArguments;
 import com.minilook.minilook.ui.review_write.adapter.PhotoAdapter;
 import com.minilook.minilook.util.PermissionUtil;
@@ -69,6 +71,8 @@ public class ReviewEditActivity extends BaseActivity implements ReviewEditPresen
 
     private final PhotoAdapter adapter = new PhotoAdapter();
     private final BaseAdapterDataView<PhotoDataModel> adapterView = adapter;
+    private final SelectPhotoAdapter selectPhotoAdapter = new SelectPhotoAdapter();
+    private final BaseAdapterDataView<ImageDataModel> selectPhotoAdapterView = selectPhotoAdapter;
 
     @Override protected View getBindingView() {
         binding = ActivityReviewEditBinding.inflate(getLayoutInflater());
@@ -85,6 +89,7 @@ public class ReviewEditActivity extends BaseActivity implements ReviewEditPresen
             .view(this)
             .data((ReviewDataModel) getIntent().getSerializableExtra("data"))
             .adapter(adapter)
+            .selectPhotoAdapter(selectPhotoAdapter)
             .build();
     }
 
@@ -113,6 +118,8 @@ public class ReviewEditActivity extends BaseActivity implements ReviewEditPresen
         binding.layoutPhotoEmptyPanel.setOnClickListener(view -> presenter.onPhotoAddClick());
 
         binding.txtApply.setOnClickListener(view -> presenter.onApplyClick());
+
+        binding.txtEditPhoto.setOnClickListener(view -> presenter.onEditPhotoClick());
     }
 
     @Override public void setupAgePicker(List<Integer> ageData) {
@@ -186,14 +193,26 @@ public class ReviewEditActivity extends BaseActivity implements ReviewEditPresen
         });
     }
 
+    @Override public void setReview(String review) {
+        binding.editReview.setText(review);
+    }
+
     @Override public void setupRecyclerView() {
         binding.rcvPhoto.setHasFixedSize(true);
         binding.rcvPhoto.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         binding.rcvPhoto.setAdapter(adapter);
+
+        binding.rcvSelectPhoto.setHasFixedSize(true);
+        binding.rcvSelectPhoto.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        binding.rcvSelectPhoto.setAdapter(selectPhotoAdapter);
     }
 
     @Override public void refresh() {
         adapterView.refresh();
+    }
+
+    @Override public void selectPhotoRefresh() {
+        selectPhotoAdapterView.refresh();
     }
 
     @Override public void selectGoodButton() {
@@ -391,5 +410,21 @@ public class ReviewEditActivity extends BaseActivity implements ReviewEditPresen
 
     @Override public void navigateToGallery(List<PhotoDataModel> images) {
         GalleryActivity.start(this, images);
+    }
+
+    @Override public void showSelectedPhotos() {
+        binding.rcvSelectPhoto.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void hideSelectedPhotos() {
+        binding.rcvSelectPhoto.setVisibility(View.GONE);
+    }
+
+    @Override public void showEditPhotoButton() {
+        binding.txtEditPhoto.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void hideEditPhotoButton() {
+        binding.txtEditPhoto.setVisibility(View.GONE);
     }
 }

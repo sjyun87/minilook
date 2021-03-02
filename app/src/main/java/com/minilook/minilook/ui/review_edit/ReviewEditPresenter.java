@@ -39,6 +39,8 @@ public interface ReviewEditPresenter extends LifecycleObserver {
 
     void onReviewCompletedDialogOk();
 
+    void onEditPhotoClick();
+
     interface View {
 
         void setupClickAction();
@@ -69,9 +71,13 @@ public interface ReviewEditPresenter extends LifecycleObserver {
 
         void setupReviewEditText();
 
+        void setReview(String review);
+
         void setupRecyclerView();
 
         void refresh();
+
+        void selectPhotoRefresh();
 
         void selectGoodButton();
 
@@ -142,5 +148,13 @@ public interface ReviewEditPresenter extends LifecycleObserver {
         void navigateToGallery(List<PhotoDataModel> photos);
 
         void finish();
+
+        void showSelectedPhotos();
+
+        void hideSelectedPhotos();
+
+        void showEditPhotoButton();
+
+        void hideEditPhotoButton();
     }
 }

@@ -23,7 +23,7 @@ public class ReviewRequest extends BaseRequest<ReviewService> {
     private RequestBody createWriteReviewData(ReviewWriteDataModel model) {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("memberNo", App.getInstance().getMemberNo());
-        jsonMap.put("mid", model.getOrderNo());
+        jsonMap.put("mid", model.getMid());
         if (model.getPhotos() != null && model.getPhotos().size() > 0) jsonMap.put("photos", model.getPhotos());
         jsonMap.put("review", model.getReview());
         Map<String, Object> detailMap = new HashMap<>();
@@ -93,6 +93,28 @@ public class ReviewRequest extends BaseRequest<ReviewService> {
         //jsonMap.put("memberNo", App.getInstance().getMemberNo());
         jsonMap.put("pageSize", rows);
         if (lastReviewNo > 0) jsonMap.put("lastReviewPhotoNo", lastReviewNo);
+        return createRequestBody(jsonMap);
+    }
+
+    public Single<BaseDataModel> editReview(ReviewWriteDataModel model) {
+        return getApi().editReview(model.getReviewNo(), createEditReviewData(model));
+    }
+
+    private RequestBody createEditReviewData(ReviewWriteDataModel model) {
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("memberNo", App.getInstance().getMemberNo());
+        jsonMap.put("mid", model.getMid());
+        if (model.getPhotos() != null && model.getPhotos().size() > 0) jsonMap.put("photos", model.getPhotos());
+        jsonMap.put("isEditedPhotos", model.isPhotoEdit());
+        jsonMap.put("review", model.getReview());
+        Map<String, Object> detailMap = new HashMap<>();
+        detailMap.put("reviewSatisfactionCode", model.getSatisfactionCode());
+        detailMap.put("reviewSizeCode", model.getSizeRatingCode());
+        if (!TextUtils.isEmpty(model.getGenderCode())) detailMap.put("reviewSexCode", model.getGenderCode());
+        if (model.getAge() != -1) detailMap.put("age", model.getAge());
+        if (model.getHeight() != -1) detailMap.put("height", model.getHeight());
+        if (model.getWeight() != -1) detailMap.put("weight", model.getWeight());
+        jsonMap.put("reviewDetail", detailMap);
         return createRequestBody(jsonMap);
     }
 }

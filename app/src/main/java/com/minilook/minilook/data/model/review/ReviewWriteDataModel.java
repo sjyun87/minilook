@@ -4,7 +4,8 @@ import java.util.List;
 import lombok.Data;
 
 @Data public class ReviewWriteDataModel {
-    private String orderNo;
+    private int reviewNo;
+    private String mid;
     private int productNo;
     private int optionNo;
     private String satisfactionCode;
@@ -14,5 +15,6 @@ import lombok.Data;
     private int height;
     private int weight;
     private List<String> photos;
+    private boolean isPhotoEdit;
     private String review;
 }

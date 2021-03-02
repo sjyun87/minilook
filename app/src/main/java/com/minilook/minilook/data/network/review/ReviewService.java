@@ -6,6 +6,7 @@ import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ReviewService {
@@ -45,6 +46,11 @@ public interface ReviewService {
 
     @POST("/api/products/{productNo}/reviews/photos\n") Single<BaseDataModel> getPhotoReviews(
         @Path("productNo") int productNo,
+        @Body RequestBody body
+    );
+
+    @PUT("/api/products/reviews/{reviewNo}") Single<BaseDataModel> editReview(
+        @Path("reviewNo") int reviewNo,
         @Body RequestBody body
     );
 }
