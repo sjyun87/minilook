@@ -53,6 +53,29 @@ public class QuestionHistoryPresenterImpl extends BasePresenterImpl implements Q
         deleteQuestion(productNo, questionNo);
     }
 
+    @Override public void onSecretEdit(QuestionDataModel data) {
+        data.setSecret(!data.isSecret());
+        switchQuestionType(data);
+    }
+
+    private void switchQuestionType(QuestionDataModel model) {
+        addDisposable(questionRequest.switchQuestionType(model)
+            .compose(Transformer.applySchedulers())
+            .filter(data -> {
+                String code = data.getCode();
+                if (!code.equals(HttpCode.OK)) {
+                    view.showErrorDialog();
+                }
+                return code.equals(HttpCode.OK);
+            })
+            .subscribe(this::onResSwitchType, Timber::e)
+        );
+    }
+
+    private void onResSwitchType(BaseDataModel model) {
+        view.refresh();
+    }
+
     private void deleteQuestion(int productNo, int questionNo) {
         addDisposable(questionRequest.deleteQuestion(productNo, questionNo)
             .compose(Transformer.applySchedulers())
@@ -119,6 +142,14 @@ public class QuestionHistoryPresenterImpl extends BasePresenterImpl implements Q
         view.refresh(start, row);
     }
 
+    private void handleEdit(QuestionDataModel data) {
+        if (data.isAnswer()) {
+            view.showSecretEditDialog(data);
+        } else {
+            view.navigateToQuestionEdit(data);
+        }
+    }
+
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
             if (o instanceof QuestionWritePresenterImpl.RxEventQuestionWrite
@@ -130,6 +161,9 @@ public class QuestionHistoryPresenterImpl extends BasePresenterImpl implements Q
                 int questionNo = ((QuestionHistoryItemVH.RxEventQuestionDeleteClick) o).getQuestionNo();
 
                 view.showQuestionDeleteDialog(productNo, questionNo);
+            } else if (o instanceof QuestionHistoryItemVH.RxEventQuestionEditClick) {
+                QuestionDataModel data = ((QuestionHistoryItemVH.RxEventQuestionEditClick) o).getData();
+                handleEdit(data);
             }
         }, Timber::e));
     }

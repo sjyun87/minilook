@@ -797,6 +797,11 @@
     <string name="dialog_write_review_normal">[일반리뷰 %d 포인트 적립]</string>
     <string name="dialog_write_review_photo">[포토리뷰 %d 포인트 적립]</string>
 
+    <string name="dialog_question_content">답변이 등록된 문의는 공개글 <![CDATA[<->]]> 비밀글 전환만 가능하며, 그 외 내용 수정 및 삭제가 불가능합니다</string>
+    <string name="dialog_question_content_bold">공개글 <![CDATA[<->]]> 비밀글 전환만 가능하며,</string>
+    <string name="dialog_question_secret">비밀글로 변경</string>
+    <string name="dialog_question_public">공개글로 변경</string>
+
     <!--Support Email-->
     <string name="support_email">support@minilook.co.kr</string>
 </resources>

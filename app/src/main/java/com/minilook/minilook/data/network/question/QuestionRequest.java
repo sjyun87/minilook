@@ -2,6 +2,7 @@ package com.minilook.minilook.data.network.question;
 
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.model.base.BaseDataModel;
+import com.minilook.minilook.data.model.question.QuestionDataModel;
 import com.minilook.minilook.data.model.question.QuestionWriteDataModel;
 import com.minilook.minilook.data.network.base.BaseRequest;
 import io.reactivex.rxjava3.core.Single;
@@ -69,5 +70,17 @@ public class QuestionRequest extends BaseRequest<QuestionService> {
 
     public Single<BaseDataModel> deleteQuestion(int productNo, int questionNo) {
         return getApi().deleteQuestion(productNo, questionNo);
+    }
+
+    public Single<BaseDataModel> switchQuestionType(QuestionDataModel model) {
+        return getApi().switchType(model.getProductNo(), model.getQuestionNo(), createSwitchTypeData(model));
+    }
+
+    private RequestBody createSwitchTypeData(QuestionDataModel model) {
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("productNo", model.getProductNo());
+        jsonMap.put("inquiryNo", model.getQuestionNo());
+        jsonMap.put("isSecret", model.isSecret());
+        return createRequestBody(jsonMap);
     }
 }

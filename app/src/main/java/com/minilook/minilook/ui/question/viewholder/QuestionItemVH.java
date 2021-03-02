@@ -18,7 +18,6 @@ import com.minilook.minilook.databinding.ViewQuestionItemBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.photo_detail.PhotoDetailActivity;
 import com.minilook.minilook.ui.question.adapter.QuestionPhotoAdapter;
-import com.minilook.minilook.ui.question_edit.QuestionEditActivity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -157,11 +156,15 @@ public class QuestionItemVH extends BaseViewHolder<QuestionDataModel> {
     }
 
     private void onEditClick(View view) {
-        QuestionEditActivity.start(context, data);
+        RxBus.send(new RxEventQuestionEditClick(data));
     }
 
     private void onDeleteClick(View view) {
         RxBus.send(new RxEventQuestionDeleteClick(data.getProductNo(), data.getQuestionNo()));
+    }
+
+    @AllArgsConstructor @Getter public final static class RxEventQuestionEditClick {
+        private final QuestionDataModel data;
     }
 
     @AllArgsConstructor @Getter public final static class RxEventQuestionDeleteClick {

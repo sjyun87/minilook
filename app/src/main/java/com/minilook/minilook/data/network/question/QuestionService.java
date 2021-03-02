@@ -35,4 +35,10 @@ public interface QuestionService {
         @Path("productNo") int productNo,
         @Path("questionNo") int questionNo
     );
+
+    @PUT("/api/products/{productNo}/inquiries/{questionNo}") Single<BaseDataModel> switchType(
+        @Path("productNo") int productNo,
+        @Path("questionNo") int questionNo,
+        @Body RequestBody body
+    );
 }

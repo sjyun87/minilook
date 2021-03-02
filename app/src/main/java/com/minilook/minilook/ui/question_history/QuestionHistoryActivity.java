@@ -12,7 +12,9 @@ import com.minilook.minilook.databinding.ActivityQuestionHistoryBinding;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
+import com.minilook.minilook.ui.dialog.listener.OnPositiveClickListener;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
+import com.minilook.minilook.ui.question_edit.QuestionEditActivity;
 import com.minilook.minilook.ui.question_history.adapter.QuestionHistoryAdapter;
 import com.minilook.minilook.ui.question_history.di.QuestionHistoryArguments;
 
@@ -89,5 +91,13 @@ public class QuestionHistoryActivity extends BaseActivity implements QuestionHis
 
     @Override public void scrollToTop() {
         binding.rcvQuestion.scrollToPosition(0);
+    }
+
+    @Override public void navigateToQuestionEdit(QuestionDataModel data) {
+        QuestionEditActivity.start(this, data);
+    }
+
+    @Override public void showSecretEditDialog(QuestionDataModel data) {
+        DialogManager.showQuestionSecretEditDialog(this, data.isSecret(), () -> presenter.onSecretEdit(data));
     }
 }
