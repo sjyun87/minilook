@@ -50,4 +50,16 @@ public class CommonRequest extends BaseRequest<CommonService> {
         jsonMap.put("accessToken", "dkdlrkxmrqufgowlsmswnans");
         return createRequestBody(jsonMap);
     }
+
+    public Single<BaseDataModel> registCoupon(String couponCode) {
+        int memberNo = App.getInstance().getMemberNo();
+        return getApi().registCoupon(memberNo, createRegistCouponData(couponCode));
+    }
+
+    private RequestBody createRegistCouponData(String couponCode) {
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("memberNo", App.getInstance().getMemberNo());
+        jsonMap.put("code", couponCode);
+        return createRequestBody(jsonMap);
+    }
 }

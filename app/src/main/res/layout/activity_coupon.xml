@@ -54,6 +54,7 @@
         app:layout_constraintTop_toBottomOf="@+id/layout_coupon_info_panel">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/layout_coupon_code"
             android:layout_width="0dp"
             android:layout_height="@dimen/dp_20"
             android:layout_marginStart="@dimen/dp_8"
@@ -92,6 +93,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/layout_coupon_qr"
             android:layout_width="0dp"
             android:layout_height="@dimen/dp_20"
             android:layout_marginStart="@dimen/dp_2"

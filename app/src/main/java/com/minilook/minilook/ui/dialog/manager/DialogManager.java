@@ -18,6 +18,7 @@ import com.minilook.minilook.ui.dialog.OutOfStockDialog;
 import com.minilook.minilook.ui.dialog.PurchaseConfirmDialog;
 import com.minilook.minilook.ui.dialog.QuestionDeleteDialog;
 import com.minilook.minilook.ui.dialog.QuestionSecretDialog;
+import com.minilook.minilook.ui.dialog.RegistCouponDialog;
 import com.minilook.minilook.ui.dialog.ReviewCompletedDialog;
 import com.minilook.minilook.ui.dialog.UpdateDialog;
 import com.minilook.minilook.ui.dialog.listener.OnCloseClickListener;
@@ -160,9 +161,16 @@ public final class DialogManager {
     }
 
     @Builder
-    public static void showQuestionSecretEditDialog(Activity activity, boolean isSecret, OnPositiveClickListener listener) {
+    public static void showQuestionSecretEditDialog(Activity activity, boolean isSecret,
+        OnPositiveClickListener listener) {
         QuestionSecretDialog dialog = new QuestionSecretDialog(activity, isSecret);
         dialog.setOnPositiveClickListener(listener);
+        dialog.show();
+    }
+
+    @Builder
+    public static void showRegistCouponDialog(Activity activity) {
+        RegistCouponDialog dialog = new RegistCouponDialog(activity);
         dialog.show();
     }
 }

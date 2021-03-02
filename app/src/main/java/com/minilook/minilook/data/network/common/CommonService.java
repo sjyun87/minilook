@@ -7,6 +7,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface CommonService {
 
@@ -21,6 +22,11 @@ public interface CommonService {
     );
 
     @POST("/api/commons/keys") Single<BaseDataModel> getKeys(
+        @Body RequestBody body
+    );
+
+    @POST("/api/members/{memberNo}/events/coupons") Single<BaseDataModel> registCoupon(
+        @Path("memberNo") int memberNo,
         @Body RequestBody body
     );
 }

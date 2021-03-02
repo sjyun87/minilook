@@ -11,5 +11,4 @@ import lombok.Getter;
 public class CouponArguments {
     private final CouponPresenter.View view;
     private final BaseAdapterDataModel<CouponDataModel> adapter;
-    private final IntentIntegrator integrator;
 }

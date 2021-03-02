@@ -19,4 +19,6 @@ import lombok.Getter;
 
     public static final String OVERLAP_DATA = "533";
     public static final String EXPIRED_DATE = "534";
+
+
 }

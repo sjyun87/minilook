@@ -11,7 +11,11 @@ public interface CouponPresenter extends LifecycleObserver {
 
     void onCouponInfoClick();
 
-    void onCouponRegistClick();
+    void onRegistCouponCodeClick();
+
+    void onRegistQRCodeClick();
+
+    void onQRScan(String couponCode);
 
     interface View {
 
@@ -22,5 +26,15 @@ public interface CouponPresenter extends LifecycleObserver {
         void emptyPanel();
 
         void navigateToWebView(String url);
+
+        void showQRCodeScanner();
+
+        void showRegistCouponDialog();
+
+        void showDuplicateMessage();
+
+        void showInvalidMessage();
+
+        void showRegistCompleteMessage();
     }
 }
