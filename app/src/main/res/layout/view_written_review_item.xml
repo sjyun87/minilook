@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@color/color_FFFFFFFF"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/dp_20">
+    android:paddingBottom="@dimen/dp_18">
 
     <View
         android:layout_width="match_parent"
@@ -435,4 +435,18 @@
         android:textColor="@color/color_FF616161"
         android:textSize="@dimen/sp_6"
         tools:text="@string/review_help_count" />
+
+    <TextView
+        android:id="@+id/txt_edit"
+        android:layout_width="@dimen/dp_44"
+        android:layout_height="@dimen/dp_16"
+        android:layout_gravity="end"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:background="@drawable/bg_button_border_lightgray"
+        android:fontFamily="@font/nanum_square_b"
+        android:gravity="center"
+        android:text="@string/question_edit"
+        android:textColor="@color/color_FF616161"
+        android:textSize="@dimen/sp_6" />
 </LinearLayout>

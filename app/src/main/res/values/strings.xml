@@ -199,6 +199,7 @@
     <!--Question Edit-->
     <string name="question_edit_title">문의 수정</string>
     <string name="question_edit_apply">수정하기</string>
+    <string name="question_edit_photo">사진 수정하기</string>
 
     <!--Point-->
     <string name="point_title">포인트</string>
@@ -212,6 +213,8 @@
     <!--Coupon-->
     <string name="coupon_title">쿠폰</string>
     <string name="coupon_info">쿠폰 사용 시 유의사항</string>
+    <string name="coupon_regist_code">쿠폰 번호 등록하기</string>
+    <string name="coupon_regist_qr">QR코드 등록하기</string>
     <string name="coupon_empty">보유한 쿠폰이 없습니다.</string>
     <string name="coupon_use_condition">%s원 이상 구매시 사용가능</string>
     <string name="coupon_date_end">%s 만료예정</string>
@@ -536,6 +539,9 @@
     <string name="review_history_writable_order_no_caption">주문번호</string>
     <string name="review_history_writable_order_date_caption">주문일자</string>
     <string name="review_history_writable_review_write">리뷰쓰기</string>
+
+    <!--Review Edit-->
+    <string name="review_edit_title">리뷰수정</string>
 
     <!--Album-->
     <string name="album_select_album">변경하려면 여기를 누르세요</string>

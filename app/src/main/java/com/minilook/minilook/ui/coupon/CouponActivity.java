@@ -83,10 +83,10 @@ public class CouponActivity extends _BaseActivity implements CouponPresenter.Vie
         presenter.onCouponInfoClick();
     }
 
-    @OnClick(R.id.txt_regist)
-    void onRegistClick() {
-        presenter.onCouponRegistClick();
-    }
+    //@OnClick(R.id.txt_regist)
+    //void onRegistClick() {
+    //    presenter.onCouponRegistClick();
+    //}
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

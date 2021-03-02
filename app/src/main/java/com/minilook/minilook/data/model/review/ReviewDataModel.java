@@ -5,10 +5,11 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.minilook.minilook.data.model.base.BooleanDeserializer;
 import com.minilook.minilook.data.model.common.ImageDataModel;
+import java.io.Serializable;
 import java.util.List;
 import lombok.Data;
 
-@Data public class ReviewDataModel {
+@Data public class ReviewDataModel implements Serializable {
     @Expose @SerializedName("reviewNo")
     private int reviewNo;
     @Expose @SerializedName("nickname")

@@ -36,6 +36,7 @@ public class QuestionEditPresenterImpl extends BasePresenterImpl implements Ques
     private final QuestionDataModel data;
     private final BaseAdapterDataModel<String> typeAdapter;
     private final BaseAdapterDataModel<PhotoDataModel> photoAdapter;
+    private final BaseAdapterDataModel<ImageDataModel> selectPhotoAdapter;
     private final QuestionRequest questionRequest;
     private final CommonRequest commonRequest;
     private final NCloudRequest nCloudRequest;
@@ -45,6 +46,7 @@ public class QuestionEditPresenterImpl extends BasePresenterImpl implements Ques
     private String type;
     private String question;
     private List<PhotoDataModel> photos;
+    private boolean isPhotoEdit = false;
     private int uploadCount = 0;
     private boolean isSecret = false;
 
@@ -53,6 +55,7 @@ public class QuestionEditPresenterImpl extends BasePresenterImpl implements Ques
         data = args.getData();
         typeAdapter = args.getTypeAdapter();
         photoAdapter = args.getPhotoAdapter();
+        selectPhotoAdapter = args.getSelectPhotoAdapter();
         questionRequest = new QuestionRequest();
         commonRequest = new CommonRequest();
         nCloudRequest = new NCloudRequest();
@@ -101,6 +104,10 @@ public class QuestionEditPresenterImpl extends BasePresenterImpl implements Ques
         view.navigateToGallery(photos);
     }
 
+    @Override public void onEditPhotoClick() {
+        view.navigateToGallery(photos);
+    }
+
     @Override public void onTypeSelected(String data) {
         type = data;
         view.setSelectedType(type);
@@ -124,7 +131,22 @@ public class QuestionEditPresenterImpl extends BasePresenterImpl implements Ques
         this.question = data.getQuestion();
         view.setQuestion(data.getQuestion());
 
-        setPhotos(parseToPhotoData(data.getPhotos()));
+        List<ImageDataModel> images = data.getPhotos();
+        if (images != null && images.size() > 0) {
+            selectPhotoAdapter.set(data.getPhotos());
+            view.selectPhotoRefresh();
+
+            view.setSelectedPhotoCount(images.size());
+            view.showSelectedPhotos();
+            view.showEditPhotoButton();
+        } else {
+            photoAdapter.add(new PhotoDataModel());
+            view.photoRefresh();
+            view.setSelectedPhotoCount(0);
+
+            view.hideSelectedPhotos();
+            view.hideEditPhotoButton();
+        }
 
         this.isSecret = data.isSecret();
         if (data.isSecret()) {
@@ -134,19 +156,8 @@ public class QuestionEditPresenterImpl extends BasePresenterImpl implements Ques
         }
     }
 
-    private List<PhotoDataModel> parseToPhotoData(List<ImageDataModel> photos) {
-        List<PhotoDataModel> items = new ArrayList<>();
-        for (ImageDataModel image : photos) {
-            PhotoDataModel model = new PhotoDataModel();
-            model.setName(image.getOriginUrl());
-            model.setUriPath(image.getThumbUrl());
-            items.add(model);
-        }
-        return items;
-    }
-
     private void editQuestion() {
-        addDisposable(questionRequest.editQuestion(getWriteData())
+        addDisposable(questionRequest.editQuestion(getEditData())
             .compose(Transformer.applySchedulers())
             .filter(data -> {
                 String code = data.getCode();
@@ -159,11 +170,12 @@ public class QuestionEditPresenterImpl extends BasePresenterImpl implements Ques
             .subscribe(this::onResWriteQuestion, Timber::e));
     }
 
-    private QuestionWriteDataModel getWriteData() {
+    private QuestionWriteDataModel getEditData() {
         QuestionWriteDataModel model = new QuestionWriteDataModel();
-        model.setProductNo(data.getProductNo());
+        model.setQuestionNo(data.getQuestionNo());
         model.setType(type);
         model.setQuestion(question);
+        model.setPhotoEdit(isPhotoEdit);
         model.setPhotos(parseToPhotoData());
         model.setSecret(isSecret);
         return model;
@@ -245,6 +257,8 @@ public class QuestionEditPresenterImpl extends BasePresenterImpl implements Ques
         view.photoRefresh();
 
         view.setSelectedPhotoCount(images.size());
+        view.hideSelectedPhotos();
+        view.hideEditPhotoButton();
     }
 
     private void removePhoto(PhotoDataModel data) {
@@ -261,6 +275,7 @@ public class QuestionEditPresenterImpl extends BasePresenterImpl implements Ques
             if (o instanceof GalleryPresenterImpl.RxEventGallerySelectedCompleted) {
                 List<PhotoDataModel> images = ((GalleryPresenterImpl.RxEventGallerySelectedCompleted) o).getItems();
                 photos = images;
+                isPhotoEdit = true;
                 setPhotos(images);
             } else if (o instanceof PhotoContentItemVH.RxEventReviewPhotoClick) {
                 PhotoDataModel data = ((PhotoContentItemVH.RxEventReviewPhotoClick) o).getModel();

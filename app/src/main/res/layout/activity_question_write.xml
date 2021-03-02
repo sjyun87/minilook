@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:setTitle="@string/question_edit_title"
+        app:setTitle="@string/question_write_title"
         app:showClose="true"
         app:showTitle="true" />
 

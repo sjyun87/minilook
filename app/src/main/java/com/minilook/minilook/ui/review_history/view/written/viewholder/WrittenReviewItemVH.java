@@ -24,6 +24,7 @@ import com.minilook.minilook.databinding.ViewWrittenReviewItemBinding;
 import com.minilook.minilook.ui.base.BaseViewHolder;
 import com.minilook.minilook.ui.photo_detail.PhotoDetailActivity;
 import com.minilook.minilook.ui.product_detail.ProductDetailActivity;
+import com.minilook.minilook.ui.review_edit.ReviewEditActivity;
 import com.minilook.minilook.ui.review_history.view.written.adapter.ReviewPhotoAdapter;
 import com.minilook.minilook.util.SpannableUtil;
 
@@ -56,6 +57,8 @@ public class WrittenReviewItemVH extends BaseViewHolder<ReviewDataModel> {
         binding.layoutMorePanel.setOnClickListener(view -> onReviewMoreClick());
         binding.layoutProductPanel.setOnClickListener(view -> onProductClick());
         adapter.setOnPhotoClickListener(this::onPhotoClick);
+        binding.txtEdit.setVisibility(View.VISIBLE);
+        binding.txtEdit.setOnClickListener(this::onEditClick);
 
         setupRecyclerView();
     }
@@ -187,5 +190,9 @@ public class WrittenReviewItemVH extends BaseViewHolder<ReviewDataModel> {
         model.setPosition(position);
 
         PhotoDetailActivity.start(context, model);
+    }
+
+    private void onEditClick(View view) {
+        ReviewEditActivity.start(context, data);
     }
 }

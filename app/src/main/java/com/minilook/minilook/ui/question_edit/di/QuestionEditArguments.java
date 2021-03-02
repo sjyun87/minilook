@@ -1,5 +1,6 @@
 package com.minilook.minilook.ui.question_edit.di;
 
+import com.minilook.minilook.data.model.common.ImageDataModel;
 import com.minilook.minilook.data.model.gallery.PhotoDataModel;
 import com.minilook.minilook.data.model.question.QuestionDataModel;
 import com.minilook.minilook.ui.base.BaseAdapterDataModel;
@@ -13,4 +14,5 @@ public class QuestionEditArguments {
     private final QuestionDataModel data;
     private final BaseAdapterDataModel<String> typeAdapter;
     private final BaseAdapterDataModel<PhotoDataModel> photoAdapter;
+    private final BaseAdapterDataModel<ImageDataModel> selectPhotoAdapter;
 }

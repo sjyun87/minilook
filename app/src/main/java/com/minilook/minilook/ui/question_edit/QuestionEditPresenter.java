@@ -23,6 +23,8 @@ public interface QuestionEditPresenter extends LifecycleObserver {
 
     void onStoragePermissionGranted();
 
+    void onEditPhotoClick();
+
     interface View {
 
         void setupClickAction();
@@ -68,5 +70,15 @@ public interface QuestionEditPresenter extends LifecycleObserver {
         void navigateToGallery(List<PhotoDataModel> photos);
 
         void finish();
+
+        void selectPhotoRefresh();
+
+        void showSelectedPhotos();
+
+        void hideSelectedPhotos();
+
+        void showEditPhotoButton();
+
+        void hideEditPhotoButton();
     }
 }

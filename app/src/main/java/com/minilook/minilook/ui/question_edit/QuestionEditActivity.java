@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.gun0912.tedpermission.PermissionListener;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.common.ImageDataModel;
 import com.minilook.minilook.data.model.gallery.PhotoDataModel;
 import com.minilook.minilook.data.model.question.QuestionDataModel;
 import com.minilook.minilook.databinding.ActivityQuestionEditBinding;
@@ -23,6 +24,7 @@ import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
 import com.minilook.minilook.ui.gallery.GalleryActivity;
+import com.minilook.minilook.ui.question_edit.adapter.SelectPhotoAdapter;
 import com.minilook.minilook.ui.question_edit.di.QuestionEditArguments;
 import com.minilook.minilook.ui.question_write.adapter.QuestionTypeAdapter;
 import com.minilook.minilook.ui.review_write.adapter.PhotoAdapter;
@@ -69,6 +71,8 @@ public class QuestionEditActivity extends BaseActivity implements QuestionEditPr
     private final BaseAdapterDataView<String> typeAdapterView = typeAdapter;
     private final PhotoAdapter photoAdapter = new PhotoAdapter();
     private final BaseAdapterDataView<PhotoDataModel> photoAdapterView = photoAdapter;
+    private final SelectPhotoAdapter selectPhotoAdapter = new SelectPhotoAdapter();
+    private final BaseAdapterDataView<ImageDataModel> selectPhotoAdapterView = selectPhotoAdapter;
 
     @Override protected View getBindingView() {
         binding = ActivityQuestionEditBinding.inflate(getLayoutInflater());
@@ -86,6 +90,7 @@ public class QuestionEditActivity extends BaseActivity implements QuestionEditPr
             .data((QuestionDataModel) getIntent().getSerializableExtra("data"))
             .typeAdapter(typeAdapter)
             .photoAdapter(photoAdapter)
+            .selectPhotoAdapter(selectPhotoAdapter)
             .build();
     }
 
@@ -93,6 +98,7 @@ public class QuestionEditActivity extends BaseActivity implements QuestionEditPr
         binding.layoutTypeBoxPanel.setOnClickListener(view -> presenter.onTypeBoxClick());
         binding.layoutSecretPanel.setOnClickListener(view -> presenter.onSecretClick());
         binding.txtApply.setOnClickListener(view -> presenter.onApplyClick());
+        binding.txtEditPhoto.setOnClickListener(view -> presenter.onEditPhotoClick());
     }
 
     @Override public void setupTypeRecyclerView() {
@@ -115,6 +121,10 @@ public class QuestionEditActivity extends BaseActivity implements QuestionEditPr
         binding.rcvPhoto.setHasFixedSize(true);
         binding.rcvPhoto.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         binding.rcvPhoto.setAdapter(photoAdapter);
+
+        binding.rcvSelectPhoto.setHasFixedSize(true);
+        binding.rcvSelectPhoto.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        binding.rcvSelectPhoto.setAdapter(selectPhotoAdapter);
     }
 
     @Override public void photoRefresh() {
@@ -211,6 +221,26 @@ public class QuestionEditActivity extends BaseActivity implements QuestionEditPr
 
     @Override public void navigateToGallery(List<PhotoDataModel> photos) {
         GalleryActivity.start(this, photos);
+    }
+
+    @Override public void selectPhotoRefresh() {
+        selectPhotoAdapterView.refresh();
+    }
+
+    @Override public void showSelectedPhotos() {
+        binding.rcvSelectPhoto.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void hideSelectedPhotos() {
+        binding.rcvSelectPhoto.setVisibility(View.GONE);
+    }
+
+    @Override public void showEditPhotoButton() {
+        binding.txtEditPhoto.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void hideEditPhotoButton() {
+        binding.txtEditPhoto.setVisibility(View.GONE);
     }
 
     @Override public void checkStoragePermission() {

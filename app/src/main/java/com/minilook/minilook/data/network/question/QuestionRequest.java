@@ -53,8 +53,18 @@ public class QuestionRequest extends BaseRequest<QuestionService> {
     }
 
     public Single<BaseDataModel> editQuestion(QuestionWriteDataModel model) {
-        ///////
-        return getApi().editQuestion(model.getProductNo(), createWriteQuestionData(model));
+        return getApi().editQuestion(model.getQuestionNo(), createEditQuestionData(model));
+    }
+
+    private RequestBody createEditQuestionData(QuestionWriteDataModel model) {
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("memberNo", App.getInstance().getMemberNo());
+        jsonMap.put("type", model.getType());
+        jsonMap.put("content", model.getQuestion());
+        jsonMap.put("editedPhotos", model.isPhotoEdit());
+        if (model.getPhotos() != null && model.getPhotos().size() > 0) jsonMap.put("photos", model.getPhotos());
+        jsonMap.put("secret", model.isSecret());
+        return createRequestBody(jsonMap);
     }
 
     public Single<BaseDataModel> deleteQuestion(int productNo, int questionNo) {

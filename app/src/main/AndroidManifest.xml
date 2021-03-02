@@ -209,6 +209,11 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
+            android:name=".ui.review_edit.ReviewEditActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
             android:name=".ui.scrapbook.ScrapbookActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
