@@ -91,7 +91,6 @@
         android:text="@string/order_detail_question"
         android:textColor="@color/color_FF232323"
         android:textSize="@dimen/sp_6"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_thumb" />

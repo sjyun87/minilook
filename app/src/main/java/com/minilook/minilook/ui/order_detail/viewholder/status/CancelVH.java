@@ -58,7 +58,7 @@ public class CancelVH extends _BaseViewHolder<OrderProductDataModel> {
 
     @OnClick(R.id.txt_question)
     void onQuestionClick() {
-        RxBus.send(new OrderDetailPresenterImpl.RxBusEventCancelQuestionClick());
+        RxBus.send(new OrderDetailPresenterImpl.RxBusEventOptionQuestionClick(data));
     }
 
     @OnClick(R.id.img_thumb)

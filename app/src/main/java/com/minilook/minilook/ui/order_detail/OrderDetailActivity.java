@@ -22,6 +22,7 @@ import com.minilook.minilook.ui.order_cancel.OrderCancelActivity;
 import com.minilook.minilook.ui.order_detail.adapter.OrderDetailAdapter;
 import com.minilook.minilook.ui.order_detail.di.OrderDetailArguments;
 import com.minilook.minilook.ui.order_exchange_n_return.OrderExchangeNReturnActivity;
+import com.minilook.minilook.ui.question_write.QuestionWriteActivity;
 import com.minilook.minilook.ui.review_write.ReviewWriteActivity;
 import com.minilook.minilook.util.StringUtil;
 
@@ -167,6 +168,10 @@ public class OrderDetailActivity extends _BaseActivity implements OrderDetailPre
 
     @Override public void navigateToReviewWrite(String orderNo, String orderDate, OrderProductDataModel data) {
         ReviewWriteActivity.start(this, orderNo, orderDate, data);
+    }
+
+    @Override public void navigateToQuestionWrite(int productNo) {
+        QuestionWriteActivity.start(this, productNo);
     }
 
     @OnClick(R.id.txt_order_cancel)

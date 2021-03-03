@@ -62,5 +62,7 @@ public interface OrderDetailPresenter extends LifecycleObserver {
         void navigateToMinilookTalk();
 
         void navigateToReviewWrite(String orderNo, String orderDate, OrderProductDataModel data);
+
+        void navigateToQuestionWrite(int productNo);
     }
 }
