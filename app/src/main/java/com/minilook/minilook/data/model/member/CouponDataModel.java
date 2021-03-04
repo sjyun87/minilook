@@ -18,7 +18,9 @@ import lombok.Data;
     @Expose @SerializedName("isExprired")
     @JsonAdapter(BooleanDeserializer.class)
     private boolean isExpired;
-    @Expose @SerializedName("expireDate")
+    @Expose @SerializedName("startDateName")
+    private String startDate;
+    @Expose @SerializedName("expireDateName")
     private String expireDate;
 
     // -- Optional Data

@@ -17,11 +17,11 @@ public class CouponItemVH extends _BaseViewHolder<CouponDataModel> {
     @BindView(R.id.txt_coupon) TextView couponTextView;
     @BindView(R.id.txt_name) TextView nameTextView;
     @BindView(R.id.txt_use_condition) TextView useConditionTextView;
-    @BindView(R.id.txt_end_date) TextView endDateTextView;
+    @BindView(R.id.txt_date) TextView dateTextView;
     @BindView(R.id.curtain) View curtainView;
 
     @BindString(R.string.coupon_use_condition) String format_use_condition;
-    @BindString(R.string.coupon_date_end) String format_date_end;
+    @BindString(R.string.coupon_date) String format_date;
     @BindString(R.string.coupon_end) String str_end;
 
     public CouponItemVH(@NonNull View itemView) {
@@ -37,11 +37,13 @@ public class CouponItemVH extends _BaseViewHolder<CouponDataModel> {
         useConditionTextView.setText(String.format(format_use_condition, data.getCondition()));
         if (data.isExpired()) {
             curtainView.setVisibility(View.VISIBLE);
-            endDateTextView.setText(str_end);
+            dateTextView.setText(str_end);
         } else {
-            if (data.getExpireDate() != null) {
-                endDateTextView.setText(String.format(format_date_end, data.getExpireDate()));
+            String endDate = data.getExpireDate();
+            if (data.getExpireDate() == null) {
+                endDate = "";
             }
+            dateTextView.setText(String.format(format_date, data.getStartDate(), endDate));
             curtainView.setVisibility(View.GONE);
         }
     }

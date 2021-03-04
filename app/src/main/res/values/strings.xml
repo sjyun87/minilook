@@ -217,7 +217,7 @@
     <string name="coupon_regist_qr">QR코드 등록하기</string>
     <string name="coupon_empty">보유한 쿠폰이 없습니다.</string>
     <string name="coupon_use_condition">%s원 이상 구매시 사용가능</string>
-    <string name="coupon_date_end">%s 만료예정</string>
+    <string name="coupon_date">%s ~ %s</string>
     <string name="coupon_end">사용만료</string>
 
     <!--ShoppingBag-->
