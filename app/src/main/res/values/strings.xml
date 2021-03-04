@@ -509,7 +509,7 @@
     <string name="review_write_photo_empty_desc">상품과 무관한 사진을 첨부한 리뷰는 통보없\n삭제 및 적립 혜택이 회수됩니다.</string>
     <string name="review_write_photo_empty_desc_bold">무관한 사진을</string>
     <string name="review_write_photo_empty_regist">등록하기</string>
-    <string name="review_write_photo_limit_caption">등록 가능한 사진 갯수</string>
+    <string name="review_write_photo_limit_caption">사진 등록하기</string>
     <string name="review_write_photo_selected_count">%s / 4</string>
     <string name="review_write_contents">이 상품의 리뷰를 남겨주세요</string>
     <string name="review_write_contents_hint">상품 리뷰를 남겨주세요 (최소 10자 이상)</string>

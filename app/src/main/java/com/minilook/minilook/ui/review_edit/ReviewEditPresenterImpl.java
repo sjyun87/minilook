@@ -212,7 +212,7 @@ public class ReviewEditPresenterImpl extends BasePresenterImpl implements Review
     }
 
     @Override public void onEditPhotoClick() {
-        view.navigateToGallery(photos);
+        view.checkStoragePermission();
     }
 
     private List<Integer> getData(int minValue, int maxValue, int step) {

@@ -105,7 +105,7 @@ public class QuestionEditPresenterImpl extends BasePresenterImpl implements Ques
     }
 
     @Override public void onEditPhotoClick() {
-        view.navigateToGallery(photos);
+        view.checkStoragePermission();
     }
 
     @Override public void onTypeSelected(String data) {
