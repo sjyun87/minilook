@@ -3,7 +3,7 @@ ext {
   // Versioning
   versionMajor = 1
   versionMinor = 2
-  versionPatch = 7
+  versionPatch = 8
 
   // Android
   compile_sdk_version = 29
