@@ -21,7 +21,6 @@ import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
 import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
 import com.minilook.minilook.ui.dialog.manager.DialogManager;
-import com.minilook.minilook.ui.product.adapter.ProductAdapter;
 import com.minilook.minilook.ui.promotion_detail.adapter.PromotionDetailOtherAdapter;
 import com.minilook.minilook.ui.promotion_detail.adapter.PromotionDetailProductAdapter;
 import com.minilook.minilook.ui.promotion_detail.di.PromotionDetailArguments;

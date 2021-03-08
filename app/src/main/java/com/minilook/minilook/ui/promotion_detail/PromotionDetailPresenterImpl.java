@@ -50,7 +50,7 @@ public class PromotionDetailPresenterImpl extends BasePresenterImpl implements P
         view.setupPromotionRecyclerView();
 
         getPromotionDetail();
-        getOtherPromotion();
+        //getOtherPromotion();
     }
 
     @Override public void onResume() {
