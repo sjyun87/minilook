@@ -11,30 +11,32 @@ public interface SearchKeywordPresenter extends LifecycleObserver {
 
     void onSearchEnterClick(String keyword);
 
-    void onKeywordClick(String keyword);
+    void onRecentClearClick();
 
-    void onDeleteClick(String keyword);
-
-    void removeAllClick();
+    void onRecommendKeywordClick(String keyword);
 
     interface View {
 
+        void setupClickAction();
+
+        void setupRecentKeywordRecyclerView();
+
+        void recentKeywordRefresh();
+
         void setupEditText();
+
+        void setSearchKeyword(String keyword);
 
         void showRecentPanel();
 
         void hideRecentPanel();
 
-        void setupPopularTitle(String text);
+        void addRecommendKeyword(String keyword);
 
-        void setupBrandTitle(String text);
+        void showRecommendPanel();
+
+        void hideRecommendPanel();
 
         void navigateToBridge(String keyword);
-
-        void addKeywordView(String keyword);
-
-        void removeAllKeywordView();
-
-        void removeOldKeywordView();
     }
 }

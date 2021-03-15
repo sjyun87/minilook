@@ -51,4 +51,8 @@ public class SearchRequest extends BaseRequest<SearchService> {
     public Single<BaseDataModel> getFilterOptions() {
         return getApi().getFilterOptions();
     }
+
+    public Single<BaseDataModel> getRecommendKeywords() {
+        return getApi().getRecommendKeywords();
+    }
 }

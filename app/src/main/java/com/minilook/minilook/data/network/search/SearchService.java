@@ -19,4 +19,6 @@ public interface SearchService {
     @GET("/api/commons/filters/options/{categoryCode}") Single<BaseDataModel> getFilterOptions(
         @Path("categoryCode") String code
     );
+
+    @GET("/api/commons/recommandkeywords") Single<BaseDataModel> getRecommendKeywords();
 }

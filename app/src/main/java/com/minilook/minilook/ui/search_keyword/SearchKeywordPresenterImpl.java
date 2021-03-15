@@ -1,27 +1,48 @@
 package com.minilook.minilook.ui.search_keyword;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.minilook.minilook.App;
+import com.minilook.minilook.data.common.HttpCode;
+import com.minilook.minilook.data.model.base.BaseDataModel;
+import com.minilook.minilook.data.model.search.KeywordDataModel;
 import com.minilook.minilook.data.network.search.SearchRequest;
 import com.minilook.minilook.data.room.keyword.KeywordDB;
+import com.minilook.minilook.data.rx.RxBus;
+import com.minilook.minilook.data.rx.Transformer;
+import com.minilook.minilook.ui.base.BaseAdapterDataModel;
 import com.minilook.minilook.ui.base.BasePresenterImpl;
 import com.minilook.minilook.ui.search_keyword.di.SearchKeywordArguments;
+import com.minilook.minilook.ui.search_keyword.viewholder.RecentKeywordVH;
+import io.reactivex.rxjava3.functions.Function;
+import java.util.ArrayList;
 import java.util.List;
+import timber.log.Timber;
 
 public class SearchKeywordPresenterImpl extends BasePresenterImpl implements SearchKeywordPresenter {
 
     private final View view;
+    private final BaseAdapterDataModel<String> recentKeywordAdapter;
+    private final KeywordDB keywordDB;
     private final SearchRequest searchRequest;
-    private KeywordDB keywordDB;
+    private final Gson gson;
 
     public SearchKeywordPresenterImpl(SearchKeywordArguments args) {
         view = args.getView();
+        recentKeywordAdapter = args.getRecentKeywordAdapter();
+        keywordDB = args.getKeywordDB();
         searchRequest = new SearchRequest();
-        keywordDB =  KeywordDB.
+        gson = App.getInstance().getGson();
     }
 
     @Override public void onCreate() {
+        toRxObservable();
+        view.setupClickAction();
         view.setupEditText();
-        getRecentKeyword();
-        //reqSearchModules();
+        view.setupRecentKeywordRecyclerView();
+
+        setRecentKeyword();
+        getRecommendKeyword();
     }
 
     @Override
@@ -30,55 +51,88 @@ public class SearchKeywordPresenterImpl extends BasePresenterImpl implements Sea
         view.navigateToBridge(keyword);
     }
 
-    @Override public void onKeywordClick(String keyword) {
+    @Override public void onRecentClearClick() {
+        clearKeywords();
+        setRecentKeyword();
+    }
+
+    @Override public void onRecommendKeywordClick(String keyword) {
         saveKeyword(keyword);
+        view.navigateToBridge(keyword);
     }
 
-    @Override public void onDeleteClick(String keyword) {
-        //deleteKeyword(keyword);
-    }
-
-    @Override public void removeAllClick() {
-        //deleteAllKeyword();
-        view.removeAllKeywordView();
-        view.hideRecentPanel();
-    }
-
-    private void getRecentKeyword() {
-        List<String> keywordList = loadKeyword();
-        if (keywordList.size() == 0) {
+    private void setRecentKeyword() {
+        List<String> recentKeywords = loadKeyword();
+        if (recentKeywords.size() == 0) {
             view.hideRecentPanel();
         } else {
-            view.showRecentPanel();
-            view.removeAllKeywordView();
-            for (String keyword : keywordList) {
-                view.addKeywordView(keyword);
+            if (recentKeywords.size() > 10) {
+                keywordDB.getDAO().deleteOldKeyword();
+                recentKeywords.remove(recentKeywords.size() - 1);
             }
+            recentKeywordAdapter.set(recentKeywords);
+            view.recentKeywordRefresh();
+            view.showRecentPanel();
         }
     }
 
     private void saveKeyword(String keyword) {
-        //if (recentKeywordDB.getDAO().hasKeyword(keyword) > 0) {
-        //    deleteKeyword(keyword);
-        //}
-        //recentKeywordDB.getDAO().insertKeyword(keyword);
-        //if (loadKeyword().size() > 10) {
-        //    recentKeywordDB.getDAO().deleteOldKeyword();
-        //    view.removeOldKeywordView();
-        //}
-        //reqRecentKeyword();
+        if (keywordDB.getDAO().hasKeyword(keyword) > 0) {
+            deleteKeyword(keyword);
+        }
+        keywordDB.getDAO().insertKeyword(keyword);
+
+        setRecentKeyword();
     }
 
     private List<String> loadKeyword() {
-        return recentKeywordDB.getDAO().getRecentKeywordList();
+        return keywordDB.getDAO().getRecentKeywords();
     }
 
     private void deleteKeyword(String keyword) {
-        recentKeywordDB.getDAO().deleteKeyword(keyword);
+        keywordDB.getDAO().deleteKeyword(keyword);
+        setRecentKeyword();
     }
 
-    private void deleteAllKeyword() {
-        recentKeywordDB.getDAO().deleteAllKeyword();
+    private void clearKeywords() {
+        keywordDB.getDAO().clearKeyword();
+        setRecentKeyword();
     }
 
+    private void getRecommendKeyword() {
+        addDisposable(searchRequest.getRecommendKeywords()
+            .compose(Transformer.applySchedulers())
+            .filter(data -> {
+                String code = data.getCode();
+                if (code.equals(HttpCode.NO_DATA)) {
+                    view.hideRecommendPanel();
+                }
+                return code.equals(HttpCode.OK);
+            })
+            .map((Function<BaseDataModel, List<KeywordDataModel>>)
+                data -> gson.fromJson(data.getData(), new TypeToken<ArrayList<KeywordDataModel>>() {
+                }.getType()))
+            .subscribe(this::onResRecommendKeywords, Timber::e)
+        );
+    }
+
+    private void onResRecommendKeywords(List<KeywordDataModel> data) {
+        for (KeywordDataModel model : data) {
+            view.addRecommendKeyword(model.getKeyword());
+        }
+        view.showRecommendPanel();
+    }
+
+    private void toRxObservable() {
+        addDisposable(RxBus.toObservable().subscribe(o -> {
+            if (o instanceof RecentKeywordVH.RxEventRecentKeywordClick) {
+                String keyword = ((RecentKeywordVH.RxEventRecentKeywordClick) o).getKeyword();
+                saveKeyword(keyword);
+                view.navigateToBridge(keyword);
+            } else if (o instanceof RecentKeywordVH.RxEventRecentKeywordDeleteClick) {
+                String keyword = ((RecentKeywordVH.RxEventRecentKeywordDeleteClick) o).getKeyword();
+                deleteKeyword(keyword);
+            }
+        }, Timber::e));
+    }
 }

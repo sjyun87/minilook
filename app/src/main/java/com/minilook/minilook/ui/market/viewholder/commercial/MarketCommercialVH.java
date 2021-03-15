@@ -37,7 +37,6 @@ public class MarketCommercialVH extends BaseViewHolder<MarketDataModel> {
     private void setupViewPager() {
         adapter = new MarketCommercialAdapter();
         binding.viewpager.setAdapter(adapter);
-        binding.viewpager.setOffscreenPageLimit(2);
     }
 
     private void startAutoSlide() {

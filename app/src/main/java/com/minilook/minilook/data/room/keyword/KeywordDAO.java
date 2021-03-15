@@ -7,7 +7,7 @@ import java.util.List;
 @Dao
 public interface KeywordDAO {
     @Query("SELECT keyword FROM T_KEYWORD ORDER BY id DESC")
-    List<String> getRecentKeywordList();
+    List<String> getRecentKeywords();
 
     @Query("SELECT COUNT(keyword) FROM T_KEYWORD WHERE keyword = :keyword")
     int hasKeyword(String keyword);
@@ -23,5 +23,5 @@ public interface KeywordDAO {
     void deleteOldKeyword();
 
     @Query("DELETE FROM T_KEYWORD")
-    void deleteAllKeyword();
+    void clearKeyword();
 }
