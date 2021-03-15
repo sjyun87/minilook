@@ -44,6 +44,7 @@ public class CategoryVH extends _BaseViewHolder<CodeDataModel> {
         SearchOptionDataModel model = new SearchOptionDataModel();
         model.setCategoryCode(data.getCode());
         model.setCategoryName(data.getName());
+        model.setFilerSearch(true);
         return model;
     }
 }

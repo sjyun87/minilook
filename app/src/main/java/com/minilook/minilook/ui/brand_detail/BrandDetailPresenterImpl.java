@@ -205,6 +205,7 @@ public class BrandDetailPresenterImpl extends BasePresenterImpl implements Brand
         SearchOptionDataModel options = new SearchOptionDataModel();
         options.setBrandNo(brandNo);
         options.setSortCode(selectSortCode);
+        options.setFilerSearch(true);
         return options;
     }
 

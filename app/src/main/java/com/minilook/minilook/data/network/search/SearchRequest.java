@@ -41,6 +41,8 @@ public class SearchRequest extends BaseRequest<SearchService> {
         }
         jsonMap.put("discount", options.isDiscount());
         jsonMap.put("outOfStock", options.isStock());
+        jsonMap.put("searchKeyword", options.getKeyword());
+        jsonMap.put("filterSearch", options.isFilerSearch());
         return jsonMap;
     }
 

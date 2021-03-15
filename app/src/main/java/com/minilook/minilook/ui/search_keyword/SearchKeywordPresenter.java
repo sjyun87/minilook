@@ -3,6 +3,7 @@ package com.minilook.minilook.ui.search_keyword;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
+import com.minilook.minilook.data.model.search.SearchOptionDataModel;
 
 public interface SearchKeywordPresenter extends LifecycleObserver {
 
@@ -37,6 +38,8 @@ public interface SearchKeywordPresenter extends LifecycleObserver {
 
         void hideRecommendPanel();
 
-        void navigateToBridge(String keyword);
+        void navigateToBridge(SearchOptionDataModel options);
+
+        void finish();
     }
 }

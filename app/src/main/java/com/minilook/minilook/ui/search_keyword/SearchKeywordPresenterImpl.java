@@ -1,11 +1,13 @@
 package com.minilook.minilook.ui.search_keyword;
 
+import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.base.BaseDataModel;
 import com.minilook.minilook.data.model.search.KeywordDataModel;
+import com.minilook.minilook.data.model.search.SearchOptionDataModel;
 import com.minilook.minilook.data.network.search.SearchRequest;
 import com.minilook.minilook.data.room.keyword.KeywordDB;
 import com.minilook.minilook.data.rx.RxBus;
@@ -47,8 +49,11 @@ public class SearchKeywordPresenterImpl extends BasePresenterImpl implements Sea
 
     @Override
     public void onSearchEnterClick(String keyword) {
-        saveKeyword(keyword);
-        view.navigateToBridge(keyword);
+        if (!TextUtils.isEmpty(keyword)) {
+            saveKeyword(keyword);
+            view.navigateToBridge(makeOptions(keyword));
+            view.finish();
+        }
     }
 
     @Override public void onRecentClearClick() {
@@ -58,7 +63,8 @@ public class SearchKeywordPresenterImpl extends BasePresenterImpl implements Sea
 
     @Override public void onRecommendKeywordClick(String keyword) {
         saveKeyword(keyword);
-        view.navigateToBridge(keyword);
+        view.navigateToBridge(makeOptions(keyword));
+        view.finish();
     }
 
     private void setRecentKeyword() {
@@ -123,12 +129,20 @@ public class SearchKeywordPresenterImpl extends BasePresenterImpl implements Sea
         view.showRecommendPanel();
     }
 
+    private SearchOptionDataModel makeOptions(String keyword) {
+        SearchOptionDataModel data = new SearchOptionDataModel();
+        data.setKeyword(keyword);
+        data.setFilerSearch(false);
+        return data;
+    }
+
     private void toRxObservable() {
         addDisposable(RxBus.toObservable().subscribe(o -> {
             if (o instanceof RecentKeywordVH.RxEventRecentKeywordClick) {
                 String keyword = ((RecentKeywordVH.RxEventRecentKeywordClick) o).getKeyword();
                 saveKeyword(keyword);
-                view.navigateToBridge(keyword);
+                view.navigateToBridge(makeOptions(keyword));
+                view.finish();
             } else if (o instanceof RecentKeywordVH.RxEventRecentKeywordDeleteClick) {
                 String keyword = ((RecentKeywordVH.RxEventRecentKeywordDeleteClick) o).getKeyword();
                 deleteKeyword(keyword);

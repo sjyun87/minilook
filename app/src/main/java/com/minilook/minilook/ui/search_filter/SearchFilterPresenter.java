@@ -95,5 +95,7 @@ public interface SearchFilterPresenter extends LifecycleObserver {
         void navigateToProductBridge(SearchOptionDataModel model);
 
         void scrollToTop();
+
+        void finish();
     }
 }

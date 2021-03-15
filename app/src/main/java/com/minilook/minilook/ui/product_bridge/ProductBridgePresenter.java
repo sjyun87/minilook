@@ -51,5 +51,7 @@ public interface ProductBridgePresenter extends LifecycleObserver {
         void navigateToSearchFilter(SearchOptionDataModel options);
 
         void finish();
+
+        void setSearchKeyword(String keyword);
     }
 }

@@ -1,5 +1,6 @@
 package com.minilook.minilook.ui.search_filter;
 
+import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.minilook.minilook.data.common.HttpCode;
 import com.minilook.minilook.data.model.common.CodeDataModel;
@@ -230,9 +231,16 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         model.setStyleCodes(styleCodes);
         model.setType(sizeType);
         model.setColorCodes(colorCodes);
+        String keyword = options.getKeyword();
+        if (!TextUtils.isEmpty(keyword)) {
+            model.setKeyword(keyword);
+            model.setFilerSearch(false);
+        } else {
+            model.setFilerSearch(true);
+        }
 
         view.navigateToProductBridge(model);
-        view.scrollToTop();
+        view.finish();
     }
 
     private void reqFilterOptions() {
@@ -303,7 +311,8 @@ public class SearchFilterPresenterImpl extends BasePresenterImpl implements Sear
         List<CodeDataModel> items = new ArrayList<>();
         for (int i = 0; i < categories.size(); i++) {
             CodeDataModel model = categories.get(i);
-            if (options != null && options.getCategoryCode() != null && model.getCode().equals(options.getCategoryCode())) {
+            if (options != null && options.getCategoryCode() != null && model.getCode()
+                .equals(options.getCategoryCode())) {
                 model.setSelected(true);
             } else {
                 model.setSelected(false);

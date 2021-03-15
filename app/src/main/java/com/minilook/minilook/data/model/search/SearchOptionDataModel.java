@@ -35,4 +35,7 @@ import lombok.Data;
     private int type;
     @Expose @SerializedName("styleCode")
     private List<String> styleCodes;
+
+    private String keyword;
+    private boolean isFilerSearch;
 }

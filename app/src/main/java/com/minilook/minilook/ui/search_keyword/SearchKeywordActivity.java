@@ -10,10 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 import com.fondesa.recyclerviewdivider.DividerDecoration;
 import com.minilook.minilook.R;
+import com.minilook.minilook.data.model.search.SearchOptionDataModel;
 import com.minilook.minilook.data.room.keyword.KeywordDB;
 import com.minilook.minilook.databinding.ActivitySearchKeywordBinding;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.ui.product_bridge.ProductBridgeActivity;
 import com.minilook.minilook.ui.search_keyword.adapter.RecentKeywordAdapter;
 import com.minilook.minilook.ui.search_keyword.chip.RecommendKeywordChip;
 import com.minilook.minilook.ui.search_keyword.di.SearchKeywordArguments;
@@ -118,7 +120,7 @@ public class SearchKeywordActivity extends BaseActivity implements SearchKeyword
         binding.layoutRecommendPanel.setVisibility(View.GONE);
     }
 
-    @Override public void navigateToBridge(String keyword) {
-        //ProductBridgeActivity.start(this);
+    @Override public void navigateToBridge(SearchOptionDataModel options) {
+        ProductBridgeActivity.start(this, options);
     }
 }

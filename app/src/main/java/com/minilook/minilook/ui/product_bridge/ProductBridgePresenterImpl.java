@@ -1,5 +1,6 @@
 package com.minilook.minilook.ui.product_bridge;
 
+import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.App;
@@ -102,6 +103,11 @@ public class ProductBridgePresenterImpl extends BasePresenterImpl implements Pro
     }
 
     private void initData() {
+        String keyword = options.getKeyword();
+        if (!TextUtils.isEmpty(keyword)) {
+            view.setSearchKeyword(keyword);
+        }
+
         isVisibleCategoryDepth1 = options.getCategoryCode() == null;
         if (!isVisibleCategoryDepth1) view.setupTitle(options.getCategoryName());
 

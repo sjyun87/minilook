@@ -20,15 +20,16 @@ import com.minilook.minilook.R;
 import com.minilook.minilook.data.model.common.CodeDataModel;
 import com.minilook.minilook.data.model.product.ProductDataModel;
 import com.minilook.minilook.data.model.search.SearchOptionDataModel;
-import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.ui.base._BaseActivity;
 import com.minilook.minilook.ui.base.listener.EndlessOnScrollListener;
 import com.minilook.minilook.ui.base.widget.TabView;
 import com.minilook.minilook.ui.base.widget.TitleBar;
-import com.minilook.minilook.ui.product_bridge.adapter.BrandDetailSortAdapter;
 import com.minilook.minilook.ui.product.adapter.ProductAdapter;
+import com.minilook.minilook.ui.product_bridge.adapter.BrandDetailSortAdapter;
 import com.minilook.minilook.ui.product_bridge.di.ProductBridgeArguments;
 import com.minilook.minilook.ui.search_filter.SearchFilterActivity;
+import com.minilook.minilook.ui.search_keyword.SearchKeywordActivity;
 import com.minilook.minilook.util.DimenUtil;
 import java.util.List;
 import java.util.Objects;
@@ -42,6 +43,7 @@ public class ProductBridgeActivity extends _BaseActivity implements ProductBridg
     }
 
     @BindView(R.id.titlebar) TitleBar titleBar;
+    @BindView(R.id.txt_keyword) TextView keywordTextView;
     @BindView(R.id.layout_tab_panel) TabLayout tabLayout;
     @BindView(R.id.txt_total) TextView totalTextView;
     @BindView(R.id.txt_sort) TextView sortTextView;
@@ -184,6 +186,10 @@ public class ProductBridgeActivity extends _BaseActivity implements ProductBridg
         SearchFilterActivity.start(this, options);
     }
 
+    @Override public void setSearchKeyword(String keyword) {
+        keywordTextView.setText(keyword);
+    }
+
     @OnClick(R.id.layout_sort_panel)
     void onSortClick() {
         presenter.onSortClick();
@@ -192,5 +198,10 @@ public class ProductBridgeActivity extends _BaseActivity implements ProductBridg
     @OnClick(R.id.txt_filter)
     void onFilterClick() {
         presenter.onFilterClick();
+    }
+
+    @OnClick(R.id.searchbar)
+    void onSearchBarClick() {
+        SearchKeywordActivity.start(this);
     }
 }
