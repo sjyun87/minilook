@@ -20,6 +20,7 @@ import com.minilook.minilook.ui.product_bridge.ProductBridgeActivity;
 import com.minilook.minilook.ui.search_keyword.adapter.RecentKeywordAdapter;
 import com.minilook.minilook.ui.search_keyword.chip.RecommendKeywordChip;
 import com.minilook.minilook.ui.search_keyword.di.SearchKeywordArguments;
+import com.minilook.minilook.util.KeyboardUtil;
 
 public class SearchKeywordActivity extends BaseActivity implements SearchKeywordPresenter.View {
 
@@ -90,6 +91,8 @@ public class SearchKeywordActivity extends BaseActivity implements SearchKeyword
             }
             return false;
         });
+        binding.editSearch.requestFocus();
+        KeyboardUtil.show(binding.editSearch);
     }
 
     @Override public void setSearchKeyword(String keyword) {

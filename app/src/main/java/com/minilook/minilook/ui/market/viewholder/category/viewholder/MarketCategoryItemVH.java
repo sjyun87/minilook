@@ -44,6 +44,7 @@ public class MarketCategoryItemVH extends BaseViewHolder<CodeDataModel> {
     void onItemClick(View view) {
         SearchOptionDataModel options = new SearchOptionDataModel();
         options.setCategoryCode(data.getCode());
+        options.setFilerSearch(true);
         ProductBridgeActivity.start(context, options);
     }
 }
