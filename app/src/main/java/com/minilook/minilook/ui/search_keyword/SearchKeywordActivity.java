@@ -15,6 +15,7 @@ import com.minilook.minilook.data.room.keyword.KeywordDB;
 import com.minilook.minilook.databinding.ActivitySearchKeywordBinding;
 import com.minilook.minilook.ui.base.BaseActivity;
 import com.minilook.minilook.ui.base.BaseAdapterDataView;
+import com.minilook.minilook.ui.brand.BrandActivity;
 import com.minilook.minilook.ui.product_bridge.ProductBridgeActivity;
 import com.minilook.minilook.ui.search_keyword.adapter.RecentKeywordAdapter;
 import com.minilook.minilook.ui.search_keyword.chip.RecommendKeywordChip;
@@ -64,6 +65,7 @@ public class SearchKeywordActivity extends BaseActivity implements SearchKeyword
     @Override public void setupClickAction() {
         binding.imgClose.setOnClickListener(view -> finish());
         binding.txtRecentClear.setOnClickListener(view -> presenter.onRecentClearClick());
+        binding.txtBrand.setOnClickListener(view -> presenter.onBrandClick());
     }
 
     @Override public void setupRecentKeywordRecyclerView() {
@@ -122,5 +124,9 @@ public class SearchKeywordActivity extends BaseActivity implements SearchKeyword
 
     @Override public void navigateToBridge(SearchOptionDataModel options) {
         ProductBridgeActivity.start(this, options);
+    }
+
+    @Override public void navigateToBrand() {
+        BrandActivity.start(this);
     }
 }

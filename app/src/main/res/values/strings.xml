@@ -681,6 +681,7 @@
     <string name="search_recent_all_clear">전체삭제</string>
     <string name="search_recent_dialog_msg">최근검색어를 전체삭제 하시겠어요?</string>
     <string name="search_recommend_title">추천 검색어</string>
+    <string name="search_go_brand">브랜드관 전체보기</string>
 
     <string name="search_filter_title">필터검색</string>
     <string name="search_filter_gender_caption">성별</string>

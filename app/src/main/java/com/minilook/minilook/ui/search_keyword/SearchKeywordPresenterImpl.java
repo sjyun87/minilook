@@ -67,6 +67,10 @@ public class SearchKeywordPresenterImpl extends BasePresenterImpl implements Sea
         view.finish();
     }
 
+    @Override public void onBrandClick() {
+        view.navigateToBrand();
+    }
+
     private void setRecentKeyword() {
         List<String> recentKeywords = loadKeyword();
         if (recentKeywords.size() == 0) {

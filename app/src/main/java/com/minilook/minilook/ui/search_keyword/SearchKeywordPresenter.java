@@ -16,6 +16,8 @@ public interface SearchKeywordPresenter extends LifecycleObserver {
 
     void onRecommendKeywordClick(String keyword);
 
+    void onBrandClick();
+
     interface View {
 
         void setupClickAction();
@@ -39,6 +41,8 @@ public interface SearchKeywordPresenter extends LifecycleObserver {
         void hideRecommendPanel();
 
         void navigateToBridge(SearchOptionDataModel options);
+
+        void navigateToBrand();
 
         void finish();
     }
