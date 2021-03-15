@@ -19,6 +19,7 @@ import com.minilook.minilook.ui.base.ResourcesProvider;
 import com.minilook.minilook.ui.login.LoginActivity;
 import com.minilook.minilook.ui.main.MainActivity;
 import com.minilook.minilook.ui.search_filter.SearchFilterActivity;
+import com.minilook.minilook.ui.search_keyword.SearchKeywordActivity;
 import com.minilook.minilook.ui.setting.SettingActivity;
 import com.minilook.minilook.ui.shoppingbag.ShoppingBagActivity;
 import com.minilook.minilook.util.StringUtil;
@@ -216,6 +217,7 @@ public class TitleBar extends ConstraintLayout {
     }
 
     private void onKeywordSearchClick() {
+        if (activity != null) SearchKeywordActivity.start(activity);
     }
 
     private void onFilterSearchClick() {
