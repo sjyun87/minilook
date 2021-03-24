@@ -122,6 +122,10 @@ public class OrderPresenterImpl extends BasePresenterImpl implements OrderPresen
     @Override public void onPointAllUseClick() {
         if (havePoint >= 1000) {
             selectedPoint = Math.min(applyCouponPrice, havePoint);
+            if (selectedPoint < 1000) {
+                view.showUseMinPointToast();
+                return;
+            }
             view.setupPoint(selectedPoint);
             setupTotalPrice();
         } else {
