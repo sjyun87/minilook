@@ -134,6 +134,7 @@ public class MarketNewArrivalsVH extends BaseViewHolder<MarketDataModel> {
 
     void onMoreClick(View view) {
         SearchOptionDataModel options = new SearchOptionDataModel();
+        options.setFilerSearch(true);
         ProductBridgeActivity.start(context, options);
     }
 }
