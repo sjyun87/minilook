@@ -1,6 +1,7 @@
 package com.minilook.minilook.ui.market;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.minilook.minilook.App;
 import com.minilook.minilook.data.code.MarketModuleType;
@@ -15,6 +16,7 @@ import com.minilook.minilook.ui.market.di.MarketArguments;
 import com.minilook.minilook.util.TrackingUtil;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.functions.Function;
+import io.reactivex.rxjava3.functions.Predicate;
 import java.util.ArrayList;
 import java.util.List;
 import timber.log.Timber;
@@ -76,6 +78,14 @@ public class MarketPresenterImpl extends BasePresenterImpl implements MarketPres
     private List<MarketDataModel> checkValidData(List<MarketDataModel> data) {
         return Observable.fromIterable(data)
             .filter(model -> MarketModuleType.toModuleType(model.getType()) != -1)
+            .filter(model -> {
+                JsonElement data1 = model.getData();
+                if (data1.isJsonArray()) {
+                    return data1.getAsJsonArray().size() != 0;
+                } else {
+                    return true;
+                }
+            })
             .map(model -> {
                 model.setRefreshing(true);
                 return model;
